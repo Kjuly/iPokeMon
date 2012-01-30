@@ -13,7 +13,6 @@
 		7F6E6CBF14D6CAA600033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
 		7F6E6CC514D6CAA600033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */; };
 		7F6E6CC714D6CAA600033C65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC614D6CAA600033C65 /* main.m */; };
-		7F6E6CCB14D6CAA600033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CCA14D6CAA600033C65 /* AppDelegate.m */; };
 		7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */; };
 		7F6E6CD614D6CAA700033C65 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */; };
 		7F6E6CD714D6CAA700033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
@@ -21,6 +20,7 @@
 		7F6E6CD914D6CAA700033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
+		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,19 +39,19 @@
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7F6E6CBE14D6CAA600033C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */ = {isa = PBXFileReference; path = "Pokemon-Info.plist"; sourceTree = "<group>"; };
+		7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pokemon-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CC414D6CAA600033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7F6E6CC614D6CAA600033C65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7F6E6CC814D6CAA600033C65 /* Pokemon-Prefix.pch */ = {isa = PBXFileReference; path = "Pokemon-Prefix.pch"; sourceTree = "<group>"; };
-		7F6E6CC914D6CAA600033C65 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
-		7F6E6CCA14D6CAA600033C65 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F6E6CC814D6CAA600033C65 /* Pokemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pokemon-Prefix.pch"; sourceTree = "<group>"; };
 		7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pokemon.xcdatamodel; sourceTree = "<group>"; };
 		7F6E6CD414D6CAA700033C65 /* PokemonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		7F6E6CDE14D6CAA700033C65 /* PokemonTests-Info.plist */ = {isa = PBXFileReference; path = "PokemonTests-Info.plist"; sourceTree = "<group>"; };
+		7F6E6CDE14D6CAA700033C65 /* PokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7F6E6CE214D6CAA700033C65 /* PokemonTests.h */ = {isa = PBXFileReference; path = PokemonTests.h; sourceTree = "<group>"; };
+		7F6E6CE214D6CAA700033C65 /* PokemonTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PokemonTests.h; sourceTree = "<group>"; };
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
+		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +114,12 @@
 		7F6E6CC014D6CAA600033C65 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CC914D6CAA600033C65 /* AppDelegate.h */,
-				7F6E6CCA14D6CAA600033C65 /* AppDelegate.m */,
-				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
+				7F6E6CEE14D6CB9800033C65 /* Delegates */,
+				7F6E6CF114D6CB9800033C65 /* Models */,
+				7F6E6CF614D6CB9800033C65 /* Views */,
+				7F6E6CED14D6CB9800033C65 /* Controllers */,
+				7F6E6CF214D6CB9800033C65 /* Resources */,
+				7F6E6CF514D6CB9800033C65 /* Thirdparties */,
 				7F6E6CC114D6CAA600033C65 /* Supporting Files */,
 			);
 			path = Pokemon;
@@ -150,6 +153,75 @@
 				7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7F6E6CED14D6CB9800033C65 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7F6E6CEE14D6CB9800033C65 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */,
+				7F6E6CF014D6CB9800033C65 /* AppDelegate.m */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		7F6E6CF114D6CB9800033C65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7F6E6CF214D6CB9800033C65 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7F6E6CF314D6CB9800033C65 /* Images */,
+				7F6E6CF414D6CB9800033C65 /* Sounds */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7F6E6CF314D6CB9800033C65 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		7F6E6CF414D6CB9800033C65 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		7F6E6CF514D6CB9800033C65 /* Thirdparties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Thirdparties;
+			sourceTree = "<group>";
+		};
+		7F6E6CF614D6CB9800033C65 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7F6E6CF714D6CB9800033C65 /* Xibs */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7F6E6CF714D6CB9800033C65 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +331,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CC714D6CAA600033C65 /* main.m in Sources */,
-				7F6E6CCB14D6CAA600033C65 /* AppDelegate.m in Sources */,
 				7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */,
+				7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +512,8 @@
 				7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */,
 			);
 			currentVersion = 7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */;
-			path = Pokemon.xcdatamodeld;
+			name = Pokemon.xcdatamodeld;
+			path = ../Pokemon.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
