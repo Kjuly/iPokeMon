@@ -10,16 +10,19 @@
 
 #import "MapViewController.h"
 #import "UtilityViewController.h"
+#import "PoketchViewController.h"
 
 @implementation MainViewController
 
 @synthesize mapViewController = mapViewController_;
 @synthesize utilityViewController = utilityViewController_;
+@synthesize poketchViewController = poketchViewController_;
 
 - (void)dealloc
 {
   [mapViewController_ release];
   [utilityViewController_ release];
+  [poketchViewController_ release];
   
   [super dealloc];
 }
@@ -63,6 +66,11 @@
   self.utilityViewController = utilityViewController;
   [utilityViewController release];
   [self.view addSubview:self.utilityViewController.view];
+  
+  PoketchViewController * pocktchViewController = [[PoketchViewController alloc] init];
+  self.poketchViewController = pocktchViewController;
+  [pocktchViewController release];
+  [self.view addSubview:self.poketchViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -77,6 +85,7 @@
 
   self.mapViewController = nil;
   self.utilityViewController = nil;
+  self.poketchViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

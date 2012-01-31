@@ -10,14 +10,17 @@
 
 @class MapViewController;
 @class UtilityViewController;
+@class PoketchViewController;
 
 @interface MainViewController : UIViewController
 {
   MapViewController * mapViewController_;
   UtilityViewController * utilityViewController_;
+  PoketchViewController * poketchViewController_;
 }
 
 @property (nonatomic, retain) MapViewController * mapViewController;
 @property (nonatomic, retain) UtilityViewController * utilityViewController;
+@property (nonatomic, retain) PoketchViewController * poketchViewController;
 
 @end
