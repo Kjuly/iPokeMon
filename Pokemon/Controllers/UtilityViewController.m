@@ -32,6 +32,13 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
+  [super loadView];
+  
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 200.0f, 320.0f, 40.0f)];
+  self.view = view;
+  [view release];
+  
+  [self.view setBackgroundColor:[UIColor blueColor]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

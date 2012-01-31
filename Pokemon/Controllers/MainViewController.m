@@ -9,14 +9,17 @@
 #import "MainViewController.h"
 
 #import "MapViewController.h"
+#import "UtilityViewController.h"
 
 @implementation MainViewController
 
 @synthesize mapViewController = mapViewController_;
+@synthesize utilityViewController = utilityViewController_;
 
 - (void)dealloc
 {
   [mapViewController_ release];
+  [utilityViewController_ release];
   
   [super dealloc];
 }
@@ -54,6 +57,12 @@
   self.mapViewController = mapViewController;
   [mapViewController release];
   [self.view addSubview:self.mapViewController.view];
+  
+  // Utility View Controller
+  UtilityViewController * utilityViewController = [[UtilityViewController alloc] init];
+  self.utilityViewController = utilityViewController;
+  [utilityViewController release];
+  [self.view addSubview:self.utilityViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -67,6 +76,7 @@
   [super viewDidUnload];
 
   self.mapViewController = nil;
+  self.utilityViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

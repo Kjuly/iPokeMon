@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class MapViewController;
+@class UtilityViewController;
 
 @interface MainViewController : UIViewController
 {
   MapViewController * mapViewController_;
+  UtilityViewController * utilityViewController_;
 }
 
 @property (nonatomic, retain) MapViewController * mapViewController;
+@property (nonatomic, retain) UtilityViewController * utilityViewController;
 
 @end
