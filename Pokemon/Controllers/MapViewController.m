@@ -58,6 +58,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  [self.mapView setShowsUserLocation:YES];
 }
 
 - (void)viewDidUnload
