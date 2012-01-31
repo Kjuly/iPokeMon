@@ -68,7 +68,7 @@
       self.buttonLocateMe = buttonLocateMe;
       [buttonLocateMe release];
       
-      [self.buttonLocateMe setBackgroundColor:[UIColor redColor]];
+      [self.buttonLocateMe setImage:[UIImage imageNamed:@"UtilityView_LocateMe.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonLocateMe];
     }
@@ -77,7 +77,7 @@
       self.buttonShowWorld = buttonShowWorld;
       [buttonShowWorld release];
       
-      [self.buttonShowWorld setBackgroundColor:[UIColor greenColor]];
+      [self.buttonShowWorld setImage:[UIImage imageNamed:@"UtilityView_ShowWorld.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonShowWorld];
     }
@@ -86,7 +86,7 @@
       self.buttonDiscover = buttonDiscover;
       [buttonDiscover release];
       
-      [self.buttonDiscover setBackgroundColor:[UIColor blueColor]];
+      [self.buttonDiscover setImage:[UIImage imageNamed:@"UtilityView_Discover.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonDiscover];
     }
@@ -95,7 +95,7 @@
       self.buttonSetAccount = buttonSetAccount;
       [buttonSetAccount release];
       
-      [self.buttonSetAccount setBackgroundColor:[UIColor yellowColor]];
+      [self.buttonSetAccount setImage:[UIImage imageNamed:@"UtilityView_SetAccount.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonSetAccount];
     }

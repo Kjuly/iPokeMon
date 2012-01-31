@@ -12,6 +12,10 @@
 		7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51C41414D7D4E60091902D /* MapKit.framework */; };
 		7F51C42014D7E0BF0091902D /* UtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C41F14D7E0BF0091902D /* UtilityViewController.m */; };
 		7F51C42314D7E30B0091902D /* PoketchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C42214D7E30A0091902D /* PoketchViewController.m */; };
+		7F51C42914D8180D0091902D /* UtilityView_Discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42514D8180D0091902D /* UtilityView_Discover.png */; };
+		7F51C42A14D8180D0091902D /* UtilityView_LocateMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */; };
+		7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */; };
+		7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */; };
@@ -49,6 +53,10 @@
 		7F51C42114D7E30A0091902D /* PoketchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchViewController.h; sourceTree = "<group>"; };
 		7F51C42214D7E30A0091902D /* PoketchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchViewController.m; sourceTree = "<group>"; };
 		7F51C42414D80D100091902D /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
+		7F51C42514D8180D0091902D /* UtilityView_Discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_Discover.png; sourceTree = "<group>"; };
+		7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_LocateMe.png; sourceTree = "<group>"; };
+		7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_SetAccount.png; sourceTree = "<group>"; };
+		7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_ShowWorld.png; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -217,6 +225,10 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F51C42514D8180D0091902D /* UtilityView_Discover.png */,
+				7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */,
+				7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */,
+				7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -322,6 +334,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CC514D6CAA600033C65 /* InfoPlist.strings in Resources */,
+				7F51C42914D8180D0091902D /* UtilityView_Discover.png in Resources */,
+				7F51C42A14D8180D0091902D /* UtilityView_LocateMe.png in Resources */,
+				7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */,
+				7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
