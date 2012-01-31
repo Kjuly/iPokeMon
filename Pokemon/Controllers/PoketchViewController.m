@@ -37,8 +37,6 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 240.0f, 320.0f, 240.0f)];
   self.view = view;
   [view release];
-  
-  [self.view setBackgroundColor:[UIColor redColor]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
