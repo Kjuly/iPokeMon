@@ -10,6 +10,15 @@
 
 @implementation MapViewController
 
+@synthesize mapView = mapView_;
+
+- (void)dealloc
+{
+  [mapView_ release];
+  
+  [super dealloc];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,26 +38,33 @@
 
 #pragma mark - View lifecycle
 
-/*
- // Implement loadView to create a view hierarchy programmatically, without using a nib.
- - (void)loadView
- {
- }
- */
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+  [super loadView];
+  
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 280.0f)];
+  self.view = view;
+  [view release];
+  
+  // Google Map View
+  MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+  self.mapView = mapView;
+  [mapView release];
+  [self.view addSubview:self.mapView];
+}
 
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad
- {
- [super viewDidLoad];
- }
- */
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+}
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+
+  self.mapView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

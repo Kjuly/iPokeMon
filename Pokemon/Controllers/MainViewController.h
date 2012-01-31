@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class MapViewController;
+
 @interface MainViewController : UIViewController
+{
+  MapViewController * mapViewController_;
+}
+
+@property (nonatomic, retain) MapViewController * mapViewController;
 
 @end

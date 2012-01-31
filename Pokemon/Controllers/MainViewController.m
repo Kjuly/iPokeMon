@@ -8,7 +8,18 @@
 
 #import "MainViewController.h"
 
+#import "MapViewController.h"
+
 @implementation MainViewController
+
+@synthesize mapViewController = mapViewController_;
+
+- (void)dealloc
+{
+  [mapViewController_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +48,12 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
+  
+  // Map View Controller
+  MapViewController * mapViewController = [[MapViewController alloc] init];
+  self.mapViewController = mapViewController;
+  [mapViewController release];
+  [self.view addSubview:self.mapViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -48,8 +65,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+
+  self.mapViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
