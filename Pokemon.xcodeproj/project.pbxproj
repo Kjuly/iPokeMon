@@ -48,6 +48,7 @@
 		7F51C41F14D7E0BF0091902D /* UtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityViewController.m; sourceTree = "<group>"; };
 		7F51C42114D7E30A0091902D /* PoketchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchViewController.h; sourceTree = "<group>"; };
 		7F51C42214D7E30A0091902D /* PoketchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchViewController.m; sourceTree = "<group>"; };
+		7F51C42414D80D100091902D /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -144,6 +145,7 @@
 		7F6E6CC114D6CAA600033C65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F51C42414D80D100091902D /* GlobalConstants.h */,
 				7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
 				7F6E6CC614D6CAA600033C65 /* main.m */,
