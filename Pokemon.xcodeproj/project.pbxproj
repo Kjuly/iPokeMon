@@ -32,6 +32,7 @@
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
 		7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */; };
 		7F8EFA9014D937C000FF1055 /* UtilityBallMenuIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */; };
+		7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconBig.png; sourceTree = "<group>"; };
 		7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconSmall.png; sourceTree = "<group>"; };
+		7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityBallMenuViewController.h; sourceTree = "<group>"; };
+		7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityBallMenuViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +197,8 @@
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
 				7F51C41E14D7E0BF0091902D /* UtilityViewController.h */,
 				7F51C41F14D7E0BF0091902D /* UtilityViewController.m */,
+				7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */,
+				7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchViewController.h */,
 				7F51C42214D7E30A0091902D /* PoketchViewController.m */,
 			);
@@ -387,6 +392,7 @@
 				7F51C40814D7D3C60091902D /* MapViewController.m in Sources */,
 				7F51C42014D7E0BF0091902D /* UtilityViewController.m in Sources */,
 				7F51C42314D7E30B0091902D /* PoketchViewController.m in Sources */,
+				7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
