@@ -30,6 +30,8 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */; };
+		7F8EFA9014D937C000FF1055 /* UtilityBallMenuIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconBig.png; sourceTree = "<group>"; };
+		7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconSmall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +229,8 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */,
+				7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */,
 				7F51C42514D8180D0091902D /* UtilityView_Discover.png */,
 				7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */,
 				7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */,
@@ -338,6 +344,8 @@
 				7F51C42A14D8180D0091902D /* UtilityView_LocateMe.png in Resources */,
 				7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */,
 				7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */,
+				7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */,
+				7F8EFA9014D937C000FF1055 /* UtilityBallMenuIconSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

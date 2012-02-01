@@ -10,12 +10,14 @@
 
 @interface UtilityViewController : UIViewController
 {
+  UIView * utilityBar_;
   UIButton * buttonLocateMe_;
   UIButton * buttonShowWorld_;
   UIButton * buttonDiscover_;
   UIButton * buttonSetAccount_;
 }
 
+@property (nonatomic, retain) UIView * utilityBar;
 @property (nonatomic, retain) UIButton * buttonLocateMe;
 @property (nonatomic, retain) UIButton * buttonShowWorld;
 @property (nonatomic, retain) UIButton * buttonDiscover;
