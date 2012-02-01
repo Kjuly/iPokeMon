@@ -191,6 +191,7 @@
                                                               kUtilityBallMenuButtonDiameter,
                                                               kUtilityBallMenuButtonDiameter)];
     [buttonClose_ setBackgroundColor:[UIColor redColor]];
+    [buttonClose_ addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonClose_];
   }
 }
@@ -221,6 +222,13 @@
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button Actions
+
+- (void)closeView:(id)sender
+{
+  [self.view removeFromSuperview];
 }
 
 @end

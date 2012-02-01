@@ -21,6 +21,7 @@
 @synthesize buttonSetAccount  = buttonSetAccount_;
 
 @synthesize buttonOpenBallMenu = buttonOpenBallMenu_;
+@synthesize utilityBallMenuViewController = utilityBallMenuViewController_;
 
 - (void)dealloc
 {
@@ -31,6 +32,7 @@
   [buttonSetAccount_ release];
   
   [buttonOpenBallMenu_ release];
+  [utilityBallMenuViewController_ release];
   
   [super dealloc];
 }
@@ -137,7 +139,8 @@
   self.buttonDiscover   = nil;
   self.buttonSetAccount = nil;
   
-  self.buttonOpenBallMenu = nil;
+  self.buttonOpenBallMenu            = nil;
+  self.utilityBallMenuViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -150,9 +153,13 @@
 
 - (void)openBallMenuView:(id)sender
 {
-  UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
-  [self.view addSubview:utilityBallMenuViewController.view];
-  [utilityBallMenuViewController release];
+  if (! self.utilityBallMenuViewController) {
+    UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
+    self.utilityBallMenuViewController = utilityBallMenuViewController;
+    [utilityBallMenuViewController release];
+  }
+  
+  [self.view addSubview:self.utilityBallMenuViewController.view];
 }
 
 @end

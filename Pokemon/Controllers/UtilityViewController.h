@@ -19,6 +19,7 @@
   UIButton * buttonSetAccount_;
   
   UIButton * buttonOpenBallMenu_;
+  UtilityBallMenuViewController * utilityBallMenuViewController_;
 }
 
 @property (nonatomic, retain) UIView * utilityBar;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) UIButton * buttonSetAccount;
 
 @property (nonatomic, retain) UIButton * buttonOpenBallMenu;
+@property (nonatomic, retain) UtilityBallMenuViewController * utilityBallMenuViewController;
 
 // Button Actions
 - (void)openBallMenuView:(id)sender;
