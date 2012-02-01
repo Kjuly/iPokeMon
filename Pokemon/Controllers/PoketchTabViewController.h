@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PoketchViewController : UIViewController
+@interface PoketchTabViewController : UIViewController
 
 @end

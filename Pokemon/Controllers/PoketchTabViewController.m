@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "PoketchViewController.h"
+#import "PoketchTabViewController.h"
 
-@implementation PoketchViewController
+@implementation PoketchTabViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

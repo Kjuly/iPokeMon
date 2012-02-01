@@ -10,7 +10,7 @@
 
 #import "MapViewController.h"
 #import "UtilityViewController.h"
-#import "PoketchViewController.h"
+#import "PoketchTabViewController.h"
 
 @implementation MainViewController
 
@@ -62,7 +62,7 @@
   [self.view addSubview:self.mapViewController.view];
   
   // Poketch( Short for Pocket Watch ) View Controller
-  PoketchViewController * pocktchViewController = [[PoketchViewController alloc] init];
+  PoketchTabViewController * pocktchViewController = [[PoketchTabViewController alloc] init];
   self.poketchViewController = pocktchViewController;
   [pocktchViewController release];
   [self.view addSubview:self.poketchViewController.view];
