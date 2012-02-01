@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class UtilityBallMenuViewController;
+
 @interface UtilityViewController : UIViewController
 {
   UIView * utilityBar_;
@@ -15,6 +17,8 @@
   UIButton * buttonShowWorld_;
   UIButton * buttonDiscover_;
   UIButton * buttonSetAccount_;
+  
+  UIButton * buttonOpenBallMenu_;
 }
 
 @property (nonatomic, retain) UIView * utilityBar;
@@ -22,5 +26,10 @@
 @property (nonatomic, retain) UIButton * buttonShowWorld;
 @property (nonatomic, retain) UIButton * buttonDiscover;
 @property (nonatomic, retain) UIButton * buttonSetAccount;
+
+@property (nonatomic, retain) UIButton * buttonOpenBallMenu;
+
+// Button Actions
+- (void)openBallMenuView:(id)sender;
 
 @end

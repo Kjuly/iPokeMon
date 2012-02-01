@@ -61,16 +61,17 @@
   [mapViewController release];
   [self.view addSubview:self.mapViewController.view];
   
+  // Poketch( Short for Pocket Watch ) View Controller
+  PoketchViewController * pocktchViewController = [[PoketchViewController alloc] init];
+  self.poketchViewController = pocktchViewController;
+  [pocktchViewController release];
+  [self.view addSubview:self.poketchViewController.view];
+  
   // Utility View Controller
   UtilityViewController * utilityViewController = [[UtilityViewController alloc] init];
   self.utilityViewController = utilityViewController;
   [utilityViewController release];
   [self.view addSubview:self.utilityViewController.view];
-  
-  PoketchViewController * pocktchViewController = [[PoketchViewController alloc] init];
-  self.poketchViewController = pocktchViewController;
-  [pocktchViewController release];
-  [self.view addSubview:self.poketchViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

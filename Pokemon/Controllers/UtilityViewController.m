@@ -9,6 +9,7 @@
 #import "UtilityViewController.h"
 
 #import "../GlobalConstants.h"
+#import "UtilityBallMenuViewController.h"
 
 
 @implementation UtilityViewController
@@ -19,6 +20,8 @@
 @synthesize buttonDiscover    = buttonDiscover_;
 @synthesize buttonSetAccount  = buttonSetAccount_;
 
+@synthesize buttonOpenBallMenu = buttonOpenBallMenu_;
+
 - (void)dealloc
 {
   [utilityBar_ release];
@@ -26,6 +29,8 @@
   [buttonShowWorld_ release];
   [buttonDiscover_ release];
   [buttonSetAccount_ release];
+  
+  [buttonOpenBallMenu_ release];
   
   [super dealloc];
 }
@@ -60,7 +65,7 @@
   [self.view setBackgroundColor:[UIColor clearColor]];
   
   // Utility Bar
-  UIView * utilityBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, kMapViewHeight, 320.0f, kUtilityViewHeight)];
+  UIView * utilityBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, kMapViewHeight, 320.0f, kUtilityBarHeight)];
   self.utilityBar = utilityBar;
   [utilityBar release];
   
@@ -70,7 +75,7 @@
   // Four buttons
   {
     {
-      UIButton * buttonLocateMe = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 1, 0.0f, kUtilityButtonWidth, kUtilityViewHeight)];
+      UIButton * buttonLocateMe = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 1, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
       self.buttonLocateMe = buttonLocateMe;
       [buttonLocateMe release];
       
@@ -79,7 +84,7 @@
       [self.utilityBar addSubview:self.buttonLocateMe];
     }
     {
-      UIButton * buttonShowWorld = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityViewHeight)];
+      UIButton * buttonShowWorld = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
       self.buttonShowWorld = buttonShowWorld;
       [buttonShowWorld release];
       
@@ -88,7 +93,7 @@
       [self.utilityBar addSubview:self.buttonShowWorld];
     }
     {
-      UIButton * buttonDiscover = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 3, 0.0f, kUtilityButtonWidth, kUtilityViewHeight)];
+      UIButton * buttonDiscover = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 3, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
       self.buttonDiscover = buttonDiscover;
       [buttonDiscover release];
       
@@ -97,7 +102,7 @@
       [self.utilityBar addSubview:self.buttonDiscover];
     }
     {
-      UIButton * buttonSetAccount = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityViewHeight)];
+      UIButton * buttonSetAccount = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
       self.buttonSetAccount = buttonSetAccount;
       [buttonSetAccount release];
       
@@ -108,12 +113,12 @@
   }
   
   // Ball menu which locate at center
-  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 3, kMapViewHeight, 104.0f, kUtilityViewHeight)];
-  
-  [buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
-  
-  [self.view addSubview:buttonOpenBallMenu];
+  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 3, kMapViewHeight, 104.0f, kUtilityBarHeight)];
+  self.buttonOpenBallMenu = buttonOpenBallMenu;
   [buttonOpenBallMenu release];
+  [self.buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
+  [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.buttonOpenBallMenu];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -131,12 +136,23 @@
   self.buttonShowWorld  = nil;
   self.buttonDiscover   = nil;
   self.buttonSetAccount = nil;
+  
+  self.buttonOpenBallMenu = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button Action
+
+- (void)openBallMenuView:(id)sender
+{
+  UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
+  [self.view addSubview:utilityBallMenuViewController.view];
+  [utilityBallMenuViewController release];
 }
 
 @end
