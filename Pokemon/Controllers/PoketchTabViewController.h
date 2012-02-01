@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PoketchTabViewController : UIViewController
+#import "PoketchTabBar.h"
+
+@interface PoketchTabViewController : UIViewController <PoketchTabBarDelegate>
+{
+  PoketchTabBar * tabBar_;
+  NSArray * tabBarItems_;
+}
+
+@property (nonatomic, retain) PoketchTabBar * tabBar;
+@property (nonatomic, copy) NSArray * tabBarItems;
 
 @end

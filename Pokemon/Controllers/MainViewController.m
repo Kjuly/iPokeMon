@@ -8,21 +8,29 @@
 
 #import "MainViewController.h"
 
+#import "../GlobalConstants.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
+#import "UtilityBallMenuViewController.h"
 
 @implementation MainViewController
 
-@synthesize mapViewController = mapViewController_;
+@synthesize mapViewController     = mapViewController_;
 @synthesize utilityViewController = utilityViewController_;
 @synthesize poketchViewController = poketchViewController_;
+
+@synthesize buttonOpenBallMenu            = buttonOpenBallMenu_;
+@synthesize utilityBallMenuViewController = utilityBallMenuViewController_;
 
 - (void)dealloc
 {
   [mapViewController_ release];
   [utilityViewController_ release];
   [poketchViewController_ release];
+  
+  [buttonOpenBallMenu_ release];
+  [utilityBallMenuViewController_ release];
   
   [super dealloc];
 }
@@ -72,6 +80,14 @@
   self.utilityViewController = utilityViewController;
   [utilityViewController release];
   [self.view addSubview:self.utilityViewController.view];
+  
+  // Ball menu which locate at center
+  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 3, kMapViewHeight, 104.0f, kUtilityBarHeight)];
+  self.buttonOpenBallMenu = buttonOpenBallMenu;
+  [buttonOpenBallMenu release];
+  [self.buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
+  [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.buttonOpenBallMenu];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -87,12 +103,28 @@
   self.mapViewController = nil;
   self.utilityViewController = nil;
   self.poketchViewController = nil;
+  
+  self.buttonOpenBallMenu            = nil;
+  self.utilityBallMenuViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button Action
+
+- (void)openBallMenuView:(id)sender
+{
+  if (! self.utilityBallMenuViewController) {
+    UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
+    self.utilityBallMenuViewController = utilityBallMenuViewController;
+    [utilityBallMenuViewController release];
+  }
+  
+  [self.view addSubview:self.utilityBallMenuViewController.view];
 }
 
 @end

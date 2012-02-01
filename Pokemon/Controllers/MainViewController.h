@@ -11,16 +11,26 @@
 @class MapViewController;
 @class UtilityViewController;
 @class PoketchTabViewController;
+@class UtilityBallMenuViewController;
 
 @interface MainViewController : UIViewController
 {
   MapViewController * mapViewController_;
   UtilityViewController * utilityViewController_;
   PoketchTabViewController * poketchViewController_;
+  
+  UIButton * buttonOpenBallMenu_;
+  UtilityBallMenuViewController * utilityBallMenuViewController_;
 }
 
 @property (nonatomic, retain) MapViewController * mapViewController;
 @property (nonatomic, retain) UtilityViewController * utilityViewController;
 @property (nonatomic, retain) PoketchTabViewController * poketchViewController;
+
+@property (nonatomic, retain) UIButton * buttonOpenBallMenu;
+@property (nonatomic, retain) UtilityBallMenuViewController * utilityBallMenuViewController;
+
+// Button Action
+- (void)openBallMenuView:(id)sender;
 
 @end
