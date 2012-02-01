@@ -33,7 +33,7 @@
 @property (nonatomic, retain) UIButton * buttonSetGame;
 @property (nonatomic, retain) UIButton * buttonClose;
 
-// Button Actions
+// Button Action
 - (void)closeView:(id)sender;
 
 @end

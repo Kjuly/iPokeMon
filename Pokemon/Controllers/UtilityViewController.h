@@ -31,7 +31,7 @@
 @property (nonatomic, retain) UIButton * buttonOpenBallMenu;
 @property (nonatomic, retain) UtilityBallMenuViewController * utilityBallMenuViewController;
 
-// Button Actions
+// Button Action
 - (void)openBallMenuView:(id)sender;
 
 @end

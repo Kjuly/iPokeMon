@@ -224,7 +224,7 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Button Actions
+#pragma mark - Button Action
 
 - (void)closeView:(id)sender
 {
