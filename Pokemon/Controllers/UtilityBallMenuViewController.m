@@ -76,9 +76,6 @@
   self.ballMenu = ballMenu;
   [ballMenu release];
   
-//  UIImageView * ballMenuImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"UtilityBallMenuIconBig.png"]
-//                                                  highlightedImage:[UIImage imageNamed:@"UtilityBallMenuIconBig.png"]];
-//  [self.ballMenu addSubview:ballMenuImage];
   [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UtilityBallMenuIconBig.png"]]];
   [self.view addSubview:self.ballMenu];
 }
