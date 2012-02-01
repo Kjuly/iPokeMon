@@ -157,7 +157,6 @@
 
 - (void)touchUpInsideAction:(UIButton *)button
 {
-  NSLog(@"////////");
   [self dimAllButtonsExcept:button];
   
   if ([delegate_ respondsToSelector:@selector(touchUpInsideItemAtIndex:)])
