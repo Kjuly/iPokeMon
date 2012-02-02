@@ -8,20 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class PoketchTabBar;
-
 @protocol PoketchTabBarDelegate
 
-- (UIImage *)imageFor:(PoketchTabBar *)tabBar atIndex:(NSUInteger)itemIndex;
+- (UIImage *)iconFor:(NSUInteger)itemIndex;
 - (UIImage *)backgroundImage;
-- (UIImage *)selectedItemBackgroundImage;
-- (UIImage *)glowImage;
+- (UIImage *)backgroundImageForSelectedItem;
 - (UIImage *)selectedItemImage;
 - (UIImage *)tabBarArrowImage;
 
 @optional
-- (void) touchUpInsideItemAtIndex:(NSUInteger)itemIndex;
-- (void) touchDownAtItemAtIndex:(NSUInteger)itemIndex;
+- (void)touchUpInsideItemAtIndex:(NSUInteger)itemIndex;
+- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex;
 
 @end
 
@@ -34,12 +31,12 @@
 
 @property (nonatomic, retain) NSMutableArray * buttons;
 
-- (id)initWithItemCount:(NSUInteger)itemCount itemSize:(CGSize)itemSize tag:(NSInteger)objectTag delegate:(NSObject <PoketchTabBarDelegate> *)customTabBarDelegate;
-
+- (id)initWithItemCount:(NSUInteger)itemCount
+                   size:(CGSize)itemSize
+                    tag:(NSInteger)objectTag
+               delegate:(NSObject <PoketchTabBarDelegate> *)tabBarDelegate;
 - (void)selectItemAtIndex:(NSInteger)index;
-- (void)glowItemAtIndex:(NSInteger)index;
-- (void)removeGlowAtIndex:(NSInteger)index;
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration;
 
 @end

@@ -42,14 +42,14 @@
 		7F8EFAB614D97D9A00FF1055 /* Setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */; };
 		7F8EFAB714D97D9A00FF1055 /* TabBarGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */; };
 		7F8EFAB814D97D9A00FF1055 /* TabBarGlow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */; };
-		7F8EFAB914D97D9A00FF1055 /* TabBarGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA714D97D9A00FF1055 /* TabBarGradient.png */; };
-		7F8EFABA14D97D9A00FF1055 /* TabBarGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA814D97D9A00FF1055 /* TabBarGradient@2x.png */; };
-		7F8EFABB14D97D9A00FF1055 /* TabBarItemSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA914D97D9A00FF1055 /* TabBarItemSelectedBackground.png */; };
-		7F8EFABC14D97D9A00FF1055 /* TabBarItemSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAA14D97D9A00FF1055 /* TabBarItemSelectedBackground@2x.png */; };
+		7F8EFAB914D97D9A00FF1055 /* PoketchTabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */; };
+		7F8EFABA14D97D9A00FF1055 /* PoketchTabBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA814D97D9A00FF1055 /* PoketchTabBarBackground@2x.png */; };
+		7F8EFABB14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA914D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem.png */; };
+		7F8EFABC14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAA14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem@2x.png */; };
 		7F8EFABD14D97D9A00FF1055 /* TabBarNipple.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAB14D97D9A00FF1055 /* TabBarNipple.png */; };
 		7F8EFABE14D97D9A00FF1055 /* TabBarNipple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */; };
-		7F8EFABF14D97D9A00FF1055 /* TabBarSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAD14D97D9A00FF1055 /* TabBarSelection.png */; };
-		7F8EFAC014D97D9A00FF1055 /* TabBarSelection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAE14D97D9A00FF1055 /* TabBarSelection@2x.png */; };
+		7F8EFABF14D97D9A00FF1055 /* PoketchTabBarSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */; };
+		7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */; };
 		7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAF14D97D9A00FF1055 /* WordList.png */; };
 		7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */; };
 /* End PBXBuildFile section */
@@ -111,14 +111,14 @@
 		7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Setting@2x.png"; sourceTree = "<group>"; };
 		7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGlow.png; sourceTree = "<group>"; };
 		7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGlow@2x.png"; sourceTree = "<group>"; };
-		7F8EFAA714D97D9A00FF1055 /* TabBarGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGradient.png; sourceTree = "<group>"; };
-		7F8EFAA814D97D9A00FF1055 /* TabBarGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGradient@2x.png"; sourceTree = "<group>"; };
-		7F8EFAA914D97D9A00FF1055 /* TabBarItemSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemSelectedBackground.png; sourceTree = "<group>"; };
-		7F8EFAAA14D97D9A00FF1055 /* TabBarItemSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarItemSelectedBackground@2x.png"; sourceTree = "<group>"; };
+		7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarBackground.png; sourceTree = "<group>"; };
+		7F8EFAA814D97D9A00FF1055 /* PoketchTabBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarBackground@2x.png"; sourceTree = "<group>"; };
+		7F8EFAA914D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarBackgroundForSelectedItem.png; sourceTree = "<group>"; };
+		7F8EFAAA14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarBackgroundForSelectedItem@2x.png"; sourceTree = "<group>"; };
 		7F8EFAAB14D97D9A00FF1055 /* TabBarNipple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarNipple.png; sourceTree = "<group>"; };
 		7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNipple@2x.png"; sourceTree = "<group>"; };
-		7F8EFAAD14D97D9A00FF1055 /* TabBarSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarSelection.png; sourceTree = "<group>"; };
-		7F8EFAAE14D97D9A00FF1055 /* TabBarSelection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarSelection@2x.png"; sourceTree = "<group>"; };
+		7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarSelection.png; sourceTree = "<group>"; };
+		7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarSelection@2x.png"; sourceTree = "<group>"; };
 		7F8EFAAF14D97D9A00FF1055 /* WordList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WordList.png; sourceTree = "<group>"; };
 		7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WordList@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -326,14 +326,14 @@
 				7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */,
 				7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */,
 				7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */,
-				7F8EFAA714D97D9A00FF1055 /* TabBarGradient.png */,
-				7F8EFAA814D97D9A00FF1055 /* TabBarGradient@2x.png */,
-				7F8EFAA914D97D9A00FF1055 /* TabBarItemSelectedBackground.png */,
-				7F8EFAAA14D97D9A00FF1055 /* TabBarItemSelectedBackground@2x.png */,
+				7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */,
+				7F8EFAA814D97D9A00FF1055 /* PoketchTabBarBackground@2x.png */,
+				7F8EFAA914D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem.png */,
+				7F8EFAAA14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem@2x.png */,
 				7F8EFAAB14D97D9A00FF1055 /* TabBarNipple.png */,
 				7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */,
-				7F8EFAAD14D97D9A00FF1055 /* TabBarSelection.png */,
-				7F8EFAAE14D97D9A00FF1055 /* TabBarSelection@2x.png */,
+				7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */,
+				7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */,
 				7F8EFAAF14D97D9A00FF1055 /* WordList.png */,
 				7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */,
 			);
@@ -426,14 +426,14 @@
 				7F8EFAB614D97D9A00FF1055 /* Setting@2x.png in Resources */,
 				7F8EFAB714D97D9A00FF1055 /* TabBarGlow.png in Resources */,
 				7F8EFAB814D97D9A00FF1055 /* TabBarGlow@2x.png in Resources */,
-				7F8EFAB914D97D9A00FF1055 /* TabBarGradient.png in Resources */,
-				7F8EFABA14D97D9A00FF1055 /* TabBarGradient@2x.png in Resources */,
-				7F8EFABB14D97D9A00FF1055 /* TabBarItemSelectedBackground.png in Resources */,
-				7F8EFABC14D97D9A00FF1055 /* TabBarItemSelectedBackground@2x.png in Resources */,
+				7F8EFAB914D97D9A00FF1055 /* PoketchTabBarBackground.png in Resources */,
+				7F8EFABA14D97D9A00FF1055 /* PoketchTabBarBackground@2x.png in Resources */,
+				7F8EFABB14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem.png in Resources */,
+				7F8EFABC14D97D9A00FF1055 /* PoketchTabBarBackgroundForSelectedItem@2x.png in Resources */,
 				7F8EFABD14D97D9A00FF1055 /* TabBarNipple.png in Resources */,
 				7F8EFABE14D97D9A00FF1055 /* TabBarNipple@2x.png in Resources */,
-				7F8EFABF14D97D9A00FF1055 /* TabBarSelection.png in Resources */,
-				7F8EFAC014D97D9A00FF1055 /* TabBarSelection@2x.png in Resources */,
+				7F8EFABF14D97D9A00FF1055 /* PoketchTabBarSelection.png in Resources */,
+				7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */,
 				7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */,
 				7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */,
 			);
