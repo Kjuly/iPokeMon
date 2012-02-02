@@ -37,6 +37,7 @@
   [self.window makeKeyAndVisible];
   
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+  [[UIApplication sharedApplication] setStatusBarHidden:YES];
   
   return YES;
 }

@@ -16,6 +16,16 @@
 #define kDistanceFromUtilityBallCenter 112.0f
 #define kUtilityBallMenuButtonDiameter 32.0f
 
+enum {
+  kTagUtilityBallButtonShowPokedex = 2001,
+  kTagUtilityBallButtonShowPokemon,
+  kTagUtilityBallButtonShowBag,
+  kTagUtilityBallButtonShowTrainerCard,
+  kTagUtilityBallButtonHotkey,
+  kTagUtilityBallButtonSetGame,
+  kTagUtilityBallButtonClose
+};
+
 #define kPoketchTabBarHeight 44.0f
 #define kPoketchTabBarWdith  320.0f
 

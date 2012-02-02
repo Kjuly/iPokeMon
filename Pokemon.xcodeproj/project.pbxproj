@@ -52,6 +52,11 @@
 		7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */; };
 		7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAF14D97D9A00FF1055 /* WordList.png */; };
 		7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */; };
+		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
+		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
+		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
+		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
+		7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +126,14 @@
 		7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarSelection@2x.png"; sourceTree = "<group>"; };
 		7F8EFAAF14D97D9A00FF1055 /* WordList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WordList.png; sourceTree = "<group>"; };
 		7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WordList@2x.png"; sourceTree = "<group>"; };
+		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
+		7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
+		7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationBar.m; sourceTree = "<group>"; };
+		7FE2BAA214DABCD900419825 /* CustomTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewController.h; sourceTree = "<group>"; };
+		7FE2BAA314DABCD900419825 /* CustomTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewController.m; sourceTree = "<group>"; };
+		7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityNavigationBarBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +253,10 @@
 				7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
 				7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */,
+				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
+				7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */,
+				7FE2BAA214DABCD900419825 /* CustomTableViewController.h */,
+				7FE2BAA314DABCD900419825 /* CustomTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -273,6 +290,7 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FE2BA9F14DAA8E000419825 /* NavigationBar */,
 				7F8EFA9E14D97D9A00FF1055 /* TabBar */,
 				7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */,
 				7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */,
@@ -304,6 +322,8 @@
 				7F6E6CF714D6CB9800033C65 /* Xibs */,
 				7F8EFA9B14D9781500FF1055 /* PoketchTabBar.h */,
 				7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */,
+				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
+				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +331,7 @@
 		7F6E6CF714D6CB9800033C65 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -338,6 +359,14 @@
 				7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		7FE2BA9F14DAA8E000419825 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */,
+			);
+			path = NavigationBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +465,8 @@
 				7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */,
 				7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */,
 				7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */,
+				7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */,
+				7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +510,9 @@
 				7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */,
 				7F8EFA9A14D976D100FF1055 /* PoketchTabViewController.m in Sources */,
 				7F8EFA9D14D9781500FF1055 /* PoketchTabBar.m in Sources */,
+				7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */,
+				7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */,
+				7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

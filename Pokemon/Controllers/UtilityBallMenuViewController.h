@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UtilityBallMenuViewController : UIViewController
+#import "CustomNavigationController.h"
+
+@interface UtilityBallMenuViewController : UIViewController <CustomNavigationControllerDelegate>
 {
   UIButton * buttonOpen_;
   
@@ -34,6 +36,13 @@
 @property (nonatomic, retain) UIButton * buttonClose;
 
 // Button Action
+- (void)runButtonActions:(id)sender;
+- (void)showPokedex:(id)sender;
+- (void)showPokemon:(id)sender;
+- (void)showBag:(id)sender;
+- (void)showTrainerCard:(id)sender;
+- (void)runHotkey:(id)sender;
+- (void)setGame:(id)sender;
 - (void)closeView:(id)sender;
 
 @end

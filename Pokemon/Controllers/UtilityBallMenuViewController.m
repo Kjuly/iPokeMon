@@ -9,6 +9,7 @@
 #import "UtilityBallMenuViewController.h"
 
 #import "../GlobalConstants.h"
+#import "CustomNavigationBar.h"
 
 @implementation UtilityBallMenuViewController
 
@@ -108,6 +109,8 @@
                                                                     kUtilityBallMenuButtonDiameter,
                                                                     kUtilityBallMenuButtonDiameter)];
     [buttonShowPokedex_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowPokedex_ setTag:kTagUtilityBallButtonShowPokedex];
+    [buttonShowPokedex_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowPokedex_];
   }{
     // Button: Show Pokemon
@@ -122,6 +125,8 @@
                                                                     kUtilityBallMenuButtonDiameter,
                                                                     kUtilityBallMenuButtonDiameter)];
     [buttonShowPokemon_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowPokemon_ setTag:kTagUtilityBallButtonShowPokemon];
+    [buttonShowPokemon_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowPokemon_];
   }{
     // Button: Show Bag
@@ -136,6 +141,8 @@
                                                                 kUtilityBallMenuButtonDiameter,
                                                                 kUtilityBallMenuButtonDiameter)];
     [buttonShowBag_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowBag_ setTag:kTagUtilityBallButtonShowBag];
+    [buttonShowBag_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowBag_];
   }{
     // Button: Show Trainer Card
@@ -150,6 +157,8 @@
                                                                         kUtilityBallMenuButtonDiameter,
                                                                         kUtilityBallMenuButtonDiameter)];
     [buttonShowTrainerCard_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowTrainerCard_ setTag:kTagUtilityBallButtonShowTrainerCard];
+    [buttonShowTrainerCard_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowTrainerCard_];
   }{
     // Button: Hot Key
@@ -164,6 +173,8 @@
                                                                kUtilityBallMenuButtonDiameter,
                                                                kUtilityBallMenuButtonDiameter)];
     [buttonHotkey_ setBackgroundColor:[UIColor redColor]];
+    [buttonHotkey_ setTag:kTagUtilityBallButtonHotkey];
+    [buttonHotkey_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonHotkey_];
   }{
     // Button: Set Game
@@ -178,6 +189,8 @@
                                                                 kUtilityBallMenuButtonDiameter,
                                                                 kUtilityBallMenuButtonDiameter)];
     [buttonSetGame_ setBackgroundColor:[UIColor redColor]];
+    [buttonSetGame_ setTag:kTagUtilityBallButtonSetGame];
+    [buttonSetGame_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonSetGame_];
   }{
     // Button: Close
@@ -191,7 +204,8 @@
                                                               kUtilityBallMenuButtonDiameter,
                                                               kUtilityBallMenuButtonDiameter)];
     [buttonClose_ setBackgroundColor:[UIColor redColor]];
-    [buttonClose_ addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonClose_ setTag:kTagUtilityBallButtonClose];
+    [buttonClose_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonClose_];
   }
 }
@@ -218,17 +232,80 @@
   self.buttonClose            = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  
+  if (! self.navigationController.isNavigationBarHidden)
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - CustomNavigationControllerDelegate
+
+- (BOOL)hasNavigationBar {
+  return NO;
+}
+
+- (UIImage *)navigationBarBackgroundImage {
+  return [UIImage imageNamed:@"UtilityNavigationBarBackground.png"];
+}
+
 #pragma mark - Button Action
 
-- (void)closeView:(id)sender
+- (void)runButtonActions:(id)sender
 {
-  [self.view removeFromSuperview];
+  switch ([(UIButton *)sender tag]) {
+    case kTagUtilityBallButtonShowPokedex:
+      [self showPokedex:sender];
+      break;
+      
+    case kTagUtilityBallButtonClose:
+      [self closeView:sender];
+      break;
+      
+    default:
+      break;
+  }
+}
+
+- (void)showPokedex:(id)sender {
+  NSLog(@"--- Button Clicked: showPokedex");
+  UIViewController * viewController = [[UIViewController alloc] init];
+  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+  [viewController.view setBackgroundColor:[UIColor yellowColor]];
+  [self.navigationController pushViewController:viewController animated:YES];
+  [self.navigationController setNavigationBarHidden:NO];
+  [viewController release];
+}
+
+- (void)showPokemon:(id)sender {
+  NSLog(@"--- Button Clicked: showPokemon");
+}
+
+- (void)showBag:(id)sender {
+  NSLog(@"--- Button Clicked: showBag");
+}
+
+- (void)showTrainerCard:(id)sender {
+  NSLog(@"--- Button Clicked: showTrainerCard");
+}
+
+- (void)runHotkey:(id)sender {
+  NSLog(@"--- Button Clicked: runHotKey");
+}
+
+- (void)setGame:(id)sender {
+  NSLog(@"--- Button Clicked: setGame");
+}
+
+- (void)closeView:(id)sender {
+  [self.navigationController.view removeFromSuperview];
 }
 
 @end

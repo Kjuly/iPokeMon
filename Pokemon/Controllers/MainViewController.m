@@ -12,6 +12,7 @@
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
+#import "CustomNavigationController.h"
 #import "UtilityBallMenuViewController.h"
 
 @implementation MainViewController
@@ -21,7 +22,7 @@
 @synthesize poketchViewController = poketchViewController_;
 
 @synthesize buttonOpenBallMenu            = buttonOpenBallMenu_;
-@synthesize utilityBallMenuViewController = utilityBallMenuViewController_;
+@synthesize utilityNavigationController   = utilityNavigationController_;
 
 - (void)dealloc
 {
@@ -30,7 +31,7 @@
   [poketchViewController_ release];
   
   [buttonOpenBallMenu_ release];
-  [utilityBallMenuViewController_ release];
+  [utilityNavigationController_ release];
   
   [super dealloc];
 }
@@ -105,7 +106,7 @@
   self.poketchViewController = nil;
   
   self.buttonOpenBallMenu            = nil;
-  self.utilityBallMenuViewController = nil;
+  self.utilityNavigationController   = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -118,13 +119,16 @@
 
 - (void)openBallMenuView:(id)sender
 {
-  if (! self.utilityBallMenuViewController) {
+  if (! self.utilityNavigationController) {
     UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
-    self.utilityBallMenuViewController = utilityBallMenuViewController;
+    CustomNavigationController * utilityNavigationController = [[CustomNavigationController alloc]
+                                                                initWithRootViewController:utilityBallMenuViewController];
     [utilityBallMenuViewController release];
+    self.utilityNavigationController = utilityNavigationController;
+    [utilityNavigationController release];
   }
   
-  [self.view addSubview:self.utilityBallMenuViewController.view];
+  [self.view addSubview:self.utilityNavigationController.view];
 }
 
 @end
