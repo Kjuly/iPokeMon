@@ -9,7 +9,7 @@
 #import "UtilityBallMenuViewController.h"
 
 #import "../GlobalConstants.h"
-#import "CustomNavigationBar.h"
+#import "PokedexTableViewController.h"
 
 @implementation UtilityBallMenuViewController
 
@@ -24,6 +24,8 @@
 @synthesize buttonSetGame         = buttonSetGame_;
 @synthesize buttonClose           = buttonClose_;
 
+@synthesize pokedexTableViewController = pokedexTableViewController_;
+
 -(void)dealloc
 {
   [buttonOpen_ release];
@@ -36,6 +38,8 @@
   [buttonHotkey_ release];
   [buttonSetGame_ release];
   [buttonClose_ release];
+  
+  [pokedexTableViewController_ release];
   
   [super dealloc];
 }
@@ -230,6 +234,8 @@
   self.buttonHotkey           = nil;
   self.buttonSetGame          = nil;
   self.buttonClose            = nil;
+  
+  self.pokedexTableViewController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -274,14 +280,14 @@
   }
 }
 
-- (void)showPokedex:(id)sender {
-  NSLog(@"--- Button Clicked: showPokedex");
-  UIViewController * viewController = [[UIViewController alloc] init];
-  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-  [viewController.view setBackgroundColor:[UIColor yellowColor]];
-  [self.navigationController pushViewController:viewController animated:YES];
-  [self.navigationController setNavigationBarHidden:NO];
-  [viewController release];
+- (void)showPokedex:(id)sender
+{  
+  if (! self.pokedexTableViewController) {
+    PokedexTableViewController * pokedexTableViewController = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.pokedexTableViewController = pokedexTableViewController;
+    [pokedexTableViewController release];
+  }
+  [self.navigationController pushViewController:self.pokedexTableViewController animated:YES];
 }
 
 - (void)showPokemon:(id)sender {

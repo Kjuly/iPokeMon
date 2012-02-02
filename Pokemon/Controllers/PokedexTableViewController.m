@@ -1,19 +1,15 @@
 //
-//  CustomTableViewController.m
+//  PokedexTableViewController.m
 //  Pokemon
 //
 //  Created by Kaijie Yu on 2/2/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "CustomTableViewController.h"
+#import "PokedexTableViewController.h"
 
-@implementation CustomTableViewController
 
-- (void)dealloc
-{
-  [super dealloc];
-}
+@implementation PokedexTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,11 +44,15 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  // Release any retained subviews of the main view.
+  // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -78,13 +78,17 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//  return 1;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//  return 10;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 100.0f;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

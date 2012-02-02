@@ -57,6 +57,7 @@
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
 		7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */; };
+		7FE2BAA914DAE23600419825 /* PokedexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,8 @@
 		7FE2BAA214DABCD900419825 /* CustomTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewController.h; sourceTree = "<group>"; };
 		7FE2BAA314DABCD900419825 /* CustomTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewController.m; sourceTree = "<group>"; };
 		7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityNavigationBarBackground.png; sourceTree = "<group>"; };
+		7FE2BAA714DAE23500419825 /* PokedexTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokedexTableViewController.h; sourceTree = "<group>"; };
+		7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokedexTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +254,8 @@
 				7F51C41F14D7E0BF0091902D /* UtilityViewController.m */,
 				7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */,
 				7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */,
+				7FE2BAA714DAE23500419825 /* PokedexTableViewController.h */,
+				7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
 				7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
@@ -513,6 +518,7 @@
 				7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */,
 				7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */,
 				7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */,
+				7FE2BAA914DAE23600419825 /* PokedexTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
