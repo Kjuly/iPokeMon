@@ -45,6 +45,11 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
                         [NSDictionary dictionaryWithObjectsAndKeys:@"MyDownload.png", @"image", controller2, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"WordList.png", @"image", controller3, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Setting.png", @"image", controller4, @"viewController", nil], nil];
+    
+    [controller1 release];
+    [controller2 release];
+    [controller3 release];
+    [controller4 release];
   }
   return self;
 }
