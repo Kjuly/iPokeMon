@@ -8,10 +8,6 @@
 
 #import "CustomNavigationBar.h"
 
-#import <QuartzCore/QuartzCore.h>
-
-#define kMaxBackButtonWidth 160.0
-
 @implementation CustomNavigationBar
 
 @synthesize navigationController = navigationController_;
@@ -23,15 +19,6 @@
   [navigationBarBackgroundImage_ release];
   
   [super dealloc];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
 }
 
 // Only override drawRect: if you perform custom drawing.
