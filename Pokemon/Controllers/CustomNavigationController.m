@@ -8,29 +8,35 @@
 
 #import "CustomNavigationController.h"
 
-#import "CustomNavigationBar.h"
+//#import "CustomNavigationBar.h"
 
 @implementation CustomNavigationController
 
 @synthesize delegate = delegate_;
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController
+- (void)dealloc
 {
-  self = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] lastObject];
-  if (self) {
-    delegate_ = (id <CustomNavigationControllerDelegate>)rootViewController;
-    [self pushViewController:rootViewController animated:NO];
-  }
-  
-  return self;
+  [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
+//  NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
+//                                                        owner:self
+//                                                      options:nil];
+//  self = [bundleArray lastObject];
+//  bundleArray = nil;
+  
+//  NSBundle * viewBundle = [NSBundle bundleForClass:([self class])];
+//  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
+//                                owner:self
+//                              options:nil];
+  
+  if (self = [super initWithRootViewController:rootViewController]) {
+    NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
+    delegate_ = (id <CustomNavigationControllerDelegate>)rootViewController;
   }
+  
   return self;
 }
 
@@ -45,20 +51,25 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
+/*- (void)loadView
 {
+  NSLog(@"--- CustomNavigationController loadView ---");
   [super loadView];
-  
-  // Set Navigation Bar
-  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:[delegate_ navigationBarBackgroundImage]];
-  if (! [self.delegate hasNavigationBar])
-    [self setNavigationBarHidden:YES];
-}
+}*/
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+  NSLog(@"--- CustomNavigationController viewDidLoad ---");
+  
   [super viewDidLoad];
+  
+  // Set Navigation Bar
+//  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:[delegate_ navigationBarBackgroundImage]];
+  [self.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+  
+//  if (! [self.delegate hasNavigationBar])
+//    [self setNavigationBarHidden:YES];
 }
 
 - (void)viewDidUnload
@@ -66,6 +77,8 @@
   [super viewDidUnload];
 
   self.delegate = nil;
+  
+  NSLog(@"--- CustomNavigationController viewDidUnload ---");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -73,5 +86,13 @@
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+/*
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated; // Uses a horizontal slide transition. Has no effect if the view controller is already in the stack.
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated; // Returns the popped controller.
+- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated; // Pops view controllers until the one specified is on top. Returns the popped controllers.
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated; // Pops until there's only a single view controller left on the stack. Returns the popped controllers.
+ */
 
 @end
