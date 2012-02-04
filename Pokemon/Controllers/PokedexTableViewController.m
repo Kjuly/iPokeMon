@@ -10,12 +10,6 @@
 
 #import "DataDecoder.h"
 
-@interface PokedexTableViewController (PrivateMethods)
-
-- (NSMutableArray *)decodePokedexFrom:(NSString *)data;
-
-@end
-
 
 @implementation PokedexTableViewController
 
@@ -50,17 +44,11 @@
 {
   [super viewDidLoad];
   
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  
   // Fetch data from web service
   // Local testing data
   NSString * dataForPokedex = @"000100020003000400050006000700080009000A";
   
-  self.pokedex = [self decodePokedexFrom:dataForPokedex];
+  self.pokedex = [DataDecoder decodePokedexFrom:dataForPokedex];
   NSLog(@">>>>>> Pokedex Hex: %@", pokedex_);
   NSLog(@">>> Pokemon > name: %d", [DataDecoder decodeNameFrom:[pokedex_ objectAtIndex:0]]);
 }
@@ -179,19 +167,6 @@
    [self.navigationController pushViewController:detailViewController animated:YES];
    [detailViewController release];
    */
-}
-
-#pragma mark - Private Methods
-
-// Decode data for Pokedex
-- (NSMutableArray *)decodePokedexFrom:(NSString *)data
-{
-  NSMutableArray * resultArray = [[NSMutableArray alloc] init];
-  
-  for (int i = 0; i < [data length] - 1; i += 4)
-    [resultArray addObject:[data substringWithRange:NSMakeRange(i, 4)]];
-  
-  return [resultArray autorelease];       
 }
 
 @end

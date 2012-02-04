@@ -10,6 +10,8 @@
 
 @interface DataDecoder : NSObject
 
++ (NSMutableArray *)decodePokedexFrom:(NSString *)data;
+
 + (NSUInteger)decodeNameFrom:(NSString *)hex;
 
 @end
