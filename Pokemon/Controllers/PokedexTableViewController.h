@@ -11,5 +11,10 @@
 #import "CustomTableViewController.h"
 
 @interface PokedexTableViewController : CustomTableViewController
+{
+  NSMutableArray * pokedex_;
+}
+
+@property (nonatomic, copy) NSMutableArray * pokedex;
 
 @end

@@ -8,14 +8,25 @@
 
 #import "PokedexTableViewController.h"
 
+#import "DataDecoder.h"
 
 @implementation PokedexTableViewController
+
+@synthesize pokedex = pokedex_;
+
+- (void)dealloc
+{
+  [pokedex_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
   if (self) {
-    // Custom initialization
+    pokedex_ = [[NSMutableArray alloc] initWithObjects:@"0001", @"0097", nil];
+    NSLog(@">>> Pokemon > name: %d", [DataDecoder decodeNameFrom:[pokedex_ objectAtIndex:0]]);
   }
   return self;
 }
@@ -44,8 +55,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+
+  self.pokedex = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,7 +94,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 10;
+  return [self.pokedex count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
 		7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51C41414D7D4E60091902D /* MapKit.framework */; };
@@ -71,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F39A2F114DD07DA00C77485 /* DataDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDecoder.h; sourceTree = "<group>"; };
+		7F39A2F214DD07DA00C77485 /* DataDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDecoder.m; sourceTree = "<group>"; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7F51C3D614D7C4DF0091902D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7F51C40614D7D3C60091902D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
+				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
+				7F39A2F214DD07DA00C77485 /* DataDecoder.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */,
 				7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */,
 				7FE2BAA914DAE23600419825 /* PokedexTableViewController.m in Sources */,
+				7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
