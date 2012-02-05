@@ -14,15 +14,14 @@
 
 @implementation PokedexTableViewController
 
-@synthesize pokedex = pokedex_;
-@synthesize pokedexImages = pokedexImages_;
 @synthesize pokedexSequence = pokedexSequence_;
+@synthesize pokedex         = pokedex_;
+@synthesize pokedexImages   = pokedexImages_;
 
 - (void)dealloc
 {
-  [pokedex_ release];
+  [pokedex_       release];
   [pokedexImages_ release];
-  [pokedexSequence_ release];
   
   [super dealloc];
 }
@@ -50,25 +49,17 @@
   [super viewDidLoad];
   
   // Fetch data from web service
-  // Local testing data
-//  NSString * dataForPokedex = @"0000000100020003000400050006000700080009000A";
-//  NSString * dataForPokedex = @"000000010002";
-  self.pokedexSequence = @"101";
-  
-//  self.pokedex = [DataDecoder decodePokedexFrom:dataForPokedex];
-  self.pokedex = [PListParser pokedex];
-  NSLog(@">>>>>> Pokedex Hex: %@", pokedex_);
-  
-  self.pokedexImages = [PListParser pokedexGenerationOneImageArray];
+  self.pokedexSequence = 0x2d;
+  self.pokedex         = [PListParser pokedex];
+  self.pokedexImages   = [PListParser pokedexGenerationOneImageArray];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
 
-  self.pokedex = nil;
+  self.pokedex       = nil;
   self.pokedexImages = nil;
-  self.pokedexSequence = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -126,7 +117,8 @@
   // Configure the cell
   NSUInteger rowID = [indexPath row];
   // Set Pokemon photo & name
-  if ([self.pokedexSequence characterAtIndex:rowID] == '1') {
+  // 1 << 0 = 0001, 1 << 1 = 0010
+  if (self.pokedexSequence & (1 << rowID)) {
     [cell.textLabel setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
     [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }

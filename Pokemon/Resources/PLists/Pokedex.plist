@@ -14,5 +14,17 @@
 		<key>name</key>
 		<string>Venusaur</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>Charmander</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Charmeleon</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Charizard</string>
+	</dict>
 </array>
 </plist>
