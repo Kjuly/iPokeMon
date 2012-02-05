@@ -9,6 +9,9 @@
 #import "PokemonDetailTabViewController.h"
 
 #import "../GlobalConstants.h"
+#import "PokemonInfoViewController.h"
+#import "PokemonAreaViewController.h"
+#import "PokemonSizeViewController.h"
 
 
 @implementation PokemonDetailTabViewController
@@ -28,25 +31,19 @@
   self = [super init];
   if (self) {
     // Add child view controllers to each tab
-    UIViewController * controller1 = [[UIViewController alloc] init];
-    [controller1.view setBackgroundColor:[UIColor blueColor]];
-    UIViewController * controller2 = [[UIViewController alloc] init];
-    [controller2.view setBackgroundColor:[UIColor yellowColor]];
-    UIViewController * controller3 = [[UIViewController alloc] init];
-    [controller3.view setBackgroundColor:[UIColor redColor]];
-    UIViewController * controller4 = [[UIViewController alloc] init];
-    [controller4.view setBackgroundColor:[UIColor grayColor]];
+    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc] init];
+    PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] init];
+    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] init];
     
     self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Categories.png", @"image", controller1, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"MyDownload.png", @"image", controller2, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"WordList.png", @"image", controller3, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Setting.png", @"image", controller4, @"viewController", nil], nil];
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"Categories.png", @"image", pokemonInfoViewController, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"MyDownload.png", @"image", pokemonAreaViewController, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"WordList.png", @"image", pokemonSizeViewController, @"viewController", nil],
+                        nil];
     
-    [controller1 release];
-    [controller2 release];
-    [controller3 release];
-    [controller4 release];
+    [pokemonInfoViewController release];
+    [pokemonAreaViewController release];
+    [pokemonSizeViewController release];
   }
   return self;
 }
