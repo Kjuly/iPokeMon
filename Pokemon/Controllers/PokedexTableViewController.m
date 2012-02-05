@@ -120,6 +120,7 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]]; // Default Image
   }
   
   // Configure the cell

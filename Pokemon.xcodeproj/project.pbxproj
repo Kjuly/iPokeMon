@@ -10,6 +10,7 @@
 		7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB6F14DE48890068F681 /* Pokedex.plist */; };
 		7F2EFB7314DE5F370068F681 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7214DE5F370068F681 /* PListParser.m */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
+		7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */; };
 		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
@@ -79,6 +80,7 @@
 		7F2EFB7114DE5F370068F681 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F2EFB7214DE5F370068F681 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
 		7F2EFB7514DE78250068F681 /* GenerationOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenerationOne.png; sourceTree = "<group>"; };
+		7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PokedexDefaultImage.png; sourceTree = "<group>"; };
 		7F39A2F114DD07DA00C77485 /* DataDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDecoder.h; sourceTree = "<group>"; };
 		7F39A2F214DD07DA00C77485 /* DataDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDecoder.m; sourceTree = "<group>"; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		7F2EFB7414DE78250068F681 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */,
 				7F2EFB7514DE78250068F681 /* GenerationOne.png */,
 			);
 			path = Pokemon;
@@ -506,6 +509,7 @@
 				7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */,
 				7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */,
 				7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */,
+				7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
