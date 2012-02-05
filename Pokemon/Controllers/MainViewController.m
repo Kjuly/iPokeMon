@@ -60,6 +60,8 @@
 {
   [super loadView];
   
+  [[UIApplication sharedApplication] setStatusBarHidden:YES];
+  
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
