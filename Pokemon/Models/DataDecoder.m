@@ -8,6 +8,8 @@
 
 #import "DataDecoder.h"
 
+#import "PListParser.h"
+
 #define kDataLengthPokedex 4
 
 const NSRange kRangePokemonName = {0, 4};
@@ -36,10 +38,8 @@ const NSRange kRangePokemonName = {0, 4};
   [scanner scanHexInt:&pokemonID];
   
   // Got Pokemon's Name form Pokedex Data
-  NSString * pokedexPList = [[NSBundle mainBundle] pathForResource:@"Pokedex" ofType:@"plist"];
-  NSArray * pokedex = [[NSArray alloc] initWithContentsOfFile:pokedexPList];
+  NSArray * pokedex = [PListParser pokedex];
   NSString * pokemonName = [NSString stringWithString:[[pokedex objectAtIndex:pokemonID] objectForKey:@"name"]];
-  [pokedex release];
   
   return pokemonName;
 }
