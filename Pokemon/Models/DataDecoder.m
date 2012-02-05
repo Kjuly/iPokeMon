@@ -17,23 +17,30 @@ const NSRange kRangePokemonName = {0, 4};
 
 @implementation DataDecoder
 
+// Decode Binary Data for Pokedex
++ (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary
+{
+  NSMutableArray * pokedex = [[PListParser pokedex] mutableCopy];
+  return pokedex;
+}
+
 // Decode data for Pokedex
-+ (NSMutableArray *)decodePokedexFrom:(NSString *)data
++ (NSMutableArray *)decodePokedexFromHex:(NSString *)dataInHex
 {
   NSMutableArray * resultArray = [[NSMutableArray alloc] init];
   
-  for (int i = 0; i < [data length] - 1; i += kDataLengthPokedex)
-    [resultArray addObject:[data substringWithRange:NSMakeRange(i, kDataLengthPokedex)]];
+  for (int i = 0; i < [dataInHex length] - 1; i += kDataLengthPokedex)
+    [resultArray addObject:[dataInHex substringWithRange:NSMakeRange(i, kDataLengthPokedex)]];
   
   return [resultArray autorelease];
 }
 
 // Decode Name form HEX
-+ (NSString *)decodeNameFrom:(NSString *)hex
++ (NSString *)decodeNameFromHex:(NSString *)dataInHex
 {
   // Decode the Pokemon ID form HEX
   NSUInteger pokemonID;
-  NSScanner * scanner = [NSScanner scannerWithString:[hex substringWithRange:kRangePokemonName]];
+  NSScanner * scanner = [NSScanner scannerWithString:[dataInHex substringWithRange:kRangePokemonName]];
   [scanner setScanLocation:0];
   [scanner scanHexInt:&pokemonID];
   

@@ -8,16 +8,19 @@
 
 #import "PokedexTableViewController.h"
 
+#import "PListParser.h"
 #import "DataDecoder.h"
 
 
 @implementation PokedexTableViewController
 
 @synthesize pokedex = pokedex_;
+@synthesize pokedexSequence = pokedexSequence_;
 
 - (void)dealloc
 {
   [pokedex_ release];
+  [pokedexSequence_ release];
   
   [super dealloc];
 }
@@ -47,9 +50,11 @@
   // Fetch data from web service
   // Local testing data
 //  NSString * dataForPokedex = @"0000000100020003000400050006000700080009000A";
-  NSString * dataForPokedex = @"000000010002";
+//  NSString * dataForPokedex = @"000000010002";
+  self.pokedexSequence = @"101";
   
-  self.pokedex = [DataDecoder decodePokedexFrom:dataForPokedex];
+//  self.pokedex = [DataDecoder decodePokedexFrom:dataForPokedex];
+  self.pokedex = [PListParser pokedex];
   NSLog(@">>>>>> Pokedex Hex: %@", pokedex_);
 }
 
@@ -58,6 +63,7 @@
   [super viewDidUnload];
 
   self.pokedex = nil;
+  self.pokedexSequence = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,7 +118,15 @@
   }
   
   // Configure the cell
-  [cell.textLabel setText:[DataDecoder decodeNameFrom:[self.pokedex objectAtIndex:[indexPath row]]]];
+  NSUInteger rowID = [indexPath row];
+  if ([self.pokedexSequence characterAtIndex:rowID] == '1') {
+    [cell.textLabel setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
+  }
+  else {
+    [cell.textLabel setText:@"? ? ?"];
+    [cell setSelectedBackgroundView:nil];
+  }
+  
   
   return cell;
 }

@@ -12,9 +12,11 @@
 
 @interface PokedexTableViewController : CustomTableViewController
 {
-  NSMutableArray * pokedex_;
+  NSArray * pokedex_;
+  NSString * pokedexSequence_;
 }
 
-@property (nonatomic, copy) NSMutableArray * pokedex;
+@property (nonatomic, copy) NSArray * pokedex;
+@property (nonatomic, copy) NSString * pokedexSequence;
 
 @end
