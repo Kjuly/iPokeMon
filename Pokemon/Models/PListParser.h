@@ -12,4 +12,6 @@
 
 + (NSArray *)pokedex;
 
++ (NSArray *)pokedexGenerationOneImageArray;
+
 @end
