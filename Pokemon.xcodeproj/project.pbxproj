@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB6F14DE48890068F681 /* Pokedex.plist */; };
 		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F2EFB6F14DE48890068F681 /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
 		7F39A2F114DD07DA00C77485 /* DataDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDecoder.h; sourceTree = "<group>"; };
 		7F39A2F214DD07DA00C77485 /* DataDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDecoder.m; sourceTree = "<group>"; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -169,6 +171,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F2EFB6D14DE48440068F681 /* PLists */ = {
+			isa = PBXGroup;
+			children = (
+				7F2EFB6F14DE48890068F681 /* Pokedex.plist */,
+			);
+			path = PLists;
+			sourceTree = "<group>";
+		};
 		7F6E6CA914D6CAA600033C65 = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +301,7 @@
 		7F6E6CF214D6CB9800033C65 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F2EFB6D14DE48440068F681 /* PLists */,
 				7F6E6CF314D6CB9800033C65 /* Images */,
 				7F6E6CF414D6CB9800033C65 /* Sounds */,
 			);
@@ -477,6 +488,7 @@
 				7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */,
 				7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */,
 				7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */,
+				7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,6 @@
 
 + (NSMutableArray *)decodePokedexFrom:(NSString *)data;
 
-+ (NSUInteger)decodeNameFrom:(NSString *)hex;
++ (NSString *)decodeNameFrom:(NSString *)hex;
 
 @end

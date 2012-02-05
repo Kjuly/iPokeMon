@@ -26,13 +26,21 @@ const NSRange kRangePokemonName = {0, 4};
   return [resultArray autorelease];       
 }
 
-+ (NSUInteger)decodeNameFrom:(NSString *)hex
++ (NSString *)decodeNameFrom:(NSString *)hex
 {
-  NSUInteger decodeResult;
+  // Decode the Pokemon ID form HEX
+  NSUInteger pokemonID;
   NSScanner * scanner = [NSScanner scannerWithString:[hex substringWithRange:kRangePokemonName]];
   [scanner setScanLocation:0];
-  [scanner scanHexInt:&decodeResult];
-  return decodeResult;
+  [scanner scanHexInt:&pokemonID];
+  
+  // Got Pokemon's Name form Pokedex Data
+  NSString * pokedexPList = [[NSBundle mainBundle] pathForResource:@"Pokedex" ofType:@"plist"];
+  NSArray * pokedex = [[NSArray alloc] initWithContentsOfFile:pokedexPList];
+  NSString * pokemonName = [NSString stringWithString:[[pokedex objectAtIndex:pokemonID] objectForKey:@"name"]];
+  [pokedex release];
+  
+  return pokemonName;
 }
 
 @end

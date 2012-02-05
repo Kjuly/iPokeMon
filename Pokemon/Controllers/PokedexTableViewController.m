@@ -46,11 +46,11 @@
   
   // Fetch data from web service
   // Local testing data
-  NSString * dataForPokedex = @"000100020003000400050006000700080009000A";
+//  NSString * dataForPokedex = @"0000000100020003000400050006000700080009000A";
+  NSString * dataForPokedex = @"000000010002";
   
   self.pokedex = [DataDecoder decodePokedexFrom:dataForPokedex];
   NSLog(@">>>>>> Pokedex Hex: %@", pokedex_);
-  NSLog(@">>> Pokemon > name: %d", [DataDecoder decodeNameFrom:[pokedex_ objectAtIndex:0]]);
 }
 
 - (void)viewDidUnload
@@ -111,7 +111,8 @@
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
-  // Configure the cell...
+  // Configure the cell
+  [cell.textLabel setText:[DataDecoder decodeNameFrom:[self.pokedex objectAtIndex:[indexPath row]]]];
   
   return cell;
 }
