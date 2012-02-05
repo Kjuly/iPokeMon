@@ -23,9 +23,10 @@ const NSRange kRangePokemonName = {0, 4};
   for (int i = 0; i < [data length] - 1; i += kDataLengthPokedex)
     [resultArray addObject:[data substringWithRange:NSMakeRange(i, kDataLengthPokedex)]];
   
-  return [resultArray autorelease];       
+  return [resultArray autorelease];
 }
 
+// Decode Name form HEX
 + (NSString *)decodeNameFrom:(NSString *)hex
 {
   // Decode the Pokemon ID form HEX
