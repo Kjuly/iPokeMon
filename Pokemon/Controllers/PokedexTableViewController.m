@@ -176,10 +176,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
-                                                                     initWithPokemonID:[indexPath row]];
-  [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
-  [pokemonDetailTabViewController release];
+  if (self.pokedexSequence & (1 << [indexPath row])) {
+    PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
+                                                                       initWithPokemonID:[indexPath row]];
+    [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
+    [pokemonDetailTabViewController release];
+  }
 }
 
 @end
