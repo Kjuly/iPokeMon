@@ -14,6 +14,7 @@
 @implementation BagItemTableViewController
 
 @synthesize items = items_;
+@synthesize itemNumberSequence = itemNumberSequence;
 
 -(void)dealloc
 {
@@ -89,6 +90,10 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Fetch data from web service
+  // max: 0x03e7 = 999
+  self.itemNumberSequence = 0x0000;
 }
 
 - (void)viewDidUnload

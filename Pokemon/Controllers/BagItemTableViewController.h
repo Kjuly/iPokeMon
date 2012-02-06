@@ -11,9 +11,11 @@
 @interface BagItemTableViewController : UITableViewController
 {
   NSMutableArray * items_;
+  NSInteger itemNumberSequence_;
 }
 
 @property (nonatomic, copy) NSMutableArray * items;
+@property (nonatomic, assign) NSInteger itemNumberSequence;
 
 - (id)initWithBagItem:(NSInteger)ItemTypeID;
 
