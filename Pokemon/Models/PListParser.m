@@ -10,11 +10,15 @@
 
 @implementation PListParser
 
++ (NSString *)getFilePath:(NSString *)fileName {
+  return [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
+}
+
+#pragma mark - Pokedex
+
 // Get All Pokemons as an Array for Pokedex
-+ (NSArray *)pokedex
-{
-  NSString * pokedexPList = [[NSBundle mainBundle] pathForResource:@"Pokedex" ofType:@"plist"];
-  return [NSArray arrayWithContentsOfFile:pokedexPList];
++ (NSArray *)pokedex {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"Pokedex"]];
 }
 
 // Get Info for One Pokemon
@@ -60,6 +64,40 @@
                                                                singleImageHeight));
   
   return [UIImage imageWithCGImage:cgImage];
+}
+
+#pragma mark - Bag[Item]
+
++ (NSArray *)bagItems {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagItems"]];
+}
+
++ (NSArray *)bagMedicine {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagMedicine"]];
+}
+
++ (NSArray *)bagPokeballs {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagPokeballs"]];
+}
+
++ (NSArray *)bagTMsHMs {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagTMsHMs"]];
+}
+
++ (NSArray *)bagBerries {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagBerries"]];
+}
+
++ (NSArray *)bagMail {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagMail"]];
+}
+
++ (NSArray *)bagBattleItems {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagBattleItems"]];
+}
+
++ (NSArray *)bagKeyItems {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagKeyItems"]];
 }
 
 @end

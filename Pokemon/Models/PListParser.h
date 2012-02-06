@@ -10,10 +10,21 @@
 
 @interface PListParser : NSObject
 
+// Pokedex
 + (NSArray *)pokedex;
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID;
 
 + (NSArray *)pokedexGenerationOneImageArray;
 + (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID;
+
+// Bag[Item]
++ (NSArray *)bagItems;
++ (NSArray *)bagMedicine;
++ (NSArray *)bagPokeballs;
++ (NSArray *)bagTMsHMs;
++ (NSArray *)bagBerries;
++ (NSArray *)bagMail;
++ (NSArray *)bagBattleItems;
++ (NSArray *)bagKeyItems;
 
 @end
