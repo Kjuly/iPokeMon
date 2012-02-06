@@ -11,6 +11,7 @@
 #import "CustomNavigationController.h"
 
 @class PokedexTableViewController;
+@class BagTableViewController;
 
 @interface UtilityBallMenuViewController : UIViewController <CustomNavigationControllerDelegate>
 {
@@ -26,6 +27,7 @@
   UIButton * buttonClose_;
   
   PokedexTableViewController * pokedexTableViewController_;
+  BagTableViewController * bagTableViewController_;
 }
 
 @property (nonatomic, retain) UIButton * buttonOpen;
@@ -40,6 +42,7 @@
 @property (nonatomic, retain) UIButton * buttonClose;
 
 @property (nonatomic, retain) PokedexTableViewController * pokedexTableViewController;
+@property (nonatomic, retain) BagTableViewController     * bagTableViewController;
 
 // Button Action
 - (void)runButtonActions:(id)sender;

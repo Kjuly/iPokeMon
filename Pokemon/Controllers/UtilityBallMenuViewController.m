@@ -10,6 +10,7 @@
 
 #import "../GlobalConstants.h"
 #import "PokedexTableViewController.h"
+#import "BagTableViewController.h"
 
 @implementation UtilityBallMenuViewController
 
@@ -25,21 +26,23 @@
 @synthesize buttonClose           = buttonClose_;
 
 @synthesize pokedexTableViewController = pokedexTableViewController_;
+@synthesize bagTableViewController     = bagTableViewController_;
 
 -(void)dealloc
 {
   [buttonOpen_ release];
   
-  [ballMenu_ release];
-  [buttonShowPokedex_ release];
-  [buttonShowPokemon_ release];
-  [buttonShowBag_ release];
+  [ballMenu_              release];
+  [buttonShowPokedex_     release];
+  [buttonShowPokemon_     release];
+  [buttonShowBag_         release];
   [buttonShowTrainerCard_ release];
-  [buttonHotkey_ release];
-  [buttonSetGame_ release];
-  [buttonClose_ release];
+  [buttonHotkey_          release];
+  [buttonSetGame_         release];
+  [buttonClose_           release];
   
   [pokedexTableViewController_ release];
+  [bagTableViewController_     release];
   
   [super dealloc];
 }
@@ -236,6 +239,7 @@
   self.buttonClose            = nil;
   
   self.pokedexTableViewController = nil;
+  self.bagTableViewController     = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -271,6 +275,26 @@
       [self showPokedex:sender];
       break;
       
+    case kTagUtilityBallButtonShowPokemon:
+      [self showPokemon:sender];
+      break;
+      
+    case kTagUtilityBallButtonShowBag:
+      [self showBag:sender];
+      break;
+      
+    case kTagUtilityBallButtonShowTrainerCard:
+      [self showTrainerCard:sender];
+      break;
+      
+    case kTagUtilityBallButtonHotkey:
+      [self runHotkey:sender];
+      break;
+      
+    case kTagUtilityBallButtonSetGame:
+      [self setGame:sender];
+      break;
+      
     case kTagUtilityBallButtonClose:
       [self closeView:sender];
       break;
@@ -295,7 +319,12 @@
 }
 
 - (void)showBag:(id)sender {
-  NSLog(@"--- Button Clicked: showBag");
+  if (! self.bagTableViewController) {
+    BagTableViewController * bagTableViewController = [[BagTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.bagTableViewController = bagTableViewController;
+    [bagTableViewController release];
+  }
+  [self.navigationController pushViewController:self.bagTableViewController animated:YES];
 }
 
 - (void)showTrainerCard:(id)sender {
