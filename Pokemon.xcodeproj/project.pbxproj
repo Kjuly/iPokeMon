@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */; };
 		7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */; };
+		7F0E514614DFC9AB006F7477 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514514DFC9AB006F7477 /* BagItems.plist */; };
+		7F0E514E14DFCA5C006F7477 /* BagBattleItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514714DFCA5C006F7477 /* BagBattleItems.plist */; };
+		7F0E514F14DFCA5C006F7477 /* BagBerries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514814DFCA5C006F7477 /* BagBerries.plist */; };
+		7F0E515014DFCA5C006F7477 /* BagKeyItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514914DFCA5C006F7477 /* BagKeyItems.plist */; };
+		7F0E515114DFCA5C006F7477 /* BagMail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514A14DFCA5C006F7477 /* BagMail.plist */; };
+		7F0E515214DFCA5C006F7477 /* BagMedicine.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514B14DFCA5C006F7477 /* BagMedicine.plist */; };
+		7F0E515314DFCA5C006F7477 /* BagPokeballs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514C14DFCA5C006F7477 /* BagPokeballs.plist */; };
+		7F0E515414DFCA5C006F7477 /* BagTMsHMs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514D14DFCA5C006F7477 /* BagTMsHMs.plist */; };
 		7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB6F14DE48890068F681 /* Pokedex.plist */; };
 		7F2EFB7314DE5F370068F681 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7214DE5F370068F681 /* PListParser.m */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
@@ -89,6 +97,14 @@
 		7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTableViewController.m; sourceTree = "<group>"; };
 		7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewController.h; sourceTree = "<group>"; };
 		7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewController.m; sourceTree = "<group>"; };
+		7F0E514514DFC9AB006F7477 /* BagItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagItems.plist; sourceTree = "<group>"; };
+		7F0E514714DFCA5C006F7477 /* BagBattleItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBattleItems.plist; sourceTree = "<group>"; };
+		7F0E514814DFCA5C006F7477 /* BagBerries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBerries.plist; sourceTree = "<group>"; };
+		7F0E514914DFCA5C006F7477 /* BagKeyItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagKeyItems.plist; sourceTree = "<group>"; };
+		7F0E514A14DFCA5C006F7477 /* BagMail.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMail.plist; sourceTree = "<group>"; };
+		7F0E514B14DFCA5C006F7477 /* BagMedicine.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMedicine.plist; sourceTree = "<group>"; };
+		7F0E514C14DFCA5C006F7477 /* BagPokeballs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagPokeballs.plist; sourceTree = "<group>"; };
+		7F0E514D14DFCA5C006F7477 /* BagTMsHMs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagTMsHMs.plist; sourceTree = "<group>"; };
 		7F2EFB6F14DE48890068F681 /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
 		7F2EFB7114DE5F370068F681 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F2EFB7214DE5F370068F681 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
@@ -208,7 +224,15 @@
 		7F2EFB6D14DE48440068F681 /* PLists */ = {
 			isa = PBXGroup;
 			children = (
+				7F0E514714DFCA5C006F7477 /* BagBattleItems.plist */,
+				7F0E514814DFCA5C006F7477 /* BagBerries.plist */,
+				7F0E514914DFCA5C006F7477 /* BagKeyItems.plist */,
+				7F0E514A14DFCA5C006F7477 /* BagMail.plist */,
+				7F0E514B14DFCA5C006F7477 /* BagMedicine.plist */,
+				7F0E514C14DFCA5C006F7477 /* BagPokeballs.plist */,
+				7F0E514D14DFCA5C006F7477 /* BagTMsHMs.plist */,
 				7F2EFB6F14DE48890068F681 /* Pokedex.plist */,
+				7F0E514514DFC9AB006F7477 /* BagItems.plist */,
 			);
 			path = PLists;
 			sourceTree = "<group>";
@@ -555,6 +579,14 @@
 				7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */,
 				7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */,
 				7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */,
+				7F0E514614DFC9AB006F7477 /* BagItems.plist in Resources */,
+				7F0E514E14DFCA5C006F7477 /* BagBattleItems.plist in Resources */,
+				7F0E514F14DFCA5C006F7477 /* BagBerries.plist in Resources */,
+				7F0E515014DFCA5C006F7477 /* BagKeyItems.plist in Resources */,
+				7F0E515114DFCA5C006F7477 /* BagMail.plist in Resources */,
+				7F0E515214DFCA5C006F7477 /* BagMedicine.plist in Resources */,
+				7F0E515314DFCA5C006F7477 /* BagPokeballs.plist in Resources */,
+				7F0E515414DFCA5C006F7477 /* BagTMsHMs.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
