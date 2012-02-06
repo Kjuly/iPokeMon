@@ -128,8 +128,7 @@
     [cell setSelectedBackgroundView:nil];
   }
   // Set Pokemon ID as subtitle
-  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#00%d", rowID + 1]];
-  
+  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", rowID + 1]];
   
   return cell;
 }
@@ -177,7 +176,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc] init];
+  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
+                                                                     initWithPokemonID:[indexPath row]];
   [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
   [pokemonDetailTabViewController release];
 }

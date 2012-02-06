@@ -10,4 +10,6 @@
 
 @interface PokemonAreaViewController : UIViewController
 
+- (id)initWithPokemonID:(NSInteger)pokemonID;
+
 @end

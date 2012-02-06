@@ -27,13 +27,14 @@
   [super dealloc];
 }
 
-- (id)init {
-  self = [super init];
+- (id)initWithPokemonID:(NSInteger)pokemonID
+{
+  self = [self init];
   if (self) {
     // Add child view controllers to each tab
-    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc] init];
-    PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] init];
-    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] init];
+    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemonID:pokemonID];
+    PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonID:pokemonID];
+    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemonID:pokemonID];
     
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Categories.png", @"image", pokemonInfoViewController, @"viewController", nil],
@@ -44,6 +45,13 @@
     [pokemonInfoViewController release];
     [pokemonAreaViewController release];
     [pokemonSizeViewController release];
+  }
+  return self;
+}
+
+- (id)init {
+  self = [super init];
+  if (self) {
   }
   return self;
 }

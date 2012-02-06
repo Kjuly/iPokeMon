@@ -19,4 +19,6 @@
 @property (nonatomic, retain) PoketchTabBar * tabBar;
 @property (nonatomic, copy) NSArray * tabBarItems;
 
+- (id)initWithPokemonID:(NSInteger)pokemonID;
+
 @end

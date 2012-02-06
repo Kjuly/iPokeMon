@@ -10,4 +10,6 @@
 
 @interface PokemonSizeViewController : UIViewController
 
+- (id)initWithPokemonID:(NSInteger)pokemonID;
+
 @end

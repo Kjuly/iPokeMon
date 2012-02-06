@@ -10,6 +10,15 @@
 
 @implementation PokemonMemoViewController
 
+- (id)initWithPokemonID:(NSInteger)pokemonID
+{
+  self = [self init];
+  if (self) {
+    
+  }
+  return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

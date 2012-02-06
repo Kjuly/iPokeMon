@@ -10,4 +10,6 @@
 
 @interface PokemonMemoViewController : UIViewController
 
+- (id)initWithPokemonID:(NSInteger)pokemonID;
+
 @end

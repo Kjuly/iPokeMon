@@ -11,7 +11,9 @@
 @interface PListParser : NSObject
 
 + (NSArray *)pokedex;
++ (NSDictionary *)pokemonInfo:(NSInteger)pokemonID;
 
 + (NSArray *)pokedexGenerationOneImageArray;
++ (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID;
 
 @end

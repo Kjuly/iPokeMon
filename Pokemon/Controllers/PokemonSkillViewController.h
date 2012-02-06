@@ -10,4 +10,6 @@
 
 @interface PokemonSkillViewController : UIViewController
 
+- (id)initWithPokemonID:(NSInteger)pokemonID;
+
 @end

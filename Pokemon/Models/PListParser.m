@@ -10,12 +10,19 @@
 
 @implementation PListParser
 
+// Get All Pokemons as an Array for Pokedex
 + (NSArray *)pokedex
 {
   NSString * pokedexPList = [[NSBundle mainBundle] pathForResource:@"Pokedex" ofType:@"plist"];
   return [NSArray arrayWithContentsOfFile:pokedexPList];
 }
 
+// Get Info for One Pokemon
++ (NSDictionary *)pokemonInfo:(NSInteger)pokemonID {
+  return [[self pokedex] objectAtIndex:pokemonID];
+}
+
+// Get All Pokemon Photo as an Array for Pokedex
 + (NSArray *)pokedexGenerationOneImageArray
 {
   NSMutableArray * pokedexGenerationOneImageArray = [[NSMutableArray alloc] init];
@@ -37,6 +44,22 @@
   }
   
   return [pokedexGenerationOneImageArray autorelease];
+}
+
+// Return A Single Image for One Pokemon
++ (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID
+{
+  UIImage * fullImage = [UIImage imageNamed:@"GenerationOne.png"];
+  NSInteger singleImageHeight = 96;
+  NSInteger singleImageWidth  = 96;
+  
+  CGImageRef cgImage = CGImageCreateWithImageInRect(fullImage.CGImage,
+                                                    CGRectMake(singleImageWidth * (pokemonID % 13),
+                                                               singleImageHeight * (pokemonID / 13),
+                                                               singleImageWidth,
+                                                               singleImageHeight));
+  
+  return [UIImage imageWithCGImage:cgImage];
 }
 
 @end
