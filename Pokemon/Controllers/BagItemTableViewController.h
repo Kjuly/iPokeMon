@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface BagItemTableViewController : UITableViewController
+{
+  NSMutableArray * items_;
+}
+
+@property (nonatomic, copy) NSMutableArray * items;
+
+- (id)initWithBagItem:(NSInteger)ItemTypeID;
 
 @end

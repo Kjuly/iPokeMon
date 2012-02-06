@@ -8,6 +8,7 @@
 
 #import "BagTableViewController.h"
 
+#import "BagItemTableViewController.h"
 
 @implementation BagTableViewController
 
@@ -153,14 +154,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc]
+                                                             initWithBagItem:[indexPath row]];
+  [self.navigationController pushViewController:bagItemTableViewController animated:YES];
+  [bagItemTableViewController release];
 }
 
 @end

@@ -8,8 +8,64 @@
 
 #import "BagItemTableViewController.h"
 
+#import "PListParser.h"
+
 
 @implementation BagItemTableViewController
+
+@synthesize items = items_;
+
+-(void)dealloc
+{
+  [items_ release];
+  
+  [super dealloc];
+}
+
+- (id)initWithBagItem:(NSInteger)ItemTypeID
+{
+  self = [self initWithStyle:UITableViewStylePlain];
+  if (self) {
+    switch (ItemTypeID) {
+      case 0:
+        items_ = [[PListParser bagItems] mutableCopy];
+        break;
+        
+      case 1:
+        items_ = [[PListParser bagMedicine] mutableCopy];
+        break;
+        
+      case 2:
+        items_ = [[PListParser bagPokeballs] mutableCopy];
+        break;
+        
+      case 3:
+        items_ = [[PListParser bagTMsHMs] mutableCopy];
+        break;
+        
+      case 4:
+        items_ = [[PListParser bagBerries] mutableCopy];
+        break;
+        
+      case 5:
+        items_ = [[PListParser bagMail] mutableCopy];
+        break;
+        
+      case 6:
+        items_ = [[PListParser bagBattleItems] mutableCopy];
+        break;
+        
+      case 7:
+        items_ = [[PListParser bagKeyItems] mutableCopy];
+        break;
+        
+      default:
+        self.items = nil;
+        break;
+    }
+  }
+  return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,19 +89,13 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.items = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,18 +126,12 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-  // Return the number of sections.
-  return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-  // Return the number of rows in the section.
-  return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,6 +144,7 @@
   }
   
   // Configure the cell...
+  [cell.textLabel setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
   
   return cell;
 }
