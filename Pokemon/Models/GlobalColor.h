@@ -11,6 +11,7 @@
 @interface GlobalColor : NSObject
 
 + (UIColor *)backgroundColorMain;
++ (UIColor *)backgroundColorTransparentBlack;
 + (UIColor *)backgroundColorBar;
 
 @end;

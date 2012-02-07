@@ -20,6 +20,11 @@
                          alpha:1.0f];
 }
 
+// Black transparent background
++ (UIColor *)backgroundColorTransparentBlack {
+  return [UIColor colorWithWhite:0.0f alpha:0.6f];
+}
+
 // Bar background color
 + (UIColor *)backgroundColorBar
 {

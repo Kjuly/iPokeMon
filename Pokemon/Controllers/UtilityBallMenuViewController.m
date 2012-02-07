@@ -9,6 +9,7 @@
 #import "UtilityBallMenuViewController.h"
 
 #import "../GlobalConstants.h"
+#import "GlobalColor.h"
 #import "PokedexTableViewController.h"
 #import "BagTableViewController.h"
 
@@ -74,7 +75,7 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor clearColor]];
+  [self.view setBackgroundColor:[GlobalColor backgroundColorTransparentBlack]];
   
   // Ball Menu View
   UIView * ballMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kUtilityBallMenuWidth) / 2.0f,
