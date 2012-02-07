@@ -121,8 +121,7 @@
   NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
-  NSLog(@"<<< %d", [self.pokedexSequence count] - rowID / 16 - 1);
-  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue]  & (1 << (rowID % 16))) {
+  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
     [cell.textLabel setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
     [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }
@@ -180,7 +179,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger rowID = [indexPath row];
-  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16)] intValue]  & (1 << (rowID % 16))) {
+  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
     PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                        initWithPokemonID:[indexPath row]];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];

@@ -29,9 +29,35 @@ const NSRange kRangePokemonName = {0, 4};
     NSScanner * scanner = [[NSScanner alloc] initWithString:[hexInString substringWithRange:NSMakeRange(x, hexStringSize)]];
     uint_fast32_t hex;
     [scanner scanHexInt:&hex];
-    NSLog(@"%d, %#x", hex, hex);
+    [scanner release];
+//    NSLog(@"%d, %#x", hex, hex);
     [hexArray addObject:[NSNumber numberWithInt:hex]];
   }
+  
+//  NSMutableData * hexArray = [[NSMutableData alloc] init];
+//  unsigned char whole_byte;
+//  char byte_chars[3] = {'\0','\0','\0'};
+//  for (int i = 0; i < [hexInString length] / 2; ++i) {
+//    byte_chars[0] = [hexInString characterAtIndex:i * 2];
+//    byte_chars[1] = [hexInString characterAtIndex:i * 2 + 1];
+//    whole_byte = strtol(byte_chars, NULL, 16);
+//    [hexArray appendBytes:&whole_byte length:1];
+//  }
+  
+//  unsigned char hex[];
+  
+//  char * myBuffer = (char *)malloc((int)[hexInString length] / 2 + 1);
+//  bzero(myBuffer, [hexInString length] / 2 + 1);
+//  for (int i = 0; i < [hexInString length] - 1; i += 2) {
+//    unsigned int anInt;
+//    NSString * hexCharStr = [hexInString substringWithRange:NSMakeRange(i, 2)];
+//    NSScanner * scanner = [[[NSScanner alloc] initWithString:hexCharStr] autorelease];
+//    [scanner scanHexInt:&anInt];
+//    myBuffer[i / 2] = (char)anInt;
+//  }
+//
+//  NSLog(@"%s", myBuffer);
+//  free(myBuffer);
   
   return [hexArray autorelease];
 }
