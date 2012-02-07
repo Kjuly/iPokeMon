@@ -17,6 +17,25 @@ const NSRange kRangePokemonName = {0, 4};
 
 @implementation DataDecoder
 
+// Generate a Hex Array from a Hex String
++ (NSMutableArray *)generateHexArrayFrom:(NSString *)hexInString
+{
+//  NSData * bytes = [hexInString dataUsingEncoding:NSUTF8StringEncoding];
+//  NSLog(@"%@", bytes);
+  
+  NSMutableArray * hexArray = [[NSMutableArray alloc] init];
+  int hexStringSize = sizeof(uint_fast32_t);
+  for (int x = 0; x <= [hexInString length] - hexStringSize; x += hexStringSize) {
+    NSScanner * scanner = [[NSScanner alloc] initWithString:[hexInString substringWithRange:NSMakeRange(x, hexStringSize)]];
+    uint_fast32_t hex;
+    [scanner scanHexInt:&hex];
+    NSLog(@"%d, %#x", hex, hex);
+    [hexArray addObject:[NSNumber numberWithInt:hex]];
+  }
+  
+  return [hexArray autorelease];
+}
+
 // Decode Binary Data for Pokedex
 + (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary
 {

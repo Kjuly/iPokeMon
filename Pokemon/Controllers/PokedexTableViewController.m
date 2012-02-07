@@ -21,8 +21,9 @@
 
 - (void)dealloc
 {
-  [pokedex_       release];
-  [pokedexImages_ release];
+  [pokedexSequence_ release];
+  [pokedex_         release];
+  [pokedexImages_   release];
   
   [super dealloc];
 }
@@ -50,7 +51,8 @@
   [super viewDidLoad];
   
   // Fetch data from web service
-  self.pokedexSequence = 0x2d;
+  NSString * dataFromWebService = @"2db7aab7";
+  self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
   self.pokedex         = [PListParser pokedex];
   self.pokedexImages   = [PListParser pokedexGenerationOneImageArray];
 }
@@ -59,8 +61,9 @@
 {
   [super viewDidUnload];
 
-  self.pokedex       = nil;
-  self.pokedexImages = nil;
+  self.pokedexSequence = nil;
+  self.pokedex         = nil;
+  self.pokedexImages   = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,23 +115,23 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]]; // Default Image
   }
   
   // Configure the cell
-  NSUInteger rowID = [indexPath row];
+  NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
-  if (self.pokedexSequence & (1 << rowID)) {
+  NSLog(@"<<< %d", [self.pokedexSequence count] - rowID / 16 - 1);
+  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue]  & (1 << (rowID % 16))) {
     [cell.textLabel setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
     [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }
   else {
     [cell.textLabel setText:@"? ? ?"];
-    [cell setSelectedBackgroundView:nil];
+    [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]];
   }
   // Set Pokemon ID as subtitle
-  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", rowID + 1]];
+  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
   
   return cell;
 }
@@ -176,7 +179,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (self.pokedexSequence & (1 << [indexPath row])) {
+  NSInteger rowID = [indexPath row];
+  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16)] intValue]  & (1 << (rowID % 16))) {
     PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                        initWithPokemonID:[indexPath row]];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];

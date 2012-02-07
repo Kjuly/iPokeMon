@@ -26,5 +26,61 @@
 		<key>name</key>
 		<string>Charizard</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>Squirtle</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Wartortle</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Blastoise</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Caterpie</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Metapod</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Butterfree</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Weedle</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Kahuna</string>
+	</dict>
+	<dict>
+		<key>Beedrill</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>Pidgey</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Pidgeotto</string>
+	</dict>
+	<dict>
+		<key>Pidgeot</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Rattata</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Raticate</string>
+	</dict>
 </array>
 </plist>
