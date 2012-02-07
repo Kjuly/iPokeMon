@@ -74,6 +74,7 @@
 		7FAC497214DEE701008BAB45 /* PokemonMoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497114DEE701008BAB45 /* PokemonMoveViewController.m */; };
 		7FAC497514DEE725008BAB45 /* PokemonSkillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497414DEE725008BAB45 /* PokemonSkillViewController.m */; };
 		7FAC497814DEE74E008BAB45 /* PokemonMemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497714DEE74E008BAB45 /* PokemonMemoViewController.m */; };
+		7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -182,6 +183,8 @@
 		7FAC497414DEE725008BAB45 /* PokemonSkillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonSkillViewController.m; sourceTree = "<group>"; };
 		7FAC497614DEE74E008BAB45 /* PokemonMemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMemoViewController.h; sourceTree = "<group>"; };
 		7FAC497714DEE74E008BAB45 /* PokemonMemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMemoViewController.m; sourceTree = "<group>"; };
+		7FBAA70814E15A2A0011DCB0 /* GlobalColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalColor.h; sourceTree = "<group>"; };
+		7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalColor.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -381,6 +384,8 @@
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
 				7F39A2F214DD07DA00C77485 /* DataDecoder.m */,
+				7FBAA70814E15A2A0011DCB0 /* GlobalColor.h */,
+				7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -645,6 +650,7 @@
 				7FAC497814DEE74E008BAB45 /* PokemonMemoViewController.m in Sources */,
 				7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */,
 				7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */,
+				7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

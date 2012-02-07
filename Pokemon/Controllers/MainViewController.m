@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 
 #import "../GlobalConstants.h"
+#import "GlobalColor.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
@@ -65,6 +66,9 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
+  
+  // Set Background Color
+  [self.view setBackgroundColor:[GlobalColor backgroundColorMain]];
   
   // Map View Controller
   MapViewController * mapViewController = [[MapViewController alloc] init];

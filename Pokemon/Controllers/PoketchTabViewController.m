@@ -34,10 +34,8 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
     
     // Add child view controllers to each tab
     UIViewController * controller1 = [[UIViewController alloc] init];
-    [controller1.view setBackgroundColor:[UIColor blueColor]];
     UIViewController * controller2 = [[UIViewController alloc] init];
     UIViewController * controller3 = [[UIViewController alloc] init];
-    [controller3.view setBackgroundColor:[UIColor redColor]];
     UIViewController * controller4 = [[UIViewController alloc] init];
     
     self.tabBarItems = [NSArray arrayWithObjects:
@@ -94,7 +92,7 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
                                             delegate:self];
   
   tabBar_.frame = CGRectMake((viewWidth - kPoketchTabBarWdith) / 2.0f,
-                             viewHeight - kPoketchTabBarHeight - 10.0f,
+                             viewHeight - kPoketchTabBarHeight,
                              kPoketchTabBarWdith,
                              kPoketchTabBarHeight);
   [self.view addSubview:tabBar_];
