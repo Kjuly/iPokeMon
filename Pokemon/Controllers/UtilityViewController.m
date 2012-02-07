@@ -9,6 +9,7 @@
 #import "UtilityViewController.h"
 
 #import "../GlobalConstants.h"
+#import "GlobalColor.h"
 
 @implementation UtilityViewController
 
@@ -54,7 +55,7 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, kMapViewHeight, 320.0f, kUtilityBarHeight)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor colorWithWhite:0.9f alpha:1.0f]];
+  [self.view setBackgroundColor:[GlobalColor backgroundColorBar]];
   
   // Four buttons
   {

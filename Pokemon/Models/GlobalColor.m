@@ -11,12 +11,19 @@
 
 @implementation GlobalColor
 
+// Main background color
 + (UIColor *)backgroundColorMain
 {
   return [UIColor colorWithRed:73.0f / 255.0f
                          green:98.0f / 255.0f
                           blue:125.0f/ 255.0f
                          alpha:1.0f];
+}
+
+// Bar background color
++ (UIColor *)backgroundColorBar
+{
+  return [UIColor whiteColor];
 }
 
 @end
