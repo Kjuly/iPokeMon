@@ -115,7 +115,10 @@
                                                                     kUtilityBallMenuHeight / 2 - triangleA - buttonRadius,
                                                                     kUtilityBallMenuButtonDiameter,
                                                                     kUtilityBallMenuButtonDiameter)];
-    [buttonShowPokedex_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowPokedex_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                                  forState:UIControlStateNormal];
+    [buttonShowPokedex_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowPokedex.png"]
+                        forState:UIControlStateNormal];
     [buttonShowPokedex_ setTag:kTagUtilityBallButtonShowPokedex];
     [buttonShowPokedex_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowPokedex_];
@@ -131,7 +134,10 @@
                                                                     kUtilityBallMenuHeight / 2 - triangleHypotenuse - buttonRadius,
                                                                     kUtilityBallMenuButtonDiameter,
                                                                     kUtilityBallMenuButtonDiameter)];
-    [buttonShowPokemon_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowPokemon_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                                  forState:UIControlStateNormal];
+    [buttonShowPokemon_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowPokemon.png"]
+                        forState:UIControlStateNormal];
     [buttonShowPokemon_ setTag:kTagUtilityBallButtonShowPokemon];
     [buttonShowPokemon_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowPokemon_];
@@ -147,7 +153,10 @@
                                                                 kUtilityBallMenuHeight / 2 - triangleA - buttonRadius,
                                                                 kUtilityBallMenuButtonDiameter,
                                                                 kUtilityBallMenuButtonDiameter)];
-    [buttonShowBag_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowBag_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                              forState:UIControlStateNormal];
+    [buttonShowBag_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowBag.png"]
+                    forState:UIControlStateNormal];
     [buttonShowBag_ setTag:kTagUtilityBallButtonShowBag];
     [buttonShowBag_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowBag_];
@@ -163,7 +172,10 @@
                                                                         kUtilityBallMenuHeight / 2 + triangleA - buttonRadius,
                                                                         kUtilityBallMenuButtonDiameter,
                                                                         kUtilityBallMenuButtonDiameter)];
-    [buttonShowTrainerCard_ setBackgroundColor:[UIColor redColor]];
+    [buttonShowTrainerCard_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                                      forState:UIControlStateNormal];
+    [buttonShowTrainerCard_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowTrainerCard.png"]
+                            forState:UIControlStateNormal];
     [buttonShowTrainerCard_ setTag:kTagUtilityBallButtonShowTrainerCard];
     [buttonShowTrainerCard_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonShowTrainerCard_];
@@ -179,7 +191,10 @@
                                                                kUtilityBallMenuHeight / 2 + triangleHypotenuse - buttonRadius,
                                                                kUtilityBallMenuButtonDiameter,
                                                                kUtilityBallMenuButtonDiameter)];
-    [buttonHotkey_ setBackgroundColor:[UIColor redColor]];
+    [buttonHotkey_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                             forState:UIControlStateNormal];
+    [buttonHotkey_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_RunHotKey.png"]
+                   forState:UIControlStateNormal];
     [buttonHotkey_ setTag:kTagUtilityBallButtonHotkey];
     [buttonHotkey_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonHotkey_];
@@ -195,7 +210,10 @@
                                                                 kUtilityBallMenuHeight / 2 + triangleA - buttonRadius,
                                                                 kUtilityBallMenuButtonDiameter,
                                                                 kUtilityBallMenuButtonDiameter)];
-    [buttonSetGame_ setBackgroundColor:[UIColor redColor]];
+    [buttonSetGame_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                              forState:UIControlStateNormal];
+    [buttonSetGame_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_SetGame.png"]
+                    forState:UIControlStateNormal];
     [buttonSetGame_ setTag:kTagUtilityBallButtonSetGame];
     [buttonSetGame_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonSetGame_];
@@ -210,7 +228,8 @@
                                                               kUtilityBallMenuHeight / 2 - buttonRadius,
                                                               kUtilityBallMenuButtonDiameter,
                                                               kUtilityBallMenuButtonDiameter)];
-    [buttonClose_ setBackgroundColor:[UIColor redColor]];
+    [buttonClose_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+                                  forState:UIControlStateNormal];
     [buttonClose_ setTag:kTagUtilityBallButtonClose];
     [buttonClose_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
     [self.ballMenu addSubview:buttonClose_];

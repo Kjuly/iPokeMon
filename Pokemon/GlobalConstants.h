@@ -14,7 +14,7 @@
 #define kUtilityBallMenuWidth  256.0f
 #define kUtilityBallMenuHeight 256.0f
 #define kDistanceFromUtilityBallCenter 112.0f
-#define kUtilityBallMenuButtonDiameter 32.0f
+#define kUtilityBallMenuButtonDiameter 64.0f
 
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,
