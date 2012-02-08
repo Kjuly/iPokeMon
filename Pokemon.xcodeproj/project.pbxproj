@@ -31,6 +31,7 @@
 		7F51C42A14D8180D0091902D /* UtilityView_LocateMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */; };
 		7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */; };
 		7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */; };
+		7F5F0D6814E28B3600D996D4 /* NavigationBarBackgroundBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */; };
@@ -136,6 +137,7 @@
 		7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_LocateMe.png; sourceTree = "<group>"; };
 		7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_SetAccount.png; sourceTree = "<group>"; };
 		7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_ShowWorld.png; sourceTree = "<group>"; };
+		7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundBlue.png; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -495,6 +497,7 @@
 		7FBAA71014E170430011DCB0 /* UtilityBall */ = {
 			isa = PBXGroup;
 			children = (
+				7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */,
 				7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */,
 				7FBAA71614E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png */,
 				7FBAA71714E177200011DCB0 /* UtilityBallMenuIcon_RunHotKey.png */,
@@ -632,6 +635,7 @@
 				7FBAA72214E177200011DCB0 /* UtilityBallMenuIcon_ShowTrainerCard.png in Resources */,
 				7FBAA72314E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png in Resources */,
 				7FBAA72414E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png in Resources */,
+				7F5F0D6814E28B3600D996D4 /* NavigationBarBackgroundBlue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

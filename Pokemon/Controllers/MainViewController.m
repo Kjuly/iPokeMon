@@ -126,14 +126,12 @@
 - (void)openBallMenuView:(id)sender
 {
   if (! self.utilityNavigationController) {
+    NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
     UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
-    CustomNavigationController * utilityNavigationController = [[CustomNavigationController alloc]
-                                                                initWithRootViewController:utilityBallMenuViewController];
+    utilityNavigationController_ = [[CustomNavigationController alloc]
+                                    initWithRootViewController:utilityBallMenuViewController];
     [utilityBallMenuViewController release];
-    self.utilityNavigationController = utilityNavigationController;
-    [utilityNavigationController release];
   }
-  
   [self.view addSubview:self.utilityNavigationController.view];
 }
 

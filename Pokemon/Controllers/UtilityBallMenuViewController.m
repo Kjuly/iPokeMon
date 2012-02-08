@@ -279,11 +279,11 @@
 #pragma mark - CustomNavigationControllerDelegate
 
 - (BOOL)hasNavigationBar {
-  return NO;
+  return YES;
 }
 
 - (UIImage *)navigationBarBackgroundImage {
-  return [UIImage imageNamed:@"UtilityNavigationBarBackground.png"];
+  return [UIImage imageNamed:@"NavigationBarBackgroundBlue.png"];
 }
 
 #pragma mark - Button Action

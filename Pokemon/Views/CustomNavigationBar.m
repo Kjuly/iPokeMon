@@ -34,11 +34,11 @@
     float imageHeight= navigationBarBackgroundImage_.frame.size.height;
     [navigationBarBackgroundImage_.image drawInRect:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
   }
-  else
-    [super drawRect:rect];
+  else [super drawRect:rect];
 }
 
-- (CGSize)sizeThatFits:(CGSize)size {
+- (CGSize)sizeThatFits:(CGSize)size
+{
   UIInterfaceOrientation orientation = (UIInterfaceOrientation)[[UIDevice currentDevice] orientation];
   float newSizeWidth;
   if ( UIInterfaceOrientationIsLandscape(orientation) ) newSizeWidth = 480.0f;

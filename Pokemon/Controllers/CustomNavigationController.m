@@ -8,7 +8,7 @@
 
 #import "CustomNavigationController.h"
 
-//#import "CustomNavigationBar.h"
+#import "CustomNavigationBar.h"
 
 @implementation CustomNavigationController
 
@@ -21,22 +21,22 @@
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-//  NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
-//                                                        owner:self
-//                                                      options:nil];
-//  self = [bundleArray lastObject];
-//  bundleArray = nil;
+//  self = [super initWithRootViewController:rootViewController];
   
-//  NSBundle * viewBundle = [NSBundle bundleForClass:([self class])];
-//  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
-//                                owner:self
-//                              options:nil];
+  NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
+                                                        owner:self
+                                                      options:nil];
+  self = [bundleArray lastObject];
+  bundleArray = nil;
   
-  if (self = [super initWithRootViewController:rootViewController]) {
+//  self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] lastObject];
+  
+//  if (self = [super initWithRootViewController:rootViewController]) {
+  if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
-    delegate_ = (id <CustomNavigationControllerDelegate>)rootViewController;
+    self.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
+    [self pushViewController:rootViewController animated:NO];
   }
-  
   return self;
 }
 
@@ -65,11 +65,9 @@
   [super viewDidLoad];
   
   // Set Navigation Bar
-//  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:[delegate_ navigationBarBackgroundImage]];
-  [self.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-  
-//  if (! [self.delegate hasNavigationBar])
-//    [self setNavigationBarHidden:YES];
+  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:[self.delegate navigationBarBackgroundImage]];
+  if (! [self.delegate hasNavigationBar])
+    [self setNavigationBarHidden:YES];
 }
 
 - (void)viewDidUnload
@@ -77,8 +75,6 @@
   [super viewDidUnload];
 
   self.delegate = nil;
-  
-  NSLog(@"--- CustomNavigationController viewDidUnload ---");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
