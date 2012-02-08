@@ -22,4 +22,6 @@
 
 @property (nonatomic, assign) id <CustomNavigationControllerDelegate> delegate;
 
++ (id)initWithNibAndRootViewController:(UIViewController *)rootViewController;
+
 @end

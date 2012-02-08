@@ -19,23 +19,38 @@
   [super dealloc];
 }
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController
+// Class Method of |initWithRootViewController:|
+// This one is perfect without any leak
++ (id)initWithNibAndRootViewController:(UIViewController *)rootViewController
 {
-//  self = [super initWithRootViewController:rootViewController];
-  
   NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
                                                         owner:self
                                                       options:nil];
-  self = [bundleArray lastObject];
+  CustomNavigationController * navigationController  = [bundleArray objectAtIndex:0];
   bundleArray = nil;
   
-//  self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] lastObject];
+  if (self) {
+    NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
+    navigationController.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
+    [navigationController pushViewController:rootViewController  animated:NO];
+  }
+  return navigationController;
+}
+
+// Instance Method of |initWithRootViewController:|
+// This instance method will cause a leak with nib's retain
+- (id)initWithRootViewController:(UIViewController *)rootViewController
+{
+  NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
+                                                        owner:nil
+                                                      options:nil];
+  self = [bundleArray objectAtIndex:0];
+  bundleArray = nil;
   
-//  if (self = [super initWithRootViewController:rootViewController]) {
   if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
     self.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
-    [self pushViewController:rootViewController animated:NO];
+    [self pushViewController:rootViewController  animated:NO];
   }
   return self;
 }
@@ -51,11 +66,11 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-/*- (void)loadView
+- (void)loadView
 {
   NSLog(@"--- CustomNavigationController loadView ---");
   [super loadView];
-}*/
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -75,6 +90,7 @@
   [super viewDidUnload];
 
   self.delegate = nil;
+  [[NSBundle mainBundle] unload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
