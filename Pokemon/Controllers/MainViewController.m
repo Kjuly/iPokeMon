@@ -99,7 +99,6 @@
   [self.buttonOpenBallMenu setContentMode:UIViewContentModeScaleAspectFit];
   [self.buttonOpenBallMenu setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIcon.png"]
                                      forState:UIControlStateNormal];
-//  [self.buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
   [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.buttonOpenBallMenu];
 }
