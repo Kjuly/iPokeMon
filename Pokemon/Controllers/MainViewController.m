@@ -128,7 +128,8 @@
   if (! self.utilityNavigationController) {
     NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
     UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
-    utilityNavigationController_ = [CustomNavigationController initWithNibAndRootViewController:utilityBallMenuViewController];
+    utilityNavigationController_ = [CustomNavigationController initWithRootViewController:utilityBallMenuViewController
+                                                             navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
     [utilityBallMenuViewController release];
   }
   [self.view addSubview:self.utilityNavigationController.view];

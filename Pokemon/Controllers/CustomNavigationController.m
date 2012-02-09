@@ -12,16 +12,19 @@
 
 @implementation CustomNavigationController
 
-@synthesize delegate = delegate_;
+@synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
 
 - (void)dealloc
 {
+  [navigationBarBackgroundImage_ release];
+  
   [super dealloc];
 }
 
 // Class Method of |initWithRootViewController:|
 // This one is perfect without any leak
-+ (id)initWithNibAndRootViewController:(UIViewController *)rootViewController
++ (id)initWithRootViewController:(UIViewController *)rootViewController
+    navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage
 {
   NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
                                                         owner:self
@@ -31,7 +34,7 @@
   
   if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
-    navigationController.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
+    navigationController.navigationBarBackgroundImage = navigationBarBackgroundImage;
     [navigationController pushViewController:rootViewController  animated:NO];
   }
   return navigationController;
@@ -49,7 +52,7 @@
   
   if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
-    self.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
+//    self.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
     [self pushViewController:rootViewController  animated:NO];
   }
   return self;
@@ -80,17 +83,14 @@
   [super viewDidLoad];
   
   // Set Navigation Bar
-  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:[self.delegate navigationBarBackgroundImage]];
-  if (! [self.delegate hasNavigationBar])
-    [self setNavigationBarHidden:YES];
+  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:self.navigationBarBackgroundImage];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
 
-  self.delegate = nil;
-  [[NSBundle mainBundle] unload];
+  self.navigationBarBackgroundImage = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -99,10 +99,20 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-/*
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated; // Uses a horizontal slide transition. Has no effect if the view controller is already in the stack.
+#pragma mark - UINavigationController Methods
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated; // Returns the popped controller.
+// Uses a horizontal slide transition.
+// Has no effect if the view controller is already in the stack.
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+  // Set original |backButton| hidden to show custom |backButton|
+  [viewController.navigationItem setHidesBackButton:YES];
+  
+  // Dispatch |UINavigationController|'s |pushViewController:animated:| method
+  [super pushViewController:viewController animated:animated];
+}
+
+/*- (UIViewController *)popViewControllerAnimated:(BOOL)animated; // Returns the popped controller.
 - (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated; // Pops view controllers until the one specified is on top. Returns the popped controllers.
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated; // Pops until there's only a single view controller left on the stack. Returns the popped controllers.
  */

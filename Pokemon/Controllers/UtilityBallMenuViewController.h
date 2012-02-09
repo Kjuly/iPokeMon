@@ -13,7 +13,7 @@
 @class PokedexTableViewController;
 @class BagTableViewController;
 
-@interface UtilityBallMenuViewController : UIViewController <CustomNavigationControllerDelegate>
+@interface UtilityBallMenuViewController : UIViewController
 {
   UIButton * buttonOpen_;
   

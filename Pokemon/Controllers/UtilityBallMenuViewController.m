@@ -13,6 +13,7 @@
 #import "PokedexTableViewController.h"
 #import "BagTableViewController.h"
 
+
 @implementation UtilityBallMenuViewController
 
 @synthesize buttonOpen = buttonOpen_;
@@ -241,6 +242,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+//  [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload
@@ -265,25 +268,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  
-//  if (! self.navigationController.isNavigationBarHidden)
-//    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - CustomNavigationControllerDelegate
-
-- (BOOL)hasNavigationBar {
-  return YES;
-}
-
-- (UIImage *)navigationBarBackgroundImage {
-  return [UIImage imageNamed:@"NavigationBarBackgroundBlue.png"];
 }
 
 #pragma mark - Button Action

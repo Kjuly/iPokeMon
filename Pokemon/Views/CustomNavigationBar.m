@@ -39,6 +39,8 @@
     [navigationBarBackgroundImage_.image drawInRect:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
   }
   else [super drawRect:rect];
+  
+  [self resetBackButton];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
@@ -66,46 +68,49 @@
   [self setNeedsDisplay];
 }
 
-// Set |backButton|
-- (void)setBackButtonWith:(UINavigationItem *)navigationItem
-{
-  NSLog(@"--- CustomNavigationBar setBackButtonWith: ---");
-  
-//  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
-//  [backButton setTitle:@"<<" forState:UIControlStateNormal];
-//  [backButton setBackgroundColor:[UIColor yellowColor]];
-//  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlStateNormal];
-//  [backButton setUserInteractionEnabled:YES];
-//  
-//  UIBarButtonItem * backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-//  [backBarButtonItem setEnabled:YES];
-//  [backButton release];
-//  
-//  [navigationItem setLeftBarButtonItem:backBarButtonItem];
-//  [backBarButtonItem release];
-  
-  // Hide original |backButton|
-  [navigationItem setHidesBackButton:YES];
-  
-  // Create custom |backButton|
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
-  [backButton setTitle:@"<<" forState:UIControlStateNormal];
-  [backButton setBackgroundColor:[UIColor whiteColor]];
-  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlStateNormal];
-  [backButton setUserInteractionEnabled:YES];
-  
-  [self addSubview:backButton];
-  
-  [backButton release];
-  
-  [self setNeedsDisplay];
-}
-
+// Settings for |backButton|
 // With a custom back button, we have to provide the action. We simply pop the view controller
 - (void)back:(id)sender {
   NSLog(@"popViewController");
   [self.navigationController popViewControllerAnimated:YES];
 }
+
+// Reset |backButton|
+- (void)resetBackButton
+{
+  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, self.frame.size.height)];
+  [backButton setTitle:@"<<" forState:UIControlStateNormal];
+  [backButton setBackgroundColor:[UIColor whiteColor]];
+  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+  [backButton setUserInteractionEnabled:YES];
+  
+  [self addSubview:backButton];
+  [backButton release];
+  
+  [self setNeedsDisplay];
+}
+
+/*- (void)setBackButtonWith:(UINavigationItem *)navigationItem
+{
+  NSLog(@"--- CustomNavigationBar setBackButtonWith: ---");
+  
+//  {
+//    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 40.0f)];
+//    [backButton setTitle:@"<<" forState:UIControlStateNormal];
+//    [backButton setBackgroundColor:[UIColor yellowColor]];
+//    [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+//    [backButton setUserInteractionEnabled:YES];
+//    
+//    UIBarButtonItem * backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//    [backBarButtonItem setEnabled:YES];
+//    [backButton release];
+//    
+//    [navigationItem setLeftBarButtonItem:backBarButtonItem];
+//    [backBarButtonItem release];
+//  }
+  
+  [self setNeedsDisplay];
+}*/
 
 // clear the background image and call setNeedsDisplay to force a redraw
 - (void)clearBackground

@@ -8,20 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CustomNavigationControllerDelegate <UINavigationControllerDelegate>
-
-- (BOOL)hasNavigationBar;
-- (UIImage *)navigationBarBackgroundImage;
-
-@end
-
 @interface CustomNavigationController : UINavigationController
 {
-  id <CustomNavigationControllerDelegate> delegate_;
+  UIImage * navigationBarBackgroundImage_;
 }
 
-@property (nonatomic, assign) id <CustomNavigationControllerDelegate> delegate;
+@property (nonatomic, retain) UIImage * navigationBarBackgroundImage;
 
-+ (id)initWithNibAndRootViewController:(UIViewController *)rootViewController;
++ (id)initWithRootViewController:(UIViewController *)rootViewController
+    navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage;
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 @end

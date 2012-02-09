@@ -20,8 +20,7 @@
 @property (nonatomic, retain) IBOutlet UIButton * backButton;
 
 - (void)initNavigationBarWith:(UIImage *)backgroundImage;
-- (void)setBackButtonWith:(UINavigationItem *)navigationItem;
-- (void)back:(id)sender;
+- (void)resetBackButton;
 - (void)clearBackground;
 
 @end
