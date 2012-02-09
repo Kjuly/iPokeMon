@@ -320,31 +320,21 @@
   }
 }
 
-- (void)showPokedex:(id)sender
-{  
-  if (! self.pokedexTableViewController) {
-    PokedexTableViewController * pokedexTableViewController = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.pokedexTableViewController = pokedexTableViewController;
-    [pokedexTableViewController release];
-  }
+- (void)showPokedex:(id)sender {  
+  if (! self.pokedexTableViewController)
+    pokedexTableViewController_ = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self.navigationController pushViewController:self.pokedexTableViewController animated:YES];
 }
 
 - (void)showPokemon:(id)sender {
-  if (! self.sixPokemonsTableViewController) {
-    SixPokemonsTableViewController * sixPokemonsTableViewController = [[SixPokemonsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.sixPokemonsTableViewController = sixPokemonsTableViewController;
-    [sixPokemonsTableViewController release];
-  }
+  if (! self.sixPokemonsTableViewController)
+    sixPokemonsTableViewController_ = [[SixPokemonsTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self.navigationController pushViewController:self.sixPokemonsTableViewController animated:YES];
 }
 
 - (void)showBag:(id)sender {
-  if (! self.bagTableViewController) {
-    BagTableViewController * bagTableViewController = [[BagTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.bagTableViewController = bagTableViewController;
-    [bagTableViewController release];
-  }
+  if (! self.bagTableViewController)
+    bagTableViewController_ = [[BagTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self.navigationController pushViewController:self.bagTableViewController animated:YES];
 }
 
