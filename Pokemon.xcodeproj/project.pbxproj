@@ -87,6 +87,10 @@
 		7FBD73DB14E3B58E00965CED /* CustomNavigationBar_backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */; };
 		7FBD73DE14E3C14000965CED /* UtilityBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */; };
 		7FBD73DF14E3C14000965CED /* UtilityBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */; };
+		7FBD73E214E3DD4900965CED /* UtilityBarButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73E014E3DD4800965CED /* UtilityBarButtonBackground.png */; };
+		7FBD73E314E3DD4900965CED /* UtilityBarButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73E114E3DD4900965CED /* UtilityBarButtonBackground@2x.png */; };
+		7FBD73E614E3E7B900965CED /* UtilityBallMenuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73E414E3E7B800965CED /* UtilityBallMenuIcon.png */; };
+		7FBD73E714E3E7B900965CED /* UtilityBallMenuIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73E514E3E7B900965CED /* UtilityBallMenuIcon@2x.png */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -159,7 +163,7 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconBig.png; sourceTree = "<group>"; };
+		7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UtilityBallMenuIconBig.png; path = Pokemon/Resources/Images/UtilityBallMenuIconBig.png; sourceTree = SOURCE_ROOT; };
 		7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconSmall.png; sourceTree = "<group>"; };
 		7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityBallMenuViewController.h; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityBallMenuViewController.m; sourceTree = "<group>"; };
@@ -209,6 +213,10 @@
 		7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomNavigationBar_backButton.png; sourceTree = "<group>"; };
 		7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBarBackground.png; sourceTree = "<group>"; };
 		7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBarBackground@2x.png"; sourceTree = "<group>"; };
+		7FBD73E014E3DD4800965CED /* UtilityBarButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBarButtonBackground.png; sourceTree = "<group>"; };
+		7FBD73E114E3DD4900965CED /* UtilityBarButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBarButtonBackground@2x.png"; sourceTree = "<group>"; };
+		7FBD73E414E3E7B800965CED /* UtilityBallMenuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon.png; sourceTree = "<group>"; };
+		7FBD73E514E3E7B900965CED /* UtilityBallMenuIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBallMenuIcon@2x.png"; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -431,9 +439,10 @@
 				7F2EFB7414DE78250068F681 /* Pokemon */,
 				7FE2BA9F14DAA8E000419825 /* NavigationBar */,
 				7F8EFA9E14D97D9A00FF1055 /* TabBar */,
-				7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */,
 				7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */,
 				7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */,
+				7FBD73E014E3DD4800965CED /* UtilityBarButtonBackground.png */,
+				7FBD73E114E3DD4900965CED /* UtilityBarButtonBackground@2x.png */,
 				7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */,
 				7F51C42514D8180D0091902D /* UtilityView_Discover.png */,
 				7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */,
@@ -505,6 +514,9 @@
 		7FBAA71014E170430011DCB0 /* UtilityBall */ = {
 			isa = PBXGroup;
 			children = (
+				7FBD73E414E3E7B800965CED /* UtilityBallMenuIcon.png */,
+				7FBD73E514E3E7B900965CED /* UtilityBallMenuIcon@2x.png */,
+				7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */,
 				7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */,
 				7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */,
 				7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */,
@@ -648,6 +660,10 @@
 				7FBD73DB14E3B58E00965CED /* CustomNavigationBar_backButton.png in Resources */,
 				7FBD73DE14E3C14000965CED /* UtilityBarBackground.png in Resources */,
 				7FBD73DF14E3C14000965CED /* UtilityBarBackground@2x.png in Resources */,
+				7FBD73E214E3DD4900965CED /* UtilityBarButtonBackground.png in Resources */,
+				7FBD73E314E3DD4900965CED /* UtilityBarButtonBackground@2x.png in Resources */,
+				7FBD73E614E3E7B900965CED /* UtilityBallMenuIcon.png in Resources */,
+				7FBD73E714E3E7B900965CED /* UtilityBallMenuIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

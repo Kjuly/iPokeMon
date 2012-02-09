@@ -10,7 +10,6 @@
 #define kMapViewHeight      200.0f
 
 #define kUtilityBarHeight  40.0f
-#define kUtilityButtonWidth 36.0f
 #define kUtilityBallMenuWidth  256.0f
 #define kUtilityBallMenuHeight 256.0f
 #define kDistanceFromUtilityBallCenter 112.0f

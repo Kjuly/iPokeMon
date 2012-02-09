@@ -68,7 +68,8 @@
   [view release];
   
   // Set Background Color
-  [self.view setBackgroundColor:[GlobalColor backgroundColorMain]];
+//  [self.view setBackgroundColor:[GlobalColor backgroundColorMain]];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Map View Controller
   MapViewController * mapViewController = [[MapViewController alloc] init];
@@ -89,10 +90,16 @@
   [self.view addSubview:self.utilityViewController.view];
   
   // Ball menu which locate at center
-  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 3, kMapViewHeight, 104.0f, kUtilityBarHeight)];
+  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kUtilityBarHeight) / 2,
+                                                                             kMapViewHeight,
+                                                                             kUtilityBarHeight,
+                                                                             kUtilityBarHeight)];
   self.buttonOpenBallMenu = buttonOpenBallMenu;
   [buttonOpenBallMenu release];
-  [self.buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
+  [self.buttonOpenBallMenu setContentMode:UIViewContentModeScaleAspectFit];
+  [self.buttonOpenBallMenu setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIcon.png"]
+                                     forState:UIControlStateNormal];
+//  [self.buttonOpenBallMenu setImage:[UIImage imageNamed:@"UtilityBallMenuIconSmall.png"] forState:UIControlStateNormal];
   [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.buttonOpenBallMenu];
 }

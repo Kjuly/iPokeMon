@@ -59,38 +59,59 @@
   
   // Four buttons
   {
+    UIImage * buttonBackgroundImage = [UIImage imageNamed:@"UtilityBarButtonBackground.png"];
+    CGFloat buttonWidth = buttonBackgroundImage.size.width;
+    CGFloat buttonHeight= buttonBackgroundImage.size.height;
+    CGFloat buttonMarginTop = (kUtilityBarHeight + 4.0f - buttonHeight) / 2.0f;
+    
     {
-      UIButton * buttonLocateMe = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 1, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
+      UIButton * buttonLocateMe = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth * 1.6,
+                                                                             buttonMarginTop,
+                                                                             buttonWidth,
+                                                                             buttonHeight)];
       self.buttonLocateMe = buttonLocateMe;
       [buttonLocateMe release];
       
+      [self.buttonLocateMe setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonLocateMe setImage:[UIImage imageNamed:@"UtilityView_LocateMe.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonLocateMe];
     }
     {
-      UIButton * buttonShowWorld = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
+      UIButton * buttonShowWorld = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth * 3.2f,
+                                                                              buttonMarginTop,
+                                                                              buttonWidth,
+                                                                              buttonHeight)];
       self.buttonShowWorld = buttonShowWorld;
       [buttonShowWorld release];
       
+      [self.buttonShowWorld setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonShowWorld setImage:[UIImage imageNamed:@"UtilityView_ShowWorld.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonShowWorld];
     }
     {
-      UIButton * buttonDiscover = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 3, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
+      UIButton * buttonDiscover = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - buttonWidth * 3.2 - buttonWidth,
+                                                                             buttonMarginTop,
+                                                                             buttonWidth,
+                                                                             buttonHeight)];
       self.buttonDiscover = buttonDiscover;
       [buttonDiscover release];
       
+      [self.buttonDiscover setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonDiscover setImage:[UIImage imageNamed:@"UtilityView_Discover.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonDiscover];
     }
     {
-      UIButton * buttonSetAccount = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - kUtilityButtonWidth * 2, 0.0f, kUtilityButtonWidth, kUtilityBarHeight)];
+      UIButton * buttonSetAccount = [[UIButton alloc] initWithFrame:CGRectMake(320.0f - buttonWidth * 1.6 - buttonWidth,
+                                                                               buttonMarginTop,
+                                                                               buttonWidth,
+                                                                               buttonHeight)];
       self.buttonSetAccount = buttonSetAccount;
       [buttonSetAccount release];
       
+      [self.buttonSetAccount setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonSetAccount setImage:[UIImage imageNamed:@"UtilityView_SetAccount.png"] forState:UIControlStateNormal];
       
       [self.view addSubview:self.buttonSetAccount];
