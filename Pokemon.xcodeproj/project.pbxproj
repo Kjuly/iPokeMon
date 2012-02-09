@@ -94,6 +94,7 @@
 		7FBD73E914E3EF1300965CED /* CustomNavigationBar_backButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73E814E3EF1300965CED /* CustomNavigationBar_backButton@2x.png */; };
 		7FBD73EC14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EA14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot.png */; };
 		7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */; };
+		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -223,6 +224,8 @@
 		7FBD73E814E3EF1300965CED /* CustomNavigationBar_backButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CustomNavigationBar_backButton@2x.png"; sourceTree = "<group>"; };
 		7FBD73EA14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomNavigationBar_backButtonToRoot.png; sourceTree = "<group>"; };
 		7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CustomNavigationBar_backButtonToRoot@2x.png"; sourceTree = "<group>"; };
+		7FBD73EE14E40CF300965CED /* SixPokemonsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewController.h; sourceTree = "<group>"; };
+		7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewController.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */,
 				7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */,
 				7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */,
+				7FBD73EE14E40CF300965CED /* SixPokemonsTableViewController.h */,
+				7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */,
 				7FAC496614DEE627008BAB45 /* PokemonInfoViewController.h */,
 				7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */,
 				7FAC496A14DEE641008BAB45 /* PokemonAreaViewController.h */,
@@ -735,6 +740,7 @@
 				7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */,
 				7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */,
 				7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */,
+				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
