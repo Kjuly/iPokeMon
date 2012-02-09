@@ -45,10 +45,7 @@
 }
 
 #pragma mark - View lifecycle
-- (void)back:(id)sender {
-  NSLog(@"popViewController");
-  [self.navigationController popViewControllerAnimated:YES];
-}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];

@@ -242,8 +242,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-//  [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload
