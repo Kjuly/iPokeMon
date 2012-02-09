@@ -52,10 +52,10 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, kMapViewHeight, 320.0f, kUtilityBarHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, kMapViewHeight - 2.0f, 320.0f, kUtilityBarHeight + 5.0f)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[GlobalColor backgroundColorBar]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UtilityBarBackground.png"]]];
   
   // Four buttons
   {
