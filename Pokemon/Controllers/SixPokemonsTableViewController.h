@@ -11,5 +11,12 @@
 #import "CustomTableViewController.h"
 
 @interface SixPokemonsTableViewController : CustomTableViewController
+{
+  NSMutableArray * sixPokemonsID_;
+  NSMutableArray * sixPokemons_;
+}
+
+@property (nonatomic, copy) NSMutableArray * sixPokemonsID;
+@property (nonatomic, copy) NSMutableArray * sixPokemons;
 
 @end

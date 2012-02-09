@@ -8,14 +8,29 @@
 
 #import "SixPokemonsTableViewController.h"
 
+#import "PListParser.h"
+#import "PokemonDetailTabViewController.h"
+
 
 @implementation SixPokemonsTableViewController
+
+@synthesize sixPokemonsID = sixPokemonsID_;
+@synthesize sixPokemons   = sixPokemons_;
+
+- (void)dealloc
+{
+  [sixPokemonsID_ release];
+  [sixPokemons_   release];
+  
+  [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
   if (self) {
-    // Custom initialization
+    // Disable Scroll as only a maximum of Six Pokemons exists
+    [self.tableView setScrollEnabled:NO];
   }
   return self;
 }
@@ -34,23 +49,37 @@
 {
   [super viewDidLoad];
   
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  // Initialize |sixPokemons_|'s data
+  //
+  // 0xFFF 1
+  //   --- -
+  //   ID  1:Live 0:Dead
+  //
+  sixPokemonsID_ = [[NSMutableArray alloc] initWithObjects:
+                    [NSNumber numberWithInt:0x0001],
+                    [NSNumber numberWithInt:0x0011],
+                    [NSNumber numberWithInt:0x0021],
+                    [NSNumber numberWithInt:0x0031],
+                    [NSNumber numberWithInt:0x0041],
+                    [NSNumber numberWithInt:0x0051],
+                    nil];
+  self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.sixPokemonsID = nil;
+  self.sixPokemons   = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  if (self.navigationController.isNavigationBarHidden)
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -76,18 +105,16 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-  // Return the number of sections.
-  return 0;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-  // Return the number of rows in the section.
-  return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return [self.sixPokemonsID count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 70.0f; // (480 - 60) / 6
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,10 +123,18 @@
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
+  NSInteger rowID = [indexPath row];
+  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
+  
+  // Set Title & Image
+  [cell.textLabel setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
+  [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
+  // Set Pokemon ID as subtitle
+  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
   
   return cell;
 }
@@ -147,14 +182,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // Navigation logic may go here. Create and push another view controller.
-  /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-  */
+  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row]] intValue] >> 4;
+  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
+                                                                     initWithPokemonID:pokemonID];
+  [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
+  [pokemonDetailTabViewController release];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class PokedexTableViewController;
+@class SixPokemonsTableViewController;
 @class BagTableViewController;
 
 @interface UtilityBallMenuViewController : UIViewController
@@ -24,8 +25,9 @@
   UIButton * buttonSetGame_;
   UIButton * buttonClose_;
   
-  PokedexTableViewController * pokedexTableViewController_;
-  BagTableViewController     * bagTableViewController_;
+  PokedexTableViewController     * pokedexTableViewController_;
+  SixPokemonsTableViewController * sixPokemonsTableViewController_;
+  BagTableViewController         * bagTableViewController_;
 }
 
 @property (nonatomic, retain) UIButton * buttonOpen;
@@ -39,8 +41,9 @@
 @property (nonatomic, retain) UIButton * buttonSetGame;
 @property (nonatomic, retain) UIButton * buttonClose;
 
-@property (nonatomic, retain) PokedexTableViewController * pokedexTableViewController;
-@property (nonatomic, retain) BagTableViewController     * bagTableViewController;
+@property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
+@property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
+@property (nonatomic, retain) BagTableViewController         * bagTableViewController;
 
 // Button Action
 - (void)runButtonActions:(id)sender;

@@ -12,6 +12,7 @@
 
 // Pokedex
 + (NSArray *)pokedex;
++ (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID;
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID;
 
 + (NSArray *)pokedexGenerationOneImageArray;

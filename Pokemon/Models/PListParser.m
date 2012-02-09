@@ -21,6 +21,19 @@
   return [NSArray arrayWithContentsOfFile:[self getFilePath:@"Pokedex"]];
 }
 
+// Get Pokemons that User Brought
++ (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID
+{
+  NSArray * pokedex = [self pokedex];
+  NSMutableArray * sixPokemons = [[NSMutableArray alloc] init];
+  for (int i = 0; i < [sixPokemonsID count]; ++i) {
+    NSInteger pokemonID = [[sixPokemonsID objectAtIndex:i] intValue] >> 4;
+    NSLog(@">>> %d", pokemonID);
+    [sixPokemons addObject:[pokedex objectAtIndex:pokemonID]];
+  }
+  return [sixPokemons autorelease];
+}
+
 // Get Info for One Pokemon
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID {
   return [[self pokedex] objectAtIndex:pokemonID];

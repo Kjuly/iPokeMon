@@ -11,6 +11,7 @@
 #import "../GlobalConstants.h"
 #import "GlobalColor.h"
 #import "PokedexTableViewController.h"
+#import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
 
 
@@ -27,8 +28,9 @@
 @synthesize buttonSetGame         = buttonSetGame_;
 @synthesize buttonClose           = buttonClose_;
 
-@synthesize pokedexTableViewController = pokedexTableViewController_;
-@synthesize bagTableViewController     = bagTableViewController_;
+@synthesize pokedexTableViewController     = pokedexTableViewController_;
+@synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;
+@synthesize bagTableViewController         = bagTableViewController_;
 
 -(void)dealloc
 {
@@ -43,8 +45,9 @@
   [buttonSetGame_         release];
   [buttonClose_           release];
   
-  [pokedexTableViewController_ release];
-  [bagTableViewController_     release];
+  [pokedexTableViewController_     release];
+  [sixPokemonsTableViewController_ release];
+  [bagTableViewController_         release];
   
   [super dealloc];
 }
@@ -259,8 +262,9 @@
   self.buttonSetGame          = nil;
   self.buttonClose            = nil;
   
-  self.pokedexTableViewController = nil;
-  self.bagTableViewController     = nil;
+  self.pokedexTableViewController     = nil;
+  self.sixPokemonsTableViewController = nil;
+  self.bagTableViewController         = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -327,7 +331,12 @@
 }
 
 - (void)showPokemon:(id)sender {
-  NSLog(@"--- Button Clicked: showPokemon");
+  if (! self.sixPokemonsTableViewController) {
+    SixPokemonsTableViewController * sixPokemonsTableViewController = [[SixPokemonsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.sixPokemonsTableViewController = sixPokemonsTableViewController;
+    [sixPokemonsTableViewController release];
+  }
+  [self.navigationController pushViewController:self.sixPokemonsTableViewController animated:YES];
 }
 
 - (void)showBag:(id)sender {
