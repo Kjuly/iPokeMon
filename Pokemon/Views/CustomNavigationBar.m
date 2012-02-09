@@ -81,9 +81,9 @@
 - (void)resetBackButton
 {
   if (! self.backButton) {
-    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, self.frame.size.height)];
-    [backButton_ setTitle:@"<" forState:UIControlStateNormal];
-    [backButton_ setBackgroundColor:[UIColor whiteColor]];
+    UIImage * backButtonImage = [UIImage imageNamed:@"CustomNavigationBar_backButton.png"];
+    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, backButtonImage.size.width, backButtonImage.size.height)];
+    [backButton_ setImage:backButtonImage forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
   }
   [self addSubview:self.backButton];

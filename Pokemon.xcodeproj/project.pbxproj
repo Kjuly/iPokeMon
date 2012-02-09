@@ -84,6 +84,7 @@
 		7FBAA72214E177200011DCB0 /* UtilityBallMenuIcon_ShowTrainerCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71A14E177200011DCB0 /* UtilityBallMenuIcon_ShowTrainerCard.png */; };
 		7FBAA72314E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71B14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png */; };
 		7FBAA72414E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71C14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png */; };
+		7FBD73DB14E3B58E00965CED /* CustomNavigationBar_backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -203,6 +204,7 @@
 		7FBAA71A14E177200011DCB0 /* UtilityBallMenuIcon_ShowTrainerCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_ShowTrainerCard.png; sourceTree = "<group>"; };
 		7FBAA71B14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconBackgroundSmall.png; sourceTree = "<group>"; };
 		7FBAA71C14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBallMenuIconBackgroundSmall@2x.png"; sourceTree = "<group>"; };
+		7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomNavigationBar_backButton.png; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 		7FBAA71014E170430011DCB0 /* UtilityBall */ = {
 			isa = PBXGroup;
 			children = (
+				7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */,
 				7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */,
 				7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */,
 				7FBAA71614E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png */,
@@ -636,6 +639,7 @@
 				7FBAA72314E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png in Resources */,
 				7FBAA72414E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png in Resources */,
 				7F5F0D6814E28B3600D996D4 /* NavigationBarBackgroundBlue.png in Resources */,
+				7FBD73DB14E3B58E00965CED /* CustomNavigationBar_backButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
