@@ -44,16 +44,8 @@
 // This instance method will cause a leak with nib's retain
 - (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-  NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
-                                                        owner:nil
-                                                      options:nil];
-  self = [bundleArray objectAtIndex:0];
-  bundleArray = nil;
-  
+  self = [super initWithRootViewController:rootViewController];
   if (self) {
-    NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
-//    self.delegate = (id <CustomNavigationControllerDelegate>)rootViewController;
-    [self pushViewController:rootViewController  animated:NO];
   }
   return self;
 }
@@ -99,7 +91,7 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - UINavigationController Methods
+#pragma mark - Overwrited UINavigationController Methods
 
 // Uses a horizontal slide transition.
 // Has no effect if the view controller is already in the stack.

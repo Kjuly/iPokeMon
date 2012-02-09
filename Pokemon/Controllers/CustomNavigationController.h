@@ -17,6 +17,8 @@
 
 + (id)initWithRootViewController:(UIViewController *)rootViewController
     navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage;
+
+// Overwrited |UINavigationController| Methods
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 @end
