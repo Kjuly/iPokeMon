@@ -118,18 +118,43 @@
 // Add |backButton| for previous view
 - (void)addBackButtonForPreviousView
 {
+  __block CGRect originalFrame = CGRectMake(160.0f, 0.0f, kBackButtonWith, kBackButtonHeight);
+  
   if (! self.backButton) {
-    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(kBackButtonWith + 10.0f, 0.0f, kBackButtonWith, kBackButtonHeight)];
+    backButton_ = [[UIButton alloc] initWithFrame:originalFrame];
     [backButton_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButton.png"] forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton_ setAlpha:0.0f];
   }
   [self addSubview:self.backButton];
+  
+  [UIView animateWithDuration:0.2f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseIn
+                   animations:^{
+                     originalFrame.origin.x = kBackButtonWith + 10.0f;
+                     [self.backButton setFrame:originalFrame];
+                     [self.backButton setAlpha:1.0f];
+                   }
+                   completion:nil];
 }
 
 // Remove |backButton| for previous view
 - (void)removeBackButtonForPreviousView
 {
-  [self.backButton removeFromSuperview];
+  __block CGRect originalFrame = self.backButton.frame;
+  
+  [UIView animateWithDuration:0.2f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     originalFrame.origin.x = 160.0f;
+                     [self.backButton setFrame:originalFrame];
+                     [self.backButton setAlpha:0.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.backButton removeFromSuperview];
+                   }];
 }
 
 /*- (void)setBackButtonWith:(UINavigationItem *)navigationItem
