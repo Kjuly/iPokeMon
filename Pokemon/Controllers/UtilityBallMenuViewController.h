@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "CustomNavigationController.h"
-
 @class PokedexTableViewController;
 @class BagTableViewController;
 
@@ -27,7 +25,7 @@
   UIButton * buttonClose_;
   
   PokedexTableViewController * pokedexTableViewController_;
-  BagTableViewController * bagTableViewController_;
+  BagTableViewController     * bagTableViewController_;
 }
 
 @property (nonatomic, retain) UIButton * buttonOpen;

@@ -25,15 +25,6 @@
 {
   self = [super initWithStyle:style];
   if (self) {
-    bagItems_ = [[NSArray alloc] initWithObjects:
-                 @"Items",
-                 @"Medicine",
-                 @"TMs & HMs",
-                 @"Berries",
-                 @"Mail",
-                 @"BattleItems",
-                 @"KeyItems",
-                 nil];
   }
   return self;
 }
@@ -51,6 +42,16 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  bagItems_ = [[NSArray alloc] initWithObjects:
+               @"Items",
+               @"Medicine",
+               @"TMs & HMs",
+               @"Berries",
+               @"Mail",
+               @"BattleItems",
+               @"KeyItems",
+               nil];
 }
 
 - (void)viewDidUnload
@@ -63,6 +64,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  if (self.navigationController.isNavigationBarHidden)
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -94,6 +98,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return [self.bagItems count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 100.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

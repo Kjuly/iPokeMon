@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BagTableViewController : UITableViewController
+#import "CustomTableViewController.h"
+
+@interface BagTableViewController : CustomTableViewController
 {
   NSArray * bagItems_;
 }
