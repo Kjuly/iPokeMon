@@ -100,13 +100,12 @@
   // Set original |backButton| hidden to show custom |backButton|
   [viewController.navigationItem setHidesBackButton:YES];
   
+  // If |viewCount| == 2, add |backButton| for previous view
+  if (++((CustomNavigationBar *)self.navigationBar).viewCount == 2)
+    [(CustomNavigationBar *)self.navigationBar addBackButtonForPreviousView];
+  
   // Dispatch |UINavigationController|'s |pushViewController:animated:| method
   [super pushViewController:viewController animated:animated];
 }
-
-/*- (UIViewController *)popViewControllerAnimated:(BOOL)animated; // Returns the popped controller.
-- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated; // Pops view controllers until the one specified is on top. Returns the popped controllers.
-- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated; // Pops until there's only a single view controller left on the stack. Returns the popped controllers.
- */
 
 @end

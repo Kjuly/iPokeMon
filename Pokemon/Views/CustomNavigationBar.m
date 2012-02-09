@@ -8,16 +8,24 @@
 
 #import "CustomNavigationBar.h"
 
+#define kBackButtonHeight 60.0f
+#define kBackButtonWith   40.0f
+
+
 @implementation CustomNavigationBar
 
 @synthesize navigationController         = navigationController_;
 @synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
+@synthesize backButtonToRoot             = backButtonToRoot_;
 @synthesize backButton                   = backButton_;
+
+@synthesize viewCount = viewCount_;
 
 -(void)dealloc
 {
   [navigationController_         release];
   [navigationBarBackgroundImage_ release];
+  [backButtonToRoot_             release];
   [backButton_                   release];
   
   [super dealloc];
@@ -39,7 +47,7 @@
     [super drawRect:rect];
   
   // Create custom |backButton_|
-  [self resetBackButton];
+  [self setBackButtonForRoot];
 }
 
 // Reset NavigationBar's size to container |navigationBarBackgroundImage_|
@@ -68,25 +76,60 @@
                                                             backgroundImage.size.width,
                                                             backgroundImage.size.height)];
   navigationBarBackgroundImage_.image = backgroundImage;
+  
+  // Initialize |viewCount_|
+  viewCount_ = 0;
 }
 
 // Settings for |backButton|
+// Back to Root(TopViewController)
+- (void)backToRoot:(id)sender {
+  // Reset |viewCount_|
+  if (self.viewCount >= 2)
+    [self removeBackButtonForPreviousView];
+  self.viewCount = 0;
+  
+  [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 // Provide the action for the custom |backButton|
 - (void)back:(id)sender {
   NSLog(@"popViewController");
+  
+  // Remove the |backButton| if needed
+  if (self.viewCount >= 2 && --self.viewCount < 2)
+    [self removeBackButtonForPreviousView];
+  
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-// Reset |backButton|
-- (void)resetBackButton
+// Create |backButton| to Root
+- (void)setBackButtonForRoot
+{
+  if (! self.backButtonToRoot) {
+    backButtonToRoot_ = [[UIButton alloc] initWithFrame:CGRectMake(10.0f, 0.0f, kBackButtonWith, kBackButtonHeight)];
+    [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
+                       forState:UIControlStateNormal];
+    [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  [self addSubview:self.backButtonToRoot];
+}
+
+// Add |backButton| for previous view
+- (void)addBackButtonForPreviousView
 {
   if (! self.backButton) {
-    UIImage * backButtonImage = [UIImage imageNamed:@"CustomNavigationBar_backButton.png"];
-    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, backButtonImage.size.width, backButtonImage.size.height)];
-    [backButton_ setImage:backButtonImage forState:UIControlStateNormal];
+    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(kBackButtonWith + 10.0f, 0.0f, kBackButtonWith, kBackButtonHeight)];
+    [backButton_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButton.png"] forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
   }
   [self addSubview:self.backButton];
+}
+
+// Remove |backButton| for previous view
+- (void)removeBackButtonForPreviousView
+{
+  [self.backButton removeFromSuperview];
 }
 
 /*- (void)setBackButtonWith:(UINavigationItem *)navigationItem
@@ -115,6 +158,7 @@
 - (void)clearBackground
 {
   self.navigationBarBackgroundImage = nil;
+  self.backButtonToRoot             = nil;
   self.backButton                   = nil;
   
   [self setNeedsDisplay];
