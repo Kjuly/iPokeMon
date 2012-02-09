@@ -11,6 +11,8 @@
 @class PokedexTableViewController;
 @class SixPokemonsTableViewController;
 @class BagTableViewController;
+@class TrainerCardViewController;
+@class GameSettingTableViewController;
 
 @interface UtilityBallMenuViewController : UIViewController
 {
@@ -28,6 +30,8 @@
   PokedexTableViewController     * pokedexTableViewController_;
   SixPokemonsTableViewController * sixPokemonsTableViewController_;
   BagTableViewController         * bagTableViewController_;
+  TrainerCardViewController      * trainerCardViewController_;
+  GameSettingTableViewController * gameSettingTableViewController_;
 }
 
 @property (nonatomic, retain) UIButton * buttonOpen;
@@ -44,6 +48,8 @@
 @property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
 @property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
 @property (nonatomic, retain) BagTableViewController         * bagTableViewController;
+@property (nonatomic, retain) TrainerCardViewController      * trainerCardViewController;
+@property (nonatomic, retain) GameSettingTableViewController * gameSettingTableViewController;
 
 // Button Action
 - (void)runButtonActions:(id)sender;

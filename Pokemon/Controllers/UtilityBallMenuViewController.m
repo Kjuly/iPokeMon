@@ -13,6 +13,8 @@
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
+#import "TrainerCardViewController.h"
+#import "GameSettingTableViewController.h"
 
 
 @implementation UtilityBallMenuViewController
@@ -31,6 +33,8 @@
 @synthesize pokedexTableViewController     = pokedexTableViewController_;
 @synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;
 @synthesize bagTableViewController         = bagTableViewController_;
+@synthesize trainerCardViewController      = trainerCardViewController_;
+@synthesize gameSettingTableViewController = gameSettingTableViewController_;
 
 -(void)dealloc
 {
@@ -48,6 +52,8 @@
   [pokedexTableViewController_     release];
   [sixPokemonsTableViewController_ release];
   [bagTableViewController_         release];
+  [trainerCardViewController_      release];
+  [gameSettingTableViewController_ release];
   
   [super dealloc];
 }
@@ -265,6 +271,8 @@
   self.pokedexTableViewController     = nil;
   self.sixPokemonsTableViewController = nil;
   self.bagTableViewController         = nil;
+  self.trainerCardViewController      = nil;
+  self.gameSettingTableViewController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -339,7 +347,9 @@
 }
 
 - (void)showTrainerCard:(id)sender {
-  NSLog(@"--- Button Clicked: showTrainerCard");
+  if (! self.trainerCardViewController)
+    trainerCardViewController_ = [[TrainerCardViewController alloc] init];
+  [self.navigationController pushViewController:self.trainerCardViewController animated:YES];
 }
 
 - (void)runHotkey:(id)sender {
@@ -347,7 +357,9 @@
 }
 
 - (void)setGame:(id)sender {
-  NSLog(@"--- Button Clicked: setGame");
+  if (! self.gameSettingTableViewController)
+    gameSettingTableViewController_ = [[GameSettingTableViewController alloc] init];
+  [self.navigationController pushViewController:self.gameSettingTableViewController animated:YES];
 }
 
 - (void)closeView:(id)sender {
