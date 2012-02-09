@@ -10,6 +10,7 @@
 
 #import "PListParser.h"
 #import "DataDecoder.h"
+#import "CustomNavigationBar.h"
 #import "PokemonDetailTabViewController.h"
 
 
@@ -45,7 +46,10 @@
 }
 
 #pragma mark - View lifecycle
-
+- (void)back:(id)sender {
+  NSLog(@"popViewController");
+  [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -55,6 +59,9 @@
   self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
   self.pokedex         = [PListParser pokedex];
   self.pokedexImages   = [PListParser pokedexGenerationOneImageArray];
+  
+  // Set |backButton|
+//  [(CustomNavigationBar *)self.navigationController.navigationBar setBackButtonWith:self.navigationItem];
 }
 
 - (void)viewDidUnload

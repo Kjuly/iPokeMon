@@ -13,10 +13,14 @@
 @synthesize navigationController = navigationController_;
 @synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
 
+@synthesize backButton = backButton_;
+
 -(void)dealloc
 {
   [navigationController_ release];
   [navigationBarBackgroundImage_ release];
+  
+  [backButton_ release];
   
   [super dealloc];
 }
@@ -62,8 +66,44 @@
   [self setNeedsDisplay];
 }
 
+// Set |backButton|
+- (void)setBackButtonWith:(UINavigationItem *)navigationItem
+{
+  NSLog(@"--- CustomNavigationBar setBackButtonWith: ---");
+  
+//  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
+//  [backButton setTitle:@"<<" forState:UIControlStateNormal];
+//  [backButton setBackgroundColor:[UIColor yellowColor]];
+//  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlStateNormal];
+//  [backButton setUserInteractionEnabled:YES];
+//  
+//  UIBarButtonItem * backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//  [backBarButtonItem setEnabled:YES];
+//  [backButton release];
+//  
+//  [navigationItem setLeftBarButtonItem:backBarButtonItem];
+//  [backBarButtonItem release];
+  
+  // Hide original |backButton|
+  [navigationItem setHidesBackButton:YES];
+  
+  // Create custom |backButton|
+  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
+  [backButton setTitle:@"<<" forState:UIControlStateNormal];
+  [backButton setBackgroundColor:[UIColor whiteColor]];
+  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlStateNormal];
+  [backButton setUserInteractionEnabled:YES];
+  
+  [self addSubview:backButton];
+  
+  [backButton release];
+  
+  [self setNeedsDisplay];
+}
+
 // With a custom back button, we have to provide the action. We simply pop the view controller
 - (void)back:(id)sender {
+  NSLog(@"popViewController");
   [self.navigationController popViewControllerAnimated:YES];
 }
 
