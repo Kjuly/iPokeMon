@@ -96,6 +96,7 @@
 		7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */; };
 		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
 		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
+		7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -229,6 +230,8 @@
 		7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewController.m; sourceTree = "<group>"; };
 		7FBD73F114E41AE900965CED /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCardViewController.h; sourceTree = "<group>"; };
 		7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
+		7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettingTableViewController.h; sourceTree = "<group>"; };
+		7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettingTableViewController.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */,
 				7FBD73F114E41AE900965CED /* TrainerCardViewController.h */,
 				7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */,
+				7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */,
+				7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
 				7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
@@ -747,6 +752,7 @@
 				7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */,
 				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
 				7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */,
+				7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
