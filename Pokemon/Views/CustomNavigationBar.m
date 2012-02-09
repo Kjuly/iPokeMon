@@ -10,17 +10,15 @@
 
 @implementation CustomNavigationBar
 
-@synthesize navigationController = navigationController_;
+@synthesize navigationController         = navigationController_;
 @synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
-
-@synthesize backButton = backButton_;
+@synthesize backButton                   = backButton_;
 
 -(void)dealloc
 {
-  [navigationController_ release];
+  [navigationController_         release];
   [navigationBarBackgroundImage_ release];
-  
-  [backButton_ release];
+  [backButton_                   release];
   
   [super dealloc];
 }
@@ -40,6 +38,7 @@
   }
   else [super drawRect:rect];
   
+  // Create custom |backButton|
   [self resetBackButton];
 }
 
@@ -78,16 +77,13 @@
 // Reset |backButton|
 - (void)resetBackButton
 {
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, self.frame.size.height)];
-  [backButton setTitle:@"<<" forState:UIControlStateNormal];
-  [backButton setBackgroundColor:[UIColor whiteColor]];
-  [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setUserInteractionEnabled:YES];
-  
-  [self addSubview:backButton];
-  [backButton release];
-  
-  [self setNeedsDisplay];
+  if (! self.backButton) {
+    backButton_ = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, self.frame.size.height)];
+    [backButton_ setTitle:@"<" forState:UIControlStateNormal];
+    [backButton_ setBackgroundColor:[UIColor whiteColor]];
+    [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  [self addSubview:self.backButton];
 }
 
 /*- (void)setBackButtonWith:(UINavigationItem *)navigationItem
@@ -116,6 +112,8 @@
 - (void)clearBackground
 {
   self.navigationBarBackgroundImage = nil;
+  self.backButton                   = nil;
+  
   [self setNeedsDisplay];
 }
 
