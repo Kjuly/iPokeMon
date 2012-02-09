@@ -268,6 +268,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  // Hide custom |navigationBar|
+  if (! self.navigationController.isNavigationBarHidden)
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
