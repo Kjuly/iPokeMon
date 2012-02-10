@@ -28,4 +28,7 @@
 + (NSArray *)bagBattleItems;
 + (NSArray *)bagKeyItems;
 
+// GameSettingOptions
++ (NSArray *)gameSettingOptions;
+
 @end

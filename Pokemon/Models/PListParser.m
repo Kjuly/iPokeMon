@@ -113,4 +113,10 @@
   return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagKeyItems"]];
 }
 
+#pragma mark - Game Setting Options
+
++ (NSArray *)gameSettingOptions {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"GameSettingOptions"]];
+}
+
 @end

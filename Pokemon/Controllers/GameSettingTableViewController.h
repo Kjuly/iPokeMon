@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface GameSettingTableViewController : UITableViewController
+{
+  NSArray * settingOptions_;
+}
+
+@property (nonatomic, copy) NSArray * settingOptions;
 
 @end

@@ -8,8 +8,19 @@
 
 #import "GameSettingTableViewController.h"
 
+#import "PListParser.h"
+
 
 @implementation GameSettingTableViewController
+
+@synthesize settingOptions = settingOptions_;
+
+- (void)dealloc
+{
+  [settingOptions_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,13 +44,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  self.settingOptions = [PListParser gameSettingOptions];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.settingOptions = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -74,11 +87,15 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
+  return [self.settingOptions count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 10;
+  return [[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionItems"] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  return [[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,6 +108,7 @@
   }
   
   // Configure the cell...
+  [cell.textLabel setText:[[[[self.settingOptions objectAtIndex:indexPath.section] objectForKey:@"sectionItems"] objectAtIndex:indexPath.row] objectForKey:@"name"]];
   
   return cell;
 }
