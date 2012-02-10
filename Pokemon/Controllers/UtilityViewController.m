@@ -10,6 +10,7 @@
 
 #import "../GlobalConstants.h"
 #import "GlobalColor.h"
+#import "AccountSettingTableViewController.h"
 
 @interface UtilityViewController (PrivateMethods)
 
@@ -171,7 +172,21 @@
 
 - (void)setAccount:(id)sender
 {
+  AccountSettingTableViewController * accountSettingTableViewController = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  [accountSettingTableViewController.view setAlpha:0.0f];
+  [accountSettingTableViewController.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
+  [[UIApplication sharedApplication].delegate.window addSubview:accountSettingTableViewController.view];
   
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     [accountSettingTableViewController.view setAlpha:1.0f];
+                     [accountSettingTableViewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+                   }
+                   completion:nil];
+  
+  [accountSettingTableViewController release];
 }
 
 @end
