@@ -17,7 +17,7 @@
 - (void)locateMe:(id)sender;
 - (void)showWorld:(id)sender;
 - (void)discover:(id)sender;
-- (void)setAccount:(id)sender;
+- (void)openAccountSettingTableView:(id)sender;
 
 @end
 
@@ -131,7 +131,7 @@
       
       [self.buttonSetAccount setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonSetAccount setImage:[UIImage imageNamed:@"UtilityView_SetAccount.png"] forState:UIControlStateNormal];
-      [self.buttonSetAccount addTarget:self action:@selector(setAccount:) forControlEvents:UIControlEventTouchUpInside];
+      [self.buttonSetAccount addTarget:self action:@selector(openAccountSettingTableView:) forControlEvents:UIControlEventTouchUpInside];
       
       [self.view addSubview:self.buttonSetAccount];
     }
@@ -176,7 +176,7 @@
 {
 }
 
-- (void)setAccount:(id)sender
+- (void)openAccountSettingTableView:(id)sender
 {
   if (! self.accountSettingTableViewController) {
     accountSettingTableViewController_ = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
