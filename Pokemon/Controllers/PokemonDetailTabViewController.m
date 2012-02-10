@@ -24,6 +24,7 @@
 {
   self = [super init];
   if (self) {
+    // Set View Frame
     self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
     
     // Add child view controllers to each tab
@@ -46,26 +47,16 @@
 
 - (void)didReceiveMemoryWarning
 {
-  // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-  
-  // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
 
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
   [super loadView];
-  
-//  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-//  self.view = view;
-//  [view release];
-//  [self.view setBackgroundColor:[UIColor clearColor]];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   [super viewDidLoad];
