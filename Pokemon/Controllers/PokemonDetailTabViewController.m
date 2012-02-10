@@ -32,9 +32,9 @@
     PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemonID:pokemonID];
     
     self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Categories.png", @"image", pokemonInfoViewController, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"MyDownload.png", @"image", pokemonAreaViewController, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"WordList.png", @"image", pokemonSizeViewController, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Info.png", @"image", pokemonInfoViewController, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Area.png", @"image", pokemonAreaViewController, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Size.png", @"image", pokemonSizeViewController, @"viewController", nil],
                         nil];
     
     [pokemonInfoViewController release];
