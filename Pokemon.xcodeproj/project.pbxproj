@@ -74,6 +74,7 @@
 		7F90C5A714E5577500147718 /* SixPokemonsDetail_Move@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C5A114E5577500147718 /* SixPokemonsDetail_Move@2x.png */; };
 		7F90C5A814E5577500147718 /* SixPokemonsDetail_Skill.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C5A214E5577500147718 /* SixPokemonsDetail_Skill.png */; };
 		7F90C5A914E5577500147718 /* SixPokemonsDetail_Skill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C5A314E5577500147718 /* SixPokemonsDetail_Skill@2x.png */; };
+		7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AB14E5592D00147718 /* CustomTabViewController.m */; };
 		7FAC496814DEE627008BAB45 /* PokemonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */; };
 		7FAC496C14DEE641008BAB45 /* PokemonAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496B14DEE641008BAB45 /* PokemonAreaViewController.m */; };
 		7FAC496F14DEE668008BAB45 /* PokemonSizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496E14DEE668008BAB45 /* PokemonSizeViewController.m */; };
@@ -212,6 +213,8 @@
 		7F90C5A114E5577500147718 /* SixPokemonsDetail_Move@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SixPokemonsDetail_Move@2x.png"; sourceTree = "<group>"; };
 		7F90C5A214E5577500147718 /* SixPokemonsDetail_Skill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SixPokemonsDetail_Skill.png; sourceTree = "<group>"; };
 		7F90C5A314E5577500147718 /* SixPokemonsDetail_Skill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SixPokemonsDetail_Skill@2x.png"; sourceTree = "<group>"; };
+		7F90C5AA14E5592C00147718 /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabViewController.h; sourceTree = "<group>"; };
+		7F90C5AB14E5592D00147718 /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabViewController.m; sourceTree = "<group>"; };
 		7FAC496614DEE627008BAB45 /* PokemonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonInfoViewController.h; sourceTree = "<group>"; };
 		7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonInfoViewController.m; sourceTree = "<group>"; };
 		7FAC496A14DEE641008BAB45 /* PokemonAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonAreaViewController.h; sourceTree = "<group>"; };
@@ -442,6 +445,8 @@
 				7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
 				7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */,
+				7F90C5AA14E5592C00147718 /* CustomTabViewController.h */,
+				7F90C5AB14E5592D00147718 /* CustomTabViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
 				7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */,
 				7FE2BAA214DABCD900419825 /* CustomTableViewController.h */,
@@ -807,6 +812,7 @@
 				7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */,
 				7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */,
 				7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */,
+				7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
