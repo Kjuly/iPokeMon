@@ -11,9 +11,6 @@
 @protocol PoketchTabBarDelegate
 
 - (UIImage *)iconFor:(NSUInteger)itemIndex;
-- (UIImage *)backgroundImage;
-- (UIImage *)selectedItemImage;
-- (UIImage *)tabBarArrowImage;
 
 @optional
 - (void)touchUpInsideItemAtIndex:(NSUInteger)itemIndex;

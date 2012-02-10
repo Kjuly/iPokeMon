@@ -113,8 +113,8 @@
 		7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */; };
 		7FEED5CF14E506D30010F7F2 /* TabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */; };
 		7FEED5D014E506D30010F7F2 /* TabBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */; };
-		7FEED5D414E50E520010F7F2 /* TabBarBackgroundSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */; };
-		7FEED5D514E50E520010F7F2 /* TabBarBackgroundSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */; };
+		7FEED5D414E50E520010F7F2 /* TabBarSelectedArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */; };
+		7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,8 +265,8 @@
 		7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AccountSettingTableView_CancelButton@2x.png"; path = "Pokemon/Resources/Images/AccountSettingTableView_CancelButton@2x.png"; sourceTree = SOURCE_ROOT; };
 		7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackground.png; sourceTree = "<group>"; };
 		7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackground@2x.png"; sourceTree = "<group>"; };
-		7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackgroundSelected.png; sourceTree = "<group>"; };
-		7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackgroundSelected@2x.png"; sourceTree = "<group>"; };
+		7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarSelectedArrow.png; sourceTree = "<group>"; };
+		7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarSelectedArrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,8 +552,8 @@
 				7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */,
 				7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */,
 				7F90C57114E517A200147718 /* PoketchTabBarIcon_Steps@2x.png */,
-				7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */,
-				7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */,
+				7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */,
+				7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */,
 				7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */,
 				7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */,
 				7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */,
@@ -726,8 +726,8 @@
 				7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */,
 				7FEED5CF14E506D30010F7F2 /* TabBarBackground.png in Resources */,
 				7FEED5D014E506D30010F7F2 /* TabBarBackground@2x.png in Resources */,
-				7FEED5D414E50E520010F7F2 /* TabBarBackgroundSelected.png in Resources */,
-				7FEED5D514E50E520010F7F2 /* TabBarBackgroundSelected@2x.png in Resources */,
+				7FEED5D414E50E520010F7F2 /* TabBarSelectedArrow.png in Resources */,
+				7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */,
 				7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */,
 				7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */,
 				7F90C57414E517A200147718 /* PoketchTabBarIcon_Other.png in Resources */,

@@ -129,20 +129,6 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
   return [UIImage imageNamed:[[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"image"]];
 }
 
-- (UIImage *)backgroundImage {
-  return [UIImage imageNamed:@"TabBarBackground.png"];
-}
-
-// The embossed-like image shown around a selected tab bar item
-- (UIImage *)selectedItemImage {
-  return [UIImage imageNamed:@"TabBarBackgroundSelected.png"];
-}
-
-// The top arrow image
-- (UIImage *)tabBarArrowImage {
-  return [UIImage imageNamed:@"TabBarNipple.png"];
-}
-
 - (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex
 {
   // Remove the current view controller's view

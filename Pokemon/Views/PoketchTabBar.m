@@ -72,7 +72,7 @@
     delegate_ = tabBarDelegate;
     
     // Add the background image
-    UIImage * backgroundImage = [delegate_ backgroundImage];
+    UIImage * backgroundImage = [UIImage imageNamed:@"TabBarBackground.png"];
     UIImageView * backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
@@ -191,20 +191,16 @@
   return button.frame.origin.x + halfTabItemWidth;
 }
 
-// Add tab bar arrow
+// Add TabBar Arrow Image
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex
 {
-  UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[delegate_ tabBarArrowImage]];
+  UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabBarSelectedArrow.png"]];
   [tabBarArrow setTag:kTabArrowImageTag];
-  
-  // To get the vertical location we go up by the height of arrow
-  // and then come back down 2 pixels so the arrow is slightly on top of the tab bar.
-  CGFloat verticalLocation = -tabBarArrow.frame.size.height + 2;
   [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex],
-                                   verticalLocation,
+                                   0.0f,
                                    tabBarArrow.frame.size.width,
                                    tabBarArrow.frame.size.height)];
-  [self addSubview:tabBarArrow];
+  [self insertSubview:tabBarArrow atIndex:1];
   [tabBarArrow release];
 }
 
@@ -229,8 +225,6 @@
   [button setImage:buttonImage        forState:UIControlStateNormal];
   [button setImage:buttonPressedImage forState:UIControlStateHighlighted];
   [button setImage:buttonPressedImage forState:UIControlStateSelected];
-  [button setBackgroundImage:[delegate_ selectedItemImage] forState:UIControlStateHighlighted];
-  [button setBackgroundImage:[delegate_ selectedItemImage] forState:UIControlStateSelected];
   
   [button setAdjustsImageWhenHighlighted:NO];
   
