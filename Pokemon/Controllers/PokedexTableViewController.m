@@ -10,6 +10,7 @@
 
 #import "PListParser.h"
 #import "DataDecoder.h"
+#import "PokedexTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
 
@@ -106,16 +107,16 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 100.0f;
+  return 70.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell
@@ -123,15 +124,15 @@
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
   if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
-    [cell.textLabel setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
+    [cell.labelTitle setText:[[self.pokedex objectAtIndex:rowID] objectForKey:@"name"]];
     [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }
   else {
-    [cell.textLabel setText:@"? ? ?"];
+    [cell.labelTitle setText:@"? ? ?"];
     [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]];
   }
   // Set Pokemon ID as subtitle
-  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
+  [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
   
   return cell;
 }
