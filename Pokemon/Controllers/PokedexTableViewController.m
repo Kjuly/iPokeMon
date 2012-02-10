@@ -33,6 +33,7 @@
 {
   self = [super initWithStyle:style];
   if (self) {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   }
   return self;
 }
@@ -114,7 +115,7 @@
 {
   static NSString *CellIdentifier = @"Cell";
   
-  PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  PokedexTableViewCell *cell = (PokedexTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }

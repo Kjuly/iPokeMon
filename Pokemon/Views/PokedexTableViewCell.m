@@ -33,29 +33,39 @@
   if (self) {
     // Constans
     CGFloat const cellHeight     = 70.0;
-    CGFloat const cellWidth      = 320.0;
-    CGFloat const imageWidth     = 70.0; 
+    CGFloat const cellWidth      = 300.0;
+    CGFloat const imageWidth     = 60.0; 
     CGFloat const titleHeight    = 30.0;
     CGFloat const titleWidth     = cellWidth - imageWidth;
     CGFloat const subtitleHeight = 30.0f;
     CGFloat const subtitleWidth  = titleWidth;
     
     // Set Cell Frame
-    [self setFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    [self.contentView setFrame:CGRectMake(10.0f, 0.0f, cellWidth, cellHeight)];
     
+    // Set |backgroundView| for Cell
+    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
+    [self setBackgroundView:backgroundView];
+    [backgroundView release];
+    
+    // Set layouts for |contentView|(readonly)
     // Set Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, cellHeight)];
+    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
     [self.contentView addSubview:imageView_];
     
     // Set Title Label
-    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5.0f, 0.0f, titleWidth, titleHeight)];
+    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, 5.0f, titleWidth, titleHeight)];
     [labelTitle_ setBackgroundColor:[UIColor clearColor]];
+    [labelTitle_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:16.0f]];
     [self.contentView addSubview:labelTitle_];
     
     // Set Subtitle Label
-    labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5.0f, titleHeight, subtitleWidth, subtitleHeight)];
+    labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, titleHeight, subtitleWidth, subtitleHeight)];
     [labelSubtitle_ setBackgroundColor:[UIColor clearColor]];
+    [labelSubtitle_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:12.0f]];
+    [labelSubtitle_ setTextColor:[UIColor grayColor]];
     [self.contentView addSubview:labelSubtitle_];
   }
   return self;
