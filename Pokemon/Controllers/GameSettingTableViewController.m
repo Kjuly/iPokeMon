@@ -9,6 +9,7 @@
 #import "GameSettingTableViewController.h"
 
 #import "PListParser.h"
+#import "GlobalColor.h"
 
 
 @implementation GameSettingTableViewController
@@ -94,8 +95,28 @@
   return [[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionItems"] count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  return [[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"];
+// Section Header Height
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  return 35.0f;
+}
+
+// Section Header View Style
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  UIView * sectionView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 40.0f)];
+  [sectionView setBackgroundColor:[GlobalColor backgroundColorMain]];
+  
+  // Create Section Label for Section Title
+  UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 5.0f, 310.0f, 25.0f)];
+  [sectionLabel setBackgroundColor:[UIColor clearColor]];
+  [sectionLabel setTextColor:[UIColor whiteColor]];
+  [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:12.0f]];
+  [sectionLabel setText:[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"]];
+  
+  [sectionView addSubview:sectionLabel];
+  [sectionLabel release];
+  
+  return [sectionView autorelease];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,6 +126,8 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f]];
   }
   
   // Configure the cell...
