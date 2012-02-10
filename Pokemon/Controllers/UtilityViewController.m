@@ -10,7 +10,7 @@
 
 #import "../GlobalConstants.h"
 #import "GlobalColor.h"
-#import "AccountSettingTableViewController.h"
+
 
 @interface UtilityViewController (PrivateMethods)
 
@@ -29,12 +29,16 @@
 @synthesize buttonDiscover    = buttonDiscover_;
 @synthesize buttonSetAccount  = buttonSetAccount_;
 
+@synthesize accountSettingTableViewController = accountSettingTableViewController_;
+
 - (void)dealloc
 {
   [buttonLocateMe_ release];
   [buttonShowWorld_ release];
   [buttonDiscover_ release];
   [buttonSetAccount_ release];
+  
+  [accountSettingTableViewController_ release];
   
   [super dealloc];
 }
@@ -148,6 +152,8 @@
   self.buttonShowWorld  = nil;
   self.buttonDiscover   = nil;
   self.buttonSetAccount = nil;
+  
+  self.accountSettingTableViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -172,21 +178,39 @@
 
 - (void)setAccount:(id)sender
 {
-  AccountSettingTableViewController * accountSettingTableViewController = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [accountSettingTableViewController.view setAlpha:0.0f];
-  [accountSettingTableViewController.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
-  [[UIApplication sharedApplication].delegate.window addSubview:accountSettingTableViewController.view];
+  if (! self.accountSettingTableViewController) {
+    accountSettingTableViewController_ = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    accountSettingTableViewController_.delegate = self;
+    [accountSettingTableViewController_.view setAlpha:0.0f];
+    [accountSettingTableViewController_.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
+  }
+  
+  [[UIApplication sharedApplication].delegate.window addSubview:self.accountSettingTableViewController.view];
   
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     [accountSettingTableViewController.view setAlpha:1.0f];
-                     [accountSettingTableViewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+                     [self.accountSettingTableViewController.view setAlpha:1.0f];
+                     [self.accountSettingTableViewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
                    }
                    completion:nil];
-  
-  [accountSettingTableViewController release];
+}
+
+#pragma mark - AccountSettingTableViewControllerDelegate
+
+- (void)cancelAccountSettingTableView
+{
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     [self.accountSettingTableViewController.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
+                     [self.accountSettingTableViewController.view setAlpha:0.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.accountSettingTableViewController.view removeFromSuperview];
+                   }];
 }
 
 @end

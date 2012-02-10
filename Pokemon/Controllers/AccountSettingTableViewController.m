@@ -14,10 +14,16 @@
 
 @end
 
+
 @implementation AccountSettingTableViewController
+
+@synthesize delegate = delegate_;
+@synthesize topBar = topBar_;
 
 - (void)dealloc
 {
+  [topBar_ release];
+  
   [super dealloc];
 }
 
@@ -25,7 +31,20 @@
 {
   self = [super initWithStyle:style];
   if (self) {
-    // Custom initialization
+    [self.tableView setFrame:CGRectMake(0.0f, 60.0f, 320.0f, 420.0f)];
+    
+    // Create Top Bar
+    topBar_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 60.0f)];
+    [topBar_ setBackgroundColor:[UIColor whiteColor]];
+    
+    // Create Button to Cancel View
+    UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
+    [cancelButton setBackgroundColor:[UIColor blackColor]];
+    [cancelButton addTarget:self action:@selector(cancelAccountSettingTableView) forControlEvents:UIControlEventTouchUpInside];
+    [topBar_ addSubview:cancelButton];
+    [cancelButton release];
+    
+    [self.view addSubview:topBar_];
   }
   return self;
 }
@@ -48,6 +67,9 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.delegate = nil;
+  self.topBar = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -156,7 +178,7 @@
 #pragma mark - Private Methods
 
 - (void)cancelAccountSettingTableView {
-  [self.view removeFromSuperview];
+  [delegate_ cancelAccountSettingTableView];
 }
 
 @end
