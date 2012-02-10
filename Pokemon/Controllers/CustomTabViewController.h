@@ -14,15 +14,11 @@
 {
   CustomTabBar * tabBar_;
   NSArray      * tabBarItems_;
-  
-  CGFloat viewHeight_;
-  CGFloat viewWidth_;
+  CGRect         viewFrame_;
 }
 
 @property (nonatomic, retain) CustomTabBar * tabBar;
 @property (nonatomic, copy) NSArray        * tabBarItems;
-
-@property (nonatomic, assign) CGFloat viewHeight;
-@property (nonatomic, assign) CGFloat viewWidth;
+@property (nonatomic, assign) CGRect viewFrame;
 
 @end

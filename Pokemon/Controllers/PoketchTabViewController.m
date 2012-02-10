@@ -23,9 +23,13 @@
 - (id)init {
   self = [super init];
   if (self) {
+    // Set View Frame
+    self.viewFrame = CGRectMake(0.0f, kMapViewHeight + kUtilityBarHeight, 320.0f, 480.0f - kMapViewHeight - kUtilityBarHeight);
+    
     // Add child view controllers to each tab
     UIViewController * controller1 = [[UIViewController alloc] init];
     UIViewController * controller2 = [[UIViewController alloc] init];
+    [controller2.view setBackgroundColor:[UIColor blueColor]];
     UIViewController * controller3 = [[UIViewController alloc] init];
     UIViewController * controller4 = [[UIViewController alloc] init];
     

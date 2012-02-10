@@ -14,14 +14,11 @@
 
 @synthesize tabBar      = tabBar_;
 @synthesize tabBarItems = tabBarItems_;
-
-@synthesize viewHeight = viewHeight_;
-@synthesize viewWidth  = viewWidth_;
-
+@synthesize viewFrame   = viewFrame_;
 
 - (void)dealloc
 {
-  [tabBar_ release];
+  [tabBar_      release];
   [tabBarItems_ release];
   
   [super dealloc];
@@ -30,11 +27,6 @@
 - (id)init {
   self = [super init];
   if (self) {
-    // |self.view|'s Height & Width 
-    viewWidth_  = 320.0f;
-    viewHeight_ = 480.0f - kMapViewHeight - kUtilityBarHeight;
-    
-    if (! [[UIApplication sharedApplication] isStatusBarHidden]) viewHeight_ -= 22.0f;
   }
   return self;
 }
@@ -63,13 +55,12 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
-                                                           kMapViewHeight + kUtilityBarHeight,
-                                                           viewWidth_,
-                                                           viewHeight_)];
+  UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor clearColor]];
+  
+  if (! [[UIApplication sharedApplication] isStatusBarHidden]) viewFrame_.size.height -= 22.0f;
   
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
@@ -78,8 +69,8 @@
                                                  tag:0
                                             delegate:self];
   
-  tabBar_.frame = CGRectMake((viewWidth_ - kTabBarWdith) / 2.0f,
-                             viewHeight_ - kTabBarHeight - 10.0f,
+  tabBar_.frame = CGRectMake(10.0f,
+                             self.viewFrame.size.height - kTabBarHeight - 10.0f,
                              kTabBarWdith,
                              kTabBarHeight);
   [self.view addSubview:tabBar_];
@@ -124,7 +115,7 @@
   
   // Get the right view controller
   UIViewController * viewController = [[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"viewController"];
-  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, viewWidth_, viewHeight_ - kTabBarHeight)];
+  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, self.viewFrame.size.width, self.viewFrame.size.height)];
   [viewController.view setTag:kPoketchSelectedViewControllerTag];
   
   // Add the new view controller's view
