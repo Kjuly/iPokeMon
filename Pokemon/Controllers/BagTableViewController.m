@@ -8,6 +8,7 @@
 
 #import "BagTableViewController.h"
 
+#import "BagTableViewCell.h"
 #import "BagItemTableViewController.h"
 
 @implementation BagTableViewController
@@ -25,6 +26,7 @@
 {
   self = [super initWithStyle:style];
   if (self) {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   }
   return self;
 }
@@ -101,20 +103,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 100.0f;
+  return 70.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
-  [cell.textLabel setText:[self.bagItems objectAtIndex:[indexPath row]]];
+  [cell.labelTitle setText:[self.bagItems objectAtIndex:[indexPath row]]];
   
   return cell;
 }
