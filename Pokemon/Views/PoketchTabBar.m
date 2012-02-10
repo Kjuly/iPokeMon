@@ -82,8 +82,8 @@
     
     // horizontalOffset tracks the proper x value as we add buttons as subviews
     // And iterate through each item
-    CGFloat horizontalOffset = 10.0f;
-    CGFloat buttonWidth      = (backgroundImage.size.width - 20.0f) / itemCount;
+    CGFloat horizontalOffset = 30.0f;
+    CGFloat buttonWidth      = (backgroundImage.size.width - 60.0f) / itemCount;
     for (NSUInteger i = 0; i < itemCount; ++i)
     {
       // Create a button
@@ -100,11 +100,11 @@
       [buttons_ addObject:button];
       
       // Set the button's x offset & add the button as the subview
-      [button setFrame:CGRectMake(horizontalOffset, 0.0f, button.frame.size.width, button.frame.size.height)];
+      [button setFrame:CGRectMake(horizontalOffset, 0.0f, buttonWidth, button.frame.size.height)];
       [self addSubview:button];
       
       // Increase the horizontal offset
-      horizontalOffset += itemSize.width;
+      horizontalOffset += buttonWidth;
     }
   }
   
