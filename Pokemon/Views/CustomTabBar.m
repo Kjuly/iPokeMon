@@ -196,7 +196,7 @@
 {
   UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabBarSelectedArrow.png"]];
   [tabBarArrow setTag:kTabArrowImageTag];
-  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex],
+  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.0f,
                                    0.0f,
                                    tabBarArrow.frame.size.width,
                                    tabBarArrow.frame.size.height)];
