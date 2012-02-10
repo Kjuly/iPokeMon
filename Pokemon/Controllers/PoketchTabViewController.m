@@ -86,7 +86,7 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
   
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
-  tabBar_ = [[PoketchTabBar alloc] initWithItemCount:self.tabBarItems.count
+  tabBar_ = [[CustomTabBar alloc] initWithItemCount:self.tabBarItems.count
                                                 size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
                                                  tag:0
                                             delegate:self];

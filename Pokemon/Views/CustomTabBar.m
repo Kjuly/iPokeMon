@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "PoketchTabBar.h"
+#import "CustomTabBar.h"
 
 #import "../GlobalConstants.h"
 
-@interface PoketchTabBar (PrivateMethods)
+@interface CustomTabBar (PrivateMethods)
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex;
@@ -22,7 +22,7 @@
 @end
 
 
-@implementation PoketchTabBar
+@implementation CustomTabBar
 
 @synthesize buttons = buttons_;
 
@@ -55,7 +55,7 @@
 - (id)initWithItemCount:(NSUInteger)itemCount
                    size:(CGSize)itemSize
                     tag:(NSInteger)objectTag
-               delegate:(NSObject <PoketchTabBarDelegate> *)tabBarDelegate
+               delegate:(NSObject <CustomTabBarDelegate> *)tabBarDelegate
 {
   if (self = [super init]) {
     // Adjust width based on the number of items & the width of each item

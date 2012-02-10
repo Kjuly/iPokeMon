@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PoketchTabBarDelegate
+@protocol CustomTabBarDelegate
 
 - (UIImage *)iconFor:(NSUInteger)itemIndex;
 
@@ -19,9 +19,9 @@
 @end
 
 
-@interface PoketchTabBar : UIView
+@interface CustomTabBar : UIView
 {
-  NSObject <PoketchTabBarDelegate> * delegate_;
+  NSObject <CustomTabBarDelegate> * delegate_;
   NSMutableArray * buttons_;
 }
 
@@ -30,7 +30,7 @@
 - (id)initWithItemCount:(NSUInteger)itemCount
                    size:(CGSize)itemSize
                     tag:(NSInteger)objectTag
-               delegate:(NSObject <PoketchTabBarDelegate> *)tabBarDelegate;
+               delegate:(NSObject <CustomTabBarDelegate> *)tabBarDelegate;
 - (void)selectItemAtIndex:(NSInteger)index;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration;

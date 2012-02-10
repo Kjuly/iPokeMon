@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PoketchTabBar.h"
+#import "CustomTabBar.h"
 
-@interface PokemonDetailTabViewController : UIViewController <PoketchTabBarDelegate>
+@interface PokemonDetailTabViewController : UIViewController <CustomTabBarDelegate>
 {
-  PoketchTabBar * tabBar_;
+  CustomTabBar * tabBar_;
   NSArray * tabBarItems_;
 }
 
-@property (nonatomic, retain) PoketchTabBar * tabBar;
+@property (nonatomic, retain) CustomTabBar * tabBar;
 @property (nonatomic, copy) NSArray * tabBarItems;
 
 - (id)initWithPokemonID:(NSInteger)pokemonID;

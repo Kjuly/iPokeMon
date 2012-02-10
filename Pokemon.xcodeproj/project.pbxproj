@@ -50,7 +50,7 @@
 		7F8EFA9014D937C000FF1055 /* UtilityBallMenuIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */; };
 		7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */; };
 		7F8EFA9A14D976D100FF1055 /* PoketchTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */; };
-		7F8EFA9D14D9781500FF1055 /* PoketchTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */; };
+		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
 		7F8EFAB714D97D9A00FF1055 /* TabBarGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */; };
 		7F8EFAB814D97D9A00FF1055 /* TabBarGlow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */; };
 		7F8EFAB914D97D9A00FF1055 /* PoketchTabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */; };
@@ -186,8 +186,8 @@
 		7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityBallMenuViewController.h; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityBallMenuViewController.m; sourceTree = "<group>"; };
 		7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchTabViewController.m; sourceTree = "<group>"; };
-		7F8EFA9B14D9781500FF1055 /* PoketchTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchTabBar.h; sourceTree = "<group>"; };
-		7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchTabBar.m; sourceTree = "<group>"; };
+		7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CustomTabBar.h; sourceTree = "<group>"; };
+		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
 		7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGlow.png; sourceTree = "<group>"; };
 		7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGlow@2x.png"; sourceTree = "<group>"; };
 		7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarBackground.png; sourceTree = "<group>"; };
@@ -521,8 +521,8 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CF714D6CB9800033C65 /* Xibs */,
-				7F8EFA9B14D9781500FF1055 /* PoketchTabBar.h */,
-				7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */,
+				7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */,
+				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
 			);
@@ -782,7 +782,7 @@
 				7F51C42014D7E0BF0091902D /* UtilityViewController.m in Sources */,
 				7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */,
 				7F8EFA9A14D976D100FF1055 /* PoketchTabViewController.m in Sources */,
-				7F8EFA9D14D9781500FF1055 /* PoketchTabBar.m in Sources */,
+				7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */,
 				7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */,
 				7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */,
 				7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */,
