@@ -11,6 +11,16 @@
 #import "../GlobalConstants.h"
 #import "GlobalColor.h"
 
+@interface UtilityViewController (PrivateMethods)
+
+- (void)locateMe:(id)sender;
+- (void)showWorld:(id)sender;
+- (void)discover:(id)sender;
+- (void)setAccount:(id)sender;
+
+@end
+
+
 @implementation UtilityViewController
 
 @synthesize buttonLocateMe    = buttonLocateMe_;
@@ -74,6 +84,7 @@
       
       [self.buttonLocateMe setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonLocateMe setImage:[UIImage imageNamed:@"UtilityView_LocateMe.png"] forState:UIControlStateNormal];
+      [self.buttonLocateMe addTarget:self action:@selector(locateMe:) forControlEvents:UIControlEventTouchUpInside];
       
       [self.view addSubview:self.buttonLocateMe];
     }
@@ -87,6 +98,7 @@
       
       [self.buttonShowWorld setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonShowWorld setImage:[UIImage imageNamed:@"UtilityView_ShowWorld.png"] forState:UIControlStateNormal];
+      [self.buttonShowWorld addTarget:self action:@selector(showWorld:) forControlEvents:UIControlEventTouchUpInside];
       
       [self.view addSubview:self.buttonShowWorld];
     }
@@ -100,6 +112,7 @@
       
       [self.buttonDiscover setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonDiscover setImage:[UIImage imageNamed:@"UtilityView_Discover.png"] forState:UIControlStateNormal];
+      [self.buttonDiscover addTarget:self action:@selector(discover:) forControlEvents:UIControlEventTouchUpInside];
       
       [self.view addSubview:self.buttonDiscover];
     }
@@ -113,6 +126,7 @@
       
       [self.buttonSetAccount setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
       [self.buttonSetAccount setImage:[UIImage imageNamed:@"UtilityView_SetAccount.png"] forState:UIControlStateNormal];
+      [self.buttonSetAccount addTarget:self action:@selector(setAccount:) forControlEvents:UIControlEventTouchUpInside];
       
       [self.view addSubview:self.buttonSetAccount];
     }
@@ -139,6 +153,25 @@
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Button Actions (Private)
+
+- (void)locateMe:(id)sender
+{
+}
+
+- (void)showWorld:(id)sender
+{
+}
+
+- (void)discover:(id)sender
+{
+}
+
+- (void)setAccount:(id)sender
+{
+  
 }
 
 @end
