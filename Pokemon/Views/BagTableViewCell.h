@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface BagTableViewCell : UITableViewCell
+{
+  UIImageView * imageView_;
+  UILabel     * labelTitle_;
+  UILabel     * labelSubtitle_;
+}
 
+@property (nonatomic, retain) UIImageView * imageView;
+@property (nonatomic, retain) UILabel     * labelTitle;
+@property (nonatomic, retain) UILabel     * labelSubtitle;
 @end

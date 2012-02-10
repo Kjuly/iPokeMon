@@ -9,6 +9,7 @@
 #import "SixPokemonsTableViewController.h"
 
 #import "PListParser.h"
+#import "SixPokemonsTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
 
@@ -29,6 +30,8 @@
 {
   self = [super initWithStyle:style];
   if (self) {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     // Disable Scroll as only a maximum of Six Pokemons exists
     [self.tableView setScrollEnabled:NO];
   }
@@ -121,9 +124,9 @@
 {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
@@ -131,10 +134,10 @@
   NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
   
   // Set Title & Image
-  [cell.textLabel setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
+  [cell.labelTitle setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
   [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
   // Set Pokemon ID as subtitle
-  [cell.detailTextLabel setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
+  [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
   
   return cell;
 }

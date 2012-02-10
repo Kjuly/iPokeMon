@@ -10,6 +10,23 @@
 
 @implementation BagTableViewCell
 
+@synthesize imageView     = imageView_;
+@synthesize labelTitle    = labelTitle_;
+@synthesize labelSubtitle = labelSubtitle_;
+
+- (void)dealloc
+{
+  [imageView_     release];
+  [labelTitle_    release];
+  [labelSubtitle_ release];
+  
+  self.imageView     = nil;
+  self.labelTitle    = nil;
+  self.labelSubtitle = nil;
+  
+  [super dealloc];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
