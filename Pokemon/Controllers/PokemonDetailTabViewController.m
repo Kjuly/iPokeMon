@@ -93,7 +93,7 @@
                                             delegate:self];
   
   tabBar_.frame = CGRectMake((320.0f - kTabBarWdith) / 2.0f,
-                             480.0f - kTabBarHeight,
+                             480.0f - kTabBarHeight - 10.0f,
                              kTabBarWdith,
                              kTabBarHeight);
   [self.view addSubview:tabBar_];
@@ -128,54 +128,6 @@
 // Icon for each Tab Bar Item
 - (UIImage *)iconFor:(NSUInteger)itemIndex {
   return [UIImage imageNamed:[[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"image"]];
-}
-
-- (UIImage *)backgroundImage
-{
-  // Get the image that will form the top of the background
-  UIImage * tabBarBackgroundImage = [UIImage imageNamed:@"PoketchTabBarBackground.png"];
-  
-  // Create a new image context
-  UIGraphicsBeginImageContextWithOptions(CGSizeMake(kTabBarWdith, kTabBarHeight), NO, 0.0f);
-  
-  // Create a stretchable image for the top of the background and draw it
-  UIImage * stretchedTabBarBackgroundImage = [tabBarBackgroundImage stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f];
-  [stretchedTabBarBackgroundImage drawInRect:CGRectMake(0.0f, 0.0f, kTabBarWdith, kTabBarHeight)];
-  
-  // Draw a solid black color for the bottom of the background
-  //  [[UIColor colorWithWhite:0.95f alpha:1.0f] set];
-  //  CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0.0f, kPoketchTabBarHeight, kPoketchTabBarWdith, kPoketchTabBarHeight));
-  
-  // Generate a new image
-  UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  
-  return resultImage;
-}
-
-// The background shown for selected tab bar items
-- (UIImage *)backgroundImageForSelectedItem {
-  return [UIImage imageNamed:@"PoketchTabBarBackgroundForSelectedItem.png"];
-}
-
-// The embossed-like image shown around a selected tab bar item
-- (UIImage *)selectedItemImage
-{
-  CGSize tabBarItemSize = CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight);
-  
-  UIGraphicsBeginImageContextWithOptions(tabBarItemSize, NO, 0.0);
-  // Create a stretchable image using the TabBarSelection image but offset 4 pixels down
-  [[[UIImage imageNamed:@"PoketchTabBarSelection.png"] stretchableImageWithLeftCapWidth:4.0 topCapHeight:0] drawInRect:CGRectMake(0.0f, 0.0f, tabBarItemSize.width, tabBarItemSize.height)];  
-  // Generate a new image
-  UIImage * selectedItemImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  
-  return selectedItemImage;
-}
-
-// The top arrow image
-- (UIImage *)tabBarArrowImage {
-  return [UIImage imageNamed:@"TabBarNipple.png"];
 }
 
 - (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex
