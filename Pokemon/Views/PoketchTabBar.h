@@ -12,7 +12,6 @@
 
 - (UIImage *)iconFor:(NSUInteger)itemIndex;
 - (UIImage *)backgroundImage;
-- (UIImage *)backgroundImageForSelectedItem;
 - (UIImage *)selectedItemImage;
 - (UIImage *)tabBarArrowImage;
 

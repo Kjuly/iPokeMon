@@ -39,10 +39,10 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
     UIViewController * controller4 = [[UIViewController alloc] init];
     
     self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Categories.png", @"image", controller1, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"MyDownload.png", @"image", controller2, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"WordList.png", @"image", controller3, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Setting.png", @"image", controller4, @"viewController", nil], nil];
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Messages.png", @"image", controller1, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_SixPokemons.png", @"image", controller2, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Steps.png", @"image", controller3, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Other.png", @"image", controller4, @"viewController", nil], nil];
     
     [controller1 release];
     [controller2 release];
@@ -87,14 +87,14 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
   tabBar_ = [[PoketchTabBar alloc] initWithItemCount:self.tabBarItems.count
-                                                size:CGSizeMake(kPoketchTabBarWdith / self.tabBarItems.count, kPoketchTabBarHeight)
+                                                size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
                                                  tag:0
                                             delegate:self];
   
-  tabBar_.frame = CGRectMake((viewWidth - kPoketchTabBarWdith) / 2.0f,
-                             viewHeight - kPoketchTabBarHeight,
-                             kPoketchTabBarWdith,
-                             kPoketchTabBarHeight);
+  tabBar_.frame = CGRectMake((viewWidth - kTabBarWdith) / 2.0f,
+                             viewHeight - kTabBarHeight - 10.0f,
+                             kTabBarWdith,
+                             kTabBarHeight);
   [self.view addSubview:tabBar_];
   
   // Select the first tab
@@ -112,7 +112,7 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
 {
   [super viewDidUnload];
 
-  self.tabBar = nil;
+  self.tabBar      = nil;
   self.tabBarItems = nil;
 }
 
@@ -129,47 +129,13 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
   return [UIImage imageNamed:[[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"image"]];
 }
 
-- (UIImage *)backgroundImage
-{
-  // Get the image that will form the top of the background
-  UIImage * tabBarBackgroundImage = [UIImage imageNamed:@"PoketchTabBarBackground.png"];
-  
-  // Create a new image context
-  UIGraphicsBeginImageContextWithOptions(CGSizeMake(kPoketchTabBarWdith, kPoketchTabBarHeight), NO, 0.0f);
-  
-  // Create a stretchable image for the top of the background and draw it
-  UIImage * stretchedTabBarBackgroundImage = [tabBarBackgroundImage stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f];
-  [stretchedTabBarBackgroundImage drawInRect:CGRectMake(0.0f, 0.0f, kPoketchTabBarWdith, kPoketchTabBarHeight)];
-  
-  // Draw a solid black color for the bottom of the background
-//  [[UIColor colorWithWhite:0.95f alpha:1.0f] set];
-//  CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0.0f, kPoketchTabBarHeight, kPoketchTabBarWdith, kPoketchTabBarHeight));
-  
-  // Generate a new image
-  UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  
-  return resultImage;
-}
-
-// The background shown for selected tab bar items
-- (UIImage *)backgroundImageForSelectedItem {
-  return [UIImage imageNamed:@"PoketchTabBarBackgroundForSelectedItem.png"];
+- (UIImage *)backgroundImage {
+  return [UIImage imageNamed:@"TabBarBackground.png"];
 }
 
 // The embossed-like image shown around a selected tab bar item
-- (UIImage *)selectedItemImage
-{
-  CGSize tabBarItemSize = CGSizeMake(viewWidth / self.tabBarItems.count, kPoketchTabBarHeight);
-  
-  UIGraphicsBeginImageContextWithOptions(tabBarItemSize, NO, 0.0);
-  // Create a stretchable image using the TabBarSelection image but offset 4 pixels down
-  [[[UIImage imageNamed:@"PoketchTabBarSelection.png"] stretchableImageWithLeftCapWidth:4.0 topCapHeight:0] drawInRect:CGRectMake(0.0f, 0.0f, tabBarItemSize.width, tabBarItemSize.height)];  
-  // Generate a new image
-  UIImage * selectedItemImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  
-  return selectedItemImage;
+- (UIImage *)selectedItemImage {
+  return [UIImage imageNamed:@"TabBarBackgroundSelected.png"];
 }
 
 // The top arrow image
@@ -185,7 +151,7 @@ CGFloat viewHeight = 480.0f - kMapViewHeight - kUtilityBarHeight;
   
   // Get the right view controller
   UIViewController * viewController = [[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"viewController"];
-  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, viewWidth, viewHeight - kPoketchTabBarHeight)];
+  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, viewWidth, viewHeight - kTabBarHeight)];
   [viewController.view setTag:kPoketchSelectedViewControllerTag];
   
   // Add the new view controller's view

@@ -57,8 +57,7 @@
                     tag:(NSInteger)objectTag
                delegate:(NSObject <PoketchTabBarDelegate> *)tabBarDelegate
 {
-  if (self = [super init])
-  {
+  if (self = [super init]) {
     // Adjust width based on the number of items & the width of each item
     [self setFrame:CGRectMake(0.0f, 0.0f, itemSize.width * itemCount, itemSize.height)];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin
@@ -75,12 +74,6 @@
     // Add the background image
     UIImage * backgroundImage = [delegate_ backgroundImage];
     UIImageView * backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    [backgroundImageView setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin
-                                            |UIViewAutoresizingFlexibleLeftMargin
-                                            |UIViewAutoresizingFlexibleBottomMargin
-                                            |UIViewAutoresizingFlexibleTopMargin
-                                            |UIViewAutoresizingFlexibleWidth];
-    [backgroundImageView setFrame:CGRectMake(0.0f, 0.0f, backgroundImage.size.width, backgroundImage.size.height)];
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
     
@@ -89,11 +82,12 @@
     
     // horizontalOffset tracks the proper x value as we add buttons as subviews
     // And iterate through each item
-    CGFloat horizontalOffset = 0;
+    CGFloat horizontalOffset = 10.0f;
+    CGFloat buttonWidth      = (backgroundImage.size.width - 20.0f) / itemCount;
     for (NSUInteger i = 0; i < itemCount; ++i)
     {
       // Create a button
-      UIButton * button = [self buttonAtIndex:i width:self.frame.size.width / itemCount];
+      UIButton * button = [self buttonAtIndex:i width:buttonWidth];
       
       // Register for touch events
       [button addTarget:self action:@selector(touchDownAction:)     forControlEvents:UIControlEventTouchDown];
@@ -102,7 +96,7 @@
       [button addTarget:self action:@selector(otherTouchesAction:)  forControlEvents:UIControlEventTouchDragOutside];
       [button addTarget:self action:@selector(otherTouchesAction:)  forControlEvents:UIControlEventTouchDragInside];
       
-      // Add the button to our buttons array
+      // Add the button to |buttons_| array
       [buttons_ addObject:button];
       
       // Set the button's x offset & add the button as the subview
@@ -217,17 +211,20 @@
 // Create a button at the provided index
 - (UIButton *)buttonAtIndex:(NSUInteger)itemIndex width:(CGFloat)width
 {
+  // |TabBarBackgroundSelected| size
+  CGSize TabBarBackgroundSelectedSize = CGSizeMake(44.0f, 44.0f);
+  
   UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-  [button setFrame:CGRectMake(0.0f, 0.0f, width, self.frame.size.height)];
+  [button setFrame:CGRectMake(0.0f, 0.0f, TabBarBackgroundSelectedSize.width, TabBarBackgroundSelectedSize.height)];
   
   // Set button image
   UIImage * rawButtonImage = [delegate_ iconFor:itemIndex];
   UIImage * buttonImage = [self tabBarImage:rawButtonImage
                                        size:button.frame.size
-                            backgroundImage:nil];
+                            backgroundImage:[UIImage imageNamed:@"PoketchTabBarIconDefaultMask.png"]];
   UIImage * buttonPressedImage = [self tabBarImage:rawButtonImage
-                                              size:button.frame.size
-                                   backgroundImage:[delegate_ backgroundImageForSelectedItem]];
+                                              size:TabBarBackgroundSelectedSize
+                                   backgroundImage:[UIImage imageNamed:@"PoketchTabBarIconSelectedMask.png"]];
   
   [button setImage:buttonImage        forState:UIControlStateNormal];
   [button setImage:buttonPressedImage forState:UIControlStateHighlighted];

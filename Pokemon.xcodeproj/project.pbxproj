@@ -51,12 +51,6 @@
 		7F8EFA9414D9465E00FF1055 /* UtilityBallMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* UtilityBallMenuViewController.m */; };
 		7F8EFA9A14D976D100FF1055 /* PoketchTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* PoketchTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */; };
-		7F8EFAB114D97D9A00FF1055 /* Categories.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9F14D97D9A00FF1055 /* Categories.png */; };
-		7F8EFAB214D97D9A00FF1055 /* Categories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA014D97D9A00FF1055 /* Categories@2x.png */; };
-		7F8EFAB314D97D9A00FF1055 /* MyDownload.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA114D97D9A00FF1055 /* MyDownload.png */; };
-		7F8EFAB414D97D9A00FF1055 /* MyDownload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA214D97D9A00FF1055 /* MyDownload@2x.png */; };
-		7F8EFAB514D97D9A00FF1055 /* Setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA314D97D9A00FF1055 /* Setting.png */; };
-		7F8EFAB614D97D9A00FF1055 /* Setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */; };
 		7F8EFAB714D97D9A00FF1055 /* TabBarGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */; };
 		7F8EFAB814D97D9A00FF1055 /* TabBarGlow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */; };
 		7F8EFAB914D97D9A00FF1055 /* PoketchTabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */; };
@@ -67,8 +61,18 @@
 		7F8EFABE14D97D9A00FF1055 /* TabBarNipple@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */; };
 		7F8EFABF14D97D9A00FF1055 /* PoketchTabBarSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */; };
 		7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */; };
-		7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAAF14D97D9A00FF1055 /* WordList.png */; };
-		7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */; };
+		7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */; };
+		7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */; };
+		7F90C57414E517A200147718 /* PoketchTabBarIcon_Other.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */; };
+		7F90C57514E517A200147718 /* PoketchTabBarIcon_Other@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */; };
+		7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */; };
+		7F90C57714E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */; };
+		7F90C57814E517A200147718 /* PoketchTabBarIcon_Steps.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */; };
+		7F90C57914E517A200147718 /* PoketchTabBarIcon_Steps@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C57114E517A200147718 /* PoketchTabBarIcon_Steps@2x.png */; };
+		7F90C57D14E51A3800147718 /* PoketchTabBarIconDefaultMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C57B14E51A3700147718 /* PoketchTabBarIconDefaultMask.png */; };
+		7F90C57E14E51A3800147718 /* PoketchTabBarIconDefaultMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C57C14E51A3700147718 /* PoketchTabBarIconDefaultMask@2x.png */; };
+		7F90C58214E51AEC00147718 /* PoketchTabBarIconSelectedMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C58014E51AEC00147718 /* PoketchTabBarIconSelectedMask@2x.png */; };
+		7F90C58414E51B7600147718 /* PoketchTabBarIconMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C58314E51B7300147718 /* PoketchTabBarIconMask.png */; };
 		7FAC496814DEE627008BAB45 /* PokemonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */; };
 		7FAC496C14DEE641008BAB45 /* PokemonAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496B14DEE641008BAB45 /* PokemonAreaViewController.m */; };
 		7FAC496F14DEE668008BAB45 /* PokemonSizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496E14DEE668008BAB45 /* PokemonSizeViewController.m */; };
@@ -107,6 +111,10 @@
 		7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */; };
 		7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */; };
 		7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */; };
+		7FEED5CF14E506D30010F7F2 /* TabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */; };
+		7FEED5D014E506D30010F7F2 /* TabBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */; };
+		7FEED5D414E50E520010F7F2 /* TabBarBackgroundSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */; };
+		7FEED5D514E50E520010F7F2 /* TabBarBackgroundSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,12 +188,6 @@
 		7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchTabViewController.m; sourceTree = "<group>"; };
 		7F8EFA9B14D9781500FF1055 /* PoketchTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchTabBar.h; sourceTree = "<group>"; };
 		7F8EFA9C14D9781500FF1055 /* PoketchTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchTabBar.m; sourceTree = "<group>"; };
-		7F8EFA9F14D97D9A00FF1055 /* Categories.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Categories.png; sourceTree = "<group>"; };
-		7F8EFAA014D97D9A00FF1055 /* Categories@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Categories@2x.png"; sourceTree = "<group>"; };
-		7F8EFAA114D97D9A00FF1055 /* MyDownload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MyDownload.png; sourceTree = "<group>"; };
-		7F8EFAA214D97D9A00FF1055 /* MyDownload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyDownload@2x.png"; sourceTree = "<group>"; };
-		7F8EFAA314D97D9A00FF1055 /* Setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Setting.png; sourceTree = "<group>"; };
-		7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Setting@2x.png"; sourceTree = "<group>"; };
 		7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGlow.png; sourceTree = "<group>"; };
 		7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGlow@2x.png"; sourceTree = "<group>"; };
 		7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarBackground.png; sourceTree = "<group>"; };
@@ -196,8 +198,18 @@
 		7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNipple@2x.png"; sourceTree = "<group>"; };
 		7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarSelection.png; sourceTree = "<group>"; };
 		7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarSelection@2x.png"; sourceTree = "<group>"; };
-		7F8EFAAF14D97D9A00FF1055 /* WordList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WordList.png; sourceTree = "<group>"; };
-		7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WordList@2x.png"; sourceTree = "<group>"; };
+		7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Messages.png; sourceTree = "<group>"; };
+		7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Messages@2x.png"; sourceTree = "<group>"; };
+		7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Other.png; sourceTree = "<group>"; };
+		7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Other@2x.png"; sourceTree = "<group>"; };
+		7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_SixPokemons.png; sourceTree = "<group>"; };
+		7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_SixPokemons@2x.png"; sourceTree = "<group>"; };
+		7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Steps.png; sourceTree = "<group>"; };
+		7F90C57114E517A200147718 /* PoketchTabBarIcon_Steps@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Steps@2x.png"; sourceTree = "<group>"; };
+		7F90C57B14E51A3700147718 /* PoketchTabBarIconDefaultMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIconDefaultMask.png; sourceTree = "<group>"; };
+		7F90C57C14E51A3700147718 /* PoketchTabBarIconDefaultMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIconDefaultMask@2x.png"; sourceTree = "<group>"; };
+		7F90C58014E51AEC00147718 /* PoketchTabBarIconSelectedMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIconSelectedMask@2x.png"; sourceTree = "<group>"; };
+		7F90C58314E51B7300147718 /* PoketchTabBarIconMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIconMask.png; sourceTree = "<group>"; };
 		7FAC496614DEE627008BAB45 /* PokemonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonInfoViewController.h; sourceTree = "<group>"; };
 		7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonInfoViewController.m; sourceTree = "<group>"; };
 		7FAC496A14DEE641008BAB45 /* PokemonAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonAreaViewController.h; sourceTree = "<group>"; };
@@ -251,6 +263,10 @@
 		7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingTableViewController.m; sourceTree = "<group>"; };
 		7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AccountSettingTableView_CancelButton.png; path = Pokemon/Resources/Images/AccountSettingTableView_CancelButton.png; sourceTree = SOURCE_ROOT; };
 		7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AccountSettingTableView_CancelButton@2x.png"; path = "Pokemon/Resources/Images/AccountSettingTableView_CancelButton@2x.png"; sourceTree = SOURCE_ROOT; };
+		7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackground.png; sourceTree = "<group>"; };
+		7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackground@2x.png"; sourceTree = "<group>"; };
+		7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackgroundSelected.png; sourceTree = "<group>"; };
+		7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackgroundSelected@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +490,8 @@
 				7F8EFA9E14D97D9A00FF1055 /* TabBar */,
 				7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */,
 				7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */,
+				7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */,
+				7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */,
 				7FBD73E014E3DD4800965CED /* UtilityBarButtonBackground.png */,
 				7FBD73E114E3DD4900965CED /* UtilityBarButtonBackground@2x.png */,
 				7F8EFA8E14D937C000FF1055 /* UtilityBallMenuIconSmall.png */,
@@ -522,14 +540,22 @@
 		7F8EFA9E14D97D9A00FF1055 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */,
-				7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */,
-				7F8EFA9F14D97D9A00FF1055 /* Categories.png */,
-				7F8EFAA014D97D9A00FF1055 /* Categories@2x.png */,
-				7F8EFAA114D97D9A00FF1055 /* MyDownload.png */,
-				7F8EFAA214D97D9A00FF1055 /* MyDownload@2x.png */,
-				7F8EFAA314D97D9A00FF1055 /* Setting.png */,
-				7F8EFAA414D97D9A00FF1055 /* Setting@2x.png */,
+				7F90C58314E51B7300147718 /* PoketchTabBarIconMask.png */,
+				7F90C58014E51AEC00147718 /* PoketchTabBarIconSelectedMask@2x.png */,
+				7F90C57B14E51A3700147718 /* PoketchTabBarIconDefaultMask.png */,
+				7F90C57C14E51A3700147718 /* PoketchTabBarIconDefaultMask@2x.png */,
+				7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */,
+				7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */,
+				7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */,
+				7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */,
+				7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */,
+				7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */,
+				7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */,
+				7F90C57114E517A200147718 /* PoketchTabBarIcon_Steps@2x.png */,
+				7FEED5D214E50E4E0010F7F2 /* TabBarBackgroundSelected.png */,
+				7FEED5D314E50E500010F7F2 /* TabBarBackgroundSelected@2x.png */,
+				7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */,
+				7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */,
 				7F8EFAA514D97D9A00FF1055 /* TabBarGlow.png */,
 				7F8EFAA614D97D9A00FF1055 /* TabBarGlow@2x.png */,
 				7F8EFAA714D97D9A00FF1055 /* PoketchTabBarBackground.png */,
@@ -540,8 +566,6 @@
 				7F8EFAAC14D97D9A00FF1055 /* TabBarNipple@2x.png */,
 				7F8EFAAD14D97D9A00FF1055 /* PoketchTabBarSelection.png */,
 				7F8EFAAE14D97D9A00FF1055 /* PoketchTabBarSelection@2x.png */,
-				7F8EFAAF14D97D9A00FF1055 /* WordList.png */,
-				7F8EFAB014D97D9A00FF1055 /* WordList@2x.png */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -655,12 +679,6 @@
 				7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */,
 				7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */,
 				7F8EFA9014D937C000FF1055 /* UtilityBallMenuIconSmall.png in Resources */,
-				7F8EFAB114D97D9A00FF1055 /* Categories.png in Resources */,
-				7F8EFAB214D97D9A00FF1055 /* Categories@2x.png in Resources */,
-				7F8EFAB314D97D9A00FF1055 /* MyDownload.png in Resources */,
-				7F8EFAB414D97D9A00FF1055 /* MyDownload@2x.png in Resources */,
-				7F8EFAB514D97D9A00FF1055 /* Setting.png in Resources */,
-				7F8EFAB614D97D9A00FF1055 /* Setting@2x.png in Resources */,
 				7F8EFAB714D97D9A00FF1055 /* TabBarGlow.png in Resources */,
 				7F8EFAB814D97D9A00FF1055 /* TabBarGlow@2x.png in Resources */,
 				7F8EFAB914D97D9A00FF1055 /* PoketchTabBarBackground.png in Resources */,
@@ -671,8 +689,6 @@
 				7F8EFABE14D97D9A00FF1055 /* TabBarNipple@2x.png in Resources */,
 				7F8EFABF14D97D9A00FF1055 /* PoketchTabBarSelection.png in Resources */,
 				7F8EFAC014D97D9A00FF1055 /* PoketchTabBarSelection@2x.png in Resources */,
-				7F8EFAC114D97D9A00FF1055 /* WordList.png in Resources */,
-				7F8EFAC214D97D9A00FF1055 /* WordList@2x.png in Resources */,
 				7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */,
 				7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */,
 				7F2EFB7014DE48890068F681 /* Pokedex.plist in Resources */,
@@ -708,6 +724,22 @@
 				7FEED5BD14E4D8120010F7F2 /* GameSettingOptions.plist in Resources */,
 				7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */,
 				7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */,
+				7FEED5CF14E506D30010F7F2 /* TabBarBackground.png in Resources */,
+				7FEED5D014E506D30010F7F2 /* TabBarBackground@2x.png in Resources */,
+				7FEED5D414E50E520010F7F2 /* TabBarBackgroundSelected.png in Resources */,
+				7FEED5D514E50E520010F7F2 /* TabBarBackgroundSelected@2x.png in Resources */,
+				7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */,
+				7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */,
+				7F90C57414E517A200147718 /* PoketchTabBarIcon_Other.png in Resources */,
+				7F90C57514E517A200147718 /* PoketchTabBarIcon_Other@2x.png in Resources */,
+				7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */,
+				7F90C57714E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png in Resources */,
+				7F90C57814E517A200147718 /* PoketchTabBarIcon_Steps.png in Resources */,
+				7F90C57914E517A200147718 /* PoketchTabBarIcon_Steps@2x.png in Resources */,
+				7F90C57D14E51A3800147718 /* PoketchTabBarIconDefaultMask.png in Resources */,
+				7F90C57E14E51A3800147718 /* PoketchTabBarIconDefaultMask@2x.png in Resources */,
+				7F90C58214E51AEC00147718 /* PoketchTabBarIconSelectedMask@2x.png in Resources */,
+				7F90C58414E51B7600147718 /* PoketchTabBarIconMask.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

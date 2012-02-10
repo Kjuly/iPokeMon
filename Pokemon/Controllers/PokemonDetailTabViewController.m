@@ -88,14 +88,14 @@
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
   tabBar_ = [[PoketchTabBar alloc] initWithItemCount:self.tabBarItems.count
-                                                size:CGSizeMake(kPoketchTabBarWdith / self.tabBarItems.count, kPoketchTabBarHeight)
+                                                size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
                                                  tag:0
                                             delegate:self];
   
-  tabBar_.frame = CGRectMake((320.0f - kPoketchTabBarWdith) / 2.0f,
-                             480.0f - kPoketchTabBarHeight,
-                             kPoketchTabBarWdith,
-                             kPoketchTabBarHeight);
+  tabBar_.frame = CGRectMake((320.0f - kTabBarWdith) / 2.0f,
+                             480.0f - kTabBarHeight,
+                             kTabBarWdith,
+                             kTabBarHeight);
   [self.view addSubview:tabBar_];
   
   // Select the first tab
@@ -136,11 +136,11 @@
   UIImage * tabBarBackgroundImage = [UIImage imageNamed:@"PoketchTabBarBackground.png"];
   
   // Create a new image context
-  UIGraphicsBeginImageContextWithOptions(CGSizeMake(kPoketchTabBarWdith, kPoketchTabBarHeight), NO, 0.0f);
+  UIGraphicsBeginImageContextWithOptions(CGSizeMake(kTabBarWdith, kTabBarHeight), NO, 0.0f);
   
   // Create a stretchable image for the top of the background and draw it
   UIImage * stretchedTabBarBackgroundImage = [tabBarBackgroundImage stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f];
-  [stretchedTabBarBackgroundImage drawInRect:CGRectMake(0.0f, 0.0f, kPoketchTabBarWdith, kPoketchTabBarHeight)];
+  [stretchedTabBarBackgroundImage drawInRect:CGRectMake(0.0f, 0.0f, kTabBarWdith, kTabBarHeight)];
   
   // Draw a solid black color for the bottom of the background
   //  [[UIColor colorWithWhite:0.95f alpha:1.0f] set];
@@ -161,7 +161,7 @@
 // The embossed-like image shown around a selected tab bar item
 - (UIImage *)selectedItemImage
 {
-  CGSize tabBarItemSize = CGSizeMake(320.0f / self.tabBarItems.count, kPoketchTabBarHeight);
+  CGSize tabBarItemSize = CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight);
   
   UIGraphicsBeginImageContextWithOptions(tabBarItemSize, NO, 0.0);
   // Create a stretchable image using the TabBarSelection image but offset 4 pixels down
@@ -186,7 +186,7 @@
   
   // Get the right view controller
   UIViewController * viewController = [[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"viewController"];
-  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f - kPoketchTabBarHeight)];
+  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f - kTabBarHeight)];
   [viewController.view setTag:kPoketchSelectedViewControllerTag];
   
   // Add the new view controller's view

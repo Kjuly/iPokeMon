@@ -25,8 +25,8 @@ enum {
   kTagUtilityBallButtonClose
 };
 
-#define kPoketchTabBarHeight 44.0f
-#define kPoketchTabBarWdith  320.0f
+#define kTabBarHeight 44.0f
+#define kTabBarWdith  300.0f
 
 #define kTabArrowImageTag   2394859
 #define kSelectedTabItemTag 2394860
