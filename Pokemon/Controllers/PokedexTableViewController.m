@@ -115,7 +115,7 @@
 {
   static NSString *CellIdentifier = @"Cell";
   
-  PokedexTableViewCell *cell = (PokedexTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
