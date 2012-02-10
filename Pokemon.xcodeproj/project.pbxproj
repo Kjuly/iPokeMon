@@ -105,6 +105,8 @@
 		7FE2BAA914DAE23600419825 /* PokedexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */; };
 		7FEED5BD14E4D8120010F7F2 /* GameSettingOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5BC14E4D8120010F7F2 /* GameSettingOptions.plist */; };
 		7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */; };
+		7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */; };
+		7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +249,8 @@
 		7FEED5BC14E4D8120010F7F2 /* GameSettingOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameSettingOptions.plist; sourceTree = "<group>"; };
 		7FEED5C214E4E8F10010F7F2 /* AccountSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingTableViewController.h; sourceTree = "<group>"; };
 		7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingTableViewController.m; sourceTree = "<group>"; };
+		7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AccountSettingTableView_CancelButton.png; path = Pokemon/Resources/Images/AccountSettingTableView_CancelButton.png; sourceTree = SOURCE_ROOT; };
+		7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AccountSettingTableView_CancelButton@2x.png"; path = "Pokemon/Resources/Images/AccountSettingTableView_CancelButton@2x.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,6 +522,8 @@
 		7F8EFA9E14D97D9A00FF1055 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */,
+				7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */,
 				7F8EFA9F14D97D9A00FF1055 /* Categories.png */,
 				7F8EFAA014D97D9A00FF1055 /* Categories@2x.png */,
 				7F8EFAA114D97D9A00FF1055 /* MyDownload.png */,
@@ -700,6 +706,8 @@
 				7FBD73EC14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot.png in Resources */,
 				7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */,
 				7FEED5BD14E4D8120010F7F2 /* GameSettingOptions.plist in Resources */,
+				7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */,
+				7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,12 +34,15 @@
     [self.tableView setFrame:CGRectMake(0.0f, 60.0f, 320.0f, 420.0f)];
     
     // Create Top Bar
-    topBar_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 60.0f)];
-    [topBar_ setBackgroundColor:[UIColor whiteColor]];
+    UIImage * topBarBackgroundImage = [UIImage imageNamed:@"NavigationBarBackgroundBlue.png"];
+    CGFloat topBarHeight = topBarBackgroundImage.size.height;
+    topBar_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, topBarHeight)];
+    [topBar_ setBackgroundColor:[UIColor colorWithPatternImage:topBarBackgroundImage]];
     
     // Create Button to Cancel View
-    UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
-    [cancelButton setBackgroundColor:[UIColor blackColor]];
+    UIImage * cancelButtonImage = [UIImage imageNamed:@"AccountSettingTableView_CancelButton.png"];
+    UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(14.0f, 8.0f, cancelButtonImage.size.width, cancelButtonImage.size.height)];
+    [cancelButton setBackgroundColor:[UIColor colorWithPatternImage:cancelButtonImage]];
     [cancelButton addTarget:self action:@selector(cancelAccountSettingTableView) forControlEvents:UIControlEventTouchUpInside];
     [topBar_ addSubview:cancelButton];
     [cancelButton release];
