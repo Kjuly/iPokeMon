@@ -10,7 +10,7 @@
 
 #import "../GlobalConstants.h"
 #import "TrainerInfoViewController.h"
-#import "TrainerBadgesViewController.h"
+#import "TrainerBadgesTableViewController.h"
 
 @implementation TrainerCardViewController
 
@@ -26,22 +26,22 @@
     self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
     
     // Add child view controllers to each tab
-    TrainerInfoViewController   * trainerInfoViewController   = [[TrainerInfoViewController alloc] init];
-    TrainerBadgesViewController * trainerBadgesViewController = [[TrainerBadgesViewController alloc] init];
+    TrainerInfoViewController        * trainerInfoViewController        = [[TrainerInfoViewController alloc] init];
+    TrainerBadgesTableViewController * trainerBadgesTableViewController = [[TrainerBadgesTableViewController alloc] init];
     
     CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
     [trainerInfoViewController.view setFrame:childViewFrame];
-    [trainerBadgesViewController.view setFrame:childViewFrame];
+    [trainerBadgesTableViewController.view setFrame:childViewFrame];
     
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:
-                         @"TrainerCardTabIcon_Info.png",   @"image", trainerInfoViewController,   @"viewController", nil],
+                         @"TrainerCardTabIcon_Info.png",   @"image", trainerInfoViewController,        @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:
-                         @"TrainerCardTabIcon_Badges.png", @"image", trainerBadgesViewController, @"viewController", nil],
+                         @"TrainerCardTabIcon_Badges.png", @"image", trainerBadgesTableViewController, @"viewController", nil],
                         nil];
     
     [trainerInfoViewController   release];
-    [trainerBadgesViewController release];
+    [trainerBadgesTableViewController release];
   }
   return self;
 }

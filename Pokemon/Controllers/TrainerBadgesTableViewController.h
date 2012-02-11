@@ -1,5 +1,5 @@
 //
-//  TrainerBadgesViewController.h
+//  TrainerBadgesTableViewController.h
 //  Pokemon
 //
 //  Created by Kaijie Yu on 2/11/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrainerBadgesViewController : UIViewController
+@interface TrainerBadgesTableViewController : UITableViewController
 
 @end

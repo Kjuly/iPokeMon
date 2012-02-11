@@ -111,11 +111,11 @@
 		7FBAA72414E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71C14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png */; };
 		7FBB60AD14E6A51000C24BA5 /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */; };
 		7FBB60B114E6A6B500C24BA5 /* TrainerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */; };
-		7FBB60B414E6A73200C24BA5 /* TrainerBadgesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60B314E6A72F00C24BA5 /* TrainerBadgesViewController.m */; };
 		7FBB60B914E6A95F00C24BA5 /* TrainerCardTabIcon_Badges.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */; };
 		7FBB60BA14E6A95F00C24BA5 /* TrainerCardTabIcon_Badges@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */; };
 		7FBB60BB14E6A95F00C24BA5 /* TrainerCardTabIcon_Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */; };
 		7FBB60BC14E6A95F00C24BA5 /* TrainerCardTabIcon_Info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B814E6A95700C24BA5 /* TrainerCardTabIcon_Info@2x.png */; };
+		7FBB60C414E6BB8700C24BA5 /* TrainerBadgesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60C314E6BB8700C24BA5 /* TrainerBadgesTableViewController.m */; };
 		7FBD73DB14E3B58E00965CED /* CustomNavigationBar_backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */; };
 		7FBD73DE14E3C14000965CED /* UtilityBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */; };
 		7FBD73DF14E3C14000965CED /* UtilityBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */; };
@@ -288,12 +288,12 @@
 		7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
 		7FBB60AF14E6A6B100C24BA5 /* TrainerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerInfoViewController.h; sourceTree = "<group>"; };
 		7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerInfoViewController.m; sourceTree = "<group>"; };
-		7FBB60B214E6A72D00C24BA5 /* TrainerBadgesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBadgesViewController.h; sourceTree = "<group>"; };
-		7FBB60B314E6A72F00C24BA5 /* TrainerBadgesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBadgesViewController.m; sourceTree = "<group>"; };
 		7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Badges.png; sourceTree = "<group>"; };
 		7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerCardTabIcon_Badges@2x.png"; sourceTree = "<group>"; };
 		7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Info.png; sourceTree = "<group>"; };
 		7FBB60B814E6A95700C24BA5 /* TrainerCardTabIcon_Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerCardTabIcon_Info@2x.png"; sourceTree = "<group>"; };
+		7FBB60C214E6BB8600C24BA5 /* TrainerBadgesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBadgesTableViewController.h; sourceTree = "<group>"; };
+		7FBB60C314E6BB8700C24BA5 /* TrainerBadgesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBadgesTableViewController.m; sourceTree = "<group>"; };
 		7FBD73DA14E3B58E00965CED /* CustomNavigationBar_backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomNavigationBar_backButton.png; sourceTree = "<group>"; };
 		7FBD73DC14E3C14000965CED /* UtilityBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBarBackground.png; sourceTree = "<group>"; };
 		7FBD73DD14E3C14000965CED /* UtilityBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBarBackground@2x.png"; sourceTree = "<group>"; };
@@ -500,8 +500,8 @@
 				7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */,
 				7FBB60AF14E6A6B100C24BA5 /* TrainerInfoViewController.h */,
 				7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */,
-				7FBB60B214E6A72D00C24BA5 /* TrainerBadgesViewController.h */,
-				7FBB60B314E6A72F00C24BA5 /* TrainerBadgesViewController.m */,
+				7FBB60C214E6BB8600C24BA5 /* TrainerBadgesTableViewController.h */,
+				7FBB60C314E6BB8700C24BA5 /* TrainerBadgesTableViewController.m */,
 				7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */,
 				7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
@@ -934,7 +934,7 @@
 				7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */,
 				7F8B816B14E5786A0085CE22 /* BagTableViewCell.m in Sources */,
 				7FBB60B114E6A6B500C24BA5 /* TrainerInfoViewController.m in Sources */,
-				7FBB60B414E6A73200C24BA5 /* TrainerBadgesViewController.m in Sources */,
+				7FBB60C414E6BB8700C24BA5 /* TrainerBadgesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

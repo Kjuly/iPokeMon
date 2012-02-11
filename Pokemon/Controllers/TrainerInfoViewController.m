@@ -53,10 +53,6 @@
   
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 25.0f, 30.0f, 300.0f - imageWidth, imageHeight - 50.0f);
   CGRect  const dataViewFrame     = CGRectMake(10.0f, imageHeight + 35.0f, 300.0f, 195.0f);
-  CGRect  const bottomViewFrame   = CGRectMake(10.0f,
-                                               dataViewFrame.origin.y + dataViewFrame.size.height,
-                                               300.0f,
-                                               30.0f);
   
   
   ///Left Image View
