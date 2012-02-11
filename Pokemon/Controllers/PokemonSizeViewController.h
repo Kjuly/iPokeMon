@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PokemonSizeViewController : UIViewController
+{
+  NSInteger      pokemonID_;
+  NSDictionary * pokemonInfoDict_;
+}
+
+@property (nonatomic, assign) NSInteger    pokemonID;
+@property (nonatomic, copy) NSDictionary * pokemonInfoDict;
 
 - (id)initWithPokemonID:(NSInteger)pokemonID;
 

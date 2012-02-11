@@ -8,13 +8,29 @@
 
 #import "PokemonSizeViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+#import "PListParser.h"
+#import "GlobalColor.h"
+
 @implementation PokemonSizeViewController
+
+@synthesize pokemonID       = pokemonID_;
+@synthesize pokemonInfoDict = pokemonInfoDict_;
+
+- (void)dealloc
+{
+  [pokemonInfoDict_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithPokemonID:(NSInteger)pokemonID
 {
   self = [self init];
   if (self) {
-    
+    self.pokemonID       = pokemonID;
+    self.pokemonInfoDict = [PListParser pokemonInfo:pokemonID];
   }
   return self;
 }
@@ -42,12 +58,109 @@
 - (void)loadView
 {
   [super loadView];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-  self.view = view;
-  [view release];
+  // Constants
+  CGFloat const imageHeight       = 150.0f;
+  CGFloat const imageWidth        = 150.0f;
   
-  [self.view setBackgroundColor:[UIColor grayColor]];
+  CGFloat const labelHeight       = 30.0f;
+  CGFloat const labelWidth        = 70.0f;
+  CGFloat const valueHeight       = 30.0f;
+  CGFloat const valueWidth        = 300.0f - labelWidth;
+  
+  CGFloat const nameLabelWidth    = 300.0f - imageWidth;
+  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
+  
+  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 20.0f, 50.0f, 300.0f - imageWidth, imageHeight - 50.0f);
+  CGRect  const sizeViewFrame = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, labelHeight);
+  
+  
+  ///Left Image View
+  UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, imageWidth, imageHeight)];
+  [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+  
+  // Image
+  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
+  [imageView setUserInteractionEnabled:YES];
+  [imageView setContentMode:UIViewContentModeCenter];
+  [imageView setBackgroundColor:[UIColor clearColor]];
+  [imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:self.pokemonID]];
+  
+  [imageContainer addSubview:imageView];
+  [imageView release];
+  [self.view addSubview:imageContainer];
+  [imageContainer release];
+  
+  
+  ///Right ID View
+  UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
+  
+  // ID
+  UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
+  [IDLabel setBackgroundColor:[UIColor clearColor]];
+  [IDLabel setTextColor:[GlobalColor textColorBlue]];
+  [IDLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:20.0f]];
+  [IDLabel setText:[NSString stringWithFormat:@"#%.3d", self.pokemonID + 1]];
+  [IDView addSubview:IDLabel];
+  [IDLabel release];
+  
+  // Name
+  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
+  [nameLabel setBackgroundColor:[UIColor clearColor]];
+  [nameLabel setTextColor:[GlobalColor textColorOrange]];
+  [nameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:26.0f]];
+  [nameLabel setText:[self.pokemonInfoDict objectForKey:@"name"]];
+  [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
+  [nameLabel.layer setShadowOpacity:1.0f];
+  [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+  [nameLabel.layer setShadowRadius:1.0f];
+  [IDView addSubview:nameLabel];
+  [nameLabel release];
+  
+  // Add Right ID View to |self.view| & Release it
+  [self.view addSubview:IDView];
+  [IDView release];
+  
+  
+  ///Size View
+  UIView * sizeView = [[UIView alloc] initWithFrame:sizeViewFrame];
+  
+  // Heigth
+  UILabel * heightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
+  UILabel * heightValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, labelHeight)];
+  [heightLabel setBackgroundColor:[UIColor clearColor]];
+  [heightValue setBackgroundColor:[UIColor clearColor]];
+  [heightLabel setTextColor:[GlobalColor textColorBlue]];
+  [heightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [heightLabel setTextAlignment:UITextAlignmentRight];
+  [heightValue setTextAlignment:UITextAlignmentLeft];
+  [heightLabel setText:@"Height: "];
+  [heightValue setText:[NSString stringWithFormat:@"%.2f m", [[self.pokemonInfoDict objectForKey:@"height"] floatValue] / 100.0f]];
+  [sizeView addSubview:heightLabel];
+  [sizeView addSubview:heightValue];
+  [heightLabel release];
+  [heightValue release];
+  
+  // Weight
+  UILabel * weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(130.0f, 0.0f, labelWidth, labelHeight)];
+  UILabel * weightValue = [[UILabel alloc] initWithFrame:CGRectMake(130.0f + labelWidth, 0.0f,  valueWidth, valueHeight)];
+  [weightLabel setBackgroundColor:[UIColor clearColor]];
+  [weightValue setBackgroundColor:[UIColor clearColor]];
+  [weightLabel setTextColor:[GlobalColor textColorBlue]];
+  [weightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [weightLabel setTextAlignment:UITextAlignmentRight];
+  [weightValue setTextAlignment:UITextAlignmentLeft];
+  [weightLabel setText:@"Weight: "];
+  [weightValue setText:[NSString stringWithFormat:@"%.2f kg", [[self.pokemonInfoDict objectForKey:@"weight"] floatValue] / 1000.0f]];
+  [sizeView addSubview:weightLabel];
+  [sizeView addSubview:weightValue];
+  [weightLabel release];
+  [weightValue release];
+  
+  // Add Size View to |self.view| & Release it
+  [self.view addSubview:sizeView];
+  [sizeView release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -59,8 +172,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.pokemonInfoDict = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -10,13 +10,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "../GlobalConstants.h"
 #import "GlobalColor.h"
 #import "PListParser.h"
 
 @implementation PokemonInfoViewController
 
-@synthesize pokemonID = pokemonID_;
+@synthesize pokemonID       = pokemonID_;
 @synthesize pokemonInfoDict = pokemonInfoDict_;
 
 - (void)dealloc
@@ -80,6 +79,7 @@
                                                300.0f,
                                                130.0f);
   
+  
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, imageWidth, imageHeight)];
   [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
@@ -97,7 +97,7 @@
   [imageContainer release];
   
   
-  /// Right ID View
+  ///Right ID View
   UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
@@ -127,7 +127,7 @@
   [IDView release];
   
   
-  /// Data View in Center
+  ///Data View in Center
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
   // Species
@@ -166,41 +166,7 @@
   [dataView release];
   
   
-  /// Bottom Data View
-/*  // Heigth
-  UILabel * heightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, imageHeight, labelWidth, labelHeight)];
-  UILabel * heightValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, imageHeight, valueWidth, labelHeight)];
-  [heightLabel setBackgroundColor:[UIColor clearColor]];
-  [heightValue setBackgroundColor:[UIColor clearColor]];
-  [heightLabel setTextColor:[GlobalColor textColorBlue]];
-  [heightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
-  [heightLabel setTextAlignment:UITextAlignmentRight];
-  [heightValue setTextAlignment:UITextAlignmentLeft];
-  [heightLabel setText:@"Height: "];
-  [heightValue setText:[NSString stringWithFormat:@"%.2f m", [[self.pokemonInfoDict objectForKey:@"height"] floatValue] / 100.0f]];
-  [self.view addSubview:heightLabel];
-  [self.view addSubview:heightValue];
-  [heightLabel release];
-  [heightValue release];
-  
-  // Weight
-  UILabel * weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(150.0f, imageHeight, labelWidth, labelHeight)];
-  UILabel * weightValue = [[UILabel alloc] initWithFrame:CGRectMake(150.0f + labelWidth, imageHeight,  valueWidth, valueHeight)];
-  [weightLabel setBackgroundColor:[UIColor clearColor]];
-  [weightValue setBackgroundColor:[UIColor clearColor]];
-  [weightLabel setTextColor:[GlobalColor textColorBlue]];
-  [weightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
-  [weightLabel setTextAlignment:UITextAlignmentRight];
-  [weightValue setTextAlignment:UITextAlignmentLeft];
-  [weightLabel setText:@"Weight: "];
-  [weightValue setText:[NSString stringWithFormat:@"%.2f kg", [[self.pokemonInfoDict objectForKey:@"weight"] floatValue] / 1000.0f]];
-  [self.view addSubview:weightLabel];
-  [self.view addSubview:weightValue];
-  [weightLabel release];
-  [weightValue release];
-*/
-  
-  // Description
+  ///Description
   UITextView * descriptionField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [descriptionField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
   [descriptionField setEditable:NO];
