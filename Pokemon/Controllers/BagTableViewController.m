@@ -46,13 +46,14 @@
   [super viewDidLoad];
   
   bagItems_ = [[NSArray alloc] initWithObjects:
-               @"Items",
-               @"Medicine",
-               @"TMs & HMs",
-               @"Berries",
-               @"Mail",
-               @"BattleItems",
-               @"KeyItems",
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Items",       @"item", @"BagItemIcon_Items",       @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Medicine",    @"item", @"BagItemIcon_Medicine",    @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Pokeballs",   @"item", @"BagItemIcon_Pokeballs",   @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"TMs & HMs",   @"item", @"BagItemIcon_TMsHMs",      @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Berries",     @"item", @"BagItemIcon_Berries",     @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Mail",        @"item", @"BagItemIcon_Mail",        @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"BattleItems", @"item", @"BagItemIcon_BattleItems", @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"KeyItems",    @"item", @"BagItemIcon_KeyItems",    @"image", nil],
                nil];
 }
 
@@ -103,7 +104,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 70.0f;
+  return 52.5f; // ~ (480 - 60) / 8
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,7 +117,9 @@
   }
   
   // Configure the cell...
-  [cell.labelTitle setText:[self.bagItems objectAtIndex:[indexPath row]]];
+  NSDictionary * itemDict = [self.bagItems objectAtIndex:[indexPath row]];
+  [cell.labelTitle setText:[itemDict valueForKey:@"item"]];
+  [cell.imageView setImage:[UIImage imageNamed:[itemDict objectForKey:@"image"]]];
   
   return cell;
 }

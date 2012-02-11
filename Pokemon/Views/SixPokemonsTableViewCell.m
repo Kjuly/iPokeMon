@@ -33,15 +33,12 @@
   if (self) {
     // Constans
     CGFloat const cellHeight     = 70.0;
-    CGFloat const cellWidth      = 300.0;
+    CGFloat const cellWidth      = 320.0;
     CGFloat const imageWidth     = 60.0; 
     CGFloat const titleHeight    = 30.0;
     CGFloat const titleWidth     = cellWidth - imageWidth;
     CGFloat const subtitleHeight = 30.0f;
     CGFloat const subtitleWidth  = titleWidth;
-    
-    // Set Cell Frame
-    [self.contentView setFrame:CGRectMake(10.0f, 0.0f, cellWidth, cellHeight)];
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];

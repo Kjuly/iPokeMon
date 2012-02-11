@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F0A484C14E63118001C62A0 /* BagItemIcon_BattleItems.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484414E63118001C62A0 /* BagItemIcon_BattleItems.png */; };
+		7F0A484D14E63118001C62A0 /* BagItemIcon_Berries.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484514E63118001C62A0 /* BagItemIcon_Berries.png */; };
+		7F0A484E14E63118001C62A0 /* BagItemIcon_Items.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484614E63118001C62A0 /* BagItemIcon_Items.png */; };
+		7F0A484F14E63118001C62A0 /* BagItemIcon_KeyItems.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484714E63118001C62A0 /* BagItemIcon_KeyItems.png */; };
+		7F0A485014E63118001C62A0 /* BagItemIcon_Mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484814E63118001C62A0 /* BagItemIcon_Mail.png */; };
+		7F0A485114E63118001C62A0 /* BagItemIcon_Medicine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484914E63118001C62A0 /* BagItemIcon_Medicine.png */; };
+		7F0A485214E63118001C62A0 /* BagItemIcon_Pokeballs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484A14E63118001C62A0 /* BagItemIcon_Pokeballs.png */; };
+		7F0A485314E63118001C62A0 /* BagItemIcon_TMsHMs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A484B14E63118001C62A0 /* BagItemIcon_TMsHMs.png */; };
+		7F0A485714E636E5001C62A0 /* BagTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485514E636E5001C62A0 /* BagTableViewCellBackground.png */; };
+		7F0A485814E636E5001C62A0 /* BagTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485614E636E5001C62A0 /* BagTableViewCellBackground@2x.png */; };
 		7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */; };
 		7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */; };
 		7F0E514614DFC9AB006F7477 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0E514514DFC9AB006F7477 /* BagItems.plist */; };
@@ -135,6 +145,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F0A484414E63118001C62A0 /* BagItemIcon_BattleItems.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_BattleItems.png; sourceTree = "<group>"; };
+		7F0A484514E63118001C62A0 /* BagItemIcon_Berries.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Berries.png; sourceTree = "<group>"; };
+		7F0A484614E63118001C62A0 /* BagItemIcon_Items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Items.png; sourceTree = "<group>"; };
+		7F0A484714E63118001C62A0 /* BagItemIcon_KeyItems.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_KeyItems.png; sourceTree = "<group>"; };
+		7F0A484814E63118001C62A0 /* BagItemIcon_Mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Mail.png; sourceTree = "<group>"; };
+		7F0A484914E63118001C62A0 /* BagItemIcon_Medicine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Medicine.png; sourceTree = "<group>"; };
+		7F0A484A14E63118001C62A0 /* BagItemIcon_Pokeballs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Pokeballs.png; sourceTree = "<group>"; };
+		7F0A484B14E63118001C62A0 /* BagItemIcon_TMsHMs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_TMsHMs.png; sourceTree = "<group>"; };
+		7F0A485514E636E5001C62A0 /* BagTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellBackground.png; sourceTree = "<group>"; };
+		7F0A485614E636E5001C62A0 /* BagTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F0E513A14DFC3D3006F7477 /* BagTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewController.h; sourceTree = "<group>"; };
 		7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTableViewController.m; sourceTree = "<group>"; };
 		7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewController.h; sourceTree = "<group>"; };
@@ -602,6 +622,16 @@
 		7FBAA71014E170430011DCB0 /* UtilityBall */ = {
 			isa = PBXGroup;
 			children = (
+				7F0A485514E636E5001C62A0 /* BagTableViewCellBackground.png */,
+				7F0A485614E636E5001C62A0 /* BagTableViewCellBackground@2x.png */,
+				7F0A484414E63118001C62A0 /* BagItemIcon_BattleItems.png */,
+				7F0A484514E63118001C62A0 /* BagItemIcon_Berries.png */,
+				7F0A484614E63118001C62A0 /* BagItemIcon_Items.png */,
+				7F0A484714E63118001C62A0 /* BagItemIcon_KeyItems.png */,
+				7F0A484814E63118001C62A0 /* BagItemIcon_Mail.png */,
+				7F0A484914E63118001C62A0 /* BagItemIcon_Medicine.png */,
+				7F0A484A14E63118001C62A0 /* BagItemIcon_Pokeballs.png */,
+				7F0A484B14E63118001C62A0 /* BagItemIcon_TMsHMs.png */,
 				7FBD73EA14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot.png */,
 				7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */,
 				7FBD73E414E3E7B800965CED /* UtilityBallMenuIcon.png */,
@@ -772,6 +802,16 @@
 				7F90C5A914E5577500147718 /* SixPokemonsDetail_Skill@2x.png in Resources */,
 				7F8B816314E574EF0085CE22 /* PokedexTableViewCellBackground.png in Resources */,
 				7F8B816414E574EF0085CE22 /* PokedexTableViewCellBackground@2x.png in Resources */,
+				7F0A484C14E63118001C62A0 /* BagItemIcon_BattleItems.png in Resources */,
+				7F0A484D14E63118001C62A0 /* BagItemIcon_Berries.png in Resources */,
+				7F0A484E14E63118001C62A0 /* BagItemIcon_Items.png in Resources */,
+				7F0A484F14E63118001C62A0 /* BagItemIcon_KeyItems.png in Resources */,
+				7F0A485014E63118001C62A0 /* BagItemIcon_Mail.png in Resources */,
+				7F0A485114E63118001C62A0 /* BagItemIcon_Medicine.png in Resources */,
+				7F0A485214E63118001C62A0 /* BagItemIcon_Pokeballs.png in Resources */,
+				7F0A485314E63118001C62A0 /* BagItemIcon_TMsHMs.png in Resources */,
+				7F0A485714E636E5001C62A0 /* BagTableViewCellBackground.png in Resources */,
+				7F0A485814E636E5001C62A0 /* BagTableViewCellBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
