@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface TrainerBadgesTableViewController : UITableViewController
+{
+  NSArray * gymLeaders_;
+}
+
+@property (nonatomic, copy) NSArray * gymLeaders;
 
 @end

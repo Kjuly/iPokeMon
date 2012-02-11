@@ -32,10 +32,10 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 70.0;
-    CGFloat const cellWidth      = 320.0;
-    CGFloat const imageWidth     = 60.0; 
-    CGFloat const titleHeight    = 30.0;
+    CGFloat const cellHeight     = 70.0f;
+    CGFloat const cellWidth      = 320.0f;
+    CGFloat const imageWidth     = 60.0f; 
+    CGFloat const titleHeight    = 30.0f;
     CGFloat const titleWidth     = cellWidth - imageWidth;
     CGFloat const subtitleHeight = 30.0f;
     CGFloat const subtitleWidth  = titleWidth;

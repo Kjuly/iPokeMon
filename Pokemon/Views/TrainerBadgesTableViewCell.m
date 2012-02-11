@@ -1,14 +1,16 @@
 //
-//  SixPokemonsTableViewCell.m
+//  TrainerBadgesTableViewCell.m
 //  Pokemon
 //
 //  Created by Kaijie Yu on 2/11/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "SixPokemonsTableViewCell.h"
+#import "TrainerBadgesTableViewCell.h"
 
-@implementation SixPokemonsTableViewCell
+#import <QuartzCore/QuartzCore.h>
+
+@implementation TrainerBadgesTableViewCell
 
 @synthesize imageView     = imageView_;
 @synthesize labelTitle    = labelTitle_;
@@ -32,7 +34,7 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 70.0f;
+    CGFloat const cellHeight     = 52.5f;
     CGFloat const cellWidth      = 320.0f;
     CGFloat const imageWidth     = 60.0f; 
     CGFloat const titleHeight    = 30.0f;
@@ -42,7 +44,7 @@
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
+    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
@@ -50,6 +52,8 @@
     // Set Image View
     imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
+    [imageView_.layer setMasksToBounds:YES];
+    [imageView_.layer setCornerRadius:5.0f];
     [self.contentView addSubview:imageView_];
     
     // Set Title Label
@@ -71,7 +75,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
   [super setSelected:selected animated:animated];
-  
+
   // Configure the view for the selected state
 }
 

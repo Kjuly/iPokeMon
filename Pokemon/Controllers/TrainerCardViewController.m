@@ -31,6 +31,7 @@
     
     CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
     [trainerInfoViewController.view setFrame:childViewFrame];
+    childViewFrame.size.height -= 60.0f;
     [trainerBadgesTableViewController.view setFrame:childViewFrame];
     
     self.tabBarItems = [NSArray arrayWithObjects:

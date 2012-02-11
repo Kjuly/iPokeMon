@@ -30,9 +30,9 @@
   if (self) {
     // Constans
     CGFloat const cellHeight     = 52.5f;
-    CGFloat const cellWidth      = 320.0;
-    CGFloat const imageWidth     = 30.0; 
-    CGFloat const titleHeight    = 30.0;
+    CGFloat const cellWidth      = 320.0f;
+    CGFloat const imageWidth     = 30.0f; 
+    CGFloat const titleHeight    = 30.0f;
     CGFloat const titleWidth     = cellWidth - imageWidth;
     
     // Set |backgroundView| for Cell
