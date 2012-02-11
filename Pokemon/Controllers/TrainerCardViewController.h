@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CustomTabViewController.h"
 
-@interface TrainerCardViewController : UIViewController
+@interface TrainerCardViewController : CustomTabViewController
 
 @end
