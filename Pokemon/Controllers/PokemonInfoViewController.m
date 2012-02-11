@@ -144,6 +144,7 @@
   [dataView addSubview:speciesLabel];
   [dataView addSubview:speciesValue];
   [speciesLabel release];
+  [speciesValue release];
   
   // Type
   UILabel * typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, labelWidth, labelHeight)];

@@ -9,6 +9,8 @@
 #import "TrainerCardViewController.h"
 
 #import "../GlobalConstants.h"
+#import "TrainerInfoViewController.h"
+#import "TrainerBadgesViewController.h"
 
 @implementation TrainerCardViewController
 
@@ -24,24 +26,22 @@
     self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
     
     // Add child view controllers to each tab
-    UIViewController * controller1 = [[UIViewController alloc] init];
-    UIViewController * controller2 = [[UIViewController alloc] init];
-    [controller2.view setBackgroundColor:[UIColor blueColor]];
-    UIViewController * controller3 = [[UIViewController alloc] init];
-    UIViewController * controller4 = [[UIViewController alloc] init];
+    TrainerInfoViewController   * trainerInfoViewController   = [[TrainerInfoViewController alloc] init];
+    TrainerBadgesViewController * trainerBadgesViewController = [[TrainerBadgesViewController alloc] init];
     
     CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
+    [trainerInfoViewController.view setFrame:childViewFrame];
+    [trainerBadgesViewController.view setFrame:childViewFrame];
     
     self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Messages.png", @"image", controller1, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_SixPokemons.png", @"image", controller2, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Steps.png", @"image", controller3, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Other.png", @"image", controller4, @"viewController", nil], nil];
+                        [NSDictionary dictionaryWithObjectsAndKeys:
+                         @"TrainerCardTabIcon_Info.png",   @"image", trainerInfoViewController,   @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:
+                         @"TrainerCardTabIcon_Badges.png", @"image", trainerBadgesViewController, @"viewController", nil],
+                        nil];
     
-    [controller1 release];
-    [controller2 release];
-    [controller3 release];
-    [controller4 release];
+    [trainerInfoViewController   release];
+    [trainerBadgesViewController release];
   }
   return self;
 }
