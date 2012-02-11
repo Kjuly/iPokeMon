@@ -14,4 +14,7 @@
 + (UIColor *)backgroundColorTransparentBlack;
 + (UIColor *)backgroundColorBar;
 
++ (UIColor *)textColorOrange;
++ (UIColor *)textColorBlue;
+
 @end;

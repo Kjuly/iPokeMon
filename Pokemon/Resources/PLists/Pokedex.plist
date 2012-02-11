@@ -3,8 +3,21 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>type</key>
+		<array>
+			<integer>4</integer>
+			<integer>7</integer>
+		</array>
 		<key>name</key>
 		<string>Bulbasaur</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>height</key>
+		<integer>710</integer>
+		<key>weight</key>
+		<integer>6900</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need added one by one.</string>
 	</dict>
 	<dict>
 		<key>name</key>

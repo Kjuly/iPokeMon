@@ -8,6 +8,7 @@
 
 #import "PokemonDetailTabViewController.h"
 
+#import "../GlobalConstants.h"
 #import "PokemonInfoViewController.h"
 #import "PokemonAreaViewController.h"
 #import "PokemonSizeViewController.h"
@@ -32,12 +33,20 @@
     PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonID:pokemonID];
     PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemonID:pokemonID];
     
+    // Set child views' Frame
+    CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
+    [pokemonInfoViewController.view setFrame:childViewFrame];
+    [pokemonAreaViewController.view setFrame:childViewFrame];
+    [pokemonSizeViewController.view setFrame:childViewFrame];
+    
+    // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Info.png", @"image", pokemonInfoViewController, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Area.png", @"image", pokemonAreaViewController, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Size.png", @"image", pokemonSizeViewController, @"viewController", nil],
                         nil];
     
+    // Release child view controllers
     [pokemonInfoViewController release];
     [pokemonAreaViewController release];
     [pokemonSizeViewController release];

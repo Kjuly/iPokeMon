@@ -10,11 +10,11 @@
 
 @interface PokemonInfoViewController : UIViewController
 {
-  NSInteger pokemonID_;
+  NSInteger      pokemonID_;
   NSDictionary * pokemonInfoDict_;
 }
 
-@property (nonatomic, assign) NSInteger pokemonID;
+@property (nonatomic, assign) NSInteger    pokemonID;
 @property (nonatomic, copy) NSDictionary * pokemonInfoDict;
 
 - (id)initWithPokemonID:(NSInteger)pokemonID;

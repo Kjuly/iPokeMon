@@ -28,6 +28,8 @@ enum {
 #define kTabBarHeight 44.0f
 #define kTabBarWdith  300.0f
 
+#define kTopBarHeight 55.0f // 60 - 5(shadow)
+
 #define kTabArrowImageTag   2394859
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345

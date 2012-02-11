@@ -115,7 +115,7 @@
   
   // Get the right view controller
   UIViewController * viewController = [[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"viewController"];
-  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, self.viewFrame.size.width, self.viewFrame.size.height)];
+//  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, self.viewFrame.size.width, self.viewFrame.size.height)];
   [viewController.view setTag:kPoketchSelectedViewControllerTag];
   
   // Add the new view controller's view
