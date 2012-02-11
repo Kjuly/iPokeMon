@@ -54,9 +54,12 @@
     for (int width = 0; width <= fullImageWidth - singleImageWidth; width += singleImageWidth) {
       CGImageRef cgImage = CGImageCreateWithImageInRect(fullImage.CGImage,
                                                         CGRectMake(width, height, singleImageWidth, singleImageHeight));
+      UIImage * singleImage = [[UIImage alloc] initWithCGImage:cgImage];
+      CGImageRelease(cgImage);
       
-      // Add ImageView to Array
-      [pokedexGenerationOneImageArray addObject:[UIImage imageWithCGImage:cgImage]];
+      // Add |singleImage| to Array
+      [pokedexGenerationOneImageArray addObject:singleImage];
+      [singleImage release];
     }
   }
   
@@ -75,8 +78,10 @@
                                                                singleImageHeight * (pokemonID / 13),
                                                                singleImageWidth,
                                                                singleImageHeight));
+  UIImage * pokemonImage = [UIImage imageWithCGImage:cgImage];
+  CGImageRelease(cgImage);
   
-  return [UIImage imageWithCGImage:cgImage];
+  return pokemonImage;
 }
 
 #pragma mark - Bag[Item]
