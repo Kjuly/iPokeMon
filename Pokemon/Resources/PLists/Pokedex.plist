@@ -3,17 +3,17 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>name</key>
+		<string>Bulbasaur</string>
+		<key>species</key>
+		<integer>1</integer>
 		<key>type</key>
 		<array>
 			<integer>4</integer>
 			<integer>7</integer>
 		</array>
-		<key>name</key>
-		<string>Bulbasaur</string>
-		<key>species</key>
-		<integer>1</integer>
 		<key>height</key>
-		<integer>710</integer>
+		<integer>71</integer>
 		<key>weight</key>
 		<integer>6900</integer>
 		<key>description</key>
@@ -22,78 +22,316 @@
 	<dict>
 		<key>name</key>
 		<string>Lvysaur</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>4</integer>
+			<integer>7</integer>
+		</array>
+		<key>height</key>
+		<integer>99</integer>
+		<key>weight</key>
+		<integer>13000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Venusaur</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>4</integer>
+			<integer>7</integer>
+		</array>
+		<key>height</key>
+		<integer>201</integer>
+		<key>weight</key>
+		<integer>100000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Charmander</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>1</integer>
+		</array>
+		<key>height</key>
+		<integer>61</integer>
+		<key>weight</key>
+		<integer>8500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Charmeleon</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>1</integer>
+		</array>
+		<key>height</key>
+		<integer>109</integer>
+		<key>weight</key>
+		<integer>19000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Charizard</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>1</integer>
+			<integer>9</integer>
+		</array>
+		<key>height</key>
+		<integer>170</integer>
+		<key>weight</key>
+		<integer>90500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Squirtle</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>2</integer>
+		</array>
+		<key>height</key>
+		<integer>51</integer>
+		<key>weight</key>
+		<integer>9000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Wartortle</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>2</integer>
+		</array>
+		<key>height</key>
+		<integer>99</integer>
+		<key>weight</key>
+		<integer>22500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Blastoise</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>2</integer>
+		</array>
+		<key>height</key>
+		<integer>160</integer>
+		<key>weight</key>
+		<integer>85500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Caterpie</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+		</array>
+		<key>height</key>
+		<integer>30</integer>
+		<key>weight</key>
+		<integer>2900</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Metapod</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+		</array>
+		<key>height</key>
+		<integer>71</integer>
+		<key>weight</key>
+		<integer>9900</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Butterfree</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+			<integer>9</integer>
+		</array>
+		<key>height</key>
+		<integer>109</integer>
+		<key>weight</key>
+		<integer>32000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Weedle</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+			<integer>7</integer>
+		</array>
+		<key>height</key>
+		<integer>30</integer>
+		<key>weight</key>
+		<integer>3200</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Kahuna</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+			<integer>7</integer>
+		</array>
+		<key>height</key>
+		<integer>61</integer>
+		<key>weight</key>
+		<integer>10000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
-		<key>Beedrill</key>
-		<string></string>
+		<key>name</key>
+		<string>Beedrill</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>11</integer>
+			<integer>7</integer>
+		</array>
+		<key>height</key>
+		<integer>99</integer>
+		<key>weight</key>
+		<integer>29500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
-		<key>Pidgey</key>
-		<string></string>
+		<key>name</key>
+		<string>Pidgey</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>0</integer>
+			<integer>9</integer>
+		</array>
+		<key>height</key>
+		<integer>30</integer>
+		<key>weight</key>
+		<integer>1800</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Pidgeotto</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>0</integer>
+			<integer>9</integer>
+		</array>
+		<key>height</key>
+		<integer>109</integer>
+		<key>weight</key>
+		<integer>30000</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
-		<key>Pidgeot</key>
-		<string></string>
+		<key>name</key>
+		<string>Pidgeot</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>0</integer>
+			<integer>9</integer>
+		</array>
+		<key>height</key>
+		<integer>150</integer>
+		<key>weight</key>
+		<integer>39500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Rattata</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>0</integer>
+		</array>
+		<key>height</key>
+		<integer>30</integer>
+		<key>weight</key>
+		<integer>3500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Raticate</string>
+		<key>species</key>
+		<integer>1</integer>
+		<key>type</key>
+		<array>
+			<integer>0</integer>
+		</array>
+		<key>height</key>
+		<integer>71</integer>
+		<key>weight</key>
+		<integer>18500</integer>
+		<key>description</key>
+		<string>Detail description about Bulbasaur here. Need to be added one by one. Blablablablabla... Blablabla... Blabla..</string>
 	</dict>
 </array>
 </plist>
