@@ -10,6 +10,15 @@
 
 @implementation PokemonAreaViewController
 
+@synthesize mapView = mapView_;
+
+- (void)dealloc
+{
+  [mapView_ release];
+  
+  [super dealloc];
+}
+
 - (id)initWithPokemonID:(NSInteger)pokemonID
 {
   self = [self init];
@@ -46,8 +55,13 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
   
-  [self.view setBackgroundColor:[UIColor yellowColor]];
+  // Google Map View
+  MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+  self.mapView = mapView;
+  [mapView release];
+  [self.view addSubview:self.mapView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -59,8 +73,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.mapView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
