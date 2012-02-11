@@ -69,6 +69,10 @@
   CGFloat valueWidth        = 320.0f - imageWidth - labelWidth;
   CGFloat nameLabelWidth    = 320.0f - imageWidth;
   CGFloat nameLabelHeight   = imageHeight / 2 - labelHeight;
+  CGRect  descriptionFrame  = CGRectMake(10.0f,
+                                         imageHeight + labelHeight + 30.0f,
+                                         300.0f,
+                                         480.0f - kTopBarHeight - imageHeight - labelHeight - 30.0f * 2 - kTabBarHeight);
   
   // Image
   UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
@@ -175,6 +179,15 @@
   [self.view addSubview:weightValue];
   [weightLabel release];
   [weightValue release];
+  
+  // Description
+  UITextView * descriptionField = [[UITextView alloc] initWithFrame:descriptionFrame];
+  [descriptionField setBackgroundColor:[UIColor clearColor]];
+  [descriptionField setEditable:NO];
+  [descriptionField setFont:[UIFont systemFontOfSize:14.0f]];
+  [descriptionField setText:[self.pokemonInfoDict objectForKey:@"description"]];
+  [self.view addSubview:descriptionField];
+  [descriptionField release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
