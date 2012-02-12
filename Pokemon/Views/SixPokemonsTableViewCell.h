@@ -11,12 +11,18 @@
 @interface SixPokemonsTableViewCell : UITableViewCell
 {
   UIImageView * imageView_;
-  UILabel     * labelTitle_;
-  UILabel     * labelSubtitle_;
+  UILabel     * nameLabel_;
+  UILabel     * genderLabel_;
+  UILabel     * levelLabel_;
+  UILabel     * HPLabel_;
+  UIView      * HPBarLeft_;
 }
 
 @property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * labelTitle;
-@property (nonatomic, retain) UILabel     * labelSubtitle;
+@property (nonatomic, retain) UILabel     * nameLabel;
+@property (nonatomic, retain) UILabel     * genderLabel;
+@property (nonatomic, retain) UILabel     * levelLabel;
+@property (nonatomic, retain) UILabel     * HPLabel;
+@property (nonatomic, retain) UIView      * HPBarLeft;
 
 @end

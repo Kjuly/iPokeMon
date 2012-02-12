@@ -128,9 +128,10 @@
     [HPBarLeft release];
     
     [dataView addSubview:HPBarTotal];
-    
+    [HPBarTotal release];
     
     [dataDict release];
+    
     [pokemonView addSubview:dataView];
     [dataView release];
     

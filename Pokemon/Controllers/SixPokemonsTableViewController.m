@@ -31,9 +31,6 @@
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
-    // Disable Scroll as only a maximum of Six Pokemons exists
-    [self.tableView setScrollEnabled:NO];
   }
   return self;
 }
@@ -133,11 +130,14 @@
   NSInteger rowID = [indexPath row];
   NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
   
-  // Set Title & Image
-  [cell.labelTitle setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
+  // Image
   [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
-  // Set Pokemon ID as subtitle
-  [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
+  // Data
+  [cell.nameLabel setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
+  [cell.genderLabel setText:@"M"];
+  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", 33]];
+  [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", 123, 999]];
+  [cell.HPBarLeft setFrame:CGRectMake(0.0f, 0.0f, 123.0f, cell.HPBarLeft.frame.size.height)];
   
   return cell;
 }
