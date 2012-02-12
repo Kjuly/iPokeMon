@@ -123,12 +123,23 @@
 - (void)actionForButtonLocateMe
 {
   NSLog(@"--- MapViewController locateMe ---");
-  
+  // Zoom In the |mapView_| & make User's Location as |mapView_| center point
+  MKCoordinateRegion region = self.mapView.region;
+  region.span.longitudeDelta = 0.01f;
+  region.span.latitudeDelta  = 0.01f;
+  region.center = CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude);
+  [self.mapView setRegion:region animated:YES];  
 }
 
 - (void)actionForButtonShowWorld
 {
   NSLog(@"--- MapViewController showWorld ---");
+  // Zoom Out the |mapView_| & make User's Location as |mapView_| center point
+  MKCoordinateRegion region = self.mapView.region;
+  region.span.longitudeDelta = 180;
+  region.span.latitudeDelta  = 180;
+  region.center = CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude);
+  [self.mapView setRegion:region animated:YES];
 }
 
 #pragma mark - CLLocationManagerDelegate
