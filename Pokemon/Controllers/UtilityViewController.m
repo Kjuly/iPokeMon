@@ -24,6 +24,8 @@
 
 @implementation UtilityViewController
 
+@synthesize delegate = delegate_;
+
 @synthesize buttonLocateMe    = buttonLocateMe_;
 @synthesize buttonShowWorld   = buttonShowWorld_;
 @synthesize buttonDiscover    = buttonDiscover_;
@@ -165,12 +167,12 @@
 
 #pragma mark - Button Actions (Private)
 
-- (void)locateMe:(id)sender
-{
+- (void)locateMe:(id)sender {
+  [delegate_ actionForButtonLocateMe];
 }
 
-- (void)showWorld:(id)sender
-{
+- (void)showWorld:(id)sender {
+  [delegate_ actionForButtonShowWorld];
 }
 
 - (void)discover:(id)sender

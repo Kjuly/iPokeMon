@@ -87,6 +87,9 @@
   UtilityViewController * utilityViewController = [[UtilityViewController alloc] init];
   self.utilityViewController = utilityViewController;
   [utilityViewController release];
+  // Set |mapViewController_| as |utilityViewController_|'s |delegate|,
+  // for |buttonLocateMe| & |buttonShowWorld|
+  self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
   
   // Ball menu which locate at center

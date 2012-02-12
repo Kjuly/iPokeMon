@@ -75,4 +75,16 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - UtilityViewControllerDelegate
+
+- (void)actionForButtonLocateMe
+{
+  NSLog(@"--- MapViewController locateMe ---");
+}
+
+- (void)actionForButtonShowWorld
+{
+  NSLog(@"--- MapViewController showWorld ---");
+}
+
 @end

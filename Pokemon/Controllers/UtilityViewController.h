@@ -10,8 +10,18 @@
 
 #import "AccountSettingTableViewController.h"
 
+@protocol UtilityViewControllerDelegate
+
+- (void)actionForButtonLocateMe;
+- (void)actionForButtonShowWorld;
+
+@end
+
+
 @interface UtilityViewController : UIViewController <AccountSettingTableViewControllerDelegate>
 {
+  id <UtilityViewControllerDelegate> delegate_;
+  
   UIButton * buttonLocateMe_;
   UIButton * buttonShowWorld_;
   UIButton * buttonDiscover_;
@@ -19,6 +29,8 @@
   
   AccountSettingTableViewController * accountSettingTableViewController_;
 }
+
+@property (nonatomic, assign) id <UtilityViewControllerDelegate> delegate;
 
 @property (nonatomic, retain) UIButton * buttonLocateMe;
 @property (nonatomic, retain) UIButton * buttonShowWorld;

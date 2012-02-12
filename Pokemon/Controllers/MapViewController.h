@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+#import "UtilityViewController.h"
+
+@interface MapViewController : UIViewController <UtilityViewControllerDelegate, MKMapViewDelegate>
 {
   MKMapView * mapView_;
 }
