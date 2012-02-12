@@ -84,6 +84,35 @@
   return pokemonImage;
 }
 
+// Image Array for Six Pokemons
++ (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence
+{
+  NSMutableArray * imageArray = [[[NSMutableArray alloc] init] autorelease];
+  UIImage * fullImage = [UIImage imageNamed:@"AllPokemonImageSmall.png"];
+  
+  for (int i = 0; i < [IDSequence length]; i += 4) {
+    // Decode Hex to int value
+    NSScanner * scanner = [[NSScanner alloc] initWithString:[IDSequence substringWithRange:NSMakeRange(i, 4)]];
+    uint_fast32_t pokemonID;
+    [scanner scanHexInt:&pokemonID];
+    [scanner release];
+    
+    // Get right Image
+    CGImageRef cgImage = CGImageCreateWithImageInRect(fullImage.CGImage,
+                                                      CGRectMake(32.0f * (pokemonID % 27),
+                                                                 32.0f * (pokemonID / 27),
+                                                                 32.0f,
+                                                                 32.0f));
+    UIImage * pokemonImage = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    
+    // Add Image to |imageArray|
+    [imageArray addObject:pokemonImage];
+  }
+  
+  return [NSArray arrayWithArray:imageArray];
+}
+
 #pragma mark - Bag[Item]
 
 + (NSArray *)bagItems {

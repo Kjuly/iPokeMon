@@ -17,6 +17,7 @@
 
 + (NSArray *)pokedexGenerationOneImageArray;
 + (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID;
++ (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence;
 
 // Bag[Item]
 + (NSArray *)bagItems;

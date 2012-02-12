@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface PoketchSixPokemonsViewController : UIViewController
+{
+  NSArray * dataArray_;
+  NSArray * imageArray_;
+}
+
+@property (nonatomic, copy) NSArray * dataArray;
+@property (nonatomic, copy) NSArray * imageArray;
 
 @end
