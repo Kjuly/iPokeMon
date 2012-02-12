@@ -72,8 +72,6 @@
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
 		7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */; };
 		7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */; };
-		7F90C57414E517A200147718 /* PoketchTabBarIcon_Other.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */; };
-		7F90C57514E517A200147718 /* PoketchTabBarIcon_Other@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */; };
 		7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */; };
 		7F90C57714E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */; };
 		7F90C57814E517A200147718 /* PoketchTabBarIcon_Steps.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */; };
@@ -254,8 +252,6 @@
 		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
 		7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Messages.png; sourceTree = "<group>"; };
 		7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Messages@2x.png"; sourceTree = "<group>"; };
-		7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Other.png; sourceTree = "<group>"; };
-		7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Other@2x.png"; sourceTree = "<group>"; };
 		7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_SixPokemons.png; sourceTree = "<group>"; };
 		7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_SixPokemons@2x.png"; sourceTree = "<group>"; };
 		7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Steps.png; sourceTree = "<group>"; };
@@ -679,8 +675,6 @@
 				7F90C57C14E51A3700147718 /* PoketchTabBarIconDefaultMask@2x.png */,
 				7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */,
 				7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */,
-				7F90C56C14E517A200147718 /* PoketchTabBarIcon_Other.png */,
-				7F90C56D14E517A200147718 /* PoketchTabBarIcon_Other@2x.png */,
 				7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */,
 				7F90C56F14E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png */,
 				7F90C57014E517A200147718 /* PoketchTabBarIcon_Steps.png */,
@@ -872,8 +866,6 @@
 				7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */,
 				7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */,
 				7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */,
-				7F90C57414E517A200147718 /* PoketchTabBarIcon_Other.png in Resources */,
-				7F90C57514E517A200147718 /* PoketchTabBarIcon_Other@2x.png in Resources */,
 				7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */,
 				7F90C57714E517A200147718 /* PoketchTabBarIcon_SixPokemons@2x.png in Resources */,
 				7F90C57814E517A200147718 /* PoketchTabBarIcon_Steps.png in Resources */,
