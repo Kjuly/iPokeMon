@@ -8,6 +8,9 @@
 
 #import "PoketchStepsViewController.h"
 
+#import "GlobalColor.h"
+
+
 @implementation PoketchStepsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,6 +37,38 @@
 {
   [super loadView];
   [self.view setBackgroundColor:[UIColor whiteColor]];
+  
+  // Constans
+  CGRect const stepsViewFrame  = CGRectMake(10.0f, 60.0f, 300.0f, 60.0f);
+  CGRect const stepsLabelFrame = CGRectMake(0.0f, 10.0f, 100.0f, 50.0f);
+  CGRect const stepsValueFrame = CGRectMake(100.0f, 0.0f, 200.0f, 60.0f);
+  
+  // Steps View
+  UIView * stepsView = [[UIView alloc] initWithFrame:stepsViewFrame];
+  
+  // Steps Label
+  UILabel * stepsLabel = [[UILabel alloc] initWithFrame:stepsLabelFrame];
+  [stepsLabel setBackgroundColor:[UIColor clearColor]];
+  [stepsLabel setTextColor:[GlobalColor textColorBlue]];
+  [stepsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:20.0f]];
+  [stepsLabel setTextAlignment:UITextAlignmentRight];
+  [stepsLabel setText:@"Steps: "];
+  [stepsView addSubview:stepsLabel];
+  [stepsLabel release];
+  
+  // Steps Value
+  UILabel * stepsValue = [[UILabel alloc] initWithFrame:stepsValueFrame];
+  [stepsValue setBackgroundColor:[UIColor clearColor]];
+  [stepsValue setTextColor:[GlobalColor textColorOrange]];
+  [stepsValue setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:45.0f]];
+  [stepsValue setTextAlignment:UITextAlignmentLeft];
+  [stepsValue setText:[NSString stringWithFormat:@"%d", 9999]];
+  [stepsView addSubview:stepsValue];
+  [stepsValue release];
+  
+  // Add |stepsView| to |self.view| & release it
+  [self.view addSubview:stepsView];
+  [stepsView release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
