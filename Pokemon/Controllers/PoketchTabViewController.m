@@ -9,6 +9,7 @@
 #import "PoketchTabViewController.h"
 
 #import "../GlobalConstants.h"
+#import "PoketchSixPokemonsViewController.h"
 
 @implementation PoketchTabViewController
 
@@ -25,19 +26,22 @@
     
     // Add child view controllers to each tab
     UIViewController * controller1 = [[UIViewController alloc] init];
-    UIViewController * controller2 = [[UIViewController alloc] init];
-    [controller2.view setBackgroundColor:[UIColor blueColor]];
+    PoketchSixPokemonsViewController * poketchSixPokemonsViewController = [[PoketchSixPokemonsViewController alloc] init];
     UIViewController * controller3 = [[UIViewController alloc] init];
     UIViewController * controller4 = [[UIViewController alloc] init];
     
+    // Set child view's frame
+    CGRect childViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f - kMapViewHeight - kUtilityBarHeight);
+    [poketchSixPokemonsViewController.view setFrame:childViewFrame];
+    
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Messages.png", @"image", controller1, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_SixPokemons.png", @"image", controller2, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_SixPokemons.png", @"image", poketchSixPokemonsViewController, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Steps.png", @"image", controller3, @"viewController", nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PoketchTabBarIcon_Other.png", @"image", controller4, @"viewController", nil], nil];
     
     [controller1 release];
-    [controller2 release];
+    [poketchSixPokemonsViewController release];
     [controller3 release];
     [controller4 release];
   }
