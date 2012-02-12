@@ -45,6 +45,7 @@
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
     [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
+    [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
