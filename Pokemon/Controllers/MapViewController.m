@@ -118,6 +118,8 @@
 
 #pragma mark - CLLocationManagerDelegate
 
+// Tells the delegate that a new location value is available.
+// Available in iOS 2.0 and later.
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
@@ -127,10 +129,14 @@
   NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
 }
 
+// Tells the delegate that the location manager received updated heading information.
+// Available in iOS 3.0 and later.
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
 }
 
+// Tells the delegate that the user entered/exit the specified region.
+// Available in iOS 4.0 and later.
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
 }
@@ -139,18 +145,28 @@
 {
 }
 
+/*
+// Tells the delegate that a new region is being monitored.
+// Available in iOS 5.0 and later.
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
 }
+*/
 
+// Tells the delegate that a region monitoring error occurred.
+// Available in iOS 4.0 and later.
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
 }
 
+// Tells the delegate that the authorization status for the application changed.
+// Available in iOS 4.2 and later.
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
 }
 
+// Asks the delegate whether the heading calibration alert should be displayed.
+// Available in iOS 3.0 and later.
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
   return YES;
 }
