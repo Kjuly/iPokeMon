@@ -153,6 +153,7 @@
   NSInteger HPTotal = [[dataDict objectForKey:@"HPTotal"] intValue];
   [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];
   [cell.HPBarLeft setFrame:CGRectMake(0.0f, 0.0f, 150.0f * HPLeft / HPTotal, cell.HPBarLeft.frame.size.height)];
+  [dataDict release];
   
   return cell;
 }
