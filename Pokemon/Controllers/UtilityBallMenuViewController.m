@@ -96,6 +96,7 @@
   [ballMenu release];
   
   [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UtilityBallMenuIconBig.png"]]];
+  [self.ballMenu setOpaque:NO];
   [self.view addSubview:self.ballMenu];
   
   // Buttons in Ball Menu View

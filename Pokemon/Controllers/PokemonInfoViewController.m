@@ -83,6 +83,7 @@
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, imageWidth, imageHeight)];
   [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+  [imageContainer setOpaque:NO];
   
   // Image
   UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
@@ -170,6 +171,7 @@
   ///Description
   UITextView * descriptionField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [descriptionField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+  [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
   [descriptionField setFont:[UIFont systemFontOfSize:14.0f]];
   [descriptionField setText:[self.pokemonInfoDict objectForKey:@"description"]];

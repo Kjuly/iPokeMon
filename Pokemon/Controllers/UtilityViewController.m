@@ -71,6 +71,7 @@
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UtilityBarBackground.png"]]];
+  [self.view setOpaque:NO];
   
   // Four buttons
   {
