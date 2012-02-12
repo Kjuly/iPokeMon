@@ -37,6 +37,7 @@
 		7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */; };
 		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
+		7F4AC7FF14E7FBE500A10434 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */; };
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
 		7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51C41414D7D4E60091902D /* MapKit.framework */; };
@@ -203,6 +204,7 @@
 		7F39A2F214DD07DA00C77485 /* DataDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDecoder.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
 		7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailTabViewController.m; sourceTree = "<group>"; };
+		7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7F51C3D614D7C4DF0091902D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7F51C40614D7D3C60091902D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F4AC7FF14E7FBE500A10434 /* CoreLocation.framework in Frameworks */,
 				7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */,
 				7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */,
 				7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */,
@@ -434,6 +437,7 @@
 		7F6E6CB714D6CAA600033C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */,
 				7F51C41414D7D4E60091902D /* MapKit.framework */,
 				7F6E6CB814D6CAA600033C65 /* UIKit.framework */,
 				7F6E6CBA14D6CAA600033C65 /* Foundation.framework */,
