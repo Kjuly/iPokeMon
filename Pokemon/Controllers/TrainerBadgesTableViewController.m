@@ -164,14 +164,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+//  NSLog(@"123333");
+//  if (self.navigationController) {
+//    NSLog(@"-----");
+//  }
+//  UIViewController * viewController = [[UIViewController alloc] init];
+//  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+//  [viewController.view setBackgroundColor:[UIColor blueColor]];
+//  [self.parentViewController.navigationController pushViewController:viewController animated:YES];
+////  [self.navigationController pushViewController:viewController animated:YES];
+//  [viewController release];
 }
 
 @end
