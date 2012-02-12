@@ -120,9 +120,9 @@
 
 #pragma mark - UtilityViewControllerDelegate
 
+// Locate user's location
 - (void)actionForButtonLocateMe
 {
-  NSLog(@"--- MapViewController locateMe ---");
   // Zoom In the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
   region.span.longitudeDelta = 0.01f;
@@ -131,9 +131,9 @@
   [self.mapView setRegion:region animated:YES];  
 }
 
+// Show whole world map
 - (void)actionForButtonShowWorld
 {
-  NSLog(@"--- MapViewController showWorld ---");
   // Zoom Out the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
   region.span.longitudeDelta = 180;
