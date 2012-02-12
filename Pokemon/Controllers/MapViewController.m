@@ -8,12 +8,19 @@
 
 #import "MapViewController.h"
 
+@interface MapViewController (PrivateMethods)
+
+- (void)continueUpdatingLocation;
+
+@end
+
 @implementation MapViewController
 
 @synthesize mapView = mapView_;
 
-@synthesize locationManager = locationManageer_;
-@synthesize location        = location_;
+@synthesize locationManager    = locationManageer_;
+@synthesize location           = location_;
+@synthesize isUpdatingLocation = isUpdatingLocation_;
 
 - (void)dealloc
 {
@@ -82,9 +89,17 @@
   
   // Start Updating Location
   [locationManageer_ startUpdatingLocation];
+  isUpdatingLocation_ = YES;
   
   // Stop Updating Location
 //  [locationManageer_ stopUpdatingLocation];
+  
+  // Check whether it is updating location after some time interval
+  [NSTimer scheduledTimerWithTimeInterval:10
+                                   target:self
+                                 selector:@selector(continueUpdatingLocation)
+                                 userInfo:nil
+                                  repeats:YES];
 }
 
 - (void)viewDidUnload
@@ -127,6 +142,12 @@
   self.location = newLocation;
 //  NSLog(@"<<< New Location: %@", [self.location description]);
   NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
+  
+  // When |horizontalAccuracy| of location is smaller than 100, stop updating location
+  if (self.location.horizontalAccuracy < 100) {
+    [self.locationManager stopUpdatingLocation];
+    self.isUpdatingLocation = NO;
+  }
 }
 
 // Tells the delegate that the location manager received updated heading information.
@@ -173,6 +194,17 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
   NSLog(@"!!! CLLocationManager - Error: %@", [error description]);
+}
+
+#pragma mark - Actions
+
+// Continue updating location after some time interval
+- (void)continueUpdatingLocation
+{
+  if (! self.isUpdatingLocation) {
+    [self.locationManager startUpdatingLocation];
+    self.isUpdatingLocation = YES;
+  }
 }
 
 @end
