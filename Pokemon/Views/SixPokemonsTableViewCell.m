@@ -19,6 +19,7 @@
 @synthesize genderLabel = genderLabel_;
 @synthesize levelLabel  = levelLabel_;
 @synthesize HPLabel     = HPLabel_;
+@synthesize HPBarTotal  = HPBarTotal_;
 @synthesize HPBarLeft   = HPBarLeft_;
 
 - (void)dealloc
@@ -28,6 +29,7 @@
   [genderLabel_ release];
   [levelLabel_  release];
   [HPLabel_     release];
+  [HPBarTotal_  release];
   [HPBarLeft_   release];
   
   self.imageView   = nil;
@@ -35,6 +37,7 @@
   self.genderLabel = nil;
   self.levelLabel  = nil;
   self.HPLabel     = nil;
+  self.HPBarTotal  = nil;
   self.HPBarLeft   = nil;
   
   [super dealloc];
@@ -67,6 +70,12 @@
     [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
+    
+    // Set |selectedBackgroundView|
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
+    [self setSelectedBackgroundView:selectedBackgroundView];
+    [selectedBackgroundView release];
     
     
     // Set Layouts for |contentView|(readonly)
@@ -105,16 +114,15 @@
     [dataView addSubview:levelLabel_];
     
     // HP Bar
-    UIView * HPBarTotal = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal setBackgroundColor:[GlobalColor textColorBlue]];
-    [HPBarTotal.layer setCornerRadius:5.0f];
+    HPBarTotal_ = [[UIView alloc] initWithFrame:HPBarFrame];
+    [HPBarTotal_ setBackgroundColor:[GlobalColor textColorBlue]];
+    [HPBarTotal_.layer setCornerRadius:5.0f];
     // HP Bar Left Part
     HPBarLeft_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
     [HPBarLeft_ setBackgroundColor:[GlobalColor textColorOrange]];
     [HPBarLeft_.layer setCornerRadius:5.0f];
-    [HPBarTotal addSubview:HPBarLeft_];
-    [dataView addSubview:HPBarTotal];
-    [HPBarTotal release];
+    [HPBarTotal_ addSubview:HPBarLeft_];
+    [dataView addSubview:HPBarTotal_];
     
     // HP Label
     HPLabel_ = [[UILabel alloc] initWithFrame:HPLabelFrame];
@@ -134,8 +142,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
   [super setSelected:selected animated:animated];
-  
-  // Configure the view for the selected state
 }
 
 @end

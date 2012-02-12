@@ -14,9 +14,11 @@
 {
   NSMutableArray * sixPokemonsID_;
   NSMutableArray * sixPokemons_;
+  NSArray * dataArray_;
 }
 
 @property (nonatomic, copy) NSMutableArray * sixPokemonsID;
 @property (nonatomic, copy) NSMutableArray * sixPokemons;
+@property (nonatomic, copy) NSArray * dataArray;
 
 @end

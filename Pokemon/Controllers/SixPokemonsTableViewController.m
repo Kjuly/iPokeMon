@@ -17,11 +17,13 @@
 
 @synthesize sixPokemonsID = sixPokemonsID_;
 @synthesize sixPokemons   = sixPokemons_;
+@synthesize dataArray = dataArray_;
 
 - (void)dealloc
 {
   [sixPokemonsID_ release];
   [sixPokemons_   release];
+  [dataArray_ release];
   
   [super dealloc];
 }
@@ -64,6 +66,15 @@
                     [NSNumber numberWithInt:0x0051],
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];
+  
+  dataArray_ = [[NSArray alloc] initWithObjects:
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:32], @"level", [NSNumber numberWithInt:60],  @"HPLeft", [NSNumber numberWithInt:220], @"HPTotal", @"Normal", @"state", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:21], @"level", [NSNumber numberWithInt:129], @"HPLeft", [NSNumber numberWithInt:190], @"HPTotal", @"Normal", @"state", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:37], @"level", [NSNumber numberWithInt:249], @"HPLeft", [NSNumber numberWithInt:270], @"HPTotal", @"Normal", @"state", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:31], @"level", [NSNumber numberWithInt:209], @"HPLeft", [NSNumber numberWithInt:209], @"HPTotal", @"Normal", @"state", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:49], @"level", [NSNumber numberWithInt:390], @"HPLeft", [NSNumber numberWithInt:420], @"HPTotal", @"Normal", @"state", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:51], @"level", [NSNumber numberWithInt:119], @"HPLeft", [NSNumber numberWithInt:512], @"HPTotal", @"Normal", @"state", nil],
+                nil];
 }
 
 - (void)viewDidUnload
@@ -72,6 +83,7 @@
   
   self.sixPokemonsID = nil;
   self.sixPokemons   = nil;
+  self.dataArray = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,11 +145,14 @@
   // Image
   [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
   // Data
+  NSDictionary * dataDict = [[NSDictionary alloc] initWithDictionary:[self.dataArray objectAtIndex:rowID]];
   [cell.nameLabel setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
   [cell.genderLabel setText:@"M"];
-  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", 33]];
-  [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", 123, 999]];
-  [cell.HPBarLeft setFrame:CGRectMake(0.0f, 0.0f, 123.0f, cell.HPBarLeft.frame.size.height)];
+  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
+  NSInteger HPLeft  = [[dataDict objectForKey:@"HPLeft"] intValue];
+  NSInteger HPTotal = [[dataDict objectForKey:@"HPTotal"] intValue];
+  [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];
+  [cell.HPBarLeft setFrame:CGRectMake(0.0f, 0.0f, 150.0f * HPLeft / HPTotal, cell.HPBarLeft.frame.size.height)];
   
   return cell;
 }

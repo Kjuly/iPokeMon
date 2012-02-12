@@ -15,6 +15,7 @@
   UILabel     * genderLabel_;
   UILabel     * levelLabel_;
   UILabel     * HPLabel_;
+  UIView      * HPBarTotal_;
   UIView      * HPBarLeft_;
 }
 
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) UILabel     * genderLabel;
 @property (nonatomic, retain) UILabel     * levelLabel;
 @property (nonatomic, retain) UILabel     * HPLabel;
+@property (nonatomic, retain) UIView      * HPBarTotal;
 @property (nonatomic, retain) UIView      * HPBarLeft;
 
 @end
