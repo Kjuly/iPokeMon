@@ -86,7 +86,7 @@
   
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
-  
+/*  
   // Start Updating Location
   [locationManageer_ startUpdatingLocation];
   isUpdatingLocation_ = YES;
@@ -99,7 +99,7 @@
                                    target:self
                                  selector:@selector(continueUpdatingLocation)
                                  userInfo:nil
-                                  repeats:YES];
+                                  repeats:YES];*/
 }
 
 - (void)viewDidUnload
