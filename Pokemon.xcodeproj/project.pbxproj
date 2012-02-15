@@ -72,6 +72,7 @@
 		7F7F2EFB14EBE4A800315EC5 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EEF14EBE4A800315EC5 /* AFURLConnectionOperation.m */; };
 		7F7F2EFC14EBE4A800315EC5 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF114EBE4A800315EC5 /* AFXMLRequestOperation.m */; };
 		7F7F2EFD14EBE4A800315EC5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */; };
+		7F7F2F0514EC0D7A00315EC5 /* TrainerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2F0414EC0D7A00315EC5 /* TrainerModel.m */; };
 		7F8B816314E574EF0085CE22 /* PokedexTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8B816114E574EF0085CE22 /* PokedexTableViewCellBackground.png */; };
 		7F8B816414E574EF0085CE22 /* PokedexTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8B816214E574EF0085CE22 /* PokedexTableViewCellBackground@2x.png */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
@@ -269,6 +270,8 @@
 		7F7F2EF114EBE4A800315EC5 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		7F7F2EF214EBE4A800315EC5 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		7F7F2F0314EC0D7A00315EC5 /* TrainerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerModel.h; sourceTree = "<group>"; };
+		7F7F2F0414EC0D7A00315EC5 /* TrainerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerModel.m; sourceTree = "<group>"; };
 		7F8B816114E574EF0085CE22 /* PokedexTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PokedexTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F8B816214E574EF0085CE22 /* PokedexTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewCell.h; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 		7F6E6CF114D6CB9800033C65 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7F7F2F0314EC0D7A00315EC5 /* TrainerModel.h */,
+				7F7F2F0414EC0D7A00315EC5 /* TrainerModel.m */,
 				7F2EFB7114DE5F370068F681 /* PListParser.h */,
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
@@ -1059,6 +1064,7 @@
 				7F7F2EFB14EBE4A800315EC5 /* AFURLConnectionOperation.m in Sources */,
 				7F7F2EFC14EBE4A800315EC5 /* AFXMLRequestOperation.m in Sources */,
 				7F7F2EFD14EBE4A800315EC5 /* UIImageView+AFNetworking.m in Sources */,
+				7F7F2F0514EC0D7A00315EC5 /* TrainerModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
