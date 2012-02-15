@@ -10,9 +10,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "TrainerModel.h"
 #import "GlobalColor.h"
 
-#import "AFJSONRequestOperation.h"
 
 @implementation TrainerInfoViewController
 
@@ -21,6 +21,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    [TrainerModel initializeData];
   }
   return self;
 }
@@ -55,20 +56,6 @@
   
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 25.0f, 30.0f, 300.0f - imageWidth, imageHeight - 50.0f);
   CGRect  const dataViewFrame     = CGRectMake(10.0f, imageHeight + 35.0f, 300.0f, 195.0f);
-  
-  // Fetch Data from server
-  NSURL * url = [[NSURL alloc] initWithString:@"http://localhost:8080/user/1"];
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-  [url release];
-  
-  AFJSONRequestOperation * operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-                                                    NSLog(@"%@", JSON);
-                                                  }
-                                                  failure:nil];
-  [request release];
-  [operation start];
   
   
   ///Left Image View
@@ -200,6 +187,10 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Show Data
+  NSDictionary * fetchedObjectDict = [TrainerModel trainerData];
+  NSLog(@"+++ %@", [fetchedObjectDict valueForKey:@"name"]);
 }
 
 - (void)viewDidUnload

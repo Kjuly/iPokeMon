@@ -19,4 +19,9 @@
 @property (nonatomic, retain) NSNumber * badges;
 @property (nonatomic, retain) NSDate * adventure_started;
 
+
++ (void)initializeData;
++ (NSDictionary *)trainerData;
++ (void)setTrainerWith:(NSInteger)id Name:(NSString *)name;
+
 @end
