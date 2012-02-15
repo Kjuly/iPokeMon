@@ -495,6 +495,7 @@
 		7F6E6CC114D6CAA600033C65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
 				7F51C42414D80D100091902D /* GlobalConstants.h */,
 				7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
@@ -594,7 +595,6 @@
 		7F6E6CF114D6CB9800033C65 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
 				7F2EFB7114DE5F370068F681 /* PListParser.h */,
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
@@ -1242,8 +1242,7 @@
 				7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */,
 			);
 			currentVersion = 7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */;
-			name = Pokemon.xcdatamodeld;
-			path = ../Pokemon.xcdatamodeld;
+			path = Pokemon.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
