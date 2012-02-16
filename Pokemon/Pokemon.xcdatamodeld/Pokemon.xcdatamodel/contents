@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11D50" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="PokemonModel" representedClassName="PokemonModel" syncable="YES">
+    <entity name="Pokemon" representedClassName="PokemonModel" syncable="YES">
+        <attribute name="detailDescription" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="pokemonID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="species" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
+        <attribute name="pokemonID" optional="YES" attributeType="Integer 32" minValueString="1" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="7" defaultValueString="0" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="species" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonSpecies" inverseName="pokemons" inverseEntity="PokemonSpecies" syncable="YES"/>
+        <relationship name="types" optional="YES" toMany="YES" maxCount="6" deletionRule="Nullify" ordered="YES" destinationEntity="PokemonType" inverseName="pokemons" inverseEntity="PokemonType" syncable="YES"/>
     </entity>
-    <entity name="TrainerModel" representedClassName="TrainerModel" syncable="YES">
-        <attribute name="adventure_started" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="badges" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="money" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    <entity name="PokemonMove" syncable="YES">
+        <attribute name="moveID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pokedex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="trainerID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="PokemonSpecies" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString="Species 1" syncable="YES"/>
+        <attribute name="speciesID" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="100" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="pokemons" optional="YES" toMany="YES" maxCount="649" deletionRule="Nullify" ordered="YES" destinationEntity="Pokemon" inverseName="species" inverseEntity="Pokemon" syncable="YES"/>
+    </entity>
+    <entity name="PokemonType" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString="Type 1" syncable="YES"/>
+        <attribute name="typeID" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="30" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="pokemons" optional="YES" toMany="YES" maxCount="649" deletionRule="Nullify" ordered="YES" destinationEntity="Pokemon" inverseName="types" inverseEntity="Pokemon" syncable="YES"/>
+    </entity>
+    <entity name="Trainer" representedClassName="TrainerModel" syncable="YES">
+        <attribute name="adventure_started" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="badges" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="money" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="999999" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" minValueString="5" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
+        <attribute name="trainerID" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PokemonModel" positionX="162" positionY="234" width="128" height="135"/>
-        <element name="TrainerModel" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Pokemon" positionX="252" positionY="135" width="128" height="165"/>
+        <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
+        <element name="PokemonType" positionX="18" positionY="405" width="128" height="90"/>
+        <element name="PokemonSpecies" positionX="-36" positionY="252" width="128" height="90"/>
+        <element name="PokemonMove" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>
