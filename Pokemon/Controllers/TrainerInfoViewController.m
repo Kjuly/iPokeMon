@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "TrainerModel.h"
+//#import "TrainerModel.h"
 #import "GlobalColor.h"
 
 
@@ -21,7 +21,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    [TrainerModel initializeData];
+//    [TrainerModel initializeData];
   }
   return self;
 }
@@ -189,8 +189,8 @@
   [super viewDidLoad];
   
   // Show Data
-  NSArray * fetchedObjects = [TrainerModel trainerData];
-  NSLog(@"+++ %@", fetchedObjects);
+//  NSArray * fetchedObjects = [TrainerModel trainerData];
+//  NSLog(@"+++ %@", fetchedObjects);
 }
 
 - (void)viewDidUnload
