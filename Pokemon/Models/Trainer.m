@@ -11,7 +11,7 @@
 
 @implementation Trainer
 
-@dynamic adventure_started;
+@dynamic adventureStarted;
 @dynamic badges;
 @dynamic trainerID;
 @dynamic money;

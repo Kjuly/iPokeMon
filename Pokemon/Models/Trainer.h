@@ -12,7 +12,7 @@
 
 @interface Trainer : NSManagedObject
 
-@property (nonatomic, retain) NSDate * adventure_started;
+@property (nonatomic, retain) NSDate * adventureStarted;
 @property (nonatomic, retain) NSNumber * badges;
 @property (nonatomic, retain) NSNumber * trainerID;
 @property (nonatomic, retain) NSNumber * money;

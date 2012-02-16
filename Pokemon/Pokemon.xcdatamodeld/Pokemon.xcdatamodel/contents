@@ -25,7 +25,7 @@
         <relationship name="pokemons" optional="YES" toMany="YES" maxCount="649" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="types" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <entity name="Trainer" representedClassName="Trainer" syncable="YES">
-        <attribute name="adventure_started" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="adventureStarted" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="badges" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="5" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
