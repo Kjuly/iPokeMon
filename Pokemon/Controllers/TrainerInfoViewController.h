@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrainerInfoViewController : UIViewController
+@interface TrainerInfoViewController : UIViewController <NSFetchedResultsControllerDelegate>
+{
+  NSFetchedResultsController * fetchedResultsController_;
+}
+
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
 @end

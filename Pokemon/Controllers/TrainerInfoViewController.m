@@ -12,9 +12,19 @@
 
 #import "GlobalColor.h"
 #import "Trainer+DataController.h"
+#import "AppDelegate.h"
 
 
 @implementation TrainerInfoViewController
+
+@synthesize fetchedResultsController = fetchedResultsController_;
+
+- (void)dealloc
+{
+  [fetchedResultsController_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -189,13 +199,36 @@
   [super viewDidLoad];
   
   // Show Data
-  NSArray * fetchedObjects = [Trainer queryAllData];
-  NSLog(@"+++ %@", fetchedObjects);
+//  NSArray * fetchedObjects = [Trainer queryAllData];
+//  NSLog(@"+++ %@", fetchedObjects);
+  
+  // Get a handle to our fetchedResultsController (which implicitly creates it as well)
+  // and call |performFetch:| to retrieve the first batch of data
+  NSError *error;
+	if (! [[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.fetchedResultsController.delegate = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  
+  // It can be put at |numberOfRowsInSection:| in TableView
+  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:0];
+  NSLog(@"~~~ %@", sectionInfo); //[sectionInfo numberOfObjects]);
+  
+  // It can be put at |cellForRowAtIndexPath:| in TableView
+  NSLog(@"~~~ %@", [fetchedResultsController_ objectAtIndexPath:0]);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -203,5 +236,101 @@
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark - NSFetchedResultsController
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+  if (fetchedResultsController_ != nil) {
+    return fetchedResultsController_;
+  }
+  
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSManagedObjectContext * context = [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
+  NSEntityDescription *entity = [NSEntityDescription 
+                                 entityForName:@"Trainer" inManagedObjectContext:context];
+  [fetchRequest setEntity:entity];
+  
+  // Set Sort Descriptors
+  NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                            initWithKey:@"trainerID" ascending:NO];
+  [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+  
+  // Set Batch Size
+  // The fetched results controller will only retrieve a subset of objects at a time from the underlying database,
+  // and automatically fetch mroe as we scroll
+  [fetchRequest setFetchBatchSize:20];
+  
+  // Create the |NSFetchedRequestController| instance
+  NSFetchedResultsController *theFetchedResultsController = 
+  [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                      managedObjectContext:context
+                                        sectionNameKeyPath:nil       // sort the data into sections in table view
+                                                 cacheName:@"Root"]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
+  self.fetchedResultsController = theFetchedResultsController;
+  fetchedResultsController_.delegate = self;
+  
+  [sort release];
+  [fetchRequest release];
+  [theFetchedResultsController release];
+  
+  return fetchedResultsController_;  
+}
+
+/*
+// NSFetchedResultsControllerDelegate for TableView
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+  // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+  [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+  
+  UITableView *tableView = self.tableView;
+  
+  switch(type) {
+      
+    case NSFetchedResultsChangeInsert:
+      [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeDelete:
+      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeUpdate:
+      [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+      break;
+      
+    case NSFetchedResultsChangeMove:
+      [tableView deleteRowsAtIndexPaths:[NSArray
+                                         arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertRowsAtIndexPaths:[NSArray
+                                         arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+  
+  switch(type) {
+      
+    case NSFetchedResultsChangeInsert:
+      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+      break;
+      
+    case NSFetchedResultsChangeDelete:
+      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+  // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+  [self.tableView endUpdates];
+}*/
 
 @end
