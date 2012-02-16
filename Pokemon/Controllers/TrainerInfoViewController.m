@@ -189,8 +189,8 @@
   [super viewDidLoad];
   
   // Show Data
-  NSDictionary * fetchedObjectDict = [TrainerModel trainerData];
-  NSLog(@"+++ %@", [fetchedObjectDict valueForKey:@"name"]);
+  NSArray * fetchedObjects = [TrainerModel trainerData];
+  NSLog(@"+++ %@", fetchedObjects);
 }
 
 - (void)viewDidUnload

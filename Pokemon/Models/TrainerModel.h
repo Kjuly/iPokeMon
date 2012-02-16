@@ -21,7 +21,7 @@
 
 
 + (void)initializeData;
-+ (NSDictionary *)trainerData;
++ (NSArray *)trainerData;
 + (void)setTrainerWith:(NSInteger)id Name:(NSString *)name;
 
 @end

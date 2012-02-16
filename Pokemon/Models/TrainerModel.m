@@ -22,6 +22,7 @@
 @dynamic badges;
 @dynamic adventure_started;
 
+
 // Initialize
 + (void)initializeData
 {
@@ -54,7 +55,7 @@
 }
 
 // Get data from model
-+ (NSDictionary *)trainerData
++ (NSArray *)trainerData
 {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -67,7 +68,7 @@
                                                                  error:&error];
   [fetchRequest release];
   
-  return [fetchedObjects lastObject];
+  return fetchedObjects;
 }
 
 // Set data to model
