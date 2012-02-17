@@ -31,7 +31,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-//    [Trainer updateData];
+    [Trainer updateData];
   }
   return self;
 }

@@ -8,6 +8,7 @@
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="icon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonIcon" inverseName="pokemon" inverseEntity="PokemonIcon" syncable="YES"/>
         <relationship name="image" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonImage" inverseName="pokemon" inverseEntity="PokemonImage" syncable="YES"/>
+        <relationship name="owners" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trainer" inverseName="pokedex" inverseEntity="Trainer" syncable="YES"/>
         <relationship name="species" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonSpecies" inverseName="pokemons" inverseEntity="PokemonSpecies" syncable="YES"/>
         <relationship name="types" optional="YES" toMany="YES" maxCount="6" deletionRule="Nullify" destinationEntity="PokemonType" inverseName="pokemons" inverseEntity="PokemonType" syncable="YES"/>
     </entity>
@@ -34,15 +35,14 @@
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="trainerID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="pokedex" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pokemon" syncable="YES"/>
-        <relationship name="sixPokemons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pokemon" syncable="YES"/>
+        <relationship name="pokedex" optional="YES" toMany="YES" maxCount="649" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="owners" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Pokemon" positionX="252" positionY="135" width="128" height="165"/>
+        <element name="Pokemon" positionX="252" positionY="135" width="128" height="195"/>
         <element name="PokemonSpecies" positionX="-36" positionY="252" width="128" height="90"/>
         <element name="PokemonType" positionX="18" positionY="405" width="128" height="90"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
-        <element name="PokemonIcon" positionX="108" positionY="261" width="128" height="75"/>
-        <element name="PokemonImage" positionX="117" positionY="270" width="128" height="75"/>
+        <element name="PokemonIcon" positionX="223" positionY="438" width="128" height="75"/>
+        <element name="PokemonImage" positionX="394" positionY="360" width="128" height="75"/>
     </elements>
 </model>

@@ -18,7 +18,6 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * trainerID;
 @property (nonatomic, retain) NSSet *pokedex;
-@property (nonatomic, retain) NSSet *sixPokemons;
 @end
 
 @interface Trainer (CoreDataGeneratedAccessors)
@@ -27,10 +26,5 @@
 - (void)removePokedexObject:(Pokemon *)value;
 - (void)addPokedex:(NSSet *)values;
 - (void)removePokedex:(NSSet *)values;
-
-- (void)addSixPokemonsObject:(Pokemon *)value;
-- (void)removeSixPokemonsObject:(Pokemon *)value;
-- (void)addSixPokemons:(NSSet *)values;
-- (void)removeSixPokemons:(NSSet *)values;
 
 @end

@@ -36,7 +36,6 @@
                                                     trainer.trainerID = [JSON valueForKey:@"id"];
                                                     trainer.name      = [JSON valueForKey:@"name"];
                                                     trainer.money     = [JSON valueForKey:@"money"];
-                                                    trainer.badges    = [JSON valueForKey:@"badges"];
                                                     trainer.adventureStarted = nil;
                                                     
                                                     NSError * error;

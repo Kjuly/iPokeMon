@@ -9,6 +9,7 @@
 #import "Pokemon.h"
 #import "PokemonSpecies.h"
 #import "PokemonType.h"
+#import "Trainer.h"
 
 
 @implementation Pokemon
@@ -22,5 +23,6 @@
 @dynamic types;
 @dynamic icon;
 @dynamic image;
+@dynamic owners;
 
 @end

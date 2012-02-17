@@ -17,6 +17,5 @@
 @dynamic name;
 @dynamic trainerID;
 @dynamic pokedex;
-@dynamic sixPokemons;
 
 @end
