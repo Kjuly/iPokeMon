@@ -10,7 +10,12 @@
 
 @interface Pokemon (DataController)
 
+// Hard Initialize the DB data
++ (void)populateData;
++ (void)hardUpdateData;
+
 // Pokedex
++ (NSArray *)queryAllData;
 
 // Six Pokemons
 

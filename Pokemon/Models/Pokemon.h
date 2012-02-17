@@ -18,10 +18,10 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * pokemonID;
 @property (nonatomic, retain) NSNumber * weight;
+@property (nonatomic, retain) UIImage * image;
 @property (nonatomic, retain) PokemonSpecies *species;
 @property (nonatomic, retain) NSSet *types;
 @property (nonatomic, retain) NSManagedObject *icon;
-@property (nonatomic, retain) NSManagedObject *image;
 @property (nonatomic, retain) NSSet *owners;
 @end
 

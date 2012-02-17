@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
+// Debug Settings
+#define kPupulateData 0
+
 // Main view settings
 #define kMapViewHeight      200.0f
 

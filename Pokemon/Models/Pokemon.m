@@ -19,10 +19,10 @@
 @dynamic name;
 @dynamic pokemonID;
 @dynamic weight;
+@dynamic image;
 @dynamic species;
 @dynamic types;
 @dynamic icon;
-@dynamic image;
 @dynamic owners;
 
 @end

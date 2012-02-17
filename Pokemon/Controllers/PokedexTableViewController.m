@@ -10,11 +10,11 @@
 
 #import "PListParser.h"
 #import "DataDecoder.h"
+#import "Pokemon.h"
 #import "PokedexTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
 #import "AppDelegate.h"
-#import "Pokemon.h"
 
 @implementation PokedexTableViewController
 
@@ -149,7 +149,8 @@
   if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
     Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
     [cell.labelTitle setText:pokemon.name];
-    [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
+    [cell.imageView setImage:pokemon.image];
+//    [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }
   else {
     [cell.labelTitle setText:@"? ? ?"];
@@ -243,7 +244,7 @@
   [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                       managedObjectContext:context
                                         sectionNameKeyPath:nil          // sort the data into sections in table view
-                                                 cacheName:@"Pokedex"]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
+                                                 cacheName:nil]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
   self.fetchedResultsController = theFetchedResultsController;
   fetchedResultsController_.delegate = self;
   

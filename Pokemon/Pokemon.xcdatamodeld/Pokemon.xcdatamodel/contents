@@ -3,11 +3,11 @@
     <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
         <attribute name="detailDescription" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="pokemonID" optional="YES" attributeType="Integer 32" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="icon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonIcon" inverseName="pokemon" inverseEntity="PokemonIcon" syncable="YES"/>
-        <relationship name="image" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonImage" inverseName="pokemon" inverseEntity="PokemonImage" syncable="YES"/>
         <relationship name="owners" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trainer" inverseName="pokedex" inverseEntity="Trainer" syncable="YES"/>
         <relationship name="species" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonSpecies" inverseName="pokemons" inverseEntity="PokemonSpecies" syncable="YES"/>
         <relationship name="types" optional="YES" toMany="YES" maxCount="6" deletionRule="Nullify" destinationEntity="PokemonType" inverseName="pokemons" inverseEntity="PokemonType" syncable="YES"/>
@@ -18,7 +18,6 @@
     </entity>
     <entity name="PokemonImage" representedClassName="NSManagedObject" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <relationship name="pokemon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="image" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <entity name="PokemonSpecies" representedClassName="PokemonSpecies" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Species 1" syncable="YES"/>
@@ -43,6 +42,6 @@
         <element name="PokemonType" positionX="18" positionY="405" width="128" height="90"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
         <element name="PokemonIcon" positionX="223" positionY="438" width="128" height="75"/>
-        <element name="PokemonImage" positionX="394" positionY="360" width="128" height="75"/>
+        <element name="PokemonImage" positionX="394" positionY="360" width="128" height="60"/>
     </elements>
 </model>

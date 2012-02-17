@@ -16,6 +16,10 @@
 #import "CustomNavigationController.h"
 #import "UtilityBallMenuViewController.h"
 
+#ifdef DEBUG
+#import "Pokemon+DataController.h"
+#endif
+
 @implementation MainViewController
 
 @synthesize mapViewController     = mapViewController_;
@@ -41,7 +45,12 @@
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    // Custom initialization
+#if DEBUG
+    if (kPupulateData) {
+      // Hard Initialize the DB Data for |Pokemon|
+      [Pokemon populateData];
+    }
+#endif
   }
   return self;
 }

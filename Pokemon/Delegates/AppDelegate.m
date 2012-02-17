@@ -10,6 +10,11 @@
 
 #import "MainViewController.h"
 
+#ifdef DEBUG
+#import "GlobalConstants.h"
+#import "Pokemon+DataController.h"
+#endif
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -144,25 +149,38 @@
     return __persistentStoreCoordinator;
   }
   
+  NSURL * storeURL;
+  
+#ifdef DEBUG
+  if (! kPupulateData) {
+#endif
+
   // Generate Path for |Pokemon.sqlite| in Document
   NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString * documentsDirectory = [paths objectAtIndex:0];
   NSString * storePath = [documentsDirectory stringByAppendingPathComponent:@"Pokemon.sqlite3"];
-  NSURL * storeURL = [NSURL fileURLWithPath:storePath];
+  storeURL = [NSURL fileURLWithPath:storePath];
   
+#ifdef DEBUG
+  NSLog(@">>> storePath: %@ ---", storePath);
+#endif
   // Put down default db if it doesn't exist
   NSFileManager * fileManager = [NSFileManager defaultManager];
-  NSLog(@"--- AppDelegate persistentStoreCoordinator ---");
-  NSLog(@">>> storePath: %@ ---", storePath);
   if (! [fileManager fileExistsAtPath:storePath]) {
-    NSLog(@">>> Pokemon.sqlite does not exists, Copying it to Document from main bundle");
+#ifdef DEBUG
+    NSLog(@">>> |Pokemon.sqlite3| does not exists, Copying it to Document from main bundle");
+#endif
     NSString * defaultStorePath = [[NSBundle mainBundle] pathForResource:@"Pokemon" ofType:@"sqlite3"];
     if (defaultStorePath)
       [fileManager copyItemAtPath:defaultStorePath toPath:storePath error:NULL];
   }
   
-  // Just use the db generated
-//  NSURL * storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Pokemon.sqlite"];
+#ifdef DEBUG
+  } else {
+    // Just use the db generated
+    storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Pokemon.sqlite3"];
+  }
+#endif
   
   NSError *error = nil;
   __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
