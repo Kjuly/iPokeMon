@@ -30,9 +30,7 @@
   AFJSONRequestOperation * operation =
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-                                                    NSLog(@"%@", JSON);
-                                                    //                                                    [TrainerModel setTrainerWith:[[JSON valueForKey:@"id"] intValue]
-                                                    //                                                                            Name:[JSON valueForKey:@"name"]];
+                                                    // Set data for |Trainer|
                                                     trainer.trainerID = [JSON valueForKey:@"id"];
                                                     trainer.name      = [JSON valueForKey:@"name"];
                                                     trainer.money     = [JSON valueForKey:@"money"];
