@@ -2,7 +2,7 @@
 //  Pokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/16/12.
+//  Created by Kaijie Yu on 2/17/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -13,14 +13,15 @@
 
 @interface Pokemon : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * height;
-@property (nonatomic, retain) NSNumber * pokemonID;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) NSString * detailDescription;
-@property (nonatomic, retain) NSNumber * state;
-@property (nonatomic, retain) NSSet *types;
+@property (nonatomic, retain) NSNumber * height;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * pokemonID;
+@property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) PokemonSpecies *species;
+@property (nonatomic, retain) NSSet *types;
+@property (nonatomic, retain) NSManagedObject *icon;
+@property (nonatomic, retain) NSManagedObject *image;
 @end
 
 @interface Pokemon (CoreDataGeneratedAccessors)

@@ -2,19 +2,21 @@
 //  Trainer.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/16/12.
+//  Created by Kaijie Yu on 2/17/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import "Trainer.h"
+#import "Pokemon.h"
 
 
 @implementation Trainer
 
 @dynamic adventureStarted;
-@dynamic badges;
-@dynamic trainerID;
 @dynamic money;
 @dynamic name;
+@dynamic trainerID;
+@dynamic pokedex;
+@dynamic sixPokemons;
 
 @end
