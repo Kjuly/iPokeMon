@@ -19,7 +19,6 @@
 @implementation PokedexTableViewController
 
 @synthesize pokedexSequence = pokedexSequence_;
-@synthesize pokedex         = pokedex_;
 @synthesize pokedexImages   = pokedexImages_;
 
 @synthesize fetchedResultsController = fetchedResultsController_;
@@ -27,7 +26,6 @@
 - (void)dealloc
 {
   [pokedexSequence_ release];
-  [pokedex_         release];
   [pokedexImages_   release];
   
   self.fetchedResultsController.delegate = nil;
@@ -62,7 +60,6 @@
   // Fetch data from web service
   NSString * dataFromWebService = @"2db7aab7";
   self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
-  self.pokedex         = [PListParser pokedex];
   self.pokedexImages   = [PListParser pokedexGenerationOneImageArray];
 }
 
@@ -71,7 +68,6 @@
   [super viewDidUnload];
 
   self.pokedexSequence = nil;
-  self.pokedex         = nil;
   self.pokedexImages   = nil;
   
   self.fetchedResultsController = nil;
@@ -146,13 +142,12 @@
     cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
-  Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
-  
   // Configure the cell
   NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
   if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
+    Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
     [cell.labelTitle setText:pokemon.name];
     [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }
@@ -161,7 +156,7 @@
     [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]];
   }
   // Set Pokemon ID as subtitle
-  [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", [pokemon.pokemonID intValue]]];
+  [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
   
   return cell;
 }
@@ -247,8 +242,8 @@
   NSFetchedResultsController *theFetchedResultsController = 
   [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                       managedObjectContext:context
-                                        sectionNameKeyPath:nil   // sort the data into sections in table view
-                                                 cacheName:nil]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
+                                        sectionNameKeyPath:nil          // sort the data into sections in table view
+                                                 cacheName:@"Pokedex"]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
   self.fetchedResultsController = theFetchedResultsController;
   fetchedResultsController_.delegate = self;
   
