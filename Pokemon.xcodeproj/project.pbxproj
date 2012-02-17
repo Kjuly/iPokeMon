@@ -630,8 +630,6 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
-				7F91D0A914EE6BAE00476AFB /* ImageToDataTransformer.h */,
-				7F91D0AA14EE6BAF00476AFB /* ImageToDataTransformer.m */,
 				7F91D0A114EE1A3800476AFB /* Trainer.h */,
 				7F91D0A214EE1A3800476AFB /* Trainer.m */,
 				7F2FA48F14ED2F670077C4E0 /* Trainer+DataController.h */,
@@ -644,6 +642,8 @@
 				7F91D07E14EE128F00476AFB /* PokemonType.m */,
 				7F91D07A14EE128E00476AFB /* PokemonSpecies.h */,
 				7F91D07B14EE128E00476AFB /* PokemonSpecies.m */,
+				7F91D0A914EE6BAE00476AFB /* ImageToDataTransformer.h */,
+				7F91D0AA14EE6BAF00476AFB /* ImageToDataTransformer.m */,
 				7F2EFB7114DE5F370068F681 /* PListParser.h */,
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,

@@ -19,13 +19,13 @@
 }
 
 - (id)transformedValue:(id)value {
-	NSData *data = UIImagePNGRepresentation(value);
+	NSData * data = UIImagePNGRepresentation(value);
 	return data;
 }
 
 - (id)reverseTransformedValue:(id)value {
-	UIImage *uiImage = [[UIImage alloc] initWithData:value];
-	return [uiImage autorelease];
+	UIImage * image = [[UIImage alloc] initWithData:value];
+	return [image autorelease];
 }
 
 @end
