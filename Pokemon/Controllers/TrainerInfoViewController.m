@@ -199,17 +199,24 @@
   [super viewDidLoad];
   
   // Show Data
-//  NSArray * fetchedObjects = [Trainer queryAllData];
-//  NSLog(@"+++ %@", fetchedObjects);
+  NSArray * fetchedObjects = [Trainer queryAllData];
+  NSLog(@"+++ %@", [[fetchedObjects lastObject] valueForKey:@"name"]);
   
   // Get a handle to our fetchedResultsController (which implicitly creates it as well)
   // and call |performFetch:| to retrieve the first batch of data
-  NSError *error;
-	if (! [[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
+//  NSError *error;
+//	if (! [[self fetchedResultsController] performFetch:&error]) {
+//		// Update to handle the error appropriately.
+//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//		exit(-1);  // Fail
+//	}
+//  
+//  // It can be put at |numberOfRowsInSection:| in TableView
+//  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:0];
+//  NSLog(@"~~~ %@", sectionInfo); //[sectionInfo numberOfObjects]);
+//  
+//  // It can be put at |cellForRowAtIndexPath:| in TableView
+//  NSLog(@"~~~ %@", [fetchedResultsController_ objectAtIndexPath:0]);
 }
 
 - (void)viewDidUnload
@@ -217,18 +224,6 @@
   [super viewDidUnload];
   
   self.fetchedResultsController.delegate = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  
-  // It can be put at |numberOfRowsInSection:| in TableView
-  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:0];
-  NSLog(@"~~~ %@", sectionInfo); //[sectionInfo numberOfObjects]);
-  
-  // It can be put at |cellForRowAtIndexPath:| in TableView
-  NSLog(@"~~~ %@", [fetchedResultsController_ objectAtIndexPath:0]);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
