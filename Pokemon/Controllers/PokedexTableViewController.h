@@ -10,15 +10,19 @@
 
 #import "CustomTableViewController.h"
 
-@interface PokedexTableViewController : CustomTableViewController
+@interface PokedexTableViewController : CustomTableViewController <NSFetchedResultsControllerDelegate>
 {
   NSMutableArray * pokedexSequence_;
   NSArray * pokedex_;
   NSArray * pokedexImages_;
+  
+  NSFetchedResultsController * fetchedResultsController_;
 }
 
 @property (nonatomic, copy) NSMutableArray * pokedexSequence;
 @property (nonatomic, copy) NSArray * pokedex;
 @property (nonatomic, copy) NSArray * pokedexImages;
+
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
 @end

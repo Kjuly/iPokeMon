@@ -202,8 +202,8 @@
   NSArray * fetchedObjects = [Trainer queryAllData];
   NSLog(@"+++ %@", [[fetchedObjects lastObject] valueForKey:@"name"]);
   
-  // Get a handle to our fetchedResultsController (which implicitly creates it as well)
-  // and call |performFetch:| to retrieve the first batch of data
+//  // Get a handle to our fetchedResultsController (which implicitly creates it as well)
+//  // and call |performFetch:| to retrieve the first batch of data
 //  NSError *error;
 //	if (! [[self fetchedResultsController] performFetch:&error]) {
 //		// Update to handle the error appropriately.
@@ -272,8 +272,8 @@
   return fetchedResultsController_;  
 }
 
-/*
-// NSFetchedResultsControllerDelegate for TableView
+
+/*/ NSFetchedResultsControllerDelegate for TableView
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
   // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
   [self.tableView beginUpdates];
