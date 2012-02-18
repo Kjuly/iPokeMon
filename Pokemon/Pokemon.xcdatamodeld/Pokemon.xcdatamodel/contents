@@ -21,13 +21,28 @@
         <attribute name="target" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="400" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="17" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="Pokedex" syncable="YES">
+        <attribute name="box" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="currEXP" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="fourMoves" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="happiness" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="host" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="leftStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 16" minValueString="5" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="memo" optional="YES" attributeType="String" minValueString="0" defaultValueString="None." syncable="YES"/>
+        <attribute name="pokemonID" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="toNextLevel" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <relationship name="pokemon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" syncable="YES"/>
+    </entity>
     <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
         <attribute name="ability1" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="ability2" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="area" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="baseEXP" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="9999" defaultValueString="0" syncable="YES"/>
         <attribute name="baseStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
-        <attribute name="box" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="10" defaultValueString="0" syncable="YES"/>
         <attribute name="compatibility" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="15" defaultValueString="0" syncable="YES"/>
         <attribute name="effortPoints" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
@@ -36,7 +51,7 @@
         <attribute name="genderRate" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="7" defaultValueString="0" syncable="YES"/>
         <attribute name="growthRate" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="6" defaultValueString="0" syncable="YES"/>
         <attribute name="habitat" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="9" defaultValueString="0" syncable="YES"/>
-        <attribute name="happiness" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="999" defaultValueString="0" syncable="YES"/>
+        <attribute name="happiness" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
         <attribute name="hiddenAbility" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
@@ -56,12 +71,14 @@
         <attribute name="adventureStarted" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
+        <attribute name="pokedex" optional="YES" attributeType="String" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="trainerID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
+        <element name="Pokemon" positionX="252" positionY="135" width="128" height="465"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Pokedex" positionX="160" positionY="192" width="128" height="255"/>
     </elements>
 </model>
