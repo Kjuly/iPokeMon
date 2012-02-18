@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSNumber * color;
 @property (nonatomic, retain) NSNumber * compatibility;
 @property (nonatomic, retain) id effortPoints;
-@property (nonatomic, retain) NSNumber * eggMoves;
+@property (nonatomic, retain) id eggMoves;
 @property (nonatomic, retain) id evolutions;
 @property (nonatomic, retain) NSNumber * genderRate;
 @property (nonatomic, retain) NSNumber * growthRate;

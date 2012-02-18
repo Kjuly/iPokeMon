@@ -271,7 +271,6 @@
 		7FAD697E14EFD7BA00B3E2F9 /* TrainerBagKeyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD697D14EFD7BA00B3E2F9 /* TrainerBagKeyItem.m */; };
 		7FAD698114EFD7BB00B3E2F9 /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698014EFD7BB00B3E2F9 /* Trainer.m */; };
 		7FAD698414EFD7BB00B3E2F9 /* BagMedicine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698314EFD7BB00B3E2F9 /* BagMedicine.m */; };
-		7FAD698714EFD7BC00B3E2F9 /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698614EFD7BC00B3E2F9 /* Pokemon.m */; };
 		7FAD698A14EFD7BC00B3E2F9 /* TrainerTamedPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698914EFD7BC00B3E2F9 /* TrainerTamedPokemon.m */; };
 		7FAD698D14EFD7BC00B3E2F9 /* BagTMHM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698C14EFD7BC00B3E2F9 /* BagTMHM.m */; };
 		7FAD699014EFD7BD00B3E2F9 /* BagBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD698F14EFD7BD00B3E2F9 /* BagBerry.m */; };
@@ -289,6 +288,7 @@
 		7FAD69B414EFD7C100B3E2F9 /* TrainerBagMedicine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B314EFD7C100B3E2F9 /* TrainerBagMedicine.m */; };
 		7FAD69B714EFD7C200B3E2F9 /* TrainerBagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B614EFD7C100B3E2F9 /* TrainerBagItem.m */; };
 		7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */; };
+		7FAD69C014EFF2AD00B3E2F9 /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69BF14EFF2AA00B3E2F9 /* Pokemon.m */; };
 		7FAF625014E797BA00A14AE0 /* AllPokemonImageSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */; };
 		7FAF625114E797BA00A14AE0 /* PokedexDefaultImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */; };
 		7FAF625514E7984F00A14AE0 /* PoketchSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAF625414E7984F00A14AE0 /* PoketchSixPokemonsViewController.m */; };
@@ -667,8 +667,6 @@
 		7FAD698014EFD7BB00B3E2F9 /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
 		7FAD698214EFD7BB00B3E2F9 /* BagMedicine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicine.h; sourceTree = "<group>"; };
 		7FAD698314EFD7BB00B3E2F9 /* BagMedicine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagMedicine.m; sourceTree = "<group>"; };
-		7FAD698514EFD7BB00B3E2F9 /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
-		7FAD698614EFD7BC00B3E2F9 /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
 		7FAD698814EFD7BC00B3E2F9 /* TrainerTamedPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerTamedPokemon.h; sourceTree = "<group>"; };
 		7FAD698914EFD7BC00B3E2F9 /* TrainerTamedPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerTamedPokemon.m; sourceTree = "<group>"; };
 		7FAD698B14EFD7BC00B3E2F9 /* BagTMHM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTMHM.h; sourceTree = "<group>"; };
@@ -703,6 +701,8 @@
 		7FAD69B614EFD7C100B3E2F9 /* TrainerBagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBagItem.m; sourceTree = "<group>"; };
 		7FAD69BB14EFE64800B3E2F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7FAD69BD14EFE65F00B3E2F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7FAD69BE14EFF2A700B3E2F9 /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
+		7FAD69BF14EFF2AA00B3E2F9 /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
 		7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllPokemonImageSmall.png; sourceTree = "<group>"; };
 		7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexDefaultImage@2x.png"; sourceTree = "<group>"; };
 		7FAF625314E7984F00A14AE0 /* PoketchSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchSixPokemonsViewController.h; sourceTree = "<group>"; };
@@ -1010,8 +1010,12 @@
 				7FAD699514EFD7BD00B3E2F9 /* TrainerBagBattleItem.m */,
 				7FAD697C14EFD7BA00B3E2F9 /* TrainerBagKeyItem.h */,
 				7FAD697D14EFD7BA00B3E2F9 /* TrainerBagKeyItem.m */,
-				7FAD698514EFD7BB00B3E2F9 /* Pokemon.h */,
-				7FAD698614EFD7BC00B3E2F9 /* Pokemon.m */,
+				7FAD69BE14EFF2A700B3E2F9 /* Pokemon.h */,
+				7FAD69BF14EFF2AA00B3E2F9 /* Pokemon.m */,
+				7FAD69A614EFD7BF00B3E2F9 /* Move.h */,
+				7FAD69A714EFD7C000B3E2F9 /* Move.m */,
+				7FAD69A314EFD7BF00B3E2F9 /* Ability.h */,
+				7FAD69A414EFD7BF00B3E2F9 /* Ability.m */,
 				7FAD699D14EFD7BE00B3E2F9 /* BagItem.h */,
 				7FAD699E14EFD7BE00B3E2F9 /* BagItem.m */,
 				7FAD698214EFD7BB00B3E2F9 /* BagMedicine.h */,
@@ -1028,10 +1032,6 @@
 				7FAD697A14EFD7B900B3E2F9 /* BagBattleItem.m */,
 				7FAD699114EFD7BD00B3E2F9 /* BagKeyItem.h */,
 				7FAD699214EFD7BD00B3E2F9 /* BagKeyItem.m */,
-				7FAD69A614EFD7BF00B3E2F9 /* Move.h */,
-				7FAD69A714EFD7C000B3E2F9 /* Move.m */,
-				7FAD69A314EFD7BF00B3E2F9 /* Ability.h */,
-				7FAD69A414EFD7BF00B3E2F9 /* Ability.m */,
 				7F6910D814EF6B4200127E2F /* PokemonConstants.h */,
 				7F6910D914EF6B4200127E2F /* PokemonConstants.m */,
 				7F6910DB14EF95AF00127E2F /* DataTransformer.h */,
@@ -1826,7 +1826,6 @@
 				7FAD697E14EFD7BA00B3E2F9 /* TrainerBagKeyItem.m in Sources */,
 				7FAD698114EFD7BB00B3E2F9 /* Trainer.m in Sources */,
 				7FAD698414EFD7BB00B3E2F9 /* BagMedicine.m in Sources */,
-				7FAD698714EFD7BC00B3E2F9 /* Pokemon.m in Sources */,
 				7FAD698A14EFD7BC00B3E2F9 /* TrainerTamedPokemon.m in Sources */,
 				7FAD698D14EFD7BC00B3E2F9 /* BagTMHM.m in Sources */,
 				7FAD699014EFD7BD00B3E2F9 /* BagBerry.m in Sources */,
@@ -1843,6 +1842,7 @@
 				7FAD69B114EFD7C100B3E2F9 /* TrainerBagBerry.m in Sources */,
 				7FAD69B414EFD7C100B3E2F9 /* TrainerBagMedicine.m in Sources */,
 				7FAD69B714EFD7C200B3E2F9 /* TrainerBagItem.m in Sources */,
+				7FAD69C014EFF2AD00B3E2F9 /* Pokemon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

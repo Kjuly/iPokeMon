@@ -94,7 +94,7 @@
         <attribute name="color" optional="YES" attributeType="Integer 16" maxValueString="10" defaultValueString="0" syncable="YES"/>
         <attribute name="compatibility" optional="YES" attributeType="Integer 16" maxValueString="15" defaultValueString="0" syncable="YES"/>
         <attribute name="effortPoints" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="eggMoves" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="eggMoves" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="evolutions" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="genderRate" optional="YES" attributeType="Integer 16" maxValueString="7" defaultValueString="0" syncable="YES"/>
         <attribute name="growthRate" optional="YES" attributeType="Integer 16" maxValueString="6" defaultValueString="0" syncable="YES"/>
@@ -200,7 +200,7 @@
         <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="255"/>
-        <element name="Pokemon" positionX="252" positionY="135" width="128" height="465"/>
+        <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
         <element name="TrainerBagItem" positionX="117" positionY="108" width="128" height="105"/>
         <element name="BagItem" positionX="108" positionY="342" width="128" height="135"/>

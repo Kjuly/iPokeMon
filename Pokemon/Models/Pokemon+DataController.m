@@ -31,7 +31,7 @@
     pokemon.name  = [pokemonDict objectForKey:@"name"];
     pokemon.height = [pokemonDict objectForKey:@"height"];
     pokemon.weight = [pokemonDict objectForKey:@"weight"];
-    pokemon.info = [pokemonDict objectForKey:@"description"];
+    pokemon.info = [pokemonDict objectForKey:@"info"];
     pokemon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
     
     pokemonDict = nil;
