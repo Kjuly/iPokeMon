@@ -31,9 +31,9 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
                                                     // Set data for |Trainer|
-                                                    trainer.trainerID = [JSON valueForKey:@"id"];
-                                                    trainer.name      = [JSON valueForKey:@"name"];
-                                                    trainer.money     = [JSON valueForKey:@"money"];
+                                                    trainer.sid = [JSON valueForKey:@"id"];
+                                                    trainer.name = [JSON valueForKey:@"name"];
+                                                    trainer.money = [JSON valueForKey:@"money"];
                                                     trainer.adventureStarted = nil;
                                                     
                                                     NSError * error;
@@ -69,8 +69,8 @@
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   Trainer * trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                          inManagedObjectContext:managedObjectContext];
-  trainer.trainerID = [NSNumber numberWithInt:trainerID];
-  trainer.name      = name;
+  trainer.sid  = [NSNumber numberWithInt:trainerID];
+  trainer.name = name;
   
   NSError * error;
   if (! [managedObjectContext save:&error])

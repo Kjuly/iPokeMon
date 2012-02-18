@@ -27,11 +27,11 @@
     Pokemon * pokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                       inManagedObjectContext:managedObjectContext];
     
-    pokemon.pokemonID = [NSNumber numberWithInt:++i];
+    pokemon.sid = [NSNumber numberWithInt:++i];
     pokemon.name  = [pokemonDict objectForKey:@"name"];
     pokemon.height = [pokemonDict objectForKey:@"height"];
     pokemon.weight = [pokemonDict objectForKey:@"weight"];
-    pokemon.detailDescription = [pokemonDict objectForKey:@"description"];
+    pokemon.info = [pokemonDict objectForKey:@"description"];
     pokemon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
     
     pokemonDict = nil;
@@ -65,12 +65,12 @@
   int i = 0;
   for (Pokemon * pokemon in pokemons) {
     NSDictionary * pokemonDict = [pokedex objectAtIndex:i];
-    pokemon.pokemonID = [NSNumber numberWithInt:++i];
-    pokemon.name  = [pokemonDict objectForKey:@"name"];
+    pokemon.sid    = [NSNumber numberWithInt:++i];
+    pokemon.name   = [pokemonDict objectForKey:@"name"];
     pokemon.height = [pokemonDict objectForKey:@"height"];
     pokemon.weight = [pokemonDict objectForKey:@"weight"];
-    pokemon.detailDescription = [pokemonDict objectForKey:@"description"];
-    pokemon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
+    pokemon.info   = [pokemonDict objectForKey:@"description"];
+    pokemon.image  = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
     pokemonDict = nil;
   }
   
