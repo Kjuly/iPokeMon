@@ -148,7 +148,7 @@
   // 1 << 0 = 0001, 1 << 1 = 0010
   if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
     Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
-    [cell.labelTitle setText:pokemon.name];
+    [cell.labelTitle setText:NSLocalizedString(pokemon.name, nil)];
     [cell.imageView setImage:pokemon.image];
 //    [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
   }

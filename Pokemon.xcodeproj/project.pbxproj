@@ -288,6 +288,7 @@
 		7FAD69B114EFD7C100B3E2F9 /* TrainerBagBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B014EFD7C100B3E2F9 /* TrainerBagBerry.m */; };
 		7FAD69B414EFD7C100B3E2F9 /* TrainerBagMedicine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B314EFD7C100B3E2F9 /* TrainerBagMedicine.m */; };
 		7FAD69B714EFD7C200B3E2F9 /* TrainerBagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B614EFD7C100B3E2F9 /* TrainerBagItem.m */; };
+		7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */; };
 		7FAF625014E797BA00A14AE0 /* AllPokemonImageSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */; };
 		7FAF625114E797BA00A14AE0 /* PokedexDefaultImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */; };
 		7FAF625514E7984F00A14AE0 /* PoketchSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAF625414E7984F00A14AE0 /* PoketchSixPokemonsViewController.m */; };
@@ -700,6 +701,8 @@
 		7FAD69B314EFD7C100B3E2F9 /* TrainerBagMedicine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBagMedicine.m; sourceTree = "<group>"; };
 		7FAD69B514EFD7C100B3E2F9 /* TrainerBagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBagItem.h; sourceTree = "<group>"; };
 		7FAD69B614EFD7C100B3E2F9 /* TrainerBagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBagItem.m; sourceTree = "<group>"; };
+		7FAD69BB14EFE64800B3E2F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7FAD69BD14EFE65F00B3E2F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllPokemonImageSmall.png; sourceTree = "<group>"; };
 		7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexDefaultImage@2x.png"; sourceTree = "<group>"; };
 		7FAF625314E7984F00A14AE0 /* PoketchSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchSixPokemonsViewController.h; sourceTree = "<group>"; };
@@ -886,6 +889,7 @@
 		7F6E6CC114D6CAA600033C65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */,
 				7F51C42414D80D100091902D /* GlobalConstants.h */,
 				7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
@@ -1463,6 +1467,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 7F6E6CA914D6CAA600033C65;
 			productRefGroup = 7F6E6CB514D6CAA600033C65 /* Products */;
@@ -1730,6 +1735,7 @@
 				7F91D1D814EE868100476AFB /* 150.png in Resources */,
 				7F91D1D914EE868100476AFB /* 151.png in Resources */,
 				7F91D1DA14EE868100476AFB /* 91.png in Resources */,
+				7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1873,6 +1879,15 @@
 				7F6E6CE014D6CAA700033C65 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7FAD69BB14EFE64800B3E2F9 /* en */,
+				7FAD69BD14EFE65F00B3E2F9 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
