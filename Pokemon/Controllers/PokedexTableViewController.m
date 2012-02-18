@@ -231,7 +231,7 @@
   [fetchRequest setEntity:entity];
   
   // Set Sort Descriptors
-  NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"pokemonID" ascending:YES];
+  NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"sid" ascending:YES];
   [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
   
   // Set Batch Size
