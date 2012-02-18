@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11D50" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Ability" syncable="YES">
+        <attribute name="abilityID" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" minValueString="0" defaultValueString="None." syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" minValueString="0" defaultValueString="? ? ?" syncable="YES"/>
+    </entity>
+    <entity name="Move" syncable="YES">
+        <attribute name="additionalEffectChance" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" defaultValueString="0" syncable="YES"/>
+        <attribute name="baseDamage" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="999" defaultValueString="0" syncable="YES"/>
+        <attribute name="basePP" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" defaultValueString="0" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="3" defaultValueString="0" syncable="YES"/>
+        <attribute name="contestType" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
+        <attribute name="effectCode" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="flags" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="hitChance" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="100" defaultValueString="0" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" minValueString="0" defaultValueString="None." syncable="YES"/>
+        <attribute name="moveID" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" minValueString="0" defaultValueString="? ? ?" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" minValueString="-6" maxValueString="6" defaultValueString="0" syncable="YES"/>
+        <attribute name="target" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="400" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="17" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
-        <attribute name="abilities" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="ability1" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="ability2" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="area" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="baseEXP" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="9999" defaultValueString="0" syncable="YES"/>
         <attribute name="baseStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
+        <attribute name="box" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="10" defaultValueString="0" syncable="YES"/>
         <attribute name="compatibility" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="15" defaultValueString="0" syncable="YES"/>
-        <attribute name="detailDescription" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="effortPoints" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="eggMoves" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="evolutions" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
@@ -18,11 +41,12 @@
         <attribute name="hiddenAbility" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="imageIcon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="moves" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="0" defaultValueString="? ? ?" syncable="YES"/>
-        <attribute name="pokemonID" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="pokemonID" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="rareness" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="255" defaultValueString="0" syncable="YES"/>
-        <attribute name="species" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="477" defaultValueString="0" syncable="YES"/>
+        <attribute name="species" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="477" defaultValueString="0" syncable="YES"/>
         <attribute name="stepsToHatch" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="type1" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="17" defaultValueString="0" syncable="YES"/>
         <attribute name="type2" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="17" defaultValueString="0" syncable="YES"/>
@@ -35,7 +59,9 @@
         <attribute name="trainerID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Pokemon" positionX="252" positionY="135" width="128" height="195"/>
-        <element name="Trainer" positionX="-38" positionY="108" width="128" height="105"/>
+        <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
+        <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
+        <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>
