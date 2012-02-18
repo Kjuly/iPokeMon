@@ -6,6 +6,11 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
+#pragma mark - Pokemon
+
+///
+// Pokemon Type
+//
 typedef enum {
   kPokemonTypeNormal   = 0,
   kPokemonTypeFire,
@@ -26,6 +31,9 @@ typedef enum {
   kPokemonTypeSteel
 }PokemonType;
 
+///
+// Pokemon Species
+//
 typedef enum {
   kPokemonSpeciesAbundant = 0,
   kPokemonSpeciesAcorn,
@@ -505,3 +513,142 @@ typedef enum {
   kPokemonSpeciesYoungFowl,
   kPokemonSpeciesZenCharm
 }PokemonSpecies;
+
+///
+// Pokemon Gender Rate
+//
+typedef enum {
+  kPokemonGenderRateAlwaysMale = 0,
+  kPokemonGenderRateFemaleOneEighth,
+  kPokemonGenderRateFemale25Percent,
+  kPokemonGenderRateFemale50Percent,
+  kPokemonGenderRateFemale75Percent,
+  kPokemonGenderRateAlwaysFemale,
+  kPokemonGenderRateGenderless
+}PokemonGenderRate;
+
+///
+// Pokemon Main Color
+//
+// The main colour of this species. Must be one of
+//
+typedef enum {
+  kPokemonColorBlack = 0,
+  kPokemonColorBlue,
+  kPokemonColorBrown,
+  kPokemonColorGray,
+  kPokemonColorGreen,
+  kPokemonColorPink,
+  kPokemonColorPurple,
+  kPokemonColorRed,
+  kPokemonColorWhite,
+  kPokemonColorYellow
+}PokemonColor;
+
+///
+// Pokemon Growth Rate
+//
+// The rate at which a Pokémon of this species gains levels (i.e. how much Experience is needed to level up), One of:
+//
+typedef enum {
+  kPokemonGrowthRateFast = 0,
+  kPokemonGrowthRateMedium,
+  kPokemonGrowthRateSlow,
+  kPokemonGrowthRateParabolic,
+  kPokemonGrowthRateErratic,
+  kPokemonGrouthRateFluctuating
+}PokemonGrowthRate;
+
+///
+// Pokemon Compatibility
+//
+// The egg groups this species belongs to. Is two comma-separated numbers. Both numbers may be the same, if the species belongs to only one egg group. If either number is 15, this species cannot breed.
+//
+// "Water1" is for sea creatures, "Water2" is for fish, and "Water3" is for shellfish. "Ditto" should contain only Ditto, as a species in this group can breed with any other breedable Pokémon.
+//
+typedef enum {
+  kPokemonCompatibilityMonster = 0,
+  kPokemonCompatibilityWater1,
+  kPokemonCompatibilityBug,
+  kPokemonCompatibilityFlying,
+  kPokemonCompatibilityGround,
+  kPokemonCompatibilityFairy,
+  kPokemonCompatibilityPlant,
+  kPokemonCompatibilityHumanshape,
+  kPokemonCompatibilityWater3,
+  kPokemonCompatibilityMineral,
+  kPokemonCompatibilityIndeterminate,
+  kPokemonCompatibilityWater2,
+  kPokemonCompatibilityDitto,
+  kPokemonCompatibilityDragon,
+  kPokemonCompatibilityDoesNotBreed
+}PokemonCompatibility;
+
+///
+// Pokemon Evolution Method
+//
+typedef enum {
+  kPokemonEvolutionMethodLevel,          // (level)
+  kPokemonEvolutionMethodLevelMale,      // (level)
+  kPokemonEvolutionMethodLevelFemale,    // (level)
+  kPokemonEvolutionMethodAttackGreater,  // (level)
+  kPokemonEvolutionMethodAtkDefEqual,    // (level)
+  kPokemonEvolutionMethodDefenseGreater, // (level)
+  kPokemonEvolutionMethodSilcoon,        // (level)
+  kPokemonEvolutionMethodCascoon,        // (level)
+  kPokemonEvolutionMethodNinjask,        // (level)
+  kPokemonEvolutionMethodShedinja,       // (level)
+  kPokemonEvolutionMethodItemMale,       // (item's internal name)
+  kPokemonEvolutionMethodItemFemale,     // (item's internal name)
+  kPokemonEvolutionMethodDayHoldItem,    // (item's internal name)
+  kPokemonEvolutionMethodNightHoldItem,  // (item's internal name)
+  kPokemonEvolutionMethodHappiness,      // (-)
+  kPokemonEvolutionMethodHappinessDay,   // (-)
+  kPokemonEvolutionMethodHappinessNight, // (-)
+  kPokemonEvolutionMethodHasMove,        // (move's internal name)
+  kPokemonEvolutionMethodHasInParty,     // (species' internal name)
+  kPokemonEvolutionMethodBeauty,         // (minimum beauty)
+  kPokemonEvolutionMethodLocation,       // (map ID)
+  kPokemonEvolutionMethodTrade,          // (-)
+  kPokemonEvolutionMethodTradeItem,      // (item's internal name)
+  kPokemonEvolutionMethodTradeSpecies,   // (species' internal name)
+  kPokemonEvolutionMethodCustom1_7       // (number between 0-65535)
+}PokemonEvolutionMethod;
+
+///
+// Pokemon Habitat
+//
+typedef enum {
+  kPokemonHabitatCave = 0,
+  kPokemonHabitatForest,
+  kPokemonHabitatGrassland,
+  kPokemonHabitatMountain,
+  kPokemonHabitatRare,        // Mean "Unknow"
+  kPokemonHabitatRoughTerrain,
+  kPokemonHabitatSea,
+  kPokemonHabitatUrban,
+  kPokemonHabitatWatersEdge
+}PokemonHabitat;
+
+
+#pragma mark - MOVE
+
+///
+// Move Category
+//
+typedef enum {
+  kMoveCategoryPhysical = 0, // calculates damage using Attack and Defense
+  kMoveCategorySpecial,      // calculates damage using Special Attack and Special Defense
+  kMoveCategoryStatus        // inflicts no damage
+}kMoveCategory;
+
+///
+// Move Contest Type
+//
+typedef enum {
+  kMoveContestTypeCool = 0,
+  kMoveContestTypeBeauty,
+  kMoveContestTypeCute,
+  kMoveContestTypeSmart,
+  kMoveContestTypeTough
+}kMoveContestType;
