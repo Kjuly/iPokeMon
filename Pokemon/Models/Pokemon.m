@@ -7,8 +7,6 @@
 //
 
 #import "Pokemon.h"
-#import "PokemonSpecies.h"
-#import "PokemonType.h"
 #import "Trainer.h"
 
 
