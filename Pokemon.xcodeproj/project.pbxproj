@@ -51,6 +51,7 @@
 		7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */; };
 		7F5F0D6814E28B3600D996D4 /* NavigationBarBackgroundBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */; };
 		7F6910DA14EF6B4300127E2F /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910D914EF6B4200127E2F /* PokemonConstants.m */; };
+		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */; };
@@ -110,7 +111,6 @@
 		7F91D0A314EE1A3800476AFB /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F91D0A214EE1A3800476AFB /* Trainer.m */; };
 		7F91D0A514EE3BC400476AFB /* Pokemon.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */; };
 		7F91D0A814EE3D4500476AFB /* Pokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */; };
-		7F91D0AB14EE6BAF00476AFB /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F91D0AA14EE6BAF00476AFB /* ImageToDataTransformer.m */; };
 		7F91D14414EE868100476AFB /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0AD14EE868100476AFB /* 001.png */; };
 		7F91D14514EE868100476AFB /* 002.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0AE14EE868100476AFB /* 002.png */; };
 		7F91D14614EE868100476AFB /* 003.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0AF14EE868100476AFB /* 003.png */; };
@@ -394,6 +394,8 @@
 		7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundBlue.png; sourceTree = "<group>"; };
 		7F6910D814EF6B4200127E2F /* PokemonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonConstants.h; sourceTree = "<group>"; };
 		7F6910D914EF6B4200127E2F /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
+		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
+		7F6910DC14EF95AF00127E2F /* DataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTransformer.m; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -476,8 +478,6 @@
 		7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pokemon.sqlite3; sourceTree = "<group>"; };
 		7F91D0A614EE3D4500476AFB /* Pokemon+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pokemon+DataController.h"; sourceTree = "<group>"; };
 		7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pokemon+DataController.m"; sourceTree = "<group>"; };
-		7F91D0A914EE6BAE00476AFB /* ImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageToDataTransformer.h; sourceTree = "<group>"; };
-		7F91D0AA14EE6BAF00476AFB /* ImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageToDataTransformer.m; sourceTree = "<group>"; };
 		7F91D0AD14EE868100476AFB /* 001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 001.png; sourceTree = "<group>"; };
 		7F91D0AE14EE868100476AFB /* 002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 002.png; sourceTree = "<group>"; };
 		7F91D0AF14EE868100476AFB /* 003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 003.png; sourceTree = "<group>"; };
@@ -931,6 +931,8 @@
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
 				7F6910D814EF6B4200127E2F /* PokemonConstants.h */,
 				7F6910D914EF6B4200127E2F /* PokemonConstants.m */,
+				7F6910DB14EF95AF00127E2F /* DataTransformer.h */,
+				7F6910DC14EF95AF00127E2F /* DataTransformer.m */,
 				7F91D1DB14EE8F8300476AFB /* Pokemon.h */,
 				7F91D1DC14EE8F8300476AFB /* Pokemon.m */,
 				7F91D0A114EE1A3800476AFB /* Trainer.h */,
@@ -939,8 +941,6 @@
 				7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */,
 				7F91D0A614EE3D4500476AFB /* Pokemon+DataController.h */,
 				7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */,
-				7F91D0A914EE6BAE00476AFB /* ImageToDataTransformer.h */,
-				7F91D0AA14EE6BAF00476AFB /* ImageToDataTransformer.m */,
 				7F2EFB7114DE5F370068F681 /* PListParser.h */,
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
@@ -1720,9 +1720,9 @@
 				7F2FA49114ED2F670077C4E0 /* Trainer+DataController.m in Sources */,
 				7F91D0A314EE1A3800476AFB /* Trainer.m in Sources */,
 				7F91D0A814EE3D4500476AFB /* Pokemon+DataController.m in Sources */,
-				7F91D0AB14EE6BAF00476AFB /* ImageToDataTransformer.m in Sources */,
 				7F91D1DD14EE8F8400476AFB /* Pokemon.m in Sources */,
 				7F6910DA14EF6B4300127E2F /* PokemonConstants.m in Sources */,
+				7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

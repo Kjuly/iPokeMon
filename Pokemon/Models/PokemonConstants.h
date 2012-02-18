@@ -12,7 +12,7 @@
 // Pokemon Type
 //
 typedef enum {
-  kPokemonTypeNormal   = 0,
+  kPokemonTypeNormal   = 1,
   kPokemonTypeFire,
   kPokemonTypeWater,
   kPokemonTypeElectric,
@@ -35,7 +35,7 @@ typedef enum {
 // Pokemon Species
 //
 typedef enum {
-  kPokemonSpeciesAbundant = 0,
+  kPokemonSpeciesAbundant = 1,
   kPokemonSpeciesAcorn,
   kPokemonSpeciesAlpha,
   kPokemonSpeciesAngler,
@@ -518,7 +518,7 @@ typedef enum {
 // Pokemon Gender Rate
 //
 typedef enum {
-  kPokemonGenderRateAlwaysMale = 0,
+  kPokemonGenderRateAlwaysMale = 1,
   kPokemonGenderRateFemaleOneEighth,
   kPokemonGenderRateFemale25Percent,
   kPokemonGenderRateFemale50Percent,
@@ -533,7 +533,7 @@ typedef enum {
 // The main colour of this species. Must be one of
 //
 typedef enum {
-  kPokemonColorBlack = 0,
+  kPokemonColorBlack = 1,
   kPokemonColorBlue,
   kPokemonColorBrown,
   kPokemonColorGray,
@@ -551,7 +551,7 @@ typedef enum {
 // The rate at which a Pokémon of this species gains levels (i.e. how much Experience is needed to level up), One of:
 //
 typedef enum {
-  kPokemonGrowthRateFast = 0,
+  kPokemonGrowthRateFast = 1,
   kPokemonGrowthRateMedium,
   kPokemonGrowthRateSlow,
   kPokemonGrowthRateParabolic,
@@ -567,7 +567,7 @@ typedef enum {
 // "Water1" is for sea creatures, "Water2" is for fish, and "Water3" is for shellfish. "Ditto" should contain only Ditto, as a species in this group can breed with any other breedable Pokémon.
 //
 typedef enum {
-  kPokemonCompatibilityMonster = 0,
+  kPokemonCompatibilityMonster = 1,
   kPokemonCompatibilityWater1,
   kPokemonCompatibilityBug,
   kPokemonCompatibilityFlying,
@@ -588,7 +588,7 @@ typedef enum {
 // Pokemon Evolution Method
 //
 typedef enum {
-  kPokemonEvolutionMethodLevel,          // (level)
+  kPokemonEvolutionMethodLevel = 1,      // (level)
   kPokemonEvolutionMethodLevelMale,      // (level)
   kPokemonEvolutionMethodLevelFemale,    // (level)
   kPokemonEvolutionMethodAttackGreater,  // (level)
@@ -619,7 +619,7 @@ typedef enum {
 // Pokemon Habitat
 //
 typedef enum {
-  kPokemonHabitatCave = 0,
+  kPokemonHabitatCave = 1,
   kPokemonHabitatForest,
   kPokemonHabitatGrassland,
   kPokemonHabitatMountain,
@@ -637,7 +637,7 @@ typedef enum {
 // Move Category
 //
 typedef enum {
-  kMoveCategoryPhysical = 0, // calculates damage using Attack and Defense
+  kMoveCategoryPhysical = 1, // calculates damage using Attack and Defense
   kMoveCategorySpecial,      // calculates damage using Special Attack and Special Defense
   kMoveCategoryStatus        // inflicts no damage
 }kMoveCategory;
@@ -646,7 +646,7 @@ typedef enum {
 // Move Contest Type
 //
 typedef enum {
-  kMoveContestTypeCool = 0,
+  kMoveContestTypeCool = 1,
   kMoveContestTypeBeauty,
   kMoveContestTypeCute,
   kMoveContestTypeSmart,
