@@ -27,12 +27,34 @@
     Pokemon * pokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                       inManagedObjectContext:managedObjectContext];
     
-    pokemon.sid = [NSNumber numberWithInt:++i];
-    pokemon.name  = [pokemonDict objectForKey:@"name"];
-    pokemon.height = [pokemonDict objectForKey:@"height"];
-    pokemon.weight = [pokemonDict objectForKey:@"weight"];
-    pokemon.info = [pokemonDict objectForKey:@"info"];
-    pokemon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
+    pokemon.sid           = [NSNumber numberWithInt:++i];
+    pokemon.image         = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
+    pokemon.imageIcon     = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
+    pokemon.name          = [pokemonDict objectForKey:@"name"];
+    pokemon.type1         = [pokemonDict objectForKey:@"type1"];
+    pokemon.type2         = [pokemonDict objectForKey:@"type2"];
+    pokemon.species       = [pokemonDict objectForKey:@"species"];
+    pokemon.color         = [pokemonDict objectForKey:@"color"];
+    pokemon.height        = [pokemonDict objectForKey:@"height"];
+    pokemon.weight        = [pokemonDict objectForKey:@"weight"];
+    pokemon.ability1      = [pokemonDict objectForKey:@"ability1"];
+    pokemon.ability2      = [pokemonDict objectForKey:@"ability2"];
+    pokemon.hiddenAbility = [pokemonDict objectForKey:@"hiddenAbility"];
+    pokemon.genderRate    = [pokemonDict objectForKey:@"genderRate"];
+    pokemon.stepsToHatch  = [pokemonDict objectForKey:@"stepsToHatch"];
+    pokemon.rareness      = [pokemonDict objectForKey:@"rareness"];
+    pokemon.happiness     = [pokemonDict objectForKey:@"happiness"];
+    pokemon.baseEXP       = [pokemonDict objectForKey:@"baseEXP"];
+    pokemon.growthRate    = [pokemonDict objectForKey:@"growthRate"];
+    pokemon.habitat       = [pokemonDict objectForKey:@"habitat"];
+    pokemon.area          = [pokemonDict objectForKey:@"area"];
+    pokemon.baseStats     = [pokemonDict objectForKey:@"baseStats"];
+    pokemon.effortPoints  = [pokemonDict objectForKey:@"effortPoints"];
+    pokemon.info          = [pokemonDict objectForKey:@"info"];
+    pokemon.evolutions    = [pokemonDict objectForKey:@"evolutions"];
+    pokemon.moves         = [pokemonDict objectForKey:@"moves"];
+    pokemon.compatibility = [pokemonDict objectForKey:@"compatibility"];
+    pokemon.eggMoves      = [pokemonDict objectForKey:@"eggMoves"];
     
     pokemonDict = nil;
     pokemon = nil;

@@ -35,29 +35,27 @@
 
 #pragma mark - NSArray to NSString
 
-@implementation ArrayToStringTransformer
+@implementation ArrayToStringTransformer // Need change to |ArrayToDataTransformer|
 
 + (BOOL)allowsReverseTransformation {
 	return YES;
 }
 
 + (Class)transformedValueClass {
-	return [NSString class];
+	return [NSArray class];
 }
 
 - (id)transformedValue:(id)value {
-  if ([value class] == [NSString class])
-    return value;
-  
-  NSMutableString * string = [NSMutableString string];
-  for (NSNumber * number in value)
-    [string appendString:[NSString stringWithFormat:@"%@,", number]];
-	return string;
+  // If the |value| class is |NSString| type,
+  // Transform |NSString| to |NSArray| first, then to |NSData|.
+  // Intermediate Transform: | NSArray * array = [value componentsSeparatedByString:@","]; |
+  if ([value isKindOfClass:[NSString class]])
+    return [NSKeyedArchiver archivedDataWithRootObject:[value componentsSeparatedByString:@","]];
+  return [NSKeyedArchiver archivedDataWithRootObject:value];
 }
 
 - (id)reverseTransformedValue:(id)value {
-  NSArray * array = [value componentsSeparatedByString:@","];
-	return array;
+  return [NSKeyedUnarchiver unarchiveObjectWithData:value];
 }
 
 @end

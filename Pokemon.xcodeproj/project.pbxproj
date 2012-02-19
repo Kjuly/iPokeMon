@@ -1345,6 +1345,7 @@
 		7FAD69C114EFF8C300B3E2F9 /* tmp */ = {
 			isa = PBXGroup;
 			children = (
+				7FAD69CB14EFF8F400B3E2F9 /* Pokedex.plist */,
 				7FAD69C214EFF8F400B3E2F9 /* BagBattleItems.plist */,
 				7FAD69C314EFF8F400B3E2F9 /* BagBerries.plist */,
 				7FAD69C414EFF8F400B3E2F9 /* BagItems.plist */,
@@ -1354,7 +1355,6 @@
 				7FAD69C814EFF8F400B3E2F9 /* BagPokeballs.plist */,
 				7FAD69C914EFF8F400B3E2F9 /* BagTMsHMs.plist */,
 				7FAD69CA14EFF8F400B3E2F9 /* GameSettingOptions.plist */,
-				7FAD69CB14EFF8F400B3E2F9 /* Pokedex.plist */,
 			);
 			path = tmp;
 			sourceTree = "<group>";
