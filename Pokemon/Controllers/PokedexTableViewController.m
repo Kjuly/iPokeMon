@@ -16,17 +16,23 @@
 
 #import "AppDelegate.h"
 
+
+@interface PokedexTableViewController ()
+
+- (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @implementation PokedexTableViewController
 
 @synthesize pokedexSequence = pokedexSequence_;
-@synthesize pokedexImages   = pokedexImages_;
 
 @synthesize fetchedResultsController = fetchedResultsController_;
 
 - (void)dealloc
 {
   [pokedexSequence_ release];
-  [pokedexImages_   release];
   
   self.fetchedResultsController.delegate = nil;
   self.fetchedResultsController = nil;
@@ -60,7 +66,6 @@
   // Fetch data from web service
   NSString * dataFromWebService = @"2db7aab7";
   self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
-  self.pokedexImages   = [PListParser pokedexGenerationOneImageArray];
 }
 
 - (void)viewDidUnload
@@ -68,7 +73,6 @@
   [super viewDidUnload];
 
   self.pokedexSequence = nil;
-  self.pokedexImages   = nil;
   
   self.fetchedResultsController = nil;
 }
@@ -88,13 +92,6 @@
 		NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
-  
-  // It can be put at |numberOfRowsInSection:| in TableView
-  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:0];
-  NSLog(@"~~~ %@", sectionInfo); //[sectionInfo numberOfObjects]);
-  
-  // It can be put at |cellForRowAtIndexPath:| in TableView
-  NSLog(@"~~~ %@", [fetchedResultsController_ sections]);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -146,12 +143,8 @@
   NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
-  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
-    Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
-    [cell.labelTitle setText:NSLocalizedString(pokemon.name, nil)];
-    [cell.imageView setImage:pokemon.image];
-//    [cell.imageView setImage:[self.pokedexImages objectAtIndex:rowID]];
-  }
+  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16)))
+    [self configureCell:cell atIndexPath:indexPath];
   else {
     [cell.labelTitle setText:@"? ? ?"];
     [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]];
@@ -214,16 +207,28 @@
   }
 }
 
+#pragma mark - Private Methods
+
+- (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+  //  FailedBankInfo *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+  //  cell.textLabel.text = info.name;
+  //  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", 
+  //                               info.city, info.state];
+  Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
+  [cell.labelTitle setText:NSLocalizedString(pokemon.name, nil)];
+  [cell.imageView setImage:pokemon.image];
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
   if (fetchedResultsController_ != nil) {
-    NSLog(@"~~~ fetchedResultsController_ != nil");
+    NSLog(@"PokedexTableViewController fetchedResultsController_ != nil");
     return fetchedResultsController_;
   }
   
-  NSLog(@"~~~ fetchedResultsController_ == nil, then create a new one...");
+  NSLog(@"PokedexTableViewController fetchedResultsController_ == nil, generating a new one...");
   
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSManagedObjectContext * context = [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
@@ -262,13 +267,6 @@
   [self.tableView beginUpdates];
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-//  FailedBankInfo *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-//  cell.textLabel.text = info.name;
-//  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", 
-//                               info.city, info.state];
-}
-
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
@@ -289,7 +287,7 @@
       break;
       
     case NSFetchedResultsChangeUpdate:
-      [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+      [self configureCell:(PokedexTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
       break;
       
     case NSFetchedResultsChangeMove:
