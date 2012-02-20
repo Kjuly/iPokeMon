@@ -8,7 +8,7 @@
 
 #import "PokemonSizeViewController.h"
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 @implementation PokemonSizeViewController
 
@@ -36,7 +36,7 @@
   CGFloat const imageHeight       = 150.0f;
   
   CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 70.0f;
+  CGFloat const labelWidth        = 80.0f;
   CGFloat const valueHeight       = 30.0f;
   CGFloat const valueWidth        = 300.0f - labelWidth;
   
@@ -51,8 +51,9 @@
   UILabel * heightValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, labelHeight)];
   [heightLabel setBackgroundColor:[UIColor clearColor]];
   [heightValue setBackgroundColor:[UIColor clearColor]];
-  [heightLabel setTextColor:[GlobalColor textColorBlue]];
-  [heightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [heightLabel setTextColor:[GlobalRender textColorBlue]];
+  [heightLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [heightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [heightLabel setTextAlignment:UITextAlignmentRight];
   [heightValue setTextAlignment:UITextAlignmentLeft];
   [heightLabel setText:@"Height: "];
@@ -67,8 +68,9 @@
   UILabel * weightValue = [[UILabel alloc] initWithFrame:CGRectMake(130.0f + labelWidth, 0.0f,  valueWidth, valueHeight)];
   [weightLabel setBackgroundColor:[UIColor clearColor]];
   [weightValue setBackgroundColor:[UIColor clearColor]];
-  [weightLabel setTextColor:[GlobalColor textColorBlue]];
-  [weightLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [weightLabel setTextColor:[GlobalRender textColorBlue]];
+  [weightLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [weightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [weightLabel setTextAlignment:UITextAlignmentRight];
   [weightValue setTextAlignment:UITextAlignmentLeft];
   [weightLabel setText:@"Weight: "];

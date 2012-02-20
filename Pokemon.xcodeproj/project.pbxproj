@@ -294,7 +294,7 @@
 		7FAF625014E797BA00A14AE0 /* AllPokemonImageSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */; };
 		7FAF625114E797BA00A14AE0 /* PokedexDefaultImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */; };
 		7FAF625514E7984F00A14AE0 /* PoketchSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAF625414E7984F00A14AE0 /* PoketchSixPokemonsViewController.m */; };
-		7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */; };
+		7FBAA70A14E15A2A0011DCB0 /* GlobalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */; };
 		7FBAA71D14E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */; };
 		7FBAA71E14E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71614E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png */; };
 		7FBAA71F14E177200011DCB0 /* UtilityBallMenuIcon_RunHotKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71714E177200011DCB0 /* UtilityBallMenuIcon_RunHotKey.png */; };
@@ -711,8 +711,8 @@
 		7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexDefaultImage@2x.png"; sourceTree = "<group>"; };
 		7FAF625314E7984F00A14AE0 /* PoketchSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FAF625414E7984F00A14AE0 /* PoketchSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchSixPokemonsViewController.m; sourceTree = "<group>"; };
-		7FBAA70814E15A2A0011DCB0 /* GlobalColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalColor.h; sourceTree = "<group>"; };
-		7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalColor.m; sourceTree = "<group>"; };
+		7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GlobalRender.h; sourceTree = "<group>"; };
+		7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalRender.m; sourceTree = "<group>"; };
 		7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_ShowBag.png; sourceTree = "<group>"; };
 		7FBAA71614E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_SetGame.png; sourceTree = "<group>"; };
 		7FBAA71714E177200011DCB0 /* UtilityBallMenuIcon_RunHotKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_RunHotKey.png; sourceTree = "<group>"; };
@@ -1040,8 +1040,8 @@
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
 				7F39A2F214DD07DA00C77485 /* DataDecoder.m */,
-				7FBAA70814E15A2A0011DCB0 /* GlobalColor.h */,
-				7FBAA70914E15A2A0011DCB0 /* GlobalColor.m */,
+				7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */,
+				7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1807,7 +1807,7 @@
 				7FAC497814DEE74E008BAB45 /* PokemonMemoViewController.m in Sources */,
 				7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */,
 				7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */,
-				7FBAA70A14E15A2A0011DCB0 /* GlobalColor.m in Sources */,
+				7FBAA70A14E15A2A0011DCB0 /* GlobalRender.m in Sources */,
 				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
 				7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */,
 				7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */,

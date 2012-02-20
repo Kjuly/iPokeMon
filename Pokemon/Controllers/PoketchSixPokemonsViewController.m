@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "PListParser.h"
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 
 @implementation PoketchSixPokemonsViewController
@@ -93,9 +93,9 @@
     // Level
     UILabel * levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
     [levelLabel setBackgroundColor:[UIColor clearColor]];
-    [levelLabel setTextColor:[GlobalColor textColorBlue]];
+    [levelLabel setTextColor:[GlobalRender textColorBlue]];
     [levelLabel setTextAlignment:UITextAlignmentLeft];
-    [levelLabel setFont:[UIFont fontWithName:@"Arial-BoldItalicMT" size:12.0f]];
+    [levelLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:12.0f]];
     [levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
     [dataView addSubview:levelLabel];
     [levelLabel release];
@@ -103,9 +103,9 @@
     // HP
     UILabel * hpLabel = [[UILabel alloc] initWithFrame:HPLabelFrame];
     [hpLabel setBackgroundColor:[UIColor clearColor]];
-    [hpLabel setTextColor:[GlobalColor textColorOrange]];
+    [hpLabel setTextColor:[GlobalRender textColorOrange]];
     [hpLabel setTextAlignment:UITextAlignmentRight];
-    [hpLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:16.0f]];
+    [hpLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [hpLabel setText:[NSString stringWithFormat:@"%d/%d",
                       [[dataDict objectForKey:@"HPLeft"]  intValue],
                       [[dataDict objectForKey:@"HPTotal"] intValue]]];
@@ -114,7 +114,7 @@
     
     // HP Bar
     UIView * HPBarTotal = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal setBackgroundColor:[GlobalColor textColorBlue]];
+    [HPBarTotal setBackgroundColor:[GlobalRender textColorBlue]];
     [HPBarTotal.layer setCornerRadius:5.0f];
     // HP Bar Left Part
     CGRect HPBarLeftFrame = CGRectMake(0.0f,
@@ -122,7 +122,7 @@
                                        HPBarFrame.size.width * [[dataDict objectForKey:@"HPLeft"]  floatValue] / [[dataDict objectForKey:@"HPTotal"] floatValue],
                                        HPBarFrame.size.height);
     UIView * HPBarLeft = [[UIView alloc] initWithFrame:HPBarLeftFrame];
-    [HPBarLeft setBackgroundColor:[GlobalColor textColorOrange]];
+    [HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
     [HPBarLeft.layer setCornerRadius:5.0f];
     [HPBarTotal addSubview:HPBarLeft];
     [HPBarLeft release];

@@ -8,7 +8,7 @@
 
 #import "PoketchStepsViewController.h"
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 
 @implementation PoketchStepsViewController
@@ -49,8 +49,8 @@
   // Steps Label
   UILabel * stepsLabel = [[UILabel alloc] initWithFrame:stepsLabelFrame];
   [stepsLabel setBackgroundColor:[UIColor clearColor]];
-  [stepsLabel setTextColor:[GlobalColor textColorBlue]];
-  [stepsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:20.0f]];
+  [stepsLabel setTextColor:[GlobalRender textColorBlue]];
+  [stepsLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [stepsLabel setTextAlignment:UITextAlignmentRight];
   [stepsLabel setText:@"Steps: "];
   [stepsView addSubview:stepsLabel];
@@ -59,8 +59,8 @@
   // Steps Value
   UILabel * stepsValue = [[UILabel alloc] initWithFrame:stepsValueFrame];
   [stepsValue setBackgroundColor:[UIColor clearColor]];
-  [stepsValue setTextColor:[GlobalColor textColorOrange]];
-  [stepsValue setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:45.0f]];
+  [stepsValue setTextColor:[GlobalRender textColorOrange]];
+  [stepsValue setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
   [stepsValue setTextAlignment:UITextAlignmentLeft];
   [stepsValue setText:[NSString stringWithFormat:@"%d", 9999]];
   [stepsView addSubview:stepsValue];

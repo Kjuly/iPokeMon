@@ -9,7 +9,7 @@
 #import "MainViewController.h"
 
 #import "../GlobalConstants.h"
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"

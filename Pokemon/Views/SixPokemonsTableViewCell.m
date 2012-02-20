@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 @implementation SixPokemonsTableViewCell
 
@@ -93,34 +93,34 @@
     // Name Label
     nameLabel_ = [[UILabel alloc] initWithFrame:nameLabelFrame];
     [nameLabel_ setBackgroundColor:[UIColor clearColor]];
-    [nameLabel_ setTextColor:[GlobalColor textColorOrange]];
+    [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
     [nameLabel_ setTextAlignment:UITextAlignmentLeft];
-    [nameLabel_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:20.0f]];
+    [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
     [dataView addSubview:nameLabel_];
     
     // Gender Label
     genderLabel_ = [[UILabel alloc] initWithFrame:genderLabelFrame];
     [genderLabel_ setBackgroundColor:[UIColor clearColor]];
-    [genderLabel_ setTextColor:[GlobalColor textColorBlue]];
+    [genderLabel_ setTextColor:[GlobalRender textColorBlue]];
     [genderLabel_ setTextAlignment:UITextAlignmentLeft];
-    [genderLabel_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f]];
+    [genderLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
     [dataView addSubview:genderLabel_];
     
     // Level Label
     levelLabel_ = [[UILabel alloc] initWithFrame:levelLabelFrame];
     [levelLabel_ setBackgroundColor:[UIColor clearColor]];
-    [levelLabel_ setTextColor:[GlobalColor textColorBlue]];
+    [levelLabel_ setTextColor:[GlobalRender textColorBlue]];
     [levelLabel_ setTextAlignment:UITextAlignmentRight];
-    [levelLabel_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:16.0f]];
+    [levelLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.0f]];
     [dataView addSubview:levelLabel_];
     
     // HP Bar
     HPBarTotal_ = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal_ setBackgroundColor:[GlobalColor textColorBlue]];
+    [HPBarTotal_ setBackgroundColor:[GlobalRender textColorBlue]];
     [HPBarTotal_.layer setCornerRadius:5.0f];
     // HP Bar Left Part
     HPBarLeft_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
-    [HPBarLeft_ setBackgroundColor:[GlobalColor textColorOrange]];
+    [HPBarLeft_ setBackgroundColor:[GlobalRender textColorOrange]];
     [HPBarLeft_.layer setCornerRadius:5.0f];
     [HPBarTotal_ addSubview:HPBarLeft_];
     [dataView addSubview:HPBarTotal_];
@@ -128,9 +128,9 @@
     // HP Label
     HPLabel_ = [[UILabel alloc] initWithFrame:HPLabelFrame];
     [HPLabel_ setBackgroundColor:[UIColor clearColor]];
-    [HPLabel_ setTextColor:[GlobalColor textColorOrange]];
+    [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [HPLabel_ setTextAlignment:UITextAlignmentRight];
-    [HPLabel_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:16.0f]];
+    [HPLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:16.0f]];
     [HPLabel_ setTextColor:[UIColor grayColor]];
     [dataView addSubview:HPLabel_];
     
@@ -144,8 +144,8 @@
 {
   [super setSelected:selected animated:animated];
   
-  [self.HPBarTotal setBackgroundColor:[GlobalColor textColorBlue]];
-  [self.HPBarLeft setBackgroundColor:[GlobalColor textColorOrange]];
+  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorBlue]];
+  [self.HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
 }
 
 @end

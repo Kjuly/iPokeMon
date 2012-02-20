@@ -9,7 +9,7 @@
 #import "GameSettingTableViewController.h"
 
 #import "PListParser.h"
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 
 @implementation GameSettingTableViewController
@@ -104,13 +104,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   UIView * sectionView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 40.0f)];
-  [sectionView setBackgroundColor:[GlobalColor backgroundColorMain]];
+  [sectionView setBackgroundColor:[GlobalRender backgroundColorMain]];
   
   // Create Section Label for Section Title
   UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 5.0f, 310.0f, 25.0f)];
   [sectionLabel setBackgroundColor:[UIColor clearColor]];
   [sectionLabel setTextColor:[UIColor whiteColor]];
-  [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:12.0f]];
+  [sectionLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:13.0f]];
   [sectionLabel setText:[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"]];
   
   [sectionView addSubview:sectionLabel];
@@ -127,7 +127,7 @@
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     
-    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f]];
+    [cell.textLabel setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
   }
   
   // Configure the cell...

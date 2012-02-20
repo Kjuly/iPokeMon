@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 #import "Trainer+DataController.h"
 #import "AppDelegate.h"
 
@@ -87,8 +87,8 @@
   // ID
   UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, IDView.frame.size.width, labelHeight)];
   [IDLabel setBackgroundColor:[UIColor clearColor]];
-  [IDLabel setTextColor:[GlobalColor textColorBlue]];
-  [IDLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:20.0f]];
+  [IDLabel setTextColor:[GlobalRender textColorBlue]];
+  [IDLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", 1]];
   [IDView addSubview:IDLabel];
   [IDLabel release];
@@ -97,8 +97,8 @@
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
   [nameLabel setBackgroundColor:[UIColor clearColor]];
   [nameLabel setLineBreakMode:UILineBreakModeWordWrap];
-  [nameLabel setTextColor:[GlobalColor textColorOrange]];
-  [nameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:26.0f]];
+  [nameLabel setTextColor:[GlobalRender textColorOrange]];
+  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
   [nameLabel setNumberOfLines:0];
   [nameLabel setText:@"Trainer Name"];
   [nameLabel sizeToFit];
@@ -122,8 +122,9 @@
   UILabel * moneyValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
   [moneyLabel setBackgroundColor:[UIColor clearColor]];
   [moneyValue setBackgroundColor:[UIColor clearColor]];
-  [moneyLabel setTextColor:[GlobalColor textColorBlue]];
-  [moneyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [moneyLabel setTextColor:[GlobalRender textColorBlue]];
+  [moneyLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [moneyValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyLabel setTextAlignment:UITextAlignmentRight];
   [moneyValue setTextAlignment:UITextAlignmentLeft];
   [moneyLabel setText:@"Money: "];
@@ -138,8 +139,9 @@
   UILabel * pokedexValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
   [pokedexLabel setBackgroundColor:[UIColor clearColor]];
   [pokedexValue setBackgroundColor:[UIColor clearColor]];
-  [pokedexLabel setTextColor:[GlobalColor textColorBlue]];
-  [pokedexLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [pokedexLabel setTextColor:[GlobalRender textColorBlue]];
+  [pokedexLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [pokedexValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexLabel setTextAlignment:UITextAlignmentRight];
   [pokedexValue setTextAlignment:UITextAlignmentLeft];
   [pokedexLabel setText:@"Pokedex: "];
@@ -154,8 +156,9 @@
   UILabel * badgesValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight * 2, valueWidth, valueHeight)];
   [badgesLabel setBackgroundColor:[UIColor clearColor]];
   [badgesValue setBackgroundColor:[UIColor clearColor]];
-  [badgesLabel setTextColor:[GlobalColor textColorBlue]];
-  [badgesLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [badgesLabel setTextColor:[GlobalRender textColorBlue]];
+  [badgesLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [badgesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesLabel setTextAlignment:UITextAlignmentRight];
   [badgesValue setTextAlignment:UITextAlignmentLeft];
   [badgesLabel setText:@"Badges: "];
@@ -176,9 +179,9 @@
                                                                                   valueHeight)];
   [adventureStartedTimeLabel setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeValue setBackgroundColor:[UIColor clearColor]];
-  [adventureStartedTimeLabel setTextColor:[GlobalColor textColorBlue]];
-  [adventureStartedTimeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:16.0f]];
-  [adventureStartedTimeValue setFont:[UIFont systemFontOfSize:16.0f]];
+  [adventureStartedTimeLabel setTextColor:[GlobalRender textColorBlue]];
+  [adventureStartedTimeLabel setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
+  [adventureStartedTimeValue setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeLabel setTextAlignment:UITextAlignmentRight];
   [adventureStartedTimeValue setTextAlignment:UITextAlignmentLeft];
   [adventureStartedTimeLabel setText:@"Adventure Started: "];

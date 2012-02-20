@@ -8,7 +8,7 @@
 
 #import "PokemonInfoViewController.h"
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 @implementation PokemonInfoViewController
 
@@ -36,7 +36,7 @@
   CGFloat const imageHeight       = 150.0f;
   
   CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 70.0f;
+  CGFloat const labelWidth        = 80.0f;
   CGFloat const valueHeight       = 30.0f;
   CGFloat const valueWidth        = 300.0f - labelWidth;
   
@@ -55,8 +55,9 @@
   UILabel * speciesValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
   [speciesLabel setBackgroundColor:[UIColor clearColor]];
   [speciesValue setBackgroundColor:[UIColor clearColor]];
-  [speciesLabel setTextColor:[GlobalColor textColorBlue]];
-  [speciesLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [speciesLabel setTextColor:[GlobalRender textColorBlue]];
+  [speciesLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [speciesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [speciesLabel setTextAlignment:UITextAlignmentRight];
   [speciesValue setTextAlignment:UITextAlignmentLeft];
   [speciesLabel setText:@"Species: "];
@@ -71,8 +72,9 @@
   UILabel * typeValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
   [typeLabel setBackgroundColor:[UIColor clearColor]];
   [typeValue setBackgroundColor:[UIColor clearColor]];
-  [typeLabel setTextColor:[GlobalColor textColorBlue]];
-  [typeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+  [typeLabel setTextColor:[GlobalRender textColorBlue]];
+  [typeLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [typeValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [typeLabel setTextAlignment:UITextAlignmentRight];
   [typeValue setTextAlignment:UITextAlignmentLeft];
   [typeLabel setText:@"Type: "];
@@ -92,7 +94,7 @@
   [descriptionField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
   [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
-  [descriptionField setFont:[UIFont systemFontOfSize:14.0f]];
+  [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
   [descriptionField setText:[self.pokemonDataDict valueForKey:@"info"]];
   [self.view addSubview:descriptionField];
   [descriptionField release];

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GlobalColor : NSObject
+@interface GlobalRender : NSObject
 
 + (UIColor *)backgroundColorMain;
 + (UIColor *)backgroundColorTransparentBlack;
@@ -16,5 +16,12 @@
 
 + (UIColor *)textColorOrange;
 + (UIColor *)textColorBlue;
+
+// Font Style
++ (UIFont *)textFontNormalInSizeOf:(CGFloat)fontSize;
++ (UIFont *)textFontBoldInSizeOf:(CGFloat)fontSize;
++ (UIFont *)textFontItalicInSizeOf:(CGFloat)fontSize;
++ (UIFont *)textFontBoldItalicInSizeOf:(CGFloat)fontSize;
++ (UIFont *)textFontRoundedInSizeOf:(CGFloat)fontSize;
 
 @end;

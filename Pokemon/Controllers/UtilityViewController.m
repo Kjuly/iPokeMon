@@ -9,7 +9,7 @@
 #import "UtilityViewController.h"
 
 #import "../GlobalConstants.h"
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 
 @interface UtilityViewController (PrivateMethods)

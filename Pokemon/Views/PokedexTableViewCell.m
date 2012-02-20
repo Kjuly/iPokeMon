@@ -8,6 +8,9 @@
 
 #import "PokedexTableViewCell.h"
 
+#import "GlobalRender.h"
+
+
 @implementation PokedexTableViewCell
 
 @synthesize imageView     = imageView_;
@@ -56,13 +59,15 @@
     // Set Title Label
     labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, 5.0f, titleWidth, titleHeight)];
     [labelTitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelTitle_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:16.0f]];
+    [labelTitle_ setTextColor:[GlobalRender textColorOrange]];
+    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
     [self.contentView addSubview:labelTitle_];
     
     // Set Subtitle Label
     labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, titleHeight, subtitleWidth, subtitleHeight)];
     [labelSubtitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelSubtitle_ setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:12.0f]];
+    [labelSubtitle_ setTextColor:[GlobalRender textColorBlue]];
+    [labelSubtitle_ setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
     [labelSubtitle_ setTextColor:[UIColor grayColor]];
     [self.contentView addSubview:labelSubtitle_];
   }

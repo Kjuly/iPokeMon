@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 @implementation PokemonDetailViewController
 
@@ -67,7 +67,7 @@
   CGFloat const imageWidth        = 150.0f;
   
   CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 70.0f;
+  CGFloat const labelWidth        = 80.0f;
   
   CGFloat const nameLabelWidth    = 300.0f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
@@ -99,8 +99,8 @@
   // ID
   UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
   [IDLabel setBackgroundColor:[UIColor clearColor]];
-  [IDLabel setTextColor:[GlobalColor textColorBlue]];
-  [IDLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:20.0f]];
+  [IDLabel setTextColor:[GlobalRender textColorBlue]];
+  [IDLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [IDLabel setText:[NSString stringWithFormat:@"#%.3d", [[self.pokemonDataDict valueForKey:@"sid"] intValue]]];
   [IDView addSubview:IDLabel];
   [IDLabel release];
@@ -108,8 +108,8 @@
   // Name
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
   [nameLabel setBackgroundColor:[UIColor clearColor]];
-  [nameLabel setTextColor:[GlobalColor textColorOrange]];
-  [nameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:26.0f]];
+  [nameLabel setTextColor:[GlobalRender textColorOrange]];
+  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
   [nameLabel setText:[self.pokemonDataDict valueForKey:@"name"]];
   [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
   [nameLabel.layer setShadowOpacity:1.0f];

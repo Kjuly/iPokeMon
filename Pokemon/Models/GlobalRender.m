@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "GlobalColor.h"
+#import "GlobalRender.h"
 
 
-@implementation GlobalColor
+@implementation GlobalRender
 
 #pragma mark - Background Color
 
@@ -49,6 +49,27 @@
                          green:98.0f / 255.0f
                           blue:125.0f/ 255.0f
                          alpha:1.0f];
+}
+
+#pragma mark - Font Style
++ (UIFont *)textFontNormalInSizeOf:(CGFloat)fontSize {
+  return [UIFont fontWithName:@"Arial" size:fontSize];
+}
+
++ (UIFont *)textFontBoldInSizeOf:(CGFloat)fontSize {
+  return [UIFont fontWithName:@"Arial-BoldMT" size:fontSize];
+}
+
++ (UIFont *)textFontItalicInSizeOf:(CGFloat)fontSize {
+  return [UIFont fontWithName:@"Arial-ItalicMT" size:fontSize];
+}
+
++ (UIFont *)textFontBoldItalicInSizeOf:(CGFloat)fontSize {
+  return [UIFont fontWithName:@"Arial-BoldItalicMT" size:fontSize];
+}
+
++ (UIFont *)textFontRoundedInSizeOf:(CGFloat)fontSize {
+  return [UIFont fontWithName:@"ArialRoundedMTBold" size:fontSize];
 }
 
 @end
