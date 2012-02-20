@@ -70,8 +70,8 @@
   CGFloat imageWidth = 40.0f;
   CGRect pokemonViewFrame = CGRectZero;
   CGRect dataViewFrame    = CGRectMake(imageWidth, 0.0f, width - imageWidth, height);
-  CGRect levelLabelFrame  = CGRectMake(0.0f, 0.0f, 30.0f, 30.0f);
-  CGRect HPLabelFrame     = CGRectMake(30.0f, 0.0f, dataViewFrame.size.width - 40.0f, 30.0f);
+  CGRect levelLabelFrame  = CGRectMake(0.0f, 0.0f, 40.0f, 30.0f);
+  CGRect HPLabelFrame     = CGRectMake(35.0f, 0.0f, dataViewFrame.size.width - 45.0f, 30.0f);
   CGRect HPBarFrame       = CGRectMake(0.0f, 30.0f, width - imageWidth - 10.0f, 15.0f);
   
   for (int i = 0; i < [self.dataArray count]; ++i) {
@@ -95,7 +95,7 @@
     [levelLabel setBackgroundColor:[UIColor clearColor]];
     [levelLabel setTextColor:[GlobalColor textColorBlue]];
     [levelLabel setTextAlignment:UITextAlignmentLeft];
-    [levelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:12.0f]];
+    [levelLabel setFont:[UIFont fontWithName:@"Arial-BoldItalicMT" size:12.0f]];
     [levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
     [dataView addSubview:levelLabel];
     [levelLabel release];
@@ -105,7 +105,7 @@
     [hpLabel setBackgroundColor:[UIColor clearColor]];
     [hpLabel setTextColor:[GlobalColor textColorOrange]];
     [hpLabel setTextAlignment:UITextAlignmentRight];
-    [hpLabel setFont:[UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0f]];
+    [hpLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:16.0f]];
     [hpLabel setText:[NSString stringWithFormat:@"%d/%d",
                       [[dataDict objectForKey:@"HPLeft"]  intValue],
                       [[dataDict objectForKey:@"HPTotal"] intValue]]];
