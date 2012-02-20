@@ -201,7 +201,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row]] intValue] >> 4;
+  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
   PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                      initWithPokemonID:pokemonID];
   [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
