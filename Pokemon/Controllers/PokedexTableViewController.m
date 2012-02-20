@@ -45,6 +45,15 @@
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    // Get a handle to our fetchedResultsController (which implicitly creates it as well)
+    // and call |performFetch:| to retrieve the first batch of data
+    NSError * error;
+    if (! [[self fetchedResultsController] performFetch:&error]) {
+      // Update to handle the error appropriately.
+      NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
+      exit(-1);  // Fail
+    }
   }
   return self;
 }
@@ -83,15 +92,6 @@
   
   if (self.navigationController.isNavigationBarHidden)
     [self.navigationController setNavigationBarHidden:NO];
-  
-  // Get a handle to our fetchedResultsController (which implicitly creates it as well)
-  // and call |performFetch:| to retrieve the first batch of data
-  NSError * error;
-	if (! [[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
