@@ -56,7 +56,7 @@
   [heightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [heightLabel setTextAlignment:UITextAlignmentRight];
   [heightValue setTextAlignment:UITextAlignmentLeft];
-  [heightLabel setText:@"Height: "];
+  [heightLabel setText:NSLocalizedString(@"kLabelHeight", nil)];
   [heightValue setText:[NSString stringWithFormat:@"%.2f m", [[self.pokemonDataDict valueForKey:@"height"] floatValue]]];
   [sizeView addSubview:heightLabel];
   [sizeView addSubview:heightValue];
@@ -73,7 +73,7 @@
   [weightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [weightLabel setTextAlignment:UITextAlignmentRight];
   [weightValue setTextAlignment:UITextAlignmentLeft];
-  [weightLabel setText:@"Weight: "];
+  [weightLabel setText:NSLocalizedString(@"kLabelWeight", nil)];
   [weightValue setText:[NSString stringWithFormat:@"%.2f kg", [[self.pokemonDataDict valueForKey:@"weight"] floatValue]]];
   [sizeView addSubview:weightLabel];
   [sizeView addSubview:weightValue];

@@ -52,7 +52,7 @@
   [stepsLabel setTextColor:[GlobalRender textColorBlue]];
   [stepsLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [stepsLabel setTextAlignment:UITextAlignmentRight];
-  [stepsLabel setText:@"Steps: "];
+  [stepsLabel setText:NSLocalizedString(@"kLabelSteps", nil)];
   [stepsView addSubview:stepsLabel];
   [stepsLabel release];
   

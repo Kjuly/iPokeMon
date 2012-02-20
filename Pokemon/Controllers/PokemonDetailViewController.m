@@ -110,7 +110,7 @@
   [nameLabel setBackgroundColor:[UIColor clearColor]];
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
-  [nameLabel setText:[self.pokemonDataDict valueForKey:@"name"]];
+  [nameLabel setText:NSLocalizedString([self.pokemonDataDict valueForKey:@"name"], nil)];
   [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
   [nameLabel.layer setShadowOpacity:1.0f];
   [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];

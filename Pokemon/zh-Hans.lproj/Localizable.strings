@@ -7,6 +7,23 @@
 */
 
 /*
+ * UI Text
+ * */
+
+"kLabelSpecies" = "类型：";
+"kLabelType"    = "属性：";
+"kLabelHeight"  = "身高：";
+"kLabelWeight"  = "体重：";
+
+// Trainer
+"kLabelMoney"            = "零花钱：";
+"kLabelPokedex"          = "图鉴：";
+"kLabelBadges"           = "徽章：";
+"kLabelAdventureStarted" = "冒险开始时间：";
+"kLabelSteps"            = "步长：";
+
+
+/*
  * Pokedex
  * */
 

@@ -7,6 +7,24 @@
 */
 
 /*
+ * UI Text
+ * */
+
+// Pokemon
+"kLabelSpecies" = "Species: ";
+"kLabelType"    = "Type: ";
+"kLabelHeight"  = "Height: ";
+"kLabelWeight"  = "Weight: ";
+
+// Trainer
+"kLabelMoney"            = "Money: ";
+"kLabelPokedex"          = "Pokedex: ";
+"kLabelBadges"           = "Badges: ";
+"kLabelAdventureStarted" = "Adventure Started: ";
+"kLabelSteps"            = "Steps: ";
+
+
+/*
  * Pokedex
  * */
 

@@ -60,7 +60,7 @@
   [speciesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [speciesLabel setTextAlignment:UITextAlignmentRight];
   [speciesValue setTextAlignment:UITextAlignmentLeft];
-  [speciesLabel setText:@"Species: "];
+  [speciesLabel setText:NSLocalizedString(@"kLabelSpecies", nil)];
   [speciesValue setText:[[self.pokemonDataDict valueForKey:@"species"] stringValue]];
   [dataView addSubview:speciesLabel];
   [dataView addSubview:speciesValue];
@@ -77,7 +77,7 @@
   [typeValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [typeLabel setTextAlignment:UITextAlignmentRight];
   [typeValue setTextAlignment:UITextAlignmentLeft];
-  [typeLabel setText:@"Type: "];
+  [typeLabel setText:NSLocalizedString(@"kLabelType", nil)];
   [typeValue setText:[[self.pokemonDataDict valueForKey:@"type1"] stringValue]];
   [dataView addSubview:typeLabel];
   [dataView addSubview:typeValue];

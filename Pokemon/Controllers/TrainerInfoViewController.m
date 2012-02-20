@@ -127,7 +127,7 @@
   [moneyValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyLabel setTextAlignment:UITextAlignmentRight];
   [moneyValue setTextAlignment:UITextAlignmentLeft];
-  [moneyLabel setText:@"Money: "];
+  [moneyLabel setText:NSLocalizedString(@"kLabelMoney", nil)];
   [moneyValue setText:[NSString stringWithFormat:@"$ %d", 999999]];
   [dataView addSubview:moneyLabel];
   [dataView addSubview:moneyValue];
@@ -144,7 +144,7 @@
   [pokedexValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexLabel setTextAlignment:UITextAlignmentRight];
   [pokedexValue setTextAlignment:UITextAlignmentLeft];
-  [pokedexLabel setText:@"Pokedex: "];
+  [pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
   [pokedexValue setText:@"151"];
   [dataView addSubview:pokedexLabel];
   [dataView addSubview:pokedexValue];
@@ -161,7 +161,7 @@
   [badgesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesLabel setTextAlignment:UITextAlignmentRight];
   [badgesValue setTextAlignment:UITextAlignmentLeft];
-  [badgesLabel setText:@"Badges: "];
+  [badgesLabel setText:NSLocalizedString(@"kLabelBadges", nil)];
   [badgesValue setText:@"123"];
   [dataView addSubview:badgesLabel];
   [dataView addSubview:badgesValue];
@@ -184,7 +184,7 @@
   [adventureStartedTimeValue setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeLabel setTextAlignment:UITextAlignmentRight];
   [adventureStartedTimeValue setTextAlignment:UITextAlignmentLeft];
-  [adventureStartedTimeLabel setText:@"Adventure Started: "];
+  [adventureStartedTimeLabel setText:NSLocalizedString(@"kLabelAdventureStarted", nil)];
   [adventureStartedTimeValue setText:@"2012-01-22"];
   [dataView addSubview:adventureStartedTimeLabel];
   [dataView addSubview:adventureStartedTimeValue];

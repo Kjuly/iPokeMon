@@ -146,7 +146,7 @@
   [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
   // Data
   NSDictionary * dataDict = [[NSDictionary alloc] initWithDictionary:[self.dataArray objectAtIndex:rowID]];
-  [cell.nameLabel setText:[[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"]];
+  [cell.nameLabel setText:NSLocalizedString([[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"], nil)];
   [cell.genderLabel setText:@"M"];
   [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
   NSInteger HPLeft  = [[dataDict objectForKey:@"HPLeft"] intValue];
