@@ -9,6 +9,7 @@
 #import "PokemonDetailTabViewController.h"
 
 #import "../GlobalConstants.h"
+#import "Pokemon+DataController.h"
 #import "PokemonInfoViewController.h"
 #import "PokemonAreaViewController.h"
 #import "PokemonSizeViewController.h"
@@ -16,9 +17,13 @@
 
 @implementation PokemonDetailTabViewController
 
+@synthesize pokemonDataDict = pokemonDataDict_;
+
 - (void)dealloc
 {
   [super dealloc];
+  
+  [pokemonDataDict_ release];
 }
 
 - (id)initWithPokemonID:(NSInteger)pokemonID
@@ -28,10 +33,14 @@
     // Set View Frame
     self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
     
+    self.pokemonDataDict = [Pokemon queryPokemonDataWithID:pokemonID];
+    
     // Add child view controllers to each tab
-    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemonID:pokemonID];
+    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc]
+                                                             initWithPokemonDataDict:self.pokemonDataDict];
     PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonID:pokemonID];
-    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemonID:pokemonID];
+    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc]
+                                                             initWithPokemonDataDict:self.pokemonDataDict];
     
     // Set child views' Frame
     CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
@@ -74,6 +83,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.pokemonDataDict = nil;
 }
 
 @end

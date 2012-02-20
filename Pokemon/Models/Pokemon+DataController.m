@@ -13,6 +13,8 @@
 
 @implementation Pokemon (DataController)
 
+#pragma mark - Hard Initialize the DB data
+
 // Hard Initialize the DB data
 + (void)populateData
 {
@@ -106,13 +108,15 @@
   managedObjectContext = nil;
 }
 
+#pragma mark - Pokemon Data Query Mthods
+
 // Get data from model
 + (NSArray *)queryAllData
 {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:@"Pokemon"
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
   NSError * error;
@@ -121,6 +125,27 @@
   [fetchRequest release];
   
   return fetchedObjects;
+}
+
+// Get data of one Pokemon
++ (NSDictionary *)queryPokemonDataWithID:(NSInteger)pokemonID
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:@"Pokemon"//NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonID];
+  [fetchRequest setPredicate:predicate];
+//  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  NSDictionary * pokemonDict = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  [fetchRequest release];
+  
+  return pokemonDict;
 }
 
 

@@ -14,8 +14,9 @@
 + (void)populateData;
 + (void)hardUpdateData;
 
-// Pokedex
+// Pokemon Data Query Mthods
 + (NSArray *)queryAllData;
++ (NSDictionary *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
 // Six Pokemons
 
