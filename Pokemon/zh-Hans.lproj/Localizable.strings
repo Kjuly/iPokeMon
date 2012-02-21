@@ -14,6 +14,10 @@
 "kLabelType"    = "属性：";
 "kLabelHeight"  = "身高：";
 "kLabelWeight"  = "体重：";
+"kLabelLevel"   = "Lv.：";
+"kLabelGender"  = "性别：";
+"kLabelEXP"     = "经验值：";
+"kLabelToNextLevel" = "升级所需经验值：";
 
 // Trainer
 "kLabelMoney"            = "零花钱：";
