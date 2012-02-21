@@ -12,7 +12,7 @@
 #import "TrainerTamedPokemon+DataController.h"
 #import "Pokemon.h"
 #import "SixPokemonsTableViewCell.h"
-#import "PokemonDetailTabViewController.h"
+#import "SixPokemonsDetailTabViewController.h"
 
 
 @implementation SixPokemonsTableViewController
@@ -205,11 +205,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
-  NSInteger pokemonID = [[[self.sixPokemons objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
-  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
-                                                                     initWithPokemonID:pokemonID];
-  [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
-  [pokemonDetailTabViewController release];
+//  NSInteger pokemonID = [[[self.sixPokemons objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
+//  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
+//                                                                     initWithPokemonID:pokemonID];
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
+  [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]];
+  [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
+  [sixPokemonsDetailTabViewController release];
 }
 
 @end
