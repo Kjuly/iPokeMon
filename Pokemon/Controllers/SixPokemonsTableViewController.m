@@ -17,15 +17,11 @@
 
 @implementation SixPokemonsTableViewController
 
-@synthesize sixPokemonsID = sixPokemonsID_;
-@synthesize sixPokemons   = sixPokemons_;
-@synthesize dataArray = dataArray_;
+@synthesize sixPokemons = sixPokemons_;
 
 - (void)dealloc
 {
-  [sixPokemonsID_ release];
-  [sixPokemons_   release];
-  [dataArray_ release];
+  [sixPokemons_ release];
   
   [super dealloc];
 }
@@ -59,7 +55,7 @@
   //   --- -
   //   ID  1:Live 0:Dead
   //
-  sixPokemonsID_ = [[NSMutableArray alloc] initWithObjects:
+  /*sixPokemonsID_ = [[NSMutableArray alloc] initWithObjects:
                     [NSNumber numberWithInt:0x0001],
                     [NSNumber numberWithInt:0x0011],
                     [NSNumber numberWithInt:0x0021],
@@ -67,30 +63,16 @@
                     [NSNumber numberWithInt:0x0041],
                     [NSNumber numberWithInt:0x0051],
                     nil];
-  self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];
+  self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
   
-//  NSArray * testArray = [TrainerTamedPokemon sixPokemonsForTrainer:1];
-//  NSLog(@"%@", testArray);
-  self.dataArray = [TrainerTamedPokemon sixPokemonsForTrainer:1];
-  
-//  NSLog(@"%@", [[self.dataArray objectAtIndex:0] valueForKey:@"name"]);
-//  dataArray_ = [[NSArray alloc] initWithObjects:
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:32], @"level", [NSNumber numberWithInt:60],  @"HPLeft", [NSNumber numberWithInt:220], @"HPTotal", @"Normal", @"state", nil],
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:21], @"level", [NSNumber numberWithInt:129], @"HPLeft", [NSNumber numberWithInt:190], @"HPTotal", @"Normal", @"state", nil],
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:37], @"level", [NSNumber numberWithInt:249], @"HPLeft", [NSNumber numberWithInt:270], @"HPTotal", @"Normal", @"state", nil],
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:31], @"level", [NSNumber numberWithInt:209], @"HPLeft", [NSNumber numberWithInt:209], @"HPTotal", @"Normal", @"state", nil],
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:49], @"level", [NSNumber numberWithInt:390], @"HPLeft", [NSNumber numberWithInt:420], @"HPTotal", @"Normal", @"state", nil],
-//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:51], @"level", [NSNumber numberWithInt:119], @"HPLeft", [NSNumber numberWithInt:512], @"HPTotal", @"Normal", @"state", nil],
-//                nil];
+  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
   
-  self.sixPokemonsID = nil;
-  self.sixPokemons   = nil;
-  self.dataArray = nil;
+  self.sixPokemons = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,7 +111,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.dataArray count];
+  return [self.sixPokemons count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -149,7 +131,7 @@
   NSInteger rowID = [indexPath row];
 //  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
   
-  TrainerTamedPokemon * pokemonData = [self.dataArray objectAtIndex:rowID];
+  TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:rowID];
   Pokemon * pokemonBaseInfo = pokemonData.pokemon;
   
   // Image
@@ -223,7 +205,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
-  NSInteger pokemonID = [[[self.dataArray objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
+  NSInteger pokemonID = [[[self.sixPokemons objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
   PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                      initWithPokemonID:pokemonID];
   [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];

@@ -12,13 +12,9 @@
 
 @interface SixPokemonsTableViewController : CustomTableViewController
 {
-  NSMutableArray * sixPokemonsID_;
-  NSMutableArray * sixPokemons_;
-  NSArray * dataArray_;
+  NSArray * sixPokemons_;
 }
 
-@property (nonatomic, copy) NSMutableArray * sixPokemonsID;
-@property (nonatomic, copy) NSMutableArray * sixPokemons;
-@property (nonatomic, copy) NSArray * dataArray;
+@property (nonatomic, copy) NSArray * sixPokemons;
 
 @end
