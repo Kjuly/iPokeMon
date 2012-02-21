@@ -18,6 +18,13 @@
 "kLabelGender"  = "性别：";
 "kLabelEXP"     = "经验值：";
 "kLabelToNextLevel" = "升级所需经验值：";
+"kLabelHP"        = "HP：";
+"kLabelAttack"    = "攻击：";
+"kLabelDefense"   = "防御：";
+"kLabelSpAttack"  = "特攻：";
+"kLabelSpDefense" = "特防：";
+"kLabelSpeed"     = "速度：";
+"kLabelAbility"   = "能力：";
 
 // Trainer
 "kLabelMoney"            = "零花钱：";

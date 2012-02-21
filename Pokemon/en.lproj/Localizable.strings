@@ -19,6 +19,13 @@
 "kLabelGender"  = "Gender: ";
 "kLabelEXP"     = "Exp. Points: ";
 "kLabelToNextLevel" = "To Next Lv.: ";
+"kLabelHP"        = "HP: ";
+"kLabelAttack"    = "Attack: ";
+"kLabelDefense"   = "Defense: ";
+"kLabelSpAttack"  = "Sp. Attack: ";
+"kLabelSpDefense" = "Sp. Defense: ";
+"kLabelSpeed"     = "Speed: ";
+"kLabelAbility"   = "Ability: ";
 
 // Trainer
 "kLabelMoney"            = "Money: ";
