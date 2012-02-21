@@ -10,6 +10,7 @@
 
 #import "../GlobalConstants.h"
 #import "GlobalRender.h"
+#import "Trainer+DataController.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
@@ -51,6 +52,9 @@
       [Pokemon populateData];
     }
 #endif
+    
+    // Updata Trainer's Data
+    [Trainer updateDataForTrainer:1];
   }
   return self;
 }
