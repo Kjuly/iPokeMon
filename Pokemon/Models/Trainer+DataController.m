@@ -8,6 +8,7 @@
 
 #import "Trainer+DataController.h"
 
+#import "PokemonServerAPI.h"
 #import "AppDelegate.h"
 
 #import "AFJSONRequestOperation.h"
@@ -42,7 +43,7 @@
   }
   
   // Fetch Data from server & populate the |trainer|
-  NSURL * url = [[NSURL alloc] initWithString:@"http://localhost:8080/user/1"];
+  NSURL * url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/user/%d", kServerAPIRoot, trainerID]];
   NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
   [url release];
   
