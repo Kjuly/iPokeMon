@@ -43,9 +43,7 @@
   }
   
   // Fetch Data from server & populate the |trainer|
-  NSURL * url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/user/%d", kServerAPIRoot, trainerID]];
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-  [url release];
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetTrainerWithTrainerID:trainerID]];
   
   AFJSONRequestOperation * operation =
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
