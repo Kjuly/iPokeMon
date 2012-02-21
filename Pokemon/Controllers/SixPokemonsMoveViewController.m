@@ -6,26 +6,16 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "PokemonMoveViewController.h"
+#import "SixPokemonsMoveViewController.h"
 
-@implementation PokemonMoveViewController
+#import "Pokemon.h"
+#import "TrainerTamedPokemon.h"
 
-- (id)initWithPokemonID:(NSInteger)pokemonID
+@implementation SixPokemonsMoveViewController
+
+- (void)dealloc
 {
-  self = [self init];
-  if (self) {
-    
-  }
-  return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
+  [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,12 +51,6 @@
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

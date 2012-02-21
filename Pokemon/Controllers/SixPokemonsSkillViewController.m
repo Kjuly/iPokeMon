@@ -1,31 +1,21 @@
 //
-//  PokemonMemoViewController.m
+//  PokemonStatsViewController.m
 //  Pokemon
 //
 //  Created by Kaijie Yu on 2/6/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "PokemonMemoViewController.h"
+#import "SixPokemonsSkillViewController.h"
 
-@implementation PokemonMemoViewController
+#import "Pokemon.h"
+#import "TrainerTamedPokemon.h"
 
-- (id)initWithPokemonID:(NSInteger)pokemonID
+@implementation SixPokemonsSkillViewController
+
+- (void)dealloc
 {
-  self = [self init];
-  if (self) {
-    
-  }
-  return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
+  [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +37,7 @@
   self.view = view;
   [view release];
   
-  [self.view setBackgroundColor:[UIColor grayColor]];
+  [self.view setBackgroundColor:[UIColor yellowColor]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -61,12 +51,6 @@
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
