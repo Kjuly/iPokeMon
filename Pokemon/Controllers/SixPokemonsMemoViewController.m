@@ -30,11 +30,19 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-  self.view = view;
-  [view release];
+  // Constants
+  CGFloat const imageHeight = 150.0f;
+  CGRect  const descriptionFrame  = CGRectMake(10.0f, imageHeight + 20.0f, 300.0f, 190.0f);
   
-  [self.view setBackgroundColor:[UIColor grayColor]];
+  ///Memo
+  UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
+  [memoField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+  [memoField setOpaque:NO];
+  [memoField setEditable:NO];
+  [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+  [memoField setText:self.pokemon.memo];
+  [self.view addSubview:memoField];
+  [memoField release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -46,8 +54,6 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 @end

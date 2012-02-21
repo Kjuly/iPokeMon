@@ -8,9 +8,6 @@
 
 #import "SixPokemonsMoveViewController.h"
 
-#import "Pokemon.h"
-#import "TrainerTamedPokemon.h"
-
 @implementation SixPokemonsMoveViewController
 
 - (void)dealloc
@@ -32,12 +29,6 @@
 - (void)loadView
 {
   [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-  self.view = view;
-  [view release];
-  
-  [self.view setBackgroundColor:[UIColor redColor]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
