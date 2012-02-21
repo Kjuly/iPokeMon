@@ -16,6 +16,7 @@
 
 @implementation TrainerTamedPokemon (DataController)
 
+// Update |TrainerTamedPokemon|
 + (BOOL)updateDataForTrainer:(NSInteger)trainerID
 {
   // Success Block Method
@@ -45,22 +46,28 @@
         tamedPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
       else {
         tamedPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                                        inManagedObjectContext:managedObjectContext];
+                                                     inManagedObjectContext:managedObjectContext];
         // Set relationships
         tamedPokemon.owner = trainer;
-        Pokemon * pokemon = [Pokemon queryPokemonDataWithID:(NSInteger)[tamedPokemonData valueForKey:@"sid"]];
+        Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[tamedPokemonData valueForKey:@"sid"] intValue]];
         tamedPokemon.pokemon = pokemon;
         pokemon = nil;
       }
       
       // Set data
-      tamedPokemon.uid       = [tamedPokemonData valueForKey:@"uid"];
-      tamedPokemon.sid       = [tamedPokemonData valueForKey:@"sid"];
-      tamedPokemon.box       = [tamedPokemonData valueForKey:@"box"];
-      tamedPokemon.state     = [tamedPokemonData valueForKey:@"state"];
-      tamedPokemon.gender    = [tamedPokemonData valueForKey:@"gender"];
-      tamedPokemon.happiness = [tamedPokemonData valueForKey:@"happiness"];
-      tamedPokemon.level     = [tamedPokemonData valueForKey:@"level"];
+      tamedPokemon.uid         = [tamedPokemonData valueForKey:@"uid"];
+      tamedPokemon.sid         = [tamedPokemonData valueForKey:@"sid"];
+      tamedPokemon.box         = [tamedPokemonData valueForKey:@"box"];
+      tamedPokemon.state       = [tamedPokemonData valueForKey:@"state"];
+      tamedPokemon.gender      = [tamedPokemonData valueForKey:@"gender"];
+      tamedPokemon.happiness   = [tamedPokemonData valueForKey:@"happiness"];
+      tamedPokemon.level       = [tamedPokemonData valueForKey:@"level"];
+      tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
+      tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
+      tamedPokemon.leftStats   = [tamedPokemonData valueForKey:@"leftStats"];
+      tamedPokemon.currEXP     = [tamedPokemonData valueForKey:@"currEXP"];
+      tamedPokemon.toNextLevel = [tamedPokemonData valueForKey:@"toNextLevel"];
+      tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
     }
     
     [fetchRequest release];
@@ -80,17 +87,38 @@
   
   
   // Fetch data from server & populate the |teamedPokemon|
-  NSURLRequest * requestForTamedPokemon =
+  NSURLRequest * request =
   [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetPokedexWithTrainerID:trainerID]];
   
-  AFJSONRequestOperation * operationForTamedPokemon =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:requestForTamedPokemon
+  AFJSONRequestOperation * operation =
+  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:blockPopulateData
                                                   failure:blockError];
-  [requestForTamedPokemon release];
-  [operationForTamedPokemon start];
+  [request release];
+  [operation start];
   
   return true;
+}
+
+// Get Six Pokemons that trainer brought
+// State: 0 - Unknown; 1 - Seen; 2 - Caught; 3 - Brought; 4 - Foster Care.
++ (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"state == %@ AND owner.sid == %@",
+                              [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
+  [fetchRequest setFetchLimit:6];
+  
+  NSError * error;
+  NSArray * sixPokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return sixPokemons;
 }
 
 @end

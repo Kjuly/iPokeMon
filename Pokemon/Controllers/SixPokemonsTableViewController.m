@@ -9,6 +9,8 @@
 #import "SixPokemonsTableViewController.h"
 
 #import "PListParser.h"
+#import "TrainerTamedPokemon+DataController.h"
+#import "Pokemon.h"
 #import "SixPokemonsTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
@@ -67,14 +69,19 @@
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];
   
-  dataArray_ = [[NSArray alloc] initWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:32], @"level", [NSNumber numberWithInt:60],  @"HPLeft", [NSNumber numberWithInt:220], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:21], @"level", [NSNumber numberWithInt:129], @"HPLeft", [NSNumber numberWithInt:190], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:37], @"level", [NSNumber numberWithInt:249], @"HPLeft", [NSNumber numberWithInt:270], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:31], @"level", [NSNumber numberWithInt:209], @"HPLeft", [NSNumber numberWithInt:209], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:49], @"level", [NSNumber numberWithInt:390], @"HPLeft", [NSNumber numberWithInt:420], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:51], @"level", [NSNumber numberWithInt:119], @"HPLeft", [NSNumber numberWithInt:512], @"HPTotal", @"Normal", @"state", nil],
-                nil];
+//  NSArray * testArray = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+//  NSLog(@"%@", testArray);
+  self.dataArray = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+  
+//  NSLog(@"%@", [[self.dataArray objectAtIndex:0] valueForKey:@"name"]);
+//  dataArray_ = [[NSArray alloc] initWithObjects:
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:32], @"level", [NSNumber numberWithInt:60],  @"HPLeft", [NSNumber numberWithInt:220], @"HPTotal", @"Normal", @"state", nil],
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:21], @"level", [NSNumber numberWithInt:129], @"HPLeft", [NSNumber numberWithInt:190], @"HPTotal", @"Normal", @"state", nil],
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:37], @"level", [NSNumber numberWithInt:249], @"HPLeft", [NSNumber numberWithInt:270], @"HPTotal", @"Normal", @"state", nil],
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:31], @"level", [NSNumber numberWithInt:209], @"HPLeft", [NSNumber numberWithInt:209], @"HPTotal", @"Normal", @"state", nil],
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:49], @"level", [NSNumber numberWithInt:390], @"HPLeft", [NSNumber numberWithInt:420], @"HPTotal", @"Normal", @"state", nil],
+//                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:51], @"level", [NSNumber numberWithInt:119], @"HPLeft", [NSNumber numberWithInt:512], @"HPTotal", @"Normal", @"state", nil],
+//                nil];
 }
 
 - (void)viewDidUnload
@@ -122,7 +129,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.sixPokemonsID count];
+  return [self.dataArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,20 +147,34 @@
   
   // Configure the cell...
   NSInteger rowID = [indexPath row];
-  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
+//  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
+  
+  TrainerTamedPokemon * pokemonData = [self.dataArray objectAtIndex:rowID];
+  Pokemon * pokemonBaseInfo = pokemonData.pokemon;
   
   // Image
-  [cell.imageView setImage:[PListParser pokedexGenerationOneImageForPokemon:pokemonID]];
+  [cell.imageView setImage:pokemonBaseInfo.image];
+  
   // Data
-  NSDictionary * dataDict = [[NSDictionary alloc] initWithDictionary:[self.dataArray objectAtIndex:rowID]];
-  [cell.nameLabel setText:NSLocalizedString([[self.sixPokemons objectAtIndex:rowID] objectForKey:@"name"], nil)];
-  [cell.genderLabel setText:@"M"];
-  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
-  NSInteger HPLeft  = [[dataDict objectForKey:@"HPLeft"] intValue];
-  NSInteger HPTotal = [[dataDict objectForKey:@"HPTotal"] intValue];
+  [cell.nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
+  [cell.genderLabel setText:pokemonData.gender ? @"M" : @"F"];
+  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
+  
+  // Stats data array
+  NSArray * leftStatsArray;
+  NSArray * maxStatsArray;
+  if ([pokemonData.leftStats isKindOfClass:[NSString class]] || [pokemonData.maxStats isKindOfClass:[NSString class]]) {
+    leftStatsArray = [pokemonData.leftStats componentsSeparatedByString:@","];
+    maxStatsArray  = [pokemonData.maxStats  componentsSeparatedByString:@","];
+  }
+  else {
+    leftStatsArray = pokemonData.leftStats;
+    maxStatsArray  = pokemonData.maxStats;
+  }
+  NSInteger HPLeft  = [[leftStatsArray objectAtIndex:0] intValue];
+  NSInteger HPTotal = [[maxStatsArray objectAtIndex:0] intValue];
   [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];
   [cell.HPBarLeft setFrame:CGRectMake(0.0f, 0.0f, 150.0f * HPLeft / HPTotal, cell.HPBarLeft.frame.size.height)];
-  [dataDict release];
   
   return cell;
 }
@@ -201,7 +222,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
+//  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
+  NSInteger pokemonID = [[[self.dataArray objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
   PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                      initWithPokemonID:pokemonID];
   [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
