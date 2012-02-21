@@ -102,7 +102,7 @@
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:@"Trainer"
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
   NSError * error;
@@ -111,6 +111,27 @@
   [fetchRequest release];
   
   return fetchedObjects;
+}
+
+// Get current User's trainer data
++ (Trainer *)queryTrainerWithTrainerID:(NSInteger)trainerID
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", trainerID];
+  [fetchRequest setPredicate:predicate];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  Trainer * trainer = [[managedObjectContext executeFetchRequest:fetchRequest
+                                                                 error:&error] lastObject];
+  [fetchRequest release];
+  
+  return trainer;
 }
 
 // Set data to model

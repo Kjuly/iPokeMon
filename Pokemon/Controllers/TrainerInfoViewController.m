@@ -12,18 +12,45 @@
 
 #import "GlobalRender.h"
 #import "Trainer+DataController.h"
-#import "AppDelegate.h"
 
 
 @implementation TrainerInfoViewController
 
-@synthesize fetchedResultsController = fetchedResultsController_;
+@synthesize trainer = trainer_;
+
+@synthesize imageView    = imageView_;
+@synthesize IDView       = IDView_;
+@synthesize IDLabel      = IDLabel_;
+@synthesize nameLabel    = nameLabel_;
+@synthesize dataView     = dataView_;
+@synthesize moneyLabel   = moneyLabel_;
+@synthesize moneyValue   = moneyValue_;
+@synthesize pokedexLabel = pokedexLabel_;
+@synthesize pokedexValue = pokedexValue_;
+@synthesize badgesLabel  = badgesLabel_;
+@synthesize badgesValue  = badgesValue_;
+@synthesize adventureStartedTimeLabel = adventureStartedTimeLabel_;
+@synthesize adventureStartedTimeValue = adventureStartedTimeValue_;
 
 - (void)dealloc
 {
-  [fetchedResultsController_ release];
-  
   [super dealloc];
+  
+  [trainer_ release];
+  
+  [imageView_ release];
+  [IDView_ release];
+  [IDLabel_ release];
+  [nameLabel_ release];
+  [dataView_ release];
+  [moneyLabel_ release];
+  [moneyValue_ release];
+  [pokedexLabel_ release];
+  [pokedexValue_ release];
+  [badgesLabel_ release];
+  [badgesValue_ release];
+  [adventureStartedTimeLabel_ release];
+  [adventureStartedTimeValue_ release];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,7 +58,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-//    [Trainer updateData];
+    trainer_ = [Trainer queryTrainerWithTrainerID:1];
   }
   return self;
 }
@@ -69,131 +96,105 @@
   
   
   ///Left Image View
-  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 20.0f, imageWidth, imageHeight)];
-  [imageView setUserInteractionEnabled:YES];
-  [imageView setContentMode:UIViewContentModeCenter];
-  [imageView setBackgroundColor:[UIColor clearColor]];
-  [imageView.layer setMasksToBounds:YES];
-  [imageView.layer setCornerRadius:5.0f];
-  [imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
-  
-  [self.view addSubview:imageView];
-  [imageView release];
+  imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 20.0f, imageWidth, imageHeight)];
+  [imageView_ setUserInteractionEnabled:YES];
+  [imageView_ setContentMode:UIViewContentModeCenter];
+  [imageView_ setBackgroundColor:[UIColor clearColor]];
+  [imageView_.layer setMasksToBounds:YES];
+  [imageView_.layer setCornerRadius:5.0f];
+  [self.view addSubview:imageView_];
   
   
   ///Right ID View
-  UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
+  IDView_ = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
-  UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, IDView.frame.size.width, labelHeight)];
-  [IDLabel setBackgroundColor:[UIColor clearColor]];
-  [IDLabel setTextColor:[GlobalRender textColorBlue]];
-  [IDLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", 1]];
-  [IDView addSubview:IDLabel];
-  [IDLabel release];
+  IDLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, IDView_.frame.size.width, labelHeight)];
+  [IDLabel_ setBackgroundColor:[UIColor clearColor]];
+  [IDLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [IDView_ addSubview:IDLabel_];
   
   // Name
-  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
-  [nameLabel setBackgroundColor:[UIColor clearColor]];
-  [nameLabel setLineBreakMode:UILineBreakModeWordWrap];
-  [nameLabel setTextColor:[GlobalRender textColorOrange]];
-  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
-  [nameLabel setNumberOfLines:0];
-  [nameLabel setText:@"Trainer Name"];
-  [nameLabel sizeToFit];
-  [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
-  [nameLabel.layer setShadowOpacity:1.0f];
-  [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-  [nameLabel.layer setShadowRadius:1.0f];
-  [IDView addSubview:nameLabel];
-  [nameLabel release];
+  nameLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
+  [nameLabel_ setBackgroundColor:[UIColor clearColor]];
+  [nameLabel_ setLineBreakMode:UILineBreakModeWordWrap];
+  [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
+  [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
+  [nameLabel_ setNumberOfLines:0];
+  [nameLabel_.layer setShadowColor:[nameLabel_.textColor CGColor]];
+  [nameLabel_.layer setShadowOpacity:1.0f];
+  [nameLabel_.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+  [nameLabel_.layer setShadowRadius:1.0f];
+  [IDView_ addSubview:nameLabel_];
   
   // Add Right ID View to |self.view| & Release it
-  [self.view addSubview:IDView];
-  [IDView release];
+  [self.view addSubview:IDView_];
   
   
   ///Data View in Center
-  UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
+  dataView_ = [[UIView alloc] initWithFrame:dataViewFrame];
   
   // Money
-  UILabel * moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
-  UILabel * moneyValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
-  [moneyLabel setBackgroundColor:[UIColor clearColor]];
-  [moneyValue setBackgroundColor:[UIColor clearColor]];
-  [moneyLabel setTextColor:[GlobalRender textColorBlue]];
-  [moneyLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [moneyValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [moneyLabel setTextAlignment:UITextAlignmentRight];
-  [moneyValue setTextAlignment:UITextAlignmentLeft];
-  [moneyLabel setText:NSLocalizedString(@"kLabelMoney", nil)];
-  [moneyValue setText:[NSString stringWithFormat:@"$ %d", 999999]];
-  [dataView addSubview:moneyLabel];
-  [dataView addSubview:moneyValue];
-  [moneyLabel release];
-  [moneyValue release];
+  moneyLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
+  moneyValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
+  [moneyLabel_ setBackgroundColor:[UIColor clearColor]];
+  [moneyValue_ setBackgroundColor:[UIColor clearColor]];
+  [moneyLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [moneyLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [moneyValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [moneyLabel_ setTextAlignment:UITextAlignmentRight];
+  [moneyValue_ setTextAlignment:UITextAlignmentLeft];
+  [dataView_ addSubview:moneyLabel_];
+  [dataView_ addSubview:moneyValue_];
   
   // Pokedex
-  UILabel * pokedexLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, labelWidth, labelHeight)];
-  UILabel * pokedexValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
-  [pokedexLabel setBackgroundColor:[UIColor clearColor]];
-  [pokedexValue setBackgroundColor:[UIColor clearColor]];
-  [pokedexLabel setTextColor:[GlobalRender textColorBlue]];
-  [pokedexLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [pokedexValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [pokedexLabel setTextAlignment:UITextAlignmentRight];
-  [pokedexValue setTextAlignment:UITextAlignmentLeft];
-  [pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
-  [pokedexValue setText:@"151"];
-  [dataView addSubview:pokedexLabel];
-  [dataView addSubview:pokedexValue];
-  [pokedexLabel release];
-  [pokedexValue release];
+  pokedexLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, labelWidth, labelHeight)];
+  pokedexValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
+  [pokedexLabel_ setBackgroundColor:[UIColor clearColor]];
+  [pokedexValue_ setBackgroundColor:[UIColor clearColor]];
+  [pokedexLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [pokedexLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [pokedexValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [pokedexLabel_ setTextAlignment:UITextAlignmentRight];
+  [pokedexValue_ setTextAlignment:UITextAlignmentLeft];
+  [dataView_ addSubview:pokedexLabel_];
+  [dataView_ addSubview:pokedexValue_];
   
   // Badges
-  UILabel * badgesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight * 2, labelWidth, labelHeight)];
-  UILabel * badgesValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight * 2, valueWidth, valueHeight)];
-  [badgesLabel setBackgroundColor:[UIColor clearColor]];
-  [badgesValue setBackgroundColor:[UIColor clearColor]];
-  [badgesLabel setTextColor:[GlobalRender textColorBlue]];
-  [badgesLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [badgesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [badgesLabel setTextAlignment:UITextAlignmentRight];
-  [badgesValue setTextAlignment:UITextAlignmentLeft];
-  [badgesLabel setText:NSLocalizedString(@"kLabelBadges", nil)];
-  [badgesValue setText:@"123"];
-  [dataView addSubview:badgesLabel];
-  [dataView addSubview:badgesValue];
-  [badgesLabel release];
-  [badgesValue release];
+  badgesLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight * 2, labelWidth, labelHeight)];
+  badgesValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight * 2, valueWidth, valueHeight)];
+  [badgesLabel_ setBackgroundColor:[UIColor clearColor]];
+  [badgesValue_ setBackgroundColor:[UIColor clearColor]];
+  [badgesLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [badgesLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [badgesValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [badgesLabel_ setTextAlignment:UITextAlignmentRight];
+  [badgesValue_ setTextAlignment:UITextAlignmentLeft];
+  [dataView_ addSubview:badgesLabel_];
+  [dataView_ addSubview:badgesValue_];
   
   // Adventure Started
-  UILabel * adventureStartedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,
-                                                                                  dataView.frame.size.height - labelHeight,
-                                                                                  170.0f,
-                                                                                  labelHeight)];
-  UILabel * adventureStartedTimeValue = [[UILabel alloc] initWithFrame:CGRectMake(170.0f,
-                                                                                  dataView.frame.size.height - labelHeight,
-                                                                                  130.0f,
-                                                                                  valueHeight)];
-  [adventureStartedTimeLabel setBackgroundColor:[UIColor clearColor]];
-  [adventureStartedTimeValue setBackgroundColor:[UIColor clearColor]];
-  [adventureStartedTimeLabel setTextColor:[GlobalRender textColorBlue]];
-  [adventureStartedTimeLabel setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
-  [adventureStartedTimeValue setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
-  [adventureStartedTimeLabel setTextAlignment:UITextAlignmentRight];
-  [adventureStartedTimeValue setTextAlignment:UITextAlignmentLeft];
-  [adventureStartedTimeLabel setText:NSLocalizedString(@"kLabelAdventureStarted", nil)];
-  [adventureStartedTimeValue setText:@"2012-01-22"];
-  [dataView addSubview:adventureStartedTimeLabel];
-  [dataView addSubview:adventureStartedTimeValue];
-  [adventureStartedTimeLabel release];
-  [adventureStartedTimeValue release];
+  adventureStartedTimeLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,
+                                                                         dataView_.frame.size.height - labelHeight,
+                                                                         170.0f,
+                                                                         labelHeight)];
+  adventureStartedTimeValue_ = [[UILabel alloc] initWithFrame:CGRectMake(170.0f,
+                                                                         dataView_.frame.size.height - labelHeight,
+                                                                         130.0f,
+                                                                         valueHeight)];
+  [adventureStartedTimeLabel_ setBackgroundColor:[UIColor clearColor]];
+  [adventureStartedTimeValue_ setBackgroundColor:[UIColor clearColor]];
+  [adventureStartedTimeLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [adventureStartedTimeLabel_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
+  [adventureStartedTimeValue_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
+  [adventureStartedTimeLabel_ setTextAlignment:UITextAlignmentRight];
+  [adventureStartedTimeValue_ setTextAlignment:UITextAlignmentLeft];
+  [dataView_ addSubview:adventureStartedTimeLabel_];
+  [dataView_ addSubview:adventureStartedTimeValue_];
   
   // Add Data View to |self.view| & Release it
-  [self.view addSubview:dataView];
-  [dataView release];
+  [self.view addSubview:dataView_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -201,32 +202,47 @@
 {
   [super viewDidLoad];
   
-  // Show Data
-  NSArray * fetchedObjects = [Trainer queryAllData];
-  NSLog(@"+++ %@", [[fetchedObjects lastObject] valueForKey:@"name"]);
+  [self.imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
+  [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer.sid intValue]]];
+  [self.adventureStartedTimeLabel setText:NSLocalizedString(@"kLabelAdventureStarted", nil)];
+  [self.adventureStartedTimeValue setText:@"2012-01-22"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
   
-//  // Get a handle to our fetchedResultsController (which implicitly creates it as well)
-//  // and call |performFetch:| to retrieve the first batch of data
-//  NSError *error;
-//	if (! [[self fetchedResultsController] performFetch:&error]) {
-//		// Update to handle the error appropriately.
-//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//		exit(-1);  // Fail
-//	}
-//  
-//  // It can be put at |numberOfRowsInSection:| in TableView
-//  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:0];
-//  NSLog(@"~~~ %@", sectionInfo); //[sectionInfo numberOfObjects]);
-//  
-//  // It can be put at |cellForRowAtIndexPath:| in TableView
-//  NSLog(@"~~~ %@", [fetchedResultsController_ objectAtIndexPath:0]);
+  // Update |trainer_|'s data
+  self.trainer = [Trainer queryTrainerWithTrainerID:1];
+  
+  // Set new data
+  [self.nameLabel setText:self.trainer.name];
+  [self.nameLabel sizeToFit];
+  [self.moneyLabel   setText:NSLocalizedString(@"kLabelMoney", nil)];
+  [self.moneyValue   setText:[NSString stringWithFormat:@"$ %d", [self.trainer.money intValue]]];
+  [self.pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
+  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", [self.trainer.pokedex intValue]]];
+  [self.badgesLabel  setText:NSLocalizedString(@"kLabelBadges", nil)];
+  [self.badgesValue  setText:@"123"];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
   
-  self.fetchedResultsController.delegate = nil;
+  self.imageView    = nil;
+  self.IDView       = nil;
+  self.IDLabel      = nil;
+  self.nameLabel    = nil;
+  self.dataView     = nil;
+  self.moneyLabel   = nil;
+  self.moneyValue   = nil;
+  self.pokedexLabel = nil;
+  self.pokedexValue = nil;
+  self.badgesLabel  = nil;
+  self.badgesValue  = nil;
+  self.adventureStartedTimeLabel = nil;
+  self.adventureStartedTimeValue = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -234,101 +250,5 @@
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-#pragma mark - NSFetchedResultsController
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-  if (fetchedResultsController_ != nil) {
-    return fetchedResultsController_;
-  }
-  
-  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSManagedObjectContext * context = [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
-  NSEntityDescription *entity = [NSEntityDescription 
-                                 entityForName:@"Trainer" inManagedObjectContext:context];
-  [fetchRequest setEntity:entity];
-  
-  // Set Sort Descriptors
-  NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                            initWithKey:@"trainerID" ascending:NO];
-  [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-  
-  // Set Batch Size
-  // The fetched results controller will only retrieve a subset of objects at a time from the underlying database,
-  // and automatically fetch mroe as we scroll
-  [fetchRequest setFetchBatchSize:20];
-  
-  // Create the |NSFetchedRequestController| instance
-  NSFetchedResultsController *theFetchedResultsController = 
-  [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                      managedObjectContext:context
-                                        sectionNameKeyPath:nil       // sort the data into sections in table view
-                                                 cacheName:@"Root"]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
-  self.fetchedResultsController = theFetchedResultsController;
-  fetchedResultsController_.delegate = self;
-  
-  [sort release];
-  [fetchRequest release];
-  [theFetchedResultsController release];
-  
-  return fetchedResultsController_;  
-}
-
-
-/*/ NSFetchedResultsControllerDelegate for TableView
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-  // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-  [self.tableView beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-  
-  UITableView *tableView = self.tableView;
-  
-  switch(type) {
-      
-    case NSFetchedResultsChangeInsert:
-      [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-      break;
-      
-    case NSFetchedResultsChangeDelete:
-      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      break;
-      
-    case NSFetchedResultsChangeUpdate:
-      [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-      break;
-      
-    case NSFetchedResultsChangeMove:
-      [tableView deleteRowsAtIndexPaths:[NSArray
-                                         arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      [tableView insertRowsAtIndexPaths:[NSArray
-                                         arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-      break;
-  }
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-  
-  switch(type) {
-      
-    case NSFetchedResultsChangeInsert:
-      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-      break;
-      
-    case NSFetchedResultsChangeDelete:
-      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-      break;
-  }
-}
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-  // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-  [self.tableView endUpdates];
-}*/
 
 @end
