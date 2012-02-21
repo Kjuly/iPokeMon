@@ -204,6 +204,8 @@
   
   [self.imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer.sid intValue]]];
+  [self.moneyLabel   setText:NSLocalizedString(@"kLabelMoney", nil)];
+  [self.pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
   [self.adventureStartedTimeLabel setText:NSLocalizedString(@"kLabelAdventureStarted", nil)];
   [self.adventureStartedTimeValue setText:@"2012-01-22"];
 }
@@ -218,10 +220,12 @@
   // Set new data
   [self.nameLabel setText:self.trainer.name];
   [self.nameLabel sizeToFit];
-  [self.moneyLabel   setText:NSLocalizedString(@"kLabelMoney", nil)];
   [self.moneyValue   setText:[NSString stringWithFormat:@"$ %d", [self.trainer.money intValue]]];
-  [self.pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
-  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", [self.trainer.pokedex intValue]]];
+  
+  NSArray * tamedPokemonSeq = [self.trainer.pokedex componentsSeparatedByString:@"1"];
+  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", [tamedPokemonSeq count] - 1]];
+  tamedPokemonSeq = nil;
+  
   [self.badgesLabel  setText:NSLocalizedString(@"kLabelBadges", nil)];
   [self.badgesValue  setText:@"123"];
 }

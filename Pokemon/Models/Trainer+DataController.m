@@ -49,9 +49,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
                                                     // Set data for |Trainer|
-                                                    trainer.sid = [JSON valueForKey:@"id"];
-                                                    trainer.name = [JSON valueForKey:@"name"];
-                                                    trainer.money = [JSON valueForKey:@"money"];
+                                                    trainer.sid     = [JSON valueForKey:@"id"];
+                                                    trainer.name    = [JSON valueForKey:@"name"];
+                                                    trainer.money   = [JSON valueForKey:@"money"];
+                                                    trainer.pokedex = [JSON valueForKey:@"pokedex"];
                                                     trainer.adventureStarted = nil;
                                                     
                                                     NSError * error;
