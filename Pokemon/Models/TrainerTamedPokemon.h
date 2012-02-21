@@ -2,7 +2,7 @@
 //  TrainerTamedPokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/18/12.
+//  Created by Kaijie Yu on 2/21/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -25,7 +25,8 @@
 @property (nonatomic, retain) NSNumber * sid;
 @property (nonatomic, retain) NSNumber * state;
 @property (nonatomic, retain) NSNumber * toNextLevel;
-@property (nonatomic, retain) Pokemon *pokemon;
+@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) Trainer *owner;
+@property (nonatomic, retain) Pokemon *pokemon;
 
 @end

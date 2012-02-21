@@ -2,7 +2,7 @@
 //  TrainerTamedPokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/18/12.
+//  Created by Kaijie Yu on 2/21/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -25,7 +25,8 @@
 @dynamic sid;
 @dynamic state;
 @dynamic toNextLevel;
-@dynamic pokemon;
+@dynamic uid;
 @dynamic owner;
+@dynamic pokemon;
 
 @end

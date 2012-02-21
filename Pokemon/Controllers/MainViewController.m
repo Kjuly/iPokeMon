@@ -11,6 +11,7 @@
 #import "../GlobalConstants.h"
 #import "GlobalRender.h"
 #import "Trainer+DataController.h"
+#import "TrainerTamedPokemon+DataController.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
@@ -53,8 +54,9 @@
     }
 #endif
     
-    // Updata Trainer's Data
+    // Updata all data for current User with the trainer ID
     [Trainer updateDataForTrainer:1];
+    [TrainerTamedPokemon updateDataForTrainer:1];
   }
   return self;
 }

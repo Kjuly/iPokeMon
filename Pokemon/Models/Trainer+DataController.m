@@ -10,6 +10,7 @@
 
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
+#import "TrainerTamedPokemon.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -36,34 +37,48 @@
   
   // If no Trainer Data for current User exists, insert new one
   if (! trainer) {
+#if DEBUG
     NSLog(@"!!! No data for Trainer, insert new one");
+#endif
     trainer = nil;
     trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                             inManagedObjectContext:managedObjectContext];
   }
   
-  // Fetch Data from server & populate the |trainer|
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetTrainerWithTrainerID:trainerID]];
+  ///Fetch Data from server & populate the |trainer|
+  // Success Block Method
+  void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
+  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+    // Set data for |Trainer|
+    trainer.sid     = [JSON valueForKey:@"id"];
+    trainer.name    = [JSON valueForKey:@"name"];
+    trainer.money   = [JSON valueForKey:@"money"];
+    trainer.pokedex = [JSON valueForKey:@"pokedex"];
+    trainer.adventureStarted = nil;
+    
+    NSError * error;
+    if (! [managedObjectContext save:&error])
+      NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
+#if DEBUG
+    NSLog(@"...Update |%@| data done...", [self class]);
+#endif
+  };
   
+  // Failure Block Method
+  void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
+  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+    NSLog(@"!!! ERROR: %@", error);
+  };
+  
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetTrainerWithTrainerID:trainerID]];
   AFJSONRequestOperation * operation =
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-                                                    // Set data for |Trainer|
-                                                    trainer.sid     = [JSON valueForKey:@"id"];
-                                                    trainer.name    = [JSON valueForKey:@"name"];
-                                                    trainer.money   = [JSON valueForKey:@"money"];
-                                                    trainer.pokedex = [JSON valueForKey:@"pokedex"];
-                                                    trainer.adventureStarted = nil;
-                                                    
-                                                    NSError * error;
-                                                    if (! [managedObjectContext save:&error])
-                                                      NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
-                                                  }
-                                                  failure:nil];
+                                                  success:blockPopulateData
+                                                  failure:blockError];
   [request release];
   [operation start];
   
-  return TRUE;
+  return true;
 }
 
 // Add new Entity Data
