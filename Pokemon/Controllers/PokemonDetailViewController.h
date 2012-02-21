@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class Pokemon;
+
 @interface PokemonDetailViewController : UIViewController
 {
-  NSDictionary * pokemonDataDict_;
+  Pokemon * pokemonDataDict_;
 }
 
-@property (nonatomic, retain) NSDictionary * pokemonDataDict;
+@property (nonatomic, retain) Pokemon * pokemonDataDict;
 
-- (id)initWithPokemonDataDict:(NSDictionary *)pokemonDataDict;
+- (id)initWithPokemonDataDict:(Pokemon *)pokemonDataDict;
 
 @end

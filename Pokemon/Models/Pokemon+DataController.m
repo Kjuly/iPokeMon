@@ -128,12 +128,12 @@
 }
 
 // Get data of one Pokemon
-+ (NSDictionary *)queryPokemonDataWithID:(NSInteger)pokemonID
++ (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
 {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:@"Pokemon"//NSStringFromClass([self class])
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
   NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonID];
@@ -142,10 +142,10 @@
   [fetchRequest setFetchLimit:1];
   
   NSError * error;
-  NSDictionary * pokemonDict = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  Pokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
   [fetchRequest release];
   
-  return pokemonDict;
+  return pokemon;
 }
 
 

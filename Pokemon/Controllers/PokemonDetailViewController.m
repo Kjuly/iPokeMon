@@ -23,7 +23,7 @@
   [super dealloc];
 }
 
-- (id)initWithPokemonDataDict:(NSDictionary *)pokemonDataDict
+- (id)initWithPokemonDataDict:(Pokemon *)pokemonDataDict
 {
   self = [self init];
   if (self) {

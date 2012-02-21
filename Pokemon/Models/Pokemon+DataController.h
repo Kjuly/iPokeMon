@@ -16,7 +16,7 @@
 
 // Pokemon Data Query Mthods
 + (NSArray *)queryAllData;
-+ (NSDictionary *)queryPokemonDataWithID:(NSInteger)pokemonID;
++ (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
 // Six Pokemons
 

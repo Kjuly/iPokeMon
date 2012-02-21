@@ -9,6 +9,8 @@
 #import "TrainerTamedPokemon+DataController.h"
 
 #import "PokemonServerAPI.h"
+#import "Trainer+DataController.h"
+#import "Pokemon+DataController.h"
 #import "AppDelegate.h"
 #import "AFJSONRequestOperation.h"
 
@@ -24,12 +26,14 @@
     
     // Get JSON Data Array from HTTP Response
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pokedex"];
+    Trainer * trainer = [Trainer queryTrainerWithTrainerID:trainerID];
     
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
+    
     // Update the data for |tamedPokemmon|
     for (NSDictionary * tamedPokemonData in tamedPokemonGroup) {
       // Check the existence of the object
@@ -39,8 +43,15 @@
       TrainerTamedPokemon * tamedPokemon;
       if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
         tamedPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-      else tamedPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+      else {
+        tamedPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                         inManagedObjectContext:managedObjectContext];
+        // Set relationships
+        tamedPokemon.owner = trainer;
+        Pokemon * pokemon = [Pokemon queryPokemonDataWithID:(NSInteger)[tamedPokemonData valueForKey:@"sid"]];
+        tamedPokemon.pokemon = pokemon;
+        pokemon = nil;
+      }
       
       // Set data
       tamedPokemon.uid       = [tamedPokemonData valueForKey:@"uid"];

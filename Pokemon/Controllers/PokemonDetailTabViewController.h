@@ -8,13 +8,14 @@
 
 #import "CustomTabViewController.h"
 
+@class Pokemon;
+
 @interface PokemonDetailTabViewController : CustomTabViewController
 {
-  NSDictionary * pokemonDataDict_;
+  Pokemon * pokemonDataDict_;
 }
 
-// |copy| will cause error, why?
-@property (nonatomic, retain) NSDictionary * pokemonDataDict;
+@property (nonatomic, retain) Pokemon * pokemonDataDict;
 
 - (id)initWithPokemonID:(NSInteger)pokemonID;
 
