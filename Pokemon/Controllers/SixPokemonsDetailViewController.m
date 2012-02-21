@@ -10,10 +10,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlobalRender.h"
-#import "Pokemon.h"
-#import "TrainerTamedPokemon.h"
-
 @implementation SixPokemonsDetailViewController
 
 @synthesize pokemon = pokemon_;
@@ -30,7 +26,6 @@
   self = [self init];
   if (self) {
     self.pokemon = pokemon;
-    NSLog(@"%@,,,,,", self.pokemon);
   }
   return self;
 }
@@ -102,13 +97,12 @@
   UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
-  UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
-  [IDLabel setBackgroundColor:[UIColor clearColor]];
-  [IDLabel setTextColor:[GlobalRender textColorBlue]];
-  [IDLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [IDLabel setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
-  [IDView addSubview:IDLabel];
-  [IDLabel release];
+  PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
+                                        initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
+                                        hasValueLabel:NO];
+  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
+  [IDView addSubview:idLabelView];
+  [idLabelView release];
   
   // Name
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];

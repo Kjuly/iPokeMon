@@ -10,7 +10,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlobalRender.h"
 
 @implementation PokemonDetailViewController
 
@@ -63,16 +62,16 @@
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Constants
-  CGFloat const imageHeight       = 150.0f;
-  CGFloat const imageWidth        = 150.0f;
+  CGFloat const imageHeight     = 150.0f;
+  CGFloat const imageWidth      = 150.0f;
   
-  CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 80.0f;
+  CGFloat const labelHeight     = 30.0f;
+  CGFloat const labelWidth      = 80.0f;
   
-  CGFloat const nameLabelWidth    = 300.0f - imageWidth;
-  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
+  CGFloat const nameLabelWidth  = 300.0f - imageWidth;
+  CGFloat const nameLabelHeight = imageHeight / 2 - labelHeight;
   
-  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 20.0f, 50.0f, 300.0f - imageWidth, imageHeight - 50.0f);
+  CGRect  const IDViewFrame     = CGRectMake(imageWidth + 20.0f, 50.0f, 300.0f - imageWidth, imageHeight - 50.0f);
   
   
   ///Left Image View
@@ -97,13 +96,12 @@
   UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
-  UILabel * IDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
-  [IDLabel setBackgroundColor:[UIColor clearColor]];
-  [IDLabel setTextColor:[GlobalRender textColorBlue]];
-  [IDLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [IDLabel setText:[NSString stringWithFormat:@"#%.3d", [[self.pokemonDataDict valueForKey:@"sid"] intValue]]];
-  [IDView addSubview:IDLabel];
-  [IDLabel release];
+  PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
+                                        initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
+                                        hasValueLabel:NO];
+  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [[self.pokemonDataDict valueForKey:@"sid"] intValue]]];
+  [IDView addSubview:idLabelView];
+  [idLabelView release];
   
   // Name
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalRender.h"
+#import "PokemonInfoLabelView.h"
+
 @class Pokemon;
 
 @interface PokemonDetailViewController : UIViewController

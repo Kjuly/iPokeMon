@@ -8,8 +8,6 @@
 
 #import "PokemonInfoViewController.h"
 
-#import "GlobalRender.h"
-
 @implementation PokemonInfoViewController
 
 - (void)dealloc
@@ -33,13 +31,11 @@
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight       = 150.0f;
+  CGFloat const imageHeight = 150.0f;
+  CGFloat const labelHeight = 30.0f;
   
-  CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 80.0f;
-  CGFloat const valueHeight       = 30.0f;
-  CGFloat const valueWidth        = 300.0f - labelWidth;
-  
+  CGRect  const speciesLabelViewFrame = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
+  CGRect  const typeLabelViewFrame    = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
   CGRect  const dataViewFrame     = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, 60.0f);
   CGRect  const descriptionFrame  = CGRectMake(10.0f,
                                                imageHeight + dataViewFrame.size.height + 20.0f,
@@ -51,38 +47,18 @@
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
   // Species
-  UILabel * speciesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
-  UILabel * speciesValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
-  [speciesLabel setBackgroundColor:[UIColor clearColor]];
-  [speciesValue setBackgroundColor:[UIColor clearColor]];
-  [speciesLabel setTextColor:[GlobalRender textColorBlue]];
-  [speciesLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [speciesValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [speciesLabel setTextAlignment:UITextAlignmentRight];
-  [speciesValue setTextAlignment:UITextAlignmentLeft];
-  [speciesLabel setText:NSLocalizedString(@"kLabelSpecies", nil)];
-  [speciesValue setText:[[self.pokemonDataDict valueForKey:@"species"] stringValue]];
-  [dataView addSubview:speciesLabel];
-  [dataView addSubview:speciesValue];
-  [speciesLabel release];
-  [speciesValue release];
+  PokemonInfoLabelView * speciesLabelView = [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
+  [speciesLabelView.name  setText:NSLocalizedString(@"kLabelSpecies", nil)];
+  [speciesLabelView.value setText:[[self.pokemonDataDict valueForKey:@"species"] stringValue]];
+  [dataView addSubview:speciesLabelView];
+  [speciesLabelView release];
   
   // Type
-  UILabel * typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, labelWidth, labelHeight)];
-  UILabel * typeValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
-  [typeLabel setBackgroundColor:[UIColor clearColor]];
-  [typeValue setBackgroundColor:[UIColor clearColor]];
-  [typeLabel setTextColor:[GlobalRender textColorBlue]];
-  [typeLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [typeValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [typeLabel setTextAlignment:UITextAlignmentRight];
-  [typeValue setTextAlignment:UITextAlignmentLeft];
-  [typeLabel setText:NSLocalizedString(@"kLabelType", nil)];
-  [typeValue setText:[[self.pokemonDataDict valueForKey:@"type1"] stringValue]];
-  [dataView addSubview:typeLabel];
-  [dataView addSubview:typeValue];
-  [typeLabel release];
-  [typeValue release];
+  PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
+  [typeLabelView.name  setText:NSLocalizedString(@"kLabelType", nil)];
+  [typeLabelView.value setText:[[self.pokemonDataDict valueForKey:@"type1"] stringValue]];
+  [dataView addSubview:typeLabelView];
+  [typeLabelView release];
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];

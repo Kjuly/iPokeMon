@@ -8,8 +8,6 @@
 
 #import "PokemonSizeViewController.h"
 
-#import "GlobalRender.h"
-
 @implementation PokemonSizeViewController
 
 - (void)dealloc
@@ -33,52 +31,32 @@
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight       = 150.0f;
+  CGFloat const imageHeight = 150.0f;
+  CGFloat const labelHeight = 30.0f;
   
-  CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 80.0f;
-  CGFloat const valueHeight       = 30.0f;
-  CGFloat const valueWidth        = 300.0f - labelWidth;
-  
-  CGRect  const sizeViewFrame = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, labelHeight);
+  CGRect  const sizeViewFrame    = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, labelHeight);
+  CGRect  const heightLabelFrame = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
+  CGRect  const weightLabelFrame = CGRectMake(140.0f, 0.0f, 160.0f, labelHeight);
   
   
   ///Size View
   UIView * sizeView = [[UIView alloc] initWithFrame:sizeViewFrame];
   
   // Heigth
-  UILabel * heightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth, labelHeight)];
-  UILabel * heightValue = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, labelHeight)];
-  [heightLabel setBackgroundColor:[UIColor clearColor]];
-  [heightValue setBackgroundColor:[UIColor clearColor]];
-  [heightLabel setTextColor:[GlobalRender textColorBlue]];
-  [heightLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [heightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [heightLabel setTextAlignment:UITextAlignmentRight];
-  [heightValue setTextAlignment:UITextAlignmentLeft];
-  [heightLabel setText:NSLocalizedString(@"kLabelHeight", nil)];
-  [heightValue setText:[NSString stringWithFormat:@"%.2f m", [[self.pokemonDataDict valueForKey:@"height"] floatValue]]];
-  [sizeView addSubview:heightLabel];
-  [sizeView addSubview:heightValue];
-  [heightLabel release];
-  [heightValue release];
+  PokemonInfoLabelView * heightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:heightLabelFrame hasValueLabel:YES];
+  [heightLabelView.name  setText:NSLocalizedString(@"kLabelHeight", nil)];
+  [heightLabelView.value setText:[NSString stringWithFormat:@"%.2f m",
+                                  [[self.pokemonDataDict valueForKey:@"height"] floatValue]]];
+  [sizeView addSubview:heightLabelView];
+  [heightLabelView release];
   
   // Weight
-  UILabel * weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(130.0f, 0.0f, labelWidth, labelHeight)];
-  UILabel * weightValue = [[UILabel alloc] initWithFrame:CGRectMake(130.0f + labelWidth, 0.0f,  valueWidth, valueHeight)];
-  [weightLabel setBackgroundColor:[UIColor clearColor]];
-  [weightValue setBackgroundColor:[UIColor clearColor]];
-  [weightLabel setTextColor:[GlobalRender textColorBlue]];
-  [weightLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [weightValue setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-  [weightLabel setTextAlignment:UITextAlignmentRight];
-  [weightValue setTextAlignment:UITextAlignmentLeft];
-  [weightLabel setText:NSLocalizedString(@"kLabelWeight", nil)];
-  [weightValue setText:[NSString stringWithFormat:@"%.2f kg", [[self.pokemonDataDict valueForKey:@"weight"] floatValue]]];
-  [sizeView addSubview:weightLabel];
-  [sizeView addSubview:weightValue];
-  [weightLabel release];
-  [weightValue release];
+  PokemonInfoLabelView * weightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
+  [weightLabelView.name  setText:NSLocalizedString(@"kLabelWeight", nil)];
+  [weightLabelView.value setText:[NSString stringWithFormat:@"%.2f kg",
+                                  [[self.pokemonDataDict valueForKey:@"weight"] floatValue]]];
+  [sizeView addSubview:weightLabelView];
+  [weightLabelView release];
   
   // Add Size View to |self.view| & Release it
   [self.view addSubview:sizeView];

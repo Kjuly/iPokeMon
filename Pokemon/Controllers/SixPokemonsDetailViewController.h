@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalRender.h"
+#import "Pokemon.h"
+#import "TrainerTamedPokemon.h"
+#import "PokemonInfoLabelView.h"
+
 @class TrainerTamedPokemon;
 
 @interface SixPokemonsDetailViewController : UIViewController

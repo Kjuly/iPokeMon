@@ -42,6 +42,7 @@
 		7F51BF6214F3E5FF008FCF1D /* SixPokemonsDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6114F3E5FE008FCF1D /* SixPokemonsDetailTabViewController.m */; };
 		7F51BF6514F3E8EF008FCF1D /* SixPokemonsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6414F3E8EE008FCF1D /* SixPokemonsInfoViewController.m */; };
 		7F51BF6814F3EB52008FCF1D /* SixPokemonsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6714F3EB51008FCF1D /* SixPokemonsDetailViewController.m */; };
+		7F51BF6E14F3FDED008FCF1D /* PokemonInfoLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */; };
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
 		7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51C41414D7D4E60091902D /* MapKit.framework */; };
@@ -416,6 +417,8 @@
 		7F51BF6414F3E8EE008FCF1D /* SixPokemonsInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsInfoViewController.m; sourceTree = "<group>"; };
 		7F51BF6614F3EB50008FCF1D /* SixPokemonsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsDetailViewController.h; sourceTree = "<group>"; };
 		7F51BF6714F3EB51008FCF1D /* SixPokemonsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsDetailViewController.m; sourceTree = "<group>"; };
+		7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PokemonInfoLabelView.h; sourceTree = "<group>"; };
+		7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonInfoLabelView.m; sourceTree = "<group>"; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7F51C3D614D7C4DF0091902D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7F51C40614D7D3C60091902D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
@@ -1148,6 +1151,8 @@
 				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
+				7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */,
+				7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */,
 				7F90C5AD14E5640B00147718 /* PokedexTableViewCell.h */,
 				7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */,
 				7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */,
@@ -1909,6 +1914,7 @@
 				7F51BF6214F3E5FF008FCF1D /* SixPokemonsDetailTabViewController.m in Sources */,
 				7F51BF6514F3E8EF008FCF1D /* SixPokemonsInfoViewController.m in Sources */,
 				7F51BF6814F3EB52008FCF1D /* SixPokemonsDetailViewController.m in Sources */,
+				7F51BF6E14F3FDED008FCF1D /* PokemonInfoLabelView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

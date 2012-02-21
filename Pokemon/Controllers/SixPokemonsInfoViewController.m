@@ -8,10 +8,6 @@
 
 #import "SixPokemonsInfoViewController.h"
 
-#import "GlobalRender.h"
-#import "Pokemon.h"
-#import "TrainerTamedPokemon.h"
-
 @implementation SixPokemonsInfoViewController
 
 - (void)dealloc
