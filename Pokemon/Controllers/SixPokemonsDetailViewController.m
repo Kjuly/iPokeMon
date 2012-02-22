@@ -8,7 +8,7 @@
 
 #import "SixPokemonsDetailViewController.h"
 
-#import <QuartzCore/QuartzCore.h>
+#import "../GlobalConstants.h"
 
 @implementation SixPokemonsDetailViewController
 
@@ -54,72 +54,13 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+                                                           kTopBarHeight + kTopIDViewHeight,
+                                                           320.0f,
+                                                           480.0f - kTopBarHeight - kTopIDViewHeight)];
   self.view = view;
   [view release];
-  
   [self.view setBackgroundColor:[UIColor whiteColor]];
-  
-  // Constants
-  CGFloat const imageHeight       = 150.0f;
-  CGFloat const imageWidth        = 150.0f;
-  
-  CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 80.0f;
-  
-  CGFloat const nameLabelWidth    = 300.0f - imageWidth;
-  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
-  
-  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 20.0f, 50.0f, 300.0f - imageWidth, imageHeight - 50.0f);
-  
-  // Base information for Pokemon
-  Pokemon * pokemonBaseInfo = self.pokemon.pokemon;
-  
-  ///Left Image View
-  UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, imageWidth, imageHeight)];
-  [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
-  [imageContainer setOpaque:NO];
-  
-  // Image
-  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
-  [imageView setUserInteractionEnabled:YES];
-  [imageView setContentMode:UIViewContentModeCenter];
-  [imageView setBackgroundColor:[UIColor clearColor]];
-  [imageView setImage:pokemonBaseInfo.image];
-  
-  [imageContainer addSubview:imageView];
-  [imageView release];
-  [self.view addSubview:imageContainer];
-  [imageContainer release];
-  
-  
-  ///Right ID View
-  UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
-  
-  // ID
-  PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
-                                        initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
-                                        hasValueLabel:NO];
-  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
-  [IDView addSubview:idLabelView];
-  [idLabelView release];
-  
-  // Name
-  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
-  [nameLabel setBackgroundColor:[UIColor clearColor]];
-  [nameLabel setTextColor:[GlobalRender textColorOrange]];
-  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
-  [nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
-  [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
-  [nameLabel.layer setShadowOpacity:1.0f];
-  [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-  [nameLabel.layer setShadowRadius:1.0f];
-  [IDView addSubview:nameLabel];
-  [nameLabel release];
-  
-  // Add Right ID View to |self.view| & Release it
-  [self.view addSubview:IDView];
-  [IDView release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

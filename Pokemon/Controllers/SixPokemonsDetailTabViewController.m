@@ -9,11 +9,14 @@
 #import "SixPokemonsDetailTabViewController.h"
 
 #import "../GlobalConstants.h"
+#import "GlobalRender.h"
 #import "TrainerTamedPokemon.h"
 #import "SixPokemonsInfoViewController.h"
 #import "SixPokemonsMemoViewController.h"
 #import "SixPokemonsSkillViewController.h"
 #import "SixPokemonsMoveViewController.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 @implementation SixPokemonsDetailTabViewController
 
@@ -48,11 +51,11 @@
     sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
     
     // Set child views' Frame
-    CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
-    [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
-    [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
-    [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
-    [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
+//    CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
+//    [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
+//    [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
+//    [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
+//    [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
     
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
@@ -79,12 +82,76 @@
 - (void)loadView
 {
   [super loadView];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
+  
+  // Constants
+  CGFloat const imageHeight       = 150.0f;
+  CGFloat const imageWidth        = 150.0f;
+  
+  CGFloat const labelHeight       = 30.0f;
+  CGFloat const labelWidth        = 80.0f;
+  
+  CGFloat const nameLabelWidth    = 300.0f - imageWidth;
+  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
+  
+  CGRect  const imageContainerFrame = CGRectMake(10.0f, 10.0f + kTopBarHeight, imageWidth, imageHeight);
+  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 20.0f, 50.0f + kTopBarHeight, 300.0f - imageWidth, imageHeight - 50.0f);
+  
+  // Base information for Pokemon
+  Pokemon * pokemonBaseInfo = self.pokemon.pokemon;
+  
+  ///Left Image View
+  UIView * imageContainer = [[UIView alloc] initWithFrame:imageContainerFrame];
+  [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+  [imageContainer setOpaque:NO];
+  
+  // Image
+  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
+  [imageView setUserInteractionEnabled:YES];
+  [imageView setContentMode:UIViewContentModeCenter];
+  [imageView setBackgroundColor:[UIColor clearColor]];
+  [imageView setImage:pokemonBaseInfo.image];
+  
+  [imageContainer addSubview:imageView];
+  [imageView release];
+  [self.view addSubview:imageContainer];
+  [imageContainer release];
+  
+  
+  ///Right ID View
+  UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
+  
+  // ID
+  PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
+                                        initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
+                                        hasValueLabel:NO];
+  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
+  [IDView addSubview:idLabelView];
+  [idLabelView release];
+  
+  // Name
+  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
+  [nameLabel setBackgroundColor:[UIColor clearColor]];
+  [nameLabel setTextColor:[GlobalRender textColorOrange]];
+  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
+  [nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
+  [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
+  [nameLabel.layer setShadowOpacity:1.0f];
+  [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+  [nameLabel.layer setShadowRadius:1.0f];
+  [IDView addSubview:nameLabel];
+  [nameLabel release];
+  
+  // Add Right ID View to |self.view| & Release it
+  [self.view addSubview:IDView];
+  [IDView release];
+
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
 }
 
 - (void)viewDidUnload

@@ -39,10 +39,9 @@
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight = 150.0f;
   CGFloat const labelHeight = 30.0f;
   
-  CGRect  const dataViewFrame      = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, 60.0f);
+  CGRect  const dataViewFrame      = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
   CGRect  const levelLabelViewFrame = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
   CGRect  const genderLabelViewFrame = CGRectMake(140.0f, 0.0f, 160.0f, labelHeight);
   CGRect  const typeLabelViewFrame = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);

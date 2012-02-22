@@ -31,8 +31,7 @@
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight = 150.0f;
-  CGRect  const descriptionFrame  = CGRectMake(10.0f, imageHeight + 20.0f, 300.0f, 190.0f);
+  CGRect  const descriptionFrame  = CGRectMake(10.0f, 20.0f, 300.0f, 190.0f);
   
   ///Memo
   UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
