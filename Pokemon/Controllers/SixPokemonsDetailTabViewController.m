@@ -39,10 +39,7 @@
   if (self) {
     // Set View Frame
     self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
-    
     self.pokemon = pokemon;
-    
-    NSLog(@"%@", self.pokemon);
     
     // Add child view controllers to each tab
     sixPokemonsInfoViewController_  = [[SixPokemonsInfoViewController alloc]  initWithPokemon:self.pokemon];
