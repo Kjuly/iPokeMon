@@ -11,6 +11,7 @@
 #import "PokemonServerAPI.h"
 #import "Trainer+DataController.h"
 #import "Pokemon+DataController.h"
+#import "Move+DataController.h"
 #import "AppDelegate.h"
 #import "AFJSONRequestOperation.h"
 
@@ -53,7 +54,11 @@
         tamedPokemon.pokemon = pokemon;
         pokemon = nil;
         
-//        tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
+        NSArray * moveIDs = [[tamedPokemonData valueForKey:@"fourMoves"] componentsSeparatedByString:@","];
+        NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
+        [tamedPokemon addFourMoves:[NSSet setWithArray:moves]];
+        moves = nil;
+        moveIDs = nil;
       }
       
       // Set data

@@ -9,5 +9,10 @@
 #import "SixPokemonsDetailViewController.h"
 
 @interface SixPokemonsMoveViewController : SixPokemonsDetailViewController
+{
+  NSArray * fourMoves_;
+}
+
+@property (nonatomic, retain) NSArray * fourMoves;
 
 @end

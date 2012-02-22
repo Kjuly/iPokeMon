@@ -8,10 +8,16 @@
 
 #import "SixPokemonsMoveViewController.h"
 
+#import "Move.h"
+
 @implementation SixPokemonsMoveViewController
+
+@synthesize fourMoves = fourMoves_;
 
 - (void)dealloc
 {
+  [fourMoves_ release];
+  
   [super dealloc];
 }
 
@@ -29,6 +35,8 @@
 - (void)loadView
 {
   [super loadView];
+  
+  self.fourMoves = [self.pokemon.fourMoves allObjects];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -40,8 +48,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
+  
+  self.fourMoves = nil;
 }
 
 @end

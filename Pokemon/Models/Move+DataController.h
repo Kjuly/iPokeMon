@@ -14,7 +14,7 @@
 + (void)populateData;
 
 // Data Query Mthods
-+ (NSArray *)queryAllData;
++ (NSArray *)queryFourMovesDataWithIDs:(NSArray *)moveIDs;
 + (Move *)queryMoveDataWithID:(NSInteger)moveID;
 
 @end

@@ -56,9 +56,36 @@
 
 #pragma mark - Data Query Mthods
 
-+ (NSArray *)queryAllData
++ (NSArray *)queryFourMovesDataWithIDs:(NSArray *)moveIDs
 {
-  return nil;
+  NSMutableArray * moveIDsInNumber = [NSMutableArray arrayWithCapacity:4];
+  for (id moveID in moveIDs) {
+    NSNumber * moveIDInNumber;
+    if ([moveID isKindOfClass:[NSString class]])
+      moveIDInNumber = [NSNumber numberWithInt:[moveID intValue]];
+    else
+      moveIDInNumber = moveID;
+    [moveIDsInNumber addObject:moveIDInNumber];
+    moveIDInNumber = nil;
+  }
+  
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid IN %@", moveIDsInNumber];
+  moveIDsInNumber = nil;
+  [fetchRequest setPredicate:predicate];
+  [fetchRequest setFetchLimit:4];
+  
+  NSError * error;
+  NSArray * fourMoves = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return fourMoves;
 }
 
 + (Move *)queryMoveDataWithID:(NSInteger)moveID
