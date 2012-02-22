@@ -1,0 +1,102 @@
+//
+//  PokemonMoveDetailView.m
+//  Pokemon
+//
+//  Created by Kaijie Yu on 2/22/12.
+//  Copyright (c) 2012 Kjuly. All rights reserved.
+//
+
+#import "PokemonMoveDetailView.h"
+
+#import "GlobalRender.h"
+#import "PokemonMoveView.h"
+#import "PokemonInfoLabelView.h"
+
+@implementation PokemonMoveDetailView
+
+@synthesize moveBaseView      = moveBaseView_;
+@synthesize backButton        = backButton_;
+@synthesize categoryLabelView = categoryLabelView_;
+@synthesize powerLabelView    = powerLabelView_;
+@synthesize accuracyLabelView = accuracyLabelView_;
+@synthesize infoTextView      = infoTextView_;
+
+- (void)dealloc
+{
+  [moveBaseView_      release];
+  [backButton_        release];
+  [categoryLabelView_ release];
+  [powerLabelView_    release];
+  [accuracyLabelView_ release];
+  [infoTextView_      release];
+  
+  self.moveBaseView      = nil;
+  self.backButton        = nil;
+  self.categoryLabelView = nil;
+  self.powerLabelView    = nil;
+  self.accuracyLabelView = nil;
+  self.infoTextView      = nil;
+  
+  [super dealloc];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+  self = [super initWithFrame:frame];
+  if (self) {
+    [self setBackgroundColor:[UIColor whiteColor]];
+    
+    CGFloat const labelHeight        = 30.0f;
+    CGFloat const moveBaseViewHeight = (frame.size.height - 80.0f) / 4.0f;
+    
+    CGRect const moveBaseViewFrame      = CGRectMake(0.0f, 10.0f, 300.0f, moveBaseViewHeight);
+    CGRect const backButtonFrame        = CGRectMake(260.0f, 0.0f, 60.0f, 60.0f);
+    CGRect const categoryLabelViewFrame = CGRectMake(10.0f, 10.0f + moveBaseViewHeight, 300.0f, labelHeight);
+    CGRect const powerLabelViewFrame    = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + labelHeight, 140.0f, labelHeight);
+    CGRect const accuracyLabelViewFrame = CGRectMake(140.0f, powerLabelViewFrame.origin.y, 160.0f, labelHeight);
+    CGRect const infoTextViewFrame      = CGRectMake(10.0f, powerLabelViewFrame.origin.y + labelHeight, 300.0f, labelHeight);
+    
+    moveBaseView_ = [[PokemonMoveView alloc] initWithFrame:moveBaseViewFrame];
+    [self addSubview:moveBaseView_];
+    
+    backButton_ = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [backButton_ setImage:[UIImage imageNamed:@"AccountSettingTableView_CancelButton.png"] forState:UIControlStateNormal];
+    [self addSubview:backButton_];
+    
+    categoryLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:categoryLabelViewFrame hasValueLabel:YES];
+    [categoryLabelView_ setBackgroundColor:[UIColor clearColor]];
+    [categoryLabelView_.name setText:NSLocalizedString(@"kLabelCategory", nil)];
+    [self addSubview:categoryLabelView_];
+    
+    powerLabelView_    = [[PokemonInfoLabelView alloc] initWithFrame:powerLabelViewFrame hasValueLabel:YES];
+    [powerLabelView_.name setText:NSLocalizedString(@"kLabelPower", nil)];
+    [self addSubview:powerLabelView_];
+    
+    accuracyLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:accuracyLabelViewFrame hasValueLabel:YES];
+    [accuracyLabelView_ adjustNameLabelWidthWith:20.0f];
+    [accuracyLabelView_.name setText:NSLocalizedString(@"kLabelAccuracy", nil)];
+    [self addSubview:accuracyLabelView_];
+    
+    // Move Infomation View
+    infoTextView_ = [[UITextView alloc] initWithFrame:infoTextViewFrame];
+    [infoTextView_ setBackgroundColor:[UIColor colorWithPatternImage:
+                                       [UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+    [infoTextView_ setOpaque:NO];
+    [infoTextView_ setEditable:NO];
+    [infoTextView_ setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+    [self addSubview:infoTextView_];
+    
+    [self setNeedsDisplay];
+  }
+  return self;
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

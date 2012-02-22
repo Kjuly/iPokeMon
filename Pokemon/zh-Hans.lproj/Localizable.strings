@@ -27,7 +27,10 @@
 "kLabelAbility"   = "能力：";
 
 // Move
-"kLabelPP" = "PP：";
+"kLabelPP"       = "PP：";
+"kLabelCategory" = "类别：";
+"kLabelPower"    = "力量：";
+"kLabelAccuracy" = "精确度：";
 
 // Trainer
 "kLabelMoney"            = "零花钱：";

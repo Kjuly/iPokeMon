@@ -51,6 +51,7 @@
 		7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */; };
 		7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */; };
 		7F5F0D6814E28B3600D996D4 /* NavigationBarBackgroundBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */; };
+		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
 		7F6910DA14EF6B4300127E2F /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910D914EF6B4200127E2F /* PokemonConstants.m */; };
 		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
@@ -434,6 +435,8 @@
 		7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_SetAccount.png; sourceTree = "<group>"; };
 		7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_ShowWorld.png; sourceTree = "<group>"; };
 		7F5F0D6714E28B3600D996D4 /* NavigationBarBackgroundBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBackgroundBlue.png; sourceTree = "<group>"; };
+		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
+		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
 		7F6910D814EF6B4200127E2F /* PokemonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonConstants.h; sourceTree = "<group>"; };
 		7F6910D914EF6B4200127E2F /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
@@ -1165,6 +1168,8 @@
 				7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */,
 				7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */,
 				7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */,
+				7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */,
+				7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */,
 				7F90C5AD14E5640B00147718 /* PokedexTableViewCell.h */,
 				7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */,
 				7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */,
@@ -1931,6 +1936,7 @@
 				7FD14F0514F4BFD900082330 /* Move.m in Sources */,
 				7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */,
 				7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */,
+				7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

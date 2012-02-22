@@ -16,6 +16,7 @@
 @synthesize type1 = type1_;
 @synthesize type2 = type2_;
 @synthesize pp    = pp_;
+@synthesize viewButton = viewButton_;
 
 -(void)dealloc
 {
@@ -23,11 +24,13 @@
   [type1_ release];
   [type2_ release];
   [pp_    release];
+  [viewButton_ release];
   
   self.name  = nil;
   self.type1 = nil;
   self.type2 = nil;
   self.pp    = nil;
+  self.viewButton = nil;
   
   [super dealloc];
 }
@@ -46,6 +49,7 @@
     CGRect  const nameFrame    = CGRectMake(10.0f + typeWidth, 0.0f, self.frame.size.width - typeWidth - 20.0f, labelHeight);
     CGRect  const ppLabelFrame = CGRectMake(halfViewWidth, labelHeight, ppLabelWidth, labelHeight);
     CGRect  const ppFrame      = CGRectMake(halfViewWidth + ppLabelWidth, labelHeight, halfViewWidth - ppLabelWidth - 10.0f, labelHeight);
+    CGRect  const viewButtonFrame = CGRectMake(10.0f, 0.0f, frame.size.width, frame.size.height);
     
     type1_ = [[UILabel alloc] initWithFrame:type1Frame];
     [self addSubview:type1_];
@@ -74,6 +78,10 @@
     [pp_ setTextColor:[GlobalRender textColorOrange]];
     [pp_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [self addSubview:pp_];
+    
+    viewButton_ = [[UIButton alloc] initWithFrame:viewButtonFrame];
+    [viewButton_ setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:viewButton_];
   }
   return self;
 }

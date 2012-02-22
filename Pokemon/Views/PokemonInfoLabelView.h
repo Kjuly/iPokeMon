@@ -18,5 +18,6 @@
 @property (nonatomic, retain) UILabel * value;
 
 - (id)initWithFrame:(CGRect)frame hasValueLabel:(BOOL)hasValueLabel;
+- (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth;
 
 @end

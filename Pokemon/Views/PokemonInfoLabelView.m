@@ -67,10 +67,17 @@
 }
 */
 
-- (void)hideValueLabel
+// |deltaWidth| > 0, increase |name| width, decrease |value| width;
+//              < 0, decrease |name| width, increase |value| width;
+- (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth
 {
-  [self.name setFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height)];
-  self.value = nil;
+  CGRect nameFrame  = self.name.frame;
+  CGRect valueFrame = self.value.frame;
+  nameFrame.size.width  += deltaWidth;
+  valueFrame.origin.x   += deltaWidth;
+  valueFrame.size.width -= deltaWidth;
+  [self.name  setFrame:nameFrame];
+  [self.value setFrame:valueFrame];
 }
 
 @end

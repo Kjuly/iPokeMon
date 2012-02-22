@@ -10,15 +10,17 @@
 
 @interface PokemonMoveView : UIView
 {
-  UILabel * type1_;
-  UILabel * type2_;
-  UILabel * name_;
-  UILabel * pp_;
+  UILabel  * type1_;
+  UILabel  * type2_;
+  UILabel  * name_;
+  UILabel  * pp_;
+  UIButton * viewButton_;
 }
 
-@property (nonatomic, retain) UILabel * type1;
-@property (nonatomic, retain) UILabel * type2;
-@property (nonatomic, retain) UILabel * name;
-@property (nonatomic, retain) UILabel * pp;
+@property (nonatomic, retain) UILabel  * type1;
+@property (nonatomic, retain) UILabel  * type2;
+@property (nonatomic, retain) UILabel  * name;
+@property (nonatomic, retain) UILabel  * pp;
+@property (nonatomic, retain) UIButton * viewButton;
 
 @end

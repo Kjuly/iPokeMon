@@ -28,7 +28,10 @@
 "kLabelAbility"   = "Ability: ";
 
 // Move
-"kLabelPP" = "PP: ";
+"kLabelPP"       = "PP: ";
+"kLabelCategory" = "Category: ";
+"kLabelPower"    = "Power: ";
+"kLabelAccuracy" = "Accuracy: ";
 
 // Trainer
 "kLabelMoney"            = "Money: ";
