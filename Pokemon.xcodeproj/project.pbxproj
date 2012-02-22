@@ -343,6 +343,7 @@
 		7FD14F0514F4BFD900082330 /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0414F4BFD900082330 /* Move.m */; };
 		7FD14F0714F4C0AC00082330 /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FD14F0614F4C0AC00082330 /* Moves.plist */; };
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
+		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -786,6 +787,8 @@
 		7FD14F0614F4C0AC00082330 /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
 		7FD14F0B14F4C4DC00082330 /* Move+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Move+DataController.h"; sourceTree = "<group>"; };
 		7FD14F0C14F4C4DC00082330 /* Move+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Move+DataController.m"; sourceTree = "<group>"; };
+		7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveView.h; sourceTree = "<group>"; };
+		7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveView.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -1160,6 +1163,8 @@
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
 				7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */,
 				7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */,
+				7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */,
+				7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */,
 				7F90C5AD14E5640B00147718 /* PokedexTableViewCell.h */,
 				7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */,
 				7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */,
@@ -1925,6 +1930,7 @@
 				7FD14F0114F4BFD900082330 /* TrainerTamedPokemon.m in Sources */,
 				7FD14F0514F4BFD900082330 /* Move.m in Sources */,
 				7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */,
+				7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

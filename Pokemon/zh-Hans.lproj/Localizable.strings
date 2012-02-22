@@ -26,6 +26,9 @@
 "kLabelSpeed"     = "速度：";
 "kLabelAbility"   = "能力：";
 
+// Move
+"kLabelPP" = "PP：";
+
 // Trainer
 "kLabelMoney"            = "零花钱：";
 "kLabelPokedex"          = "图鉴：";
