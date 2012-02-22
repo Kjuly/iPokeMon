@@ -12,17 +12,19 @@
 
 #import "PListParser.h"
 #import "GlobalRender.h"
+#import "Pokemon.h"
+#import "TrainerTamedPokemon+DataController.h"
 
 
 @implementation PoketchSixPokemonsViewController
 
-@synthesize dataArray  = dataArray_;
-@synthesize imageArray = imageArray_;
+@synthesize sixPokemons = sixPokemons_;
+@synthesize imageArray  = imageArray_;
 
 - (void)dealloc
 {
-  [dataArray_  release];
-  [imageArray_ release];
+  [sixPokemons_ release];
+  [imageArray_  release];
   
   [super dealloc];
 }
@@ -54,14 +56,7 @@
   
   NSString * IDSequence = @"0000000100020003000400050006";
   self.imageArray = [PListParser sixPokemonsImageArrayFor:IDSequence];
-  dataArray_ = [[NSArray alloc] initWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:32], @"level", [NSNumber numberWithInt:60],  @"HPLeft", [NSNumber numberWithInt:220], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:21], @"level", [NSNumber numberWithInt:129], @"HPLeft", [NSNumber numberWithInt:190], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:37], @"level", [NSNumber numberWithInt:249], @"HPLeft", [NSNumber numberWithInt:270], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:31], @"level", [NSNumber numberWithInt:209], @"HPLeft", [NSNumber numberWithInt:209], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:49], @"level", [NSNumber numberWithInt:390], @"HPLeft", [NSNumber numberWithInt:420], @"HPTotal", @"Normal", @"state", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:51], @"level", [NSNumber numberWithInt:119], @"HPLeft", [NSNumber numberWithInt:512], @"HPTotal", @"Normal", @"state", nil],
-                nil];
+  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
   
   CGFloat x      = 10.0f;
   CGFloat y      = 5.0f;
@@ -74,13 +69,17 @@
   CGRect HPLabelFrame     = CGRectMake(35.0f, 0.0f, dataViewFrame.size.width - 45.0f, 30.0f);
   CGRect HPBarFrame       = CGRectMake(0.0f, 30.0f, width - imageWidth - 10.0f, 15.0f);
   
-  for (int i = 0; i < [self.dataArray count]; ++i) {
+  for (int i = 0; i < [self.sixPokemons count]; ++i) {
+    TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:i];
+//    Pokemon * pokemonBaseInfo = pokemonData.pokemon;
+    
     pokemonViewFrame = CGRectMake(x + width * (i % 2), y + height * (int)(i / 2), width, height);
     UIView * pokemonView = [[UIView alloc] initWithFrame:pokemonViewFrame];
     
     // Image
     UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, height)];
     [imageView setContentMode:UIViewContentModeCenter | UIViewContentModeScaleAspectFit];
+//    [imageView setImage:pokemonBaseInfo.imageIcon];
     [imageView setImage:[self.imageArray objectAtIndex:i]];
     [pokemonView addSubview:imageView];
     [imageView release];
@@ -88,7 +87,6 @@
     
     ///Data View
     UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
-    NSDictionary * dataDict = [[NSDictionary alloc] initWithDictionary:[self.dataArray objectAtIndex:i]];
     
     // Level
     UILabel * levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
@@ -96,7 +94,7 @@
     [levelLabel setTextColor:[GlobalRender textColorBlue]];
     [levelLabel setTextAlignment:UITextAlignmentLeft];
     [levelLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:12.0f]];
-    [levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [[dataDict objectForKey:@"level"] intValue]]];
+    [levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
     [dataView addSubview:levelLabel];
     [levelLabel release];
     
@@ -107,8 +105,8 @@
     [hpLabel setTextAlignment:UITextAlignmentRight];
     [hpLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [hpLabel setText:[NSString stringWithFormat:@"%d/%d",
-                      [[dataDict objectForKey:@"HPLeft"]  intValue],
-                      [[dataDict objectForKey:@"HPTotal"] intValue]]];
+                      [pokemonData.currHP intValue],
+                      [[pokemonData.maxStats objectAtIndex:0] intValue]]];
     [dataView addSubview:hpLabel];
     [hpLabel release];
     
@@ -119,7 +117,7 @@
     // HP Bar Left Part
     CGRect HPBarLeftFrame = CGRectMake(0.0f,
                                        0.0f,
-                                       HPBarFrame.size.width * [[dataDict objectForKey:@"HPLeft"]  floatValue] / [[dataDict objectForKey:@"HPTotal"] floatValue],
+                                       HPBarFrame.size.width * [pokemonData.currHP  floatValue] / [[pokemonData.maxStats objectAtIndex:0] floatValue],
                                        HPBarFrame.size.height);
     UIView * HPBarLeft = [[UIView alloc] initWithFrame:HPBarLeftFrame];
     [HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
@@ -129,8 +127,6 @@
     
     [dataView addSubview:HPBarTotal];
     [HPBarTotal release];
-    
-    [dataDict release];
     
     [pokemonView addSubview:dataView];
     [dataView release];
@@ -150,8 +146,8 @@
 {
   [super viewDidUnload];
   
-  self.dataArray  = nil;
-  self.imageArray = nil;
+  self.sixPokemons = nil;
+  self.imageArray  = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

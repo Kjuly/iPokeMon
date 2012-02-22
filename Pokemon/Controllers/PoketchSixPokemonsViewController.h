@@ -10,11 +10,11 @@
 
 @interface PoketchSixPokemonsViewController : UIViewController
 {
-  NSArray * dataArray_;
+  NSArray * sixPokemons_;
   NSArray * imageArray_;
 }
 
-@property (nonatomic, copy) NSArray * dataArray;
+@property (nonatomic, copy) NSArray * sixPokemons;
 @property (nonatomic, copy) NSArray * imageArray;
 
 @end
