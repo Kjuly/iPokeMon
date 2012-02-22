@@ -37,7 +37,6 @@
 		7F51BF5414F364F8008FCF1D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5114F364F8008FCF1D /* JSONKit.m */; };
 		7F51BF5514F364F8008FCF1D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF5214F364F8008FCF1D /* README.md */; };
 		7F51BF5914F368EC008FCF1D /* PokemonServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5814F368EC008FCF1D /* PokemonServerAPI.m */; };
-		7F51BF5C14F3C44B008FCF1D /* TrainerTamedPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5B14F3C44A008FCF1D /* TrainerTamedPokemon.m */; };
 		7F51BF5F14F3C940008FCF1D /* TrainerTamedPokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5E14F3C93F008FCF1D /* TrainerTamedPokemon+DataController.m */; };
 		7F51BF6214F3E5FF008FCF1D /* SixPokemonsDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6114F3E5FE008FCF1D /* SixPokemonsDetailTabViewController.m */; };
 		7F51BF6514F3E8EF008FCF1D /* SixPokemonsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF6414F3E8EE008FCF1D /* SixPokemonsInfoViewController.m */; };
@@ -282,7 +281,6 @@
 		7FAD699F14EFD7BF00B3E2F9 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD699E14EFD7BE00B3E2F9 /* BagItem.m */; };
 		7FAD69A214EFD7BF00B3E2F9 /* BagPokeball.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69A114EFD7BF00B3E2F9 /* BagPokeball.m */; };
 		7FAD69A514EFD7BF00B3E2F9 /* Ability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69A414EFD7BF00B3E2F9 /* Ability.m */; };
-		7FAD69A814EFD7C000B3E2F9 /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69A714EFD7C000B3E2F9 /* Move.m */; };
 		7FAD69AB14EFD7C000B3E2F9 /* TrainerBagTMHM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69AA14EFD7C000B3E2F9 /* TrainerBagTMHM.m */; };
 		7FAD69AE14EFD7C000B3E2F9 /* TrainerBagPokeball.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69AD14EFD7C000B3E2F9 /* TrainerBagPokeball.m */; };
 		7FAD69B114EFD7C100B3E2F9 /* TrainerBagBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69B014EFD7C100B3E2F9 /* TrainerBagBerry.m */; };
@@ -341,6 +339,10 @@
 		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
 		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
 		7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */; };
+		7FD14F0114F4BFD900082330 /* TrainerTamedPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0014F4BFD900082330 /* TrainerTamedPokemon.m */; };
+		7FD14F0514F4BFD900082330 /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0414F4BFD900082330 /* Move.m */; };
+		7FD14F0714F4C0AC00082330 /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FD14F0614F4C0AC00082330 /* Moves.plist */; };
+		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
@@ -407,8 +409,6 @@
 		7F51BF5214F364F8008FCF1D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7F51BF5714F368EC008FCF1D /* PokemonServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonServerAPI.h; sourceTree = "<group>"; };
 		7F51BF5814F368EC008FCF1D /* PokemonServerAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonServerAPI.m; sourceTree = "<group>"; };
-		7F51BF5A14F3C44A008FCF1D /* TrainerTamedPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerTamedPokemon.h; sourceTree = "<group>"; };
-		7F51BF5B14F3C44A008FCF1D /* TrainerTamedPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerTamedPokemon.m; sourceTree = "<group>"; };
 		7F51BF5D14F3C93F008FCF1D /* TrainerTamedPokemon+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TrainerTamedPokemon+DataController.h"; sourceTree = "<group>"; };
 		7F51BF5E14F3C93F008FCF1D /* TrainerTamedPokemon+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TrainerTamedPokemon+DataController.m"; sourceTree = "<group>"; };
 		7F51BF6014F3E5FD008FCF1D /* SixPokemonsDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsDetailTabViewController.h; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 		7F51BF6414F3E8EE008FCF1D /* SixPokemonsInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsInfoViewController.m; sourceTree = "<group>"; };
 		7F51BF6614F3EB50008FCF1D /* SixPokemonsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsDetailViewController.h; sourceTree = "<group>"; };
 		7F51BF6714F3EB51008FCF1D /* SixPokemonsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsDetailViewController.m; sourceTree = "<group>"; };
-		7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PokemonInfoLabelView.h; sourceTree = "<group>"; };
+		7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonInfoLabelView.h; sourceTree = "<group>"; };
 		7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonInfoLabelView.m; sourceTree = "<group>"; };
 		7F51C3D514D7C4DF0091902D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7F51C3D614D7C4DF0091902D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -706,8 +706,6 @@
 		7FAD69A114EFD7BF00B3E2F9 /* BagPokeball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagPokeball.m; sourceTree = "<group>"; };
 		7FAD69A314EFD7BF00B3E2F9 /* Ability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ability.h; sourceTree = "<group>"; };
 		7FAD69A414EFD7BF00B3E2F9 /* Ability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ability.m; sourceTree = "<group>"; };
-		7FAD69A614EFD7BF00B3E2F9 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
-		7FAD69A714EFD7C000B3E2F9 /* Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Move.m; sourceTree = "<group>"; };
 		7FAD69A914EFD7C000B3E2F9 /* TrainerBagTMHM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBagTMHM.h; sourceTree = "<group>"; };
 		7FAD69AA14EFD7C000B3E2F9 /* TrainerBagTMHM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBagTMHM.m; sourceTree = "<group>"; };
 		7FAD69AC14EFD7C000B3E2F9 /* TrainerBagPokeball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBagPokeball.h; sourceTree = "<group>"; };
@@ -781,6 +779,13 @@
 		7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
 		7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettingTableViewController.h; sourceTree = "<group>"; };
 		7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettingTableViewController.m; sourceTree = "<group>"; };
+		7FD14EFF14F4BFD900082330 /* TrainerTamedPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerTamedPokemon.h; sourceTree = "<group>"; };
+		7FD14F0014F4BFD900082330 /* TrainerTamedPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerTamedPokemon.m; sourceTree = "<group>"; };
+		7FD14F0314F4BFD900082330 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
+		7FD14F0414F4BFD900082330 /* Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Move.m; sourceTree = "<group>"; };
+		7FD14F0614F4C0AC00082330 /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
+		7FD14F0B14F4C4DC00082330 /* Move+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Move+DataController.h"; sourceTree = "<group>"; };
+		7FD14F0C14F4C4DC00082330 /* Move+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Move+DataController.m"; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -1030,8 +1035,8 @@
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
 				7FAD697F14EFD7BB00B3E2F9 /* Trainer.h */,
 				7FAD698014EFD7BB00B3E2F9 /* Trainer.m */,
-				7F51BF5A14F3C44A008FCF1D /* TrainerTamedPokemon.h */,
-				7F51BF5B14F3C44A008FCF1D /* TrainerTamedPokemon.m */,
+				7FD14EFF14F4BFD900082330 /* TrainerTamedPokemon.h */,
+				7FD14F0014F4BFD900082330 /* TrainerTamedPokemon.m */,
 				7FAD69B514EFD7C100B3E2F9 /* TrainerBagItem.h */,
 				7FAD69B614EFD7C100B3E2F9 /* TrainerBagItem.m */,
 				7FAD69B214EFD7C100B3E2F9 /* TrainerBagMedicine.h */,
@@ -1050,8 +1055,8 @@
 				7FAD697D14EFD7BA00B3E2F9 /* TrainerBagKeyItem.m */,
 				7FAD69BE14EFF2A700B3E2F9 /* Pokemon.h */,
 				7FAD69BF14EFF2AA00B3E2F9 /* Pokemon.m */,
-				7FAD69A614EFD7BF00B3E2F9 /* Move.h */,
-				7FAD69A714EFD7C000B3E2F9 /* Move.m */,
+				7FD14F0314F4BFD900082330 /* Move.h */,
+				7FD14F0414F4BFD900082330 /* Move.m */,
 				7FAD69A314EFD7BF00B3E2F9 /* Ability.h */,
 				7FAD69A414EFD7BF00B3E2F9 /* Ability.m */,
 				7FAD699D14EFD7BE00B3E2F9 /* BagItem.h */,
@@ -1082,6 +1087,8 @@
 				7F51BF5E14F3C93F008FCF1D /* TrainerTamedPokemon+DataController.m */,
 				7F91D0A614EE3D4500476AFB /* Pokemon+DataController.h */,
 				7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */,
+				7FD14F0B14F4C4DC00082330 /* Move+DataController.h */,
+				7FD14F0C14F4C4DC00082330 /* Move+DataController.m */,
 				7F2EFB7114DE5F370068F681 /* PListParser.h */,
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
@@ -1400,6 +1407,7 @@
 			isa = PBXGroup;
 			children = (
 				7FAD69CB14EFF8F400B3E2F9 /* Pokedex.plist */,
+				7FD14F0614F4C0AC00082330 /* Moves.plist */,
 				7FAD69C214EFF8F400B3E2F9 /* BagBattleItems.plist */,
 				7FAD69C314EFF8F400B3E2F9 /* BagBerries.plist */,
 				7FAD69C414EFF8F400B3E2F9 /* BagItems.plist */,
@@ -1800,6 +1808,7 @@
 				7FAD69D514EFF8F400B3E2F9 /* Pokedex.plist in Resources */,
 				7F51BF5314F364F8008FCF1D /* CHANGELOG.md in Resources */,
 				7F51BF5514F364F8008FCF1D /* README.md in Resources */,
+				7FD14F0714F4C0AC00082330 /* Moves.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1899,7 +1908,6 @@
 				7FAD699F14EFD7BF00B3E2F9 /* BagItem.m in Sources */,
 				7FAD69A214EFD7BF00B3E2F9 /* BagPokeball.m in Sources */,
 				7FAD69A514EFD7BF00B3E2F9 /* Ability.m in Sources */,
-				7FAD69A814EFD7C000B3E2F9 /* Move.m in Sources */,
 				7FAD69AB14EFD7C000B3E2F9 /* TrainerBagTMHM.m in Sources */,
 				7FAD69AE14EFD7C000B3E2F9 /* TrainerBagPokeball.m in Sources */,
 				7FAD69B114EFD7C100B3E2F9 /* TrainerBagBerry.m in Sources */,
@@ -1909,12 +1917,14 @@
 				7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */,
 				7F51BF5414F364F8008FCF1D /* JSONKit.m in Sources */,
 				7F51BF5914F368EC008FCF1D /* PokemonServerAPI.m in Sources */,
-				7F51BF5C14F3C44B008FCF1D /* TrainerTamedPokemon.m in Sources */,
 				7F51BF5F14F3C940008FCF1D /* TrainerTamedPokemon+DataController.m in Sources */,
 				7F51BF6214F3E5FF008FCF1D /* SixPokemonsDetailTabViewController.m in Sources */,
 				7F51BF6514F3E8EF008FCF1D /* SixPokemonsInfoViewController.m in Sources */,
 				7F51BF6814F3EB52008FCF1D /* SixPokemonsDetailViewController.m in Sources */,
 				7F51BF6E14F3FDED008FCF1D /* PokemonInfoLabelView.m in Sources */,
+				7FD14F0114F4BFD900082330 /* TrainerTamedPokemon.m in Sources */,
+				7FD14F0514F4BFD900082330 /* Move.m in Sources */,
+				7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

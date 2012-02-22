@@ -2,20 +2,19 @@
 //  TrainerTamedPokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/21/12.
+//  Created by Kaijie Yu on 2/22/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Pokemon, Trainer;
+@class Move, Pokemon, Trainer;
 
 @interface TrainerTamedPokemon : NSManagedObject
 
 @property (nonatomic, retain) id box;
 @property (nonatomic, retain) NSNumber * currEXP;
-@property (nonatomic, retain) id fourMoves;
 @property (nonatomic, retain) NSNumber * gender;
 @property (nonatomic, retain) NSNumber * happiness;
 @property (nonatomic, retain) id leftStats;
@@ -28,5 +27,14 @@
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) Trainer *owner;
 @property (nonatomic, retain) Pokemon *pokemon;
+@property (nonatomic, retain) NSSet *fourMoves;
+@end
+
+@interface TrainerTamedPokemon (CoreDataGeneratedAccessors)
+
+- (void)addFourMovesObject:(Move *)value;
+- (void)removeFourMovesObject:(Move *)value;
+- (void)addFourMoves:(NSSet *)values;
+- (void)removeFourMoves:(NSSet *)values;
 
 @end

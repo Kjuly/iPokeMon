@@ -113,6 +113,12 @@
   return [NSArray arrayWithArray:imageArray];
 }
 
+#pragma mark - Moves & Ability
+
++ (NSArray *)moves {
+  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"Moves"]];
+}
+
 #pragma mark - Bag[Item]
 
 + (NSArray *)bagItems {

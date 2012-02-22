@@ -19,6 +19,9 @@
 + (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID;
 + (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence;
 
+// Moves & Ability
++ (NSArray *)moves;
+
 // Bag[Item]
 + (NSArray *)bagItems;
 + (NSArray *)bagMedicine;

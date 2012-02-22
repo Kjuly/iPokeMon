@@ -20,6 +20,7 @@
 
 #ifdef DEBUG
 #import "Pokemon+DataController.h"
+#import "Move+DataController.h"
 #endif
 
 @implementation MainViewController
@@ -51,6 +52,7 @@
     if (kPupulateData) {
       // Hard Initialize the DB Data for |Pokemon|
       [Pokemon populateData];
+      [Move populateData];
     }
 #endif
     

@@ -52,6 +52,8 @@
         Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[tamedPokemonData valueForKey:@"sid"] intValue]];
         tamedPokemon.pokemon = pokemon;
         pokemon = nil;
+        
+//        tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
       }
       
       // Set data
@@ -62,7 +64,6 @@
       tamedPokemon.gender      = [tamedPokemonData valueForKey:@"gender"];
       tamedPokemon.happiness   = [tamedPokemonData valueForKey:@"happiness"];
       tamedPokemon.level       = [tamedPokemonData valueForKey:@"level"];
-      tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
       tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
       tamedPokemon.leftStats   = [tamedPokemonData valueForKey:@"leftStats"];
       tamedPokemon.currEXP     = [tamedPokemonData valueForKey:@"currEXP"];
