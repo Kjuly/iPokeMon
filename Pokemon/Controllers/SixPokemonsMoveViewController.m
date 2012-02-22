@@ -22,6 +22,7 @@
 @implementation SixPokemonsMoveViewController
 
 @synthesize fourMoves      = fourMoves_;
+@synthesize fourMovesPP    = fourMovesPP_;
 @synthesize fourMovesView  = fourMovesView_;
 @synthesize moveOneView    = moveOneView_;
 @synthesize moveTwoView    = moveTwoView_;
@@ -32,6 +33,7 @@
 - (void)dealloc
 {
   [fourMoves_      release];
+  [fourMovesPP_    release];
   [fourMovesView_  release];
   [moveOneView_    release];
   [moveTwoView_    release];
@@ -101,25 +103,37 @@
   
   self.fourMoves = [self.pokemon.fourMoves allObjects];
   
+  if ([self.pokemon.fourMovesPP isKindOfClass:[NSString class]]) {
+    NSMutableArray * movesPP = [NSMutableArray arrayWithCapacity:8];
+    for (id movePP in [self.pokemon.fourMovesPP componentsSeparatedByString:@","])
+      [movesPP addObject:[NSNumber numberWithInt:[movePP intValue]]];
+    fourMovesPP_ = [[NSArray alloc] initWithArray:movesPP];
+  }
+  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.pokemon.fourMovesPP];
+  
   Move * moveOne   = [self.fourMoves objectAtIndex:0];
   [self.moveOneView.type1 setText:[moveOne.type stringValue]];
   [self.moveOneView.name setText:NSLocalizedString(moveOne.name, nil)];
-  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d/%d", [moveOne.basePP intValue], [moveOne.basePP intValue]]];
+  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d/%d",
+                                [[fourMovesPP_ objectAtIndex:1] intValue], [[fourMovesPP_ objectAtIndex:0] intValue]]];
   
   Move * moveTwo   = [self.fourMoves objectAtIndex:1];
   [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
   [self.moveTwoView.name setText:NSLocalizedString(moveTwo.name, nil)];
-  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d/%d", [moveTwo.basePP intValue], [moveTwo.basePP intValue]]];
+  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d/%d",
+                                [[fourMovesPP_ objectAtIndex:3] intValue], [[fourMovesPP_ objectAtIndex:2] intValue]]];
   
   Move * moveThree = [self.fourMoves objectAtIndex:2];
   [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
   [self.moveThreeView.name setText:NSLocalizedString(moveThree.name, nil)];
-  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d/%d", [moveThree.basePP intValue], [moveThree.basePP intValue]]];
+  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d/%d",
+                                  [[fourMovesPP_ objectAtIndex:5] intValue], [[fourMovesPP_ objectAtIndex:4] intValue]]];
   
   Move * moveFour  = [self.fourMoves objectAtIndex:3];
   [self.moveFourView.type1 setText:[moveFour.type stringValue]];
   [self.moveFourView.name setText:NSLocalizedString(moveFour.name, nil)];
-  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d/%d", [moveFour.basePP intValue], [moveFour.basePP intValue]]];
+  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d/%d",
+                                 [[fourMovesPP_ objectAtIndex:7] intValue], [[fourMovesPP_ objectAtIndex:6] intValue]]];
 }
 
 - (void)viewDidUnload
@@ -127,6 +141,7 @@
   [super viewDidUnload];
   
   self.fourMoves      = nil;
+  self.fourMovesPP    = nil;
   self.fourMovesView  = nil;
   self.moveOneView    = nil;
   self.moveTwoView    = nil;
@@ -147,11 +162,13 @@
                          forControlEvents:UIControlEventTouchUpInside];
   }
   
-  Move * move = [self.fourMoves objectAtIndex:((UIButton *)sender).tag];
+  NSInteger moveTag = ((UIButton *)sender).tag;
+  Move * move = [self.fourMoves objectAtIndex:moveTag];
   [self.moveDetailView.moveBaseView.type1 setText:[move.type stringValue]];
   [self.moveDetailView.moveBaseView.name  setText:NSLocalizedString(move.name, nil)];
   [self.moveDetailView.moveBaseView.pp    setText:[NSString stringWithFormat:@"%d/%d",
-                                                   [move.basePP intValue], [move.basePP intValue]]];
+                                                   [[fourMovesPP_ objectAtIndex:moveTag * 2 + 1] intValue],
+                                                   [[fourMovesPP_ objectAtIndex:moveTag * 2] intValue]]];
   [self.moveDetailView.categoryLabelView.value setText:[move.category stringValue]];
   [self.moveDetailView.powerLabelView.value    setText:[move.baseDamage stringValue]];
   [self.moveDetailView.accuracyLabelView.value setText:[move.hitChance stringValue]];

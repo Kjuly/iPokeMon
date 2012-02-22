@@ -20,11 +20,11 @@
 
 -(void)dealloc
 {
-  [name_  release];
-  [type1_ release];
-  [type2_ release];
-  [pp_    release];
-  [viewButton_ release];
+//  [name_  release];
+//  [type1_ release];
+//  [type2_ release];
+//  [pp_    release];
+//  [viewButton_ release];
   
   self.name  = nil;
   self.type1 = nil;

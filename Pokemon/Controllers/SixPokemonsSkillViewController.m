@@ -107,25 +107,20 @@
 {
   [super viewDidLoad];
   
-  NSArray * statsLeft;
   NSArray * statsMax;
-  if ([self.pokemon.leftStats isKindOfClass:[NSString class]] || [self.pokemon.maxStats isKindOfClass:[NSString class]]) {
-    statsLeft = [self.pokemon.leftStats componentsSeparatedByString:@","];
+  if ([self.pokemon.maxStats isKindOfClass:[NSString class]])
     statsMax  = [self.pokemon.maxStats  componentsSeparatedByString:@","];
-  }
-  else {
-    statsLeft = self.pokemon.leftStats;
+  else
     statsMax  = self.pokemon.maxStats;
-  }
   
   [self.hpLabelView.value setText:[NSString stringWithFormat:@"%d/%d",
-                                  [[statsLeft objectAtIndex:0] intValue], [[statsMax objectAtIndex:0] intValue]]];
-  [self.attackLabelView.value setText:[statsMax objectAtIndex:1]];
-  [self.defenseLabelView.value setText:[statsMax objectAtIndex:2]];
-  [self.spAttackLabelView.value setText:[statsMax objectAtIndex:3]];
+                                  [self.pokemon.currHP intValue], [[statsMax objectAtIndex:0] intValue]]];
+  [self.attackLabelView.value    setText:[statsMax objectAtIndex:1]];
+  [self.defenseLabelView.value   setText:[statsMax objectAtIndex:2]];
+  [self.spAttackLabelView.value  setText:[statsMax objectAtIndex:3]];
   [self.spDefenseLabelView.value setText:[statsMax objectAtIndex:4]];
-  [self.speedLabelView.value setText:[statsMax objectAtIndex:5]];
-  [self.abilityLabelView.value setText:[self.pokemon.pokemon.ability1 stringValue]];
+  [self.speedLabelView.value     setText:[statsMax objectAtIndex:5]];
+  [self.abilityLabelView.value   setText:[self.pokemon.pokemon.ability1 stringValue]];
 }
 
 - (void)viewDidUnload

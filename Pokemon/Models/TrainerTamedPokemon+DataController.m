@@ -54,7 +54,7 @@
         tamedPokemon.pokemon = pokemon;
         pokemon = nil;
         
-        NSArray * moveIDs = [[tamedPokemonData valueForKey:@"fourMoves"] componentsSeparatedByString:@","];
+        NSArray * moveIDs = [[tamedPokemonData valueForKey:@"fourMovesID"] componentsSeparatedByString:@","];
         NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
         [tamedPokemon addFourMoves:[NSSet setWithArray:moves]];
         moves = nil;
@@ -65,12 +65,13 @@
       tamedPokemon.uid         = [tamedPokemonData valueForKey:@"uid"];
       tamedPokemon.sid         = [tamedPokemonData valueForKey:@"sid"];
       tamedPokemon.box         = [tamedPokemonData valueForKey:@"box"];
-      tamedPokemon.state       = [tamedPokemonData valueForKey:@"state"];
+      tamedPokemon.status      = [tamedPokemonData valueForKey:@"status"];
       tamedPokemon.gender      = [tamedPokemonData valueForKey:@"gender"];
       tamedPokemon.happiness   = [tamedPokemonData valueForKey:@"happiness"];
       tamedPokemon.level       = [tamedPokemonData valueForKey:@"level"];
+      tamedPokemon.fourMovesPP = [tamedPokemonData valueForKey:@"fourMovesPP"];
       tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
-      tamedPokemon.leftStats   = [tamedPokemonData valueForKey:@"leftStats"];
+      tamedPokemon.currHP      = [tamedPokemonData valueForKey:@"currHP"];
       tamedPokemon.currEXP     = [tamedPokemonData valueForKey:@"currEXP"];
       tamedPokemon.toNextLevel = [tamedPokemonData valueForKey:@"toNextLevel"];
       tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
@@ -116,7 +117,7 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"state == %@ AND owner.sid == %@",
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %@ AND owner.sid == %@",
                               [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
   [fetchRequest setFetchLimit:6];
   

@@ -18,16 +18,17 @@
 @dynamic currEXP;
 @dynamic gender;
 @dynamic happiness;
-@dynamic leftStats;
+@dynamic currHP;
 @dynamic level;
 @dynamic maxStats;
 @dynamic memo;
 @dynamic sid;
-@dynamic state;
+@dynamic status;
 @dynamic toNextLevel;
 @dynamic uid;
+@dynamic fourMovesPP;
+@dynamic fourMoves;
 @dynamic owner;
 @dynamic pokemon;
-@dynamic fourMoves;
 
 @end
