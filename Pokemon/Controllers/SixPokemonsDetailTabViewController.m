@@ -50,13 +50,6 @@
     sixPokemonsSkillViewController_ = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
     sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
     
-    // Set child views' Frame
-//    CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
-//    [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
-//    [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
-//    [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
-//    [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
-    
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Info.png", @"image", sixPokemonsInfoViewController_, @"viewController", nil],
@@ -95,7 +88,7 @@
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
   CGRect  const imageContainerFrame = CGRectMake(10.0f, 10.0f + kTopBarHeight, imageWidth, imageHeight);
-  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 20.0f, 50.0f + kTopBarHeight, 300.0f - imageWidth, imageHeight - 50.0f);
+  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.0f, 50.0f + kTopBarHeight, 300.0f - imageWidth, imageHeight - 50.0f);
   
   // Base information for Pokemon
   Pokemon * pokemonBaseInfo = self.pokemon.pokemon;
