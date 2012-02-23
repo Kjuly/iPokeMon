@@ -8,7 +8,7 @@
 
 #import "MapViewController.h"
 
-@interface MapViewController (PrivateMethods)
+@interface MapViewController ()
 
 - (void)continueUpdatingLocation;
 
@@ -86,20 +86,23 @@
   
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
-/*  
-  // Start Updating Location
-  [locationManageer_ startUpdatingLocation];
-  isUpdatingLocation_ = YES;
-  
-  // Stop Updating Location
-//  [locationManageer_ stopUpdatingLocation];
-  
-  // Check whether it is updating location after some time interval
-  [NSTimer scheduledTimerWithTimeInterval:10
-                                   target:self
-                                 selector:@selector(continueUpdatingLocation)
-                                 userInfo:nil
-                                  repeats:YES];*/
+
+  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]);
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"]) {
+#if DEBUG
+    NSLog(@"Start Tracking Location...");
+#endif
+    // Start Updating Location
+    [locationManageer_ startUpdatingLocation];
+    isUpdatingLocation_ = YES;
+    
+    // Check whether it is updating location after some time interval
+    [NSTimer scheduledTimerWithTimeInterval:10
+                                     target:self
+                                   selector:@selector(continueUpdatingLocation)
+                                   userInfo:nil
+                                    repeats:YES];  
+  }
 }
 
 - (void)viewDidUnload

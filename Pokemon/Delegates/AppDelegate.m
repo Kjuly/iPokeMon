@@ -10,6 +10,8 @@
 
 #import "MainViewController.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 #ifdef DEBUG
 #import "GlobalConstants.h"
 #import "Pokemon+DataController.h"
@@ -53,10 +55,20 @@
   MainViewController * mainViewController = [[MainViewController alloc] init];
   self.window.rootViewController = mainViewController;
   [mainViewController release];
-  
   [self.window makeKeyAndVisible];
-  
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+  
+  // Create a location manager instance to determine if location services are enabled.
+  if (! [CLLocationManager locationServicesEnabled]) {
+    UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [servicesDisabledAlert show];
+    [servicesDisabledAlert release];
+  }
+  else {
+    // Set value in User Preferences (its default value is NO)
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"keyAppSettingsLocationServices"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+  }
   
   return YES;
 }
