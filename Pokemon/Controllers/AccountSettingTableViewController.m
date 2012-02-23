@@ -21,6 +21,7 @@
 {
   self = [super initWithStyle:style];
   if (self) {
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
   }
   return self;
 }

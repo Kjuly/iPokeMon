@@ -15,6 +15,13 @@
 #import "Pokemon+DataController.h"
 #endif
 
+
+@interface AppDelegate ()
+
+- (void)registerDefaultsFromSettingsBundle;
+
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -33,8 +40,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  // User Preferences
+  // If not exists, load keyValues from |Settings.bundle| to |NSUserDefaults|
+  NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"];
+  if (! appVersion) {
+    NSLog(@"Register Defaults From Settings.bundle...");
+    [self registerDefaultsFromSettingsBundle];
+  }
   
+  // Set View
+  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   MainViewController * mainViewController = [[MainViewController alloc] init];
   self.window.rootViewController = mainViewController;
   [mainViewController release];
@@ -224,6 +239,30 @@
 - (NSURL *)applicationDocumentsDirectory
 {
   return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Private Methods
+
+- (void)registerDefaultsFromSettingsBundle
+{
+  NSString * settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+  if(! settingsBundle) return;
+  
+  NSDictionary * settings = [[NSDictionary alloc] initWithContentsOfFile:
+                             [settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
+  NSArray * preferences = [[NSArray alloc] initWithArray:[settings objectForKey:@"PreferenceSpecifiers"]];
+  [settings release];
+  
+  NSMutableDictionary * defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
+  for(NSDictionary * prefSpecification in preferences) {
+    NSString * key = [prefSpecification objectForKey:@"Key"];
+    if(key) [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
+  }
+  [preferences release];
+  
+  [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
+  [defaultsToRegister release];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
