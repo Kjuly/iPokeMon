@@ -10,10 +10,31 @@
 
 #import "SettingSectionHeaderView.h"
 
+
+typedef enum {
+  kSectionAppSettings = 0,
+  kSectionAbout,
+  kNumberOfSections
+}Section;
+
+typedef enum {
+  kSectionAppSettingsRowLocationServices = 0,
+  kNumberOfSectionAppSettingsRows
+}SectionAppSettingsRow;
+
+typedef enum {
+  kSectionAboutRowVersion = 0,
+  kNumberOfSectionAboutRows
+}SectionAboutRow;
+
 @implementation AccountSettingTableViewController
 
+@synthesize sectionNames = sectionNames_;
+
 - (void)dealloc
-{  
+{
+  [sectionNames_ release];
+  
   [super dealloc];
 }
 
@@ -22,6 +43,8 @@
   self = [super initWithStyle:style];
   if (self) {
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    
+    sectionNames_ = [[NSArray alloc] initWithObjects:@"App Settings", @"About", nil];
   }
   return self;
 }
@@ -44,6 +67,8 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.sectionNames = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -75,11 +100,23 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 3;
+  return kNumberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 6;
+  switch (section) {
+    case kSectionAppSettings:
+      return kNumberOfSectionAppSettingsRows;
+      break;
+      
+    case kSectionAbout:
+      return kNumberOfSectionAboutRows;
+      break;
+      
+    default:
+      return 1;
+      break;
+  }
 }
 
 // Section Header Height
@@ -92,7 +129,7 @@
 {
   CGRect const sectionHeaderViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 40.0f);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
-  [sectionHeaderView.title setText:@"Section Name"];
+  [sectionHeaderView.title setText:[self.sectionNames objectAtIndex:section]];
   return [sectionHeaderView autorelease];
 }
 
@@ -106,6 +143,29 @@
   }
   
   // Configure the cell...
+  NSInteger sectionNum = indexPath.section;
+  NSInteger rowNum     = indexPath.row;
+  if (sectionNum == kSectionAppSettings) {
+    switch (rowNum) {
+      case kSectionAppSettingsRowLocationServices:
+        [cell.textLabel setText:
+         [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"] ? @"YES" : @"NO"];
+        break;
+        
+      default:
+        break;
+    }
+  }
+  else if (sectionNum == kSectionAbout) {
+    switch (rowNum) {
+      case kSectionAboutRowVersion:
+        [cell.textLabel setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"]];
+        break;
+        
+      default:
+        break;
+    }
+  }
   
   return cell;
 }

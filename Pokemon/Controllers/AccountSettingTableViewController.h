@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface AccountSettingTableViewController : UITableViewController
+{
+  NSArray * sectionNames_;
+}
+
+@property (nonatomic, copy) NSArray * sectionNames;
 
 @end
