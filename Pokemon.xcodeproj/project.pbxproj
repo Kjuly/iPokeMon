@@ -359,6 +359,8 @@
 		7FEED5D414E50E520010F7F2 /* TabBarSelectedArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */; };
 		7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */; };
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
+		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
+		7FF4B3F814F629BF007B7E22 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -812,6 +814,10 @@
 		7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarSelectedArrow.png; sourceTree = "<group>"; };
 		7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarSelectedArrow@2x.png"; sourceTree = "<group>"; };
 		7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSectionHeaderView.h; sourceTree = "<group>"; };
+		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
+		7FF4B3F614F629BF007B7E22 /* AccountSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
+		7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -971,6 +977,8 @@
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
 				7F51C41E14D7E0BF0091902D /* UtilityViewController.h */,
 				7F51C41F14D7E0BF0091902D /* UtilityViewController.m */,
+				7FF4B3F614F629BF007B7E22 /* AccountSettingViewController.h */,
+				7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */,
 				7FEED5C214E4E8F10010F7F2 /* AccountSettingTableViewController.h */,
 				7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */,
 				7F8EFA9214D9465E00FF1055 /* UtilityBallMenuViewController.h */,
@@ -1181,6 +1189,8 @@
 				7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */,
 				7FBB60D514E6C37C00C24BA5 /* TrainerBadgesTableViewCell.h */,
 				7FBB60D614E6C37C00C24BA5 /* TrainerBadgesTableViewCell.m */,
+				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
+				7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1941,6 +1951,8 @@
 				7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */,
 				7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */,
 				7F5F583D14F51EAF00AFF048 /* TrainerTamedPokemon.m in Sources */,
+				7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */,
+				7FF4B3F814F629BF007B7E22 /* AccountSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

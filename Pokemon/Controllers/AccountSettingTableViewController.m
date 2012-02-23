@@ -8,22 +8,12 @@
 
 #import "AccountSettingTableViewController.h"
 
-@interface AccountSettingTableViewController (PrivateMethods)
-
-- (void)cancelAccountSettingTableView;
-
-@end
-
+#import "SettingSectionHeaderView.h"
 
 @implementation AccountSettingTableViewController
 
-@synthesize delegate = delegate_;
-@synthesize topBar = topBar_;
-
 - (void)dealloc
-{
-  [topBar_ release];
-  
+{  
   [super dealloc];
 }
 
@@ -31,24 +21,6 @@
 {
   self = [super initWithStyle:style];
   if (self) {
-    [self.tableView setFrame:CGRectMake(0.0f, 60.0f, 320.0f, 420.0f)];
-    
-    // Create Top Bar
-    UIImage * topBarBackgroundImage = [UIImage imageNamed:@"NavigationBarBackgroundBlue.png"];
-    CGFloat topBarHeight = topBarBackgroundImage.size.height;
-    topBar_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, topBarHeight)];
-    [topBar_ setBackgroundColor:[UIColor colorWithPatternImage:topBarBackgroundImage]];
-    [topBar_ setOpaque:NO];
-    
-    // Create Button to Cancel View
-    UIImage * cancelButtonImage = [UIImage imageNamed:@"AccountSettingTableView_CancelButton.png"];
-    UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(14.0f, 8.0f, cancelButtonImage.size.width, cancelButtonImage.size.height)];
-    [cancelButton setImage:cancelButtonImage forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancelAccountSettingTableView) forControlEvents:UIControlEventTouchUpInside];
-    [topBar_ addSubview:cancelButton];
-    [cancelButton release];
-    
-    [self.view addSubview:topBar_];
   }
   return self;
 }
@@ -71,9 +43,6 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  
-  self.delegate = nil;
-  self.topBar = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,11 +74,25 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
+  return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 10;
+  return 6;
+}
+
+// Section Header Height
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+  return 35.0f;
+}
+
+// Section Header View Style
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  CGRect const sectionHeaderViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 40.0f);
+  SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
+  [sectionHeaderView.title setText:@"Section Name"];
+  return [sectionHeaderView autorelease];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -177,12 +160,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
-}
-
-#pragma mark - Private Methods
-
-- (void)cancelAccountSettingTableView {
-  [delegate_ cancelAccountSettingTableView];
 }
 
 @end

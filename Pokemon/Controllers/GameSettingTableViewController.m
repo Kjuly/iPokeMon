@@ -10,6 +10,7 @@
 
 #import "PListParser.h"
 #import "GlobalRender.h"
+#import "SettingSectionHeaderView.h"
 
 
 @implementation GameSettingTableViewController
@@ -103,20 +104,11 @@
 // Section Header View Style
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  UIView * sectionView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 40.0f)];
-  [sectionView setBackgroundColor:[GlobalRender backgroundColorMain]];
+  CGRect const sectionHeaderViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 40.0f);
+  SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
+  [sectionHeaderView.title setText:[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"]];
   
-  // Create Section Label for Section Title
-  UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 5.0f, 310.0f, 25.0f)];
-  [sectionLabel setBackgroundColor:[UIColor clearColor]];
-  [sectionLabel setTextColor:[UIColor whiteColor]];
-  [sectionLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:13.0f]];
-  [sectionLabel setText:[[self.settingOptions objectAtIndex:section] objectForKey:@"sectionName"]];
-  
-  [sectionView addSubview:sectionLabel];
-  [sectionLabel release];
-  
-  return [sectionView autorelease];
+  return [sectionHeaderView autorelease];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

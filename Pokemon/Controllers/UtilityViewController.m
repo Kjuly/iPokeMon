@@ -31,7 +31,7 @@
 @synthesize buttonDiscover    = buttonDiscover_;
 @synthesize buttonSetAccount  = buttonSetAccount_;
 
-@synthesize accountSettingTableViewController = accountSettingTableViewController_;
+@synthesize accountSettingViewController = accountSettingViewController_;
 
 - (void)dealloc
 {
@@ -40,7 +40,7 @@
   [buttonDiscover_ release];
   [buttonSetAccount_ release];
   
-  [accountSettingTableViewController_ release];
+  [accountSettingViewController_ release];
   
   [super dealloc];
 }
@@ -156,7 +156,7 @@
   self.buttonDiscover   = nil;
   self.buttonSetAccount = nil;
   
-  self.accountSettingTableViewController = nil;
+  self.accountSettingViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -181,21 +181,21 @@
 
 - (void)openAccountSettingTableView:(id)sender
 {
-  if (! self.accountSettingTableViewController) {
-    accountSettingTableViewController_ = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    accountSettingTableViewController_.delegate = self;
-    [accountSettingTableViewController_.view setAlpha:0.0f];
-    [accountSettingTableViewController_.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
+  if (! accountSettingViewController_) {
+    accountSettingViewController_ = [[AccountSettingViewController alloc] init];
+    accountSettingViewController_.delegate = self;
+    [accountSettingViewController_.view setAlpha:0.0f];
+    [accountSettingViewController_.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
   }
   
-  [[UIApplication sharedApplication].delegate.window addSubview:self.accountSettingTableViewController.view];
+  [[UIApplication sharedApplication].delegate.window addSubview:self.accountSettingViewController.view];
   
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     [self.accountSettingTableViewController.view setAlpha:1.0f];
-                     [self.accountSettingTableViewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+                     [self.accountSettingViewController.view setAlpha:1.0f];
+                     [self.accountSettingViewController.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
                    }
                    completion:nil];
 }
@@ -208,11 +208,11 @@
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     [self.accountSettingTableViewController.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
-                     [self.accountSettingTableViewController.view setAlpha:0.0f];
+                     [self.accountSettingViewController.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
+                     [self.accountSettingViewController.view setAlpha:0.0f];
                    }
                    completion:^(BOOL finished) {
-                     [self.accountSettingTableViewController.view removeFromSuperview];
+                     [self.accountSettingViewController.view removeFromSuperview];
                    }];
 }
 
