@@ -256,7 +256,8 @@
   NSMutableDictionary * defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
   for(NSDictionary * prefSpecification in preferences) {
     NSString * key = [prefSpecification objectForKey:@"Key"];
-    if(key) [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
+    if(key && [prefSpecification objectForKey:@"DefaultValue"])
+      [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
   }
   [preferences release];
   

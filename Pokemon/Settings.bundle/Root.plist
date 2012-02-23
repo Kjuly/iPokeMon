@@ -21,6 +21,38 @@
 			<false/>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Child Pane Title</string>
+			<key>Key</key>
+			<string>keyAppSettingsSkin</string>
+			<key>File</key>
+			<string>ChildPane</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Font</string>
+			<key>Key</key>
+			<string>keyAppSettingsFont</string>
+			<key>Titles</key>
+			<array>
+				<string>Small</string>
+				<string>Normal Normal</string>
+				<string>Big</string>
+			</array>
+			<key>DefaultValue</key>
+			<string>Normal</string>
+			<key>Values</key>
+			<array>
+				<string>Small</string>
+				<string>Normal</string>
+				<string>Big</string>
+			</array>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Game Settings</string>
 			<key>Type</key>

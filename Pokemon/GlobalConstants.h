@@ -7,7 +7,7 @@
 //
 
 // Debug Settings
-#define kPupulateData 0
+#define kPupulateData 1
 
 // Main view settings
 #define kMapViewHeight      200.0f
