@@ -358,6 +358,7 @@
 		7FEED5D014E506D30010F7F2 /* TabBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */; };
 		7FEED5D414E50E520010F7F2 /* TabBarSelectedArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */; };
 		7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */; };
+		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -810,6 +811,7 @@
 		7FEED5CE14E506D30010F7F2 /* TabBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackground@2x.png"; sourceTree = "<group>"; };
 		7FEED5D214E50E4E0010F7F2 /* TabBarSelectedArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarSelectedArrow.png; sourceTree = "<group>"; };
 		7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarSelectedArrow@2x.png"; sourceTree = "<group>"; };
+		7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -936,6 +938,7 @@
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
 				7F6E6CC614D6CAA600033C65 /* main.m */,
 				7F6E6CC814D6CAA600033C65 /* Pokemon-Prefix.pch */,
+				7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1819,6 +1822,7 @@
 				7F51BF5314F364F8008FCF1D /* CHANGELOG.md in Resources */,
 				7F51BF5514F364F8008FCF1D /* README.md in Resources */,
 				7FD14F0714F4C0AC00082330 /* Moves.plist in Resources */,
+				7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
