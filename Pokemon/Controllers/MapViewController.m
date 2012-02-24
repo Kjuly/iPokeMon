@@ -16,6 +16,7 @@
 
 - (void)continueUpdatingLocation;
 - (void)resetIsPokemonAppeared:(NSNotification *)notification;
+- (void)setEventTimerStatusToRunning:(BOOL)running;
 
 @end
 
@@ -27,6 +28,7 @@
 @synthesize location           = location_;
 @synthesize isUpdatingLocation = isUpdatingLocation_;
 @synthesize isPokemonAppeared  = isPokemonAppeared_;
+@synthesize eventTimer         = eventTimer_;
 
 - (void)dealloc
 {
@@ -111,11 +113,7 @@
       NSLog(@"Start Tracking Location...");
       isUpdatingLocation_ = NO;
       // Check whether it is updating location after some time interval
-      [NSTimer scheduledTimerWithTimeInterval:5
-                                       target:self
-                                     selector:@selector(continueUpdatingLocation)
-                                     userInfo:nil
-                                      repeats:YES];
+      [self setEventTimerStatusToRunning:YES];
     }
   }
 }
@@ -128,6 +126,7 @@
   
   self.locationManager = nil;
   self.location        = nil;
+  self.eventTimer      = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -188,8 +187,8 @@
       UILocalNotification * localNotification = [[UILocalNotification alloc] init];
       if (! localNotification)
         return; // old iOS version
-      //localNotification.fireDate = [NSData data];
-      localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+      localNotification.fireDate = [NSData data];
+      //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
       localNotification.timeZone = [NSTimeZone defaultTimeZone];
       localNotification.alertBody = @"Pokemon Appeared!";
       localNotification.alertAction = @"Go";
@@ -209,6 +208,11 @@
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil];
     }
     self.isPokemonAppeared = YES;
+    [self setEventTimerStatusToRunning:NO];
+    
+    // Stop updating Location
+    self.isUpdatingLocation = NO;
+    [self.locationManager stopUpdatingLocation];
   }
 
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
@@ -282,7 +286,26 @@
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification
 {
+  NSLog(@"resetIsPokemonAppeared");
   self.isPokemonAppeared = NO;
+  [self setEventTimerStatusToRunning:YES];
+}
+
+- (void)setEventTimerStatusToRunning:(BOOL)running
+{
+  if (running) {
+    if (! self.eventTimer)
+      self.eventTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                         target:self
+                                                       selector:@selector(continueUpdatingLocation)
+                                                       userInfo:nil
+                                                        repeats:YES];
+  }
+  else {
+    NSLog(@"Stop Timer....");
+    [self.eventTimer invalidate];
+    self.eventTimer = nil;
+  }
 }
 
 @end
