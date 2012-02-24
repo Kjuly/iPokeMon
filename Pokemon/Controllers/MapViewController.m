@@ -10,9 +10,12 @@
 
 #import "GlobalNotificationConstants.h"
 
+#define kLocationServiceLowBatteryMode 0
+
 @interface MapViewController ()
 
 - (void)continueUpdatingLocation;
+- (void)resetIsPokemonAppeared:(NSNotification *)notification;
 
 @end
 
@@ -23,6 +26,7 @@
 @synthesize locationManager    = locationManageer_;
 @synthesize location           = location_;
 @synthesize isUpdatingLocation = isUpdatingLocation_;
+@synthesize isPokemonAppeared  = isPokemonAppeared_;
 
 - (void)dealloc
 {
@@ -74,7 +78,13 @@
 {
   [super viewDidLoad];
   
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(resetIsPokemonAppeared:)
+                                               name:kPMNBattleEnd object:nil];
+  
   [self.mapView setShowsUserLocation:YES];
+  
+  isPokemonAppeared_ = NO;
   
   // Core Location
   // Create the Manager Object 
@@ -84,27 +94,29 @@
   // This is the most important property to set for the manager. It ultimately determines how the manager will
   // attempt to acquire location and thus, the amount of power that will be consumed.
   [locationManageer_ setDesiredAccuracy:kCLLocationAccuracyBest];
-  [locationManageer_ setDistanceFilter:kCLDistanceFilterNone];
+//  [locationManageer_ setDistanceFilter:kCLDistanceFilterNone];
+  [locationManageer_ setDistanceFilter:100];
   
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
 
   NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]);
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"]) {
-#if DEBUG
-    NSLog(@"Start Tracking Location...");
-#endif
-    // Start Updating Location
-//    [locationManageer_ startUpdatingLocation];
-//    isUpdatingLocation_ = YES;
-    isUpdatingLocation_ = NO;
-    
-    // Check whether it is updating location after some time interval
-    [NSTimer scheduledTimerWithTimeInterval:10
-                                     target:self
-                                   selector:@selector(continueUpdatingLocation)
-                                   userInfo:nil
-                                    repeats:YES];
+    if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
+      NSLog(@"Significant Location Change Monitoring Available");
+      // Significant-Change Location Service
+      [self.locationManager startMonitoringSignificantLocationChanges];
+    }
+    else {
+      NSLog(@"Start Tracking Location...");
+      isUpdatingLocation_ = NO;
+      // Check whether it is updating location after some time interval
+      [NSTimer scheduledTimerWithTimeInterval:5
+                                       target:self
+                                     selector:@selector(continueUpdatingLocation)
+                                     userInfo:nil
+                                      repeats:YES];
+    }
   }
 }
 
@@ -129,6 +141,9 @@
 // Locate user's location
 - (void)actionForButtonLocateMe
 {
+  // Get current location
+  self.location = self.locationManager.location;
+  
   // Zoom In the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
   region.span.longitudeDelta = 0.01f;
@@ -140,6 +155,9 @@
 // Show whole world map
 - (void)actionForButtonShowWorld
 {
+  // Get current location
+  self.location = self.locationManager.location;
+  
   // Zoom Out the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
   region.span.longitudeDelta = 180;
@@ -157,19 +175,50 @@
            fromLocation:(CLLocation *)oldLocation
 {
   self.location = newLocation;
-//  NSLog(@"<<< New Location: %@", [self.location description]);
-  NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
+//  NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
   
   // Post Notification: Pokemon Appeared!
-  int randomSeed = arc4random() % 3;
-  NSLog(@"RandomSeed: %d", randomSeed);
-  if (randomSeed == 1)
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil];
-  
-  // When |horizontalAccuracy| of location is smaller than 100, stop updating location
-  if (self.location.horizontalAccuracy < 100) {
-    [self.locationManager stopUpdatingLocation];
-    self.isUpdatingLocation = NO;
+  // Check whether the App is in Background or Foreground
+  int randomSeed = arc4random() % 2;
+  if (! self.isPokemonAppeared && randomSeed) {
+    NSLog(@"RandomSeed: %d", randomSeed);
+    // Use |Local Notification| in Background Mode
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+//      NSLog(@"App is in Background Mode, so Present Local Notification...");
+      UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+      if (! localNotification)
+        return; // old iOS version
+      //localNotification.fireDate = [NSData data];
+      localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+      localNotification.timeZone = [NSTimeZone defaultTimeZone];
+      localNotification.alertBody = @"Pokemon Appeared!";
+      localNotification.alertAction = @"Go";
+//      localNotification.soundName = nil;
+//      localNotification.alertBody = nil;
+//      localNotification.hasAction = FALSE;
+      localNotification.applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
+      NSLog(@"//%d", localNotification.applicationIconBadgeNumber);
+      localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSData data], @"time", @"234", @"key2", nil];
+      //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+      [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+      [localNotification release];
+    }
+    // User Post Notification in Foreground Mode
+    else {
+//      NSLog(@"App is in Foreground Mode, so just Post Notification");
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil];
+    }
+    self.isPokemonAppeared = YES;
+  }
+
+  // If not in Low Battery Mode, need to check |horizontalAccuracy|
+  // Stop updating location when need
+  if (! kLocationServiceLowBatteryMode) {
+    // When |horizontalAccuracy| of location is smaller than 100, stop updating location
+    if (self.location.horizontalAccuracy < 100) {
+      [self.locationManager stopUpdatingLocation];
+      self.isUpdatingLocation = NO;
+    }
   }
 }
 
@@ -225,9 +274,15 @@
 - (void)continueUpdatingLocation
 {
   if (! self.isUpdatingLocation) {
+    // Standard Location Service
     [self.locationManager startUpdatingLocation];
     self.isUpdatingLocation = YES;
   }
+}
+
+- (void)resetIsPokemonAppeared:(NSNotification *)notification
+{
+  self.isPokemonAppeared = NO;
 }
 
 @end

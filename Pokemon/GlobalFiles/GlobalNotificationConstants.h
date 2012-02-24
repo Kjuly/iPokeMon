@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const kPMNPokemonAppeared;
+extern NSString * const kPMNBattleEnd;
 
 @interface GlobalNotificationConstants : NSObject
 

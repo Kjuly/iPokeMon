@@ -10,6 +10,7 @@
 
 // PMN: PokeMon Notification
 NSString * const kPMNPokemonAppeared = @"PMNPokemonAppeared";
+NSString * const kPMNBattleEnd       = @"PMNBattleEnd";
 
 @implementation GlobalNotificationConstants
 

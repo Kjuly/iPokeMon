@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#import "GlobalNotificationConstants.h"
 #import "MainViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
@@ -58,6 +59,24 @@
   [self.window makeKeyAndVisible];
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
   
+  
+  // Push Notification Register (for iOS 5.0's bug?)
+  [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+                                                                       |UIRemoteNotificationTypeAlert
+                                                                       |UIRemoteNotificationTypeSound];
+  
+  // Deal with Local Notification if user received the local notification
+  UILocalNotification * localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+  NSLog(@"localNotification: %@", localNotification);
+  if (localNotification) {
+    NSLog(@"<!!! Received the Local Notification >");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
+                                                        object:self
+                                                      userInfo:localNotification.userInfo];
+  }
+  application.applicationIconBadgeNumber = 0;
+  
+  
   // Create a location manager instance to determine if location services are enabled.
   if (! [CLLocationManager locationServicesEnabled]) {
     UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -87,6 +106,7 @@
    Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
    If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
    */
+  NSLog(@"Application entered background state...");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -94,6 +114,7 @@
   /*
    Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
    */
+  application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -251,6 +272,30 @@
 - (NSURL *)applicationDocumentsDirectory
 {
   return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Notification
+
+// Remote Notification
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+  NSLog(@"--- AppDelegate didReceiveRemoteNotification:");
+}
+
+// Local Notification
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+//  NSLog(@"--- AppDelegate didReceiveLocalNotification:");
+  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+    NSLog(@"Background to Foreground, Run App after User Pressed the button");
+    NSLog(@"Notification's |userInfo|: %@", notification.userInfo);
+    application.applicationIconBadgeNumber = 0;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
+                                                        object:self
+                                                      userInfo:notification.userInfo];
+  }
+  else NSLog(@"In Foreground, and receive a Local Notification");
 }
 
 #pragma mark - Private Methods

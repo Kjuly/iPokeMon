@@ -19,11 +19,13 @@
   CLLocationManager * locationManageer_;
   CLLocation        * location_;
   BOOL                isUpdatingLocation_;
+  BOOL                isPokemonAppeared_;
 }
 
 @property (nonatomic, retain) MKMapView * mapView;
 @property (nonatomic, retain) CLLocationManager * locationManager;
 @property (nonatomic, retain) CLLocation        * location;
 @property (nonatomic, assign) BOOL                isUpdatingLocation;
+@property (nonatomic, assign) BOOL                isPokemonAppeared;
 
 @end

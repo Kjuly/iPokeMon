@@ -13,6 +13,7 @@
 @interface GameMainViewController ()
 
 - (void)loadBattleScene:(NSNotification *)notification;
+- (void)unloadBattleScene:(id)sender;
 
 @end
 
@@ -60,6 +61,13 @@
                                            selector:@selector(loadBattleScene:)
                                                name:kPMNPokemonAppeared
                                              object:nil];
+  
+  UIButton * buttonForGameEnding = [[UIButton alloc] initWithFrame:CGRectMake(10.0f, 160.0f, 300.0f, 32.0f)];
+  [buttonForGameEnding setBackgroundColor:[UIColor blackColor]];
+  [buttonForGameEnding setTitle:@"Battle End" forState:UIControlStateNormal];
+  [buttonForGameEnding addTarget:self action:@selector(unloadBattleScene:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:buttonForGameEnding];
+  [buttonForGameEnding release];
 }
 
 - (void)viewDidUnload
@@ -80,7 +88,7 @@
 
 - (void)loadBattleScene:(NSNotification *)notification
 {
-  NSLog(@"!!!!!!!!");
+  NSLog(@"Battle Scene Loading...");
   [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   [UIView animateWithDuration:0.3f
                         delay:0.0f
@@ -89,6 +97,23 @@
                      [self.view setAlpha:1.0f];
                    }
                    completion:nil];
+}
+
+- (void)unloadBattleScene:(id)sender
+{
+  NSLog(@"Battle Scene Unloading...");
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     [self.view setAlpha:0.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.view setFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
+                                                                         object:self
+                                                                       userInfo:nil];
+                   }];
 }
 
 @end
