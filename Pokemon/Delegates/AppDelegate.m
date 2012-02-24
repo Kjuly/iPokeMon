@@ -67,13 +67,8 @@
   
   // Deal with Local Notification if user received the local notification
   UILocalNotification * localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-  NSLog(@"localNotification: %@", localNotification);
-  if (localNotification) {
-    NSLog(@"<!!! Received the Local Notification >");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
-                                                        object:self
-                                                      userInfo:localNotification.userInfo];
-  }
+  if (localNotification)
+    [self application:application didReceiveLocalNotification:localNotification];
   application.applicationIconBadgeNumber = 0;
   
   
