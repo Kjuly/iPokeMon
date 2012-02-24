@@ -8,6 +8,8 @@
 
 #import "MapViewController.h"
 
+#import "GlobalNotificationConstants.h"
+
 @interface MapViewController ()
 
 - (void)continueUpdatingLocation;
@@ -93,15 +95,16 @@
     NSLog(@"Start Tracking Location...");
 #endif
     // Start Updating Location
-    [locationManageer_ startUpdatingLocation];
-    isUpdatingLocation_ = YES;
+//    [locationManageer_ startUpdatingLocation];
+//    isUpdatingLocation_ = YES;
+    isUpdatingLocation_ = NO;
     
     // Check whether it is updating location after some time interval
     [NSTimer scheduledTimerWithTimeInterval:10
                                      target:self
                                    selector:@selector(continueUpdatingLocation)
                                    userInfo:nil
-                                    repeats:YES];  
+                                    repeats:YES];
   }
 }
 
@@ -156,6 +159,12 @@
   self.location = newLocation;
 //  NSLog(@"<<< New Location: %@", [self.location description]);
   NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
+  
+  // Post Notification: Pokemon Appeared!
+  int randomSeed = arc4random() % 3;
+  NSLog(@"RandomSeed: %d", randomSeed);
+  if (randomSeed == 1)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil];
   
   // When |horizontalAccuracy| of location is smaller than 100, stop updating location
   if (self.location.horizontalAccuracy < 100) {

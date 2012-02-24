@@ -8,7 +8,7 @@
 
 #import "SixPokemonsDetailTabViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "TrainerTamedPokemon.h"
 #import "SixPokemonsInfoViewController.h"

@@ -8,7 +8,7 @@
 
 #import "SixPokemonsDetailViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 
 @implementation SixPokemonsDetailViewController
 

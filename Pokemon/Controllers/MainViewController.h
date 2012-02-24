@@ -12,6 +12,7 @@
 @class UtilityViewController;
 @class PoketchTabViewController;
 @class CustomNavigationController;
+@class GameMainViewController;
 
 @interface MainViewController : UIViewController
 {
@@ -21,6 +22,8 @@
   
   UIButton * buttonOpenBallMenu_;
   CustomNavigationController * utilityNavigationController_;
+  
+  GameMainViewController * gameMainViewController_;
 }
 
 @property (nonatomic, retain) MapViewController * mapViewController;
@@ -29,6 +32,8 @@
 
 @property (nonatomic, retain) UIButton * buttonOpenBallMenu;
 @property (nonatomic, retain) CustomNavigationController * utilityNavigationController;
+
+@property (nonatomic, retain) GameMainViewController * gameMainViewController;
 
 // Button Action
 - (void)openBallMenuView:(id)sender;

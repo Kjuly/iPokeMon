@@ -8,7 +8,7 @@
 
 #import "UtilityViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 
 

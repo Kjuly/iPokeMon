@@ -8,7 +8,7 @@
 
 #import "CustomTabViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 
 @implementation CustomTabViewController
 

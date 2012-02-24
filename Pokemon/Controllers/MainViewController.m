@@ -8,7 +8,7 @@
 
 #import "MainViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
@@ -17,6 +17,7 @@
 #import "PoketchTabViewController.h"
 #import "CustomNavigationController.h"
 #import "UtilityBallMenuViewController.h"
+#import "GameMainViewController.h"
 
 #ifdef DEBUG
 #import "Pokemon+DataController.h"
@@ -32,6 +33,8 @@
 @synthesize buttonOpenBallMenu            = buttonOpenBallMenu_;
 @synthesize utilityNavigationController   = utilityNavigationController_;
 
+@synthesize gameMainViewController = gameMainViewController_;
+
 - (void)dealloc
 {
   [mapViewController_ release];
@@ -40,6 +43,8 @@
   
   [buttonOpenBallMenu_ release];
   [utilityNavigationController_ release];
+  
+  [gameMainViewController_ release];
   
   [super dealloc];
 }
@@ -121,6 +126,10 @@
                                      forState:UIControlStateNormal];
   [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.buttonOpenBallMenu];
+  
+  // Game Main View
+  gameMainViewController_ = [[GameMainViewController alloc] init];
+  [self.view addSubview:gameMainViewController_.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -139,6 +148,8 @@
   
   self.buttonOpenBallMenu            = nil;
   self.utilityNavigationController   = nil;
+  
+  self.gameMainViewController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -8,7 +8,7 @@
 
 #import "UtilityBallMenuViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"

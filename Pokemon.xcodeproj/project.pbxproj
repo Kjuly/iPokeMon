@@ -69,6 +69,8 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C88F914F74FEA0023D079 /* GameMainViewController.m */; };
+		7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C890114F755170023D079 /* GlobalNotificationConstants.m */; };
 		7F7F2EF414EBE4A800315EC5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE014EBE4A800315EC5 /* AFHTTPClient.m */; };
 		7F7F2EF514EBE4A800315EC5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE214EBE4A800315EC5 /* AFHTTPRequestOperation.m */; };
 		7F7F2EF614EBE4A800315EC5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE414EBE4A800315EC5 /* AFImageRequestOperation.m */; };
@@ -432,7 +434,6 @@
 		7F51C41E14D7E0BF0091902D /* UtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityViewController.h; sourceTree = "<group>"; };
 		7F51C41F14D7E0BF0091902D /* UtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityViewController.m; sourceTree = "<group>"; };
 		7F51C42114D7E30A0091902D /* PoketchTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchTabViewController.h; sourceTree = "<group>"; };
-		7F51C42414D80D100091902D /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
 		7F51C42514D8180D0091902D /* UtilityView_Discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_Discover.png; sourceTree = "<group>"; };
 		7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_LocateMe.png; sourceTree = "<group>"; };
 		7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_SetAccount.png; sourceTree = "<group>"; };
@@ -464,6 +465,11 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
+		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
+		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
+		7F7C890014F755170023D079 /* GlobalNotificationConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalNotificationConstants.h; sourceTree = "<group>"; };
+		7F7C890114F755170023D079 /* GlobalNotificationConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalNotificationConstants.m; sourceTree = "<group>"; };
 		7F7F2EDF14EBE4A800315EC5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		7F7F2EE014EBE4A800315EC5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		7F7F2EE114EBE4A800315EC5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -924,10 +930,13 @@
 		7F6E6CC014D6CAA600033C65 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				7F7C88FE14F755170023D079 /* GlobalFiles */,
 				7F6E6CEE14D6CB9800033C65 /* Delegates */,
 				7F6E6CF114D6CB9800033C65 /* Models */,
 				7F6E6CF614D6CB9800033C65 /* Views */,
 				7F6E6CED14D6CB9800033C65 /* Controllers */,
+				7F7C88F714F74F860023D079 /* GameViews */,
+				7F7C88F614F74F860023D079 /* GameControllers */,
 				7F6E6CF214D6CB9800033C65 /* Resources */,
 				7F6E6CF514D6CB9800033C65 /* Thirdparties */,
 				7F6E6CC114D6CAA600033C65 /* Supporting Files */,
@@ -939,7 +948,6 @@
 			isa = PBXGroup;
 			children = (
 				7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */,
-				7F51C42414D80D100091902D /* GlobalConstants.h */,
 				7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
 				7F6E6CC614D6CAA600033C65 /* main.m */,
@@ -1201,6 +1209,32 @@
 				7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */,
 			);
 			path = Xibs;
+			sourceTree = "<group>";
+		};
+		7F7C88F614F74F860023D079 /* GameControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7F7C88F814F74FEA0023D079 /* GameMainViewController.h */,
+				7F7C88F914F74FEA0023D079 /* GameMainViewController.m */,
+			);
+			path = GameControllers;
+			sourceTree = "<group>";
+		};
+		7F7C88F714F74F860023D079 /* GameViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GameViews;
+			sourceTree = "<group>";
+		};
+		7F7C88FE14F755170023D079 /* GlobalFiles */ = {
+			isa = PBXGroup;
+			children = (
+				7F7C88FF14F755170023D079 /* GlobalConstants.h */,
+				7F7C890014F755170023D079 /* GlobalNotificationConstants.h */,
+				7F7C890114F755170023D079 /* GlobalNotificationConstants.m */,
+			);
+			path = GlobalFiles;
 			sourceTree = "<group>";
 		};
 		7F7F2EDE14EBE4A800315EC5 /* AFNetworking */ = {
@@ -1953,6 +1987,8 @@
 				7F5F583D14F51EAF00AFF048 /* TrainerTamedPokemon.m in Sources */,
 				7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */,
 				7FF4B3F814F629BF007B7E22 /* AccountSettingViewController.m in Sources */,
+				7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */,
+				7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

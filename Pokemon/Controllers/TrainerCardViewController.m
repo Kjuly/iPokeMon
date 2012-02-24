@@ -8,7 +8,7 @@
 
 #import "TrainerCardViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "TrainerInfoViewController.h"
 #import "TrainerBadgesTableViewController.h"
 

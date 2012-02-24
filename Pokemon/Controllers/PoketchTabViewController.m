@@ -8,7 +8,7 @@
 
 #import "PoketchTabViewController.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 #import "PoketchSixPokemonsViewController.h"
 #import "PoketchStepsViewController.h"
 

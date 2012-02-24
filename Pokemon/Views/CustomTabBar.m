@@ -8,7 +8,7 @@
 
 #import "CustomTabBar.h"
 
-#import "../GlobalConstants.h"
+#import "GlobalConstants.h"
 
 @interface CustomTabBar (PrivateMethods)
 
