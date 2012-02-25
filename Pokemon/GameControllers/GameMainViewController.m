@@ -71,6 +71,20 @@
   [buttonForGameEnding addTarget:self action:@selector(unloadBattleScene:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:buttonForGameEnding];
   [buttonForGameEnding release];
+  
+  
+  // Cocos2D Part
+  EAGLView * glView = [EAGLView viewWithFrame:self.view.bounds
+                                  pixelFormat:kEAGLColorFormatRGB565  // kEAGLColorFormatRGBA8
+                                  depthFormat:0];                     // GL_DEPTH_COMPONENT16_OES
+  [glView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+  [[CCDirector sharedDirector] setOpenGLView:glView];
+//  [self setView:glView];
+//  [self.view insertSubview:glView atIndex:0];
+  [self.view addSubview:glView];
+  
+  CCScene * scene = [CCScene node];
+  [[CCDirector sharedDirector] runWithScene:scene];
 }
 
 - (void)viewDidUnload
@@ -79,6 +93,9 @@
 
   // Remove Notification Observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil];
+  
+  // Unload |director|
+  [[CCDirector sharedDirector] end];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
