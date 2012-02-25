@@ -280,17 +280,11 @@
 // Local Notification
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-//  NSLog(@"--- AppDelegate didReceiveLocalNotification:");
-  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-    NSLog(@"Background to Foreground, Run App after User Pressed the button");
-    NSLog(@"Notification's |userInfo|: %@", notification.userInfo);
-    application.applicationIconBadgeNumber = 0;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
-                                                        object:self
-                                                      userInfo:notification.userInfo];
-  }
-  else NSLog(@"In Foreground, and receive a Local Notification");
+  NSLog(@"Background to Foreground, Run App after User Pressed the button");
+  application.applicationIconBadgeNumber = 0;  
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
+                                                      object:self
+                                                    userInfo:notification.userInfo];
 }
 
 #pragma mark - Private Methods

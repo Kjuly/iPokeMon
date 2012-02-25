@@ -17,6 +17,7 @@
 - (void)continueUpdatingLocation;
 - (void)resetIsPokemonAppeared:(NSNotification *)notification;
 - (void)setEventTimerStatusToRunning:(BOOL)running;
+- (NSDictionary *)generateInfoForAppearedPokemon;
 
 @end
 
@@ -178,34 +179,35 @@
   
   // Post Notification: Pokemon Appeared!
   // Check whether the App is in Background or Foreground
-  int randomSeed = arc4random() % 2;
-  if (! self.isPokemonAppeared && randomSeed) {
-    NSLog(@"RandomSeed: %d", randomSeed);
-    // Use |Local Notification| in Background Mode
+  int randomSeed = arc4random() % 3;
+  NSLog(@"RandomSeed: %d", randomSeed);
+  if (! self.isPokemonAppeared && randomSeed == 1) {
+    // Generate the Info Dictionary for Appeared Pokemon
+    NSDictionary * userInfo = [self generateInfoForAppearedPokemon];
+    
+    ///Send Corresponding Notification
+    // Use |Local Notification| if in Background Mode
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-//      NSLog(@"App is in Background Mode, so Present Local Notification...");
       UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+      // |UILocalNotification| only works on iOS4.0 and later
       if (! localNotification)
-        return; // old iOS version
+        return;
+      
+      // Set data for Local Notification
       localNotification.fireDate = [NSData data];
       //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
       localNotification.timeZone = [NSTimeZone defaultTimeZone];
       localNotification.alertBody = @"Pokemon Appeared!";
       localNotification.alertAction = @"Go";
-//      localNotification.soundName = nil;
-//      localNotification.alertBody = nil;
-//      localNotification.hasAction = FALSE;
       localNotification.applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
-      NSLog(@"//%d", localNotification.applicationIconBadgeNumber);
-      localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSData data], @"time", @"234", @"key2", nil];
+      localNotification.userInfo = userInfo;
       //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
       [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
       [localNotification release];
     }
-    // User Post Notification in Foreground Mode
+    // Use Post Notification if in Foreground Mode
     else {
-//      NSLog(@"App is in Foreground Mode, so just Post Notification");
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil userInfo:userInfo];
     }
     self.isPokemonAppeared = YES;
     [self setEventTimerStatusToRunning:NO];
@@ -216,7 +218,7 @@
   }
 
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
-  // Stop updating location when need
+  // Stop updating location when needed
   if (! kLocationServiceLowBatteryMode) {
     // When |horizontalAccuracy| of location is smaller than 100, stop updating location
     if (self.location.horizontalAccuracy < 100) {
@@ -300,12 +302,19 @@
                                                        selector:@selector(continueUpdatingLocation)
                                                        userInfo:nil
                                                         repeats:YES];
-  }
-  else {
+  } else {
     NSLog(@"Stop Timer....");
     [self.eventTimer invalidate];
     self.eventTimer = nil;
   }
+}
+
+- (NSDictionary *)generateInfoForAppearedPokemon
+{
+  NSDictionary * pokemonInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithInt:1], @"pokemonID",
+                                nil];
+  return pokemonInfo;
 }
 
 @end
