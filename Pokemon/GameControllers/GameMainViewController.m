@@ -10,6 +10,8 @@
 
 //#import "GameConfig.h"
 #import "GlobalNotificationConstants.h"
+#import "GameBattleLayer.h"
+
 #import "cocos2d.h"
 
 
@@ -83,8 +85,8 @@
 //  [self.view insertSubview:glView atIndex:0];
   [self.view addSubview:glView];
   
-  CCScene * scene = [CCScene node];
-  [[CCDirector sharedDirector] runWithScene:scene];
+  // Run Game Scene
+  [[CCDirector sharedDirector] runWithScene:[GameBattleLayer scene]];
 }
 
 - (void)viewDidUnload

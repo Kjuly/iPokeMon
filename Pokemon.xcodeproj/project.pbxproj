@@ -137,6 +137,7 @@
 		7F50B81114F9409200883412 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50B81014F9409200883412 /* OpenAL.framework */; };
 		7F50B81314F940B100883412 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50B81214F940B100883412 /* AudioToolbox.framework */; };
 		7F50B81514F9410700883412 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50B81414F9410700883412 /* QuartzCore.framework */; };
+		7F50B81C14F955A900883412 /* GameBattleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F50B81B14F955A900883412 /* GameBattleLayer.m */; };
 		7F51BF5314F364F8008FCF1D /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */; };
 		7F51BF5414F364F8008FCF1D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5114F364F8008FCF1D /* JSONKit.m */; };
 		7F51BF5514F364F8008FCF1D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF5214F364F8008FCF1D /* README.md */; };
@@ -729,6 +730,8 @@
 		7F50B81014F9409200883412 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		7F50B81214F940B100883412 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7F50B81414F9410700883412 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7F50B81A14F955A900883412 /* GameBattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleLayer.h; sourceTree = "<group>"; };
+		7F50B81B14F955A900883412 /* GameBattleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLayer.m; sourceTree = "<group>"; };
 		7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7F51BF5014F364F8008FCF1D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		7F51BF5114F364F8008FCF1D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -1851,6 +1854,8 @@
 				7F50B80B14F93BEA00883412 /* GameConfig.h */,
 				7F7C88F814F74FEA0023D079 /* GameMainViewController.h */,
 				7F7C88F914F74FEA0023D079 /* GameMainViewController.m */,
+				7F50B81A14F955A900883412 /* GameBattleLayer.h */,
+				7F50B81B14F955A900883412 /* GameBattleLayer.m */,
 			);
 			path = GameControllers;
 			sourceTree = "<group>";
@@ -2723,6 +2728,7 @@
 				7F50B80714F93B8F00883412 /* CJSONDeserializer.m in Sources */,
 				7F50B80814F93B8F00883412 /* CJSONScanner.m in Sources */,
 				7F50B80914F93B8F00883412 /* CJSONSerializer.m in Sources */,
+				7F50B81C14F955A900883412 /* GameBattleLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
