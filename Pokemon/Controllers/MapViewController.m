@@ -10,6 +10,7 @@
 
 #import "GlobalNotificationConstants.h"
 #import "AFJSONRequestOperation.h"
+#import "Pokemon+DataController.h"
 
 #define kLocationServiceLowBatteryMode 0
 
@@ -330,9 +331,15 @@
 
 - (NSDictionary *)generateInfoForAppearedPokemon
 {
+  // Generate an Appeared Pokemon to user
+  // TODO:
+  // need to be random
+  Pokemon * appearedPokemon = [Pokemon queryPokemonDataWithID:1];
+  
   NSDictionary * pokemonInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithInt:1], @"pokemonID",
+                                appearedPokemon.sid, @"pokemonID",
                                 nil];
+  appearedPokemon = nil;
   return pokemonInfo;
 }
 

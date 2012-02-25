@@ -97,6 +97,8 @@
                      [self.view setAlpha:1.0f];
                    }
                    completion:nil];
+  
+  NSLog(@"Pokemon Info: %@", notification.userInfo);
 }
 
 - (void)unloadBattleScene:(id)sender
