@@ -8,7 +8,10 @@
 
 #import "GameMainViewController.h"
 
+//#import "GameConfig.h"
 #import "GlobalNotificationConstants.h"
+#import "cocos2d.h"
+
 
 @interface GameMainViewController ()
 
