@@ -793,12 +793,12 @@
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7F77F6F114FA75A200842700 /* GameMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuViewController.h; sourceTree = "<group>"; };
 		7F77F6F214FA75A200842700 /* GameMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuViewController.m; sourceTree = "<group>"; };
-		7F77F6F514FA7D7700842700 /* GameMenuAbstractChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GameMenuAbstractChildViewController.h; sourceTree = "<group>"; };
 		7F77F6F614FA7D7700842700 /* GameMenuAbstractChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuAbstractChildViewController.m; sourceTree = "<group>"; };
 		7F77F6F814FA7D8900842700 /* GameMenuBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuBagViewController.h; sourceTree = "<group>"; };
 		7F77F6F914FA7D8900842700 /* GameMenuBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuBagViewController.m; sourceTree = "<group>"; };
 		7F77F6FB14FA7F7400842700 /* GameMenuMoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuMoveViewController.h; sourceTree = "<group>"; };
 		7F77F6FC14FA7F7400842700 /* GameMenuMoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveViewController.m; sourceTree = "<group>"; };
+		7F77F6FE14FA826500842700 /* GameMenuAbstractChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuAbstractChildViewController.h; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
 		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
@@ -1870,7 +1870,7 @@
 				7F50B81B14F955A900883412 /* GameBattleLayer.m */,
 				7F77F6F114FA75A200842700 /* GameMenuViewController.h */,
 				7F77F6F214FA75A200842700 /* GameMenuViewController.m */,
-				7F77F6F514FA7D7700842700 /* GameMenuAbstractChildViewController.h */,
+				7F77F6FE14FA826500842700 /* GameMenuAbstractChildViewController.h */,
 				7F77F6F614FA7D7700842700 /* GameMenuAbstractChildViewController.m */,
 				7F77F6FB14FA7F7400842700 /* GameMenuMoveViewController.h */,
 				7F77F6FC14FA7F7400842700 /* GameMenuMoveViewController.m */,
