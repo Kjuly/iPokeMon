@@ -8,17 +8,43 @@
 
 #import "GameMenuViewController.h"
 
+#import "GameMenuMoveViewController.h"
+#import "GameMenuBagViewController.h"
+
+
+@interface GameMenuViewController () {
+ @private
+  GameMenuMoveViewController * gameMenuMoveViewController_;
+  GameMenuBagViewController  * gameMenuBagViewController_;
+}
+
+@property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
+@property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
+
+// Button Actions
+- (void)openMoveView;
+- (void)openBagView;
+- (void)openRunConfirmView;
+
+@end
+
 @implementation GameMenuViewController
 
 @synthesize buttonFight = buttonFight_;
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
 
+@synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
+@synthesize gameMenuBagViewController  = gameMenuBagViewController_;
+
 - (void)dealloc
 {
   [buttonFight_ release];
   [buttonBag_   release];
   [buttonRun_   release];
+  
+  [gameMenuMoveViewController_ release];
+  [gameMenuBagViewController_  release];
   
   [super dealloc];
 }
@@ -61,16 +87,19 @@
   buttonFight_ = [[UIButton alloc] initWithFrame:buttonFightFrame];
   [buttonFight_ setBackgroundColor:[UIColor blackColor]];
   [buttonFight_ setTitle:@"Fight" forState:UIControlStateNormal];
+  [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:buttonFight_];
   
   buttonBag_ = [[UIButton alloc] initWithFrame:buttonBagFrame];
   [buttonBag_ setBackgroundColor:[UIColor blackColor]];
   [buttonBag_ setTitle:@"Bag" forState:UIControlStateNormal];
+  [buttonBag_ addTarget:self action:@selector(openBagView) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:buttonBag_];
   
   buttonRun_ = [[UIButton alloc] initWithFrame:buttonRunFrame];
   [buttonRun_ setBackgroundColor:[UIColor blackColor]];
   [buttonRun_ setTitle:@"Run" forState:UIControlStateNormal];
+  [buttonRun_ addTarget:self action:@selector(openRunConfirmView) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:buttonRun_];
 }
 
@@ -87,12 +116,46 @@
   self.buttonFight = nil;
   self.buttonBag   = nil;
   self.buttonRun   = nil;
+  
+  self.gameMenuMoveViewController = nil;
+  self.gameMenuBagViewController  = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Private Methods
+
+// Button actions
+// Action for |buttonFight_|
+- (void)openMoveView
+{
+  if (! self.gameMenuMoveViewController) {
+    GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
+    self.gameMenuMoveViewController = gameMenuMoveViewController;
+    [gameMenuMoveViewController release];
+  }
+  [self.view addSubview:self.gameMenuMoveViewController.view];
+}
+
+// Action for |buttonBag_|
+- (void)openBagView
+{
+  if (! self.gameMenuBagViewController) {
+    GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
+    self.gameMenuBagViewController = gameMenuBagViewController;
+    [gameMenuBagViewController release];
+  }
+  [self.view addSubview:self.gameMenuBagViewController.view];
+}
+
+// Action for |buttonRun_|
+- (void)openRunConfirmView
+{
+  NSLog(@"Open Run Confirm View..");
 }
 
 @end
