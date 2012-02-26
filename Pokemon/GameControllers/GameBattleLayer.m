@@ -46,11 +46,24 @@
     self.pokemon = [CCSprite spriteWithCGImage:((UIImage *)self.pokemonData.image).CGImage key:@"Pokemon"];
     [self.pokemon setPosition:ccp(-90, 430)];
     [self addChild:self.pokemon];
+    
+    // check whether a selector is scheduled. schedules the "update" method.
+    // It will use the order number 0.
+    // This method will be called every frame.
+    // Scheduled methods with a lower order value will be called before the ones that have a higher order value.
+    // Only one "udpate" method could be scheduled per node.
+    [self scheduleUpdate];
   }
   return self;
 }
 
+// The method to be scheduled
+- (void)update:(ccTime)dt
+{
+  NSLog(@"...Update game...");
+}
 
+#pragma mark - Touch Handler
 
 - (void)registerWithTouchDispatcher {
   [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];

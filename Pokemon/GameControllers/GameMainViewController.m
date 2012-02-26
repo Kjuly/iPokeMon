@@ -85,8 +85,10 @@
 //  [self.view insertSubview:glView atIndex:0];
   [self.view addSubview:glView];
   
-  // Run Game Scene
+  // Run Game Scene & but pause the game untile a Pokemon Appeared
   [[CCDirector sharedDirector] runWithScene:[GameBattleLayer scene]];
+  [[CCDirector sharedDirector] pause];
+  
 }
 
 - (void)viewDidUnload
@@ -118,7 +120,9 @@
                    animations:^{
                      [self.view setAlpha:1.0f];
                    }
-                   completion:nil];
+                   completion:^(BOOL finished) {
+                     [[CCDirector sharedDirector] resume];
+                   }];
   
   NSLog(@"Pokemon Info: %@", notification.userInfo);
 }
@@ -137,6 +141,7 @@
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
                                                                          object:self
                                                                        userInfo:nil];
+                     [[CCDirector sharedDirector] pause];
                    }];
 }
 
