@@ -128,4 +128,26 @@
   return sixPokemons;
 }
 
+// Get one Pokemon that trainer brought
++ (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"status == %@ AND sid == %d",
+                             [NSNumber numberWithInt:3], pokemonID];
+  [fetchRequest setPredicate:predicate];
+  //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  TrainerTamedPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  [fetchRequest release];
+  
+  return pokemon;
+}
+
 @end

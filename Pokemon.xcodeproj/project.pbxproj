@@ -178,6 +178,7 @@
 		7F77F6F714FA7D7700842700 /* GameMenuAbstractChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F614FA7D7700842700 /* GameMenuAbstractChildViewController.m */; };
 		7F77F6FA14FA7D8900842700 /* GameMenuBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F914FA7D8900842700 /* GameMenuBagViewController.m */; };
 		7F77F6FD14FA7F7400842700 /* GameMenuMoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6FC14FA7F7400842700 /* GameMenuMoveViewController.m */; };
+		7F77F70114FAA16C00842700 /* GameMenuMoveUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */; };
 		7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C88F914F74FEA0023D079 /* GameMainViewController.m */; };
 		7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C890114F755170023D079 /* GlobalNotificationConstants.m */; };
 		7F7F2EF414EBE4A800315EC5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE014EBE4A800315EC5 /* AFHTTPClient.m */; };
@@ -799,6 +800,8 @@
 		7F77F6FB14FA7F7400842700 /* GameMenuMoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuMoveViewController.h; sourceTree = "<group>"; };
 		7F77F6FC14FA7F7400842700 /* GameMenuMoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveViewController.m; sourceTree = "<group>"; };
 		7F77F6FE14FA826500842700 /* GameMenuAbstractChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuAbstractChildViewController.h; sourceTree = "<group>"; };
+		7F77F6FF14FAA16C00842700 /* GameMenuMoveUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuMoveUnitView.h; sourceTree = "<group>"; };
+		7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveUnitView.m; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
 		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
@@ -1883,6 +1886,8 @@
 		7F7C88F714F74F860023D079 /* GameViews */ = {
 			isa = PBXGroup;
 			children = (
+				7F77F6FF14FAA16C00842700 /* GameMenuMoveUnitView.h */,
+				7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */,
 			);
 			path = GameViews;
 			sourceTree = "<group>";
@@ -2753,6 +2758,7 @@
 				7F77F6F714FA7D7700842700 /* GameMenuAbstractChildViewController.m in Sources */,
 				7F77F6FA14FA7D8900842700 /* GameMenuBagViewController.m in Sources */,
 				7F77F6FD14FA7F7400842700 /* GameMenuMoveViewController.m in Sources */,
+				7F77F70114FAA16C00842700 /* GameMenuMoveUnitView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

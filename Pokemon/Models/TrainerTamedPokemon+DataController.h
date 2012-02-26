@@ -13,5 +13,6 @@
 + (BOOL)updateDataForTrainer:(NSInteger)trainerID;
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
++ (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
 @end

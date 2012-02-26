@@ -81,7 +81,7 @@
 // The method to be scheduled
 - (void)update:(ccTime)dt
 {
-  NSLog(@"...Update game...");
+//  NSLog(@"...Update game...");
   // Run battle begin animation is it's a new battle with the Pokemon
   if (! self.isReadyToPlay)
     [self runBattleBeginAnimation];
