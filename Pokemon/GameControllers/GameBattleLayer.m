@@ -11,10 +11,29 @@
 #import "Pokemon+DataController.h"
 
 
+@interface GameBattleLayer () {  
+ @private
+  CCSprite * wildPokemon_;
+  CCSprite * myPokemon_;
+  BOOL isReadyToPlay_;
+}
+
+@property (nonatomic, retain) CCSprite * wildPokemon;
+@property (nonatomic, retain) CCSprite * myPokemon;
+@property (nonatomic, assign) BOOL isReadyToPlay;
+
+- (void)runBattleBeginAnimation;
+
+@end
+
+
 @implementation GameBattleLayer
 
 @synthesize pokemonData = pokemonData_;
-@synthesize pokemon     = pokemon_;
+
+@synthesize wildPokemon   = wildPokemon_;
+@synthesize myPokemon     = myPokemon_;
+@synthesize isReadyToPlay = isReadyToPlay_;
 
 + (CCScene *)scene
 {
@@ -43,9 +62,11 @@
     [self setIsTouchEnabled:YES];
     
     self.pokemonData = [Pokemon queryPokemonDataWithID:1];
-    self.pokemon = [CCSprite spriteWithCGImage:((UIImage *)self.pokemonData.image).CGImage key:@"Pokemon"];
-    [self.pokemon setPosition:ccp(-90, 430)];
-    [self addChild:self.pokemon];
+    self.wildPokemon = [CCSprite spriteWithCGImage:((UIImage *)self.pokemonData.image).CGImage key:@"Pokemon"];
+    [self.wildPokemon setPosition:ccp(-90, 430)];
+    [self addChild:self.wildPokemon];
+    
+    self.isReadyToPlay = NO;
     
     // check whether a selector is scheduled. schedules the "update" method.
     // It will use the order number 0.
@@ -61,6 +82,9 @@
 - (void)update:(ccTime)dt
 {
   NSLog(@"...Update game...");
+  // Run battle begin animation is it's a new battle with the Pokemon
+  if (! self.isReadyToPlay)
+    [self runBattleBeginAnimation];
 }
 
 #pragma mark - Touch Handler
@@ -76,7 +100,19 @@
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
   CGPoint location = [self convertTouchToNodeSpace:touch];
-  [self.pokemon runAction:[CCMoveTo actionWithDuration:1 position:location]];
+  [self.wildPokemon runAction:[CCMoveTo actionWithDuration:1 position:location]];
+}
+
+#pragma mark - Private Methods
+
+// Battle Begin Animation
+- (void)runBattleBeginAnimation
+{
+  // Battle begin animation
+  [self.wildPokemon runAction:[CCMoveTo actionWithDuration:1 position:ccp(220, 380)]];
+  
+  // Set game play to ready
+  self.isReadyToPlay = YES;
 }
 
 @end

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class GameMenuViewController;
+
 @interface GameMainViewController : UIViewController
+{
+  GameMenuViewController * gameMenuViewController_;
+}
+
+@property (nonatomic, retain) GameMenuViewController * gameMenuViewController;
 
 @end

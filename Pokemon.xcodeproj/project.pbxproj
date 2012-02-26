@@ -174,6 +174,7 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F77F6F314FA75A200842700 /* GameMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F214FA75A200842700 /* GameMenuViewController.m */; };
 		7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C88F914F74FEA0023D079 /* GameMainViewController.m */; };
 		7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C890114F755170023D079 /* GlobalNotificationConstants.m */; };
 		7F7F2EF414EBE4A800315EC5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE014EBE4A800315EC5 /* AFHTTPClient.m */; };
@@ -787,6 +788,8 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F77F6F114FA75A200842700 /* GameMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuViewController.h; sourceTree = "<group>"; };
+		7F77F6F214FA75A200842700 /* GameMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuViewController.m; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
 		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
@@ -1856,6 +1859,8 @@
 				7F7C88F914F74FEA0023D079 /* GameMainViewController.m */,
 				7F50B81A14F955A900883412 /* GameBattleLayer.h */,
 				7F50B81B14F955A900883412 /* GameBattleLayer.m */,
+				7F77F6F114FA75A200842700 /* GameMenuViewController.h */,
+				7F77F6F214FA75A200842700 /* GameMenuViewController.m */,
 			);
 			path = GameControllers;
 			sourceTree = "<group>";
@@ -2729,6 +2734,7 @@
 				7F50B80814F93B8F00883412 /* CJSONScanner.m in Sources */,
 				7F50B80914F93B8F00883412 /* CJSONSerializer.m in Sources */,
 				7F50B81C14F955A900883412 /* GameBattleLayer.m in Sources */,
+				7F77F6F314FA75A200842700 /* GameMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

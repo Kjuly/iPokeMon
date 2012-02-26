@@ -11,6 +11,7 @@
 //#import "GameConfig.h"
 #import "GlobalNotificationConstants.h"
 #import "GameBattleLayer.h"
+#import "GameMenuViewController.h"
 
 #import "cocos2d.h"
 
@@ -23,6 +24,15 @@
 @end
 
 @implementation GameMainViewController
+
+@synthesize gameMenuViewController = gameMenuViewController_;
+
+- (void)dealloc
+{
+  [gameMenuViewController_ release];
+  
+  [super dealloc];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,11 +99,16 @@
   [[CCDirector sharedDirector] runWithScene:[GameBattleLayer scene]];
   [[CCDirector sharedDirector] pause];
   
+  // Set Game Menu View Controller
+  gameMenuViewController_ = [[GameMenuViewController alloc] init];
+  [self.view addSubview:gameMenuViewController_.view];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.gameMenuViewController = nil;
 
   // Remove Notification Observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil];
