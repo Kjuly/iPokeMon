@@ -8,8 +8,13 @@
 
 #import "GameBattleLayer.h"
 
+#import "Pokemon+DataController.h"
+
 
 @implementation GameBattleLayer
+
+@synthesize pokemonData = pokemonData_;
+@synthesize pokemon     = pokemon_;
 
 + (CCScene *)scene
 {
@@ -26,15 +31,39 @@
 
 - (void)dealloc
 {
+  [pokemonData_ release];
+  self.pokemonData = nil;
+  
   [super dealloc];
 }
 
 - (id)init
 {
   if (self = [super initWithColor:ccc4(255,255,255,255)]) {
+    [self setIsTouchEnabled:YES];
     
+    self.pokemonData = [Pokemon queryPokemonDataWithID:1];
+    self.pokemon = [CCSprite spriteWithCGImage:((UIImage *)self.pokemonData.image).CGImage key:@"Pokemon"];
+    [self.pokemon setPosition:ccp(-90, 430)];
+    [self addChild:self.pokemon];
   }
   return self;
+}
+
+
+
+- (void)registerWithTouchDispatcher {
+  [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+}
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+  return YES;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+  CGPoint location = [self convertTouchToNodeSpace:touch];
+  [self.pokemon runAction:[CCMoveTo actionWithDuration:1 position:location]];
 }
 
 @end

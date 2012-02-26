@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+@class Pokemon;
+
 @interface GameBattleLayer : CCLayerColor {
-    
+  Pokemon  * pokemonData_;
+  CCSprite * pokemon_;
 }
+
+@property (nonatomic, retain) Pokemon  * pokemonData;
+@property (nonatomic, retain) CCSprite * pokemon;
 
 + (CCScene *)scene;
 
