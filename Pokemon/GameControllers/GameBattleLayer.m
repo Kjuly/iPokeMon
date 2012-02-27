@@ -10,6 +10,7 @@
 
 #import "GameWildPokemon.h"
 #import "GameTrainerPokemon.h"
+#import "GameMoveEffect.h"
 
 
 @interface GameBattleLayer () {  
@@ -28,6 +29,7 @@
 
 @synthesize gameWildPokemon    = gameWildPoekmon_;
 @synthesize gameTrainerPokemon = gameTrainerPokemon_;
+@synthesize gameMoveEffect     = gameMoveEffect_;
 
 @synthesize isReadyToPlay        = isReadyToPlay_;
 
@@ -48,9 +50,11 @@
 {
   [gameWildPoekmon_    release];
   [gameTrainerPokemon_ release];
+  [gameMoveEffect_     release];
   
   self.gameWildPokemon    = nil;
   self.gameTrainerPokemon = nil;
+  self.gameMoveEffect     = nil;
   
   [super dealloc];
 }
@@ -69,6 +73,10 @@
     gameTrainerPokemon_ = [[GameTrainerPokemon alloc] init];
     [self addChild:gameTrainerPokemon_];
     NSLog(@"HP: %d / %d", gameTrainerPokemon_.hp, gameTrainerPokemon_.hpMax);
+    
+    // Create Move Effect Object
+    gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:gameTrainerPokemon_];
+    [self addChild:gameMoveEffect_];
     
     self.isReadyToPlay = NO;
     
@@ -89,6 +97,10 @@
   // Run battle begin animation is it's a new battle with the Pokemon
   if (! self.isReadyToPlay)
     [self runBattleBeginAnimation];
+  
+  // Update Wild Pokemon & Trainer Pokemon
+  [self.gameWildPokemon    update:dt];
+  [self.gameTrainerPokemon update:dt];
 }
 
 #pragma mark - Touch Handler

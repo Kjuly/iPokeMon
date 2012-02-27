@@ -36,6 +36,7 @@
 		7F3F7ACD14FB7EB0005E554E /* GamePokemonHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */; };
 		7F3F7AD114FB8670005E554E /* hpBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3F7ACF14FB8670005E554E /* hpBar.png */; };
 		7F3F7AD214FB8670005E554E /* hpMaxBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3F7AD014FB8670005E554E /* hpMaxBar.png */; };
+		7F3F7AD514FB9A95005E554E /* GameMoveEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AD414FB9A95005E554E /* GameMoveEffect.m */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
 		7F4AC7FF14E7FBE500A10434 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */; };
@@ -532,6 +533,8 @@
 		7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonHPBar.m; sourceTree = "<group>"; };
 		7F3F7ACF14FB8670005E554E /* hpBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hpBar.png; sourceTree = "<group>"; };
 		7F3F7AD014FB8670005E554E /* hpMaxBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hpMaxBar.png; sourceTree = "<group>"; };
+		7F3F7AD314FB9A94005E554E /* GameMoveEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMoveEffect.h; sourceTree = "<group>"; };
+		7F3F7AD414FB9A95005E554E /* GameMoveEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMoveEffect.m; sourceTree = "<group>"; };
 		7F4570FE14F225EB0031A8F5 /* PokemonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailViewController.h; sourceTree = "<group>"; };
 		7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailViewController.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
@@ -1254,6 +1257,8 @@
 				7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */,
 				7F3F7ACB14FB7EAF005E554E /* GamePokemonHPBar.h */,
 				7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */,
+				7F3F7AD314FB9A94005E554E /* GameMoveEffect.h */,
+				7F3F7AD414FB9A95005E554E /* GameMoveEffect.m */,
 			);
 			path = GameModels;
 			sourceTree = "<group>";
@@ -2813,6 +2818,7 @@
 				7F3F7AC714FB7434005E554E /* GameWildPokemon.m in Sources */,
 				7F3F7ACA14FB7445005E554E /* GameTrainerPokemon.m in Sources */,
 				7F3F7ACD14FB7EB0005E554E /* GamePokemonHPBar.m in Sources */,
+				7F3F7AD514FB9A95005E554E /* GameMoveEffect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

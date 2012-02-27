@@ -13,5 +13,6 @@
 }
 
 - (id)initWithPokemonID:(NSInteger)pokemonID keyName:(NSString *)keyName;
+- (void)update:(ccTime)dt;
 
 @end

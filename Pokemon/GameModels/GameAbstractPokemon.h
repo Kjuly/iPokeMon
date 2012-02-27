@@ -23,4 +23,6 @@
 @property (nonatomic, assign) int        hpMax;
 @property (nonatomic, retain) GamePokemonHPBar * hpBar;
 
+- (void)update:(ccTime)dt;
+
 @end

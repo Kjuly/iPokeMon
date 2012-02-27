@@ -8,8 +8,8 @@
 
 #import "GameAbstractPokemon.h"
 
-@interface GameTrainerPokemon : GameAbstractPokemon {
-    
-}
+@interface GameTrainerPokemon : GameAbstractPokemon
+
+- (void)update:(ccTime)dt;
 
 @end

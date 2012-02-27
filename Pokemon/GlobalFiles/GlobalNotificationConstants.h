@@ -11,6 +11,8 @@
 extern NSString * const kPMNPokemonAppeared;
 extern NSString * const kPMNBattleEnd;
 
+extern NSString * const kPMNMoveEffect;
+
 @interface GlobalNotificationConstants : NSObject
 
 @end

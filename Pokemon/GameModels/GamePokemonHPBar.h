@@ -17,6 +17,7 @@
 @property (nonatomic, retain) CCSprite * hpMaxBar;
 @property (nonatomic, retain) CCSprite * hpBar;
 
-- (id)initWithHp:(NSInteger)hp hpMax:(NSInteger)hpMax;
+- (id)initWithHP:(int)hp hpMax:(int)hpMax;
+- (void)update:(ccTime)dt withCurrntHP:(int)currHP currentHPMax:(int)currHPMax;
 
 @end

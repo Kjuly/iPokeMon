@@ -36,11 +36,16 @@
     self.hp    = [self.trainerPokemon.currHP intValue];
     
     // Create Hp Bar
-    hpBar_ = [[GamePokemonHPBar alloc] initWithHp:self.hp hpMax:self.hpMax];
+    hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
     [hpBar_ setPosition:ccp(150, 300)];
     [self addChild:hpBar_];
   }
   return self;
+}
+
+- (void)update:(ccTime)dt
+{
+  [super update:dt];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "GameMenuMoveViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "TrainerCoreDataController.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"
@@ -101,10 +102,10 @@
   moveThreeView_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveThreeViewFrame];
   moveFourView_  = [[GameMenuMoveUnitView alloc] initWithFrame:moveFourViewFrame];
   
-  [moveOneView_.viewButton   setTag:0];
-  [moveTwoView_.viewButton   setTag:1];
-  [moveThreeView_.viewButton setTag:2];
-  [moveFourView_.viewButton  setTag:3];
+  [moveOneView_.viewButton   setTag:1];
+  [moveTwoView_.viewButton   setTag:2];
+  [moveThreeView_.viewButton setTag:3];
+  [moveFourView_.viewButton  setTag:4];
   
   [moveOneView_.viewButton   addTarget:self action:@selector(useSelectedMove:)
                       forControlEvents:UIControlEventTouchUpInside];
@@ -183,6 +184,29 @@
 {
   NSInteger moveTag = ((UIButton *)sender).tag;
   NSLog(@"Use Move %d", moveTag);
+  
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:10], @"damage", nil];
+  
+  switch (moveTag) {
+    case 1:
+      break;
+      
+    case 2:
+      break;
+      
+    case 3:
+      break;
+      
+    case 4:
+      break;
+      
+    default:
+      break;
+  }
+  
+  // Send parameter to Move Effect Controller
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
+  [userInfo release];
 }
 
 @end

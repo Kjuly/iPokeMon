@@ -12,6 +12,8 @@
 NSString * const kPMNPokemonAppeared = @"PMNPokemonAppeared";
 NSString * const kPMNBattleEnd       = @"PMNBattleEnd";
 
+NSString * const kPMNMoveEffect = @"PMNMoveEffect";
+
 @implementation GlobalNotificationConstants
 
 @end

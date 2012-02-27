@@ -1,8 +1,8 @@
 //
-//  GameBattleLayer.h
+//  GameMoveEffect.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/26/12.
+//  Created by Kaijie Yu on 2/27/12.
 //  Copyright 2012 Kjuly. All rights reserved.
 //
 
@@ -11,18 +11,16 @@
 
 @class GameWildPokemon;
 @class GameTrainerPokemon;
-@class GameMoveEffect;
 
-@interface GameBattleLayer : CCLayerColor {
+@interface GameMoveEffect : CCNode {
   GameWildPokemon    * gameWildPoekmon_;
   GameTrainerPokemon * gameTrainerPokemon_;
-  GameMoveEffect     * gameMoveEffect_;
 }
 
 @property (nonatomic, retain) GameWildPokemon    * gameWildPokemon;
 @property (nonatomic, retain) GameTrainerPokemon * gameTrainerPokemon;
-@property (nonatomic, retain) GameMoveEffect     * gameMoveEffect;
 
-+ (CCScene *)scene;
+- (id)initWithwildPokemon:(GameWildPokemon *)gameWildPokemon
+           trainerPokemon:(GameTrainerPokemon *)gameTrainerPokemon;
 
 @end

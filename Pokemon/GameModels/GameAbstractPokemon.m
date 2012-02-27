@@ -30,4 +30,9 @@
   return self;
 }
 
+- (void)update:(ccTime)dt
+{
+  [self.hpBar update:dt withCurrntHP:self.hp currentHPMax:self.hpMax];
+}
+
 @end
