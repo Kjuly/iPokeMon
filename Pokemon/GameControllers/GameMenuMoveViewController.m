@@ -9,6 +9,7 @@
 #import "GameMenuMoveViewController.h"
 
 #import "GlobalNotificationConstants.h"
+#import "GameStatus.h"
 #import "TrainerCoreDataController.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"
@@ -182,34 +183,21 @@
 
 - (void)useSelectedMove:(id)sender
 {
-  if (self.isMyTurn) {
+  if ([[GameStatus sharedInstance] isTrainerTurn]) {
     NSInteger moveTag = ((UIButton *)sender).tag;
     NSLog(@"Use Move %d", moveTag);
     
-    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:10], @"damage", nil];
-    
-    switch (moveTag) {
-      case 1:
-        break;
-        
-      case 2:
-        break;
-        
-      case 3:
-        break;
-        
-      case 4:
-        break;
-        
-      default:
-        break;
-    }
+    Move * move = [self.fourMoves objectAtIndex:moveTag];
     
     // Send parameter to Move Effect Controller
+    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               @"TrainerPokemon", @"MoveOwner",
+                               move.baseDamage, @"damage",
+                               nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
     [userInfo release];
     
-    self.isMyTurn = NO;
+    [[GameStatus sharedInstance] trainerTurnEnd];
   }
 }
 

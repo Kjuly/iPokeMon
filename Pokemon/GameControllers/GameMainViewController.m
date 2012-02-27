@@ -84,7 +84,6 @@
   [self.view addSubview:buttonForGameEnding];
   [buttonForGameEnding release];
   
-  
   // Cocos2D Part
   EAGLView * glView = [EAGLView viewWithFrame:self.view.bounds
                                   pixelFormat:kEAGLColorFormatRGB565  // kEAGLColorFormatRGBA8

@@ -23,8 +23,6 @@
 
 @implementation GameMenuAbstractChildViewController
 
-@synthesize isMyTurn = isMyTurn_;
-
 @synthesize buttonCancel = buttonCancel_;
 
 - (void)dealloc
@@ -76,8 +74,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  self.isMyTurn = YES;
 }
 
 - (void)viewDidUnload

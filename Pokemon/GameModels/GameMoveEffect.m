@@ -60,9 +60,18 @@
 
 - (void)applyMoveEffect:(NSNotification *)notification
 {
-  self.gameWildPokemon.hp -= [[notification.userInfo objectForKey:@"damage"] intValue];
-  if (self.gameWildPokemon.hp < 0)
-    self.gameWildPokemon.hp = 0;
+  NSDictionary * userInfo = notification.userInfo;
+  if ([[userInfo objectForKey:@"MoveOwner"] isEqualToString:@"TrainerPokemon"]) {
+    self.gameWildPokemon.hp -= [[userInfo objectForKey:@"damage"] intValue];
+    if (self.gameWildPokemon.hp < 0)
+      self.gameWildPokemon.hp = 0;
+  }
+  else {
+    self.gameTrainerPokemon.hp -= [[userInfo objectForKey:@"damage"] intValue];
+    if (self.gameTrainerPokemon.hp < 0)
+      self.gameTrainerPokemon.hp = 0;
+  }
+  userInfo = nil;
 }
 
 @end

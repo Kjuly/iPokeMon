@@ -16,6 +16,6 @@
 - (void)update:(ccTime)dt;
 
 // Wild Pokemon's Move Attack
-- (void)attack;
+- (void)attack:(ccTime)dt;
 
 @end
