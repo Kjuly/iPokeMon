@@ -24,6 +24,11 @@
 
 @synthesize wildPokemon = wildPokemon_;
 
+- (void)dealloc
+{
+  [super dealloc];
+}
+
 - (id)initWithPokemonID:(NSInteger)pokemonID keyName:(NSString *)keyName
 {
   if (self = [super init]) {
@@ -35,6 +40,11 @@
     // Set HP
     self.hpMax = [[self.wildPokemon.baseStats objectAtIndex:0] intValue];
     self.hp    = self.hpMax;
+    
+    // Create Hp Bar
+    hpBar_ = [[GamePokemonHPBar alloc] initWithHp:self.hp hpMax:self.hpMax];
+    [hpBar_ setPosition:ccp(10, 380)];
+    [self addChild:hpBar_];
   }
   return self;
 }

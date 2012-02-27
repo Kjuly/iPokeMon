@@ -14,16 +14,18 @@
 @synthesize pokemonSprite = pokemonSprite_;
 @synthesize hp            = hp_;
 @synthesize hpMax         = hpMax_;
+@synthesize hpBar         = hpBar_;
 
 - (void)dealloc
 {
+  self.hpBar = nil;
+  
   [super dealloc];
 }
 
 - (id)init
 {
   if (self = [super init]) {
-    
   }
   return self;
 }

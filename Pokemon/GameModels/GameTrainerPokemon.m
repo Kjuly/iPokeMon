@@ -34,6 +34,11 @@
     // Set HP
     self.hpMax = [[self.trainerPokemon.maxStats objectAtIndex:0] intValue];
     self.hp    = [self.trainerPokemon.currHP intValue];
+    
+    // Create Hp Bar
+    hpBar_ = [[GamePokemonHPBar alloc] initWithHp:self.hp hpMax:self.hpMax];
+    [hpBar_ setPosition:ccp(150, 300)];
+    [self addChild:hpBar_];
   }
   return self;
 }
