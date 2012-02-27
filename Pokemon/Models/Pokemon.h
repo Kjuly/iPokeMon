@@ -2,7 +2,7 @@
 //  Pokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/18/12.
+//  Created by Kaijie Yu on 2/27/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -34,14 +34,15 @@
 @property (nonatomic, retain) NSString * info;
 @property (nonatomic, retain) id moves;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * sid;
 @property (nonatomic, retain) NSNumber * rareness;
+@property (nonatomic, retain) NSNumber * sid;
 @property (nonatomic, retain) NSNumber * species;
 @property (nonatomic, retain) NSNumber * stepsToHatch;
 @property (nonatomic, retain) NSNumber * type1;
 @property (nonatomic, retain) NSNumber * type2;
 @property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) NSSet *tamedGroup;
+@property (nonatomic, retain) NSSet *wildGroup;
 @end
 
 @interface Pokemon (CoreDataGeneratedAccessors)
@@ -50,5 +51,8 @@
 - (void)removeTamedGroupObject:(TrainerTamedPokemon *)value;
 - (void)addTamedGroup:(NSSet *)values;
 - (void)removeTamedGroup:(NSSet *)values;
-
+- (void)addWildGroupObject:(TrainerTamedPokemon *)value;
+- (void)removeWildGroupObject:(TrainerTamedPokemon *)value;
+- (void)addWildGroup:(NSSet *)values;
+- (void)removeWildGroup:(NSSet *)values;
 @end

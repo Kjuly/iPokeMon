@@ -2,7 +2,7 @@
 //  Move.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/22/12.
+//  Created by Kaijie Yu on 2/27/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSNumber * target;
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSSet *learnedPokemons;
+@property (nonatomic, retain) NSSet *learnedWildPokemons;
 @end
 
 @interface Move (CoreDataGeneratedAccessors)
@@ -36,5 +37,8 @@
 - (void)removeLearnedPokemonsObject:(TrainerTamedPokemon *)value;
 - (void)addLearnedPokemons:(NSSet *)values;
 - (void)removeLearnedPokemons:(NSSet *)values;
-
+- (void)addLearnedWildPokemonsObject:(TrainerTamedPokemon *)value;
+- (void)removeLearnedWildPokemonsObject:(TrainerTamedPokemon *)value;
+- (void)addLearnedWildPokemons:(NSSet *)values;
+- (void)removeLearnedWildPokemons:(NSSet *)values;
 @end

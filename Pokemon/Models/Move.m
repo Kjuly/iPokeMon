@@ -2,7 +2,7 @@
 //  Move.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/22/12.
+//  Created by Kaijie Yu on 2/27/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -27,5 +27,6 @@
 @dynamic target;
 @dynamic type;
 @dynamic learnedPokemons;
+@dynamic learnedWildPokemons;
 
 @end

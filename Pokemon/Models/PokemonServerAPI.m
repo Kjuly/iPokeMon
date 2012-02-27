@@ -14,6 +14,7 @@ NSString * const kServerAPIRoot        = @"http://localhost:8080";
 NSString * const kServerAPIGetTrainer  = @"/user/%d";
 NSString * const kServerAPIGetPokedex  = @"/user/%d/pokedex";
 NSString * const kServerAPIGetBag      = @"/user/%d/bag";
+NSString * const kServerAPIGetWildPokemons = @"/region/%d/wildpokemons";
 
 NSString * const kServerAPIPostTrainer = @"/user/%d";
 NSString * const kServerAPIPostPokedex = @"/user/%d/pokedex";
@@ -37,6 +38,11 @@ NSString * const kServerAPIPostBag     = @"/user/%d/bag";
 + (NSURL *)APIGetBagWithTrainerID:(NSInteger)trainerID {
   NSString * subPath = [NSString stringWithFormat:kServerAPIGetBag, trainerID];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
+}
+
++ (NSURL *)APIGetWildPokemonsForCurrentRegion:(NSInteger)regionID {
+  NSString * subPath = [NSString stringWithFormat:kServerAPIGetWildPokemons, regionID];
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingFormat:subPath]];
 }
 
 #pragma mark - POST methods

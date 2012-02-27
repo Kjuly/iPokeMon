@@ -8,15 +8,16 @@
 
 #import "GameWildPokemon.h"
 
-#import "Pokemon+DataController.h"
+#import "WildPokemon+DataController.h"
+#import "Pokemon.h"
 
 
 @interface GameWildPokemon () {
  @private
-  Pokemon * wildPokemon_;
+  WildPokemon * wildPokemon_;
 }
 
-@property (nonatomic, retain) Pokemon * wildPokemon;
+@property (nonatomic, retain) WildPokemon * wildPokemon;
 
 @end
 
@@ -36,13 +37,13 @@
     self.pokemonBattleStatus = kPokemonBattleStatusNormal;
     
     // Data Setting
-    self.wildPokemon = [Pokemon queryPokemonDataWithID:pokemonID];
-    self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.image).CGImage key:keyName];
+    self.wildPokemon = [WildPokemon queryPokemonDataWithID:pokemonID];
+    self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.pokemon.image).CGImage key:keyName];
     [self.pokemonSprite setPosition:ccp(-90, 380)];
     [self addChild:self.pokemonSprite];
     
     // Set HP
-    self.hpMax = [[self.wildPokemon.baseStats objectAtIndex:0] intValue];
+    self.hpMax = [[self.wildPokemon.maxStats objectAtIndex:0] intValue];
     self.hp    = self.hpMax;
     
     // Create Hp Bar

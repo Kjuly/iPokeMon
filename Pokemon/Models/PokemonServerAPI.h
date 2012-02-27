@@ -11,6 +11,7 @@
 + (NSURL *)APIGetTrainerWithTrainerID:(NSInteger)trainerID;
 + (NSURL *)APIGetPokedexWithTrainerID:(NSInteger)trainerID;
 + (NSURL *)APIGetBagWithTrainerID:(NSInteger)trainerID;
++ (NSURL *)APIGetWildPokemonsForCurrentRegion:(NSInteger)regionID;
 
 + (BOOL)APIPostTrainerWithTrainerID:(NSInteger)trainerID;
 + (BOOL)APIPostPokedexWithTrainerID:(NSInteger)trainerID;

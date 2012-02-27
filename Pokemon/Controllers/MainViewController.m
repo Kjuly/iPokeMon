@@ -22,6 +22,7 @@
 #ifdef DEBUG
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
+#import "WildPokemon+DataController.h"
 #endif
 
 @implementation MainViewController
@@ -64,6 +65,7 @@
     // Updata all data for current User with the trainer ID
     [Trainer updateDataForTrainer:1];
     [TrainerTamedPokemon updateDataForTrainer:1];
+    [WildPokemon updateDataForCurrentRegion:1];
   }
   return self;
 }

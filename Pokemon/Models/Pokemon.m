@@ -2,7 +2,7 @@
 //  Pokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/18/12.
+//  Created by Kaijie Yu on 2/27/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -33,13 +33,14 @@
 @dynamic info;
 @dynamic moves;
 @dynamic name;
-@dynamic sid;
 @dynamic rareness;
+@dynamic sid;
 @dynamic species;
 @dynamic stepsToHatch;
 @dynamic type1;
 @dynamic type2;
 @dynamic weight;
 @dynamic tamedGroup;
+@dynamic wildGroup;
 
 @end
