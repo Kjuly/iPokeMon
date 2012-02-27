@@ -8,14 +8,14 @@
 
 #import "GameMenuMoveViewController.h"
 
-#import "TrainerTamedPokemon+DataController.h"
+#import "TrainerCoreDataController.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"
 
 
 @interface GameMenuMoveViewController () {
  @private
-  TrainerTamedPokemon * myPokemon_;
+  TrainerTamedPokemon * trainerPokemon_;
   NSArray             * fourMoves_;
   NSArray             * fourMovesPP_;
   
@@ -25,7 +25,7 @@
   GameMenuMoveUnitView * moveFourView_;
 }
 
-@property (nonatomic, retain) TrainerTamedPokemon * myPokemon;
+@property (nonatomic, retain) TrainerTamedPokemon * trainerPokemon;
 @property (nonatomic, copy) NSArray               * fourMoves;
 @property (nonatomic, copy) NSArray               * fourMovesPP;
 
@@ -41,9 +41,9 @@
 
 @implementation GameMenuMoveViewController
 
-@synthesize myPokemon   = myPokemon_;
-@synthesize fourMoves   = fourMoves_;
-@synthesize fourMovesPP = fourMovesPP_;
+@synthesize trainerPokemon = trainerPokemon_;
+@synthesize fourMoves      = fourMoves_;
+@synthesize fourMovesPP    = fourMovesPP_;
 
 @synthesize moveOneView   = moveOneView_;
 @synthesize moveTwoView   = moveTwoView_;
@@ -52,9 +52,9 @@
 
 - (void)dealloc
 {
-  [myPokemon_   release];
-  [fourMoves_   release];
-  [fourMovesPP_ release];
+  [trainerPokemon_ release];
+  [fourMoves_      release];
+  [fourMovesPP_    release];
   
   [moveOneView_    release];
   [moveTwoView_    release];
@@ -126,16 +126,16 @@
 {
   [super viewDidLoad];
   
-  self.myPokemon = [TrainerTamedPokemon queryPokemonDataWithID:8];
-  self.fourMoves = [self.myPokemon.fourMoves allObjects];
+  self.trainerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+  self.fourMoves = [self.trainerPokemon.fourMoves allObjects];
   
-  if ([self.myPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
+  if ([self.trainerPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
     NSMutableArray * movesPP = [NSMutableArray arrayWithCapacity:8];
-    for (id movePP in [self.myPokemon.fourMovesPP componentsSeparatedByString:@","])
+    for (id movePP in [self.trainerPokemon.fourMovesPP componentsSeparatedByString:@","])
       [movesPP addObject:[NSNumber numberWithInt:[movePP intValue]]];
     fourMovesPP_ = [[NSArray alloc] initWithArray:movesPP];
   }
-  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.myPokemon.fourMovesPP];
+  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.trainerPokemon.fourMovesPP];
   
   
   Move * moveOne   = [self.fourMoves objectAtIndex:0];
@@ -167,9 +167,9 @@
 {
   [super viewDidUnload];
   
-  self.myPokemon   = nil;
-  self.fourMoves   = nil;
-  self.fourMovesPP = nil;
+  self.trainerPokemon = nil;
+  self.fourMoves      = nil;
+  self.fourMovesPP    = nil;
   
   self.moveOneView    = nil;
   self.moveTwoView    = nil;
@@ -182,7 +182,7 @@
 - (void)useSelectedMove:(id)sender
 {
   NSInteger moveTag = ((UIButton *)sender).tag;
-  NSLog(@"User Move %d", moveTag);
+  NSLog(@"Use Move %d", moveTag);
 }
 
 @end

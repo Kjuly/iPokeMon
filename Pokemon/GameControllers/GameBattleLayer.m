@@ -8,19 +8,20 @@
 
 #import "GameBattleLayer.h"
 
+#import "TrainerCoreDataController.h"
 #import "Pokemon+DataController.h"
 
 
 @interface GameBattleLayer () {  
  @private
-  CCSprite * wildPokemon_;
-  CCSprite * myPokemon_;
-  BOOL isReadyToPlay_;
+  CCSprite * wildPokemonSprite_;
+  CCSprite * trainerPokemonSprite_;
+  BOOL       isReadyToPlay_;
 }
 
-@property (nonatomic, retain) CCSprite * wildPokemon;
-@property (nonatomic, retain) CCSprite * myPokemon;
-@property (nonatomic, assign) BOOL isReadyToPlay;
+@property (nonatomic, retain) CCSprite * wildPokemonSprite;
+@property (nonatomic, retain) CCSprite * trainerPokemonSprite;
+@property (nonatomic, assign) BOOL       isReadyToPlay;
 
 - (void)runBattleBeginAnimation;
 
@@ -29,11 +30,12 @@
 
 @implementation GameBattleLayer
 
-@synthesize pokemonData = pokemonData_;
-
 @synthesize wildPokemon   = wildPokemon_;
-@synthesize myPokemon     = myPokemon_;
-@synthesize isReadyToPlay = isReadyToPlay_;
+@synthesize trainerPokemon = trainerPokemon_;
+
+@synthesize wildPokemonSprite    = wildPokemonSprite_;
+@synthesize trainerPokemonSprite = trainerPokemonSprite_;
+@synthesize isReadyToPlay        = isReadyToPlay_;
 
 + (CCScene *)scene
 {
@@ -50,8 +52,11 @@
 
 - (void)dealloc
 {
-  [pokemonData_ release];
-  self.pokemonData = nil;
+  [wildPokemon_    release];
+  [trainerPokemon_ release];
+  
+  self.wildPokemonSprite    = nil;
+  self.trainerPokemonSprite = nil;
   
   [super dealloc];
 }
@@ -61,10 +66,17 @@
   if (self = [super initWithColor:ccc4(255,255,255,255)]) {
     [self setIsTouchEnabled:YES];
     
-    self.pokemonData = [Pokemon queryPokemonDataWithID:1];
-    self.wildPokemon = [CCSprite spriteWithCGImage:((UIImage *)self.pokemonData.image).CGImage key:@"Pokemon"];
-    [self.wildPokemon setPosition:ccp(-90, 430)];
-    [self addChild:self.wildPokemon];
+    // Wild Pokemon
+    self.wildPokemon = [Pokemon queryPokemonDataWithID:1];
+    self.wildPokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.image).CGImage key:@"Pokemon"];
+    [self.wildPokemonSprite setPosition:ccp(-90, 380)];
+    [self addChild:self.wildPokemonSprite];
+    
+    // Trainer's Pokemon
+    self.trainerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+    self.trainerPokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.trainerPokemon.pokemon.image).CGImage key:@"MyPokemon"];
+    [self.trainerPokemonSprite setPosition:ccp(410, 300)];
+    [self addChild:self.trainerPokemonSprite];
     
     self.isReadyToPlay = NO;
     
@@ -100,7 +112,7 @@
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
   CGPoint location = [self convertTouchToNodeSpace:touch];
-  [self.wildPokemon runAction:[CCMoveTo actionWithDuration:1 position:location]];
+  [self.wildPokemonSprite runAction:[CCMoveTo actionWithDuration:1 position:location]];
 }
 
 #pragma mark - Private Methods
@@ -109,7 +121,8 @@
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.wildPokemon runAction:[CCMoveTo actionWithDuration:1 position:ccp(220, 380)]];
+  [self.wildPokemonSprite    runAction:[CCMoveTo actionWithDuration:2 position:ccp(220, 380)]];
+  [self.trainerPokemonSprite runAction:[CCMoveTo actionWithDuration:2 position:ccp(100, 300)]];
   
   // Set game play to ready
   self.isReadyToPlay = YES;
