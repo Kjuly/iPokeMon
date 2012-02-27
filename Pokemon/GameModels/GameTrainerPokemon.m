@@ -26,6 +26,10 @@
 - (id)init
 {
   if (self = [super init]) {
+    // Base Setting
+    self.pokemonBattleStatus = kPokemonBattleStatusNormal;
+    
+    // Data Setting
     self.trainerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
     self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.trainerPokemon.pokemon.image).CGImage key:@"TrainerPokemon"];
     [self.pokemonSprite setPosition:ccp(410, 300)];

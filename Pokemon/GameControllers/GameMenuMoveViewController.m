@@ -182,31 +182,35 @@
 
 - (void)useSelectedMove:(id)sender
 {
-  NSInteger moveTag = ((UIButton *)sender).tag;
-  NSLog(@"Use Move %d", moveTag);
-  
-  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:10], @"damage", nil];
-  
-  switch (moveTag) {
-    case 1:
-      break;
-      
-    case 2:
-      break;
-      
-    case 3:
-      break;
-      
-    case 4:
-      break;
-      
-    default:
-      break;
+  if (self.isMyTurn) {
+    NSInteger moveTag = ((UIButton *)sender).tag;
+    NSLog(@"Use Move %d", moveTag);
+    
+    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:10], @"damage", nil];
+    
+    switch (moveTag) {
+      case 1:
+        break;
+        
+      case 2:
+        break;
+        
+      case 3:
+        break;
+        
+      case 4:
+        break;
+        
+      default:
+        break;
+    }
+    
+    // Send parameter to Move Effect Controller
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
+    [userInfo release];
+    
+    self.isMyTurn = NO;
   }
-  
-  // Send parameter to Move Effect Controller
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
-  [userInfo release];
 }
 
 @end

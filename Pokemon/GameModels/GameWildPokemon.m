@@ -32,6 +32,10 @@
 - (id)initWithPokemonID:(NSInteger)pokemonID keyName:(NSString *)keyName
 {
   if (self = [super init]) {
+    // Base Setting
+    self.pokemonBattleStatus = kPokemonBattleStatusNormal;
+    
+    // Data Setting
     self.wildPokemon = [Pokemon queryPokemonDataWithID:pokemonID];
     self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.image).CGImage key:keyName];
     [self.pokemonSprite setPosition:ccp(-90, 380)];
@@ -52,6 +56,13 @@
 - (void)update:(ccTime)dt
 {
   [super update:dt];
+}
+
+#pragma mark - Wild Pokemon's Move Attack
+
+- (void)attack
+{
+  
 }
 
 @end

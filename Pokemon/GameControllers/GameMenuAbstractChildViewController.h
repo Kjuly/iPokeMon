@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface GameMenuAbstractChildViewController : UIViewController
+{
+  BOOL isMyTurn_;
+}
+
+@property (nonatomic, assign) BOOL isMyTurn;
 
 @end
