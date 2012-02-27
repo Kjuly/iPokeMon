@@ -30,6 +30,9 @@
 		7F2FA49114ED2F670077C4E0 /* Trainer+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */; };
 		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
 		7F3F7A8414FB573C005E554E /* TrainerCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */; };
+		7F3F7AC414FB69E5005E554E /* GameAbstractPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */; };
+		7F3F7AC714FB7434005E554E /* GameWildPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC614FB7434005E554E /* GameWildPokemon.m */; };
+		7F3F7ACA14FB7445005E554E /* GameTrainerPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
 		7F4AC7FF14E7FBE500A10434 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */; };
@@ -516,6 +519,12 @@
 		7F39A2F214DD07DA00C77485 /* DataDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDecoder.m; sourceTree = "<group>"; };
 		7F3F7A7F14FB53EB005E554E /* TrainerCoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCoreDataController.h; sourceTree = "<group>"; };
 		7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCoreDataController.m; sourceTree = "<group>"; };
+		7F3F7AC214FB69E5005E554E /* GameAbstractPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAbstractPokemon.h; sourceTree = "<group>"; };
+		7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAbstractPokemon.m; sourceTree = "<group>"; };
+		7F3F7AC514FB7434005E554E /* GameWildPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWildPokemon.h; sourceTree = "<group>"; };
+		7F3F7AC614FB7434005E554E /* GameWildPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameWildPokemon.m; sourceTree = "<group>"; };
+		7F3F7AC814FB7445005E554E /* GameTrainerPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTrainerPokemon.h; sourceTree = "<group>"; };
+		7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTrainerPokemon.m; sourceTree = "<group>"; };
 		7F4570FE14F225EB0031A8F5 /* PokemonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailViewController.h; sourceTree = "<group>"; };
 		7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailViewController.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
@@ -1227,6 +1236,19 @@
 			path = db;
 			sourceTree = "<group>";
 		};
+		7F3F7AC114FB68BA005E554E /* GameModels */ = {
+			isa = PBXGroup;
+			children = (
+				7F3F7AC214FB69E5005E554E /* GameAbstractPokemon.h */,
+				7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */,
+				7F3F7AC514FB7434005E554E /* GameWildPokemon.h */,
+				7F3F7AC614FB7434005E554E /* GameWildPokemon.m */,
+				7F3F7AC814FB7445005E554E /* GameTrainerPokemon.h */,
+				7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */,
+			);
+			path = GameModels;
+			sourceTree = "<group>";
+		};
 		7F50B6CA14F93B8F00883412 /* Cocos2D */ = {
 			isa = PBXGroup;
 			children = (
@@ -1589,6 +1611,7 @@
 				7F6E6CF114D6CB9800033C65 /* Models */,
 				7F6E6CF614D6CB9800033C65 /* Views */,
 				7F6E6CED14D6CB9800033C65 /* Controllers */,
+				7F3F7AC114FB68BA005E554E /* GameModels */,
 				7F7C88F714F74F860023D079 /* GameViews */,
 				7F7C88F614F74F860023D079 /* GameControllers */,
 				7F6E6CF214D6CB9800033C65 /* Resources */,
@@ -2765,6 +2788,9 @@
 				7F77F6FD14FA7F7400842700 /* GameMenuMoveViewController.m in Sources */,
 				7F77F70114FAA16C00842700 /* GameMenuMoveUnitView.m in Sources */,
 				7F3F7A8414FB573C005E554E /* TrainerCoreDataController.m in Sources */,
+				7F3F7AC414FB69E5005E554E /* GameAbstractPokemon.m in Sources */,
+				7F3F7AC714FB7434005E554E /* GameWildPokemon.m in Sources */,
+				7F3F7ACA14FB7445005E554E /* GameTrainerPokemon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

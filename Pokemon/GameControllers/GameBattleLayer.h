@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@class Pokemon;
-@class TrainerTamedPokemon;
+@class GameWildPokemon;
+@class GameTrainerPokemon;
 
 @interface GameBattleLayer : CCLayerColor {
-  Pokemon             * wildPokemon_;
-  TrainerTamedPokemon * trainerPokemon_;
+  GameWildPokemon    * gameWildPoekmon_;
+  GameTrainerPokemon * gameTrainerPokemon_;
 }
 
-@property (nonatomic, retain) Pokemon             * wildPokemon;
-@property (nonatomic, retain) TrainerTamedPokemon * trainerPokemon;
+@property (nonatomic, retain) GameWildPokemon    * gameWildPokemon;
+@property (nonatomic, retain) GameTrainerPokemon * gameTrainerPokemon;
 
 + (CCScene *)scene;
 

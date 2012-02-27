@@ -10,6 +10,7 @@
 
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
+#import "Pokemon.h"
 
 //@class Trainer;
 //@class TrainerTamedPokemon;
