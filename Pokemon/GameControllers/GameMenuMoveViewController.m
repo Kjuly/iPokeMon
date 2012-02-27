@@ -34,6 +34,8 @@
 @property (nonatomic, retain) GameMenuMoveUnitView * moveThreeView;
 @property (nonatomic, retain) GameMenuMoveUnitView * moveFourView;
 
+- (void)useSelectedMove:(id)sender;
+
 @end
 
 
@@ -104,13 +106,13 @@
   [moveThreeView_.viewButton setTag:2];
   [moveFourView_.viewButton  setTag:3];
   
-  [moveOneView_.viewButton   addTarget:self action:@selector(loadMoveDetailView:)
+  [moveOneView_.viewButton   addTarget:self action:@selector(useSelectedMove:)
                       forControlEvents:UIControlEventTouchUpInside];
-  [moveTwoView_.viewButton   addTarget:self action:@selector(loadMoveDetailView:)
+  [moveTwoView_.viewButton   addTarget:self action:@selector(useSelectedMove:)
                       forControlEvents:UIControlEventTouchUpInside];
-  [moveThreeView_.viewButton addTarget:self action:@selector(loadMoveDetailView:)
+  [moveThreeView_.viewButton addTarget:self action:@selector(useSelectedMove:)
                       forControlEvents:UIControlEventTouchUpInside];
-  [moveFourView_.viewButton  addTarget:self action:@selector(loadMoveDetailView:)
+  [moveFourView_.viewButton  addTarget:self action:@selector(useSelectedMove:)
                       forControlEvents:UIControlEventTouchUpInside];
   
   [self.view addSubview:moveOneView_];
@@ -173,6 +175,14 @@
   self.moveTwoView    = nil;
   self.moveThreeView  = nil;
   self.moveFourView   = nil;
+}
+
+#pragma mark - Private Methods
+
+- (void)useSelectedMove:(id)sender
+{
+  NSInteger moveTag = ((UIButton *)sender).tag;
+  NSLog(@"User Move %d", moveTag);
 }
 
 @end
