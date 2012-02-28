@@ -199,6 +199,9 @@
   self.poketchViewController = nil;
   self.utilityNavigationController = nil;
   self.gameMainViewController = nil;
+  
+  [self.longTapTimer invalidate];
+  self.longTapTimer = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
