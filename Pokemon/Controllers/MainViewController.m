@@ -29,12 +29,18 @@
 
 @interface MainViewController () {
  @private
-  BOOL isMapViewOpening_;
+  BOOL      isMapViewOpening_;
+  NSTimer * longTapTimer_;
+  NSInteger timeCounter_;
 }
 
 @property (nonatomic, assign) BOOL isMapViewOpening;
+@property (nonatomic, retain) NSTimer * longTapTimer;
+@property (nonatomic, assign) NSInteger timeCounter;
 
 - (void)openBallMenuView:(id)sender;
+- (void)countLongTapTimeWithAction:(id)sender;
+- (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
 - (void)resetMainView:(NSNotification *)notification;
 
@@ -53,6 +59,8 @@
 @synthesize gameMainViewController = gameMainViewController_;
 
 @synthesize isMapViewOpening = isMapViewOpening_;
+@synthesize longTapTimer     = longTapTimer_;
+@synthesize timeCounter      = timeCounter_;
 
 - (void)dealloc
 {
@@ -128,8 +136,13 @@
                                    forState:UIControlStateNormal];
   [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
-  [self.centerMainButton addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.centerMainButton];
+  
+  // Register touch events for |centerMainButton_|
+  [self.centerMainButton addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.centerMainButton addTarget:self action:@selector(countLongTapTimeWithAction:)
+                  forControlEvents:UIControlEventTouchDown];
+//  [self.centerMainButton addTarget:self action:@selector(otherTouchesAction:) forControlEvents:UIControlEventTouchUpOutside];
   
   // Map Button
   UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
@@ -196,34 +209,59 @@
 
 #pragma mark - Private Methods
 
-// |centerMainButton_| action
+// |centerMainButton_| touch up inside action
 - (void)openBallMenuView:(id)sender
 {
-  if (! self.utilityNavigationController) {
-    NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
-    UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
-    utilityNavigationController_ = [CustomNavigationController initWithRootViewController:utilityBallMenuViewController
-                                                             navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
-    [utilityBallMenuViewController release];
+  [self.longTapTimer invalidate];
+  
+  // Do action based on tap down keepped time
+  if (self.timeCounter <= 1) {
+    if (! self.utilityNavigationController) {
+      NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
+      UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc] init];
+      utilityNavigationController_ = [CustomNavigationController initWithRootViewController:utilityBallMenuViewController
+                                                               navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
+      [utilityBallMenuViewController release];
+    }
+    
+    // |mapButton_|'s new Frame
+    CGRect mapButtonFrame = self.mapButton.frame;
+    mapButtonFrame.origin.y = - kMapButtonSize / 2;
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationCurveEaseInOut
+                     animations:^{
+                       [self.mapButton setFrame:mapButtonFrame];
+                     }
+                     completion:^(BOOL finished) {
+                       [self.view addSubview:self.utilityNavigationController.view];
+                       [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                selector:@selector(resetMainView:)
+                                                                    name:kPMNResetMainView
+                                                                  object:self.utilityViewController];
+                     }];
   }
-  
-  // |mapButton_|'s new Frame
-  CGRect mapButtonFrame = self.mapButton.frame;
-  mapButtonFrame.origin.y = - kMapButtonSize / 2;
-  
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
-                      options:UIViewAnimationCurveEaseInOut
-                   animations:^{
-                     [self.mapButton setFrame:mapButtonFrame];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.view addSubview:self.utilityNavigationController.view];
-                     [[NSNotificationCenter defaultCenter] addObserver:self
-                                                              selector:@selector(resetMainView:)
-                                                                  name:kPMNResetMainView
-                                                                object:self.utilityViewController];
-                   }];
+  else if (self.timeCounter <= 2) {
+    NSLog(@"1 < time <= 2");
+  }
+}
+
+// |centerMainButton_| touch down action
+- (void)countLongTapTimeWithAction:(id)sender
+{
+  self.timeCounter = 0;
+  self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                       target:self
+                                                     selector:@selector(increaseTimeWithAction)
+                                                     userInfo:nil
+                                                      repeats:YES];
+}
+
+// Method for counting Tap Down time
+- (void)increaseTimeWithAction
+{
+  ++self.timeCounter;
 }
 
 // |mapButton_| action
