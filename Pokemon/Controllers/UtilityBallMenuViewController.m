@@ -85,17 +85,17 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[GlobalRender backgroundColorTransparentBlack]];
+//  [self.view setBackgroundColor:[GlobalRender backgroundColorTransparentBlack]];
   
   // Ball Menu View
-  UIView * ballMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kUtilityBallMenuWidth) / 2.0f,
-                                                              kMapViewHeight + kUtilityBarHeight / 2 - kUtilityBallMenuHeight / 2,
-                                                              kUtilityBallMenuWidth,
-                                                              kUtilityBallMenuHeight)];
+  UIView * ballMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kCenterMenuSize) / 2,
+                                                              (480.0f - kCenterMenuSize) / 2,
+                                                              kCenterMenuSize,
+                                                              kCenterMenuSize)];
   self.ballMenu = ballMenu;
   [ballMenu release];
   
-  [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"UtilityBallMenuIconBig.png"]]];
+  [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
   [self.ballMenu setOpaque:NO];
   [self.view addSubview:self.ballMenu];
   
@@ -109,11 +109,12 @@
   //   -----      x: degree
   //     a
   //
-  float degree = 60.0f * M_PI / 180.0f;
-  float triangleHypotenuse = kDistanceFromUtilityBallCenter;
-  float triangleA = triangleHypotenuse * cosf(degree);
-  float triangleB = triangleHypotenuse * sinf(degree);
-  float buttonRadius = kUtilityBallMenuButtonDiameter / 2.0f;
+  CGFloat degree = 60.0f * M_PI / 180.0f;
+  CGFloat triangleHypotenuse = 112.0f; // Distance to Ball Center
+  CGFloat triangleA = triangleHypotenuse * cosf(degree);
+  CGFloat triangleB = triangleHypotenuse * sinf(degree);
+  CGFloat buttonRadius = kCenterMenuButtonSize / 2.0f;
+  CGFloat centerBallMenuHalfSize = kCenterMenuSize / 2.0f;
   
   {
     // Button: Show Pokedex
@@ -123,13 +124,13 @@
     //   --|--
     //    /|\
     //
-    buttonShowPokedex_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 - triangleB - buttonRadius,
-                                                                    kUtilityBallMenuHeight / 2 - triangleA - buttonRadius,
-                                                                    kUtilityBallMenuButtonDiameter,
-                                                                    kUtilityBallMenuButtonDiameter)];
-    [buttonShowPokedex_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonShowPokedex_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize - triangleB - buttonRadius,
+                                                                    centerBallMenuHalfSize - triangleA - buttonRadius,
+                                                                    kCenterMenuButtonSize,
+                                                                    kCenterMenuButtonSize)];
+    [buttonShowPokedex_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                                   forState:UIControlStateNormal];
-    [buttonShowPokedex_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowPokedex.png"]
+    [buttonShowPokedex_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton1.png"]
                         forState:UIControlStateNormal];
     [buttonShowPokedex_ setTag:kTagUtilityBallButtonShowPokedex];
     [buttonShowPokedex_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -142,13 +143,13 @@
     //   --|--
     //    /|\
     //
-    buttonShowPokemon_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 - buttonRadius,
-                                                                    kUtilityBallMenuHeight / 2 - triangleHypotenuse - buttonRadius,
-                                                                    kUtilityBallMenuButtonDiameter,
-                                                                    kUtilityBallMenuButtonDiameter)];
-    [buttonShowPokemon_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonShowPokemon_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize - buttonRadius,
+                                                                    centerBallMenuHalfSize - triangleHypotenuse - buttonRadius,
+                                                                    kCenterMenuButtonSize,
+                                                                    kCenterMenuButtonSize)];
+    [buttonShowPokemon_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                                   forState:UIControlStateNormal];
-    [buttonShowPokemon_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowPokemon.png"]
+    [buttonShowPokemon_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton2.png"]
                         forState:UIControlStateNormal];
     [buttonShowPokemon_ setTag:kTagUtilityBallButtonShowPokemon];
     [buttonShowPokemon_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -161,13 +162,13 @@
     //   --|--
     //    /|\
     //
-    buttonShowBag_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 + triangleB - buttonRadius,
-                                                                kUtilityBallMenuHeight / 2 - triangleA - buttonRadius,
-                                                                kUtilityBallMenuButtonDiameter,
-                                                                kUtilityBallMenuButtonDiameter)];
-    [buttonShowBag_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonShowBag_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize + triangleB - buttonRadius,
+                                                                centerBallMenuHalfSize - triangleA - buttonRadius,
+                                                                kCenterMenuButtonSize,
+                                                                kCenterMenuButtonSize)];
+    [buttonShowBag_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                               forState:UIControlStateNormal];
-    [buttonShowBag_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowBag.png"]
+    [buttonShowBag_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton3.png"]
                     forState:UIControlStateNormal];
     [buttonShowBag_ setTag:kTagUtilityBallButtonShowBag];
     [buttonShowBag_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -180,13 +181,13 @@
     //    /|\
     //   o
     //
-    buttonShowTrainerCard_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 - triangleB - buttonRadius,
-                                                                        kUtilityBallMenuHeight / 2 + triangleA - buttonRadius,
-                                                                        kUtilityBallMenuButtonDiameter,
-                                                                        kUtilityBallMenuButtonDiameter)];
-    [buttonShowTrainerCard_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonShowTrainerCard_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize - triangleB - buttonRadius,
+                                                                        centerBallMenuHalfSize + triangleA - buttonRadius,
+                                                                        kCenterMenuButtonSize,
+                                                                        kCenterMenuButtonSize)];
+    [buttonShowTrainerCard_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                                       forState:UIControlStateNormal];
-    [buttonShowTrainerCard_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_ShowTrainerCard.png"]
+    [buttonShowTrainerCard_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton4.png"]
                             forState:UIControlStateNormal];
     [buttonShowTrainerCard_ setTag:kTagUtilityBallButtonShowTrainerCard];
     [buttonShowTrainerCard_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -199,13 +200,13 @@
     //    /|\
     //     o
     //
-    buttonHotkey_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 - buttonRadius,
-                                                               kUtilityBallMenuHeight / 2 + triangleHypotenuse - buttonRadius,
-                                                               kUtilityBallMenuButtonDiameter,
-                                                               kUtilityBallMenuButtonDiameter)];
-    [buttonHotkey_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonHotkey_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize - buttonRadius,
+                                                               centerBallMenuHalfSize + triangleHypotenuse - buttonRadius,
+                                                               kCenterMenuButtonSize,
+                                                               kCenterMenuButtonSize)];
+    [buttonHotkey_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                              forState:UIControlStateNormal];
-    [buttonHotkey_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_RunHotKey.png"]
+    [buttonHotkey_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton5.png"]
                    forState:UIControlStateNormal];
     [buttonHotkey_ setTag:kTagUtilityBallButtonHotkey];
     [buttonHotkey_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -218,13 +219,13 @@
     //    /|\
     //       o
     //
-    buttonSetGame_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 + triangleB - buttonRadius,
-                                                                kUtilityBallMenuHeight / 2 + triangleA - buttonRadius,
-                                                                kUtilityBallMenuButtonDiameter,
-                                                                kUtilityBallMenuButtonDiameter)];
-    [buttonSetGame_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonSetGame_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize + triangleB - buttonRadius,
+                                                                centerBallMenuHalfSize + triangleA - buttonRadius,
+                                                                kCenterMenuButtonSize,
+                                                                kCenterMenuButtonSize)];
+    [buttonSetGame_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                               forState:UIControlStateNormal];
-    [buttonSetGame_ setImage:[UIImage imageNamed:@"UtilityBallMenuIcon_SetGame.png"]
+    [buttonSetGame_ setImage:[UIImage imageNamed:@"MainViewCenterMenuButton6.png"]
                     forState:UIControlStateNormal];
     [buttonSetGame_ setTag:kTagUtilityBallButtonSetGame];
     [buttonSetGame_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -236,11 +237,11 @@
     //   - o -
     //    /|\
     //
-    buttonClose_ = [[UIButton alloc] initWithFrame:CGRectMake(kUtilityBallMenuWidth / 2 - buttonRadius,
-                                                              kUtilityBallMenuHeight / 2 - buttonRadius,
-                                                              kUtilityBallMenuButtonDiameter,
-                                                              kUtilityBallMenuButtonDiameter)];
-    [buttonClose_ setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIconBackgroundSmall.png"]
+    buttonClose_ = [[UIButton alloc] initWithFrame:CGRectMake(centerBallMenuHalfSize - buttonRadius,
+                                                              centerBallMenuHalfSize - buttonRadius,
+                                                              kCenterMenuButtonSize,
+                                                              kCenterMenuButtonSize)];
+    [buttonClose_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                                   forState:UIControlStateNormal];
     [buttonClose_ setTag:kTagUtilityBallButtonClose];
     [buttonClose_ addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];

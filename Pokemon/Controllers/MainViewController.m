@@ -27,24 +27,22 @@
 
 @implementation MainViewController
 
+@synthesize centerMainButton = centerMainButton_;
+
 @synthesize mapViewController     = mapViewController_;
 @synthesize utilityViewController = utilityViewController_;
 @synthesize poketchViewController = poketchViewController_;
-
-@synthesize buttonOpenBallMenu            = buttonOpenBallMenu_;
 @synthesize utilityNavigationController   = utilityNavigationController_;
-
 @synthesize gameMainViewController = gameMainViewController_;
 
 - (void)dealloc
 {
+  [centerMainButton_ release];
+  
   [mapViewController_ release];
   [utilityViewController_ release];
   [poketchViewController_ release];
-  
-  [buttonOpenBallMenu_ release];
   [utilityNavigationController_ release];
-  
   [gameMainViewController_ release];
   
   [super dealloc];
@@ -91,10 +89,26 @@
   self.view = view;
   [view release];
   
-  // Set Background Color
-//  [self.view setBackgroundColor:[GlobalColor backgroundColorMain]];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setOpaque:NO];
   
+  // Ball menu which locate at center
+  UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
+                                                                           (480.0f - kCenterMainButtonSize) / 2,
+                                                                           kCenterMainButtonSize,
+                                                                           kCenterMainButtonSize)];
+  
+  self.centerMainButton = centerMainButton;
+  [centerMainButton release];
+  [self.centerMainButton setContentMode:UIViewContentModeScaleAspectFit];
+  [self.centerMainButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterButtonBackground.png"]
+                                     forState:UIControlStateNormal];
+  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
+  [self.centerMainButton setOpaque:NO];
+  [self.centerMainButton addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.centerMainButton];
+
+/*
   // Map View Controller
   MapViewController * mapViewController = [[MapViewController alloc] init];
   self.mapViewController = mapViewController;
@@ -116,22 +130,10 @@
   self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
   
-  // Ball menu which locate at center
-  UIButton * buttonOpenBallMenu = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kUtilityBarHeight) / 2,
-                                                                             kMapViewHeight,
-                                                                             kUtilityBarHeight,
-                                                                             kUtilityBarHeight)];
-  self.buttonOpenBallMenu = buttonOpenBallMenu;
-  [buttonOpenBallMenu release];
-  [self.buttonOpenBallMenu setContentMode:UIViewContentModeScaleAspectFit];
-  [self.buttonOpenBallMenu setBackgroundImage:[UIImage imageNamed:@"UtilityBallMenuIcon.png"]
-                                     forState:UIControlStateNormal];
-  [self.buttonOpenBallMenu addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:self.buttonOpenBallMenu];
-  
   // Game Main View
 //  gameMainViewController_ = [[GameMainViewController alloc] init];
 //  [self.view addSubview:gameMainViewController_.view];
+*/
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -143,14 +145,13 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-
+  
+  self.centerMainButton = nil;
+  
   self.mapViewController = nil;
   self.utilityViewController = nil;
   self.poketchViewController = nil;
-  
-  self.buttonOpenBallMenu            = nil;
-  self.utilityNavigationController   = nil;
-  
+  self.utilityNavigationController = nil;
   self.gameMainViewController = nil;
 }
 

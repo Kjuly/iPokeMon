@@ -474,6 +474,32 @@
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
 		7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */; };
 		7FE2BAA914DAE23600419825 /* PokedexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */; };
+		7FEAE80E14FD00DC003679C1 /* MainViewBackgroundBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80314FD00DC003679C1 /* MainViewBackgroundBlack.png */; };
+		7FEAE80F14FD00DC003679C1 /* MainViewCenterButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80414FD00DC003679C1 /* MainViewCenterButtonBackground.png */; };
+		7FEAE81014FD00DC003679C1 /* MainViewCenterButtonImageNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80514FD00DC003679C1 /* MainViewCenterButtonImageNormal.png */; };
+		7FEAE81214FD00DC003679C1 /* MainViewCenterMenuButton1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80714FD00DC003679C1 /* MainViewCenterMenuButton1.png */; };
+		7FEAE81314FD00DC003679C1 /* MainViewCenterMenuButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80814FD00DC003679C1 /* MainViewCenterMenuButton2.png */; };
+		7FEAE81414FD00DC003679C1 /* MainViewCenterMenuButton3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80914FD00DC003679C1 /* MainViewCenterMenuButton3.png */; };
+		7FEAE81514FD00DC003679C1 /* MainViewCenterMenuButton4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80A14FD00DC003679C1 /* MainViewCenterMenuButton4.png */; };
+		7FEAE81614FD00DC003679C1 /* MainViewCenterMenuButton5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80B14FD00DC003679C1 /* MainViewCenterMenuButton5.png */; };
+		7FEAE81714FD00DC003679C1 /* MainViewCenterMenuButton6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80C14FD00DC003679C1 /* MainViewCenterMenuButton6.png */; };
+		7FEAE81814FD00DC003679C1 /* MainViewCenterMenuButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE80D14FD00DC003679C1 /* MainViewCenterMenuButtonBackground.png */; };
+		7FEAE82414FD03FC003679C1 /* MainViewBackgroundBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81A14FD03FC003679C1 /* MainViewBackgroundBlack@2x.png */; };
+		7FEAE82514FD03FC003679C1 /* MainViewCenterButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81B14FD03FC003679C1 /* MainViewCenterButtonBackground@2x.png */; };
+		7FEAE82614FD03FC003679C1 /* MainViewCenterButtonImageNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81C14FD03FC003679C1 /* MainViewCenterButtonImageNormal@2x.png */; };
+		7FEAE82714FD03FC003679C1 /* MainViewCenterMenuButton1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81D14FD03FC003679C1 /* MainViewCenterMenuButton1@2x.png */; };
+		7FEAE82814FD03FC003679C1 /* MainViewCenterMenuButton2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81E14FD03FC003679C1 /* MainViewCenterMenuButton2@2x.png */; };
+		7FEAE82914FD03FC003679C1 /* MainViewCenterMenuButton3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE81F14FD03FC003679C1 /* MainViewCenterMenuButton3@2x.png */; };
+		7FEAE82A14FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82014FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png */; };
+		7FEAE82B14FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82114FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png */; };
+		7FEAE82C14FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82214FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png */; };
+		7FEAE82D14FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82314FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png */; };
+		7FEAE83414FD0854003679C1 /* MainViewCenterCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */; };
+		7FEAE83514FD0854003679C1 /* MainViewCenterCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */; };
+		7FEAE83614FD0854003679C1 /* MainViewCenterCircleHoverLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83014FD0852003679C1 /* MainViewCenterCircleHoverLeft.png */; };
+		7FEAE83714FD0854003679C1 /* MainViewCenterCircleHoverLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83114FD0852003679C1 /* MainViewCenterCircleHoverLeft@2x.png */; };
+		7FEAE83814FD0854003679C1 /* MainViewCenterCircleHoverRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83214FD0853003679C1 /* MainViewCenterCircleHoverRight.png */; };
+		7FEAE83914FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83314FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png */; };
 		7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */; };
 		7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */; };
 		7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */; };
@@ -1179,6 +1205,32 @@
 		7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityNavigationBarBackground.png; sourceTree = "<group>"; };
 		7FE2BAA714DAE23500419825 /* PokedexTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokedexTableViewController.h; sourceTree = "<group>"; };
 		7FE2BAA814DAE23600419825 /* PokedexTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokedexTableViewController.m; sourceTree = "<group>"; };
+		7FEAE80314FD00DC003679C1 /* MainViewBackgroundBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlack.png; sourceTree = "<group>"; };
+		7FEAE80414FD00DC003679C1 /* MainViewCenterButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonBackground.png; sourceTree = "<group>"; };
+		7FEAE80514FD00DC003679C1 /* MainViewCenterButtonImageNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageNormal.png; sourceTree = "<group>"; };
+		7FEAE80714FD00DC003679C1 /* MainViewCenterMenuButton1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton1.png; sourceTree = "<group>"; };
+		7FEAE80814FD00DC003679C1 /* MainViewCenterMenuButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton2.png; sourceTree = "<group>"; };
+		7FEAE80914FD00DC003679C1 /* MainViewCenterMenuButton3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton3.png; sourceTree = "<group>"; };
+		7FEAE80A14FD00DC003679C1 /* MainViewCenterMenuButton4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton4.png; sourceTree = "<group>"; };
+		7FEAE80B14FD00DC003679C1 /* MainViewCenterMenuButton5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton5.png; sourceTree = "<group>"; };
+		7FEAE80C14FD00DC003679C1 /* MainViewCenterMenuButton6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButton6.png; sourceTree = "<group>"; };
+		7FEAE80D14FD00DC003679C1 /* MainViewCenterMenuButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMenuButtonBackground.png; sourceTree = "<group>"; };
+		7FEAE81A14FD03FC003679C1 /* MainViewBackgroundBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewBackgroundBlack@2x.png"; sourceTree = "<group>"; };
+		7FEAE81B14FD03FC003679C1 /* MainViewCenterButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonBackground@2x.png"; sourceTree = "<group>"; };
+		7FEAE81C14FD03FC003679C1 /* MainViewCenterButtonImageNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageNormal@2x.png"; sourceTree = "<group>"; };
+		7FEAE81D14FD03FC003679C1 /* MainViewCenterMenuButton1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton1@2x.png"; sourceTree = "<group>"; };
+		7FEAE81E14FD03FC003679C1 /* MainViewCenterMenuButton2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton2@2x.png"; sourceTree = "<group>"; };
+		7FEAE81F14FD03FC003679C1 /* MainViewCenterMenuButton3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton3@2x.png"; sourceTree = "<group>"; };
+		7FEAE82014FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton4@2x.png"; sourceTree = "<group>"; };
+		7FEAE82114FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton5@2x.png"; sourceTree = "<group>"; };
+		7FEAE82214FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButton6@2x.png"; sourceTree = "<group>"; };
+		7FEAE82314FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMenuButtonBackground@2x.png"; sourceTree = "<group>"; };
+		7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterCircle.png; sourceTree = "<group>"; };
+		7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircle@2x.png"; sourceTree = "<group>"; };
+		7FEAE83014FD0852003679C1 /* MainViewCenterCircleHoverLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterCircleHoverLeft.png; sourceTree = "<group>"; };
+		7FEAE83114FD0852003679C1 /* MainViewCenterCircleHoverLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircleHoverLeft@2x.png"; sourceTree = "<group>"; };
+		7FEAE83214FD0853003679C1 /* MainViewCenterCircleHoverRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterCircleHoverRight.png; sourceTree = "<group>"; };
+		7FEAE83314FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircleHoverRight@2x.png"; sourceTree = "<group>"; };
 		7FEED5C214E4E8F10010F7F2 /* AccountSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingTableViewController.h; sourceTree = "<group>"; };
 		7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingTableViewController.m; sourceTree = "<group>"; };
 		7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AccountSettingTableView_CancelButton.png; path = Pokemon/Resources/Images/AccountSettingTableView_CancelButton.png; sourceTree = SOURCE_ROOT; };
@@ -1851,6 +1903,7 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FEAE80214FD00DC003679C1 /* MainView */,
 				7F3F7ACE14FB7FED005E554E /* GameImages */,
 				7FBB60AB14E6A50700C24BA5 /* tmp */,
 				7FBAA71014E170430011DCB0 /* UtilityBall */,
@@ -2272,6 +2325,39 @@
 			path = NavigationBar;
 			sourceTree = "<group>";
 		};
+		7FEAE80214FD00DC003679C1 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */,
+				7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */,
+				7FEAE83014FD0852003679C1 /* MainViewCenterCircleHoverLeft.png */,
+				7FEAE83114FD0852003679C1 /* MainViewCenterCircleHoverLeft@2x.png */,
+				7FEAE83214FD0853003679C1 /* MainViewCenterCircleHoverRight.png */,
+				7FEAE83314FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png */,
+				7FEAE81A14FD03FC003679C1 /* MainViewBackgroundBlack@2x.png */,
+				7FEAE81B14FD03FC003679C1 /* MainViewCenterButtonBackground@2x.png */,
+				7FEAE81C14FD03FC003679C1 /* MainViewCenterButtonImageNormal@2x.png */,
+				7FEAE81D14FD03FC003679C1 /* MainViewCenterMenuButton1@2x.png */,
+				7FEAE81E14FD03FC003679C1 /* MainViewCenterMenuButton2@2x.png */,
+				7FEAE81F14FD03FC003679C1 /* MainViewCenterMenuButton3@2x.png */,
+				7FEAE82014FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png */,
+				7FEAE82114FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png */,
+				7FEAE82214FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png */,
+				7FEAE82314FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png */,
+				7FEAE80314FD00DC003679C1 /* MainViewBackgroundBlack.png */,
+				7FEAE80414FD00DC003679C1 /* MainViewCenterButtonBackground.png */,
+				7FEAE80514FD00DC003679C1 /* MainViewCenterButtonImageNormal.png */,
+				7FEAE80714FD00DC003679C1 /* MainViewCenterMenuButton1.png */,
+				7FEAE80814FD00DC003679C1 /* MainViewCenterMenuButton2.png */,
+				7FEAE80914FD00DC003679C1 /* MainViewCenterMenuButton3.png */,
+				7FEAE80A14FD00DC003679C1 /* MainViewCenterMenuButton4.png */,
+				7FEAE80B14FD00DC003679C1 /* MainViewCenterMenuButton5.png */,
+				7FEAE80C14FD00DC003679C1 /* MainViewCenterMenuButton6.png */,
+				7FEAE80D14FD00DC003679C1 /* MainViewCenterMenuButtonBackground.png */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2605,6 +2691,32 @@
 				7F50B80314F93B8F00883412 /* LICENSE_TouchJSON.txt in Resources */,
 				7F3F7AD114FB8670005E554E /* hpBar.png in Resources */,
 				7F3F7AD214FB8670005E554E /* hpMaxBar.png in Resources */,
+				7FEAE80E14FD00DC003679C1 /* MainViewBackgroundBlack.png in Resources */,
+				7FEAE80F14FD00DC003679C1 /* MainViewCenterButtonBackground.png in Resources */,
+				7FEAE81014FD00DC003679C1 /* MainViewCenterButtonImageNormal.png in Resources */,
+				7FEAE81214FD00DC003679C1 /* MainViewCenterMenuButton1.png in Resources */,
+				7FEAE81314FD00DC003679C1 /* MainViewCenterMenuButton2.png in Resources */,
+				7FEAE81414FD00DC003679C1 /* MainViewCenterMenuButton3.png in Resources */,
+				7FEAE81514FD00DC003679C1 /* MainViewCenterMenuButton4.png in Resources */,
+				7FEAE81614FD00DC003679C1 /* MainViewCenterMenuButton5.png in Resources */,
+				7FEAE81714FD00DC003679C1 /* MainViewCenterMenuButton6.png in Resources */,
+				7FEAE81814FD00DC003679C1 /* MainViewCenterMenuButtonBackground.png in Resources */,
+				7FEAE82414FD03FC003679C1 /* MainViewBackgroundBlack@2x.png in Resources */,
+				7FEAE82514FD03FC003679C1 /* MainViewCenterButtonBackground@2x.png in Resources */,
+				7FEAE82614FD03FC003679C1 /* MainViewCenterButtonImageNormal@2x.png in Resources */,
+				7FEAE82714FD03FC003679C1 /* MainViewCenterMenuButton1@2x.png in Resources */,
+				7FEAE82814FD03FC003679C1 /* MainViewCenterMenuButton2@2x.png in Resources */,
+				7FEAE82914FD03FC003679C1 /* MainViewCenterMenuButton3@2x.png in Resources */,
+				7FEAE82A14FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png in Resources */,
+				7FEAE82B14FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png in Resources */,
+				7FEAE82C14FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png in Resources */,
+				7FEAE82D14FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png in Resources */,
+				7FEAE83414FD0854003679C1 /* MainViewCenterCircle.png in Resources */,
+				7FEAE83514FD0854003679C1 /* MainViewCenterCircle@2x.png in Resources */,
+				7FEAE83614FD0854003679C1 /* MainViewCenterCircleHoverLeft.png in Resources */,
+				7FEAE83714FD0854003679C1 /* MainViewCenterCircleHoverLeft@2x.png in Resources */,
+				7FEAE83814FD0854003679C1 /* MainViewCenterCircleHoverRight.png in Resources */,
+				7FEAE83914FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

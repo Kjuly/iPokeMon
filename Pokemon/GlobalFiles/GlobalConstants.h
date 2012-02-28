@@ -10,13 +10,13 @@
 #define kPupulateData 0
 
 // Main view settings
-#define kMapViewHeight      200.0f
+#define kCenterMainButtonSize 64.0f
+#define kCenterMenuSize       305.0f
+#define kCenterMenuButtonSize 64.0f
 
+#define kMapViewHeight      200.0f
 #define kUtilityBarHeight  40.0f
-#define kUtilityBallMenuWidth  256.0f
-#define kUtilityBallMenuHeight 256.0f
-#define kDistanceFromUtilityBallCenter 112.0f
-#define kUtilityBallMenuButtonDiameter 64.0f
+
 
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,

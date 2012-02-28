@@ -16,23 +16,21 @@
 
 @interface MainViewController : UIViewController
 {
+  UIButton * centerMainButton_;
+  
   MapViewController * mapViewController_;
   UtilityViewController * utilityViewController_;
   PoketchTabViewController * poketchViewController_;
-  
-  UIButton * buttonOpenBallMenu_;
   CustomNavigationController * utilityNavigationController_;
-  
   GameMainViewController * gameMainViewController_;
 }
+
+@property (nonatomic, retain) UIButton * centerMainButton;
 
 @property (nonatomic, retain) MapViewController * mapViewController;
 @property (nonatomic, retain) UtilityViewController * utilityViewController;
 @property (nonatomic, retain) PoketchTabViewController * poketchViewController;
-
-@property (nonatomic, retain) UIButton * buttonOpenBallMenu;
 @property (nonatomic, retain) CustomNavigationController * utilityNavigationController;
-
 @property (nonatomic, retain) GameMainViewController * gameMainViewController;
 
 // Button Action
