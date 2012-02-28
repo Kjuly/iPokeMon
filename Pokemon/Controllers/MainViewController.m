@@ -130,8 +130,8 @@
   [self.view addSubview:self.buttonOpenBallMenu];
   
   // Game Main View
-  gameMainViewController_ = [[GameMainViewController alloc] init];
-  [self.view addSubview:gameMainViewController_.view];
+//  gameMainViewController_ = [[GameMainViewController alloc] init];
+//  [self.view addSubview:gameMainViewController_.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
