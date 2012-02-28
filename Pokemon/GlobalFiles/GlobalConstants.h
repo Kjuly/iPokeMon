@@ -14,6 +14,8 @@
 #define kCenterMenuSize       305.0f
 #define kCenterMenuButtonSize 64.0f
 
+#define kMapButtonSize 64.0f
+
 #define kMapViewHeight      200.0f
 #define kUtilityBarHeight  40.0f
 

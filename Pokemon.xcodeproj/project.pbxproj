@@ -26,6 +26,12 @@
 		7F2EFB7314DE5F370068F681 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7214DE5F370068F681 /* PListParser.m */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
 		7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */; };
+		7F2FA1F514FD182E006006C8 /* MainViewMapButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1F114FD182E006006C8 /* MainViewMapButtonBackground.png */; };
+		7F2FA1F614FD182E006006C8 /* MainViewMapButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1F214FD182E006006C8 /* MainViewMapButtonBackground@2x.png */; };
+		7F2FA1F714FD182E006006C8 /* MainViewMapButtonImageNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1F314FD182E006006C8 /* MainViewMapButtonImageNormal.png */; };
+		7F2FA1F814FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1F414FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png */; };
+		7F2FA20014FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1FE14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png */; };
+		7F2FA20114FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1FF14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png */; };
 		7F2FA44C14ECCC670077C4E0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2FA44B14ECCC670077C4E0 /* libsqlite3.dylib */; };
 		7F2FA49114ED2F670077C4E0 /* Trainer+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */; };
 		7F39A2F314DD07DA00C77485 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39A2F214DD07DA00C77485 /* DataDecoder.m */; };
@@ -545,6 +551,12 @@
 		7F2EFB7214DE5F370068F681 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
 		7F2EFB7514DE78250068F681 /* GenerationOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenerationOne.png; sourceTree = "<group>"; };
 		7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PokedexDefaultImage.png; sourceTree = "<group>"; };
+		7F2FA1F114FD182E006006C8 /* MainViewMapButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonBackground.png; sourceTree = "<group>"; };
+		7F2FA1F214FD182E006006C8 /* MainViewMapButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewMapButtonBackground@2x.png"; sourceTree = "<group>"; };
+		7F2FA1F314FD182E006006C8 /* MainViewMapButtonImageNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageNormal.png; sourceTree = "<group>"; };
+		7F2FA1F414FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewMapButtonImageNormal@2x.png"; sourceTree = "<group>"; };
+		7F2FA1FE14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageHalfCancel.png; sourceTree = "<group>"; };
+		7F2FA1FF14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewMapButtonImageHalfCancel@2x.png"; sourceTree = "<group>"; };
 		7F2FA44B14ECCC670077C4E0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		7F2FA48F14ED2F670077C4E0 /* Trainer+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Trainer+DataController.h"; sourceTree = "<group>"; };
 		7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Trainer+DataController.m"; sourceTree = "<group>"; };
@@ -2328,6 +2340,12 @@
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7F2FA1FE14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png */,
+				7F2FA1FF14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png */,
+				7F2FA1F114FD182E006006C8 /* MainViewMapButtonBackground.png */,
+				7F2FA1F214FD182E006006C8 /* MainViewMapButtonBackground@2x.png */,
+				7F2FA1F314FD182E006006C8 /* MainViewMapButtonImageNormal.png */,
+				7F2FA1F414FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png */,
 				7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */,
 				7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */,
 				7FEAE83014FD0852003679C1 /* MainViewCenterCircleHoverLeft.png */,
@@ -2717,6 +2735,12 @@
 				7FEAE83714FD0854003679C1 /* MainViewCenterCircleHoverLeft@2x.png in Resources */,
 				7FEAE83814FD0854003679C1 /* MainViewCenterCircleHoverRight.png in Resources */,
 				7FEAE83914FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png in Resources */,
+				7F2FA1F514FD182E006006C8 /* MainViewMapButtonBackground.png in Resources */,
+				7F2FA1F614FD182E006006C8 /* MainViewMapButtonBackground@2x.png in Resources */,
+				7F2FA1F714FD182E006006C8 /* MainViewMapButtonImageNormal.png in Resources */,
+				7F2FA1F814FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png in Resources */,
+				7F2FA20014FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png in Resources */,
+				7F2FA20114FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

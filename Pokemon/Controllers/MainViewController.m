@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
@@ -25,9 +26,25 @@
 #import "WildPokemon+DataController.h"
 #endif
 
+
+@interface MainViewController () {
+ @private
+  BOOL isMapViewOpening_;
+}
+
+@property (nonatomic, assign) BOOL isMapViewOpening;
+
+- (void)openBallMenuView:(id)sender;
+- (void)toggleMapView:(id)sender;
+- (void)resetMainView:(NSNotification *)notification;
+
+@end
+
+
 @implementation MainViewController
 
 @synthesize centerMainButton = centerMainButton_;
+@synthesize mapButton        = mapButton_;
 
 @synthesize mapViewController     = mapViewController_;
 @synthesize utilityViewController = utilityViewController_;
@@ -35,9 +52,12 @@
 @synthesize utilityNavigationController   = utilityNavigationController_;
 @synthesize gameMainViewController = gameMainViewController_;
 
+@synthesize isMapViewOpening = isMapViewOpening_;
+
 - (void)dealloc
 {
   [centerMainButton_ release];
+  [mapButton_        release];
   
   [mapViewController_ release];
   [utilityViewController_ release];
@@ -92,6 +112,9 @@
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   [self.view setOpaque:NO];
   
+  // Base iVar Settings
+  isMapViewOpening_ = NO;
+  
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
                                                                            (480.0f - kCenterMainButtonSize) / 2,
@@ -102,19 +125,28 @@
   [centerMainButton release];
   [self.centerMainButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.centerMainButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterButtonBackground.png"]
-                                     forState:UIControlStateNormal];
+                                   forState:UIControlStateNormal];
   [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
   [self.centerMainButton addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.centerMainButton];
+  
+  // Map Button
+  UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
+                                                                    100.0f,
+                                                                    kMapButtonSize,
+                                                                    kMapButtonSize)];
+  self.mapButton = mapButton;
+  [mapButton release];
+  [self.mapButton setContentMode:UIViewContentModeScaleAspectFit];
+  [self.mapButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
+                            forState:UIControlStateNormal];
+  [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+  [self.mapButton setOpaque:NO];
+  [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.mapButton];
 
 /*
-  // Map View Controller
-  MapViewController * mapViewController = [[MapViewController alloc] init];
-  self.mapViewController = mapViewController;
-  [mapViewController release];
-  [self.view addSubview:self.mapViewController.view];
-  
   // Poketch( Short for Pocket Watch ) View Controller
   PoketchTabViewController * pocktchViewController = [[PoketchTabViewController alloc] init];
   self.poketchViewController = pocktchViewController;
@@ -147,6 +179,7 @@
   [super viewDidUnload];
   
   self.centerMainButton = nil;
+  self.mapButton        = nil;
   
   self.mapViewController = nil;
   self.utilityViewController = nil;
@@ -161,8 +194,9 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Button Action
+#pragma mark - Private Methods
 
+// |centerMainButton_| action
 - (void)openBallMenuView:(id)sender
 {
   if (! self.utilityNavigationController) {
@@ -172,7 +206,92 @@
                                                              navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
     [utilityBallMenuViewController release];
   }
-  [self.view addSubview:self.utilityNavigationController.view];
+  
+  // |mapButton_|'s new Frame
+  CGRect mapButtonFrame = self.mapButton.frame;
+  mapButtonFrame.origin.y = - kMapButtonSize / 2;
+  
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.mapButton setFrame:mapButtonFrame];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.view addSubview:self.utilityNavigationController.view];
+                     [[NSNotificationCenter defaultCenter] addObserver:self
+                                                              selector:@selector(resetMainView:)
+                                                                  name:kPMNResetMainView
+                                                                object:self.utilityViewController];
+                   }];
+}
+
+// |mapButton_| action
+- (void)toggleMapView:(id)sender
+{
+  CGRect mapViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
+  CGRect mapButtonFrame = self.mapButton.frame;
+  
+  if (self.isMapViewOpening) {
+    mapViewFrame.origin.y   = 480.0f;
+    mapButtonFrame.origin.y = 100.0f;
+  }
+  else {
+    mapButtonFrame.origin.y = - kMapButtonSize / 2;
+    
+    if (! self.mapViewController) {
+      NSLog(@"--- MainViewController openMapView if(!): Create |mapViewController_| ---");
+      MapViewController * mapViewController = [[MapViewController alloc] init];
+      self.mapViewController = mapViewController;
+      [mapViewController release];
+    }
+    [self.view insertSubview:self.mapViewController.view atIndex:1];
+    
+    // Set Map View to Offscreen
+    mapViewFrame.origin.y = 480.0f;
+    [self.mapViewController.view setFrame:mapViewFrame];
+    mapViewFrame.origin.y = 0.0f;
+  }
+  
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     [self.mapViewController.view setFrame:mapViewFrame];
+                     [self.mapButton setFrame:mapButtonFrame];
+                   }
+                   completion:^(BOOL finished) {
+                     
+                     self.isMapViewOpening = ! self.isMapViewOpening;
+                     
+                     if (self.isMapViewOpening)
+                       [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"]
+                                       forState:UIControlStateNormal];
+                     else {
+                       [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"]
+                                       forState:UIControlStateNormal];
+                       [self.mapViewController.view removeFromSuperview];
+                     }
+                   }];
+}
+
+// Notification action methods
+- (void)resetMainView:(NSNotification *)notification
+{
+  // |mapButton_|'s original Frame
+  CGRect mapButtonFrame = self.mapButton.frame;
+  mapButtonFrame.origin.y = 100.0f;
+  
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.mapButton setFrame:mapButtonFrame];
+                   }
+                   completion:nil];
+  
+  // Remove Notification
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNResetMainView object:self.utilityViewController];
 }
 
 @end

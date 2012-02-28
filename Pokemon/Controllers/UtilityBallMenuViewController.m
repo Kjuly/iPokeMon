@@ -9,6 +9,7 @@
 #import "UtilityBallMenuViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
@@ -366,6 +367,7 @@
 
 - (void)closeView:(id)sender {
   [self.navigationController.view removeFromSuperview];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNResetMainView object:self userInfo:nil];
 }
 
 @end
