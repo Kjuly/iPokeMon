@@ -365,6 +365,7 @@ typedef enum {
                                                       object:self
                                                     userInfo:nil];
   [self resetMainView];
+  [self deactivateCenterMenuOpenStatusTimer];
 }
 
 // Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
