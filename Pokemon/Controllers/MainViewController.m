@@ -29,20 +29,24 @@
 
 @interface MainViewController () {
  @private
+  BOOL      isCenterMenuOpening_;
   BOOL      isMapViewOpening_;
   NSTimer * longTapTimer_;
   NSInteger timeCounter_;
 }
 
+@property (nonatomic, assign) BOOL isCenterMenuOpening;
 @property (nonatomic, assign) BOOL isMapViewOpening;
 @property (nonatomic, retain) NSTimer * longTapTimer;
 @property (nonatomic, assign) NSInteger timeCounter;
 
-- (void)openBallMenuView:(id)sender;
+- (void)runCenterMainButtonTouchUpInsideAction:(id)sender;
+- (void)openCenterMenuView;
+- (void)closeCenterMenuView;
 - (void)countLongTapTimeWithAction:(id)sender;
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
-- (void)resetMainView:(NSNotification *)notification;
+- (void)resetMainView;
 
 @end
 
@@ -58,9 +62,10 @@
 @synthesize utilityNavigationController   = utilityNavigationController_;
 @synthesize gameMainViewController = gameMainViewController_;
 
-@synthesize isMapViewOpening = isMapViewOpening_;
-@synthesize longTapTimer     = longTapTimer_;
-@synthesize timeCounter      = timeCounter_;
+@synthesize isCenterMenuOpening = isCenterMenuOpening_;
+@synthesize isMapViewOpening    = isMapViewOpening_;
+@synthesize longTapTimer        = longTapTimer_;
+@synthesize timeCounter         = timeCounter_;
 
 - (void)dealloc
 {
@@ -121,7 +126,8 @@
   [self.view setOpaque:NO];
   
   // Base iVar Settings
-  isMapViewOpening_ = NO;
+  isCenterMenuOpening_ = NO;
+  isMapViewOpening_    = NO;
   
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
@@ -139,8 +145,11 @@
   [self.view addSubview:self.centerMainButton];
   
   // Register touch events for |centerMainButton_|
-  [self.centerMainButton addTarget:self action:@selector(openBallMenuView:) forControlEvents:UIControlEventTouchUpInside];
-  [self.centerMainButton addTarget:self action:@selector(countLongTapTimeWithAction:)
+  [self.centerMainButton addTarget:self
+                            action:@selector(runCenterMainButtonTouchUpInsideAction:)
+                  forControlEvents:UIControlEventTouchUpInside];
+  [self.centerMainButton addTarget:self
+                            action:@selector(countLongTapTimeWithAction:)
                   forControlEvents:UIControlEventTouchDown];
 //  [self.centerMainButton addTarget:self action:@selector(otherTouchesAction:) forControlEvents:UIControlEventTouchUpOutside];
   
@@ -213,7 +222,16 @@
 #pragma mark - Private Methods
 
 // |centerMainButton_| touch up inside action
-- (void)openBallMenuView:(id)sender
+- (void)runCenterMainButtonTouchUpInsideAction:(id)sender
+{
+  if (self.isCenterMenuOpening) [self closeCenterMenuView];
+  else [self openCenterMenuView];
+  
+  self.isCenterMenuOpening = ! self.isCenterMenuOpening;
+}
+
+// Method for opening center menu view when |isCenterMenuOpening_ == NO|
+- (void)openCenterMenuView
 {
   [self.longTapTimer invalidate];
   
@@ -239,16 +257,24 @@
                        [self.mapButton setFrame:mapButtonFrame];
                      }
                      completion:^(BOOL finished) {
-                       [self.view addSubview:self.utilityNavigationController.view];
-                       [[NSNotificationCenter defaultCenter] addObserver:self
-                                                                selector:@selector(resetMainView:)
-                                                                    name:kPMNResetMainView
-                                                                  object:self.utilityViewController];
+//                       [self.view addSubview:self.utilityNavigationController.view];
+                       [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
+//                       [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                                selector:@selector(resetMainView:)
+//                                                                    name:kPMNResetMainView
+//                                                                  object:self.utilityViewController];
                      }];
   }
   else if (self.timeCounter <= 2) {
     NSLog(@"1 < time <= 2");
   }
+}
+
+// Method for close center menu view when |isCenterMenuOpening_ == YES|
+- (void)closeCenterMenuView
+{
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu object:self userInfo:nil];
+  [self resetMainView];
 }
 
 // |centerMainButton_| touch down action
@@ -318,7 +344,7 @@
 }
 
 // Notification action methods
-- (void)resetMainView:(NSNotification *)notification
+- (void)resetMainView
 {
   // |mapButton_|'s original Frame
   CGRect mapButtonFrame = self.mapButton.frame;
@@ -331,9 +357,6 @@
                      [self.mapButton setFrame:mapButtonFrame];
                    }
                    completion:nil];
-  
-  // Remove Notification
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNResetMainView object:self.utilityViewController];
 }
 
 @end

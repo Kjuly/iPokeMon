@@ -10,15 +10,12 @@
 
 @interface AbstractCenterMenuViewController : UIViewController
 {
-  UIView   * ballMenu_;
-  UIButton * buttonClose_;
+  UIView * ballMenu_;
 }
 
-@property (nonatomic, retain) UIView   * ballMenu;
-@property (nonatomic, retain) UIButton * buttonClose;
+@property (nonatomic, retain) UIView * ballMenu;
 
 - (id)initWithButtonCount:(NSInteger)buttonCount;
 - (void)runButtonActions:(id)sender;
-- (void)closeView:(id)sender;
 
 @end

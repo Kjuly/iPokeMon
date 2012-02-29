@@ -8,9 +8,6 @@
 
 #import "UtilityBallMenuViewController.h"
 
-#import "GlobalConstants.h"
-#import "GlobalNotificationConstants.h"
-#import "GlobalRender.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
@@ -52,12 +49,7 @@
 {
   [super loadView];
   
-  [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
-  [self.ballMenu setOpaque:NO];
-  [self.view addSubview:self.ballMenu];
-  
-  // Buttons in Ball Menu View
-  //
+  // Set Buttons' style in Ball Menu View
   for (UIButton * button in [self.ballMenu subviews])
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
             forState:UIControlStateNormal];
@@ -126,10 +118,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  
-  // Hide custom |navigationBar|
-  if (! self.navigationController.isNavigationBarHidden)
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 #pragma mark - Button Action

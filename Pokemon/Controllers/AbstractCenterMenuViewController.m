@@ -10,7 +10,6 @@
 
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
-#import "GlobalRender.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
@@ -25,6 +24,7 @@
 
 @property (nonatomic, assign) NSInteger buttonCount;
 
+- (void)closeCenterMenuView:(NSNotification *)notification;
 - (void)computeAndSetButtonLayout;
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin;
 
@@ -34,21 +34,19 @@
 @implementation AbstractCenterMenuViewController
 
 @synthesize ballMenu    = ballMenu_;
-@synthesize buttonClose = buttonClose_;
 
 @synthesize buttonCount = buttonCount_;
 
 -(void)dealloc
 {
-  [ballMenu_    release];
-  [buttonClose_ release];
+  [ballMenu_ release];
   
   [super dealloc];
 }
 
 - (id)initWithButtonCount:(NSInteger)buttonCount
 {
-  if (self = [self init]) {
+  if (self = [self initWithNibName:nil bundle:nil]) {
     buttonCount_ = buttonCount; // Min: 1, Max: 6
   }
   return self;
@@ -113,19 +111,31 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // If |centerMainButton_| post cancel notification, do it
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(closeCenterMenuView:)
+                                               name:kPMNCloseCenterMenu
+                                             object:nil];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
 
-  self.ballMenu    = nil;
-  self.buttonClose = nil;
+  self.ballMenu = nil;
+  
+  // Remove Notification
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  // Hide custom |navigationBar|
+  if (! self.navigationController.isNavigationBarHidden)
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -134,26 +144,19 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Button Action
+#pragma mark - Publich Button Action
 
+// Run action depend on button, it'll be implemented by subclass
 - (void)runButtonActions:(id)sender
 {
-  switch ([(UIButton *)sender tag]) {
-    case kTagUtilityBallButtonClose:
-      [self closeView:sender];
-      break;
-      
-    default:
-      break;
-  }
-}
-
-- (void)closeView:(id)sender {
-  [self.navigationController.view removeFromSuperview];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNResetMainView object:self userInfo:nil];
 }
 
 #pragma mark - Private Methods
+
+// Close center menu view
+- (void)closeCenterMenuView:(NSNotification *)notification {
+  [self.navigationController.view removeFromSuperview];
+}
 
 // Compute buttons' layout based on |buttonCount|
 - (void)computeAndSetButtonLayout
@@ -179,26 +182,22 @@
   //                           o       o   o     o   o     o o o
   //
   switch (self.buttonCount) {
-    case 1: 
-    {
+    case 1:
       [self setButtonWithTag:1 origin:CGPointMake(centerBallMenuHalfSize - buttonRadius,
                                                   centerBallMenuHalfSize - triangleHypotenuse - buttonRadius)];
-    }
       break;
       
-    case 2:
-    {
+    case 2: {
       CGFloat degree    = M_PI / 4.0f; // = 45 * M_PI / 180
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       CGFloat negativeValue = centerBallMenuHalfSize - triangleB - buttonRadius;
       CGFloat positiveValue = centerBallMenuHalfSize + triangleB - buttonRadius;
       [self setButtonWithTag:1 origin:CGPointMake(negativeValue, negativeValue)];
       [self setButtonWithTag:2 origin:CGPointMake(positiveValue, negativeValue)];
-    }
       break;
+    }
       
-    case 3:
-    {
+    case 3: {
       // = 360.0f / self.buttonCount * M_PI / 180.0f;
       // E.g: if |buttonCount_ = 6|, then |degree = 60.0f * M_PI / 180.0f|;
       // CGFloat degree = 2 * M_PI / self.buttonCount;
@@ -212,11 +211,10 @@
                                                   centerBallMenuHalfSize - triangleA - buttonRadius)];
       [self setButtonWithTag:3 origin:CGPointMake(centerBallMenuHalfSize - buttonRadius,
                                                   centerBallMenuHalfSize + triangleHypotenuse - buttonRadius)];
-    }
       break;
+    }
       
-    case 4:
-    {
+    case 4: {
       CGFloat degree    = M_PI / 4.0f; // = 45 * M_PI / 180
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       CGFloat negativeValue = centerBallMenuHalfSize - triangleB - buttonRadius;
@@ -225,11 +223,10 @@
       [self setButtonWithTag:2 origin:CGPointMake(positiveValue, negativeValue)];
       [self setButtonWithTag:3 origin:CGPointMake(negativeValue, positiveValue)];
       [self setButtonWithTag:4 origin:CGPointMake(positiveValue, positiveValue)];
-    }
       break;
+    }
       
-    case 5:
-    {
+    case 5: {
       CGFloat degree    = M_PI / 2.5f; // = 72 * M_PI / 180
       CGFloat triangleA = triangleHypotenuse * cosf(degree);
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
@@ -247,11 +244,10 @@
                                                   centerBallMenuHalfSize + triangleA - buttonRadius)];
       [self setButtonWithTag:5 origin:CGPointMake(centerBallMenuHalfSize + triangleB - buttonRadius,
                                                   centerBallMenuHalfSize + triangleA - buttonRadius)];
-    }
       break;
+    }
       
-    case 6:
-    {
+    case 6: {
       CGFloat degree    = M_PI / 3.0f; // = 60 * M_PI / 180
       CGFloat triangleA = triangleHypotenuse * cosf(degree);
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
@@ -267,8 +263,8 @@
                                                   centerBallMenuHalfSize + triangleHypotenuse - buttonRadius)];
       [self setButtonWithTag:6 origin:CGPointMake(centerBallMenuHalfSize + triangleB - buttonRadius,
                                                   centerBallMenuHalfSize + triangleA - buttonRadius)];
-    }
       break;
+    }
       
     default:
       break;
@@ -278,9 +274,6 @@
 // Set Frame for button with special tag
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin
 {
-  if (buttonTag <= 0 || buttonTag > 6)
-    return;
-  
   UIButton * button = (UIButton *)[self.ballMenu viewWithTag:buttonTag];
   [button setFrame:CGRectMake(origin.x, origin.y, kCenterMenuButtonSize, kCenterMenuButtonSize)];
   button = nil;

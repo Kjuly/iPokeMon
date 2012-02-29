@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kPMNResetMainView;
+extern NSString * const kPMNCloseCenterMenu;
 
 extern NSString * const kPMNPokemonAppeared;
 extern NSString * const kPMNBattleEnd;
