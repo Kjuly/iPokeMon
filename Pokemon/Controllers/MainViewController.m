@@ -265,6 +265,11 @@ typedef enum {
                          CGRect centerMainButtonFrame = self.centerMainButton.frame;
                          centerMainButtonFrame.origin.y = 480.0f - kCenterMainButtonSize / 2;
                          [self.centerMainButton setFrame:centerMainButtonFrame];
+                         
+                         // Hide |mapButton_|
+                         CGRect mapButtonFrame = self.mapButton.frame;
+                         mapButtonFrame.origin.y = - kMapButtonSize;
+                         [self.mapButton setFrame:mapButtonFrame];
                        }
                        completion:nil];
       [self deactivateCenterMenuOpenStatusTimer];
@@ -278,6 +283,11 @@ typedef enum {
                          CGRect centerMainButtonFrame = self.centerMainButton.frame;
                          centerMainButtonFrame.origin.y = (480.0f - kCenterMainButtonSize) / 2;
                          [self.centerMainButton setFrame:centerMainButtonFrame];
+                         
+                         // Show |mapButton_|
+                         CGRect mapButtonFrame = self.mapButton.frame;
+                         mapButtonFrame.origin.y = - kMapButtonSize / 2;
+                         [self.mapButton setFrame:mapButtonFrame];
                        }
                        completion:nil];
       // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
