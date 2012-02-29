@@ -8,6 +8,7 @@
 
 #import "CenterMenuUtilityViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
@@ -141,9 +142,12 @@
   self.gameSettingTableViewController = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
 }
 
 #pragma mark - Button Action
@@ -152,7 +156,17 @@
 {
   [super runButtonActions:sender];
   
-  switch ([(UIButton *)sender tag]) {
+  NSInteger buttonTag = ((UIButton *)sender).tag;
+  
+  if (buttonTag != 5) {
+    // |centerMainButtonStatus : 1|, move |centerMainButton_| to view bottom
+    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSNumber numberWithInt:1], @"centerMainButtonStatus", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus object:self userInfo:userInfo];
+    [userInfo release];
+  }
+  
+  switch (buttonTag) {
     case 1://kTagUtilityBallButtonShowPokedex:
       [self showPokedex:sender];
       break;

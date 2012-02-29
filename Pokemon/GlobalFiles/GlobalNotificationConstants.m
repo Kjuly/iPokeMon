@@ -9,7 +9,8 @@
 #import "GlobalNotificationConstants.h"
 
 // PMN: PokeMon Notification
-NSString * const kPMNCloseCenterMenu = @"PMNCloseCenterMenu";
+NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
+NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
 
 NSString * const kPMNPokemonAppeared = @"PMNPokemonAppeared";
 NSString * const kPMNBattleEnd       = @"PMNBattleEnd";

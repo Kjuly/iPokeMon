@@ -20,12 +20,15 @@
 @interface AbstractCenterMenuViewController () {
  @private
   NSInteger buttonCount_;
+  CGRect    buttonOriginFrame_;
 }
 
 @property (nonatomic, assign) NSInteger buttonCount;
+@property (nonatomic, assign) CGRect buttonOriginFrame;
 
+- (void)openCenterMenuView;
 - (void)closeCenterMenuView:(NSNotification *)notification;
-- (void)computeAndSetButtonLayout;
+- (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse;
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin;
 
 @end
@@ -35,7 +38,8 @@
 
 @synthesize ballMenu    = ballMenu_;
 
-@synthesize buttonCount = buttonCount_;
+@synthesize buttonCount       = buttonCount_;
+@synthesize buttonOriginFrame = buttonOriginFrame_;
 
 -(void)dealloc
 {
@@ -91,9 +95,13 @@
   [self.ballMenu setOpaque:NO];
   [self.view addSubview:self.ballMenu];
   
-  // Add buttons to |ballMenu_|
+  // Add buttons to |ballMenu_|, set it's origin frame to center
+  buttonOriginFrame_ = CGRectMake((kCenterMenuSize - kCenterMainButtonSize) / 2,
+                                  (kCenterMenuSize - kCenterMainButtonSize) / 2,
+                                  kCenterMenuButtonSize,
+                                  kCenterMenuButtonSize);
   for (int i = 0; i < self.buttonCount;) {
-    UIButton * button = [[UIButton alloc] init];
+    UIButton * button = [[UIButton alloc] initWithFrame:buttonOriginFrame_];
     [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                       forState:UIControlStateNormal];
     [button setOpaque:NO];
@@ -102,9 +110,6 @@
     [self.ballMenu addSubview:button];
     [button release];
   }
-  
-  // Compute buttons' frame and set for them, based on |buttonCount|
-  [self computeAndSetButtonLayout];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -136,6 +141,14 @@
   // Hide custom |navigationBar|
   if (! self.navigationController.isNavigationBarHidden)
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+  
+  // Open center menu view with animation
+  [self openCenterMenuView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+  [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -153,13 +166,47 @@
 
 #pragma mark - Private Methods
 
+// Open center menu view
+- (void)openCenterMenuView
+{
+  // Show buttons with animation
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.ballMenu setAlpha:1.0f];
+                     // Compute buttons' frame and set for them, based on |buttonCount|
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [UIView animateWithDuration:0.1f
+                                           delay:0.0f
+                                         options:UIViewAnimationCurveEaseInOut
+                                      animations:^{
+                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                      }
+                                      completion:nil];
+                   }];
+}
+
 // Close center menu view
 - (void)closeCenterMenuView:(NSNotification *)notification {
-  [self.navigationController.view removeFromSuperview];
+  // Hide buttons with animation
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     for (UIButton * button in [self.ballMenu subviews])
+                       [button setFrame:self.buttonOriginFrame];
+                     [self.ballMenu setAlpha:0.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.navigationController.view removeFromSuperview];
+                   }];
 }
 
 // Compute buttons' layout based on |buttonCount|
-- (void)computeAndSetButtonLayout
+- (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse
 {
   //
   //  Triangle Values for Buttons' Position
@@ -172,7 +219,7 @@
   //
   CGFloat centerBallMenuHalfSize = kCenterMenuSize / 2.0f;
   CGFloat buttonRadius           = kCenterMenuButtonSize / 2.0f;
-  CGFloat triangleHypotenuse     = 112.0f;                       // Distance to Ball Center
+  if (! triangleHypotenuse) triangleHypotenuse = 112.0f; // Distance to Ball Center
   
   //
   //      o       o   o      o   o     o   o     o o o     o o o

@@ -8,6 +8,8 @@
 
 #import "CustomNavigationBar.h"
 
+#import "GlobalNotificationConstants.h"
+
 #define kBackButtonHeight 60.0f
 #define kBackButtonWith   40.0f
 
@@ -90,6 +92,11 @@
   self.viewCount = 0;
   
   [self.navigationController popToRootViewControllerAnimated:YES];
+  
+  // Set |cenerMainButton|'s status to Normal (Default)
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 // Provide the action for the custom |backButton|

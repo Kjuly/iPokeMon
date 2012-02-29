@@ -27,22 +27,38 @@
 #endif
 
 
+// For sign |centerMainButton_| status
+typedef enum {
+  kCenterMainButtonStatusNormal   = 0,
+  kCenterMainButtonStatusAtBottom = 1
+}CenterMainButtonStatus;
+
 @interface MainViewController () {
  @private
-  BOOL      isCenterMenuOpening_;
-  BOOL      isMapViewOpening_;
-  NSTimer * longTapTimer_;
-  NSInteger timeCounter_;
+  CenterMainButtonStatus centerMainButtonStatus_;
+  BOOL                   isCenterMenuOpening_;
+  NSTimer              * centerMenuOpenStatusTimer_;
+  BOOL                   isMapViewOpening_;
+  NSTimer              * longTapTimer_;
+  NSInteger              centerMenuOpenStatusTimeCounter_;
+  NSInteger              timeCounter_;
 }
 
-@property (nonatomic, assign) BOOL isCenterMenuOpening;
-@property (nonatomic, assign) BOOL isMapViewOpening;
-@property (nonatomic, retain) NSTimer * longTapTimer;
-@property (nonatomic, assign) NSInteger timeCounter;
+@property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
+@property (nonatomic, assign) BOOL                   isCenterMenuOpening;
+@property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
+@property (nonatomic, assign) BOOL                   isMapViewOpening;
+@property (nonatomic, retain) NSTimer              * longTapTimer;
+@property (nonatomic, assign) NSInteger              centerMenuOpenStatusTimeCounter;
+@property (nonatomic, assign) NSInteger              timeCounter;
 
+- (void)changeCenterMainButtonStatus:(NSNotification *)notification;
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender;
 - (void)openCenterMenuView;
 - (void)closeCenterMenuView;
+- (void)activateCenterMenuOpenStatusTimer;
+- (void)deactivateCenterMenuOpenStatusTimer;
+- (void)closeCenterMenuWhenLongTimeNoOperation;
 - (void)countLongTapTimeWithAction:(id)sender;
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
@@ -56,16 +72,19 @@
 @synthesize centerMainButton = centerMainButton_;
 @synthesize mapButton        = mapButton_;
 
-@synthesize mapViewController     = mapViewController_;
-@synthesize utilityViewController = utilityViewController_;
-@synthesize poketchViewController = poketchViewController_;
-@synthesize utilityNavigationController   = utilityNavigationController_;
-@synthesize gameMainViewController = gameMainViewController_;
+@synthesize mapViewController           = mapViewController_;
+@synthesize utilityViewController       = utilityViewController_;
+@synthesize poketchViewController       = poketchViewController_;
+@synthesize utilityNavigationController = utilityNavigationController_;
+@synthesize gameMainViewController      = gameMainViewController_;
 
-@synthesize isCenterMenuOpening = isCenterMenuOpening_;
-@synthesize isMapViewOpening    = isMapViewOpening_;
-@synthesize longTapTimer        = longTapTimer_;
-@synthesize timeCounter         = timeCounter_;
+@synthesize centerMainButtonStatus          = centerMainButtonStatus_;
+@synthesize isCenterMenuOpening             = isCenterMenuOpening_;
+@synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
+@synthesize isMapViewOpening                = isMapViewOpening_;
+@synthesize longTapTimer                    = longTapTimer_;
+@synthesize centerMenuOpenStatusTimeCounter = centerMenuOpenStatusTimeCounter_;
+@synthesize timeCounter                     = timeCounter_;
 
 - (void)dealloc
 {
@@ -126,8 +145,16 @@
   [self.view setOpaque:NO];
   
   // Base iVar Settings
-  isCenterMenuOpening_ = NO;
-  isMapViewOpening_    = NO;
+  centerMainButtonStatus_ = kCenterMainButtonStatusNormal;
+  isCenterMenuOpening_    = NO;
+  isMapViewOpening_       = NO;
+  
+  
+  // Add self as Notification observer
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNChangeCenterMainButtonStatus
+                                             object:nil];
   
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
@@ -213,6 +240,11 @@
   self.longTapTimer = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
@@ -221,11 +253,49 @@
 
 #pragma mark - Private Methods
 
+// Slide |centerMainButton_| to view bottom when button in center menu is clicked
+- (void)changeCenterMainButtonStatus:(NSNotification *)notification
+{
+  switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
+    case kCenterMainButtonStatusAtBottom:
+      [UIView animateWithDuration:0.3f
+                            delay:0.0f
+                          options:UIViewAnimationOptionCurveEaseInOut
+                       animations:^{
+                         CGRect centerMainButtonFrame = self.centerMainButton.frame;
+                         centerMainButtonFrame.origin.y = 480.0f - kCenterMainButtonSize / 2;
+                         [self.centerMainButton setFrame:centerMainButtonFrame];
+                       }
+                       completion:nil];
+      [self deactivateCenterMenuOpenStatusTimer];
+      break;
+      
+    default:
+      [UIView animateWithDuration:0.3f
+                            delay:0.0f
+                          options:UIViewAnimationOptionCurveEaseInOut
+                       animations:^{
+                         CGRect centerMainButtonFrame = self.centerMainButton.frame;
+                         centerMainButtonFrame.origin.y = (480.0f - kCenterMainButtonSize) / 2;
+                         [self.centerMainButton setFrame:centerMainButtonFrame];
+                       }
+                       completion:nil];
+      // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
+      if (self.isCenterMenuOpening) [self activateCenterMenuOpenStatusTimer];
+      break;
+  }
+}
+
 // |centerMainButton_| touch up inside action
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender
 {
   if (self.isCenterMenuOpening) [self closeCenterMenuView];
-  else [self openCenterMenuView];
+  else {
+    [self openCenterMenuView];
+    
+    // Activate |centerMenuOpenStatusTimer_|
+    [self activateCenterMenuOpenStatusTimer];
+  }
   
   self.isCenterMenuOpening = ! self.isCenterMenuOpening;
 }
@@ -250,7 +320,7 @@
     CGRect mapButtonFrame = self.mapButton.frame;
     mapButtonFrame.origin.y = - kMapButtonSize / 2;
     
-    [UIView animateWithDuration:0.3f
+    [UIView animateWithDuration:0.15f
                           delay:0.0f
                         options:UIViewAnimationCurveEaseInOut
                      animations:^{
@@ -268,14 +338,47 @@
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
 - (void)closeCenterMenuView
 {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu object:self userInfo:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
+                                                      object:self
+                                                    userInfo:nil];
   [self resetMainView];
+}
+
+// Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
+// Close the |centerMenu_| when necessary
+- (void)activateCenterMenuOpenStatusTimer
+{
+  NSLog(@"Activate");
+  self.centerMenuOpenStatusTimeCounter = 0;
+  self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f
+                                                                    target:self
+                                                                  selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
+                                                                  userInfo:nil
+                                                                   repeats:YES];
+}
+
+// Stop |centerMenuOpenStatusTimer_| when button clicked
+- (void)deactivateCenterMenuOpenStatusTimer {
+  NSLog(@"!! Deactivate");
+  [self.centerMenuOpenStatusTimer invalidate];
+}
+
+// Close |centerMenu_| when long time no operation 
+- (void)closeCenterMenuWhenLongTimeNoOperation
+{
+  self.centerMenuOpenStatusTimeCounter += 5;
+  NSLog(@"%d", self.centerMenuOpenStatusTimeCounter);
+  if (self.centerMenuOpenStatusTimeCounter == 10) {
+    [self closeCenterMenuView];
+    self.isCenterMenuOpening = NO;
+    [self.centerMenuOpenStatusTimer invalidate];
+  }
 }
 
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender
 {
-  self.timeCounter = 0;
+  self.timeCounter  = 0;
   self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                        target:self
                                                      selector:@selector(increaseTimeWithAction)
@@ -308,7 +411,7 @@
       self.mapViewController = mapViewController;
       [mapViewController release];
     }
-    [self.view insertSubview:self.mapViewController.view atIndex:1];
+    [self.view insertSubview:self.mapViewController.view belowSubview:self.mapButton];
     
     // Set Map View to Offscreen
     mapViewFrame.origin.y = 480.0f;
@@ -320,11 +423,20 @@
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
+                     // If |mapView| is not open while |centerMenu_| is open, just close |centerMenu_|
+                     // Else, set |mapButton_| to view top
+                     if (! self.isMapViewOpening && self.isCenterMenuOpening) {
+                       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
+                                                                           object:self
+                                                                         userInfo:nil];
+                       self.isCenterMenuOpening = NO;
+                     }
+                     else [self.mapButton setFrame:mapButtonFrame];
+                     
+                     // Set frame of the |mapViewController_|'s view to show it
                      [self.mapViewController.view setFrame:mapViewFrame];
-                     [self.mapButton setFrame:mapButtonFrame];
                    }
                    completion:^(BOOL finished) {
-                     
                      self.isMapViewOpening = ! self.isMapViewOpening;
                      
                      if (self.isMapViewOpening)
