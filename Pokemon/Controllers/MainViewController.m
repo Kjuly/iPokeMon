@@ -451,6 +451,7 @@ typedef enum {
                                                                            object:self
                                                                          userInfo:nil];
                        self.isCenterMenuOpening = NO;
+                       [self deactivateCenterMenuOpenStatusTimer];
                      }
                      else [self.mapButton setFrame:mapButtonFrame];
                      
