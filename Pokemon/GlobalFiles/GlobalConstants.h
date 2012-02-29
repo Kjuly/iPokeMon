@@ -19,6 +19,9 @@
 #define kMapViewHeight      200.0f
 #define kUtilityBarHeight  40.0f
 
+#define kTagMainViewCenterMainButton 1001
+#define kTagMainViewMapButton        1002
+
 
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,

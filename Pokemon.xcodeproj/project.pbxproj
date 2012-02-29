@@ -193,6 +193,8 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */; };
+		7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */; };
 		7F77F6F314FA75A200842700 /* GameMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F214FA75A200842700 /* GameMenuViewController.m */; };
 		7F77F6F714FA7D7700842700 /* GameMenuAbstractChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F614FA7D7700842700 /* GameMenuAbstractChildViewController.m */; };
 		7F77F6FA14FA7D8900842700 /* GameMenuBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F914FA7D8900842700 /* GameMenuBagViewController.m */; };
@@ -866,6 +868,8 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageLBSDisabled.png; sourceTree = "<group>"; };
+		7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewMapButtonImageLBSDisabled@2x.png"; sourceTree = "<group>"; };
 		7F77F6F114FA75A200842700 /* GameMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuViewController.h; sourceTree = "<group>"; };
 		7F77F6F214FA75A200842700 /* GameMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuViewController.m; sourceTree = "<group>"; };
 		7F77F6F614FA7D7700842700 /* GameMenuAbstractChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuAbstractChildViewController.m; sourceTree = "<group>"; };
@@ -2345,6 +2349,8 @@
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */,
+				7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */,
 				7F2FA1FE14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png */,
 				7F2FA1FF14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png */,
 				7F2FA1F114FD182E006006C8 /* MainViewMapButtonBackground.png */,
@@ -2746,6 +2752,8 @@
 				7F2FA1F814FD182E006006C8 /* MainViewMapButtonImageNormal@2x.png in Resources */,
 				7F2FA20014FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png in Resources */,
 				7F2FA20114FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png in Resources */,
+				7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */,
+				7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

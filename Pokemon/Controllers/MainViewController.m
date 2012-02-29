@@ -35,6 +35,7 @@ typedef enum {
 
 @interface MainViewController () {
  @private
+  UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
   BOOL                   isCenterMenuOpening_;
   NSTimer              * centerMenuOpenStatusTimer_;
@@ -44,6 +45,7 @@ typedef enum {
   NSInteger              timeCounter_;
 }
 
+@property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
 @property (nonatomic, assign) BOOL                   isCenterMenuOpening;
 @property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
@@ -79,6 +81,7 @@ typedef enum {
 @synthesize utilityNavigationController = utilityNavigationController_;
 @synthesize gameMainViewController      = gameMainViewController_;
 
+@synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
 @synthesize isCenterMenuOpening             = isCenterMenuOpening_;
 @synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
@@ -97,6 +100,8 @@ typedef enum {
   [poketchViewController_ release];
   [utilityNavigationController_ release];
   [gameMainViewController_ release];
+  
+  self.currentKeyButton = nil;
   
   [super dealloc];
 }
@@ -170,6 +175,7 @@ typedef enum {
                                    forState:UIControlStateNormal];
   [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
+  [self.centerMainButton setTag:kTagMainViewCenterMainButton];
   [self.view addSubview:self.centerMainButton];
   
   // Register touch events for |centerMainButton_|
@@ -179,7 +185,6 @@ typedef enum {
   [self.centerMainButton addTarget:self
                             action:@selector(countLongTapTimeWithAction:)
                   forControlEvents:UIControlEventTouchDown];
-//  [self.centerMainButton addTarget:self action:@selector(otherTouchesAction:) forControlEvents:UIControlEventTouchUpOutside];
   
   // Map Button
   UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
@@ -193,14 +198,10 @@ typedef enum {
                             forState:UIControlStateNormal];
   [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
   [self.mapButton setOpaque:NO];
+  [self.mapButton setTag:kTagMainViewMapButton];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
+  [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:self.mapButton];
-  
-  // Add long press gesture to |mapButton_|
-  UILongPressGestureRecognizer * longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLocationService)];
-  [longPressGestureRecognizer setMinimumPressDuration:3.0f];
-  [self.mapButton addGestureRecognizer:longPressGestureRecognizer];
-  [longPressGestureRecognizer release];
 
 /*
   // Poketch( Short for Pocket Watch ) View Controller
@@ -407,7 +408,9 @@ typedef enum {
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender
 {
+  self.currentKeyButton = (UIButton *)sender;
   self.timeCounter  = 0;
+  [self.longTapTimer invalidate];
   self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                        target:self
                                                      selector:@selector(increaseTimeWithAction)
@@ -419,11 +422,25 @@ typedef enum {
 - (void)increaseTimeWithAction
 {
   ++self.timeCounter;
+  
+  NSInteger buttonTag = self.currentKeyButton.tag;
+  
+  // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
+  if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 6.0f) {
+    [self toggleLocationService];
+    [self.longTapTimer invalidate];
+  }
 }
 
 // |mapButton_| action
 - (void)toggleMapView:(id)sender
 {
+  [self.longTapTimer invalidate];
+  // If Location Service is not allowed, do nothing
+  if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"] || self.timeCounter >= 6.0f)
+    return;
+  
+  // Else, just normal button action
   CGRect mapViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
   CGRect mapButtonFrame = self.mapButton.frame;
   
@@ -485,10 +502,14 @@ typedef enum {
 {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults boolForKey:@"keyAppSettingsLocationServices"]) {
+    NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:@"keyAppSettingsLocationServices"];
+    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
   }
   else {
+    NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:@"keyAppSettingsLocationServices"];
+    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
   }
   NSLog(@"%d", [[userDefaults objectForKey:@"keyAppSettingsLocationServices"] intValue]);
 }
