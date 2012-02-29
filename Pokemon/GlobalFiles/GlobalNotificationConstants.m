@@ -11,6 +11,7 @@
 // PMN: PokeMon Notification
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
+NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
 
 NSString * const kPMNPokemonAppeared = @"PMNPokemonAppeared";
 NSString * const kPMNBattleEnd       = @"PMNBattleEnd";

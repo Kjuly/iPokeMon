@@ -14,6 +14,12 @@
 #define kBackButtonWith   40.0f
 
 
+@interface CustomNavigationBar ()
+
+- (void)backToRootWithCenterMainButton:(NSNotification *)notification;
+
+@end
+
 @implementation CustomNavigationBar
 
 @synthesize navigationController         = navigationController_;
@@ -81,6 +87,11 @@
   
   // Initialize |viewCount_|
   viewCount_ = 0;
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(backToRootWithCenterMainButton:)
+                                               name:kPMNBackToMainView
+                                             object:nil];
 }
 
 // Settings for |backButton|
@@ -194,6 +205,13 @@
   self.backButton                   = nil;
   
   [self setNeedsDisplay];
+}
+
+#pragma mark - Private Methods
+
+// Notification methods for backing to main view
+- (void)backToRootWithCenterMainButton:(NSNotification *)notification {
+  [self backToRoot:nil];
 }
 
 @end

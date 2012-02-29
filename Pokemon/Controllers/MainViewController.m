@@ -258,6 +258,7 @@ typedef enum {
 {
   switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
     case kCenterMainButtonStatusAtBottom:
+      self.centerMainButtonStatus = kCenterMainButtonStatusAtBottom;
       [UIView animateWithDuration:0.3f
                             delay:0.0f
                           options:UIViewAnimationOptionCurveEaseInOut
@@ -276,6 +277,7 @@ typedef enum {
       break;
       
     default:
+      self.centerMainButtonStatus = kCenterMainButtonStatusNormal;
       [UIView animateWithDuration:0.3f
                             delay:0.0f
                           options:UIViewAnimationOptionCurveEaseInOut
@@ -299,15 +301,26 @@ typedef enum {
 // |centerMainButton_| touch up inside action
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender
 {
-  if (self.isCenterMenuOpening) [self closeCenterMenuView];
-  else {
-    [self openCenterMenuView];
-    
-    // Activate |centerMenuOpenStatusTimer_|
-    [self activateCenterMenuOpenStatusTimer];
+  switch (self.centerMainButtonStatus) {
+    case kCenterMainButtonStatusNormal:
+      if (self.isCenterMenuOpening) [self closeCenterMenuView];
+      else {
+        [self openCenterMenuView];
+        
+        // Activate |centerMenuOpenStatusTimer_|
+        [self activateCenterMenuOpenStatusTimer];
+      }
+      
+      self.isCenterMenuOpening = ! self.isCenterMenuOpening;
+      break;
+      
+    case kCenterMainButtonStatusAtBottom:
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBackToMainView object:self userInfo:nil];
+      break;
+      
+    default:
+      break;
   }
-  
-  self.isCenterMenuOpening = ! self.isCenterMenuOpening;
 }
 
 // Method for opening center menu view when |isCenterMenuOpening_ == NO|
@@ -358,7 +371,6 @@ typedef enum {
 // Close the |centerMenu_| when necessary
 - (void)activateCenterMenuOpenStatusTimer
 {
-  NSLog(@"Activate");
   self.centerMenuOpenStatusTimeCounter = 0;
   self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f
                                                                     target:self
@@ -369,7 +381,6 @@ typedef enum {
 
 // Stop |centerMenuOpenStatusTimer_| when button clicked
 - (void)deactivateCenterMenuOpenStatusTimer {
-  NSLog(@"!! Deactivate");
   [self.centerMenuOpenStatusTimer invalidate];
 }
 
