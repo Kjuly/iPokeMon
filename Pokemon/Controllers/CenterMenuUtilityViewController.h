@@ -16,7 +16,7 @@
 @class TrainerCardViewController;
 @class GameSettingTableViewController;
 
-@interface UtilityBallMenuViewController : AbstractCenterMenuViewController
+@interface CenterMenuUtilityViewController : AbstractCenterMenuViewController
 {
   PokedexTableViewController     * pokedexTableViewController_;
   SixPokemonsTableViewController * sixPokemonsTableViewController_;

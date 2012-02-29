@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "UtilityBallMenuViewController.h"
+#import "CenterMenuUtilityViewController.h"
 
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
@@ -15,7 +15,7 @@
 #import "GameSettingTableViewController.h"
 
 
-@implementation UtilityBallMenuViewController
+@implementation CenterMenuUtilityViewController
 
 @synthesize pokedexTableViewController     = pokedexTableViewController_;
 @synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;

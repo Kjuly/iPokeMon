@@ -17,7 +17,7 @@
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
 #import "CustomNavigationController.h"
-#import "UtilityBallMenuViewController.h"
+#import "CenterMenuUtilityViewController.h"
 #import "GameMainViewController.h"
 
 #ifdef DEBUG
@@ -239,11 +239,11 @@
   if (self.timeCounter <= 1) {
     if (! self.utilityNavigationController) {
       NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
-      UtilityBallMenuViewController * utilityBallMenuViewController = [[UtilityBallMenuViewController alloc]
-                                                                       initWithButtonCount:6];
-      utilityNavigationController_ = [CustomNavigationController initWithRootViewController:utilityBallMenuViewController
+      CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
+                                                                           initWithButtonCount:6];
+      utilityNavigationController_ = [CustomNavigationController initWithRootViewController:centerMenuUtilityViewController
                                                                navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
-      [utilityBallMenuViewController release];
+      [centerMenuUtilityViewController release];
     }
     
     // |mapButton_|'s new Frame
@@ -257,12 +257,7 @@
                        [self.mapButton setFrame:mapButtonFrame];
                      }
                      completion:^(BOOL finished) {
-//                       [self.view addSubview:self.utilityNavigationController.view];
                        [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
-//                       [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                                selector:@selector(resetMainView:)
-//                                                                    name:kPMNResetMainView
-//                                                                  object:self.utilityViewController];
                      }];
   }
   else if (self.timeCounter <= 2) {
