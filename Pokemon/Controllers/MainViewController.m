@@ -62,6 +62,7 @@ typedef enum {
 - (void)countLongTapTimeWithAction:(id)sender;
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
+- (void)toggleLocationService;
 - (void)resetMainView;
 
 @end
@@ -194,6 +195,12 @@ typedef enum {
   [self.mapButton setOpaque:NO];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.mapButton];
+  
+  // Add long press gesture to |mapButton_|
+  UILongPressGestureRecognizer * longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLocationService)];
+  [longPressGestureRecognizer setMinimumPressDuration:3.0f];
+  [self.mapButton addGestureRecognizer:longPressGestureRecognizer];
+  [longPressGestureRecognizer release];
 
 /*
   // Poketch( Short for Pocket Watch ) View Controller
@@ -471,6 +478,19 @@ typedef enum {
                        [self.mapViewController.view removeFromSuperview];
                      }
                    }];
+}
+
+// Toggle Location Service after long press on |mapButton_|
+- (void)toggleLocationService
+{
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  if ([userDefaults boolForKey:@"keyAppSettingsLocationServices"]) {
+    [userDefaults setBool:NO forKey:@"keyAppSettingsLocationServices"];
+  }
+  else {
+    [userDefaults setBool:YES forKey:@"keyAppSettingsLocationServices"];
+  }
+  NSLog(@"%d", [[userDefaults objectForKey:@"keyAppSettingsLocationServices"] intValue]);
 }
 
 // Notification action methods
