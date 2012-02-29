@@ -15,6 +15,32 @@
 #import "GameSettingTableViewController.h"
 
 
+@interface CenterMenuUtilityViewController () {
+ @private
+  PokedexTableViewController     * pokedexTableViewController_;
+  SixPokemonsTableViewController * sixPokemonsTableViewController_;
+  BagTableViewController         * bagTableViewController_;
+  TrainerCardViewController      * trainerCardViewController_;
+  GameSettingTableViewController * gameSettingTableViewController_;
+}
+
+@property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
+@property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
+@property (nonatomic, retain) BagTableViewController         * bagTableViewController;
+@property (nonatomic, retain) TrainerCardViewController      * trainerCardViewController;
+@property (nonatomic, retain) GameSettingTableViewController * gameSettingTableViewController;
+
+// Buttons' Action
+- (void)showPokedex:(id)sender;
+- (void)showPokemon:(id)sender;
+- (void)showBag:(id)sender;
+- (void)showTrainerCard:(id)sender;
+- (void)runHotkey:(id)sender;
+- (void)setGame:(id)sender;
+
+@end
+
+
 @implementation CenterMenuUtilityViewController
 
 @synthesize pokedexTableViewController     = pokedexTableViewController_;
@@ -156,6 +182,11 @@
   }
 }
 
+#pragma mark - Private Methods
+
+//
+// Buttons' Action
+//
 - (void)showPokedex:(id)sender {  
   if (! self.pokedexTableViewController)
     pokedexTableViewController_ = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
