@@ -76,6 +76,7 @@
   
   // Set Navigation Bar
   [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:self.navigationBarBackgroundImage];
+  [self setNavigationBarHidden:YES];
 }
 
 - (void)viewDidUnload

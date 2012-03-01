@@ -138,10 +138,6 @@
 {
   [super viewWillAppear:animated];
   
-  // Hide custom |navigationBar|
-  if (! self.navigationController.isNavigationBarHidden)
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-  
   // Open center menu view with animation
   [self openCenterMenuView];
 }
