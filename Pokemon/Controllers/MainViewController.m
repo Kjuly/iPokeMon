@@ -35,6 +35,8 @@ typedef enum {
 
 @interface MainViewController () {
  @private
+  CenterMenuUtilityViewController * centerMenuUtilityViewController_;
+  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
   BOOL                   isCenterMenuOpening_;
@@ -44,6 +46,8 @@ typedef enum {
   NSInteger              centerMenuOpenStatusTimeCounter_;
   NSInteger              timeCounter_;
 }
+
+@property (nonatomic, retain) CenterMenuUtilityViewController * centerMenuUtilityViewController;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
@@ -81,6 +85,8 @@ typedef enum {
 @synthesize utilityNavigationController = utilityNavigationController_;
 @synthesize gameMainViewController      = gameMainViewController_;
 
+@synthesize centerMenuUtilityViewController = centerMenuUtilityViewController_;
+
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
 @synthesize isCenterMenuOpening             = isCenterMenuOpening_;
@@ -100,6 +106,8 @@ typedef enum {
   [poketchViewController_ release];
   [utilityNavigationController_ release];
   [gameMainViewController_ release];
+  
+  self.centerMenuUtilityViewController = nil;
   
   self.currentKeyButton = nil;
   
@@ -244,6 +252,8 @@ typedef enum {
   self.utilityNavigationController = nil;
   self.gameMainViewController = nil;
   
+  self.centerMenuUtilityViewController = nil;
+  
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;
 }
@@ -339,12 +349,17 @@ typedef enum {
   // Do action based on tap down keepped time
   if (self.timeCounter <= 1) {
     if (! self.utilityNavigationController) {
-      NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");    
-      CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
-                                                                           initWithButtonCount:6];
-      utilityNavigationController_ = [CustomNavigationController initWithRootViewController:centerMenuUtilityViewController
-                                                               navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
-      [centerMenuUtilityViewController release];
+      NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");
+      if (! self.centerMenuUtilityViewController) {
+        CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
+                                                                             initWithButtonCount:6];
+        self.centerMenuUtilityViewController = centerMenuUtilityViewController;
+        [centerMenuUtilityViewController release];
+      }
+      
+      utilityNavigationController_ = [CustomNavigationController
+                                      initWithRootViewController:self.centerMenuUtilityViewController
+                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
     }
     
     // |mapButton_|'s new Frame
@@ -359,6 +374,10 @@ typedef enum {
                      }
                      completion:^(BOOL finished) {
                        [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
+                       
+                       // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+                       if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+                         [self.centerMenuUtilityViewController viewWillAppear:YES];
                      }];
   }
   else if (self.timeCounter <= 2) {
