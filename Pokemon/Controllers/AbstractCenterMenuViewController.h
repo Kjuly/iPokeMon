@@ -19,6 +19,7 @@
 - (void)runButtonActions:(id)sender;
 - (void)pushViewController:(id)viewController;
 - (void)checkDeviceSystemFor:(id)viewController;
+- (void)openCenterMenuView;
 - (void)recoverButtonsLayoutInCenterView;
 
 @end

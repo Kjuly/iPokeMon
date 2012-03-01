@@ -26,7 +26,6 @@
 @property (nonatomic, assign) NSInteger buttonCount;
 @property (nonatomic, assign) CGRect buttonOriginFrame;
 
-- (void)openCenterMenuView;
 - (void)closeCenterMenuView:(NSNotification *)notification;
 - (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse;
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin;
@@ -137,9 +136,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  
-  // Open center menu view with animation
-  [self openCenterMenuView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -192,6 +188,29 @@
     [viewController viewWillAppear:YES];
 }
 
+// Open center menu view
+- (void)openCenterMenuView
+{
+  // Show buttons with animation
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.centerMenu setAlpha:1.0f];
+                     // Compute buttons' frame and set for them, based on |buttonCount|
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [UIView animateWithDuration:0.1f
+                                           delay:0.0f
+                                         options:UIViewAnimationCurveEaseInOut
+                                      animations:^{
+                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                      }
+                                      completion:nil];
+                   }];
+}
+
 // Recover buttons' layout in center view
 - (void)recoverButtonsLayoutInCenterView
 {
@@ -215,29 +234,6 @@
 }
 
 #pragma mark - Private Methods
-
-// Open center menu view
-- (void)openCenterMenuView
-{
-  // Show buttons with animation
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
-                      options:UIViewAnimationCurveEaseInOut
-                   animations:^{
-                     [self.centerMenu setAlpha:1.0f];
-                     // Compute buttons' frame and set for them, based on |buttonCount|
-                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.0f];
-                   }
-                   completion:^(BOOL finished) {
-                     [UIView animateWithDuration:0.1f
-                                           delay:0.0f
-                                         options:UIViewAnimationCurveEaseInOut
-                                      animations:^{
-                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
-                                      }
-                                      completion:nil];
-                   }];
-}
 
 // Close center menu view
 - (void)closeCenterMenuView:(NSNotification *)notification {

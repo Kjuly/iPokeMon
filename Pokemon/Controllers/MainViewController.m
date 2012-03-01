@@ -384,9 +384,10 @@ typedef enum {
                      completion:^(BOOL finished) {
                        [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
                        
+                       [self.centerMenuUtilityViewController openCenterMenuView];
                        // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
-                       if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
-                         [self.centerMenuUtilityViewController viewWillAppear:YES];
+                       //if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+                       //  [self.centerMenuUtilityViewController viewWillAppear:YES];
                      }];
   }
   else if (self.timeCounter <= 2) {
