@@ -511,7 +511,7 @@ typedef enum {
   }
   
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
-  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 6.0f) {
+  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 3.0f) {
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }
