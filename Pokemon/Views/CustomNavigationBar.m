@@ -9,6 +9,7 @@
 #import "CustomNavigationBar.h"
 
 #import "GlobalNotificationConstants.h"
+#import "AbstractCenterMenuViewController.h"
 
 #define kBackButtonHeight 60.0f
 #define kBackButtonWith   40.0f
@@ -102,28 +103,25 @@
     [self removeBackButtonForPreviousView];
   self.viewCount = 0;
   
+  [self.navigationController popToRootViewControllerAnimated:YES];
+  
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     [self.navigationController popToRootViewControllerAnimated:YES];
-                     
+                     // Slide up the Navigation bar to hide it
+                     CGRect navigationBarFrame = self.navigationController.topViewController.navigationController.navigationBar.frame;
+                     navigationBarFrame.origin.y = - navigationBarFrame.size.height;
+                     [self.navigationController.topViewController.navigationController.navigationBar setFrame:navigationBarFrame];
+                   }
+                   completion:^(BOOL finished) {
                      // Set |cenerMainButton|'s status to Normal (Default)
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
                                                                          object:self
                                                                        userInfo:nil];
-                   }
-                   completion:^(BOOL finished) {
-                     // Slide up the Navigation bar
-                     [UIView animateWithDuration:0.3f
-                                           delay:0.0f
-                                         options:UIViewAnimationOptionCurveEaseInOut
-                                      animations:^{
-                                        CGRect navigationBarFrame = self.navigationController.topViewController.navigationController.navigationBar.frame;
-                                        navigationBarFrame.origin.y = - navigationBarFrame.size.height;
-                                        [self.navigationController.topViewController.navigationController.navigationBar setFrame:navigationBarFrame];
-                                      }
-                                      completion:nil];
+                     
+                     // Recover button' layout in center view
+                     [(AbstractCenterMenuViewController *)self.navigationController.topViewController recoverButtonsLayoutInCenterView];
                    }];
 }
 

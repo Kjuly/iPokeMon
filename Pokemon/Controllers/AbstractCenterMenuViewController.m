@@ -171,6 +171,11 @@
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
+                     // Slide away buttons in center view & hide them
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:300.0f];
+                     [self.ballMenu setAlpha:0.0f];
+                     
+                     // Show Navigation Bar
                      [self.navigationController setNavigationBarHidden:NO];
                      CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
                      if (navigationBarFrame.origin.y < 0) {
@@ -189,6 +194,28 @@
 {
   if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
     [viewController viewWillAppear:YES];
+}
+
+// Recover buttons' layout in center view
+- (void)recoverButtonsLayoutInCenterView
+{
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     // Show buttons & slide in to center
+                     [self.ballMenu setAlpha:1.0f];
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [UIView animateWithDuration:0.1f
+                                           delay:0.0f
+                                         options:UIViewAnimationOptionCurveEaseInOut
+                                      animations:^{
+                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                      }
+                                      completion:nil];
+                   }];
 }
 
 #pragma mark - Private Methods
