@@ -204,25 +204,25 @@
 - (void)showPokedex:(id)sender {  
   if (! self.pokedexTableViewController)
     pokedexTableViewController_ = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self.navigationController pushViewController:self.pokedexTableViewController animated:YES];
+  [self pushViewController:self.pokedexTableViewController];
 }
 
 - (void)showPokemon:(id)sender {
   if (! self.sixPokemonsTableViewController)
     sixPokemonsTableViewController_ = [[SixPokemonsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self.navigationController pushViewController:self.sixPokemonsTableViewController animated:YES];
+  [self pushViewController:self.sixPokemonsTableViewController];
 }
 
 - (void)showBag:(id)sender {
   if (! self.bagTableViewController)
     bagTableViewController_ = [[BagTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self.navigationController pushViewController:self.bagTableViewController animated:YES];
+  [self pushViewController:self.bagTableViewController];
 }
 
 - (void)showTrainerCard:(id)sender {
   if (! self.trainerCardViewController)
     trainerCardViewController_ = [[TrainerCardViewController alloc] init];
-  [self.navigationController pushViewController:self.trainerCardViewController animated:YES];
+  [self pushViewController:self.trainerCardViewController];
 }
 
 - (void)runHotkey:(id)sender {
@@ -232,7 +232,7 @@
 - (void)setGame:(id)sender {
   if (! self.gameSettingTableViewController)
     gameSettingTableViewController_ = [[GameSettingTableViewController alloc] init];
-  [self.navigationController pushViewController:self.gameSettingTableViewController animated:YES];
+  [self pushViewController:self.gameSettingTableViewController];
 }
 
 @end

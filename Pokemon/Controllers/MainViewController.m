@@ -36,7 +36,7 @@ typedef enum {
 @interface MainViewController () {
  @private
   CenterMenuUtilityViewController * centerMenuUtilityViewController_;
-  
+ 
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
   BOOL                   isCenterMenuOpening_;
@@ -303,13 +303,22 @@ typedef enum {
                          CGRect centerMainButtonFrame = self.centerMainButton.frame;
                          centerMainButtonFrame.origin.y = (480.0f - kCenterMainButtonSize) / 2;
                          [self.centerMainButton setFrame:centerMainButtonFrame];
-                         
-                         // Show |mapButton_|
-                         CGRect mapButtonFrame = self.mapButton.frame;
-                         mapButtonFrame.origin.y = - kMapButtonSize / 2;
-                         [self.mapButton setFrame:mapButtonFrame];
                        }
-                       completion:nil];
+                       completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.3f
+                                               delay:0.0f
+                                             options:UIViewAnimationOptionCurveEaseInOut
+                                          animations:^{
+                                            // Hide navigation bar
+//                                            [self.centerMenuUtilityViewController.navigationController setNavigationBarHidden:YES animated:NO];
+                                            
+                                            // Show |mapButton_|
+                                            CGRect mapButtonFrame = self.mapButton.frame;
+                                            mapButtonFrame.origin.y = - kMapButtonSize / 2;
+                                            [self.mapButton setFrame:mapButtonFrame];
+                                          }
+                                          completion:nil];
+                       }];
       // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
       if (self.isCenterMenuOpening) [self activateCenterMenuOpenStatusTimer];
       break;

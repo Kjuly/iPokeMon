@@ -102,12 +102,29 @@
     [self removeBackButtonForPreviousView];
   self.viewCount = 0;
   
-  [self.navigationController popToRootViewControllerAnimated:YES];
-  
-  // Set |cenerMainButton|'s status to Normal (Default)
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
-                                                      object:self
-                                                    userInfo:nil];
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     [self.navigationController popToRootViewControllerAnimated:YES];
+                     
+                     // Set |cenerMainButton|'s status to Normal (Default)
+                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
+                                                                         object:self
+                                                                       userInfo:nil];
+                   }
+                   completion:^(BOOL finished) {
+                     // Slide up the Navigation bar
+                     [UIView animateWithDuration:0.3f
+                                           delay:0.0f
+                                         options:UIViewAnimationOptionCurveEaseInOut
+                                      animations:^{
+                                        CGRect navigationBarFrame = self.navigationController.topViewController.navigationController.navigationBar.frame;
+                                        navigationBarFrame.origin.y = - navigationBarFrame.size.height;
+                                        [self.navigationController.topViewController.navigationController.navigationBar setFrame:navigationBarFrame];
+                                      }
+                                      completion:nil];
+                   }];
 }
 
 // Provide the action for the custom |backButton|

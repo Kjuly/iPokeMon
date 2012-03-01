@@ -164,6 +164,33 @@
 {
 }
 
+// Push View Controller
+- (void)pushViewController:(id)viewController
+{
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     [self.navigationController setNavigationBarHidden:NO];
+                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+                     if (navigationBarFrame.origin.y < 0) {
+                       navigationBarFrame.origin.y = 0;
+                       [self.navigationController.navigationBar setFrame:navigationBarFrame];
+                     }
+                   }
+                   completion:^(BOOL finished) {
+                     [self.navigationController pushViewController:viewController animated:YES];
+                   }];
+}
+
+// Check device's system, it it's lower than iOS5.0, methods like |viewWillAppear:| will not be called
+// So, manually send them
+- (void)checkDeviceSystemFor:(id)viewController
+{
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [viewController viewWillAppear:YES];
+}
+
 #pragma mark - Private Methods
 
 // Open center menu view

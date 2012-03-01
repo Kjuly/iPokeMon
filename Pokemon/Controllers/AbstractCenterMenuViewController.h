@@ -17,5 +17,7 @@
 
 - (id)initWithButtonCount:(NSInteger)buttonCount;
 - (void)runButtonActions:(id)sender;
+- (void)pushViewController:(id)viewController;
+- (void)checkDeviceSystemFor:(id)viewController;
 
 @end
