@@ -371,19 +371,20 @@ typedef enum {
                                     navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
     }
     
+    // Insert |utilityNavigationController|'s view
+    [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
+    
     // |mapButton_|'s new Frame
     CGRect mapButtonFrame = self.mapButton.frame;
     mapButtonFrame.origin.y = - kMapButtonSize / 2;
     
-    [UIView animateWithDuration:0.15f
+    [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationCurveEaseInOut
                      animations:^{
                        [self.mapButton setFrame:mapButtonFrame];
                      }
                      completion:^(BOOL finished) {
-                       [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
-                       
                        [self.centerMenuUtilityViewController openCenterMenuView];
                        // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
                        //if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
@@ -508,11 +509,11 @@ typedef enum {
                        [self deactivateCenterMenuOpenStatusTimer];
                      }
                      else [self.mapButton setFrame:mapButtonFrame];
-                     
+                       
                      // Set frame of the |mapViewController_|'s view to show it
                      [self.mapViewController.view setFrame:mapViewFrame];
                    }
-                   completion:^(BOOL finished) {
+                   completion:^(BOOL finished) {                     
                      self.isMapViewOpening = ! self.isMapViewOpening;
                      
                      if (self.isMapViewOpening)

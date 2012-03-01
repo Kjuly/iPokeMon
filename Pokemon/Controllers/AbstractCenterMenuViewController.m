@@ -83,7 +83,7 @@
   self.view = view;
   [view release];
   
-  // Ball Menu View
+  // Center Menu View
   UIView * centerMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kCenterMenuSize) / 2,
                                                                  (480.0f - kCenterMenuSize) / 2,
                                                                  kCenterMenuSize,
@@ -92,6 +92,7 @@
   [centerMenu release];
   [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
   [self.centerMenu setOpaque:NO];
+  [self.centerMenu setAlpha:0.0f];
   [self.view addSubview:self.centerMenu];
   
   // Add buttons to |ballMenu_|, set it's origin frame to center
