@@ -110,11 +110,13 @@
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      // Slide up the Navigation bar to hide it
-                     CGRect navigationBarFrame = self.navigationController.topViewController.navigationController.navigationBar.frame;
+                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
                      navigationBarFrame.origin.y = - navigationBarFrame.size.height;
-                     [self.navigationController.topViewController.navigationController.navigationBar setFrame:navigationBarFrame];
+                     [self.navigationController.navigationBar setFrame:navigationBarFrame];
                    }
                    completion:^(BOOL finished) {
+                     [self.navigationController setNavigationBarHidden:YES];
+                     
                      // Set |cenerMainButton|'s status to Normal (Default)
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
                                                                          object:self
