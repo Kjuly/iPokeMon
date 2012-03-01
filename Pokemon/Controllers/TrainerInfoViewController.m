@@ -58,7 +58,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    trainer_ = [Trainer queryTrainerWithTrainerID:1];
+    self.trainer = [Trainer queryTrainerWithTrainerID:1];
   }
   return self;
 }
