@@ -10,10 +10,10 @@
 
 @interface AbstractCenterMenuViewController : UIViewController
 {
-  UIView * ballMenu_;
+  UIView * centerMenu_;
 }
 
-@property (nonatomic, retain) UIView * ballMenu;
+@property (nonatomic, retain) UIView * centerMenu;
 
 - (id)initWithButtonCount:(NSInteger)buttonCount;
 - (void)runButtonActions:(id)sender;

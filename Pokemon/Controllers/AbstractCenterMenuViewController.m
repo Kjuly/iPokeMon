@@ -36,14 +36,14 @@
 
 @implementation AbstractCenterMenuViewController
 
-@synthesize ballMenu    = ballMenu_;
+@synthesize centerMenu    = centerMenu_;
 
 @synthesize buttonCount       = buttonCount_;
 @synthesize buttonOriginFrame = buttonOriginFrame_;
 
 -(void)dealloc
 {
-  [ballMenu_ release];
+  [centerMenu_ release];
   
   [super dealloc];
 }
@@ -85,15 +85,15 @@
   [view release];
   
   // Ball Menu View
-  UIView * ballMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kCenterMenuSize) / 2,
-                                                              (480.0f - kCenterMenuSize) / 2,
-                                                              kCenterMenuSize,
-                                                              kCenterMenuSize)];
-  self.ballMenu = ballMenu;
-  [ballMenu release];
-  [self.ballMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
-  [self.ballMenu setOpaque:NO];
-  [self.view addSubview:self.ballMenu];
+  UIView * centerMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kCenterMenuSize) / 2,
+                                                                 (480.0f - kCenterMenuSize) / 2,
+                                                                 kCenterMenuSize,
+                                                                 kCenterMenuSize)];
+  self.centerMenu = centerMenu;
+  [centerMenu release];
+  [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
+  [self.centerMenu setOpaque:NO];
+  [self.view addSubview:self.centerMenu];
   
   // Add buttons to |ballMenu_|, set it's origin frame to center
   buttonOriginFrame_ = CGRectMake((kCenterMenuSize - kCenterMainButtonSize) / 2,
@@ -107,7 +107,7 @@
     [button setOpaque:NO];
     [button setTag:++i];
     [button addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ballMenu addSubview:button];
+    [self.centerMenu addSubview:button];
     [button release];
   }
 }
@@ -128,7 +128,7 @@
 {
   [super viewDidUnload];
 
-  self.ballMenu = nil;
+  self.centerMenu = nil;
   
   // Remove Notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
@@ -173,7 +173,7 @@
                    animations:^{
                      // Slide away buttons in center view & hide them
                      [self computeAndSetButtonLayoutWithTriangleHypotenuse:300.0f];
-                     [self.ballMenu setAlpha:0.0f];
+                     [self.centerMenu setAlpha:0.0f];
                      
                      // Show Navigation Bar
                      [self.navigationController setNavigationBarHidden:NO];
@@ -204,7 +204,7 @@
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      // Show buttons & slide in to center
-                     [self.ballMenu setAlpha:1.0f];
+                     [self.centerMenu setAlpha:1.0f];
                      [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.0f];
                    }
                    completion:^(BOOL finished) {
@@ -228,7 +228,7 @@
                         delay:0.0f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
-                     [self.ballMenu setAlpha:1.0f];
+                     [self.centerMenu setAlpha:1.0f];
                      // Compute buttons' frame and set for them, based on |buttonCount|
                      [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.0f];
                    }
@@ -250,9 +250,9 @@
                         delay:0.0f
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
-                     for (UIButton * button in [self.ballMenu subviews])
+                     for (UIButton * button in [self.centerMenu subviews])
                        [button setFrame:self.buttonOriginFrame];
-                     [self.ballMenu setAlpha:0.0f];
+                     [self.centerMenu setAlpha:0.0f];
                    }
                    completion:^(BOOL finished) {
                      [self.navigationController.view removeFromSuperview];
@@ -375,7 +375,7 @@
 // Set Frame for button with special tag
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin
 {
-  UIButton * button = (UIButton *)[self.ballMenu viewWithTag:buttonTag];
+  UIButton * button = (UIButton *)[self.centerMenu viewWithTag:buttonTag];
   [button setFrame:CGRectMake(origin.x, origin.y, kCenterMenuButtonSize, kCenterMenuButtonSize)];
   button = nil;
 }

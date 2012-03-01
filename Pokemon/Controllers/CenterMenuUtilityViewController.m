@@ -77,7 +77,7 @@
   [super loadView];
   
   // Set Buttons' style in Ball Menu View
-  for (UIButton * button in [self.ballMenu subviews])
+  for (UIButton * button in [self.centerMenu subviews])
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
             forState:UIControlStateNormal];
   
