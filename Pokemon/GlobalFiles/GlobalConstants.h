@@ -18,6 +18,7 @@
 
 // Main view settings
 #define kCenterMainButtonSize 64.0f
+#define kCenterMainButtonTouchDownCircleViewSize 230.0f
 #define kCenterMenuSize       305.0f
 #define kCenterMenuButtonSize 64.0f
 

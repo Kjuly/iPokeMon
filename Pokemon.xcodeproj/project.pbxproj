@@ -23,6 +23,11 @@
 		7F0A486014E67DAF001C62A0 /* PokemonDetailDescriptionBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485E14E67DAE001C62A0 /* PokemonDetailDescriptionBackground@2x.png */; };
 		7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */; };
 		7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */; };
+		7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F21AA8514FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m */; };
+		7F21AA8A14FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F21AA8814FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png */; };
+		7F21AA8B14FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F21AA8914FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png */; };
+		7F21AA8E14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F21AA8C14FFC99100F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png */; };
+		7F21AA8F14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F21AA8D14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png */; };
 		7F2EFB7314DE5F370068F681 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7214DE5F370068F681 /* PListParser.m */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
 		7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */; };
@@ -550,6 +555,12 @@
 		7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTableViewController.m; sourceTree = "<group>"; };
 		7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewController.h; sourceTree = "<group>"; };
 		7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewController.m; sourceTree = "<group>"; };
+		7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMainButtonTouchDownCircleView.h; sourceTree = "<group>"; };
+		7F21AA8514FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMainButtonTouchDownCircleView.m; sourceTree = "<group>"; };
+		7F21AA8814FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMainButtonTouchDownCircleViewBackground.png; sourceTree = "<group>"; };
+		7F21AA8914FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png"; sourceTree = "<group>"; };
+		7F21AA8C14FFC99100F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterMainButtonTouchDownCircleViewForeground.png; sourceTree = "<group>"; };
+		7F21AA8D14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png"; sourceTree = "<group>"; };
 		7F2EFB7114DE5F370068F681 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F2EFB7214DE5F370068F681 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
 		7F2EFB7514DE78250068F681 /* GenerationOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenerationOne.png; sourceTree = "<group>"; };
@@ -1988,6 +1999,8 @@
 				7FBB60D614E6C37C00C24BA5 /* TrainerBadgesTableViewCell.m */,
 				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
 				7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */,
+				7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */,
+				7F21AA8514FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2349,6 +2362,10 @@
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7F21AA8C14FFC99100F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png */,
+				7F21AA8D14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png */,
+				7F21AA8814FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png */,
+				7F21AA8914FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png */,
 				7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */,
 				7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */,
 				7F2FA1FE14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel.png */,
@@ -2754,6 +2771,10 @@
 				7F2FA20114FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png in Resources */,
 				7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */,
 				7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */,
+				7F21AA8A14FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png in Resources */,
+				7F21AA8B14FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png in Resources */,
+				7F21AA8E14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png in Resources */,
+				7F21AA8F14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2987,6 +3008,7 @@
 				7F52451614FBDCD50019C75A /* WildPokemon.m in Sources */,
 				7F52451914FBEA810019C75A /* GameStatus.m in Sources */,
 				7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */,
+				7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

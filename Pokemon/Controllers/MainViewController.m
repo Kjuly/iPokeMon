@@ -11,6 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
+#import "CenterMainButtonTouchDownCircleView.h"
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
 #import "MapViewController.h"
@@ -36,11 +37,13 @@ typedef enum {
 @interface MainViewController () {
  @private
   CenterMenuUtilityViewController * centerMenuUtilityViewController_;
+  CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView_;
  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
   BOOL                   isCenterMenuOpening_;
   NSTimer              * centerMenuOpenStatusTimer_;
+  BOOL                   isCenterMainButtonTouchDownCircleViewLoading_;
   BOOL                   isMapViewOpening_;
   NSTimer              * longTapTimer_;
   NSInteger              centerMenuOpenStatusTimeCounter_;
@@ -48,11 +51,13 @@ typedef enum {
 }
 
 @property (nonatomic, retain) CenterMenuUtilityViewController * centerMenuUtilityViewController;
+@property (nonatomic, retain) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
 @property (nonatomic, assign) BOOL                   isCenterMenuOpening;
 @property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
+@property (nonatomic, assign) BOOL                   isCenterMainButtonTouchDownCircleViewLoading;
 @property (nonatomic, assign) BOOL                   isMapViewOpening;
 @property (nonatomic, retain) NSTimer              * longTapTimer;
 @property (nonatomic, assign) NSInteger              centerMenuOpenStatusTimeCounter;
@@ -86,11 +91,13 @@ typedef enum {
 @synthesize gameMainViewController      = gameMainViewController_;
 
 @synthesize centerMenuUtilityViewController = centerMenuUtilityViewController_;
+@synthesize centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView_;
 
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
 @synthesize isCenterMenuOpening             = isCenterMenuOpening_;
 @synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
+@synthesize isCenterMainButtonTouchDownCircleViewLoading = isCenterMainButtonTouchDownCircleViewLoading_;
 @synthesize isMapViewOpening                = isMapViewOpening_;
 @synthesize longTapTimer                    = longTapTimer_;
 @synthesize centerMenuOpenStatusTimeCounter = centerMenuOpenStatusTimeCounter_;
@@ -108,6 +115,7 @@ typedef enum {
   [gameMainViewController_ release];
   
   self.centerMenuUtilityViewController = nil;
+  self.centerMainButtonTouchDownCircleView = nil;
   
   self.currentKeyButton = nil;
   
@@ -161,6 +169,7 @@ typedef enum {
   // Base iVar Settings
   centerMainButtonStatus_ = kCenterMainButtonStatusNormal;
   isCenterMenuOpening_    = NO;
+  isCenterMainButtonTouchDownCircleViewLoading_ = NO;
   isMapViewOpening_       = NO;
   
   
@@ -355,8 +364,12 @@ typedef enum {
 {
   [self.longTapTimer invalidate];
   
+  // Stop |centerMainButtonTouchDownCircleView_| loading
+  [self.centerMainButtonTouchDownCircleView stopAnimation];
+  self.isCenterMainButtonTouchDownCircleViewLoading = NO;
+  
   // Do action based on tap down keepped time
-  if (self.timeCounter <= 1) {
+  if (self.timeCounter < 3.0f) {
     if (! self.utilityNavigationController) {
       NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");
       if (! self.centerMenuUtilityViewController) {
@@ -394,6 +407,7 @@ typedef enum {
   else if (self.timeCounter <= 2) {
     NSLog(@"1 < time <= 2");
   }
+  else self.isCenterMenuOpening = NO; // !!! Need to be remove
 }
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
@@ -438,25 +452,66 @@ typedef enum {
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender
 {
-  self.currentKeyButton = (UIButton *)sender;
-  self.timeCounter  = 0;
-  [self.longTapTimer invalidate];
-  self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
-                                                       target:self
-                                                     selector:@selector(increaseTimeWithAction)
-                                                     userInfo:nil
-                                                      repeats:YES];
+  if (! self.isCenterMenuOpening) {
+    // Start time counting
+    self.currentKeyButton = (UIButton *)sender;
+    self.timeCounter  = 0;
+    [self.longTapTimer invalidate];
+    self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                         target:self
+                                                       selector:@selector(increaseTimeWithAction)
+                                                       userInfo:nil
+                                                        repeats:YES];
+  }
 }
 
 // Method for counting Tap Down time
 - (void)increaseTimeWithAction
 {
   ++self.timeCounter;
+  NSLog(@"Touch Keep Time: %d", self.timeCounter);
   
   NSInteger buttonTag = self.currentKeyButton.tag;
   
+  // If the target is |centerMainButton_|, add |timeCounter_ >= 1.0|, loading it
+  // Time: delay 1.0 second, then every 2.0 second got a new point
+  if (! self.isCenterMainButtonTouchDownCircleViewLoading && buttonTag == kTagMainViewCenterMainButton
+      && ! self.isCenterMenuOpening && self.timeCounter >= 1.0f)
+  {
+    // Run this block after |mapButton_| moved to view top
+    void (^completionBlock)(BOOL) = ^(BOOL finished) {
+      NSLog(@"increaseTimeWithAction - Start loading |centerMainButtonTouchDownCircleView|...");
+      self.isCenterMainButtonTouchDownCircleViewLoading = YES;
+      
+      // Loading |centerMainButtonTouchDownCircleView_|
+      if (! self.centerMainButtonTouchDownCircleView) {
+        CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView
+        = [[CenterMainButtonTouchDownCircleView alloc]
+           initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
+                                    CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
+                                    kCenterMainButtonTouchDownCircleViewSize,
+                                    kCenterMainButtonTouchDownCircleViewSize)];
+        self.centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView;
+        [centerMainButtonTouchDownCircleView release];
+      }
+      [self.view insertSubview:self.centerMainButtonTouchDownCircleView belowSubview:self.centerMainButton];
+      [self.centerMainButtonTouchDownCircleView startAnimation];
+    };
+    
+    // Move |mapButton_| to view top
+    CGRect mapButtonFrame = self.mapButton.frame;
+    mapButtonFrame.origin.y = - kMapButtonSize / 2;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationCurveEaseInOut
+                     animations:^{
+                       [self.mapButton setFrame:mapButtonFrame];
+                     }
+                     completion:completionBlock];
+  }
+  
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
-  if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 6.0f) {
+  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 6.0f) {
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }
