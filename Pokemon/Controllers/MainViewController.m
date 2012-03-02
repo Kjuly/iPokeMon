@@ -170,7 +170,8 @@
   self.view = view;
   [view release];
   
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:
+                                 [UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
   [self.view setOpaque:NO];
   
   // Base iVar Settings

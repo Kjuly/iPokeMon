@@ -91,7 +91,7 @@
     // Level
     UILabel * levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
     [levelLabel setBackgroundColor:[UIColor clearColor]];
-    [levelLabel setTextColor:[GlobalRender textColorBlue]];
+    [levelLabel setTextColor:[GlobalRender textColorTitleWhite]];
     [levelLabel setTextAlignment:UITextAlignmentLeft];
     [levelLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:12.0f]];
     [levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
@@ -112,7 +112,7 @@
     
     // HP Bar
     UIView * HPBarTotal = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal setBackgroundColor:[GlobalRender textColorBlue]];
+    [HPBarTotal setBackgroundColor:[GlobalRender textColorTitleWhite]];
     [HPBarTotal.layer setCornerRadius:5.0f];
     // HP Bar Left Part
     CGRect HPBarLeftFrame = CGRectMake(0.0f,

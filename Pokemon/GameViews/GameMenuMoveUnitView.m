@@ -68,7 +68,7 @@
     UILabel * ppLabel = [[UILabel alloc] initWithFrame:ppLabelFrame];
     [ppLabel setBackgroundColor:[UIColor clearColor]];
     [ppLabel setTextAlignment:UITextAlignmentRight];
-    [ppLabel setTextColor:[GlobalRender textColorBlue]];
+    [ppLabel setTextColor:[GlobalRender textColorTitleWhite]];
     [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
     [ppLabel setText:NSLocalizedString(@"kLabelPP", nil)];
     [self addSubview:ppLabel];

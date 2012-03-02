@@ -58,7 +58,8 @@
   UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor clearColor]];
+//  [self.view setBackgroundColor:[UIColor clearColor]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   
   if (! [[UIApplication sharedApplication] isStatusBarHidden]) viewFrame_.size.height -= 22.0f;
   

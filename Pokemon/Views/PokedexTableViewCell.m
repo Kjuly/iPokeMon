@@ -66,7 +66,7 @@
     // Set Subtitle Label
     labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, titleHeight, subtitleWidth, subtitleHeight)];
     [labelSubtitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelSubtitle_ setTextColor:[GlobalRender textColorBlue]];
+    [labelSubtitle_ setTextColor:[GlobalRender textColorTitleWhite]];
     [labelSubtitle_ setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
     [labelSubtitle_ setTextColor:[UIColor grayColor]];
     [self.contentView addSubview:labelSubtitle_];

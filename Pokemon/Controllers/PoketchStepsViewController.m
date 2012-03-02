@@ -49,7 +49,7 @@
   // Steps Label
   UILabel * stepsLabel = [[UILabel alloc] initWithFrame:stepsLabelFrame];
   [stepsLabel setBackgroundColor:[UIColor clearColor]];
-  [stepsLabel setTextColor:[GlobalRender textColorBlue]];
+  [stepsLabel setTextColor:[GlobalRender textColorTitleWhite]];
   [stepsLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [stepsLabel setTextAlignment:UITextAlignmentRight];
   [stepsLabel setText:NSLocalizedString(@"kLabelSteps", nil)];

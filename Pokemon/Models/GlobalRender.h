@@ -14,8 +14,9 @@
 + (UIColor *)backgroundColorTransparentBlack;
 + (UIColor *)backgroundColorBar;
 
++ (UIColor *)textColorNormal;
 + (UIColor *)textColorOrange;
-+ (UIColor *)textColorBlue;
++ (UIColor *)textColorTitleWhite;
 
 // Font Style
 + (UIFont *)textFontNormalInSizeOf:(CGFloat)fontSize;

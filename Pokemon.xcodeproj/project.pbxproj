@@ -480,6 +480,10 @@
 		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
 		7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */; };
 		7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */; };
+		7FCD7D7B1500B0F1000783CF /* MainViewBackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D791500B0F1000783CF /* MainViewBackgroundWhite.png */; };
+		7FCD7D7C1500B0F1000783CF /* MainViewBackgroundWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7A1500B0F1000783CF /* MainViewBackgroundWhite@2x.png */; };
+		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
+		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
 		7FD14F0714F4C0AC00082330 /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FD14F0614F4C0AC00082330 /* Moves.plist */; };
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
@@ -1176,8 +1180,8 @@
 		7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexDefaultImage@2x.png"; sourceTree = "<group>"; };
 		7FAF625314E7984F00A14AE0 /* PoketchSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoketchSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FAF625414E7984F00A14AE0 /* PoketchSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoketchSixPokemonsViewController.m; sourceTree = "<group>"; };
-		7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalRender.h; sourceTree = "<group>"; };
-		7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalRender.m; sourceTree = "<group>"; };
+		7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalRender.h; path = ../Models/GlobalRender.h; sourceTree = "<group>"; };
+		7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalRender.m; path = ../Models/GlobalRender.m; sourceTree = "<group>"; };
 		7FBAA71514E177200011DCB0 /* UtilityBallMenuIcon_ShowBag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_ShowBag.png; sourceTree = "<group>"; };
 		7FBAA71614E177200011DCB0 /* UtilityBallMenuIcon_SetGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_SetGame.png; sourceTree = "<group>"; };
 		7FBAA71714E177200011DCB0 /* UtilityBallMenuIcon_RunHotKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIcon_RunHotKey.png; sourceTree = "<group>"; };
@@ -1223,6 +1227,10 @@
 		7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettingTableViewController.m; sourceTree = "<group>"; };
 		7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
+		7FCD7D791500B0F1000783CF /* MainViewBackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundWhite.png; sourceTree = "<group>"; };
+		7FCD7D7A1500B0F1000783CF /* MainViewBackgroundWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewBackgroundWhite@2x.png"; sourceTree = "<group>"; };
+		7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlackWithFog.png; sourceTree = "<group>"; };
+		7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewBackgroundBlackWithFog@2x.png"; sourceTree = "<group>"; };
 		7FD14F0614F4C0AC00082330 /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
 		7FD14F0B14F4C4DC00082330 /* Move+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Move+DataController.h"; sourceTree = "<group>"; };
 		7FD14F0C14F4C4DC00082330 /* Move+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Move+DataController.m"; sourceTree = "<group>"; };
@@ -1920,8 +1928,6 @@
 				7F2EFB7214DE5F370068F681 /* PListParser.m */,
 				7F39A2F114DD07DA00C77485 /* DataDecoder.h */,
 				7F39A2F214DD07DA00C77485 /* DataDecoder.m */,
-				7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */,
-				7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2055,6 +2061,8 @@
 				7F7C88FF14F755170023D079 /* GlobalConstants.h */,
 				7F7C890014F755170023D079 /* GlobalNotificationConstants.h */,
 				7F7C890114F755170023D079 /* GlobalNotificationConstants.m */,
+				7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */,
+				7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */,
 				7F51BF5714F368EC008FCF1D /* PokemonServerAPI.h */,
 				7F51BF5814F368EC008FCF1D /* PokemonServerAPI.m */,
 			);
@@ -2367,6 +2375,10 @@
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */,
+				7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */,
+				7FCD7D791500B0F1000783CF /* MainViewBackgroundWhite.png */,
+				7FCD7D7A1500B0F1000783CF /* MainViewBackgroundWhite@2x.png */,
 				7F21AA8C14FFC99100F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png */,
 				7F21AA8D14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png */,
 				7F21AA8814FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground.png */,
@@ -2780,6 +2792,10 @@
 				7F21AA8B14FFB91A00F9071A /* MainViewCenterMainButtonTouchDownCircleViewBackground@2x.png in Resources */,
 				7F21AA8E14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground.png in Resources */,
 				7F21AA8F14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png in Resources */,
+				7FCD7D7B1500B0F1000783CF /* MainViewBackgroundWhite.png in Resources */,
+				7FCD7D7C1500B0F1000783CF /* MainViewBackgroundWhite@2x.png in Resources */,
+				7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */,
+				7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

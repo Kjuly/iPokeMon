@@ -111,7 +111,7 @@
   // ID
   IDLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, IDView_.frame.size.width, labelHeight)];
   [IDLabel_ setBackgroundColor:[UIColor clearColor]];
-  [IDLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [IDLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [IDView_ addSubview:IDLabel_];
   
@@ -140,7 +140,7 @@
   moneyValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
   [moneyLabel_ setBackgroundColor:[UIColor clearColor]];
   [moneyValue_ setBackgroundColor:[UIColor clearColor]];
-  [moneyLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [moneyLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [moneyLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyLabel_ setTextAlignment:UITextAlignmentRight];
@@ -153,7 +153,7 @@
   pokedexValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight, valueWidth, valueHeight)];
   [pokedexLabel_ setBackgroundColor:[UIColor clearColor]];
   [pokedexValue_ setBackgroundColor:[UIColor clearColor]];
-  [pokedexLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [pokedexLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [pokedexLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexLabel_ setTextAlignment:UITextAlignmentRight];
@@ -166,7 +166,7 @@
   badgesValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight * 2, valueWidth, valueHeight)];
   [badgesLabel_ setBackgroundColor:[UIColor clearColor]];
   [badgesValue_ setBackgroundColor:[UIColor clearColor]];
-  [badgesLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [badgesLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [badgesLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesLabel_ setTextAlignment:UITextAlignmentRight];
@@ -185,7 +185,7 @@
                                                                          valueHeight)];
   [adventureStartedTimeLabel_ setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeValue_ setBackgroundColor:[UIColor clearColor]];
-  [adventureStartedTimeLabel_ setTextColor:[GlobalRender textColorBlue]];
+  [adventureStartedTimeLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [adventureStartedTimeLabel_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeValue_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeLabel_ setTextAlignment:UITextAlignmentRight];

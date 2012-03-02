@@ -101,7 +101,7 @@
     // Gender Label
     genderLabel_ = [[UILabel alloc] initWithFrame:genderLabelFrame];
     [genderLabel_ setBackgroundColor:[UIColor clearColor]];
-    [genderLabel_ setTextColor:[GlobalRender textColorBlue]];
+    [genderLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
     [genderLabel_ setTextAlignment:UITextAlignmentLeft];
     [genderLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
     [dataView addSubview:genderLabel_];
@@ -109,14 +109,14 @@
     // Level Label
     levelLabel_ = [[UILabel alloc] initWithFrame:levelLabelFrame];
     [levelLabel_ setBackgroundColor:[UIColor clearColor]];
-    [levelLabel_ setTextColor:[GlobalRender textColorBlue]];
+    [levelLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
     [levelLabel_ setTextAlignment:UITextAlignmentRight];
     [levelLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.0f]];
     [dataView addSubview:levelLabel_];
     
     // HP Bar
     HPBarTotal_ = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal_ setBackgroundColor:[GlobalRender textColorBlue]];
+    [HPBarTotal_ setBackgroundColor:[GlobalRender textColorTitleWhite]];
     [HPBarTotal_.layer setCornerRadius:5.0f];
     // HP Bar Left Part
     HPBarLeft_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
@@ -144,7 +144,7 @@
 {
   [super setSelected:selected animated:animated];
   
-  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorBlue]];
+  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorTitleWhite]];
   [self.HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
 }
 

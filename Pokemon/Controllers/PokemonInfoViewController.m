@@ -71,6 +71,7 @@
   [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+  [descriptionField setTextColor:[GlobalRender textColorNormal]];
   [descriptionField setText:[self.pokemonDataDict valueForKey:@"info"]];
   [self.view addSubview:descriptionField];
   [descriptionField release];

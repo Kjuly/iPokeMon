@@ -35,6 +35,11 @@
 
 #pragma mark - Text Color
 
+// Normal
++ (UIColor *)textColorNormal {
+  return [UIColor colorWithWhite:204.0f / 255.0f alpha:1.0f];
+}
+
 // Orange | #EE9911
 + (UIColor *)textColorOrange {
   return [UIColor colorWithRed:238.0f / 255.0f
@@ -44,11 +49,8 @@
 }
 
 // Blue   | #49627D
-+ (UIColor *)textColorBlue {
-  return [UIColor colorWithRed:73.0f / 255.0f
-                         green:98.0f / 255.0f
-                          blue:125.0f/ 255.0f
-                         alpha:1.0f];
++ (UIColor *)textColorTitleWhite {
+  return [UIColor whiteColor];
 }
 
 #pragma mark - Font Style

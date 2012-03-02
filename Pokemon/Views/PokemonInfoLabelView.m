@@ -32,7 +32,7 @@
     
     name_ = [[UILabel alloc] init];
     [name_ setBackgroundColor:[UIColor clearColor]];
-    [name_ setTextColor:[GlobalRender textColorBlue]];
+    [name_ setTextColor:[GlobalRender textColorTitleWhite]];
     [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [name_ setTextAlignment:UITextAlignmentRight];
     [self addSubview:name_];
@@ -44,6 +44,7 @@
       value_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, 0.0f, valueWidth, valueHeight)];
       [value_ setBackgroundColor:[UIColor clearColor]];
       [value_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+      [value_ setTextColor:[GlobalRender textColorNormal]];
       [value_ setTextAlignment:UITextAlignmentLeft];
       [self addSubview:value_];
     }
