@@ -17,7 +17,7 @@
 
 @interface CustomNavigationBar ()
 
-- (void)backToRootWithCenterMainButton:(NSNotification *)notification;
+//- (void)backToRootWithCenterMainButton:(NSNotification *)notification;
 
 @end
 
@@ -36,6 +36,8 @@
   [navigationBarBackgroundImage_ release];
   [backButtonToRoot_             release];
   [backButton_                   release];
+  
+//  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];
   
   [super dealloc];
 }
@@ -57,6 +59,11 @@
   
   // Create custom |backButton_|
   [self setBackButtonForRoot];
+  
+//  [[NSNotificationCenter defaultCenter] addObserver:self
+//                                           selector:@selector(backToRootWithCenterMainButton:)
+//                                               name:kPMNBackToMainView
+//                                             object:nil];
 }
 
 // Reset NavigationBar's size to container |navigationBarBackgroundImage_|
@@ -88,11 +95,6 @@
   
   // Initialize |viewCount_|
   viewCount_ = 0;
-  
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(backToRootWithCenterMainButton:)
-                                               name:kPMNBackToMainView
-                                             object:nil];
 }
 
 // Settings for |backButton|
@@ -121,6 +123,9 @@
                      // And recover button' layout in center view
                      [(AbstractCenterMenuViewController *)self.navigationController.topViewController
                       changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
+                     
+                     // Remove notification observer
+//                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];
                    }];
 }
 
@@ -224,8 +229,8 @@
 #pragma mark - Private Methods
 
 // Notification methods for backing to main view
-- (void)backToRootWithCenterMainButton:(NSNotification *)notification {
-  [self backToRoot:nil];
-}
+//- (void)backToRootWithCenterMainButton:(NSNotification *)notification {
+//  [self backToRoot:nil];
+//}
 
 @end

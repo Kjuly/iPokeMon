@@ -358,7 +358,8 @@
       break;
       
     case kCenterMainButtonStatusAtBottom:
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBackToMainView object:self userInfo:nil];
+      // The observer is |CustomNavigationBar|
+//      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBackToMainView object:self userInfo:nil];
       break;
       
     default:
