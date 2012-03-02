@@ -158,13 +158,9 @@
   
   NSInteger buttonTag = ((UIButton *)sender).tag;
   
-  if (buttonTag != 5) {
-    // |centerMainButtonStatus : 1|, move |centerMainButton_| to view bottom
-    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [NSNumber numberWithInt:1], @"centerMainButtonStatus", nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus object:self userInfo:userInfo];
-    [userInfo release];
-  }
+  if (buttonTag != 5)
+    // Change |centerMainButton_|'s status
+    [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
   
   switch (buttonTag) {
     case 1://kTagUtilityBallButtonShowPokedex:

@@ -7,9 +7,33 @@
 //
 
 #import "CenterMenuSixPokemonsViewController.h"
+
 #import "GlobalNotificationConstants.h"
+#import "TrainerTamedPokemon+DataController.h"
+#import "Pokemon.h"
+#import "SixPokemonsDetailTabViewController.h"
+
+
+@interface CenterMenuSixPokemonsViewController () {
+ @private
+  NSArray * sixPokemons_;
+}
+
+@property (nonatomic, copy) NSArray * sixPokemons;
+
+@end
+
 
 @implementation CenterMenuSixPokemonsViewController
+
+@synthesize sixPokemons = sixPokemons_;
+
+- (void)dealloc
+{
+  [sixPokemons_ release];
+  
+  [super dealloc];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -25,24 +49,56 @@
 - (void)loadView
 {
   [super loadView];
-  
-  // Set Buttons' style in center menu view
-  for (UIButton * button in [self.centerMenu subviews])
-    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
-            forState:UIControlStateNormal];
-  
-  NSLog(@"Six... loadView");
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.sixPokemons = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  
+  // Set Buttons' style in center menu view
+  NSInteger i = -1;
+  for (UIButton * button in [self.centerMenu subviews]) {
+    TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:++i];
+    Pokemon * pokemonBaseInfo = pokemonData.pokemon;
+    //
+    // TODO:
+    //   Replace |image| to |imageIcon|
+    //
+    [button setImage:pokemonBaseInfo.image forState:UIControlStateNormal];
+  }
+}
+
+#pragma mark - Button Action
+
+// Button actions, declared in parent VC
+- (void)runButtonActions:(id)sender
+{
+  [super runButtonActions:sender];
+  
+  // Load Pokemon's detail information view
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
+  [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons
+                                                               objectAtIndex:((UIButton *)sender).tag - 1]];
+  [self pushViewController:sixPokemonsDetailTabViewController];
+  [sixPokemonsDetailTabViewController release];
+  
+  // Change |centerMainButton_|'s status
+  [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import "AbstractCenterMenuViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
@@ -210,26 +209,37 @@
                    }];
 }
 
-// Recover buttons' layout in center view
-- (void)recoverButtonsLayoutInCenterView
+// Change |centerMainButton_|'s status in main view
+- (void)changeCenterMainButtonStatusToMove:(CenterMainButtonStatus)centerMainButtonStatus
 {
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     // Show buttons & slide in to center
-                     [self.centerMenu setAlpha:1.0f];
-                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.0f];
-                   }
-                   completion:^(BOOL finished) {
-                     [UIView animateWithDuration:0.1f
-                                           delay:0.0f
-                                         options:UIViewAnimationOptionCurveEaseInOut
-                                      animations:^{
-                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
-                                      }
-                                      completion:nil];
-                   }];
+  // |centerMainButtonStatus : 1|, move |centerMainButton_| to view bottom
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSNumber numberWithInt:centerMainButtonStatus], @"centerMainButtonStatus", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
+                                                      object:self
+                                                    userInfo:userInfo];
+  [userInfo release];
+  
+  // If change |centerMainButton_|'s status to normal,
+  // do |recoverButtonsLayoutInCenterView| (this method was removed)
+  if (centerMainButtonStatus == kCenterMainButtonStatusNormal)
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       // Show buttons & slide in to center
+                       [self.centerMenu setAlpha:1.0f];
+                       [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.0f];
+                     }
+                     completion:^(BOOL finished) {
+                       [UIView animateWithDuration:0.1f
+                                             delay:0.0f
+                                           options:UIViewAnimationOptionCurveEaseInOut
+                                        animations:^{
+                                          [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                        }
+                                        completion:nil];
+                     }];
 }
 
 #pragma mark - Private Methods

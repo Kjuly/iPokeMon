@@ -118,12 +118,9 @@
                      [self.navigationController setNavigationBarHidden:YES];
                      
                      // Set |cenerMainButton|'s status to Normal (Default)
-                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
-                                                                         object:self
-                                                                       userInfo:nil];
-                     
-                     // Recover button' layout in center view
-                     [(AbstractCenterMenuViewController *)self.navigationController.topViewController recoverButtonsLayoutInCenterView];
+                     // And recover button' layout in center view
+                     [(AbstractCenterMenuViewController *)self.navigationController.topViewController
+                      changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
                    }];
 }
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalConstants.h"
+
 @interface AbstractCenterMenuViewController : UIViewController
 {
   UIView * centerMenu_;
@@ -20,6 +22,6 @@
 - (void)pushViewController:(id)viewController;
 - (void)checkDeviceSystemFor:(id)viewController;
 - (void)openCenterMenuView;
-- (void)recoverButtonsLayoutInCenterView;
+- (void)changeCenterMainButtonStatusToMove:(CenterMainButtonStatus)centerMainButtonStatus;
 
 @end

@@ -19,20 +19,16 @@
   UIButton * centerMainButton_;
   UIButton * mapButton_;
   
-  MapViewController * mapViewController_;
   UtilityViewController * utilityViewController_;
   PoketchTabViewController * poketchViewController_;
-  CustomNavigationController * utilityNavigationController_;
   GameMainViewController * gameMainViewController_;
 }
 
 @property (nonatomic, retain) UIButton * centerMainButton;
 @property (nonatomic, retain) UIButton * mapButton;
 
-@property (nonatomic, retain) MapViewController * mapViewController;
 @property (nonatomic, retain) UtilityViewController * utilityViewController;
 @property (nonatomic, retain) PoketchTabViewController * poketchViewController;
-@property (nonatomic, retain) CustomNavigationController * utilityNavigationController;
 @property (nonatomic, retain) GameMainViewController * gameMainViewController;
 
 @end

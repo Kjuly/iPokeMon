@@ -30,6 +30,11 @@
 #define kTagMainViewCenterMainButton 1001
 #define kTagMainViewMapButton        1002
 
+// For sign |centerMainButton_| status
+typedef enum {
+  kCenterMainButtonStatusNormal   = 0,
+  kCenterMainButtonStatusAtBottom = 1
+}CenterMainButtonStatus;
 
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,
