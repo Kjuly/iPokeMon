@@ -52,9 +52,11 @@
     CGRect  const viewButtonFrame = CGRectMake(10.0f, 0.0f, frame.size.width, frame.size.height);
     
     type1_ = [[UILabel alloc] initWithFrame:type1Frame];
+    [type1_ setBackgroundColor:[UIColor clearColor]];
     [self addSubview:type1_];
     
     type2_ = [[UILabel alloc] initWithFrame:type2Frame];
+    [type2_ setBackgroundColor:[UIColor clearColor]];
     [self addSubview:type2_];
     
     name_ = [[UILabel alloc] initWithFrame:nameFrame];

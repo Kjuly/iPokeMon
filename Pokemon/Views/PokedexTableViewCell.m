@@ -50,6 +50,13 @@
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
+    // Set |selectedBackgroundView| for cell
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    [selectedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellSelectedBackground.png"]]];
+    [selectedBackgroundView setOpaque:NO];
+    [self setSelectedBackgroundView:selectedBackgroundView];
+    [selectedBackgroundView release];
+    
     // Set layouts for |contentView|(readonly)
     // Set Image View
     imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];

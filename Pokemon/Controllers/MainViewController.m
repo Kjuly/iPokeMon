@@ -393,7 +393,7 @@
       }
       centerMenuUtilityNavigationController_ = [CustomNavigationController
                                       initWithRootViewController:self.centerMenuUtilityViewController
-                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
+                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
     }
     
     // Insert |utilityNavigationController|'s view
@@ -415,7 +415,7 @@
       }
       centerMenuSixPokemonsNavigationController_ = [CustomNavigationController
                                                     initWithRootViewController:self.centerMenuSixPokemonsViewController
-                                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackgroundBlue.png"]];
+                                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
     }
     [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view belowSubview:self.centerMainButton];
     

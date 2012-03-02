@@ -60,7 +60,6 @@
                                                            480.0f - kTopBarHeight - kTopIDViewHeight)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

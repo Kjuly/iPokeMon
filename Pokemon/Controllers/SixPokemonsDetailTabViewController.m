@@ -75,7 +75,7 @@
 - (void)loadView
 {
   [super loadView];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   
   // Constants
   CGFloat const imageHeight       = 150.0f;
@@ -119,6 +119,10 @@
                                         initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
                                         hasValueLabel:NO];
   [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
+  [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
+  [idLabelView.name.layer setShadowOpacity:1.0f];
+  [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
+  [idLabelView.name.layer setShadowRadius:0.0f];
   [IDView addSubview:idLabelView];
   [idLabelView release];
   
@@ -128,10 +132,10 @@
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
   [nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
-  [nameLabel.layer setShadowColor:[nameLabel.textColor CGColor]];
+  [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel.layer setShadowOpacity:1.0f];
-  [nameLabel.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-  [nameLabel.layer setShadowRadius:1.0f];
+  [nameLabel.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
+  [nameLabel.layer setShadowRadius:0.0f];
   [IDView addSubview:nameLabel];
   [nameLabel release];
   

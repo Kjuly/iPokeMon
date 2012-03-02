@@ -77,7 +77,6 @@
 - (void)loadView
 {
   [super loadView];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Constants
   CGFloat const imageHeight       = 100.0f;
@@ -113,6 +112,10 @@
   [IDLabel_ setBackgroundColor:[UIColor clearColor]];
   [IDLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [IDLabel_.layer setShadowColor:[UIColor blackColor].CGColor];
+  [IDLabel_.layer setShadowOpacity:1.0f];
+  [IDLabel_.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
+  [IDLabel_.layer setShadowRadius:0.0f];
   [IDView_ addSubview:IDLabel_];
   
   // Name
@@ -122,10 +125,10 @@
   [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
   [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
   [nameLabel_ setNumberOfLines:0];
-  [nameLabel_.layer setShadowColor:[nameLabel_.textColor CGColor]];
+  [nameLabel_.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel_.layer setShadowOpacity:1.0f];
-  [nameLabel_.layer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-  [nameLabel_.layer setShadowRadius:1.0f];
+  [nameLabel_.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
+  [nameLabel_.layer setShadowRadius:0.0f];
   [IDView_ addSubview:nameLabel_];
   
   // Add Right ID View to |self.view| & Release it

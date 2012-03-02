@@ -39,6 +39,7 @@
   [memoField setOpaque:NO];
   [memoField setEditable:NO];
   [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+  [memoField setTextColor:[GlobalRender textColorNormal]];
   [memoField setText:self.pokemon.memo];
   [self.view addSubview:memoField];
   [memoField release];
