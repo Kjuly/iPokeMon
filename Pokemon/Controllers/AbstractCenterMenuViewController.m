@@ -257,7 +257,8 @@
                    }
                    completion:^(BOOL finished) {
                      if (self.navigationController)
-                       [self.navigationController removeFromParentViewController];
+                       [self.navigationController.view removeFromSuperview];
+//                       [self.navigationController removeFromParentViewController];
                      else
                        [self removeFromParentViewController];
                      
