@@ -420,7 +420,10 @@
     // Implement the completion block
     completionBlock = ^(BOOL finished) {[self.centerMenuSixPokemonsViewController openCenterMenuView];};
   }
-  else self.isCenterMenuOpening = NO; // !!! Need to be remove
+  else {
+    self.isCenterMenuOpening = NO; // !!! Need to be remove
+    return;
+  }
   
   // Animation for |mapButton_|'s new Frame
   CGRect mapButtonFrame = self.mapButton.frame;
