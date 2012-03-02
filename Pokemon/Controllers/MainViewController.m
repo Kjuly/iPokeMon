@@ -14,11 +14,12 @@
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
+#import "CustomNavigationController.h"
+#import "CenterMenuUtilityViewController.h"
+#import "CenterMenuSixPokemonsViewController.h"
 #import "MapViewController.h"
 #import "UtilityViewController.h"
 #import "PoketchTabViewController.h"
-#import "CustomNavigationController.h"
-#import "CenterMenuUtilityViewController.h"
 #import "GameMainViewController.h"
 
 #ifdef DEBUG
@@ -37,6 +38,7 @@ typedef enum {
 @interface MainViewController () {
  @private
   CenterMenuUtilityViewController * centerMenuUtilityViewController_;
+  CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController_;
   CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView_;
  
   UIButton             * currentKeyButton_;
@@ -51,6 +53,7 @@ typedef enum {
 }
 
 @property (nonatomic, retain) CenterMenuUtilityViewController * centerMenuUtilityViewController;
+@property (nonatomic, retain) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
 @property (nonatomic, retain) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
@@ -91,6 +94,7 @@ typedef enum {
 @synthesize gameMainViewController      = gameMainViewController_;
 
 @synthesize centerMenuUtilityViewController = centerMenuUtilityViewController_;
+@synthesize centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController_;
 @synthesize centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView_;
 
 @synthesize currentKeyButton                = currentKeyButton_;
@@ -115,6 +119,7 @@ typedef enum {
   [gameMainViewController_ release];
   
   self.centerMenuUtilityViewController = nil;
+  self.centerMenuSixPokemonsViewController = nil;
   self.centerMainButtonTouchDownCircleView = nil;
   
   self.currentKeyButton = nil;
@@ -368,6 +373,9 @@ typedef enum {
   [self.centerMainButtonTouchDownCircleView stopAnimation];
   self.isCenterMainButtonTouchDownCircleViewLoading = NO;
   
+  // Declare a block for animation completion action
+  void (^completionBlock)(BOOL);
+  
   // Do action based on tap down keepped time
   if (self.timeCounter < 3.0f) {
     if (! self.utilityNavigationController) {
@@ -387,27 +395,41 @@ typedef enum {
     // Insert |utilityNavigationController|'s view
     [self.view insertSubview:self.utilityNavigationController.view belowSubview:self.centerMainButton];
     
-    // |mapButton_|'s new Frame
-    CGRect mapButtonFrame = self.mapButton.frame;
-    mapButtonFrame.origin.y = - kMapButtonSize / 2;
-    
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
-                        options:UIViewAnimationCurveEaseInOut
-                     animations:^{
-                       [self.mapButton setFrame:mapButtonFrame];
-                     }
-                     completion:^(BOOL finished) {
-                       [self.centerMenuUtilityViewController openCenterMenuView];
-                       // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
-                       //if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
-                       //  [self.centerMenuUtilityViewController viewWillAppear:YES];
-                     }];
+    // Implement the completion block
+    completionBlock = ^(BOOL finished) {
+      [self.centerMenuUtilityViewController openCenterMenuView];
+      // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+      //if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+      //  [self.centerMenuUtilityViewController viewWillAppear:YES];
+    };
   }
-  else if (self.timeCounter <= 2) {
-    NSLog(@"1 < time <= 2");
+  else if (self.timeCounter <= 5) {
+    if (! self.centerMenuSixPokemonsViewController) {
+      CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController = [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:3];
+      self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
+      [centerMenuSixPokemonsViewController release];
+    }
+    [self.view insertSubview:self.centerMenuSixPokemonsViewController.view belowSubview:self.centerMainButton];
+    
+    // Implement the completion block
+    completionBlock = ^(BOOL finished) {
+      [self.centerMenuSixPokemonsViewController openCenterMenuView];
+    };
+    
   }
   else self.isCenterMenuOpening = NO; // !!! Need to be remove
+  
+  // Animation for |mapButton_|'s new Frame
+  CGRect mapButtonFrame = self.mapButton.frame;
+  mapButtonFrame.origin.y = - kMapButtonSize / 2;
+  
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.mapButton setFrame:mapButtonFrame];
+                   }
+                   completion:completionBlock];
 }
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|

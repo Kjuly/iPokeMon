@@ -116,12 +116,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  // If |centerMainButton_| post cancel notification, do it
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(closeCenterMenuView:)
-                                               name:kPMNCloseCenterMenu
-                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -129,9 +123,6 @@
   [super viewDidUnload];
 
   self.centerMenu = nil;
-  
-  // Remove Notification
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -209,6 +200,13 @@
                                         [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
                                       }
                                       completion:nil];
+                     
+                     // Add Observer for close self
+                     // If |centerMainButton_| post cancel notification, do it
+                     [[NSNotificationCenter defaultCenter] addObserver:self
+                                                              selector:@selector(closeCenterMenuView:)
+                                                                  name:kPMNCloseCenterMenu
+                                                                object:nil];
                    }];
 }
 
@@ -248,7 +246,13 @@
                      [self.centerMenu setAlpha:0.0f];
                    }
                    completion:^(BOOL finished) {
-                     [self.navigationController.view removeFromSuperview];
+                     if (self.navigationController)
+                       [self.navigationController removeFromParentViewController];
+                     else
+                       [self removeFromParentViewController];
+                     
+                     // After closed self, remove Notification Observer
+                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
                    }];
 }
 
