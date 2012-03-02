@@ -387,4 +387,5 @@
   [button setFrame:CGRectMake(origin.x, origin.y, kCenterMenuButtonSize, kCenterMenuButtonSize)];
   button = nil;
 }
+
 @end

@@ -69,8 +69,8 @@
                                                  tag:0
                                             delegate:self];
   
-  tabBar_.frame = CGRectMake(10.0f,
-                             self.viewFrame.size.height - kTabBarHeight - 10.0f,
+  tabBar_.frame = CGRectMake((320.0f - kTabBarWdith) / 2.0f,
+                             self.viewFrame.size.height - kTabBarHeight,
                              kTabBarWdith,
                              kTabBarHeight);
   [self.view addSubview:tabBar_];
