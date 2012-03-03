@@ -109,6 +109,8 @@
 
   self.tabBar      = nil;
   self.tabBarItems = nil;
+  
+//  [self hideTabBar:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -170,6 +172,23 @@
   
   if ([viewController respondsToSelector:@selector(viewDidAppear:)])
     [viewController viewDidAppear:NO];
+}
+
+#pragma mark - Public Methods
+
+- (void)hideTabBar:(BOOL)hide
+{
+  CGRect tabBarFrame = self.tabBar.frame;
+  if (hide) {
+    tabBarFrame.origin.y = self.viewFrame.size.height;
+    [self.tabBar setFrame:tabBarFrame];
+//    [self.tabBar setContentScaleFactor:0.1];
+    NSLog(@"!!!!!");
+  }
+  else {
+    tabBarFrame.origin.y = 0;
+    [self.tabBar setFrame:tabBarFrame];
+  }
 }
 
 #pragma mark - Private Methods

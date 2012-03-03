@@ -101,7 +101,7 @@
     
     // Set background
     UIImageView * backgroundImageView = [[UIImageView alloc] initWithImage:
-                                         [UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarBackground.png", itemCount]]];
+                                         [UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarBackground.png", (NSInteger)itemCount]]];
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
     
@@ -133,53 +133,12 @@
     [arrow_.layer addAnimation:customFrameAnimation forKey:nil];
      */
     
-    
-/*    // Set mask
-    CGFloat startAngle = 0.0f;
-    //    CGFloat byAngle    = 0.01f;
-    CGFloat endAngle   = 1.0f;
-    
-    self.circle = [CAShapeLayer layer];
-//    [circle_ setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 50.0f)];
-//    [circle_ setPath:[UIBezierPath bezierPathWithArcCenter:CGPointMake(kTabBarWdith / 2, kTabBarHeight)
-//                                                    radius:kTabBarHeight - 25.0f
-//                                                startAngle:3.14f
-//                                                  endAngle:6.0f
-//                                                 clockwise:YES].CGPath];
-    [circle_ setPosition:CGPointMake(0.0f, 0.0f)];
-    [circle_ setFillColor:[UIColor blueColor].CGColor];
-    [circle_ setStrokeColor:[UIColor blueColor].CGColor];
-    [circle_ setLineWidth:50.0f];
-    [self.layer addSublayer:circle_];
-    
-    // Set button circle foreground
-    UIImageView * foregroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarCircleWithLine.png", itemCount]]];
-//    foregroundImageView.layer.mask = circle_;
-    [self addSubview:foregroundImageView];
-    [foregroundImageView release];
-    
-    */
-    
     // Initalize the array to store buttons
     // And iterate through each item
     buttons_ = [[NSMutableArray alloc] initWithCapacity:itemCount];
     for (NSUInteger i = 0; i < itemCount; ++i) {
-      // |TabBarBackgroundSelected| size
-      CGSize TabBarBackgroundSelectedSize = CGSizeMake(44.0f, 44.0f);
       UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-      
-      // Set image
-      UIImage * rawButtonImage     = [delegate_ iconFor:i];
-      UIImage * buttonImage        = [self tabBarImage:rawButtonImage
-                                                  size:button.frame.size
-                                       backgroundImage:[UIImage imageNamed:@"PoketchTabBarIconDefaultMask.png"]];
-      UIImage * buttonPressedImage = [self tabBarImage:rawButtonImage
-                                                  size:TabBarBackgroundSelectedSize
-                                       backgroundImage:[UIImage imageNamed:@"PoketchTabBarIconSelectedMask.png"]];
-      [button setImage:buttonImage        forState:UIControlStateNormal];
-      [button setImage:buttonPressedImage forState:UIControlStateHighlighted];
-      [button setImage:buttonPressedImage forState:UIControlStateSelected];
-      [button setAdjustsImageWhenHighlighted:NO];
+      [button setImage:[delegate_ iconFor:i] forState:UIControlStateNormal];
       
       // Register for touch events
       [button addTarget:self action:@selector(touchDownAction:)     forControlEvents:UIControlEventTouchDown];
@@ -225,26 +184,6 @@
       newPosition.x += 22.0f;
       newPosition.y += 22.0f;
       self.newPositionForArrow = newPosition;
-      
-      // Generate animation path for |circle_| & resume animation
-//      [self.circle setPath:[self getStartToEndPathForSelectedItem:selectedButton]];
-//      [self.circle addAnimation:self.drawAnimation forKey:@"DrawCircleAnimation"];
-//      [self resumeLayer:self.circle];
-      
-//      UIImageView * tabBarArrow = (UIImageView *)[self viewWithTag:kTabArrowImageTag];
-//      NSUInteger selectedIndex = [buttons_ indexOfObjectIdenticalTo:button];
-//      if (tabBarArrow)
-//        [UIView animateWithDuration:0.2f
-//                              delay:0.0f
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                           //CGRect frame = tabBarArrow.frame;
-//                           //frame.origin.x = [self horizontalLocationFor:selectedIndex];
-//                           [tabBarArrow setFrame:button.frame];
-//                         }
-//                         completion:nil];
-//      else [self addTabBarArrowAtIndex:selectedIndex];
-//      tabBarArrow = nil;
     }
     else {
       [button setSelected:NO];
