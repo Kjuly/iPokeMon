@@ -13,12 +13,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface CustomTabViewController () {
-@private
-  
-}
+@interface CustomTabViewController ()
 
-- (void)moveView:(UIView *)view toLeft:(BOOL)toLeft;
 - (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex;
 
 @end
@@ -79,14 +75,14 @@
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
   tabBar_ = [[CustomTabBar alloc] initWithItemCount:self.tabBarItems.count
-                                                size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
-                                                 tag:0
-                                            delegate:self];
+                                               size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
+                                                tag:0
+                                           delegate:self];
   
-  tabBar_.frame = CGRectMake((320.0f - kTabBarWdith) / 2.0f,
-                             self.viewFrame.size.height - kTabBarHeight,
-                             kTabBarWdith,
-                             kTabBarHeight);
+  [tabBar_ setFrame:CGRectMake((320.0f - kTabBarWdith) / 2.0f,
+                               self.viewFrame.size.height - kTabBarHeight,
+                               kTabBarWdith,
+                               kTabBarHeight)];
   [self.view addSubview:tabBar_];
   
   // Select the first tab
@@ -177,21 +173,6 @@
 }
 
 #pragma mark - Private Methods
-
-- (void)moveView:(UIView *)view toLeft:(BOOL)toLeft
-{
-  if (toLeft) {
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                       CGAffineTransform transform = 
-                       CGAffineTransformMakeRotation(1);
-                       [view setTransform:transform];
-                     }
-                     completion:nil];
-  }
-}
 
 // Return angle (in redians) for rotation
 - (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex
