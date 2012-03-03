@@ -14,7 +14,7 @@
 
 @optional
 - (void)touchUpInsideItemAtIndex:(NSUInteger)itemIndex;
-- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex;
+- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex withPreviousItemIndex:(NSUInteger)previousItemIndex;
 
 @end
 

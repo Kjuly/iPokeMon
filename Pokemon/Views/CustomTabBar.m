@@ -20,6 +20,7 @@
   CABasicAnimation * drawAnimation_;
   CGPoint            newPositionForArrow_;
   CGFloat            currArcForArrow_;
+  NSInteger          previousItemIndex_;
 }
 
 @property (nonatomic, retain) UIImageView      * arrow;
@@ -27,6 +28,7 @@
 @property (nonatomic, retain) CABasicAnimation * drawAnimation;
 @property (nonatomic, assign) CGPoint            newPositionForArrow;
 @property (nonatomic, assign) CGFloat            currArcForArrow;
+@property (nonatomic, assign) NSInteger          previousItemIndex;
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex;
@@ -54,6 +56,7 @@
 @synthesize drawAnimation       = drawAnimation_;
 @synthesize newPositionForArrow = newPositionForArrow_;
 @synthesize currArcForArrow     = currArcForArrow_;
+@synthesize previousItemIndex   = previousItemIndex_;
 
 - (void)dealloc
 {
@@ -201,6 +204,7 @@
     
     self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.0f, button.frame.origin.y + 22.0f);
     self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.0f));
+    self.previousItemIndex = 0;
     [button release];
   }
   
@@ -253,11 +257,12 @@
 - (void)touchDownAction:(UIButton *)button
 {
   [self dimAllButtonsExcept:button];
-  
   [self moveArrowToNewPosition];
   
-  if ([delegate_ respondsToSelector:@selector(touchDownAtItemAtIndex:)])
-    [delegate_ touchDownAtItemAtIndex:[buttons_ indexOfObject:button]];
+  NSInteger newSelectedItemIndex = [buttons_ indexOfObject:button];
+  if ([delegate_ respondsToSelector:@selector(touchDownAtItemAtIndex:withPreviousItemIndex:)])
+    [delegate_ touchDownAtItemAtIndex:newSelectedItemIndex withPreviousItemIndex:self.previousItemIndex];
+  self.previousItemIndex = newSelectedItemIndex;
 }
 
 - (void)touchUpInsideAction:(UIButton *)button

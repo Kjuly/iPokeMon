@@ -10,6 +10,20 @@
 
 #import "GlobalConstants.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
+@interface CustomTabViewController () {
+@private
+  
+}
+
+- (void)moveView:(UIView *)view toLeft:(BOOL)toLeft;
+- (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex;
+
+@end
+
+
 @implementation CustomTabViewController
 
 @synthesize tabBar      = tabBar_;
@@ -77,13 +91,20 @@
   
   // Select the first tab
   [tabBar_ selectItemAtIndex:0];
-  [self touchDownAtItemAtIndex:0];
+  [self touchDownAtItemAtIndex:0 withPreviousItemIndex:0];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Place the layout for view's layer
+  for (int i = 0; i < [self.tabBarItems count]; ++i) {
+    UIView * view = [[[self.tabBarItems objectAtIndex:i] objectForKey:@"viewController"] view];
+    [view.layer setAnchorPoint:CGPointMake(0.5f, 1.0f)];
+    [view.layer setPosition:CGPointMake(view.frame.size.width / 2, 480.0f)];
+  }
 }
 
 - (void)viewDidUnload
@@ -107,16 +128,42 @@
   return [UIImage imageNamed:[[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"image"]];
 }
 
-- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex
+- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex withPreviousItemIndex:(NSUInteger)previousItemIndex
 {
+  // if |angle > 0|, rotate to left
+  CGFloat angle = [self angleForRatationWithItemIndex:itemIndex previousItemIndex:previousItemIndex];
+  
   // Remove the current view controller's view
   UIView * currentView = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
-  [currentView removeFromSuperview];
+  if (itemIndex != previousItemIndex)
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       currentView.transform = CGAffineTransformRotate(currentView.transform, angle);
+                       [currentView setAlpha:0.0];
+                     }
+                     completion:^(BOOL finished) {
+                       [currentView removeFromSuperview];
+                     }];
+  else [currentView removeFromSuperview];
+  
   
   // Get the right view controller
   UIViewController * viewController = [[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"viewController"];
-//  [viewController.view setFrame:CGRectMake(0.0f, 0.0f, self.viewFrame.size.width, self.viewFrame.size.height)];
   [viewController.view setTag:kPoketchSelectedViewControllerTag];
+  if (itemIndex != previousItemIndex) {
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    viewController.view.transform = CGAffineTransformRotate(transform, -angle);
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       [viewController.view setAlpha:1.0f];
+                       viewController.view.transform = CGAffineTransformRotate(viewController.view.transform, angle);
+                     }
+                     completion:nil];
+  }
   
   // Add the new view controller's view
   if ([viewController respondsToSelector:@selector(viewWillAppear:)])
@@ -126,6 +173,44 @@
   
   if ([viewController respondsToSelector:@selector(viewDidAppear:)])
     [viewController viewDidAppear:NO];
+}
+
+#pragma mark - Private Methods
+
+- (void)moveView:(UIView *)view toLeft:(BOOL)toLeft
+{
+  if (toLeft) {
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       CGAffineTransform transform = 
+                       CGAffineTransformMakeRotation(1);
+                       [view setTransform:transform];
+                     }
+                     completion:nil];
+  }
+}
+
+// Return angle (in redians) for rotation
+- (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex
+{
+  CGFloat degree;
+  switch ([self.tabBarItems count]) {
+    case 2:
+      degree = 45;
+      break;
+      
+    case 3:
+      degree = 35;
+      break;
+      
+    case 4:
+    default:
+      degree = 25;
+      break;
+  }
+  return degree * (NSInteger)(previousItemIndex - itemIndex) * M_PI / 180 ;
 }
 
 @end
