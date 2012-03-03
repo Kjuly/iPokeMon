@@ -9,11 +9,17 @@
 #import "CustomTabViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalNotificationConstants.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface CustomTabViewController ()
+@interface CustomTabViewController () {
+ @private
+  BOOL isTabBarHide_;
+}
+
+@property (nonatomic, assign) BOOL isTabBarHide;
 
 - (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex;
 
@@ -25,6 +31,9 @@
 @synthesize tabBar      = tabBar_;
 @synthesize tabBarItems = tabBarItems_;
 @synthesize viewFrame   = viewFrame_;
+
+@synthesize isTabBarHide = isTabBarHide_;
+
 
 - (void)dealloc
 {
@@ -88,6 +97,8 @@
   // Select the first tab
   [tabBar_ selectItemAtIndex:0];
   [self touchDownAtItemAtIndex:0 withPreviousItemIndex:0];
+  
+  isTabBarHide_ = NO;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -101,6 +112,8 @@
     [view.layer setAnchorPoint:CGPointMake(0.5f, 1.0f)];
     [view.layer setPosition:CGPointMake(view.frame.size.width / 2, 480.0f)];
   }
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleTabBar:) name:kPMNToggleTabBar object:nil];
 }
 
 - (void)viewDidUnload
@@ -110,7 +123,15 @@
   self.tabBar      = nil;
   self.tabBarItems = nil;
   
-//  [self hideTabBar:YES];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  
+  // If |tabBar_| is hidden, show it
+  if (self.isTabBarHide) [self toggleTabBar:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -176,19 +197,29 @@
 
 #pragma mark - Public Methods
 
-- (void)hideTabBar:(BOOL)hide
+- (void)toggleTabBar:(NSNotification *)notification
 {
   CGRect tabBarFrame = self.tabBar.frame;
-  if (hide) {
-    tabBarFrame.origin.y = self.viewFrame.size.height;
-    [self.tabBar setFrame:tabBarFrame];
-//    [self.tabBar setContentScaleFactor:0.1];
-    NSLog(@"!!!!!");
+  CGAffineTransform transform = CGAffineTransformIdentity;
+  if (self.isTabBarHide) {
+    tabBarFrame.origin.y = self.viewFrame.size.height - kTabBarHeight;
+    transform = CGAffineTransformScale(transform, 1.0f, 1.0f);
   }
   else {
-    tabBarFrame.origin.y = 0;
-    [self.tabBar setFrame:tabBarFrame];
+    tabBarFrame.origin.y = self.viewFrame.size.height;
+    transform = CGAffineTransformScale(transform, .28f, .28f);
   }
+  
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     [self.tabBar setFrame:tabBarFrame];
+//                     [self.tabBar setTransform:transform];
+                   }
+                   completion:^(BOOL finished) {
+                     self.isTabBarHide = ! self.isTabBarHide;
+                   }];
 }
 
 #pragma mark - Private Methods

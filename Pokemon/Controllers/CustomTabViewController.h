@@ -21,6 +21,6 @@
 @property (nonatomic, copy) NSArray        * tabBarItems;
 @property (nonatomic, assign) CGRect viewFrame;
 
-- (void)hideTabBar:(BOOL)hide;
+- (void)toggleTabBar:(NSNotification *)notification;
 
 @end

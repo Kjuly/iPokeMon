@@ -359,8 +359,8 @@
       break;
       
     case kCenterMainButtonStatusAtBottom:
-      // The observer is |CustomNavigationBar|
-//      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBackToMainView object:self userInfo:nil];
+      // The observer is |CustomTabViewController|
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
       break;
       
     default:

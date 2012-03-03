@@ -11,6 +11,7 @@
 extern NSString * const kPMNCloseCenterMenu;
 extern NSString * const kPMNChangeCenterMainButtonStatus;
 //extern NSString * const kPMNBackToMainView;
+extern NSString * const kPMNToggleTabBar;
 
 extern NSString * const kPMNPokemonAppeared;
 extern NSString * const kPMNBattleEnd;

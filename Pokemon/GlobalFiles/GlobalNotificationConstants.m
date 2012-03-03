@@ -12,6 +12,7 @@
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
 //NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
+NSString * const kPMNToggleTabBar                 = @"PMNToggleTabBar";
 
 NSString * const kPMNPokemonAppeared = @"PMNPokemonAppeared";
 NSString * const kPMNBattleEnd       = @"PMNBattleEnd";

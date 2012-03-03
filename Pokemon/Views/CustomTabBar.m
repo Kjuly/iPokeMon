@@ -15,17 +15,15 @@
 
 @interface CustomTabBar () {
  @private
+  UIImageView      * backgroundImageView_;
   UIImageView      * arrow_;
-  CAShapeLayer     * circle_;
-  CABasicAnimation * drawAnimation_;
   CGPoint            newPositionForArrow_;
   CGFloat            currArcForArrow_;
   NSInteger          previousItemIndex_;
 }
 
+@property (nonatomic, retain) UIImageView      * backgroundImageView;
 @property (nonatomic, retain) UIImageView      * arrow;
-@property (nonatomic, retain) CAShapeLayer     * circle;
-@property (nonatomic, retain) CABasicAnimation * drawAnimation;
 @property (nonatomic, assign) CGPoint            newPositionForArrow;
 @property (nonatomic, assign) CGFloat            currArcForArrow;
 @property (nonatomic, assign) NSInteger          previousItemIndex;
@@ -51,20 +49,17 @@
 
 @synthesize buttons = buttons_;
 
+@synthesize backgroundImageView = backgroundImageView_;
 @synthesize arrow               = arrow_;
-@synthesize circle              = circle_;
-@synthesize drawAnimation       = drawAnimation_;
 @synthesize newPositionForArrow = newPositionForArrow_;
 @synthesize currArcForArrow     = currArcForArrow_;
 @synthesize previousItemIndex   = previousItemIndex_;
 
 - (void)dealloc
 {
-  [buttons_ release];
-  
-  self.arrow         = nil;
-  self.circle        = nil;
-  self.drawAnimation = nil;
+  self.buttons             = nil;
+  self.backgroundImageView = nil;
+  self.arrow               = nil;
   
   [super dealloc];
 }
@@ -164,7 +159,7 @@
     self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.0f, button.frame.origin.y + 22.0f);
     self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.0f));
     self.previousItemIndex = 0;
-    [button release];
+    button = nil;
   }
   
   return self;
@@ -387,8 +382,6 @@
   CGFloat buttonRadius           = 22.0f;
   CGFloat triangleHypotenuse     = tabAreaHalfHeight - 26.0f; // Distance to Ball Center
   
-  NSLog(@"%d", self.buttons.count);
-  
   switch ([self.buttons count]) {
     case 2: {
       CGFloat degree    = M_PI / 4.0f; // = 45 * M_PI / 180
@@ -502,7 +495,7 @@
 //  customFrameAnimation.timingFunctions = timingFunctions;
   customFrameAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
   customFrameAnimation.removedOnCompletion = NO;
-  [arrow_.layer addAnimation:customFrameAnimation forKey:@"moveArrow"];
+  [self.arrow.layer addAnimation:customFrameAnimation forKey:@"moveArrow"];
 }
 
 #pragma mark - CAAnimation delegate
@@ -510,7 +503,7 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
   // Update the layer's position so that the layer doesn't snap back when the animation completes
-  [arrow_.layer setPosition:self.newPositionForArrow];
+  [self.arrow.layer setPosition:self.newPositionForArrow];
 //  [arrow_.layer removeAnimationForKey:@"moveArrow"];
 }
 
