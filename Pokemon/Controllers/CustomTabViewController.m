@@ -155,8 +155,9 @@
   if (itemIndex != previousItemIndex) {
     CGAffineTransform transform = CGAffineTransformIdentity;
     viewController.view.transform = CGAffineTransformRotate(transform, -angle);
+    [viewController.view setAlpha:0.0f];
     [UIView animateWithDuration:0.3f
-                          delay:0.0f
+                          delay:0.3f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        [viewController.view setAlpha:1.0f];
