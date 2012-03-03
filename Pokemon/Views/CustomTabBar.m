@@ -15,12 +15,18 @@
 
 @interface CustomTabBar () {
  @private
+  UIImageView      * arrow_;
   CAShapeLayer     * circle_;
   CABasicAnimation * drawAnimation_;
+  CGPoint            newPositionForArrow_;
+  CGFloat            currArcForArrow_;
 }
 
+@property (nonatomic, retain) UIImageView      * arrow;
 @property (nonatomic, retain) CAShapeLayer     * circle;
 @property (nonatomic, retain) CABasicAnimation * drawAnimation;
+@property (nonatomic, assign) CGPoint            newPositionForArrow;
+@property (nonatomic, assign) CGFloat            currArcForArrow;
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex;
@@ -34,7 +40,7 @@
 // Animation Control methods
 - (void)pauseLayer:(CALayer *)layer;
 - (void)resumeLayer:(CALayer *)layer;
-- (CGPathRef)getStartToEndPathForSelectedItem:(UIButton *)selectedItem;
+- (void)moveArrowToNewPosition;
 
 @end
 
@@ -43,13 +49,17 @@
 
 @synthesize buttons = buttons_;
 
-@synthesize circle        = circle_;
-@synthesize drawAnimation = drawAnimation_;
+@synthesize arrow               = arrow_;
+@synthesize circle              = circle_;
+@synthesize drawAnimation       = drawAnimation_;
+@synthesize newPositionForArrow = newPositionForArrow_;
+@synthesize currArcForArrow     = currArcForArrow_;
 
 - (void)dealloc
 {
   [buttons_ release];
   
+  self.arrow         = nil;
   self.circle        = nil;
   self.drawAnimation = nil;
   
@@ -92,41 +102,60 @@
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
     
-    // Set mask
+    /*
+    CAKeyframeAnimation *customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
+    NSArray *sizeValues = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:0.0f],
+                           [NSNumber numberWithFloat:200.0f],
+                           [NSNumber numberWithFloat:100.0f], nil];
+    NSArray *times = [NSArray arrayWithObjects:
+                      [NSNumber numberWithFloat:0.0f],
+                      [NSNumber numberWithFloat:0.6f],
+                      [NSNumber numberWithFloat:0.9f], nil]; 
+    NSArray *timingFunctions = [NSArray arrayWithObjects:
+                                [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn],
+                                [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], nil];
+    
+    [customFrameAnimation setValues:sizeValues];
+    [customFrameAnimation setKeyTimes:times];
+    
+    customFrameAnimation.delegate = self;
+    customFrameAnimation.duration=2.0f;
+    customFrameAnimation.repeatCount = 1;
+//    customFrameAnimation.cumulative = YES;
+//    customFrameAnimation.additive = YES;
+    customFrameAnimation.fillMode = kCAFillModeForwards;
+    customFrameAnimation.timingFunctions = timingFunctions;
+    customFrameAnimation.removedOnCompletion = NO;
+    [arrow_.layer addAnimation:customFrameAnimation forKey:nil];
+     */
+    
+    
+/*    // Set mask
     CGFloat startAngle = 0.0f;
     //    CGFloat byAngle    = 0.01f;
     CGFloat endAngle   = 1.0f;
     
     self.circle = [CAShapeLayer layer];
-    [circle_ setPath:nil];
+//    [circle_ setFrame:CGRectMake(0.0f, 0.0f, 50.0f, 50.0f)];
+//    [circle_ setPath:[UIBezierPath bezierPathWithArcCenter:CGPointMake(kTabBarWdith / 2, kTabBarHeight)
+//                                                    radius:kTabBarHeight - 25.0f
+//                                                startAngle:3.14f
+//                                                  endAngle:6.0f
+//                                                 clockwise:YES].CGPath];
     [circle_ setPosition:CGPointMake(0.0f, 0.0f)];
-    [circle_ setFillColor:[UIColor clearColor].CGColor];
+    [circle_ setFillColor:[UIColor blueColor].CGColor];
     [circle_ setStrokeColor:[UIColor blueColor].CGColor];
     [circle_ setLineWidth:50.0f];
+    [self.layer addSublayer:circle_];
     
     // Set button circle foreground
     UIImageView * foregroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarCircleWithLine.png", itemCount]]];
-    foregroundImageView.layer.mask = circle_;
+//    foregroundImageView.layer.mask = circle_;
     [self addSubview:foregroundImageView];
     [foregroundImageView release];
     
-    // Change the model layer's property first
-    circle_.strokeStart = startAngle;
-    circle_.strokeEnd = endAngle;
-    // Draw animation
-    self.drawAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    [drawAnimation_ setDuration:0.3f];
-    [drawAnimation_ setRepeatCount:1.0f];
-    //  [drawAnimation setRemovedOnCompletion:NO];
-    [drawAnimation_ setFromValue:[NSNumber numberWithFloat:startAngle]];
-    //    [drawAnimation_ setByValue:[NSNumber numberWithFloat:byAngle]];
-    [drawAnimation_ setToValue:[NSNumber numberWithFloat:endAngle]];
-    [drawAnimation_ setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    
-    // Add the animation, but stop it 
-//    [self.circle addAnimation:self.drawAnimation forKey:@"DrawCircleAnimation"];
-//    [self pauseLayer:self.circle];
-    
+    */
     
     // Initalize the array to store buttons
     // And iterate through each item
@@ -163,6 +192,16 @@
     
     // Set frame for button, based on |itemCount|
     [self setFrameForButtonsBasedOnItemCount];
+    
+    // Top Circle Arrow
+    arrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabViewItemArrow.png"]];
+    UIButton * button = [buttons_ objectAtIndex:0];
+    [arrow_ setFrame:button.frame];
+    [self addSubview:arrow_];
+    
+    self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.0f, button.frame.origin.y + 22.0f);
+    self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.0f));
+    [button release];
   }
   
   return self;
@@ -177,9 +216,15 @@
       [button setHighlighted:button.selected ? NO : YES];
       [button setTag:kSelectedTabItemTag];
       
+      // Generate new postion for |arrow_|
+      CGPoint newPosition = button.frame.origin;
+      newPosition.x += 22.0f;
+      newPosition.y += 22.0f;
+      self.newPositionForArrow = newPosition;
+      
       // Generate animation path for |circle_| & resume animation
-      [self.circle setPath:[self getStartToEndPathForSelectedItem:selectedButton]];
-      [self.circle addAnimation:self.drawAnimation forKey:@"DrawCircleAnimation"];
+//      [self.circle setPath:[self getStartToEndPathForSelectedItem:selectedButton]];
+//      [self.circle addAnimation:self.drawAnimation forKey:@"DrawCircleAnimation"];
 //      [self resumeLayer:self.circle];
       
 //      UIImageView * tabBarArrow = (UIImageView *)[self viewWithTag:kTabArrowImageTag];
@@ -208,6 +253,8 @@
 - (void)touchDownAction:(UIButton *)button
 {
   [self dimAllButtonsExcept:button];
+  
+  [self moveArrowToNewPosition];
   
   if ([delegate_ respondsToSelector:@selector(touchDownAtItemAtIndex:)])
     [delegate_ touchDownAtItemAtIndex:[buttons_ indexOfObject:button]];
@@ -471,30 +518,56 @@
   layer.beginTime = timeSincePause;
 }
 
-- (CGPathRef)getStartToEndPathForSelectedItem:(UIButton *)selectedItem
+- (void)moveArrowToNewPosition
 {
-  //
-  //   |
-  // -   o    0 - M_PI * 2
-  //   |
-  //
-  CGFloat triangleHypotenuse = kTabBarHeight - 26.0f; // Distance to Ball Center
-  CGFloat centerOriginX      = kTabBarWdith / 2;
+  CGFloat radius            = kTabBarHeight - 26.0f; // Distance to Ball Center
+  CGFloat centerOriginX     = kTabBarWdith / 2;
+  CGFloat centerOriginY     = kTabBarHeight;
+  CGFloat itemCenterOriginX = self.newPositionForArrow.x;
+  CGFloat itemCenterOriginY = self.newPositionForArrow.y;
+  CGFloat arc      = asinf((centerOriginY - itemCenterOriginY) / radius);
+  CGFloat newAngle = itemCenterOriginX < centerOriginX ? M_PI + arc : M_PI * 2 - arc;
   
-  CGFloat itemCenterOriginX = selectedItem.frame.origin.x + 22.0f;
-  CGFloat itemCenterOriginY = selectedItem.frame.origin.y + 22.0f;
+  // Path
+  CGMutablePathRef path = CGPathCreateMutable();
+  CGPathAddArc(path, NULL,
+               centerOriginX, centerOriginY,   // Center point
+               radius,                         // Radius
+               self.currArcForArrow, newAngle, // New angle for the new point
+               itemCenterOriginX < self.arrow.frame.origin.x ? YES : NO); // Clock wise or not
+  CAKeyframeAnimation * customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+  customFrameAnimation.path = path;
+  CGPathRelease(path);
+  self.currArcForArrow = newAngle;
   
-  CGFloat arc = asinf((kTabBarHeight - itemCenterOriginY) / triangleHypotenuse);
+//  NSArray * sizeValues = [NSArray arrayWithObjects:
+//                          [self.arrow valueForKey:@"position"], [NSValue valueWithCGPoint:self.newPositionForArrow], nil];
+//  NSArray * times = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], nil];
+//  NSArray * timingFunctions = [NSArray arrayWithObjects:
+//                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], nil];
+//  [customFrameAnimation setValues:sizeValues];
+//  [customFrameAnimation setKeyTimes:times];
   
-  CGFloat itemCenterAngle = itemCenterOriginX < centerOriginX ? M_PI + arc : M_PI * 2 - arc;
-  CGFloat startAngle      = itemCenterAngle - 0.22;
-  CGFloat endAngle        = itemCenterAngle + 0.22f;
-  
-  return [UIBezierPath bezierPathWithArcCenter:CGPointMake(kTabBarWdith / 2, kTabBarHeight)
-                                        radius:kTabBarHeight - 25.0f
-                                    startAngle:startAngle
-                                      endAngle:endAngle
-                                     clockwise:YES].CGPath;
+  customFrameAnimation.delegate = self;
+  customFrameAnimation.duration = 0.3f;
+  customFrameAnimation.repeatCount = 1;
+  //customFrameAnimation.cumulative = YES;
+  //customFrameAnimation.additive = YES;
+  customFrameAnimation.calculationMode = kCAAnimationPaced;
+  customFrameAnimation.fillMode = kCAFillModeForwards;
+//  customFrameAnimation.timingFunctions = timingFunctions;
+  customFrameAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  customFrameAnimation.removedOnCompletion = NO;
+  [arrow_.layer addAnimation:customFrameAnimation forKey:@"moveArrow"];
+}
+
+#pragma mark - CAAnimation delegate
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+  // Update the layer's position so that the layer doesn't snap back when the animation completes
+  [arrow_.layer setPosition:self.newPositionForArrow];
+//  [arrow_.layer removeAnimationForKey:@"moveArrow"];
 }
 
 @end
