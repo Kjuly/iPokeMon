@@ -19,7 +19,6 @@
 @interface GameMainViewController ()
 
 - (void)loadBattleScene:(NSNotification *)notification;
-- (void)unloadBattleScene:(id)sender;
 
 @end
 
@@ -74,15 +73,8 @@
   // Add Notification Observer
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(loadBattleScene:)
-                                               name:kPMNPokemonAppeared
+                                               name:kPMNBattleStart
                                              object:nil];
-  
-  UIButton * buttonForGameEnding = [[UIButton alloc] initWithFrame:CGRectMake(10.0f, 160.0f, 300.0f, 32.0f)];
-  [buttonForGameEnding setBackgroundColor:[UIColor blackColor]];
-  [buttonForGameEnding setTitle:@"Battle End" forState:UIControlStateNormal];
-  [buttonForGameEnding addTarget:self action:@selector(unloadBattleScene:) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:buttonForGameEnding];
-  [buttonForGameEnding release];
   
   // Cocos2D Part
   EAGLView * glView = [EAGLView viewWithFrame:self.view.bounds
@@ -100,6 +92,7 @@
   
   // Set Game Menu View Controller
   gameMenuViewController_ = [[GameMenuViewController alloc] init];
+  gameMenuViewController_.delegate = self;
   [self.view addSubview:gameMenuViewController_.view];
 }
 
@@ -110,7 +103,7 @@
   self.gameMenuViewController = nil;
 
   // Remove Notification Observer
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];
   
   // Unload |director|
   [[CCDirector sharedDirector] end];
@@ -120,6 +113,26 @@
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - GameMenuViewControllerDelegate
+
+- (void)unloadBattleScene
+{
+  NSLog(@"Battle Scene Unloading...");
+  [UIView animateWithDuration:0.3f
+                        delay:0.0f
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     [self.view setAlpha:0.0f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.view setFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
+                                                                         object:self
+                                                                       userInfo:nil];
+                     [[CCDirector sharedDirector] pause];
+                   }];
 }
 
 #pragma mark - Private Methods
@@ -139,24 +152,6 @@
                    }];
   
   NSLog(@"Pokemon Info: %@", notification.userInfo);
-}
-
-- (void)unloadBattleScene:(id)sender
-{
-  NSLog(@"Battle Scene Unloading...");
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
-                      options:UIViewAnimationCurveEaseIn
-                   animations:^{
-                     [self.view setAlpha:0.0f];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.view setFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
-                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
-                                                                         object:self
-                                                                       userInfo:nil];
-                     [[CCDirector sharedDirector] pause];
-                   }];
 }
 
 @end

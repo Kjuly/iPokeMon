@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "AFJSONRequestOperation.h"
 #import "Pokemon+DataController.h"
@@ -337,6 +338,7 @@
   Pokemon * appearedPokemon = [Pokemon queryPokemonDataWithID:1];
   
   NSDictionary * pokemonInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared], @"centerMainButtonStatus",
                                 appearedPokemon.sid, @"pokemonID",
                                 nil];
   appearedPokemon = nil;

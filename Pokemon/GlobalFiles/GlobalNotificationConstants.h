@@ -14,7 +14,9 @@ extern NSString * const kPMNChangeCenterMainButtonStatus;
 extern NSString * const kPMNToggleTabBar;
 
 extern NSString * const kPMNPokemonAppeared;
+extern NSString * const kPMNBattleStart;
 extern NSString * const kPMNBattleEnd;
+extern NSString * const kPMNToggleSixPokemons;
 
 extern NSString * const kPMNMoveEffect;
 

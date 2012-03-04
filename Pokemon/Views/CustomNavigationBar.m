@@ -119,7 +119,7 @@
                    completion:^(BOOL finished) {
                      [self.navigationController setNavigationBarHidden:YES];
                      
-                     // Set |cenerMainButton|'s status to Normal (Default)
+                     // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
                      // And recover button' layout in center view
                      [(AbstractCenterMenuViewController *)self.navigationController.topViewController
                       changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];

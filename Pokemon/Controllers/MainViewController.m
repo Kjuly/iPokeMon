@@ -44,6 +44,7 @@
   NSTimer              * centerMenuOpenStatusTimer_;
   BOOL                   isCenterMainButtonTouchDownCircleViewLoading_;
   BOOL                   isMapViewOpening_;
+  BOOL                   isGameMainViewOpening_;
   NSTimer              * longTapTimer_;
   NSInteger              centerMenuOpenStatusTimeCounter_;
   NSInteger              timeCounter_;
@@ -62,6 +63,7 @@
 @property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
 @property (nonatomic, assign) BOOL                   isCenterMainButtonTouchDownCircleViewLoading;
 @property (nonatomic, assign) BOOL                   isMapViewOpening;
+@property (nonatomic, assign) BOOL                   isGameMainViewOpening;
 @property (nonatomic, retain) NSTimer              * longTapTimer;
 @property (nonatomic, assign) NSInteger              centerMenuOpenStatusTimeCounter;
 @property (nonatomic, assign) NSInteger              timeCounter;
@@ -77,7 +79,7 @@
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
 - (void)toggleLocationService;
-- (void)resetMainView;
+- (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL finished))completion;
 
 @end
 
@@ -104,6 +106,7 @@
 @synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
 @synthesize isCenterMainButtonTouchDownCircleViewLoading = isCenterMainButtonTouchDownCircleViewLoading_;
 @synthesize isMapViewOpening                = isMapViewOpening_;
+@synthesize isGameMainViewOpening           = isGameMainViewOpening_;
 @synthesize longTapTimer                    = longTapTimer_;
 @synthesize centerMenuOpenStatusTimeCounter = centerMenuOpenStatusTimeCounter_;
 @synthesize timeCounter                     = timeCounter_;
@@ -179,13 +182,21 @@
   isCenterMenuOpening_    = NO;
   isCenterMainButtonTouchDownCircleViewLoading_ = NO;
   isMapViewOpening_       = NO;
-  
+  isGameMainViewOpening_  = NO;
   
   // Add self as Notification observer
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNChangeCenterMainButtonStatus
                                              object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNPokemonAppeared
+                                             object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNBattleEnd
+                                             object:self.gameMainViewController];
   
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
@@ -246,7 +257,7 @@
 */  
   // Game Main View
   gameMainViewController_ = [[GameMainViewController alloc] init];
-  [self.view addSubview:gameMainViewController_.view];
+  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -275,6 +286,17 @@
   
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;
+  
+  // Remove notification observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNChangeCenterMainButtonStatus
+                                                object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNPokemonAppeared
+                                                object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNBattleEnd
+                                                object:self.gameMainViewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -296,45 +318,25 @@
   switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
     case kCenterMainButtonStatusAtBottom:
       self.centerMainButtonStatus = kCenterMainButtonStatusAtBottom;
-      [UIView animateWithDuration:0.3f
-                            delay:0.0f
-                          options:UIViewAnimationOptionCurveEaseInOut
-                       animations:^{
-                         CGRect centerMainButtonFrame = self.centerMainButton.frame;
-                         centerMainButtonFrame.origin.y = 480.0f - kCenterMainButtonSize / 2;
-                         [self.centerMainButton setFrame:centerMainButtonFrame];
-                         
-                         // Hide |mapButton_|
-                         CGRect mapButtonFrame = self.mapButton.frame;
-                         mapButtonFrame.origin.y = - kMapButtonSize;
-                         [self.mapButton setFrame:mapButtonFrame];
-                       }
-                       completion:nil];
+      [self setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom | kMainViewButtonLayoutMapButtonToOffcreen
+          withCompletionBlock:nil];
       [self deactivateCenterMenuOpenStatusTimer];
       break;
       
+    case kCenterMainButtonStatusPokemonAppeared:
+      self.centerMainButtonStatus = kCenterMainButtonStatusPokemonAppeared;
+      [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
+                             forState:UIControlStateNormal];
+      break;
+      
+    case kCenterMainButtonStatusNormal:
     default:
       self.centerMainButtonStatus = kCenterMainButtonStatusNormal;
-      [UIView animateWithDuration:0.3f
-                            delay:0.0f
-                          options:UIViewAnimationOptionCurveEaseInOut
-                       animations:^{
-                         CGRect centerMainButtonFrame = self.centerMainButton.frame;
-                         centerMainButtonFrame.origin.y = (480.0f - kCenterMainButtonSize) / 2;
-                         [self.centerMainButton setFrame:centerMainButtonFrame];
-                       }
-                       completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.3f
-                                               delay:0.0f
-                                             options:UIViewAnimationOptionCurveEaseInOut
-                                          animations:^{
-                                            // Show |mapButton_|
-                                            CGRect mapButtonFrame = self.mapButton.frame;
-                                            mapButtonFrame.origin.y = - kMapButtonSize / 2;
-                                            [self.mapButton setFrame:mapButtonFrame];
-                                          }
-                                          completion:nil];
-                       }];
+      if (self.isGameMainViewOpening) {
+        [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
+        self.isGameMainViewOpening = NO;
+      }
+      else [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:nil];
       // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
       if (self.isCenterMenuOpening) [self activateCenterMenuOpenStatusTimer];
       break;
@@ -344,25 +346,43 @@
 // |centerMainButton_| touch up inside action
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender
 {
-  switch (self.centerMainButtonStatus) {
+  switch (self.centerMainButtonStatus) {  
+    case kCenterMainButtonStatusAtBottom:
+      // The observer is |CustomTabViewController|
+      if (! self.isGameMainViewOpening)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
+      break;
+      
+    case kCenterMainButtonStatusPokemonAppeared:
+      if (self.isCenterMenuOpening) [self closeCenterMenuView];
+      if (self.isGameMainViewOpening)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons object:self userInfo:nil];
+      else {
+        void (^completionBlock)(BOOL) = ^(BOOL finished) {
+          // The observer is |GameMainViewController|
+          [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleStart object:self userInfo:nil];
+          [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"]
+                                 forState:UIControlStateNormal];
+          self.isGameMainViewOpening = YES;
+        };
+        
+        if (480.0f - kCenterMainButtonSize / 2 - self.centerMainButton.frame.origin.y > 0) {
+          [self setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom | kMainViewButtonLayoutMapButtonToOffcreen
+              withCompletionBlock:completionBlock];
+          NSLog(@"!!!!!!!!! %f ?= %f", self.centerMainButton.frame.origin.y, 480.0f - kCenterMainButtonSize / 2);
+        }
+        else completionBlock(YES);
+      }
+      break;
+    
     case kCenterMainButtonStatusNormal:
+    default:
       if (self.isCenterMenuOpening) [self closeCenterMenuView];
       else {
         [self openCenterMenuView];
-        
         // Activate |centerMenuOpenStatusTimer_|
         [self activateCenterMenuOpenStatusTimer];
       }
-      
-      self.isCenterMenuOpening = ! self.isCenterMenuOpening;
-      break;
-      
-    case kCenterMainButtonStatusAtBottom:
-      // The observer is |CustomTabViewController|
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
-      break;
-      
-    default:
       break;
   }
 }
@@ -427,16 +447,8 @@
   }
   
   // Animation for |mapButton_|'s new Frame
-  CGRect mapButtonFrame = self.mapButton.frame;
-  mapButtonFrame.origin.y = - kMapButtonSize / 2;
-  
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
-                      options:UIViewAnimationCurveEaseInOut
-                   animations:^{
-                     [self.mapButton setFrame:mapButtonFrame];
-                   }
-                   completion:completionBlock];
+  [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:completionBlock];
+  self.isCenterMenuOpening = YES;
 }
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
@@ -445,8 +457,9 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
                                                       object:self
                                                     userInfo:nil];
-  [self resetMainView];
+  [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
   [self deactivateCenterMenuOpenStatusTimer];
+  self.isCenterMenuOpening = NO;
 }
 
 // Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
@@ -473,7 +486,6 @@
   NSLog(@"%d", self.centerMenuOpenStatusTimeCounter);
   if (self.centerMenuOpenStatusTimeCounter == 10) {
     [self closeCenterMenuView];
-    self.isCenterMenuOpening = NO;
     [self.centerMenuOpenStatusTimer invalidate];
   }
 }
@@ -481,7 +493,7 @@
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender
 {
-  if (! self.isCenterMenuOpening) {
+  if (! self.isCenterMenuOpening && self.centerMainButtonStatus != kCenterMainButtonStatusPokemonAppeared) {
     // Start time counting
     self.currentKeyButton = (UIButton *)sender;
     self.timeCounter  = 0;
@@ -502,7 +514,7 @@
   
   NSInteger buttonTag = self.currentKeyButton.tag;
   
-  // If the target is |centerMainButton_|, add |timeCounter_ >= 1.0|, loading it
+  // If the target is |centerMainButton_|, and |timeCounter_ >= 1.0|, loading it
   // Time: delay 1.0 second, then every 2.0 second got a new point
   if (! self.isCenterMainButtonTouchDownCircleViewLoading && buttonTag == kTagMainViewCenterMainButton
       && ! self.isCenterMenuOpening && self.timeCounter >= 1.0f)
@@ -528,15 +540,7 @@
     };
     
     // Move |mapButton_| to view top
-    CGRect mapButtonFrame = self.mapButton.frame;
-    mapButtonFrame.origin.y = - kMapButtonSize / 2;
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
-                        options:UIViewAnimationCurveEaseInOut
-                     animations:^{
-                       [self.mapButton setFrame:mapButtonFrame];
-                     }
-                     completion:completionBlock];
+    [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:completionBlock];
   }
   
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
@@ -555,8 +559,11 @@
     return;
   
   // Else, just normal button action
-  CGRect mapViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
-  CGRect mapButtonFrame = self.mapButton.frame;
+  CGRect mapViewFrame   = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
+  CGRect mapButtonFrame = CGRectMake((320.0f - kMapButtonSize) / 2,
+                                     100.0f,
+                                     kMapButtonSize,
+                                     kMapButtonSize);
   
   if (self.isMapViewOpening) {
     mapViewFrame.origin.y   = 480.0f;
@@ -628,20 +635,37 @@
   NSLog(@"%d", [[userDefaults objectForKey:@"keyAppSettingsLocationServices"] intValue]);
 }
 
-// Notification action methods
-- (void)resetMainView
+// Set layouts for buttons
+- (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL))completion
 {
-  // |mapButton_|'s original Frame
-  CGRect mapButtonFrame = self.mapButton.frame;
-  mapButtonFrame.origin.y = 100.0f;
+  void (^animationBlock)() = ^(){
+    CGRect centerMainButtonFrame = CGRectMake((320.0f - kCenterMainButtonSize) / 2,
+                                              (480.0f - kCenterMainButtonSize) / 2,
+                                              kCenterMainButtonSize,
+                                              kCenterMainButtonSize);
+    CGRect mapButtonFrame        = CGRectMake((320.0f - kMapButtonSize) / 2,
+                                              100.0f,
+                                              kMapButtonSize,
+                                              kMapButtonSize);
+    
+    if (buttonLayouts & kMainViewButtonLayoutCenterMainButtonToBottom)
+        centerMainButtonFrame.origin.y = 480.0f - kCenterMainButtonSize / 2;
+    if (buttonLayouts & kMainViewButtonLayoutCenterMainButtonToOffcreen)
+        centerMainButtonFrame.origin.y = 480.0f;
+    if (buttonLayouts & kMainViewButtonLayoutMapButtonToTop)
+        mapButtonFrame.origin.y = - kMapButtonSize / 2;
+    if (buttonLayouts & kMainViewButtonLayoutMapButtonToOffcreen)
+        mapButtonFrame.origin.y = - kMapButtonSize;
+        
+    [self.centerMainButton setFrame:centerMainButtonFrame];
+    [self.mapButton        setFrame:mapButtonFrame];
+  };
   
   [UIView animateWithDuration:0.3f
                         delay:0.0f
-                      options:UIViewAnimationCurveEaseInOut
-                   animations:^{
-                     [self.mapButton setFrame:mapButtonFrame];
-                   }
-                   completion:nil];
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:animationBlock
+                   completion:completion];
 }
 
 @end

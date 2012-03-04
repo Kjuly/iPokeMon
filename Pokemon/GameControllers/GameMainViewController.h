@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GameMenuViewController.h"
+
 @class GameMenuViewController;
 
-@interface GameMainViewController : UIViewController
+@interface GameMainViewController : UIViewController <GameMenuViewControllerDelegate>
 {
   GameMenuViewController * gameMenuViewController_;
 }

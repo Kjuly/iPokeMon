@@ -30,6 +30,7 @@
 
 @implementation GameMenuViewController
 
+@synthesize delegate    = delegate_;
 @synthesize buttonFight = buttonFight_;
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
@@ -39,6 +40,8 @@
 
 - (void)dealloc
 {
+  self.delegate = nil;
+  
   [buttonFight_ release];
   [buttonBag_   release];
   [buttonRun_   release];
@@ -156,6 +159,7 @@
 - (void)openRunConfirmView
 {
   NSLog(@"Open Run Confirm View..");
+  [delegate_ unloadBattleScene];
 }
 
 @end
