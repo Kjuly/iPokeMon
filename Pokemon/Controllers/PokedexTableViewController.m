@@ -8,6 +8,7 @@
 
 #import "PokedexTableViewController.h"
 
+#import "GlobalRender.h"
 #import "PListParser.h"
 #import "DataDecoder.h"
 #import "Pokemon.h"
@@ -136,6 +137,7 @@
   PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    [cell.labelSubtitle setTextColor:[GlobalRender textColorNormal]];
   }
   
   // Configure the cell
