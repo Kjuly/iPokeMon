@@ -8,17 +8,35 @@
 
 #import "SixPokemonsInfoViewController.h"
 
+@interface SixPokemonsInfoViewController () {
+ @private
+  UIImageView * expBarTotal_;
+  UIImageView * expBarCurrntPoint_;
+}
+
+@property (nonatomic, retain) UIImageView * expBarTotal;
+@property (nonatomic, retain) UIImageView * expBarCurrntPoint;
+
+@end
+
+
 @implementation SixPokemonsInfoViewController
 
 @synthesize levelLabelView       = levelLabelView_;
 @synthesize expLabelView         = expLabelView_;
 @synthesize toNextLevelLabelView = toNextLevelLabelView_;
 
+@synthesize expBarTotal       = expBarTotal_;
+@synthesize expBarCurrntPoint = expBarCurrntPoint_;
+
 - (void)dealloc
 {
   [levelLabelView_       release];
   [expLabelView_         release];
   [toNextLevelLabelView_ release];
+  
+  [expBarTotal_       release];
+  [expBarCurrntPoint_ release];
   
   [super dealloc];
 }
@@ -41,11 +59,12 @@
   // Constants
   CGFloat const labelHeight = 30.0f;
   
-  CGRect  const dataViewFrame      = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
-  CGRect  const typeLabelViewFrame = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
+  CGRect  const dataViewFrame       = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
+  CGRect  const typeLabelViewFrame  = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
   CGRect  const levelLabelViewFrame = CGRectMake(0.0f, labelHeight, 140.0f, labelHeight);
-  CGRect  const expLabelViewFrame  = CGRectMake(140.0f, labelHeight, 160.0, labelHeight);
-  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
+  CGRect  const expLabelViewFrame   = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
+  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
+  CGRect  const expBarTotalFrame    = CGRectMake(0.0f, labelHeight * 4 + 10.0f, 300.0f, 6.0f);
   
   
   // Base information for Pokemon
@@ -73,15 +92,22 @@
   
   // EXP
   expLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:expLabelViewFrame hasValueLabel:YES];
-  [expLabelView_.name setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
+  [expLabelView_ adjustNameLabelWidthWith:80.0f];
   [expLabelView_.name setText:NSLocalizedString(@"PMSLabelEXP", nil)];
   [dataView addSubview:expLabelView_];
   
   // To Next Level
   toNextLevelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:toNextLevelLabelViewFrame hasValueLabel:YES];
-  [toNextLevelLabelView_.name setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
+  [toNextLevelLabelView_ adjustNameLabelWidthWith:80.0f];
   [toNextLevelLabelView_.name setText:NSLocalizedString(@"PMSLabelToNextLevel", nil)];
   [dataView addSubview:toNextLevelLabelView_];
+  
+  expBarTotal_ = [[UIImageView alloc] initWithFrame:expBarTotalFrame];
+  [expBarTotal_ setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
+  expBarCurrntPoint_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, expBarTotalFrame.size.height)];
+  [expBarCurrntPoint_ setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
+  [expBarTotal_ addSubview:expBarCurrntPoint_];
+  [dataView addSubview:expBarTotal_];
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
@@ -101,6 +127,9 @@
   self.levelLabelView       = nil;
   self.expLabelView         = nil;
   self.toNextLevelLabelView = nil;
+  
+  self.expBarTotal       = nil;
+  self.expBarCurrntPoint = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,6 +139,11 @@
   [self.levelLabelView.value       setText:[self.pokemon.level stringValue]];
   [self.expLabelView.value         setText:[self.pokemon.currEXP stringValue]];
   [self.toNextLevelLabelView.value setText:[self.pokemon.toNextLevel stringValue]];
+  //
+  // TODO:
+  //   !!! Need Recompute Here
+  //
+  [self.expBarCurrntPoint setFrame:CGRectMake(0.0f, 0.0f, 300.0f * abs([self.pokemon.currHP intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.currHP intValue] + [self.pokemon.toNextLevel intValue]), 6.0f)];
 }
 
 @end

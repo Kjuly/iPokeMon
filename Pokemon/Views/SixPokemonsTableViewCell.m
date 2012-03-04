@@ -8,8 +8,6 @@
 
 #import "SixPokemonsTableViewCell.h"
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "GlobalRender.h"
 
 @implementation SixPokemonsTableViewCell
@@ -61,7 +59,7 @@
     CGRect nameLabelFrame   = CGRectMake(0.0f, 0.0f, nameLabelWidth, labelHeight);
     CGRect genderImageViewFrame = CGRectMake(dataViewFrame.size.width - levelLabelWidth - genderLabelWidth, 0.0f, genderLabelWidth, labelHeight);
     CGRect levelLabelFrame  = CGRectMake(dataViewFrame.size.width - levelLabelWidth, 0.0f, levelLabelWidth, labelHeight);
-    CGRect HPBarFrame       = CGRectMake(0.0f, labelHeight, 150.0f, 16.0f);
+    CGRect HPBarFrame       = CGRectMake(0.0f, labelHeight + 2.0f, 160.0f, 13.0f);
     CGRect HPLabelFrame     = CGRectMake(HPBarFrame.size.width, labelHeight, HPLabelWidth, 16.0f);
     
     
@@ -84,7 +82,6 @@
     imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
     [self.contentView addSubview:imageView_];
-    
     
     ///Data View
     UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
@@ -112,23 +109,20 @@
     [dataView addSubview:levelLabel_];
     
     // HP Bar
-    HPBarTotal_ = [[UIView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal_ setBackgroundColor:[GlobalRender textColorTitleWhite]];
-    [HPBarTotal_.layer setCornerRadius:5.0f];
+    HPBarTotal_ = [[UIImageView alloc] initWithFrame:HPBarFrame];
+    [HPBarTotal_ setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
     // HP Bar Left Part
-    HPBarLeft_ = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
-    [HPBarLeft_ setBackgroundColor:[GlobalRender textColorOrange]];
-    [HPBarLeft_.layer setCornerRadius:5.0f];
+    HPBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
+    [HPBarLeft_ setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
     [HPBarTotal_ addSubview:HPBarLeft_];
     [dataView addSubview:HPBarTotal_];
     
     // HP Label
     HPLabel_ = [[UILabel alloc] initWithFrame:HPLabelFrame];
     [HPLabel_ setBackgroundColor:[UIColor clearColor]];
-    [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [HPLabel_ setTextAlignment:UITextAlignmentRight];
     [HPLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:16.0f]];
-    [HPLabel_ setTextColor:[UIColor grayColor]];
+    [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [dataView addSubview:HPLabel_];
     
     [self.contentView addSubview:dataView];
@@ -141,8 +135,8 @@
 {
   [super setSelected:selected animated:animated];
   
-  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorTitleWhite]];
-  [self.HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
+//  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorTitleWhite]];
+//  [self.HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
 }
 
 @end

@@ -11,6 +11,8 @@
 @implementation SixPokemonsSkillViewController
 
 @synthesize hpLabelView        = hpLabelView_;
+@synthesize hpBarTotal         = hpBarTotal_;
+@synthesize hpBarLeft          = hpBarLeft_;
 @synthesize attackLabelView    = attackLabelView_;
 @synthesize defenseLabelView   = defenseLabelView_;
 @synthesize spAttackLabelView  = spAttackLabelView_;
@@ -21,6 +23,8 @@
 - (void)dealloc
 {
   [hpLabelView_        release];
+  [hpBarTotal_         release];
+  [hpBarLeft_          release];
   [attackLabelView_    release];
   [defenseLabelView_   release];
   [spAttackLabelView_  release];
@@ -50,7 +54,8 @@
   CGFloat const labelHeight = 30.0f;
   
   CGRect  const dataViewFrame           = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
-  CGRect  const hpLabelViewFrame        = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
+  CGRect  const HPBarFrame              = CGRectMake(0.0f, 9.0f, 160.0f, 13.0f);
+  CGRect  const hpLabelViewFrame        = CGRectMake(170.0f, 0.0f, 130.0f, labelHeight);
   CGRect  const attackLabelViewFrame    = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
   CGRect  const defenseLabelViewFrame   = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
   CGRect  const spAttackLabelViewFrame  = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
@@ -62,10 +67,20 @@
   ///Data View in Center
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
+  // HP Bar
+  hpBarTotal_ = [[UIImageView alloc] initWithFrame:HPBarFrame];
+  [hpBarTotal_ setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
+  // HP Bar Left Part
+  hpBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
+  [hpBarLeft_ setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+  [hpBarTotal_ addSubview:hpBarLeft_];
+  [dataView addSubview:hpBarTotal_];
+  
   // HP
   hpLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:hpLabelViewFrame hasValueLabel:YES];
   [hpLabelView_ adjustNameLabelWidthWith:-45.0f];
   [hpLabelView_.name setText:NSLocalizedString(@"PMSLabelHP", nil)];
+  [hpLabelView_.value setTextColor:[GlobalRender textColorOrange]];
   [dataView addSubview:hpLabelView_];
   
   // Attack
@@ -119,8 +134,10 @@
   else
     statsMax  = self.pokemon.maxStats;
   
-  [self.hpLabelView.value setText:[NSString stringWithFormat:@"%d/%d",
-                                  [self.pokemon.currHP intValue], [[statsMax objectAtIndex:0] intValue]]];
+  NSInteger hpLeft = [self.pokemon.currHP intValue];
+  NSInteger hpTotal = [[statsMax objectAtIndex:0] intValue];
+  [self.hpLabelView.value setText:[NSString stringWithFormat:@"%d / %d", hpLeft, hpTotal]];
+  [self.hpBarLeft setFrame:CGRectMake(0.0f, 0.0f, 160.0f * hpLeft / hpTotal, 13.0f)];
   [self.attackLabelView.value    setText:[statsMax objectAtIndex:1]];
   [self.defenseLabelView.value   setText:[statsMax objectAtIndex:2]];
   [self.spAttackLabelView.value  setText:[statsMax objectAtIndex:3]];

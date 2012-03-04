@@ -11,6 +11,8 @@
 @interface SixPokemonsSkillViewController : SixPokemonsDetailViewController
 {
   PokemonInfoLabelView * hpLabelView_;
+  UIImageView          * hpBarTotal_;
+  UIImageView          * hpBarLeft_;
   PokemonInfoLabelView * attackLabelView_;
   PokemonInfoLabelView * defenseLabelView_;
   PokemonInfoLabelView * spAttackLabelView_;
@@ -20,6 +22,8 @@
 }
 
 @property (nonatomic, retain) PokemonInfoLabelView * hpLabelView;
+@property (nonatomic, retain) UIImageView          * hpBarTotal;
+@property (nonatomic, retain) UIImageView          * hpBarLeft;
 @property (nonatomic, retain) PokemonInfoLabelView * attackLabelView;
 @property (nonatomic, retain) PokemonInfoLabelView * defenseLabelView;
 @property (nonatomic, retain) PokemonInfoLabelView * spAttackLabelView;
