@@ -139,10 +139,15 @@
   [IDView addSubview:nameLabel];
   [nameLabel release];
   
+  // Gender
+  UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.0f, 0.0f, 32.0f, 32.0f)];
+  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+  [IDView addSubview:genderImageView];
+  [genderImageView release];
+  
   // Add Right ID View to |self.view| & Release it
   [self.view addSubview:IDView];
   [IDView release];
-
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

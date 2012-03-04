@@ -61,11 +61,22 @@
   
   // Constants
   CGFloat const moveViewHeight = (self.view.frame.size.height - 80.0f) / 4.0f;
-  CGRect  const fourMovesViewFrame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+  CGRect  const ppLabelFrame = CGRectMake(200.0f, 0.0f, 90.0f, 30.0f);
+  CGRect  const fourMovesViewFrame = CGRectMake(0.0f, 30.0f, self.view.frame.size.width, self.view.frame.size.height);
   CGRect  const moveOneViewFrame   = CGRectMake(0.0f, 10.0f, 300.0f, moveViewHeight);
   CGRect  const moveTwoViewFrame   = CGRectMake(0.0f, 10.0f + moveViewHeight, 300.0f, moveViewHeight);
   CGRect  const moveThreeViewFrame = CGRectMake(0.0f, 10.0f + moveViewHeight * 2, 300.0f, moveViewHeight);
   CGRect  const moveFourViewFrame  = CGRectMake(0.0f, 10.0f + moveViewHeight * 3, 300.0f, moveViewHeight);
+  
+  // PP
+  UILabel * ppLabel = [[UILabel alloc] initWithFrame:ppLabelFrame];
+  [ppLabel setBackgroundColor:[UIColor clearColor]];
+  [ppLabel setTextAlignment:UITextAlignmentRight];
+  [ppLabel setTextColor:[GlobalRender textColorTitleWhite]];
+  [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [ppLabel setText:NSLocalizedString(@"PMSLabelPP", nil)];
+  [self.view addSubview:ppLabel];
+  [ppLabel release];
   
   // Set Four Moves' layout
   fourMovesView_ = [[UIView alloc] initWithFrame:fourMovesViewFrame];
@@ -111,29 +122,33 @@
   }
   else fourMovesPP_ = [[NSArray alloc] initWithArray:self.pokemon.fourMovesPP];
   
-  Move * moveOne   = [self.fourMoves objectAtIndex:0];
+  Move * moveOne = [self.fourMoves objectAtIndex:0];
   [self.moveOneView.type1 setText:[moveOne.type stringValue]];
   [self.moveOneView.name setText:NSLocalizedString(moveOne.name, nil)];
-  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d/%d",
+  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                 [[fourMovesPP_ objectAtIndex:1] intValue], [[fourMovesPP_ objectAtIndex:0] intValue]]];
+  moveOne = nil;
   
-  Move * moveTwo   = [self.fourMoves objectAtIndex:1];
+  Move * moveTwo = [self.fourMoves objectAtIndex:1];
   [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
   [self.moveTwoView.name setText:NSLocalizedString(moveTwo.name, nil)];
-  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d/%d",
+  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                 [[fourMovesPP_ objectAtIndex:3] intValue], [[fourMovesPP_ objectAtIndex:2] intValue]]];
+  moveTwo = nil;
   
   Move * moveThree = [self.fourMoves objectAtIndex:2];
   [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
   [self.moveThreeView.name setText:NSLocalizedString(moveThree.name, nil)];
-  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d/%d",
+  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                   [[fourMovesPP_ objectAtIndex:5] intValue], [[fourMovesPP_ objectAtIndex:4] intValue]]];
+  moveThree = nil;
   
-  Move * moveFour  = [self.fourMoves objectAtIndex:3];
+  Move * moveFour = [self.fourMoves objectAtIndex:3];
   [self.moveFourView.type1 setText:[moveFour.type stringValue]];
   [self.moveFourView.name setText:NSLocalizedString(moveFour.name, nil)];
-  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d/%d",
+  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                  [[fourMovesPP_ objectAtIndex:7] intValue], [[fourMovesPP_ objectAtIndex:6] intValue]]];
+  moveFour = nil;
 }
 
 - (void)viewDidUnload
@@ -156,17 +171,19 @@
 {
   if (! moveDetailView_) {
     CGRect const fourMovesViewFrame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
-    moveDetailView_ = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
-    [moveDetailView_.backButton addTarget:self
-                                   action:@selector(cancelMoveDetailView)
-                         forControlEvents:UIControlEventTouchUpInside];
+    PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
+    self.moveDetailView = moveDetailView;
+    [moveDetailView release];
+    [self.moveDetailView.backButton addTarget:self
+                                       action:@selector(cancelMoveDetailView)
+                             forControlEvents:UIControlEventTouchUpInside];
   }
   
   NSInteger moveTag = ((UIButton *)sender).tag;
   Move * move = [self.fourMoves objectAtIndex:moveTag];
   [self.moveDetailView.moveBaseView.type1 setText:[move.type stringValue]];
   [self.moveDetailView.moveBaseView.name  setText:NSLocalizedString(move.name, nil)];
-  [self.moveDetailView.moveBaseView.pp    setText:[NSString stringWithFormat:@"%d/%d",
+  [self.moveDetailView.moveBaseView.pp    setText:[NSString stringWithFormat:@"%d / %d",
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2 + 1] intValue],
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2] intValue]]];
   [self.moveDetailView.categoryLabelView.value setText:[move.category stringValue]];

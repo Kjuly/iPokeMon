@@ -42,11 +42,10 @@
   CGFloat const labelHeight = 30.0f;
   
   CGRect  const dataViewFrame      = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
-  CGRect  const levelLabelViewFrame = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
-  CGRect  const genderLabelViewFrame = CGRectMake(140.0f, 0.0f, 160.0f, labelHeight);
-  CGRect  const typeLabelViewFrame = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
-  CGRect  const expLabelViewFrame  = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
-  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
+  CGRect  const typeLabelViewFrame = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
+  CGRect  const levelLabelViewFrame = CGRectMake(0.0f, labelHeight, 140.0f, labelHeight);
+  CGRect  const expLabelViewFrame  = CGRectMake(140.0f, labelHeight, 160.0, labelHeight);
+  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
   
   
   // Base information for Pokemon
@@ -54,18 +53,6 @@
   
   ///Data View in Center
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
-  
-  // Level
-  levelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:levelLabelViewFrame hasValueLabel:YES];
-  [levelLabelView_.name setText:NSLocalizedString(@"PMSLabelLevel", nil)];
-  [dataView addSubview:levelLabelView_];
-  
-  // Gender
-  PokemonInfoLabelView * genderLabelView = [[PokemonInfoLabelView alloc] initWithFrame:genderLabelViewFrame hasValueLabel:YES];
-  [genderLabelView.name  setText:NSLocalizedString(@"PMSLabelGender", nil)];
-  [genderLabelView.value setText:[self.pokemon.gender intValue] ? @"M" : @"F"];
-  [dataView addSubview:genderLabelView];
-  [genderLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
@@ -78,6 +65,11 @@
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
   [typeLabelView release];
+  
+  // Level
+  levelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:levelLabelViewFrame hasValueLabel:YES];
+  [levelLabelView_.name setText:NSLocalizedString(@"PMSLabelLevel", nil)];
+  [dataView addSubview:levelLabelView_];
   
   // EXP
   expLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:expLabelViewFrame hasValueLabel:YES];

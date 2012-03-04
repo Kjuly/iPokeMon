@@ -12,7 +12,7 @@
 {
   UIImageView * imageView_;
   UILabel     * nameLabel_;
-  UILabel     * genderLabel_;
+  UIImageView * genderImageView_;
   UILabel     * levelLabel_;
   UILabel     * HPLabel_;
   UIView      * HPBarTotal_;
@@ -21,7 +21,7 @@
 
 @property (nonatomic, retain) UIImageView * imageView;
 @property (nonatomic, retain) UILabel     * nameLabel;
-@property (nonatomic, retain) UILabel     * genderLabel;
+@property (nonatomic, retain) UIImageView * genderImageView;
 @property (nonatomic, retain) UILabel     * levelLabel;
 @property (nonatomic, retain) UILabel     * HPLabel;
 @property (nonatomic, retain) UIView      * HPBarTotal;

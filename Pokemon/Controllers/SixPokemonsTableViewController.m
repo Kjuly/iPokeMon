@@ -136,7 +136,7 @@
   
   // Data
   [cell.nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
-  [cell.genderLabel setText:pokemonData.gender ? @"M" : @"F"];
+  [cell.genderImageView setImage:[UIImage imageNamed:pokemonData.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
   
   // Stats data array

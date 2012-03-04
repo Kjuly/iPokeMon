@@ -14,31 +14,31 @@
 
 @implementation SixPokemonsTableViewCell
 
-@synthesize imageView   = imageView_;
-@synthesize nameLabel   = nameLabel_;
-@synthesize genderLabel = genderLabel_;
-@synthesize levelLabel  = levelLabel_;
-@synthesize HPLabel     = HPLabel_;
-@synthesize HPBarTotal  = HPBarTotal_;
-@synthesize HPBarLeft   = HPBarLeft_;
+@synthesize imageView       = imageView_;
+@synthesize nameLabel       = nameLabel_;
+@synthesize genderImageView = genderImageView_;
+@synthesize levelLabel      = levelLabel_;
+@synthesize HPLabel         = HPLabel_;
+@synthesize HPBarTotal      = HPBarTotal_;
+@synthesize HPBarLeft       = HPBarLeft_;
 
 - (void)dealloc
 {
-  [imageView_   release];
-  [nameLabel_   release];
-  [genderLabel_ release];
-  [levelLabel_  release];
-  [HPLabel_     release];
-  [HPBarTotal_  release];
-  [HPBarLeft_   release];
+  [imageView_       release];
+  [nameLabel_       release];
+  [genderImageView_ release];
+  [levelLabel_      release];
+  [HPLabel_         release];
+  [HPBarTotal_      release];
+  [HPBarLeft_       release];
   
-  self.imageView   = nil;
-  self.nameLabel   = nil;
-  self.genderLabel = nil;
-  self.levelLabel  = nil;
-  self.HPLabel     = nil;
-  self.HPBarTotal  = nil;
-  self.HPBarLeft   = nil;
+  self.imageView       = nil;
+  self.nameLabel       = nil;
+  self.genderImageView = nil;
+  self.levelLabel      = nil;
+  self.HPLabel         = nil;
+  self.HPBarTotal      = nil;
+  self.HPBarLeft       = nil;
   
   [super dealloc];
 }
@@ -59,7 +59,7 @@
     
     CGRect dataViewFrame    = CGRectMake(imageWidth + 20.0f, 5.0f, cellWidth - imageWidth - 40.0f, cellHeight - 10.0f);
     CGRect nameLabelFrame   = CGRectMake(0.0f, 0.0f, nameLabelWidth, labelHeight);
-    CGRect genderLabelFrame = CGRectMake(dataViewFrame.size.width - levelLabelWidth - genderLabelWidth, 0.0f, genderLabelWidth, labelHeight);
+    CGRect genderImageViewFrame = CGRectMake(dataViewFrame.size.width - levelLabelWidth - genderLabelWidth, 0.0f, genderLabelWidth, labelHeight);
     CGRect levelLabelFrame  = CGRectMake(dataViewFrame.size.width - levelLabelWidth, 0.0f, levelLabelWidth, labelHeight);
     CGRect HPBarFrame       = CGRectMake(0.0f, labelHeight, 150.0f, 16.0f);
     CGRect HPLabelFrame     = CGRectMake(HPBarFrame.size.width, labelHeight, HPLabelWidth, 16.0f);
@@ -99,12 +99,9 @@
     [dataView addSubview:nameLabel_];
     
     // Gender Label
-    genderLabel_ = [[UILabel alloc] initWithFrame:genderLabelFrame];
-    [genderLabel_ setBackgroundColor:[UIColor clearColor]];
-    [genderLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [genderLabel_ setTextAlignment:UITextAlignmentLeft];
-    [genderLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
-    [dataView addSubview:genderLabel_];
+    genderImageView_ = [[UIImageView alloc] initWithFrame:genderImageViewFrame];
+    [genderImageView_ setBackgroundColor:[UIColor clearColor]];
+    [dataView addSubview:genderImageView_];
     
     // Level Label
     levelLabel_ = [[UILabel alloc] initWithFrame:levelLabelFrame];

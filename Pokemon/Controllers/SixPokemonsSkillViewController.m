@@ -51,12 +51,12 @@
   
   CGRect  const dataViewFrame           = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
   CGRect  const hpLabelViewFrame        = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
-  CGRect  const attackLabelViewFrame    = CGRectMake(140.0f, 0.0f, 160.0f, labelHeight);
-  CGRect  const defenseLabelViewFrame   = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
-  CGRect  const spAttackLabelViewFrame  = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
-  CGRect  const spDefenseLabelViewFrame = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
-  CGRect  const speedLabelViewFrame     = CGRectMake(0.0f, labelHeight * 4, 300.0f, labelHeight);
-  CGRect  const abilityLabelViewFrame   = CGRectMake(0.0f, labelHeight * 5, 300.0f, labelHeight);
+  CGRect  const attackLabelViewFrame    = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
+  CGRect  const defenseLabelViewFrame   = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
+  CGRect  const spAttackLabelViewFrame  = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
+  CGRect  const spDefenseLabelViewFrame = CGRectMake(0.0f, labelHeight * 4, 300.0f, labelHeight);
+  CGRect  const speedLabelViewFrame     = CGRectMake(0.0f, labelHeight * 5, 300.0f, labelHeight);
+  CGRect  const abilityLabelViewFrame   = CGRectMake(0.0f, labelHeight * 6, 300.0f, labelHeight);
   
   
   ///Data View in Center
@@ -64,31 +64,37 @@
   
   // HP
   hpLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:hpLabelViewFrame hasValueLabel:YES];
+  [hpLabelView_ adjustNameLabelWidthWith:-45.0f];
   [hpLabelView_.name setText:NSLocalizedString(@"PMSLabelHP", nil)];
   [dataView addSubview:hpLabelView_];
   
   // Attack
   attackLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:attackLabelViewFrame hasValueLabel:YES];
+  [attackLabelView_ adjustNameLabelWidthWith:80.0f];
   [attackLabelView_.name  setText:NSLocalizedString(@"PMSLabelAttack", nil)];
   [dataView addSubview:attackLabelView_];
   
   // Defense
   defenseLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:defenseLabelViewFrame hasValueLabel:YES];
+  [defenseLabelView_ adjustNameLabelWidthWith:80.0f];
   [defenseLabelView_.name  setText:NSLocalizedString(@"PMSLabelDefense", nil)];
   [dataView addSubview:defenseLabelView_];
   
   // Sp. Attack
   spAttackLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:spAttackLabelViewFrame hasValueLabel:YES];
+  [spAttackLabelView_ adjustNameLabelWidthWith:80.0f];
   [spAttackLabelView_.name setText:NSLocalizedString(@"PMSLabelSpAttack", nil)];
   [dataView addSubview:spAttackLabelView_];
   
   // Sp. Defense
   spDefenseLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:spDefenseLabelViewFrame hasValueLabel:YES];
+  [spDefenseLabelView_ adjustNameLabelWidthWith:80.0f];
   [spDefenseLabelView_.name setText:NSLocalizedString(@"PMSLabelSpDefense", nil)];
   [dataView addSubview:spDefenseLabelView_];
   
   // Speed
   speedLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:speedLabelViewFrame hasValueLabel:YES];
+  [speedLabelView_ adjustNameLabelWidthWith:80.0f];
   [speedLabelView_.name setText:NSLocalizedString(@"PMSLabelSpeed", nil)];
   [dataView addSubview:speedLabelView_];
   

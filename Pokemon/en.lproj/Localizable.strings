@@ -18,7 +18,6 @@
 "PMSLabelHeight"  = "Height: ";
 "PMSLabelWeight"  = "Weight: ";
 "PMSLabelLevel"   = "Lv. ";
-"PMSLabelGender"  = "Gender: ";
 "PMSLabelEXP"     = "Exp. Points: ";
 "PMSLabelToNextLevel" = "To Next Lv.: ";
 "PMSLabelHP"        = "HP: ";
@@ -30,7 +29,7 @@
 "PMSLabelAbility"   = "Ability: ";
 
 // Move
-"PMSLabelPP"       = "PP: ";
+"PMSLabelPP"       = "PP";
 "PMSLabelCategory" = "Category: ";
 "PMSLabelPower"    = "Power: ";
 "PMSLabelAccuracy" = "Accuracy: ";

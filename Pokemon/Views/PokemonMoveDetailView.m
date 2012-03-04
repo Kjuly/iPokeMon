@@ -23,12 +23,12 @@
 
 - (void)dealloc
 {
-  [moveBaseView_      release];
-  [backButton_        release];
-  [categoryLabelView_ release];
-  [powerLabelView_    release];
-  [accuracyLabelView_ release];
-  [infoTextView_      release];
+//  [moveBaseView_      release];
+//  [backButton_        release];
+//  [categoryLabelView_ release];
+//  [powerLabelView_    release];
+//  [accuracyLabelView_ release];
+//  [infoTextView_      release];
   
   self.moveBaseView      = nil;
   self.backButton        = nil;
@@ -43,13 +43,11 @@
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
-    [self setBackgroundColor:[UIColor whiteColor]];
-    
     CGFloat const labelHeight        = 30.0f;
     CGFloat const moveBaseViewHeight = (frame.size.height - 80.0f) / 4.0f;
     
     CGRect const moveBaseViewFrame      = CGRectMake(0.0f, 10.0f, 300.0f, moveBaseViewHeight);
-    CGRect const backButtonFrame        = CGRectMake(260.0f, 0.0f, 60.0f, 60.0f);
+    CGRect const backButtonFrame        = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
     CGRect const categoryLabelViewFrame = CGRectMake(10.0f, 10.0f + moveBaseViewHeight, 300.0f, labelHeight);
     CGRect const powerLabelViewFrame    = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + labelHeight, 140.0f, labelHeight);
     CGRect const accuracyLabelViewFrame = CGRectMake(140.0f, powerLabelViewFrame.origin.y, 160.0f, labelHeight);
@@ -58,22 +56,18 @@
     moveBaseView_ = [[PokemonMoveView alloc] initWithFrame:moveBaseViewFrame];
     [self addSubview:moveBaseView_];
     
-    backButton_ = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [backButton_ setImage:[UIImage imageNamed:@"AccountSettingTableView_CancelButton.png"] forState:UIControlStateNormal];
-    [self addSubview:backButton_];
-    
     categoryLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:categoryLabelViewFrame hasValueLabel:YES];
     [categoryLabelView_ setBackgroundColor:[UIColor clearColor]];
-    [categoryLabelView_.name setText:NSLocalizedString(@"kLabelCategory", nil)];
+    [categoryLabelView_.name setText:NSLocalizedString(@"PMSLabelCategory", nil)];
     [self addSubview:categoryLabelView_];
     
     powerLabelView_    = [[PokemonInfoLabelView alloc] initWithFrame:powerLabelViewFrame hasValueLabel:YES];
-    [powerLabelView_.name setText:NSLocalizedString(@"kLabelPower", nil)];
+    [powerLabelView_.name setText:NSLocalizedString(@"PMSLabelPower", nil)];
     [self addSubview:powerLabelView_];
     
     accuracyLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:accuracyLabelViewFrame hasValueLabel:YES];
     [accuracyLabelView_ adjustNameLabelWidthWith:20.0f];
-    [accuracyLabelView_.name setText:NSLocalizedString(@"kLabelAccuracy", nil)];
+    [accuracyLabelView_.name setText:NSLocalizedString(@"PMSLabelAccuracy", nil)];
     [self addSubview:accuracyLabelView_];
     
     // Move Infomation View
@@ -83,7 +77,12 @@
     [infoTextView_ setOpaque:NO];
     [infoTextView_ setEditable:NO];
     [infoTextView_ setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+    [infoTextView_ setTextColor:[GlobalRender textColorNormal]];
     [self addSubview:infoTextView_];
+    
+    backButton_ = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [backButton_ setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:backButton_];
     
     [self setNeedsDisplay];
   }
