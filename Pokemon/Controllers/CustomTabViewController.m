@@ -16,10 +16,15 @@
 
 @interface CustomTabViewController () {
  @private
-  BOOL isTabBarHide_;
+  BOOL    isTabBarHide_;
+  BOOL    isSwiping_;     // doing swiping
+  CGFloat swipeStartPoint_;  // Value of the starting touch point's x location
 }
 
-@property (nonatomic, assign) BOOL isTabBarHide;
+@property (nonatomic, assign) BOOL    isTabBarHide;
+@property (nonatomic, assign) BOOL    isSwiping;
+@property (nonatomic, assign) CGFloat swipeStartPoint;
+
 
 - (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex;
 
@@ -32,7 +37,9 @@
 @synthesize tabBarItems = tabBarItems_;
 @synthesize viewFrame   = viewFrame_;
 
-@synthesize isTabBarHide = isTabBarHide_;
+@synthesize isTabBarHide    = isTabBarHide_;
+@synthesize isSwiping       = isSwiping_;
+@synthesize swipeStartPoint = swipeStartPoint_;
 
 
 - (void)dealloc
@@ -138,6 +145,45 @@
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Touch Actions
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  if ([touches count] != 1) return;
+  UIView * currentView = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
+  self.swipeStartPoint = [[touches anyObject] locationInView:currentView].x;
+  currentView = nil;
+  self.isSwiping = YES;
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  if (! self.isSwiping || [touches count] != 1) return;
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  if (! self.isSwiping) return;
+  UIView * currentView  = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
+  CGFloat swipeDistance = [[touches anyObject] locationInView:currentView].x - self.swipeStartPoint;
+  currentView = nil;
+  NSInteger previousItemIndex = self.tabBar.previousItemIndex;
+  
+  // Swipe to left
+  if (previousItemIndex > 0 && swipeDistance > 50.0f) {
+    UIButton * button = [self.tabBar.buttons objectAtIndex:previousItemIndex - 1];
+    [self.tabBar touchDownAction:button];
+    button = nil;
+  }
+  // Swipe to right
+  else if (previousItemIndex < [self.tabBarItems count] - 1 && swipeDistance < -50.0f) {
+    UIButton * button = [self.tabBar.buttons objectAtIndex:previousItemIndex + 1];
+    [self.tabBar touchDownAction:button];
+    button = nil;
+  }
+  self.isSwiping = NO;
 }
 
 #pragma mark - PoketchTabBarDelegate

@@ -23,9 +23,11 @@
 {
   NSObject <CustomTabBarDelegate> * delegate_;
   NSMutableArray * buttons_;
+  NSInteger previousItemIndex_;
 }
 
 @property (nonatomic, retain) NSMutableArray * buttons;
+@property (nonatomic, assign) NSInteger previousItemIndex;
 
 - (id)initWithItemCount:(NSUInteger)itemCount
                    size:(CGSize)itemSize
@@ -34,5 +36,7 @@
 - (void)selectItemAtIndex:(NSInteger)index;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration;
+
+- (void)touchDownAction:(UIButton *)button;
 
 @end

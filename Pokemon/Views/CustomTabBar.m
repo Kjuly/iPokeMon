@@ -19,14 +19,12 @@
   UIImageView      * arrow_;
   CGPoint            newPositionForArrow_;
   CGFloat            currArcForArrow_;
-  NSInteger          previousItemIndex_;
 }
 
 @property (nonatomic, retain) UIImageView      * backgroundImageView;
 @property (nonatomic, retain) UIImageView      * arrow;
 @property (nonatomic, assign) CGPoint            newPositionForArrow;
 @property (nonatomic, assign) CGFloat            currArcForArrow;
-@property (nonatomic, assign) NSInteger          previousItemIndex;
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex;
@@ -48,12 +46,12 @@
 @implementation CustomTabBar
 
 @synthesize buttons = buttons_;
+@synthesize previousItemIndex = previousItemIndex_;
 
 @synthesize backgroundImageView = backgroundImageView_;
 @synthesize arrow               = arrow_;
 @synthesize newPositionForArrow = newPositionForArrow_;
 @synthesize currArcForArrow     = currArcForArrow_;
-@synthesize previousItemIndex   = previousItemIndex_;
 
 - (void)dealloc
 {
