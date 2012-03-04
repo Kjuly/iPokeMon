@@ -32,10 +32,15 @@
 
 // For |centerMainButton_| status
 typedef enum {
-  kCenterMainButtonStatusNormal   = 0,
-  kCenterMainButtonStatusAtBottom = 1,
+  kCenterMainButtonStatusNormal          = 0,
+  kCenterMainButtonStatusAtBottom        = 1,
   kCenterMainButtonStatusPokemonAppeared = 2,
 }CenterMainButtonStatus;
+
+typedef enum {
+  kCenterMainButtonMessageSignalNone            = 0,
+  kCenterMainButtonMessageSignalPokemonAppeared = 1
+}CenterMainButtonMessageSignal;
 
 // For |centerMainButton_| & |mapButton_|'s layouts animation
 typedef enum {

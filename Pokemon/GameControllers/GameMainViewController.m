@@ -9,6 +9,7 @@
 #import "GameMainViewController.h"
 
 //#import "GameConfig.h"
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GameBattleLayer.h"
 #import "GameMenuViewController.h"
@@ -16,7 +17,12 @@
 #import "cocos2d.h"
 
 
-@interface GameMainViewController ()
+@interface GameMainViewController () {
+ @private
+  CenterMainButtonStatus previousCenterMainButtonStatus_;
+}
+
+@property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
 
 - (void)loadBattleScene:(NSNotification *)notification;
 
@@ -25,6 +31,7 @@
 @implementation GameMainViewController
 
 @synthesize gameMenuViewController = gameMenuViewController_;
+@synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
 
 - (void)dealloc
 {
@@ -119,7 +126,14 @@
 
 - (void)unloadBattleScene
 {
+#ifdef DEBUG
   NSLog(@"Battle Scene Unloading...");
+#endif
+  
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
+                             @"previousCenterMainButtonStatus", nil];
+  
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationCurveEaseIn
@@ -130,7 +144,8 @@
                      [self.view setFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
                                                                          object:self
-                                                                       userInfo:nil];
+                                                                       userInfo:userInfo];
+                     [userInfo release];
                      [[CCDirector sharedDirector] pause];
                    }];
 }
@@ -139,7 +154,12 @@
 
 - (void)loadBattleScene:(NSNotification *)notification
 {
+  // Remember previous |centerMainButton_|'s status
+  self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+  
+#ifdef DEBUG
   NSLog(@"Battle Scene Loading...");
+#endif
   [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   [UIView animateWithDuration:0.3f
                         delay:0.0f
@@ -150,8 +170,9 @@
                    completion:^(BOOL finished) {
                      [[CCDirector sharedDirector] resume];
                    }];
-  
+#ifdef DEBUG
   NSLog(@"Pokemon Info: %@", notification.userInfo);
+#endif
 }
 
 @end

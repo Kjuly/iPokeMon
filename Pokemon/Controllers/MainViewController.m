@@ -40,6 +40,7 @@
  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
+  CenterMainButtonMessageSignal centerMainButtonMessageSignal_;
   BOOL                   isCenterMenuOpening_;
   NSTimer              * centerMenuOpenStatusTimer_;
   BOOL                   isCenterMainButtonTouchDownCircleViewLoading_;
@@ -59,6 +60,7 @@
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
+@property (nonatomic, assign) CenterMainButtonMessageSignal centerMainButtonMessageSignal;
 @property (nonatomic, assign) BOOL                   isCenterMenuOpening;
 @property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
 @property (nonatomic, assign) BOOL                   isCenterMainButtonTouchDownCircleViewLoading;
@@ -102,6 +104,7 @@
 
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
+@synthesize centerMainButtonMessageSignal   = centerMainButtonMessageSignal_;
 @synthesize isCenterMenuOpening             = isCenterMenuOpening_;
 @synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
 @synthesize isCenterMainButtonTouchDownCircleViewLoading = isCenterMainButtonTouchDownCircleViewLoading_;
@@ -178,7 +181,8 @@
   [self.view setOpaque:NO];
   
   // Base iVar Settings
-  centerMainButtonStatus_ = kCenterMainButtonStatusNormal;
+  centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
+  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
   isCenterMenuOpening_    = NO;
   isCenterMainButtonTouchDownCircleViewLoading_ = NO;
   isMapViewOpening_       = NO;
@@ -324,21 +328,31 @@
       break;
       
     case kCenterMainButtonStatusPokemonAppeared:
-      self.centerMainButtonStatus = kCenterMainButtonStatusPokemonAppeared;
+      self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalPokemonAppeared;
       [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
                              forState:UIControlStateNormal];
       break;
       
     case kCenterMainButtonStatusNormal:
     default:
-      self.centerMainButtonStatus = kCenterMainButtonStatusNormal;
       if (self.isGameMainViewOpening) {
-        [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
+        self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalNone;
+        CenterMainButtonStatus previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+        self.centerMainButtonStatus = previousCenterMainButtonStatus;
+        
+        if (previousCenterMainButtonStatus != kCenterMainButtonStatusAtBottom) {
+          if (self.isCenterMenuOpening)
+            [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:nil];
+          else [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
+        }
         self.isGameMainViewOpening = NO;
       }
-      else [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:nil];
-      // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
-      if (self.isCenterMenuOpening) [self activateCenterMenuOpenStatusTimer];
+      else {
+        self.centerMainButtonStatus = kCenterMainButtonStatusNormal;
+        [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:nil];
+        // Is |centerMenu_| is opening, activate |centerMenuOpenStatusTimer_|
+        if (self.isCenterMenuOpening) [self activateCenterMenuOpenStatusTimer];
+      }
       break;
   }
 }
@@ -346,33 +360,38 @@
 // |centerMainButton_| touch up inside action
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender
 {
-  switch (self.centerMainButtonStatus) {  
+  // If Pokemon Appeared, and got a message, deal with it
+  if (self.centerMainButtonMessageSignal == kCenterMainButtonMessageSignalPokemonAppeared
+      && self.centerMainButtonStatus != kCenterMainButtonStatusPokemonAppeared) {
+    void (^completionBlock)(BOOL) = ^(BOOL finished) {
+      NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 [NSNumber numberWithInt:self.centerMainButtonStatus],
+                                 @"previousCenterMainButtonStatus", nil];
+      // The observer is |GameMainViewController|
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleStart object:self userInfo:userInfo];
+      [userInfo release];
+      [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"]
+                             forState:UIControlStateNormal];
+      self.isGameMainViewOpening  = YES;
+      self.centerMainButtonStatus = kCenterMainButtonStatusPokemonAppeared;
+    };
+    // If |centerMainButton_| is not at view bottom, move it to bottom
+    if (self.centerMainButtonStatus != kCenterMainButtonStatusAtBottom)
+      [self setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom | kMainViewButtonLayoutMapButtonToOffcreen
+          withCompletionBlock:completionBlock];
+    else completionBlock(YES);
+    return;
+  }
+  
+  // Do basic actions for touch up inside button
+  switch (self.centerMainButtonStatus) {
     case kCenterMainButtonStatusAtBottom:
       // The observer is |CustomTabViewController|
-      if (! self.isGameMainViewOpening)
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
       break;
       
     case kCenterMainButtonStatusPokemonAppeared:
-      if (self.isCenterMenuOpening) [self closeCenterMenuView];
-      if (self.isGameMainViewOpening)
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons object:self userInfo:nil];
-      else {
-        void (^completionBlock)(BOOL) = ^(BOOL finished) {
-          // The observer is |GameMainViewController|
-          [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleStart object:self userInfo:nil];
-          [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"]
-                                 forState:UIControlStateNormal];
-          self.isGameMainViewOpening = YES;
-        };
-        
-        if (480.0f - kCenterMainButtonSize / 2 - self.centerMainButton.frame.origin.y > 0) {
-          [self setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom | kMainViewButtonLayoutMapButtonToOffcreen
-              withCompletionBlock:completionBlock];
-          NSLog(@"!!!!!!!!! %f ?= %f", self.centerMainButton.frame.origin.y, 480.0f - kCenterMainButtonSize / 2);
-        }
-        else completionBlock(YES);
-      }
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons object:self userInfo:nil];
       break;
     
     case kCenterMainButtonStatusNormal:
@@ -416,7 +435,7 @@
     }
     
     // Insert |utilityNavigationController|'s view
-    [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.centerMainButton];
+    [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
     // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
@@ -436,7 +455,7 @@
                                                     initWithRootViewController:self.centerMenuSixPokemonsViewController
                                                     navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
     }
-    [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view belowSubview:self.centerMainButton];
+    [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {[self.centerMenuSixPokemonsViewController openCenterMenuView];};
@@ -493,7 +512,7 @@
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender
 {
-  if (! self.isCenterMenuOpening && self.centerMainButtonStatus != kCenterMainButtonStatusPokemonAppeared) {
+  if (! self.isCenterMenuOpening && self.centerMainButtonMessageSignal != kCenterMainButtonMessageSignalPokemonAppeared) {
     // Start time counting
     self.currentKeyButton = (UIButton *)sender;
     self.timeCounter  = 0;
