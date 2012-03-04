@@ -243,11 +243,10 @@
   // for |buttonLocateMe| & |buttonShowWorld|
   self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
-  
+*/  
   // Game Main View
-//  gameMainViewController_ = [[GameMainViewController alloc] init];
-//  [self.view addSubview:gameMainViewController_.view];
-*/
+  gameMainViewController_ = [[GameMainViewController alloc] init];
+  [self.view addSubview:gameMainViewController_.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

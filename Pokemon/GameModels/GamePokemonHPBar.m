@@ -42,12 +42,12 @@
     self.oldHP    = hp;
     self.oldHPMax = hpMax;
     
-    self.hpMaxBar = [CCSprite spriteWithFile:@"hpMaxBar.png"];
+    self.hpMaxBar = [CCSprite spriteWithFile:@"PokemonHPBarBackground.png"];
     [self.hpMaxBar setPosition:ccp(0, 9)];
     [self.hpMaxBar setAnchorPoint:ccp(0, 0)];
     [self addChild:self.hpMaxBar];
     
-    self.hpBar = [CCSprite spriteWithFile:@"hpBar.png"];
+    self.hpBar = [CCSprite spriteWithFile:@"PokemonHPBar.png"];
     [self.hpBar setScaleX:(float)hp / (float)hpMax];
     [self.hpBar setPosition:ccp(0, 9)];
     [self.hpBar setAnchorPoint:ccp(0, 0)];
