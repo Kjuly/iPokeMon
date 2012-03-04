@@ -64,37 +64,37 @@
   
   // HP
   hpLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:hpLabelViewFrame hasValueLabel:YES];
-  [hpLabelView_.name setText:NSLocalizedString(@"kLabelHP", nil)];
+  [hpLabelView_.name setText:NSLocalizedString(@"PMSLabelHP", nil)];
   [dataView addSubview:hpLabelView_];
   
   // Attack
   attackLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:attackLabelViewFrame hasValueLabel:YES];
-  [attackLabelView_.name  setText:NSLocalizedString(@"kLabelAttack", nil)];
+  [attackLabelView_.name  setText:NSLocalizedString(@"PMSLabelAttack", nil)];
   [dataView addSubview:attackLabelView_];
   
   // Defense
   defenseLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:defenseLabelViewFrame hasValueLabel:YES];
-  [defenseLabelView_.name  setText:NSLocalizedString(@"kLabelDefense", nil)];
+  [defenseLabelView_.name  setText:NSLocalizedString(@"PMSLabelDefense", nil)];
   [dataView addSubview:defenseLabelView_];
   
   // Sp. Attack
   spAttackLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:spAttackLabelViewFrame hasValueLabel:YES];
-  [spAttackLabelView_.name setText:NSLocalizedString(@"kLabelSpAttack", nil)];
+  [spAttackLabelView_.name setText:NSLocalizedString(@"PMSLabelSpAttack", nil)];
   [dataView addSubview:spAttackLabelView_];
   
   // Sp. Defense
   spDefenseLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:spDefenseLabelViewFrame hasValueLabel:YES];
-  [spDefenseLabelView_.name setText:NSLocalizedString(@"kLabelSpDefense", nil)];
+  [spDefenseLabelView_.name setText:NSLocalizedString(@"PMSLabelSpDefense", nil)];
   [dataView addSubview:spDefenseLabelView_];
   
   // Speed
   speedLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:speedLabelViewFrame hasValueLabel:YES];
-  [speedLabelView_.name setText:NSLocalizedString(@"kLabelSpeed", nil)];
+  [speedLabelView_.name setText:NSLocalizedString(@"PMSLabelSpeed", nil)];
   [dataView addSubview:speedLabelView_];
   
   // Ability
   abilityLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:abilityLabelViewFrame hasValueLabel:YES];
-  [abilityLabelView_.name setText:NSLocalizedString(@"kLabelAbility", nil)];
+  [abilityLabelView_.name setText:NSLocalizedString(@"PMSLabelAbility", nil)];
   [dataView addSubview:abilityLabelView_];
   
   // Add Data View to |self.view| & Release it

@@ -144,6 +144,7 @@
   [moneyLabel_ setBackgroundColor:[UIColor clearColor]];
   [moneyValue_ setBackgroundColor:[UIColor clearColor]];
   [moneyLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [moneyValue_ setTextColor:[GlobalRender textColorNormal]];
   [moneyLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [moneyLabel_ setTextAlignment:UITextAlignmentRight];
@@ -157,6 +158,7 @@
   [pokedexLabel_ setBackgroundColor:[UIColor clearColor]];
   [pokedexValue_ setBackgroundColor:[UIColor clearColor]];
   [pokedexLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [pokedexValue_ setTextColor:[GlobalRender textColorNormal]];
   [pokedexLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [pokedexLabel_ setTextAlignment:UITextAlignmentRight];
@@ -170,6 +172,7 @@
   [badgesLabel_ setBackgroundColor:[UIColor clearColor]];
   [badgesValue_ setBackgroundColor:[UIColor clearColor]];
   [badgesLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [badgesValue_ setTextColor:[GlobalRender textColorNormal]];
   [badgesLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
   [badgesLabel_ setTextAlignment:UITextAlignmentRight];
@@ -189,6 +192,7 @@
   [adventureStartedTimeLabel_ setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeValue_ setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [adventureStartedTimeValue_ setTextColor:[GlobalRender textColorNormal]];
   [adventureStartedTimeLabel_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeValue_ setFont:[GlobalRender textFontBoldInSizeOf:13.0f]];
   [adventureStartedTimeLabel_ setTextAlignment:UITextAlignmentRight];
@@ -207,9 +211,9 @@
   
   [self.imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer.sid intValue]]];
-  [self.moneyLabel   setText:NSLocalizedString(@"kLabelMoney", nil)];
-  [self.pokedexLabel setText:NSLocalizedString(@"kLabelPokedex", nil)];
-  [self.adventureStartedTimeLabel setText:NSLocalizedString(@"kLabelAdventureStarted", nil)];
+  [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
+  [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
+  [self.adventureStartedTimeLabel setText:NSLocalizedString(@"PMSLabelAdventureStarted", nil)];
   [self.adventureStartedTimeValue setText:@"2012-01-22"];
 }
 
@@ -223,13 +227,13 @@
   // Set new data
   [self.nameLabel setText:self.trainer.name];
   [self.nameLabel sizeToFit];
-  [self.moneyValue   setText:[NSString stringWithFormat:@"$ %d", [self.trainer.money intValue]]];
+  [self.moneyValue setText:[NSString stringWithFormat:@"$ %d", [self.trainer.money intValue]]];
   
   NSArray * tamedPokemonSeq = [self.trainer.pokedex componentsSeparatedByString:@"1"];
   [self.pokedexValue setText:[NSString stringWithFormat:@"%d", [tamedPokemonSeq count] - 1]];
   tamedPokemonSeq = nil;
   
-  [self.badgesLabel  setText:NSLocalizedString(@"kLabelBadges", nil)];
+  [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];
   [self.badgesValue  setText:@"123"];
 }
 

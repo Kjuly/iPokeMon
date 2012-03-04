@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 #import "PokemonInfoLabelView.h"
+#import "Pokemon.h"
 
 @class Pokemon;
 

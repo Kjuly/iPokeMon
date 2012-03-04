@@ -57,33 +57,38 @@
   
   // Level
   levelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:levelLabelViewFrame hasValueLabel:YES];
-  [levelLabelView_.name setText:NSLocalizedString(@"kLabelLevel", nil)];
+  [levelLabelView_.name setText:NSLocalizedString(@"PMSLabelLevel", nil)];
   [dataView addSubview:levelLabelView_];
   
   // Gender
   PokemonInfoLabelView * genderLabelView = [[PokemonInfoLabelView alloc] initWithFrame:genderLabelViewFrame hasValueLabel:YES];
-  [genderLabelView.name  setText:NSLocalizedString(@"kLabelGender", nil)];
+  [genderLabelView.name  setText:NSLocalizedString(@"PMSLabelGender", nil)];
   [genderLabelView.value setText:[self.pokemon.gender intValue] ? @"M" : @"F"];
   [dataView addSubview:genderLabelView];
   [genderLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
-  [typeLabelView.name  setText:NSLocalizedString(@"kLabelType", nil)];
-  [typeLabelView.value setText:[pokemonBaseInfo.type1 stringValue]];
+  [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
+  NSString * types = NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [pokemonBaseInfo.type1 intValue]]), nil);
+  if ([pokemonBaseInfo.type2 intValue])
+    types = [types stringByAppendingString:[NSString stringWithFormat:@", %@",
+                                            NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                                [pokemonBaseInfo.type2 intValue]]), nil)]];
+  [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
   [typeLabelView release];
   
   // EXP
   expLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:expLabelViewFrame hasValueLabel:YES];
   [expLabelView_.name setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
-  [expLabelView_.name setText:NSLocalizedString(@"kLabelEXP", nil)];
+  [expLabelView_.name setText:NSLocalizedString(@"PMSLabelEXP", nil)];
   [dataView addSubview:expLabelView_];
   
   // To Next Level
   toNextLevelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:toNextLevelLabelViewFrame hasValueLabel:YES];
   [toNextLevelLabelView_.name setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
-  [toNextLevelLabelView_.name setText:NSLocalizedString(@"kLabelToNextLevel", nil)];
+  [toNextLevelLabelView_.name setText:NSLocalizedString(@"PMSLabelToNextLevel", nil)];
   [dataView addSubview:toNextLevelLabelView_];
   
   // Add Data View to |self.view| & Release it

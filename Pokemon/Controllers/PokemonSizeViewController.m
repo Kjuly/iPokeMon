@@ -44,7 +44,7 @@
   
   // Heigth
   PokemonInfoLabelView * heightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:heightLabelFrame hasValueLabel:YES];
-  [heightLabelView.name  setText:NSLocalizedString(@"kLabelHeight", nil)];
+  [heightLabelView.name  setText:NSLocalizedString(@"PMSLabelHeight", nil)];
   [heightLabelView.value setText:[NSString stringWithFormat:@"%.2f m",
                                   [[self.pokemonDataDict valueForKey:@"height"] floatValue]]];
   [sizeView addSubview:heightLabelView];
@@ -52,7 +52,7 @@
   
   // Weight
   PokemonInfoLabelView * weightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
-  [weightLabelView.name  setText:NSLocalizedString(@"kLabelWeight", nil)];
+  [weightLabelView.name  setText:NSLocalizedString(@"PMSLabelWeight", nil)];
   [weightLabelView.value setText:[NSString stringWithFormat:@"%.2f kg",
                                   [[self.pokemonDataDict valueForKey:@"weight"] floatValue]]];
   [sizeView addSubview:weightLabelView];

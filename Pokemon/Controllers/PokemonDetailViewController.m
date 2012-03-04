@@ -112,7 +112,8 @@
   [nameLabel setBackgroundColor:[UIColor clearColor]];
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
-  [nameLabel setText:NSLocalizedString([self.pokemonDataDict valueForKey:@"name"], nil)];
+  [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                         [[self.pokemonDataDict valueForKey:@"sid"] intValue]]), nil)];
   [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel.layer setShadowOpacity:1.0f];
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];

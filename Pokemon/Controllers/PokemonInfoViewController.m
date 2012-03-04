@@ -48,15 +48,22 @@
   
   // Species
   PokemonInfoLabelView * speciesLabelView = [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
-  [speciesLabelView.name  setText:NSLocalizedString(@"kLabelSpecies", nil)];
-  [speciesLabelView.value setText:[[self.pokemonDataDict valueForKey:@"species"] stringValue]];
+  [speciesLabelView.name  setText:NSLocalizedString(@"PMSLabelSpecies", nil)];
+  [speciesLabelView.value setText:NSLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
+                                                      [[self.pokemonDataDict valueForKey:@"species"] intValue]]), nil)];
   [dataView addSubview:speciesLabelView];
   [speciesLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
-  [typeLabelView.name  setText:NSLocalizedString(@"kLabelType", nil)];
-  [typeLabelView.value setText:[[self.pokemonDataDict valueForKey:@"type1"] stringValue]];
+  NSString * types = NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                         [self.pokemonDataDict.type1 intValue]]), nil);
+  if ([self.pokemonDataDict.type2 intValue])
+    types = [types stringByAppendingString:[NSString stringWithFormat:@", %@",
+                                            NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                                [self.pokemonDataDict.type2 intValue]]), nil)]];
+  [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
+  [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
   [typeLabelView release];
   

@@ -214,7 +214,7 @@
   //  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", 
   //                               info.city, info.state];
   Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
-  [cell.labelTitle setText:NSLocalizedString(pokemon.name, nil)];
+  [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
   [cell.imageView setImage:pokemon.image];
 }
 
