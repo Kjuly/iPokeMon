@@ -8,6 +8,7 @@
 
 #import "GameMenuViewController.h"
 
+#import "GameStatus.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
 
@@ -163,32 +164,36 @@
 
 // Button actions
 // Action for |buttonFight_|
-- (void)openMoveView
-{
-  if (! self.gameMenuMoveViewController) {
-    GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
-    self.gameMenuMoveViewController = gameMenuMoveViewController;
-    [gameMenuMoveViewController release];
+- (void)openMoveView {
+  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+    if (! self.gameMenuMoveViewController) {
+      GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
+      self.gameMenuMoveViewController = gameMenuMoveViewController;
+      [gameMenuMoveViewController release];
+    }
+    [self.view addSubview:self.gameMenuMoveViewController.view];
+    [self.gameMenuMoveViewController loadMoveView];
   }
-  [self.view addSubview:self.gameMenuMoveViewController.view];
 }
 
 // Action for |buttonBag_|
-- (void)openBagView
-{
-  if (! self.gameMenuBagViewController) {
-    GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
-    self.gameMenuBagViewController = gameMenuBagViewController;
-    [gameMenuBagViewController release];
+- (void)openBagView {
+  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+    if (! self.gameMenuBagViewController) {
+      GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
+      self.gameMenuBagViewController = gameMenuBagViewController;
+      [gameMenuBagViewController release];
+    }
+    [self.view addSubview:self.gameMenuBagViewController.view];
   }
-  [self.view addSubview:self.gameMenuBagViewController.view];
 }
 
 // Action for |buttonRun_|
-- (void)openRunConfirmView
-{
-  NSLog(@"Open Run Confirm View..");
-  [delegate_ unloadBattleScene];
+- (void)openRunConfirmView {
+  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+    NSLog(@"Open Run Confirm View..");
+    [delegate_ unloadBattleScene];
+  }
 }
 
 @end

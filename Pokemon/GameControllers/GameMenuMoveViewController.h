@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GameMenuAbstractChildViewController.h"
+@interface GameMenuMoveViewController : UIViewController
 
-@interface GameMenuMoveViewController : GameMenuAbstractChildViewController
+- (void)loadMoveView;
+- (void)unloadMoveView;
 
 @end

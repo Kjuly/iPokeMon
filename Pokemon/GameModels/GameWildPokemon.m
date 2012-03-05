@@ -73,7 +73,7 @@ static int attackDelayTime = 300;
 - (void)attack:(ccTime)dt
 {
   if ([[GameStatus sharedInstance] isWildPokemonTurn]) {
-    NSLog(@"Wild Pokemon's Turn:");
+//    NSLog(@"Wild Pokemon's Turn:");
     attackDelayTime -= 100 * dt;
     if (attackDelayTime > 0)
       return;
