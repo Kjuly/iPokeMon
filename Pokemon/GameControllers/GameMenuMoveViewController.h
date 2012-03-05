@@ -6,11 +6,8 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GameMenuAbstractChildViewController.h"
 
-@interface GameMenuMoveViewController : UIViewController
-
-- (void)loadMoveView;
-- (void)unloadMoveView;
+@interface GameMenuMoveViewController : GameMenuAbstractChildViewController
 
 @end

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameMenuAbstractChildViewController : UIViewController
+@interface GameMenuAbstractChildViewController : UIViewController {
+  UIView * tableAreaView_;
+}
+
+@property (nonatomic, retain) UIView * tableAreaView;
+
+- (void)loadMoveView;
+- (void)unloadMoveView;
 
 @end
