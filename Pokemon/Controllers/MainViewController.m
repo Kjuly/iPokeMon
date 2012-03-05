@@ -341,8 +341,10 @@
         self.centerMainButtonStatus = previousCenterMainButtonStatus;
         
         if (previousCenterMainButtonStatus != kCenterMainButtonStatusAtBottom) {
-          if (self.isCenterMenuOpening)
+          if (self.isCenterMenuOpening) {
             [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:nil];
+            [self activateCenterMenuOpenStatusTimer];
+          }
           else [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
         }
         self.isGameMainViewOpening = NO;
@@ -374,6 +376,7 @@
                              forState:UIControlStateNormal];
       self.isGameMainViewOpening  = YES;
       self.centerMainButtonStatus = kCenterMainButtonStatusPokemonAppeared;
+      [self deactivateCenterMenuOpenStatusTimer];
     };
     // If |centerMainButton_| is not at view bottom, move it to bottom
     if (self.centerMainButtonStatus != kCenterMainButtonStatusAtBottom)
