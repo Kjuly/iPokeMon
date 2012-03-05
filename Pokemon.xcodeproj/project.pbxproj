@@ -181,13 +181,17 @@
 		7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */; };
 		7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */; };
 		7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB521505239600640F57 /* BagItemTableViewCell.m */; };
-		7F58BB561505239800640F57 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB541505239800640F57 /* CustomNavigationController.xib */; };
 		7F58BB59150524C200640F57 /* BagItemTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */; };
 		7F58BB5A150524C200640F57 /* BagItemTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */; };
 		7F58BB5F150526F900640F57 /* BagItemTableViewCellSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */; };
 		7F58BB60150526F900640F57 /* BagItemTableViewCellSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */; };
 		7F58BB61150526F900640F57 /* BagTableViewCellSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */; };
 		7F58BB62150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */; };
+		7F58BB671505335F00640F57 /* SettingTableViewSectionHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB631505335D00640F57 /* SettingTableViewSectionHeaderBackground.png */; };
+		7F58BB681505335F00640F57 /* SettingTableViewSectionHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB641505335E00640F57 /* SettingTableViewSectionHeaderBackground@2x.png */; };
+		7F58BB691505335F00640F57 /* SettingTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB651505335E00640F57 /* SettingTableViewCellBackground.png */; };
+		7F58BB6A1505335F00640F57 /* SettingTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB661505335F00640F57 /* SettingTableViewCellBackground@2x.png */; };
+		7F58BB6D1505349700640F57 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB6C1505349500640F57 /* SettingTableViewCell.m */; };
 		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
 		7F61D85E1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */; };
 		7F61D85F1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84D1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png */; };
@@ -903,13 +907,18 @@
 		7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameViewPokemonMoveView@2x.png"; sourceTree = "<group>"; };
 		7F58BB511505239500640F57 /* BagItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewCell.h; sourceTree = "<group>"; };
 		7F58BB521505239600640F57 /* BagItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewCell.m; sourceTree = "<group>"; };
-		7F58BB541505239800640F57 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
 		7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
 		7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellSelectedBackground@2x.png"; sourceTree = "<group>"; };
 		7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
 		7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellSelectedBackground@2x.png"; sourceTree = "<group>"; };
+		7F58BB631505335D00640F57 /* SettingTableViewSectionHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewSectionHeaderBackground.png; sourceTree = "<group>"; };
+		7F58BB641505335E00640F57 /* SettingTableViewSectionHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewSectionHeaderBackground@2x.png"; sourceTree = "<group>"; };
+		7F58BB651505335E00640F57 /* SettingTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellBackground.png; sourceTree = "<group>"; };
+		7F58BB661505335F00640F57 /* SettingTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
+		7F58BB6B1505349300640F57 /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
+		7F58BB6C1505349500640F57 /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
 		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
 		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
 		7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabView4TabsCircleBarBackground.png; sourceTree = "<group>"; };
@@ -1779,14 +1788,6 @@
 			path = JSONKit;
 			sourceTree = "<group>";
 		};
-		7F58BB531505239700640F57 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				7F58BB541505239800640F57 /* CustomNavigationController.xib */,
-			);
-			path = Xibs;
-			sourceTree = "<group>";
-		};
 		7F61D84B1500FF09007C0BBD /* TabView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2120,9 +2121,10 @@
 				7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */,
 				7F58BB511505239500640F57 /* BagItemTableViewCell.h */,
 				7F58BB521505239600640F57 /* BagItemTableViewCell.m */,
-				7F58BB531505239700640F57 /* Xibs */,
 				7FBB60D514E6C37C00C24BA5 /* TrainerBadgesTableViewCell.h */,
 				7FBB60D614E6C37C00C24BA5 /* TrainerBadgesTableViewCell.m */,
+				7F58BB6B1505349300640F57 /* SettingTableViewCell.h */,
+				7F58BB6C1505349500640F57 /* SettingTableViewCell.m */,
 				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
 				7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */,
 				7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */,
@@ -2451,6 +2453,10 @@
 				7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */,
 				7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */,
 				7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */,
+				7F58BB631505335D00640F57 /* SettingTableViewSectionHeaderBackground.png */,
+				7F58BB641505335E00640F57 /* SettingTableViewSectionHeaderBackground@2x.png */,
+				7F58BB651505335E00640F57 /* SettingTableViewCellBackground.png */,
+				7F58BB661505335F00640F57 /* SettingTableViewCellBackground@2x.png */,
 				7F0A484414E63118001C62A0 /* BagItemIcon_BattleItems.png */,
 				7F0A484514E63118001C62A0 /* BagItemIcon_Berries.png */,
 				7F0A484614E63118001C62A0 /* BagItemIcon_Items.png */,
@@ -2989,13 +2995,16 @@
 				7FC128181504C78B00E2A8F7 /* GameBattleViewMainMenuButtonRunIcon@2x.png in Resources */,
 				7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */,
 				7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */,
-				7F58BB561505239800640F57 /* CustomNavigationController.xib in Resources */,
 				7F58BB59150524C200640F57 /* BagItemTableViewCellBackground.png in Resources */,
 				7F58BB5A150524C200640F57 /* BagItemTableViewCellBackground@2x.png in Resources */,
 				7F58BB5F150526F900640F57 /* BagItemTableViewCellSelectedBackground.png in Resources */,
 				7F58BB60150526F900640F57 /* BagItemTableViewCellSelectedBackground@2x.png in Resources */,
 				7F58BB61150526F900640F57 /* BagTableViewCellSelectedBackground.png in Resources */,
 				7F58BB62150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png in Resources */,
+				7F58BB671505335F00640F57 /* SettingTableViewSectionHeaderBackground.png in Resources */,
+				7F58BB681505335F00640F57 /* SettingTableViewSectionHeaderBackground@2x.png in Resources */,
+				7F58BB691505335F00640F57 /* SettingTableViewCellBackground.png in Resources */,
+				7F58BB6A1505335F00640F57 /* SettingTableViewCellBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3231,6 +3240,7 @@
 				7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */,
 				7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */,
 				7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */,
+				7F58BB6D1505349700640F57 /* SettingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

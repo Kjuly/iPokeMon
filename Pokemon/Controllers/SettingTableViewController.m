@@ -8,6 +8,7 @@
 
 #import "SettingTableViewController.h"
 
+#import "SettingTableViewCell.h"
 #import "SettingSectionHeaderView.h"
 
 
@@ -42,7 +43,12 @@ typedef enum {
 {
   self = [super initWithStyle:style];
   if (self) {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    
+#ifdef DEBUG
     NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+#endif
     
     sectionNames_ = [[NSArray alloc] initWithObjects:@"App Settings", @"About", nil];
   }
@@ -121,13 +127,13 @@ typedef enum {
 
 // Section Header Height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-  return 35.0f;
+  return 32.f;
 }
 
 // Section Header View Style
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  CGRect const sectionHeaderViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 40.0f);
+  CGRect const sectionHeaderViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 32.f);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:[self.sectionNames objectAtIndex:section]];
   return [sectionHeaderView autorelease];
@@ -137,9 +143,9 @@ typedef enum {
 {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[SettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
@@ -148,7 +154,7 @@ typedef enum {
   if (sectionNum == kSectionAppSettings) {
     switch (rowNum) {
       case kSectionAppSettingsRowLocationServices:
-        [cell.textLabel setText:
+        [cell.labelTitle setText:
          [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"] ? @"YES" : @"NO"];
         break;
         
@@ -159,7 +165,7 @@ typedef enum {
   else if (sectionNum == kSectionAbout) {
     switch (rowNum) {
       case kSectionAboutRowVersion:
-        [cell.textLabel setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"]];
+        [cell.labelTitle setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"]];
         break;
         
       default:

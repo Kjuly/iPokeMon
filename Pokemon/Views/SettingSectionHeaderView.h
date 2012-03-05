@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingSectionHeaderView : UIView
-{
+@interface SettingSectionHeaderView : UIView {
   UILabel * title_;
 }
 

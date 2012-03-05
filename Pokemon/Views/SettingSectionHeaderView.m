@@ -25,13 +25,12 @@
 {
   self = [super initWithFrame:frame];
   if (self) {
-    [self setBackgroundColor:[GlobalRender backgroundColorMain]];
-    
-    title_ = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 5.0f, 300.0f, 25.0f)];
+    [self setBackgroundColor:
+     [UIColor colorWithPatternImage:[UIImage imageNamed:@"SettingTableViewSectionHeaderBackground.png"]]];
+    title_ = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 5.f, 300.f, 22.f)];
     [title_ setBackgroundColor:[UIColor clearColor]];
-    [title_ setTextColor:[UIColor whiteColor]];
-    [title_ setFont:[GlobalRender textFontBoldItalicInSizeOf:13.0f]];
-    
+    [title_ setTextColor:[UIColor blackColor]];
+    [title_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.f]];
     [self addSubview:title_];
   }
   return self;
