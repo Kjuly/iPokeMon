@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "AccountSettingTableViewController.h"
+#import "SettingTableViewController.h"
 
 #import "SettingSectionHeaderView.h"
 
@@ -27,7 +27,7 @@ typedef enum {
   kNumberOfSectionAboutRows
 }SectionAboutRow;
 
-@implementation AccountSettingTableViewController
+@implementation SettingTableViewController
 
 @synthesize sectionNames = sectionNames_;
 

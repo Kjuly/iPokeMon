@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccountSettingTableViewController : UITableViewController
+@interface SettingTableViewController : UITableViewController
 {
   NSArray * sectionNames_;
 }

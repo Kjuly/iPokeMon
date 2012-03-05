@@ -503,7 +503,6 @@
 		7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */; };
 		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
 		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
-		7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */; };
 		7FC128021504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128001504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png */; };
 		7FC128031504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128011504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png */; };
 		7FC1280F1504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128051504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png */; };
@@ -562,7 +561,7 @@
 		7FEAE83714FD0854003679C1 /* MainViewCenterCircleHoverLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83114FD0852003679C1 /* MainViewCenterCircleHoverLeft@2x.png */; };
 		7FEAE83814FD0854003679C1 /* MainViewCenterCircleHoverRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83214FD0853003679C1 /* MainViewCenterCircleHoverRight.png */; };
 		7FEAE83914FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE83314FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png */; };
-		7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */; };
+		7FEED5C414E4E8F10010F7F2 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */; };
 		7FEED5C714E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */; };
 		7FEED5C814E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */; };
 		7FEED5CF14E506D30010F7F2 /* TabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */; };
@@ -571,7 +570,7 @@
 		7FEED5D514E50E520010F7F2 /* TabBarSelectedArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEED5D314E50E500010F7F2 /* TabBarSelectedArrow@2x.png */; };
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
-		7FF4B3F814F629BF007B7E22 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */; };
+		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1292,8 +1291,6 @@
 		7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewController.m; sourceTree = "<group>"; };
 		7FBD73F114E41AE900965CED /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCardViewController.h; sourceTree = "<group>"; };
 		7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
-		7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettingTableViewController.h; sourceTree = "<group>"; };
-		7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettingTableViewController.m; sourceTree = "<group>"; };
 		7FC128001504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewMainMenuBackground.png; sourceTree = "<group>"; };
 		7FC128011504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleViewMainMenuBackground@2x.png"; sourceTree = "<group>"; };
 		7FC128051504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewMainMenuButtonBagIcon.png; sourceTree = "<group>"; };
@@ -1359,8 +1356,8 @@
 		7FEAE83114FD0852003679C1 /* MainViewCenterCircleHoverLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircleHoverLeft@2x.png"; sourceTree = "<group>"; };
 		7FEAE83214FD0853003679C1 /* MainViewCenterCircleHoverRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterCircleHoverRight.png; sourceTree = "<group>"; };
 		7FEAE83314FD0854003679C1 /* MainViewCenterCircleHoverRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircleHoverRight@2x.png"; sourceTree = "<group>"; };
-		7FEED5C214E4E8F10010F7F2 /* AccountSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingTableViewController.h; sourceTree = "<group>"; };
-		7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingTableViewController.m; sourceTree = "<group>"; };
+		7FEED5C214E4E8F10010F7F2 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
+		7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		7FEED5C514E4FAA60010F7F2 /* AccountSettingTableView_CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AccountSettingTableView_CancelButton.png; path = Pokemon/Resources/Images/AccountSettingTableView_CancelButton.png; sourceTree = SOURCE_ROOT; };
 		7FEED5C614E4FAA60010F7F2 /* AccountSettingTableView_CancelButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AccountSettingTableView_CancelButton@2x.png"; path = "Pokemon/Resources/Images/AccountSettingTableView_CancelButton@2x.png"; sourceTree = SOURCE_ROOT; };
 		7FEED5CD14E506D30010F7F2 /* TabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackground.png; sourceTree = "<group>"; };
@@ -1370,8 +1367,8 @@
 		7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSectionHeaderView.h; sourceTree = "<group>"; };
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
-		7FF4B3F614F629BF007B7E22 /* AccountSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
-		7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
+		7FF4B3F614F629BF007B7E22 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		7FF4B3F714F629BF007B7E22 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1903,10 +1900,8 @@
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
 				7F51C41E14D7E0BF0091902D /* UtilityViewController.h */,
 				7F51C41F14D7E0BF0091902D /* UtilityViewController.m */,
-				7FF4B3F614F629BF007B7E22 /* AccountSettingViewController.h */,
-				7FF4B3F714F629BF007B7E22 /* AccountSettingViewController.m */,
-				7FEED5C214E4E8F10010F7F2 /* AccountSettingTableViewController.h */,
-				7FEED5C314E4E8F10010F7F2 /* AccountSettingTableViewController.m */,
+				7FF4B3F614F629BF007B7E22 /* SettingViewController.h */,
+				7FF4B3F714F629BF007B7E22 /* SettingViewController.m */,
 				7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */,
 				7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
@@ -1949,8 +1944,8 @@
 				7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */,
 				7FBB60C214E6BB8600C24BA5 /* TrainerBadgesTableViewController.h */,
 				7FBB60C314E6BB8700C24BA5 /* TrainerBadgesTableViewController.m */,
-				7FBD73F414E41C9000965CED /* GameSettingTableViewController.h */,
-				7FBD73F514E41C9200965CED /* GameSettingTableViewController.m */,
+				7FEED5C214E4E8F10010F7F2 /* SettingTableViewController.h */,
+				7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */,
 				7F51C42114D7E30A0091902D /* PoketchTabViewController.h */,
 				7F8EFA9914D976D000FF1055 /* PoketchTabViewController.m */,
 				7FAF625314E7984F00A14AE0 /* PoketchSixPokemonsViewController.h */,
@@ -3062,8 +3057,7 @@
 				7FBAA70A14E15A2A0011DCB0 /* GlobalRender.m in Sources */,
 				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
 				7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */,
-				7FBD73F614E41C9300965CED /* GameSettingTableViewController.m in Sources */,
-				7FEED5C414E4E8F10010F7F2 /* AccountSettingTableViewController.m in Sources */,
+				7FEED5C414E4E8F10010F7F2 /* SettingTableViewController.m in Sources */,
 				7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */,
 				7F90C5AF14E5640B00147718 /* PokedexTableViewCell.m in Sources */,
 				7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */,
@@ -3117,7 +3111,7 @@
 				7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */,
 				7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */,
 				7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */,
-				7FF4B3F814F629BF007B7E22 /* AccountSettingViewController.m in Sources */,
+				7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */,
 				7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */,
 				7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */,
 				7F50B7A714F93B8F00883412 /* CCAction.m in Sources */,

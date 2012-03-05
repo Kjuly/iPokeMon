@@ -13,7 +13,7 @@
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
 #import "TrainerCardViewController.h"
-#import "GameSettingTableViewController.h"
+#import "SettingTableViewController.h"
 
 
 @interface CenterMenuUtilityViewController () {
@@ -22,14 +22,14 @@
   SixPokemonsTableViewController * sixPokemonsTableViewController_;
   BagTableViewController         * bagTableViewController_;
   TrainerCardViewController      * trainerCardViewController_;
-  GameSettingTableViewController * gameSettingTableViewController_;
+  SettingTableViewController     * settingTableViewController_;
 }
 
 @property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
 @property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
 @property (nonatomic, retain) BagTableViewController         * bagTableViewController;
 @property (nonatomic, retain) TrainerCardViewController      * trainerCardViewController;
-@property (nonatomic, retain) GameSettingTableViewController * gameSettingTableViewController;
+@property (nonatomic, retain) SettingTableViewController     * settingTableViewController;
 
 // Buttons' Action
 - (void)showPokedex:(id)sender;
@@ -48,7 +48,7 @@
 @synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;
 @synthesize bagTableViewController         = bagTableViewController_;
 @synthesize trainerCardViewController      = trainerCardViewController_;
-@synthesize gameSettingTableViewController = gameSettingTableViewController_;
+@synthesize settingTableViewController     = settingTableViewController_;
 
 -(void)dealloc
 { 
@@ -56,7 +56,7 @@
   [sixPokemonsTableViewController_ release];
   [bagTableViewController_         release];
   [trainerCardViewController_      release];
-  [gameSettingTableViewController_ release];
+  [settingTableViewController_     release];
   
   [super dealloc];
 }
@@ -80,49 +80,6 @@
   for (UIButton * button in [self.centerMenu subviews])
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
             forState:UIControlStateNormal];
-  
-  // Button: Show Pokedex
-  //
-  //   o
-  //    \|/
-  //   --|--
-  //    /|\
-  //
-  // Button: Show Pokemon
-  //
-  //     o
-  //    \|/
-  //   --|--
-  //    /|\
-  //
-  // Button: Show Bag
-  //
-  //       o
-  //    \|/
-  //   --|--
-  //    /|\
-  //
-  // Button: Show Trainer Card
-  //
-  //    \|/
-  //   --|--
-  //    /|\
-  //   o
-  //
-  // Button: Hot Key
-  //
-  //    \|/
-  //   --|--
-  //    /|\
-  //     o
-  //
-  // Button: Set Game
-  //
-  //    \|/
-  //   --|--
-  //    /|\
-  //       o
-  //
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -139,7 +96,7 @@
   self.sixPokemonsTableViewController = nil;
   self.bagTableViewController         = nil;
   self.trainerCardViewController      = nil;
-  self.gameSettingTableViewController = nil;
+  self.settingTableViewController     = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -226,9 +183,9 @@
 }
 
 - (void)setGame:(id)sender {
-  if (! self.gameSettingTableViewController)
-    gameSettingTableViewController_ = [[GameSettingTableViewController alloc] init];
-  [self pushViewController:self.gameSettingTableViewController];
+  if (! self.settingTableViewController)
+    settingTableViewController_ = [[SettingTableViewController alloc] init];
+  [self pushViewController:self.settingTableViewController];
 }
 
 @end

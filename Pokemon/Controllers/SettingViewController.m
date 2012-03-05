@@ -6,18 +6,18 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "AccountSettingViewController.h"
+#import "SettingViewController.h"
 
-#import "AccountSettingTableViewController.h"
+#import "SettingTableViewController.h"
 
 
-@interface AccountSettingViewController ()
+@interface SettingViewController ()
 
 - (void)cancelAccountSettingTableView;
 
 @end
 
-@implementation AccountSettingViewController
+@implementation SettingViewController
 
 @synthesize delegate = delegate_;
 @synthesize topBar   = topBar_;
@@ -60,7 +60,7 @@
   [view release];
   
   // Cteate Table View
-  accountSettingTableViewController_ = [[AccountSettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  accountSettingTableViewController_ = [[SettingTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [accountSettingTableViewController_.view setFrame:CGRectMake(0.0f, 55.0f, 320.0f, 425.0f)];
   [self.view addSubview:accountSettingTableViewController_.view];
   

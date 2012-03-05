@@ -9,11 +9,6 @@
 #import "AbstractCenterMenuViewController.h"
 
 #import "GlobalNotificationConstants.h"
-#import "PokedexTableViewController.h"
-#import "SixPokemonsTableViewController.h"
-#import "BagTableViewController.h"
-#import "TrainerCardViewController.h"
-#import "GameSettingTableViewController.h"
 
 
 @interface AbstractCenterMenuViewController () {

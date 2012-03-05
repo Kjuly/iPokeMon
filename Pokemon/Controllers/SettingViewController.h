@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class AccountSettingTableViewController;
+@class SettingTableViewController;
 
 @protocol AccountSettingViewControllerDelegate
 
@@ -16,15 +16,15 @@
 
 @end
 
-@interface AccountSettingViewController : UIViewController
+@interface SettingViewController : UIViewController
 {
   id <AccountSettingViewControllerDelegate> delegate_;
   UIView * topBar_;
-  AccountSettingTableViewController * accountSettingTableViewController_;
+  SettingTableViewController * accountSettingTableViewController_;
 }
 
 @property (nonatomic, assign) id <AccountSettingViewControllerDelegate> delegate;
 @property (nonatomic, retain) UIView * topBar;
-@property (nonatomic, retain) AccountSettingTableViewController * accountSettingTableViewController;
+@property (nonatomic, retain) SettingTableViewController * accountSettingTableViewController;
 
 @end

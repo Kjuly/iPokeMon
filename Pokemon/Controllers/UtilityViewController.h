@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AccountSettingViewController.h"
+#import "SettingViewController.h"
 
 @protocol UtilityViewControllerDelegate
 
@@ -27,7 +27,7 @@
   UIButton * buttonDiscover_;
   UIButton * buttonSetAccount_;
   
-  AccountSettingViewController * accountSettingViewController_;
+  SettingViewController * accountSettingViewController_;
 }
 
 @property (nonatomic, assign) id <UtilityViewControllerDelegate> delegate;
@@ -37,6 +37,6 @@
 @property (nonatomic, retain) UIButton * buttonDiscover;
 @property (nonatomic, retain) UIButton * buttonSetAccount;
 
-@property (nonatomic, retain) AccountSettingViewController * accountSettingViewController;
+@property (nonatomic, retain) SettingViewController * accountSettingViewController;
 
 @end

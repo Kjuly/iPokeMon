@@ -10,8 +10,7 @@
 
 #import "GlobalConstants.h"
 
-@interface AbstractCenterMenuViewController : UIViewController
-{
+@interface AbstractCenterMenuViewController : UIViewController {
   UIView * centerMenu_;
 }
 

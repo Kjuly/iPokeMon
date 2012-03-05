@@ -182,7 +182,7 @@
 - (void)openAccountSettingTableView:(id)sender
 {
   if (! accountSettingViewController_) {
-    accountSettingViewController_ = [[AccountSettingViewController alloc] init];
+    accountSettingViewController_ = [[SettingViewController alloc] init];
     accountSettingViewController_.delegate = self;
     [accountSettingViewController_.view setAlpha:0.0f];
     [accountSettingViewController_.view setFrame:CGRectMake(30.0f, 45.0f, 260.0f, 390.0f)];
