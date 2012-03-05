@@ -16,10 +16,14 @@
  @private
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
+  UIView * menuArea_;
+  UIView * buttonBagAndRunBackground_;
 }
 
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
+@property (nonatomic, retain) UIView * menuArea;
+@property (nonatomic, retain) UIView * buttonBagAndRunBackground;
 
 // Button Actions
 - (void)openMoveView;
@@ -37,6 +41,8 @@
 
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
+@synthesize menuArea = menuArea_;
+@synthesize buttonBagAndRunBackground = buttonBagAndRunBackground_;
 
 - (void)dealloc
 {
@@ -48,6 +54,8 @@
   
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
+  [menuArea_ release];
+  [buttonBagAndRunBackground_ release];
   
   [super dealloc];
 }
@@ -76,34 +84,53 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 280.0f, 320.0f, 200.0f)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor grayColor]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
+  [self.view setOpaque:NO];
   
   // Constants
-  CGRect buttonFightFrame = CGRectMake(10.0f, 5.0f, 300.0f, 70.0f);
-  CGRect buttonBagFrame   = CGRectMake(10.0f, 85.0f, 145.0f, 70.0f);
-  CGRect buttonRunFrame   = CGRectMake(165.0f, 85.0f, 145.0f, 70.0f);
+  CGRect menuAreaFrame    = CGRectMake(0.0f, 270.0f, 320.0f, 210.0f);
+  CGRect buttonBagAndRunBackgroundFrame = CGRectMake(10.0f, 20.0f, 300.0f, 130.0f);
+  CGRect buttonBagFrame   = CGRectMake(10.0f, 25.0f, 80.0f, 80.0f);
+  CGRect buttonRunFrame   = CGRectMake(210.0f, 25.0f, 80.0f, 80.0f);
+  CGRect buttonFightFrame = CGRectMake(85.0f, 0.0f, 130.0f, 130.0f);
+  
+  // Menu Area
+  UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
+  self.menuArea = menuArea;
+  [menuArea release];
+  [self.view addSubview:self.menuArea];
+  
+  UIView * buttonBagAndRunBackground = [[UIView alloc] initWithFrame:buttonBagAndRunBackgroundFrame];
+  self.buttonBagAndRunBackground = buttonBagAndRunBackground;
+  [buttonBagAndRunBackground release];
+  [self.buttonBagAndRunBackground setBackgroundColor:
+   [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagRunBackground.png"]]];
+  [self.buttonBagAndRunBackground setOpaque:NO];
+  [self.menuArea addSubview:self.buttonBagAndRunBackground];
   
   // Create Menu Buttons
-  buttonFight_ = [[UIButton alloc] initWithFrame:buttonFightFrame];
-  [buttonFight_ setBackgroundColor:[UIColor blackColor]];
-  [buttonFight_ setTitle:@"Fight" forState:UIControlStateNormal];
-  [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:buttonFight_];
-  
   buttonBag_ = [[UIButton alloc] initWithFrame:buttonBagFrame];
-  [buttonBag_ setBackgroundColor:[UIColor blackColor]];
-  [buttonBag_ setTitle:@"Bag" forState:UIControlStateNormal];
+  [buttonBag_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagIcon.png"]
+              forState:UIControlStateNormal];
   [buttonBag_ addTarget:self action:@selector(openBagView) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:buttonBag_];
+  [self.buttonBagAndRunBackground addSubview:buttonBag_];
   
   buttonRun_ = [[UIButton alloc] initWithFrame:buttonRunFrame];
-  [buttonRun_ setBackgroundColor:[UIColor blackColor]];
-  [buttonRun_ setTitle:@"Run" forState:UIControlStateNormal];
+  [buttonRun_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonRunIcon.png"]
+              forState:UIControlStateNormal];
   [buttonRun_ addTarget:self action:@selector(openRunConfirmView) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:buttonRun_];
+  [self.buttonBagAndRunBackground addSubview:buttonRun_];
+  
+  buttonFight_ = [[UIButton alloc] initWithFrame:buttonFightFrame];
+  [buttonFight_ setBackgroundColor:
+   [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightBackground.png"]]];
+  [buttonFight_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightIcon.png"]
+                forState:UIControlStateNormal];
+  [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
+  [self.buttonBagAndRunBackground addSubview:buttonFight_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -122,6 +149,8 @@
   
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
+  self.menuArea = nil;
+  self.buttonBagAndRunBackground = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
