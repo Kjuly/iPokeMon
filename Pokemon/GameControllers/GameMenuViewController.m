@@ -225,6 +225,11 @@ typedef enum {
 {
   switch (self.gameMenuKeyView) {
     case kGameMenuKeyViewSixPokemonsView:
+      //
+      // TODO:
+      //   Six Pokemons' List View
+      //   Throw PokeBall!!!
+      //
       break;
       
     case kGameMenuKeyViewMoveView:
