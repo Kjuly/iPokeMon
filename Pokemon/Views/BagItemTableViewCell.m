@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "BagTableViewCell.h"
+#import "BagItemTableViewCell.h"
 
 #import "GlobalRender.h"
 
-@implementation BagTableViewCell
+@implementation BagItemTableViewCell
 
 @synthesize imageView     = imageView_;
 @synthesize labelTitle    = labelTitle_;
@@ -31,7 +31,7 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 52.f;
+    CGFloat const cellHeight     = 45.0f;
     CGFloat const cellWidth      = 320.f;
     CGFloat const imageWidth     = 30.f; 
     CGFloat const titleHeight    = 30.f;
@@ -39,7 +39,7 @@
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
+    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagItemTableViewCellBackground.png"]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
@@ -47,7 +47,7 @@
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:
-     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellSelectedBackground.png"]]];
+     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagItemTableViewCellSelectedBackground.png"]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];

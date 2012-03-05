@@ -9,6 +9,7 @@
 #import "BagItemTableViewController.h"
 
 #import "PListParser.h"
+#import "BagItemTableViewCell.h"
 
 
 @implementation BagItemTableViewController
@@ -27,6 +28,9 @@
 {
   self = [self initWithStyle:UITableViewStylePlain];
   if (self) {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    
     switch (ItemTypeID) {
       case 0:
         items_ = [[PListParser bagItems] mutableCopy];
@@ -135,6 +139,10 @@
   return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 45.f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return [self.items count];
 }
@@ -143,13 +151,14 @@
 {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
-  [cell.textLabel setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
+  [cell.labelTitle setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
+//  [cell.imageView setImage:];
   
   return cell;
 }

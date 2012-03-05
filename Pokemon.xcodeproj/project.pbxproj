@@ -180,6 +180,14 @@
 		7F52451914FBEA810019C75A /* GameStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451814FBEA810019C75A /* GameStatus.m */; };
 		7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */; };
 		7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */; };
+		7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB521505239600640F57 /* BagItemTableViewCell.m */; };
+		7F58BB561505239800640F57 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB541505239800640F57 /* CustomNavigationController.xib */; };
+		7F58BB59150524C200640F57 /* BagItemTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */; };
+		7F58BB5A150524C200640F57 /* BagItemTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */; };
+		7F58BB5F150526F900640F57 /* BagItemTableViewCellSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */; };
+		7F58BB60150526F900640F57 /* BagItemTableViewCellSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */; };
+		7F58BB61150526F900640F57 /* BagTableViewCellSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */; };
+		7F58BB62150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */; };
 		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
 		7F61D85E1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */; };
 		7F61D85F1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84D1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png */; };
@@ -894,6 +902,15 @@
 		7F52451814FBEA810019C75A /* GameStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatus.m; sourceTree = "<group>"; };
 		7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameViewPokemonMoveView.png; sourceTree = "<group>"; };
 		7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameViewPokemonMoveView@2x.png"; sourceTree = "<group>"; };
+		7F58BB511505239500640F57 /* BagItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewCell.h; sourceTree = "<group>"; };
+		7F58BB521505239600640F57 /* BagItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewCell.m; sourceTree = "<group>"; };
+		7F58BB541505239800640F57 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
+		7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellBackground.png; sourceTree = "<group>"; };
+		7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
+		7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
+		7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellSelectedBackground@2x.png"; sourceTree = "<group>"; };
+		7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
+		7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellSelectedBackground@2x.png"; sourceTree = "<group>"; };
 		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
 		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
 		7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabView4TabsCircleBarBackground.png; sourceTree = "<group>"; };
@@ -1765,6 +1782,14 @@
 			path = JSONKit;
 			sourceTree = "<group>";
 		};
+		7F58BB531505239700640F57 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				7F58BB541505239800640F57 /* CustomNavigationController.xib */,
+			);
+			path = Xibs;
+			sourceTree = "<group>";
+		};
 		7F61D84B1500FF09007C0BBD /* TabView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2037,12 +2062,12 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FBB60AB14E6A50700C24BA5 /* tmp */,
 				7FC127FF1504C24400E2A8F7 /* GameView */,
 				7FA1D86A15035DC700E0D2F6 /* Icons */,
 				7F61D84B1500FF09007C0BBD /* TabView */,
 				7FEAE80214FD00DC003679C1 /* MainView */,
 				7F3F7ACE14FB7FED005E554E /* GameImages */,
-				7FBB60AB14E6A50700C24BA5 /* tmp */,
 				7FBAA71014E170430011DCB0 /* UtilityBall */,
 				7F2EFB7414DE78250068F681 /* Pokemon */,
 				7FE2BA9F14DAA8E000419825 /* NavigationBar */,
@@ -2098,6 +2123,9 @@
 				7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */,
 				7F8B816914E5786A0085CE22 /* BagTableViewCell.h */,
 				7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */,
+				7F58BB511505239500640F57 /* BagItemTableViewCell.h */,
+				7F58BB521505239600640F57 /* BagItemTableViewCell.m */,
+				7F58BB531505239700640F57 /* Xibs */,
 				7FBB60D514E6C37C00C24BA5 /* TrainerBadgesTableViewCell.h */,
 				7FBB60D614E6C37C00C24BA5 /* TrainerBadgesTableViewCell.m */,
 				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
@@ -2422,6 +2450,12 @@
 				7F0A485A14E671DD001C62A0 /* PokemonDetailImageBackground@2x.png */,
 				7F0A485514E636E5001C62A0 /* BagTableViewCellBackground.png */,
 				7F0A485614E636E5001C62A0 /* BagTableViewCellBackground@2x.png */,
+				7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */,
+				7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */,
+				7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */,
+				7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */,
+				7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */,
+				7F58BB5E150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png */,
 				7F0A484414E63118001C62A0 /* BagItemIcon_BattleItems.png */,
 				7F0A484514E63118001C62A0 /* BagItemIcon_Berries.png */,
 				7F0A484614E63118001C62A0 /* BagItemIcon_Items.png */,
@@ -2960,6 +2994,13 @@
 				7FC128181504C78B00E2A8F7 /* GameBattleViewMainMenuButtonRunIcon@2x.png in Resources */,
 				7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */,
 				7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */,
+				7F58BB561505239800640F57 /* CustomNavigationController.xib in Resources */,
+				7F58BB59150524C200640F57 /* BagItemTableViewCellBackground.png in Resources */,
+				7F58BB5A150524C200640F57 /* BagItemTableViewCellBackground@2x.png in Resources */,
+				7F58BB5F150526F900640F57 /* BagItemTableViewCellSelectedBackground.png in Resources */,
+				7F58BB60150526F900640F57 /* BagItemTableViewCellSelectedBackground@2x.png in Resources */,
+				7F58BB61150526F900640F57 /* BagTableViewCellSelectedBackground.png in Resources */,
+				7F58BB62150526F900640F57 /* BagTableViewCellSelectedBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3195,6 +3236,7 @@
 				7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */,
 				7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */,
 				7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */,
+				7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
