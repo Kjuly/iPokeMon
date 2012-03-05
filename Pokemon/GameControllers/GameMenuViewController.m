@@ -8,19 +8,29 @@
 
 #import "GameMenuViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "GameStatus.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
 
 
+typedef enum {
+  kGameMenuKeyViewNone            = 0,
+  kGameMenuKeyViewSixPokemonsView = 1,
+  kGameMenuKeyViewMoveView        = 2,
+  kGameMenuKeyViewBagView         = 3
+}GameMenuKeyView;
+
 @interface GameMenuViewController () {
  @private
+  GameMenuKeyView              gameMenuKeyView_;
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
   UIView * menuArea_;
   UIView * buttonBagAndRunBackground_;
 }
 
+@property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
 @property (nonatomic, retain) UIView * menuArea;
@@ -30,6 +40,7 @@
 - (void)openMoveView;
 - (void)openBagView;
 - (void)openRunConfirmView;
+- (void)toggleSixPokemonsView:(NSNotification *)notification;
 
 @end
 
@@ -40,6 +51,7 @@
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
 
+@synthesize gameMenuKeyView            = gameMenuKeyView_;
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
 @synthesize menuArea = menuArea_;
@@ -90,6 +102,15 @@
   [view release];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
   [self.view setOpaque:NO];
+  
+  // Base Settings
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
+  
+  // Add Observer for notfication
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(toggleSixPokemonsView:)
+                                               name:kPMNToggleSixPokemons
+                                             object:nil];
   
   // Constants
   CGRect menuAreaFrame    = CGRectMake(0.0f, 270.0f, 320.0f, 210.0f);
@@ -172,7 +193,8 @@
       [gameMenuMoveViewController release];
     }
     [self.view addSubview:self.gameMenuMoveViewController.view];
-    [self.gameMenuMoveViewController loadMoveView];
+    [self.gameMenuMoveViewController loadViewWithAnimation];
+    self.gameMenuKeyView = kGameMenuKeyViewMoveView;
   }
 }
 
@@ -185,6 +207,8 @@
       [gameMenuBagViewController release];
     }
     [self.view addSubview:self.gameMenuBagViewController.view];
+    [self.gameMenuBagViewController loadViewWithAnimation];
+    self.gameMenuKeyView = kGameMenuKeyViewBagView;
   }
 }
 
@@ -193,6 +217,29 @@
   if ([[GameStatus sharedInstance] isTrainerTurn]) {
     NSLog(@"Open Run Confirm View..");
     [delegate_ unloadBattleScene];
+  }
+}
+
+// Notification for |centerMainButton_| at view bottom
+- (void)toggleSixPokemonsView:(NSNotification *)notification
+{
+  switch (self.gameMenuKeyView) {
+    case kGameMenuKeyViewSixPokemonsView:
+      break;
+      
+    case kGameMenuKeyViewMoveView:
+      [self.gameMenuMoveViewController unloadViewWithAnimation];
+      break;
+      
+    case kGameMenuKeyViewBagView:
+      if (self.gameMenuBagViewController.isSelectedItemViewOpening)
+        [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
+      [self.gameMenuBagViewController unloadViewWithAnimation];
+      break;
+      
+    case kGameMenuKeyViewNone:
+    default:
+      break;
   }
 }
 

@@ -66,15 +66,6 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
-}
-
 - (void)didReceiveMemoryWarning
 {
   // Releases the view if it doesn't have a superview.
@@ -91,10 +82,10 @@
   [super loadView];
   
   // Constants
-  CGRect moveOneViewFrame   = CGRectMake(10.0f, 20.0f, 280, 45.0f);
-  CGRect moveTwoViewFrame   = CGRectMake(10.0f, 65.0f, 280.0f, 45.0f);
-  CGRect moveThreeViewFrame = CGRectMake(10.0f, 110.0f, 280.0f, 45.0f);
-  CGRect moveFourViewFrame  = CGRectMake(10.0f, 155.0f, 280.0f, 45.0f);
+  CGRect moveOneViewFrame   = CGRectMake(10.f, 20.f, 280.f, 45.f);
+  CGRect moveTwoViewFrame   = CGRectMake(10.f, 65.f, 280.f, 45.f);
+  CGRect moveThreeViewFrame = CGRectMake(10.f, 110.f, 280.f, 45.f);
+  CGRect moveFourViewFrame  = CGRectMake(10.f, 155.f, 280.f, 45.f);
   
   // Set Four Moves' layout
   moveOneView_   = [[GameMenuMoveUnitView alloc] initWithFrame:moveOneViewFrame];
@@ -194,7 +185,7 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
   [userInfo release];
   
-  [self unloadMoveView];
+  [self unloadViewWithAnimation];
   [[GameStatus sharedInstance] trainerTurnEnd];
 }
 

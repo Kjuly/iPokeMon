@@ -39,6 +39,12 @@
 "PMSLabelAdventureStarted" = "冒险开始时间：";
 "PMSLabelSteps"            = "步长：";
 
+// Game
+"PMSGameMenuBagItem1" = "HP/PP 回复";
+"PMSGameMenuBagItem2" = "状态回复";
+"PMSGameMenuBagItem3" = "精灵球";
+"PMSGameMenuBagItem4" = "战斗辅助";
+
 
 /*
  * Pokedex

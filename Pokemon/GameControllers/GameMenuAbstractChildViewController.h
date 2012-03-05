@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) UIView * tableAreaView;
 
-- (void)loadMoveView;
-- (void)unloadMoveView;
+- (void)loadViewWithAnimation;
+- (void)unloadViewWithAnimation;
 
 @end

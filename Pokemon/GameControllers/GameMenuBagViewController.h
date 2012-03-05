@@ -6,10 +6,14 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "GameMenuAbstractChildViewController.h"
 
-@interface GameMenuBagViewController : GameMenuAbstractChildViewController
+@interface GameMenuBagViewController : GameMenuAbstractChildViewController {
+   BOOL isSelectedItemViewOpening_;
+}
+
+@property (nonatomic, assign) BOOL isSelectedItemViewOpening;
+
+- (void)unloadSelcetedItemTalbeView:(id)sender;
 
 @end

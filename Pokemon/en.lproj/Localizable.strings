@@ -41,6 +41,12 @@
 "PMSLabelAdventureStarted" = "Adventure Started: ";
 "PMSLabelSteps"            = "Steps: ";
 
+// Game
+"PMSGameMenuBagItem1" = "HP/PP Restore";
+"PMSGameMenuBagItem2" = "Status Healers";
+"PMSGameMenuBagItem3" = "PokeBalls";
+"PMSGameMenuBagItem4" = "Battle Items";
+
 
 /*
  * Pokedex

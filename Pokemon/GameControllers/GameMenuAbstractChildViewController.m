@@ -149,11 +149,11 @@
 
 #pragma mark - Public Methods
 
-- (void)loadMoveView {
+- (void)loadViewWithAnimation {
   [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
 }
 
-- (void)unloadMoveView {
+- (void)unloadViewWithAnimation {
   [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
 }
 
