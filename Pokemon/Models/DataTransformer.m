@@ -46,14 +46,24 @@
 }
 
 - (id)transformedValue:(id)value {
-  return [value dataUsingEncoding:NSUTF8StringEncoding];
+  // If the |value| class is |NSString| type,
+  // Transform |NSString| to |NSArray| first, then to |NSData|.
+  // Intermediate Transform: | NSArray * array = [value componentsSeparatedByString:@","]; |
+//  return [value dataUsingEncoding:NSUTF8StringEncoding];
+  return [NSKeyedArchiver archivedDataWithRootObject:value];
+  
+//  if ([value isKindOfClass:[NSString class]])
+//    return [NSKeyedArchiver archivedDataWithRootObject:[value componentsSeparatedByString:@","]];
+//  return [NSKeyedArchiver archivedDataWithRootObject:value];
 }
 
 - (id)reverseTransformedValue:(id)value {
-  NSString * stringData = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
-  NSArray * dataArray = [stringData componentsSeparatedByString:@","];
-  [stringData release];
-  return dataArray;
+//  NSString * stringData = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+//  NSArray * dataArray = [stringData componentsSeparatedByString:@","];
+//  [stringData release];
+//  return dataArray;
+  return [[NSKeyedUnarchiver unarchiveObjectWithData:value] componentsSeparatedByString:@","];
+//  return [NSKeyedUnarchiver unarchiveObjectWithData:value];
 }
 
 @end

@@ -31,6 +31,7 @@
   [gameWildPoekmon_    release];
   [gameTrainerPokemon_ release];
   
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNMoveEffect object:nil];
   [super dealloc];
 }
 
