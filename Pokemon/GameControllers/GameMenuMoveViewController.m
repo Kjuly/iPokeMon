@@ -176,7 +176,19 @@
   NSInteger moveTag = ((UIButton *)sender).tag;
   NSLog(@"Use Move %d", moveTag);
   
-  Move * move = [self.fourMoves objectAtIndex:moveTag];
+  Move * move = [self.fourMoves objectAtIndex:moveTag - 1];
+  
+  // Set data for message in |GameMenuViewController|
+  NSInteger pokemonID = [self.trainerPokemon.sid intValue];
+  NSInteger moveID    = [move.sid intValue];
+  // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
+  NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
+                        NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                        NSLocalizedString(@"PMS_used", nil),
+                        NSLocalizedString(([NSString stringWithFormat:@"PMSMoveName%.3d", moveID]), nil)];
+  NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage object:self userInfo:messageInfo];
+  
   // Send parameter to Move Effect Controller
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              @"TrainerPokemon", @"MoveOwner",

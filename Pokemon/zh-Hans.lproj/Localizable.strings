@@ -45,6 +45,9 @@
 "PMSGameMenuBagItem3" = "精灵球";
 "PMSGameMenuBagItem4" = "战斗辅助";
 
+// Text Message
+"PMS_used" = "使用了";
+
 
 /*
  * Pokedex

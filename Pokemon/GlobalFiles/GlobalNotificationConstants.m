@@ -20,6 +20,7 @@ NSString * const kPMNBattleEnd         = @"PMNBattleEnd";
 NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
 
 NSString * const kPMNMoveEffect = @"PMNMoveEffect";
+NSString * const kPMNUpdateGameBattleMessage = @"PMNUpdateGameBattleMessage";
 
 @implementation GlobalNotificationConstants
 

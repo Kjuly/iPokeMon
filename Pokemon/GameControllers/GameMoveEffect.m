@@ -31,6 +31,7 @@
   [gameWildPoekmon_    release];
   [gameTrainerPokemon_ release];
   
+  // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNMoveEffect object:nil];
   [super dealloc];
 }
@@ -42,6 +43,7 @@
     self.gameWildPokemon    = gameWildPokemon;
     self.gameTrainerPokemon = gameTrainerPokemon;
     
+    // Add observer for notification from |GameWildPokemon| & |GameMenuMoveViewController|
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applyMoveEffect:)
                                                  name:kPMNMoveEffect
@@ -62,15 +64,14 @@
 - (void)applyMoveEffect:(NSNotification *)notification
 {
   NSDictionary * userInfo = notification.userInfo;
+  NSInteger moveDamage = [[userInfo objectForKey:@"damage"] intValue];
   if ([[userInfo objectForKey:@"MoveOwner"] isEqualToString:@"TrainerPokemon"]) {
-    self.gameWildPokemon.hp -= [[userInfo objectForKey:@"damage"] intValue];
-    if (self.gameWildPokemon.hp < 0)
-      self.gameWildPokemon.hp = 0;
+    self.gameWildPokemon.hp -= moveDamage;
+    if (self.gameWildPokemon.hp < 0) self.gameWildPokemon.hp = 0;
   }
   else {
-    self.gameTrainerPokemon.hp -= [[userInfo objectForKey:@"damage"] intValue];
-    if (self.gameTrainerPokemon.hp < 0)
-      self.gameTrainerPokemon.hp = 0;
+    self.gameTrainerPokemon.hp -= moveDamage;
+    if (self.gameTrainerPokemon.hp < 0) self.gameTrainerPokemon.hp = 0;
   }
   userInfo = nil;
 }

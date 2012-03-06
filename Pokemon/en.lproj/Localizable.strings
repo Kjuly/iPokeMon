@@ -47,6 +47,9 @@
 "PMSGameMenuBagItem3" = "PokeBalls";
 "PMSGameMenuBagItem4" = "Battle Items";
 
+// Text Message
+"PMS_used" = "used";
+
 
 /*
  * Pokedex

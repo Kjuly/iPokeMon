@@ -8,13 +8,20 @@
 
 #import "GameStatus.h"
 
+#import "GlobalNotificationConstants.h"
+
 
 @interface GameStatus () {
  @private
   BOOL isTrainerTurn_;
+  BOOL isWildPokemonTurn_;
 }
 
+- (void)setTrainerAsControllerForNextTurn;
+- (void)setWildPokemonAsControllerForNextTurn;
+
 @end
+
 
 @implementation GameStatus
 
@@ -52,16 +59,34 @@ static GameStatus * gameStatus = nil;
 }
 
 - (BOOL)isWildPokemonTurn {
-  return ! isTrainerTurn_;
+  return isWildPokemonTurn_;
 }
 
 // Setting after Turn End
 - (void)trainerTurnEnd {
   isTrainerTurn_ = NO;
+  [self performSelector:@selector(setWildPokemonAsControllerForNextTurn) withObject:self afterDelay:2.5f];
 }
 
 - (void)wildPokemonTurnEnd {
-  isTrainerTurn_ = YES;
+  isWildPokemonTurn_ = NO;
+  [self performSelector:@selector(setTrainerAsControllerForNextTurn) withObject:self afterDelay:2.5f];
 }
+
+// Choose game controller for next turn
+- (void)setTrainerAsControllerForNextTurn {
+  isTrainerTurn_ = YES;
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                      object:self
+                                                    userInfo:[NSDictionary dictionaryWithObject:@"What's next?"
+                                                                                         forKey:@"message"]];
+}
+
+- (void)setWildPokemonAsControllerForNextTurn {
+  isWildPokemonTurn_ = YES;
+}
+
+
+
 
 @end

@@ -11,6 +11,7 @@
 
 @implementation GameAbstractPokemon
 
+@synthesize pokemonID     = pokemonID_;
 @synthesize pokemonSprite = pokemonSprite_;
 @synthesize hp            = hp_;
 @synthesize hpMax         = hpMax_;

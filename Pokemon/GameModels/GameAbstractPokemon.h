@@ -18,6 +18,7 @@ typedef enum {
 }PokemonBattleStatus;
 
 @interface GameAbstractPokemon : CCNode {
+  NSInteger  pokemonID_;
   CCSprite * pokemonSprite_;
   int        hp_;
   int        hpMax_;
@@ -25,6 +26,7 @@ typedef enum {
   PokemonBattleStatus pokemonBattleStatus_;
 }
 
+@property (nonatomic, assign) NSInteger  pokemonID;
 @property (nonatomic, retain) CCSprite * pokemonSprite;
 @property (nonatomic, assign) int        hp;
 @property (nonatomic, assign) int        hpMax;

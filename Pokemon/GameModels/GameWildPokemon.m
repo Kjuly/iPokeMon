@@ -26,7 +26,7 @@
 
 @implementation GameWildPokemon
 
-static int attackDelayTime = 300;
+static int attackDelayTime = 150;
 
 @synthesize wildPokemon = wildPokemon_;
 
@@ -43,6 +43,7 @@ static int attackDelayTime = 300;
     
     // Data Setting
     self.wildPokemon   = [WildPokemon queryPokemonDataWithID:pokemonID];
+    self.pokemonID     = [self.wildPokemon.sid intValue];
     self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.pokemon.image).CGImage
                                                  key:keyName];
     [self.pokemonSprite setPosition:ccp(-90, 380)];
@@ -92,24 +93,40 @@ static int attackDelayTime = 300;
 - (void)attack:(ccTime)dt
 {
   if ([[GameStatus sharedInstance] isWildPokemonTurn]) {
-//    NSLog(@"Wild Pokemon's Turn:");
     attackDelayTime -= 100 * dt;
     if (attackDelayTime > 0)
       return;
     
     // Do Move Attack
+    //
+    // TODO:
+    //   Need an algorithm to choose the MOVE
+    //
     Move * move = [[self.wildPokemon.fourMoves allObjects] objectAtIndex:0];
+    
+    // Set data for message in |GameMenuViewController|
+    NSInteger pokemonID = [self.wildPokemon.sid intValue];
+    NSInteger moveID    = [move.sid intValue];
+    // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
+    NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
+                          NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                          NSLocalizedString(@"PMS_used", nil),
+                          NSLocalizedString(([NSString stringWithFormat:@"PMSMoveName%.3d", moveID]), nil)];
+    NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage object:self userInfo:messageInfo];
     
     // Send parameter to Move Effect Controller
     NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                @"WildPokemon", @"MoveOwner",
-                               move.baseDamage, @"damage",
-                               nil];
+                               self.wildPokemon.sid, @"pokemonID",
+                               move.sid, @"moveID",
+                               move.baseDamage, @"damage", nil];
+    // Notification target: |GameMoveEffect|
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
     [userInfo release];
     
     [[GameStatus sharedInstance] wildPokemonTurnEnd];
-    attackDelayTime = 300;
+    attackDelayTime = 150;
   }
 }
 

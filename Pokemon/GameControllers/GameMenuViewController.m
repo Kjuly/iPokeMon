@@ -8,6 +8,7 @@
 
 #import "GameMenuViewController.h"
 
+#import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatus.h"
 #import "GameMenuMoveViewController.h"
@@ -27,18 +28,21 @@ typedef enum {
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
   UIView * menuArea_;
+  UITextView * messageView_;
 }
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
 @property (nonatomic, retain) UIView * menuArea;
+@property (nonatomic, retain) UITextView * messageView;
 
 // Button Actions
 - (void)openMoveView;
 - (void)openBagView;
 - (void)openRunConfirmView;
 - (void)toggleSixPokemonsView:(NSNotification *)notification;
+- (void)updateMessage:(NSNotification *)notification;
 
 @end
 
@@ -53,6 +57,7 @@ typedef enum {
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
 @synthesize menuArea = menuArea_;
+@synthesize messageView = messageView_;
 
 - (void)dealloc
 {
@@ -65,7 +70,11 @@ typedef enum {
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
   [menuArea_ release];
+  [messageView_ release];
   
+  // Rmove observer for notification
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
   [super dealloc];
 }
 
@@ -99,20 +108,12 @@ typedef enum {
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
   [self.view setOpaque:NO];
   
-  // Base Settings
-  gameMenuKeyView_ = kGameMenuKeyViewNone;
-  
-  // Add Observer for notfication
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(toggleSixPokemonsView:)
-                                               name:kPMNToggleSixPokemons
-                                             object:nil];
-  
   // Constants
-  CGRect menuAreaFrame    = CGRectMake(0.f, 270.f, 320.f, 210.f);
+  CGRect menuAreaFrame    = CGRectMake(0.f, 270.f, 320.f, 45.f);
   CGRect buttonBagFrame   = CGRectMake(50.f, 5.f, 32.f, 32.f);
   CGRect buttonRunFrame   = CGRectMake(320.f - 50.f - 32.f, 5.f, 32.f, 32.f);
   CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
+  CGRect messageViewFrame = CGRectMake(10.f, 330.f, 300.f, 120.f);
   
   // Menu Area
   UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
@@ -138,12 +139,35 @@ typedef enum {
                 forState:UIControlStateNormal];
   [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
   [self.menuArea addSubview:buttonFight_];
+  
+  // Message View
+  UITextView * messageView = [[UITextView alloc] initWithFrame:messageViewFrame];
+  self.messageView = messageView;
+  [messageView release];
+  [self.messageView setBackgroundColor:[UIColor clearColor]];
+  [self.messageView setFont:[GlobalRender textFontNormalInSizeOf:16.0f]];
+  [self.messageView setTextColor:[GlobalRender textColorNormal]];
+  [self.view addSubview:self.messageView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Base Settings
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
+  
+  // Add observer for notfication from |centerMainButton_|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(toggleSixPokemonsView:)
+                                               name:kPMNToggleSixPokemons
+                                             object:nil];
+  // Add observer for notification from |GameMenuMoveViewController| & |GameWildPokemon|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(updateMessage:)
+                                               name:kPMNUpdateGameBattleMessage
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -157,6 +181,7 @@ typedef enum {
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
   self.menuArea = nil;
+  self.messageView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -230,6 +255,28 @@ typedef enum {
     default:
       break;
   }
+}
+
+// Update message for game battle
+- (void)updateMessage:(NSNotification *)notification
+{
+  NSDictionary * userInfo = notification.userInfo;
+  [UIView animateWithDuration:.2f
+                        delay:0.f
+                      options:UIViewAnimationCurveEaseOut
+                   animations:^{
+                     [self.messageView setAlpha:0.f];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.messageView setText:[userInfo objectForKey:@"message"]];
+                     [UIView animateWithDuration:.3f
+                                           delay:0.f
+                                         options:UIViewAnimationCurveEaseIn
+                                      animations:^{
+                                        [self.messageView setAlpha:1.f];
+                                      }
+                                      completion:nil];
+                   }];
 }
 
 @end

@@ -31,6 +31,7 @@
     
     // Data Setting
     self.trainerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+    self.pokemonID      = [self.trainerPokemon.sid intValue];
     self.pokemonSprite  = [CCSprite spriteWithCGImage:((UIImage *)self.trainerPokemon.pokemon.image).CGImage
                                                   key:@"TrainerPokemon"];
     [self.pokemonSprite setPosition:ccp(410, 300)];
