@@ -11,8 +11,8 @@
 #import "GlobalNotificationConstants.h"
 #import "AbstractCenterMenuViewController.h"
 
-#define kBackButtonHeight 60.0f
-#define kBackButtonWith   40.0f
+#define kBackButtonHeight 60.f
+#define kBackButtonWith   40.f
 
 
 @interface CustomNavigationBar ()
@@ -50,7 +50,6 @@
 - (void)drawRect:(CGRect)rect
 {
   NSLog(@"*** CustomNavigationBar drawRect:");
-  
   // Draw |navigationBarBackgroundImage_|
   if (navigationBarBackgroundImage_)
     [navigationBarBackgroundImage_.image drawInRect:navigationBarBackgroundImage_.frame];
@@ -86,11 +85,8 @@
 // If not shown, call |[self setNeedsDisplay];| to force a redraw.
 - (void)initNavigationBarWith:(UIImage *)backgroundImage
 {
-  navigationBarBackgroundImage_ = [[UIImageView alloc]
-                                   initWithFrame:CGRectMake(0.0f,
-                                                            0.0f,
-                                                            backgroundImage.size.width,
-                                                            backgroundImage.size.height)];
+  CGRect navigationBarBackgroundImageFrame = CGRectMake(0.f, 0.f, backgroundImage.size.width, backgroundImage.size.height);
+  navigationBarBackgroundImage_ = [[UIImageView alloc] initWithFrame:navigationBarBackgroundImageFrame];
   navigationBarBackgroundImage_.image = backgroundImage;
   
   // Initialize |viewCount_|
@@ -144,7 +140,7 @@
 - (void)setBackButtonForRoot
 {
   if (! self.backButtonToRoot) {
-    backButtonToRoot_ = [[UIButton alloc] initWithFrame:CGRectMake(10.0f, 0.0f, kBackButtonWith, kBackButtonHeight)];
+    backButtonToRoot_ = [[UIButton alloc] initWithFrame:CGRectMake(10.f, 0.f, kBackButtonWith, kBackButtonHeight)];
     [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
                        forState:UIControlStateNormal];
     [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
@@ -155,21 +151,21 @@
 // Add |backButton| for previous view
 - (void)addBackButtonForPreviousView
 {
-  __block CGRect originalFrame = CGRectMake(160.0f, 0.0f, kBackButtonWith, kBackButtonHeight);
+  __block CGRect originalFrame = CGRectMake(160.f, 0.f, kBackButtonWith, kBackButtonHeight);
   
   if (! self.backButton) {
     backButton_ = [[UIButton alloc] initWithFrame:originalFrame];
     [backButton_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButton.png"] forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton_ setAlpha:0.0f];
+    [backButton_ setAlpha:0.f];
   }
   [self addSubview:self.backButton];
   
-  [UIView animateWithDuration:0.2f
-                        delay:0.0f
+  [UIView animateWithDuration:.2f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseIn
                    animations:^{
-                     originalFrame.origin.x = kBackButtonWith + 10.0f;
+                     originalFrame.origin.x = kBackButtonWith + 10.f;
                      [self.backButton setFrame:originalFrame];
                      [self.backButton setAlpha:1.0f];
                    }
@@ -181,13 +177,13 @@
 {
   __block CGRect originalFrame = self.backButton.frame;
   
-  [UIView animateWithDuration:0.2f
-                        delay:0.0f
+  [UIView animateWithDuration:.2f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     originalFrame.origin.x = 160.0f;
+                     originalFrame.origin.x = 160.f;
                      [self.backButton setFrame:originalFrame];
-                     [self.backButton setAlpha:0.0f];
+                     [self.backButton setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
                      [self.backButton removeFromSuperview];

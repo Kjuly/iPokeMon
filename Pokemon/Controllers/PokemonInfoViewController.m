@@ -31,16 +31,16 @@
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight = 150.0f;
-  CGFloat const labelHeight = 30.0f;
+  CGFloat const imageHeight = 150.f;
+  CGFloat const labelHeight = 30.f;
   
-  CGRect  const speciesLabelViewFrame = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
-  CGRect  const typeLabelViewFrame    = CGRectMake(0.0f, labelHeight, 300.0f, labelHeight);
-  CGRect  const dataViewFrame     = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, 60.0f);
-  CGRect  const descriptionFrame  = CGRectMake(10.0f,
-                                               imageHeight + dataViewFrame.size.height + 20.0f,
-                                               300.0f,
-                                               130.0f);
+  CGRect  const speciesLabelViewFrame = CGRectMake(0.f, 0.f, 300.f, labelHeight);
+  CGRect  const typeLabelViewFrame    = CGRectMake(0.f, labelHeight, 300.f, labelHeight);
+  CGRect  const dataViewFrame     = CGRectMake(10.f, imageHeight + 15.f, 300.f, 60.f);
+  CGRect  const descriptionFrame  = CGRectMake(10.f,
+                                               imageHeight + dataViewFrame.size.height + 20.f,
+                                               300.f,
+                                               130.f);
   
   
   ///Data View in Center
@@ -77,7 +77,7 @@
   [descriptionField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
   [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
-  [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+  [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [descriptionField setTextColor:[GlobalRender textColorNormal]];
   [descriptionField setText:[self.pokemonDataDict valueForKey:@"info"]];
   [self.view addSubview:descriptionField];

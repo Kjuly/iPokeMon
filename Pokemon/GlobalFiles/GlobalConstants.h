@@ -13,6 +13,10 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+// View Basic
+#define kViewHeight 460.f
+#define kViewWidth  320.f
+
 // Main view settings
 #define kCenterMainButtonSize 64.0f
 #define kCenterMainButtonTouchDownCircleViewSize 230.0f

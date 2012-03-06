@@ -26,17 +26,16 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
   
   // Constants
-  CGFloat const imageHeight = 150.0f;
-  CGFloat const labelHeight = 30.0f;
+  CGFloat const imageHeight = 150.f;
+  CGFloat const labelHeight = 30.f;
   
-  CGRect  const sizeViewFrame    = CGRectMake(10.0f, imageHeight + 15.0f, 300.0f, labelHeight);
-  CGRect  const heightLabelFrame = CGRectMake(0.0f, 0.0f, 140.0f, labelHeight);
-  CGRect  const weightLabelFrame = CGRectMake(140.0f, 0.0f, 160.0f, labelHeight);
+  CGRect  const sizeViewFrame    = CGRectMake(10.f, imageHeight + 15.f, 300.f, labelHeight);
+  CGRect  const heightLabelFrame = CGRectMake(0.f, 0.f, 140.f, labelHeight);
+  CGRect  const weightLabelFrame = CGRectMake(140.f, 0.f, 160.f, labelHeight);
   
   
   ///Size View

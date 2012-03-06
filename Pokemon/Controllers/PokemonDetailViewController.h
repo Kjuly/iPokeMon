@@ -14,8 +14,7 @@
 
 @class Pokemon;
 
-@interface PokemonDetailViewController : UIViewController
-{
+@interface PokemonDetailViewController : UIViewController {
   Pokemon * pokemonDataDict_;
 }
 

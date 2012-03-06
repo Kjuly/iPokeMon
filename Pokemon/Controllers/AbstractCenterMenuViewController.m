@@ -71,17 +71,17 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+//  [super loadView];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   
   // Center Menu View
-  UIView * centerMenu = [[UIView alloc] initWithFrame:CGRectMake((320.0f - kCenterMenuSize) / 2,
-                                                                 (480.0f - kCenterMenuSize) / 2,
+  UIView * centerMenu = [[UIView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMenuSize) / 2,
+                                                                 (kViewHeight - kCenterMenuSize) / 2,
                                                                  kCenterMenuSize,
                                                                  kCenterMenuSize)];
+  
   self.centerMenu = centerMenu;
   [centerMenu release];
   [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
@@ -150,12 +150,13 @@
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      // Slide away buttons in center view & hide them
-                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:300.0f];
-                     [self.centerMenu setAlpha:0.0f];
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:300.f];
+                     [self.centerMenu setAlpha:0.f];
                      
                      // Show Navigation Bar
                      [self.navigationController setNavigationBarHidden:NO];
                      CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+                     NSLog(@"!!!!!! %f", self.navigationController.navigationBar.frame.origin.y);
                      if (navigationBarFrame.origin.y < 0) {
                        navigationBarFrame.origin.y = 0;
                        [self.navigationController.navigationBar setFrame:navigationBarFrame];
@@ -178,20 +179,20 @@
 - (void)openCenterMenuView
 {
   // Show buttons with animation
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
-                     [self.centerMenu setAlpha:1.0f];
+                     [self.centerMenu setAlpha:1.f];
                      // Compute buttons' frame and set for them, based on |buttonCount|
-                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.0f];
+                     [self computeAndSetButtonLayoutWithTriangleHypotenuse:125.f];
                    }
                    completion:^(BOOL finished) {
-                     [UIView animateWithDuration:0.1f
-                                           delay:0.0f
+                     [UIView animateWithDuration:.1f
+                                           delay:0.f
                                          options:UIViewAnimationCurveEaseInOut
                                       animations:^{
-                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                        [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.f];
                                       }
                                       completion:nil];
                      
@@ -218,20 +219,20 @@
   // If change |centerMainButton_|'s status to normal,
   // do |recoverButtonsLayoutInCenterView| (this method was removed)
   if (centerMainButtonStatus == kCenterMainButtonStatusNormal)
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
+    [UIView animateWithDuration:.3f
+                          delay:0.f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        // Show buttons & slide in to center
-                       [self.centerMenu setAlpha:1.0f];
-                       [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.0f];
+                       [self.centerMenu setAlpha:1.f];
+                       [self computeAndSetButtonLayoutWithTriangleHypotenuse:100.f];
                      }
                      completion:^(BOOL finished) {
-                       [UIView animateWithDuration:0.1f
-                                             delay:0.0f
+                       [UIView animateWithDuration:.1f
+                                             delay:0.f
                                            options:UIViewAnimationOptionCurveEaseInOut
                                         animations:^{
-                                          [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.0f];
+                                          [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.f];
                                         }
                                         completion:nil];
                      }];
@@ -248,7 +249,7 @@
                    animations:^{
                      for (UIButton * button in [self.centerMenu subviews])
                        [button setFrame:self.buttonOriginFrame];
-                     [self.centerMenu setAlpha:0.0f];
+                     [self.centerMenu setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
                      if (self.navigationController)
@@ -274,9 +275,9 @@
   //   -----      x: degree
   //     a
   //
-  CGFloat centerBallMenuHalfSize = kCenterMenuSize / 2.0f;
-  CGFloat buttonRadius           = kCenterMenuButtonSize / 2.0f;
-  if (! triangleHypotenuse) triangleHypotenuse = 112.0f; // Distance to Ball Center
+  CGFloat centerBallMenuHalfSize = kCenterMenuSize / 2.f;
+  CGFloat buttonRadius           = kCenterMenuButtonSize / 2.f;
+  if (! triangleHypotenuse) triangleHypotenuse = 112.f; // Distance to Ball Center
   
   //
   //      o       o   o      o   o     o   o     o o o     o o o

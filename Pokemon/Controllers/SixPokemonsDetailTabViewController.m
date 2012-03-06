@@ -41,7 +41,7 @@
   self = [super init];
   if (self) {
     // Set View Frame
-    self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
+    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
     self.pokemon = pokemon;
     
     // Add child view controllers to each tab
@@ -78,17 +78,17 @@
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   
   // Constants
-  CGFloat const imageHeight       = 150.0f;
-  CGFloat const imageWidth        = 150.0f;
+  CGFloat const imageHeight       = 150.f;
+  CGFloat const imageWidth        = 150.f;
   
-  CGFloat const labelHeight       = 30.0f;
-  CGFloat const labelWidth        = 80.0f;
+  CGFloat const labelHeight       = 30.f;
+  CGFloat const labelWidth        = 80.f;
   
-  CGFloat const nameLabelWidth    = 300.0f - imageWidth;
+  CGFloat const nameLabelWidth    = 300.f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
-  CGRect  const imageContainerFrame = CGRectMake(10.0f, 10.0f + kTopBarHeight, imageWidth, imageHeight);
-  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.0f, 50.0f + kTopBarHeight, 300.0f - imageWidth, imageHeight - 50.0f);
+  CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f + kTopBarHeight, imageWidth, imageHeight);
+  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f + kTopBarHeight, 300.f - imageWidth, imageHeight - 50.f);
   
   // Base information for Pokemon
   Pokemon * pokemonBaseInfo = self.pokemon.pokemon;
@@ -99,7 +99,7 @@
   [imageContainer setOpaque:NO];
   
   // Image
-  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, imageWidth, imageHeight)];
+  UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, imageWidth, imageHeight)];
   [imageView setUserInteractionEnabled:YES];
   [imageView setContentMode:UIViewContentModeCenter];
   [imageView setBackgroundColor:[UIColor clearColor]];
@@ -116,31 +116,31 @@
   
   // ID
   PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
-                                        initWithFrame:CGRectMake(0.0f, 0.0f, labelWidth / 2, labelHeight)
+                                        initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight)
                                         hasValueLabel:NO];
   [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
   [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
-  [idLabelView.name.layer setShadowOpacity:1.0f];
-  [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
-  [idLabelView.name.layer setShadowRadius:0.0f];
+  [idLabelView.name.layer setShadowOpacity:1.f];
+  [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
+  [idLabelView.name.layer setShadowRadius:0.f];
   [IDView addSubview:idLabelView];
   [idLabelView release];
   
   // Name
-  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
+  UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight)];
   [nameLabel setBackgroundColor:[UIColor clearColor]];
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
-  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.0f]];
+  [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemonBaseInfo.sid intValue]]), nil)];
   [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
-  [nameLabel.layer setShadowOpacity:1.0f];
-  [nameLabel.layer setShadowOffset:CGSizeMake(-1.0f, -1.0f)];
-  [nameLabel.layer setShadowRadius:0.0f];
+  [nameLabel.layer setShadowOpacity:1.f];
+  [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
+  [nameLabel.layer setShadowRadius:0.f];
   [IDView addSubview:nameLabel];
   [nameLabel release];
   
   // Gender
-  UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.0f, 0.0f, 32.0f, 32.0f)];
+  UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
   [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [IDView addSubview:genderImageView];
   [genderImageView release];

@@ -57,14 +57,14 @@
   [super loadView];
   
   // Constants
-  CGFloat const labelHeight = 30.0f;
+  CGFloat const labelHeight = 30.f;
   
-  CGRect  const dataViewFrame       = CGRectMake(10.0f, 15.0f, 300.0f, 60.0f);
-  CGRect  const typeLabelViewFrame  = CGRectMake(0.0f, 0.0f, 300.0f, labelHeight);
-  CGRect  const levelLabelViewFrame = CGRectMake(0.0f, labelHeight, 140.0f, labelHeight);
-  CGRect  const expLabelViewFrame   = CGRectMake(0.0f, labelHeight * 2, 300.0f, labelHeight);
-  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.0f, labelHeight * 3, 300.0f, labelHeight);
-  CGRect  const expBarTotalFrame    = CGRectMake(0.0f, labelHeight * 4 + 10.0f, 300.0f, 6.0f);
+  CGRect  const dataViewFrame       = CGRectMake(10.f, 5.f, 300.f, self.view.frame.size.height - 5.f);
+  CGRect  const typeLabelViewFrame  = CGRectMake(0.f, 0.f, 300.f, labelHeight);
+  CGRect  const levelLabelViewFrame = CGRectMake(0.f, labelHeight, 140.f, labelHeight);
+  CGRect  const expLabelViewFrame   = CGRectMake(0.f, labelHeight * 2, 300.f, labelHeight);
+  CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.f, labelHeight * 3, 300.f, labelHeight);
+  CGRect  const expBarTotalFrame    = CGRectMake(0.f, labelHeight * 4 + 10.f, 300.f, 6.f);
   
   
   // Base information for Pokemon
@@ -92,19 +92,19 @@
   
   // EXP
   expLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:expLabelViewFrame hasValueLabel:YES];
-  [expLabelView_ adjustNameLabelWidthWith:80.0f];
+  [expLabelView_ adjustNameLabelWidthWith:80.f];
   [expLabelView_.name setText:NSLocalizedString(@"PMSLabelEXP", nil)];
   [dataView addSubview:expLabelView_];
   
   // To Next Level
   toNextLevelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:toNextLevelLabelViewFrame hasValueLabel:YES];
-  [toNextLevelLabelView_ adjustNameLabelWidthWith:80.0f];
+  [toNextLevelLabelView_ adjustNameLabelWidthWith:80.f];
   [toNextLevelLabelView_.name setText:NSLocalizedString(@"PMSLabelToNextLevel", nil)];
   [dataView addSubview:toNextLevelLabelView_];
   
   expBarTotal_ = [[UIImageView alloc] initWithFrame:expBarTotalFrame];
   [expBarTotal_ setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
-  expBarCurrntPoint_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, expBarTotalFrame.size.height)];
+  expBarCurrntPoint_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 0.f, expBarTotalFrame.size.height)];
   [expBarCurrntPoint_ setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
   [expBarTotal_ addSubview:expBarCurrntPoint_];
   [dataView addSubview:expBarTotal_];
@@ -143,7 +143,7 @@
   // TODO:
   //   !!! Need Recompute Here
   //
-  [self.expBarCurrntPoint setFrame:CGRectMake(0.0f, 0.0f, 300.0f * abs([self.pokemon.currHP intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.currHP intValue] + [self.pokemon.toNextLevel intValue]), 6.0f)];
+  [self.expBarCurrntPoint setFrame:CGRectMake(0.f, 0.f, 300.f * abs([self.pokemon.currHP intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.currHP intValue] + [self.pokemon.toNextLevel intValue]), 6.f)];
 }
 
 @end

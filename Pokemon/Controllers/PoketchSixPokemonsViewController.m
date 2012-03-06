@@ -51,7 +51,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
+//  [super loadView];
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   NSString * IDSequence = @"0000000100020003000400050006";

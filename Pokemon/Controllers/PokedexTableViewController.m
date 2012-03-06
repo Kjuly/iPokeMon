@@ -46,7 +46,6 @@
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
     
     // Get a handle to our fetchedResultsController (which implicitly creates it as well)

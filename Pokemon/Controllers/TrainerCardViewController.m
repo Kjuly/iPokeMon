@@ -23,15 +23,15 @@
   self = [super init];
   if (self) {
     // Set View Frame
-    self.viewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
+    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
     
     // Add child view controllers to each tab
     TrainerInfoViewController        * trainerInfoViewController        = [[TrainerInfoViewController alloc] init];
     TrainerBadgesTableViewController * trainerBadgesTableViewController = [[TrainerBadgesTableViewController alloc] init];
     
-    CGRect childViewFrame = CGRectMake(0.0f, kTopBarHeight, 320.0f, 480.0f - kTopBarHeight);
+    CGRect childViewFrame = CGRectMake(0.f, kTopBarHeight, 320.f, 480.f - kTopBarHeight);
     [trainerInfoViewController.view setFrame:childViewFrame];
-    childViewFrame.size.height -= 60.0f;
+    childViewFrame.size.height -= 60.f;
     [trainerBadgesTableViewController.view setFrame:childViewFrame];
     
     self.tabBarItems = [NSArray arrayWithObjects:

@@ -166,11 +166,9 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
-  [[UIApplication sharedApplication] setStatusBarHidden:YES];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+//  [super loadView];
+//  [[UIApplication sharedApplication] setStatusBarHidden:YES];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   
@@ -201,8 +199,8 @@
                                              object:self.gameMainViewController];
   
   // Ball menu which locate at center
-  UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kCenterMainButtonSize) / 2,
-                                                                           (480.0f - kCenterMainButtonSize) / 2,
+  UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                                                           (kViewHeight - kCenterMainButtonSize) / 2,
                                                                            kCenterMainButtonSize,
                                                                            kCenterMainButtonSize)];
   
@@ -225,8 +223,8 @@
                   forControlEvents:UIControlEventTouchDown];
   
   // Map Button
-  UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
-                                                                    100.0f,
+  UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                                    100.f,
                                                                     kMapButtonSize,
                                                                     kMapButtonSize)];
   self.mapButton = mapButton;
@@ -431,7 +429,7 @@
   
   // Do action based on tap down keepped time
   // Utility Menu
-  if (self.timeCounter < 3.0f) {
+  if (self.timeCounter < 3.f) {
     if (! self.centerMenuUtilityNavigationController) {
       NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");
       if (! self.centerMenuUtilityViewController) {
@@ -443,6 +441,7 @@
       centerMenuUtilityNavigationController_ = [CustomNavigationController
                                       initWithRootViewController:self.centerMenuUtilityViewController
                                     navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      [centerMenuUtilityNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
     
     // Insert |utilityNavigationController|'s view
@@ -465,6 +464,7 @@
       centerMenuSixPokemonsNavigationController_ = [CustomNavigationController
                                                     initWithRootViewController:self.centerMenuSixPokemonsViewController
                                                     navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      [centerMenuSixPokemonsNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
     [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view belowSubview:self.gameMainViewController.view];
     
@@ -497,7 +497,7 @@
 - (void)activateCenterMenuOpenStatusTimer
 {
   self.centerMenuOpenStatusTimeCounter = 0;
-  self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f
+  self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.f
                                                                     target:self
                                                                   selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
                                                                   userInfo:nil
@@ -528,7 +528,7 @@
     self.currentKeyButton = (UIButton *)sender;
     self.timeCounter  = 0;
     [self.longTapTimer invalidate];
-    self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+    self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:1.f
                                                          target:self
                                                        selector:@selector(increaseTimeWithAction)
                                                        userInfo:nil
@@ -547,7 +547,7 @@
   // If the target is |centerMainButton_|, and |timeCounter_ >= 1.0|, loading it
   // Time: delay 1.0 second, then every 2.0 second got a new point
   if (! self.isCenterMainButtonTouchDownCircleViewLoading && buttonTag == kTagMainViewCenterMainButton
-      && ! self.isCenterMenuOpening && self.timeCounter >= 1.0f)
+      && ! self.isCenterMenuOpening && self.timeCounter >= 1.f)
   {
     // Run this block after |mapButton_| moved to view top
     void (^completionBlock)(BOOL) = ^(BOOL finished) {
@@ -559,7 +559,7 @@
         CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView
         = [[CenterMainButtonTouchDownCircleView alloc]
            initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
-                                    CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
+                                    CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2 - 20.f,
                                     kCenterMainButtonTouchDownCircleViewSize,
                                     kCenterMainButtonTouchDownCircleViewSize)];
         self.centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView;
@@ -574,7 +574,7 @@
   }
   
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
-  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 3.0f) {
+  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 3.f) {
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }
@@ -585,19 +585,19 @@
 {
   [self.longTapTimer invalidate];
   // If Location Service is not allowed, do nothing
-  if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"] || self.timeCounter >= 6.0f)
+  if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"] || self.timeCounter >= 6.f)
     return;
   
   // Else, just normal button action
-  CGRect mapViewFrame   = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
-  CGRect mapButtonFrame = CGRectMake((320.0f - kMapButtonSize) / 2,
-                                     100.0f,
+  CGRect mapViewFrame   = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+  CGRect mapButtonFrame = CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                     100.f,
                                      kMapButtonSize,
                                      kMapButtonSize);
   
   if (self.isMapViewOpening) {
-    mapViewFrame.origin.y   = 480.0f;
-    mapButtonFrame.origin.y = 100.0f;
+    mapViewFrame.origin.y   = kViewHeight;
+    mapButtonFrame.origin.y = 100.f;
   }
   else {
     mapButtonFrame.origin.y = - kMapButtonSize / 2;
@@ -611,13 +611,13 @@
     [self.view insertSubview:self.mapViewController.view belowSubview:self.mapButton];
     
     // Set Map View to Offscreen
-    mapViewFrame.origin.y = 480.0f;
+    mapViewFrame.origin.y = kViewHeight;
     [self.mapViewController.view setFrame:mapViewFrame];
-    mapViewFrame.origin.y = 0.0f;
+    mapViewFrame.origin.y = 0.f;
   }
   
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      // If |mapView| is not open while |centerMenu_| is open, just close |centerMenu_|
@@ -669,19 +669,19 @@
 - (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL))completion
 {
   void (^animationBlock)() = ^(){
-    CGRect centerMainButtonFrame = CGRectMake((320.0f - kCenterMainButtonSize) / 2,
-                                              (480.0f - kCenterMainButtonSize) / 2,
+    CGRect centerMainButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                              (kViewHeight - kCenterMainButtonSize) / 2,
                                               kCenterMainButtonSize,
                                               kCenterMainButtonSize);
-    CGRect mapButtonFrame        = CGRectMake((320.0f - kMapButtonSize) / 2,
-                                              100.0f,
+    CGRect mapButtonFrame        = CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                              100.f,
                                               kMapButtonSize,
                                               kMapButtonSize);
     
     if (buttonLayouts & kMainViewButtonLayoutCenterMainButtonToBottom)
-        centerMainButtonFrame.origin.y = 480.0f - kCenterMainButtonSize / 2;
+        centerMainButtonFrame.origin.y = kViewHeight - kCenterMainButtonSize / 2;
     if (buttonLayouts & kMainViewButtonLayoutCenterMainButtonToOffcreen)
-        centerMainButtonFrame.origin.y = 480.0f;
+        centerMainButtonFrame.origin.y = kViewHeight;
     if (buttonLayouts & kMainViewButtonLayoutMapButtonToTop)
         mapButtonFrame.origin.y = - kMapButtonSize / 2;
     if (buttonLayouts & kMainViewButtonLayoutMapButtonToOffcreen)
@@ -691,8 +691,8 @@
     [self.mapButton        setFrame:mapButtonFrame];
   };
   
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:animationBlock
                    completion:completion];

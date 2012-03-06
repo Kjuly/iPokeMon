@@ -23,7 +23,7 @@
   self = [super init];
   if (self) {
     // Set View Frame
-    self.viewFrame = CGRectMake(0.0f, kMapViewHeight + kUtilityBarHeight, 320.0f, 480.0f - kMapViewHeight - kUtilityBarHeight);
+    self.viewFrame = CGRectMake(0.f, kMapViewHeight + kUtilityBarHeight, kViewWidth, kViewHeight - kMapViewHeight - kUtilityBarHeight);
     
     // Add child view controllers to each tab
     UIViewController * controller1 = [[UIViewController alloc] init];
@@ -31,7 +31,7 @@
     PoketchStepsViewController       * poketchStepsViewController       = [[PoketchStepsViewController alloc] init];
     
     // Set child view's frame
-    CGRect childViewFrame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f - kMapViewHeight - kUtilityBarHeight);
+    CGRect childViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - kMapViewHeight - kUtilityBarHeight);
     [poketchSixPokemonsViewController.view setFrame:childViewFrame];
     [poketchStepsViewController.view setFrame:childViewFrame];
     

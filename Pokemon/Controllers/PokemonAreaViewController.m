@@ -8,6 +8,9 @@
 
 #import "PokemonAreaViewController.h"
 
+#import "GlobalConstants.h"
+
+
 @implementation PokemonAreaViewController
 
 @synthesize mapView = mapView_;
@@ -48,11 +51,9 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-  [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+- (void)loadView {
+//  [super loadView];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor whiteColor]];

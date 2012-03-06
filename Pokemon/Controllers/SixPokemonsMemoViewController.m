@@ -31,14 +31,14 @@
   [super loadView];
   
   // Constants
-  CGRect  const descriptionFrame  = CGRectMake(10.0f, 20.0f, 300.0f, 190.0f);
+  CGRect  const descriptionFrame  = CGRectMake(10.f, 10.f, 300.f, 190.f);
   
   ///Memo
   UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [memoField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
   [memoField setOpaque:NO];
   [memoField setEditable:NO];
-  [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];
+  [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [memoField setTextColor:[GlobalRender textColorNormal]];
   [memoField setText:self.pokemon.memo];
   [self.view addSubview:memoField];

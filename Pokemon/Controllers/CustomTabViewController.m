@@ -79,14 +79,11 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
+//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
-  
-  if (! [[UIApplication sharedApplication] isStatusBarHidden]) viewFrame_.size.height -= 22.0f;
   
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
@@ -95,7 +92,7 @@
                                                 tag:0
                                            delegate:self];
   
-  [tabBar_ setFrame:CGRectMake((320.0f - kTabBarWdith) / 2.0f,
+  [tabBar_ setFrame:CGRectMake((kViewWidth - kTabBarWdith) / 2.f,
                                self.viewFrame.size.height - kTabBarHeight,
                                kTabBarWdith,
                                kTabBarHeight)];
@@ -116,8 +113,8 @@
   // Place the layout for view's layer
   for (int i = 0; i < [self.tabBarItems count]; ++i) {
     UIView * view = [[[self.tabBarItems objectAtIndex:i] objectForKey:@"viewController"] view];
-    [view.layer setAnchorPoint:CGPointMake(0.5f, 1.0f)];
-    [view.layer setPosition:CGPointMake(view.frame.size.width / 2, 480.0f)];
+    [view.layer setAnchorPoint:CGPointMake(.5f, 1.f)];
+    [view.layer setPosition:CGPointMake(view.frame.size.width / 2, kViewHeight)];
   }
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleTabBar:) name:kPMNToggleTabBar object:nil];
@@ -172,13 +169,13 @@
   NSInteger previousItemIndex = self.tabBar.previousItemIndex;
   
   // Swipe to left
-  if (previousItemIndex > 0 && swipeDistance > 50.0f) {
+  if (previousItemIndex > 0 && swipeDistance > 50.f) {
     UIButton * button = [self.tabBar.buttons objectAtIndex:previousItemIndex - 1];
     [self.tabBar touchDownAction:button];
     button = nil;
   }
   // Swipe to right
-  else if (previousItemIndex < [self.tabBarItems count] - 1 && swipeDistance < -50.0f) {
+  else if (previousItemIndex < [self.tabBarItems count] - 1 && swipeDistance < -50.f) {
     UIButton * button = [self.tabBar.buttons objectAtIndex:previousItemIndex + 1];
     [self.tabBar touchDownAction:button];
     button = nil;
@@ -201,12 +198,12 @@
   // Remove the current view controller's view
   UIView * currentView = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
   if (itemIndex != previousItemIndex)
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
+    [UIView animateWithDuration:.3f
+                          delay:0.f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        currentView.transform = CGAffineTransformRotate(currentView.transform, angle);
-                       [currentView setAlpha:0.0];
+                       [currentView setAlpha:0.f];
                      }
                      completion:^(BOOL finished) {
                        [currentView removeFromSuperview];
@@ -220,12 +217,12 @@
   if (itemIndex != previousItemIndex) {
     CGAffineTransform transform = CGAffineTransformIdentity;
     viewController.view.transform = CGAffineTransformRotate(transform, -angle);
-    [viewController.view setAlpha:0.0f];
-    [UIView animateWithDuration:0.3f
-                          delay:0.3f
+    [viewController.view setAlpha:0.f];
+    [UIView animateWithDuration:.3f
+                          delay:.3f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                       [viewController.view setAlpha:1.0f];
+                       [viewController.view setAlpha:1.f];
                        viewController.view.transform = CGAffineTransformRotate(viewController.view.transform, angle);
                      }
                      completion:nil];
@@ -249,15 +246,15 @@
   CGAffineTransform transform = CGAffineTransformIdentity;
   if (self.isTabBarHide) {
     tabBarFrame.origin.y = self.viewFrame.size.height - kTabBarHeight;
-    transform = CGAffineTransformScale(transform, 1.0f, 1.0f);
+    transform = CGAffineTransformScale(transform, 1.f, 1.f);
   }
   else {
     tabBarFrame.origin.y = self.viewFrame.size.height;
     transform = CGAffineTransformScale(transform, .28f, .28f);
   }
   
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      [self.tabBar setFrame:tabBarFrame];

@@ -65,17 +65,22 @@
 {
   NSLog(@"--- CustomNavigationController loadView ---");
   [super loadView];
+//  [self.view setFrame:CGRectMake(0.f, -20.f, 320.f, 460.f)];
+  NSLog(@"!!!!!!!! ? %f, %f", self.view.frame.origin.y, self.view.frame.size.height);
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   NSLog(@"--- CustomNavigationController viewDidLoad ---");
-  
   [super viewDidLoad];
   
   // Set Navigation Bar
   [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:self.navigationBarBackgroundImage];
+//  CGRect navigationBarFram = self.navigationBar.frame;
+  NSLog(@"???? %f", self.navigationBar.frame.origin.y);
+//  navigationBarFram.origin.y = 0.f;
+//  [self.navigationBar setFrame:navigationBarFram];
   [self setNavigationBarHidden:YES];
 }
 

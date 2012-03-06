@@ -15,8 +15,7 @@
 
 @class TrainerTamedPokemon;
 
-@interface SixPokemonsDetailViewController : UIViewController
-{
+@interface SixPokemonsDetailViewController : UIViewController {
   TrainerTamedPokemon * pokemon_;
 }
 

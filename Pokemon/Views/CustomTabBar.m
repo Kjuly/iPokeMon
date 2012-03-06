@@ -154,8 +154,8 @@
     [arrow_ setFrame:button.frame];
     [self addSubview:arrow_];
     
-    self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.0f, button.frame.origin.y + 22.0f);
-    self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.0f));
+    self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.f, button.frame.origin.y + 22.f);
+    self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.f));
     self.previousItemIndex = 0;
     button = nil;
   }
@@ -174,8 +174,8 @@
       
       // Generate new postion for |arrow_|
       CGPoint newPosition = button.frame.origin;
-      newPosition.x += 22.0f;
-      newPosition.y += 22.0f;
+      newPosition.x += 22.f;
+      newPosition.y += 22.f;
       self.newPositionForArrow = newPosition;
     }
     else {
@@ -226,7 +226,7 @@
   CGFloat tabItemWidth = button.frame.size.width;
   
   // A half width is tabItemWidth divided by 2 minus half the width of the arrow
-  CGFloat halfTabItemWidth = (tabItemWidth / 2.0) - (tabBarArrow.frame.size.width / 2.0);
+  CGFloat halfTabItemWidth = (tabItemWidth / 2) - (tabBarArrow.frame.size.width / 2);
   
   // The horizontal location is the index times the width plus a half width
   //
@@ -242,8 +242,8 @@
 {
   UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabBarSelectedArrow.png"]];
   [tabBarArrow setTag:kTabArrowImageTag];
-  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.0f,
-                                   0.0f,
+  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.f,
+                                   0.f,
                                    tabBarArrow.frame.size.width,
                                    tabBarArrow.frame.size.height)];
   [self insertSubview:tabBarArrow atIndex:1];
@@ -279,10 +279,10 @@
   CGImageRelease(tabBarImageRef);
   
   ///Create a new context with the right size
-  UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0f);
+  UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.f);
   // Draw the new tab bar image at the center
-  [tabBarImage drawInRect:CGRectMake((targetSize.width / 2.0f) - (startImage.size.width / 2.0f),
-                                     (targetSize.height / 2.0f) - (startImage.size.height / 2.0f),
+  [tabBarImage drawInRect:CGRectMake((targetSize.width / 2.f) - (startImage.size.width / 2.f),
+                                     (targetSize.height / 2.f) - (startImage.size.height / 2.f),
                                      startImage.size.width,
                                      startImage.size.height)];
   // Generate a new image
@@ -296,7 +296,7 @@
 - (UIImage *)blackFilledImageWithWhiteBackgroundUsing:(UIImage *)startImage
 {
   // Create the proper sized rect
-  CGRect imageRect = CGRectMake(0.0f, 0.0f, CGImageGetWidth(startImage.CGImage), CGImageGetHeight(startImage.CGImage));
+  CGRect imageRect = CGRectMake(0.f, 0.f, CGImageGetWidth(startImage.CGImage), CGImageGetHeight(startImage.CGImage));
   
   // Create a new bitmap context
   CGContextRef context = CGBitmapContextCreate(NULL,
@@ -333,17 +333,17 @@
 - (UIImage *)tabBarBackgroundImageWithSize:(CGSize)targetSize
                            backgroundImage:(UIImage*)backgroundImage
 {
-  UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0f);
+  UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.f);
   
   if (backgroundImage) {
     // Draw the background image centered
-    [backgroundImage drawInRect:CGRectMake((targetSize.width - CGImageGetWidth(backgroundImage.CGImage)) / 2.0f,
-                                           (targetSize.height - CGImageGetHeight(backgroundImage.CGImage)) / 2.0f,
+    [backgroundImage drawInRect:CGRectMake((targetSize.width - CGImageGetWidth(backgroundImage.CGImage)) / 2.f,
+                                           (targetSize.height - CGImageGetHeight(backgroundImage.CGImage)) / 2.f,
                                            CGImageGetWidth(backgroundImage.CGImage),
                                            CGImageGetHeight(backgroundImage.CGImage))];
   } else {
     [[UIColor lightGrayColor] set];
-    UIRectFill(CGRectMake(0.0f, 0.0f, targetSize.width, targetSize.height));
+    UIRectFill(CGRectMake(0.f, 0.f, targetSize.width, targetSize.height));
   }
   
   UIImage * finalBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -362,7 +362,7 @@
   // Iterate through each button
   for (UIButton * button in buttons_) {
     // Set the button's x offset
-    button.frame = CGRectMake(horizontalOffset, 0.0f, button.frame.size.width, button.frame.size.height);
+    button.frame = CGRectMake(horizontalOffset, 0.f, button.frame.size.width, button.frame.size.height);
     horizontalOffset += itemWidth;
   }
   
@@ -377,12 +377,12 @@
 {
   CGFloat tabAreaHalfHeight      = kTabBarHeight;
   CGFloat tabAreaHalfWidth       = kTabBarWdith  / 2;
-  CGFloat buttonRadius           = 22.0f;
-  CGFloat triangleHypotenuse     = tabAreaHalfHeight - 26.0f; // Distance to Ball Center
+  CGFloat buttonRadius           = 22.f;
+  CGFloat triangleHypotenuse     = tabAreaHalfHeight - 26.f; // Distance to Ball Center
   
   switch ([self.buttons count]) {
     case 2: {
-      CGFloat degree    = M_PI / 4.0f; // = 45 * M_PI / 180
+      CGFloat degree    = M_PI / 4.f; // = 45 * M_PI / 180
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleB - buttonRadius)];
@@ -430,7 +430,7 @@
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin
 {
   UIButton * button = [self.buttons objectAtIndex:buttonTag];
-  [button setFrame:CGRectMake(origin.x, origin.y, 44.0f, 44.0f)];
+  [button setFrame:CGRectMake(origin.x, origin.y, 44.f, 44.f)];
   button = nil;
 }
 
@@ -439,23 +439,23 @@
 -(void)pauseLayer:(CALayer*)layer
 {
   CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-  layer.speed = 0.0;
+  layer.speed = 0.f;
   layer.timeOffset = pausedTime;
 }
 
 -(void)resumeLayer:(CALayer*)layer
 {
   CFTimeInterval pausedTime = [layer timeOffset];
-  layer.speed = 1.0;
-  layer.timeOffset = 0.0;
-  layer.beginTime = 0.0;
+  layer.speed = 1.f;
+  layer.timeOffset = 0.f;
+  layer.beginTime = 0.f;
   CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
   layer.beginTime = timeSincePause;
 }
 
 - (void)moveArrowToNewPosition
 {
-  CGFloat radius            = kTabBarHeight - 26.0f; // Distance to Ball Center
+  CGFloat radius            = kTabBarHeight - 26.f; // Distance to Ball Center
   CGFloat centerOriginX     = kTabBarWdith / 2;
   CGFloat centerOriginY     = kTabBarHeight;
   CGFloat itemCenterOriginX = self.newPositionForArrow.x;
@@ -484,7 +484,7 @@
 //  [customFrameAnimation setKeyTimes:times];
   
   customFrameAnimation.delegate = self;
-  customFrameAnimation.duration = 0.3f;
+  customFrameAnimation.duration = .3f;
   customFrameAnimation.repeatCount = 1;
   //customFrameAnimation.cumulative = YES;
   //customFrameAnimation.additive = YES;

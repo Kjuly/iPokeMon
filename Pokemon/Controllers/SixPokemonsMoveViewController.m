@@ -60,20 +60,20 @@
   [super loadView];
   
   // Constants
-  CGFloat const moveViewHeight = (self.view.frame.size.height - 80.0f) / 4.0f;
-  CGRect  const ppLabelFrame = CGRectMake(200.0f, 0.0f, 90.0f, 30.0f);
-  CGRect  const fourMovesViewFrame = CGRectMake(0.0f, 30.0f, self.view.frame.size.width, self.view.frame.size.height);
-  CGRect  const moveOneViewFrame   = CGRectMake(0.0f, 10.0f, 300.0f, moveViewHeight);
-  CGRect  const moveTwoViewFrame   = CGRectMake(0.0f, 10.0f + moveViewHeight, 300.0f, moveViewHeight);
-  CGRect  const moveThreeViewFrame = CGRectMake(0.0f, 10.0f + moveViewHeight * 2, 300.0f, moveViewHeight);
-  CGRect  const moveFourViewFrame  = CGRectMake(0.0f, 10.0f + moveViewHeight * 3, 300.0f, moveViewHeight);
+  CGFloat const moveViewHeight = (self.view.frame.size.height - 80.f) / 4.f;
+  CGRect  const ppLabelFrame = CGRectMake(200.f, 0.f, 90.f, 20.f);
+  CGRect  const fourMovesViewFrame = CGRectMake(0.f, 20.f, self.view.frame.size.width, self.view.frame.size.height);
+  CGRect  const moveOneViewFrame   = CGRectMake(0.f, 10.f, 300.f, moveViewHeight);
+  CGRect  const moveTwoViewFrame   = CGRectMake(0.f, 10.f + moveViewHeight, 300.f, moveViewHeight);
+  CGRect  const moveThreeViewFrame = CGRectMake(0.f, 10.f + moveViewHeight * 2, 300.f, moveViewHeight);
+  CGRect  const moveFourViewFrame  = CGRectMake(0.f, 10.f + moveViewHeight * 3, 300.f, moveViewHeight);
   
   // PP
   UILabel * ppLabel = [[UILabel alloc] initWithFrame:ppLabelFrame];
   [ppLabel setBackgroundColor:[UIColor clearColor]];
   [ppLabel setTextAlignment:UITextAlignmentRight];
   [ppLabel setTextColor:[GlobalRender textColorTitleWhite]];
-  [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+  [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [ppLabel setText:NSLocalizedString(@"PMSLabelPP", nil)];
   [self.view addSubview:ppLabel];
   [ppLabel release];
@@ -170,7 +170,7 @@
 - (void)loadMoveDetailView:(id)sender
 {
   if (! moveDetailView_) {
-    CGRect const fourMovesViewFrame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
     PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
     self.moveDetailView = moveDetailView;
     [moveDetailView release];
@@ -194,7 +194,7 @@
   
   [UIView transitionFromView:self.fourMovesView
                       toView:self.moveDetailView
-                    duration:0.6f
+                    duration:.6f
                      options:UIViewAnimationOptionTransitionFlipFromLeft
                   completion:nil];
 }
@@ -202,7 +202,7 @@
 - (void)cancelMoveDetailView {
   [UIView transitionFromView:self.moveDetailView
                       toView:self.fourMovesView
-                    duration:0.6f
+                    duration:.6f
                      options:UIViewAnimationOptionTransitionFlipFromLeft
                   completion:nil];
 }

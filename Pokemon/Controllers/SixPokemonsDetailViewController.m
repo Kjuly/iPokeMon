@@ -52,12 +52,10 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f,
                                                            kTopBarHeight + kTopIDViewHeight,
-                                                           320.0f,
-                                                           480.0f - kTopBarHeight - kTopIDViewHeight)];
+                                                           kViewWidth,
+                                                           kViewHeight - kTopBarHeight - kTopIDViewHeight)];
   self.view = view;
   [view release];
 }
