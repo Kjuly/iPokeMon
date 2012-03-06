@@ -20,6 +20,7 @@
 
 @property (nonatomic, assign) BOOL isReadyToPlay;
 
+- (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 - (void)runBattleBeginAnimation;
 
 @end

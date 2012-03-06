@@ -24,6 +24,5 @@
 @property (nonatomic, retain) GameMoveEffect     * gameMoveEffect;
 
 + (CCScene *)scene;
-- (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 
 @end
