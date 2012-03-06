@@ -135,7 +135,8 @@
   [cell.imageView setImage:pokemonBaseInfo.image];
   
   // Data
-  [cell.nameLabel setText:NSLocalizedString(pokemonBaseInfo.name, nil)];
+  [cell.nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                              [pokemonBaseInfo.sid intValue]]), nil)];
   [cell.genderImageView setImage:[UIImage imageNamed:pokemonData.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
   

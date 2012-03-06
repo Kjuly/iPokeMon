@@ -79,7 +79,7 @@
     // TODO:
     //   Replace |image| to |imageIcon|
     //
-    [button setImage:pokemonBaseInfo.image forState:UIControlStateNormal];
+    [button setImage:pokemonBaseInfo.imageIcon forState:UIControlStateNormal];
   }
 }
 

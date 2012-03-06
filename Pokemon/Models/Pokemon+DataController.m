@@ -30,9 +30,9 @@
                                                       inManagedObjectContext:managedObjectContext];
     
     pokemon.sid           = [NSNumber numberWithInt:++i];
-    pokemon.image         = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
-    pokemon.imageIcon     = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d", i]];
-    pokemon.name          = [pokemonDict objectForKey:@"name"];
+    pokemon.image         = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", i]];
+    pokemon.imageIcon     = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", i - 1]];
+//    pokemon.name          = [pokemonDict objectForKey:@"name"];
     pokemon.type1         = [pokemonDict objectForKey:@"type1"];
     pokemon.type2         = [pokemonDict objectForKey:@"type2"];
     pokemon.species       = [pokemonDict objectForKey:@"species"];
