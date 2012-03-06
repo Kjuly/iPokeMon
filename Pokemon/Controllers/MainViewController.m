@@ -139,12 +139,10 @@
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-#if DEBUG
-    if (kPupulateData) {
-      // Hard Initialize the DB Data for |Pokemon|
-      [Pokemon populateData];
-      [Move populateData];
-    }
+#ifdef DEBUG_PREINIT_POPULATE_DATA
+    // Hard Initialize the DB Data for |Pokemon|
+    [Pokemon populateData];
+    [Move populateData];
 #endif
     
     // Updata all data for current User with the trainer ID
@@ -258,10 +256,20 @@
   // for |buttonLocateMe| & |buttonShowWorld|
   self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
-*/  
+*/
+#ifndef DEBUG_PREINIT_POPULATE_DATA
   // Game Main View
   gameMainViewController_ = [[GameMainViewController alloc] init];
   [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
+#endif
+  
+#ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
+//#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
+  self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalPokemonAppeared;
+  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
+                         forState:UIControlStateNormal];
+  [self runCenterMainButtonTouchUpInsideAction:nil];
+#endif
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

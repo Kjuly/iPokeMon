@@ -6,9 +6,6 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-// Debug Settings
-#define kPupulateData 0
-
 // Device System Version Checking
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)

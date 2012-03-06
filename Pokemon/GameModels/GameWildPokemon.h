@@ -13,7 +13,6 @@
 }
 
 - (id)initWithPokemonID:(NSInteger)pokemonID keyName:(NSString *)keyName;
-- (void)update:(ccTime)dt;
 
 // Wild Pokemon's Move Attack
 - (void)attack:(ccTime)dt;

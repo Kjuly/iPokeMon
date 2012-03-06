@@ -10,6 +10,4 @@
 
 @interface GameTrainerPokemon : GameAbstractPokemon
 
-- (void)update:(ccTime)dt;
-
 @end

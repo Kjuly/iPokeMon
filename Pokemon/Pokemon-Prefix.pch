@@ -13,3 +13,13 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
 #endif
+
+// Disable logging when not in debug
+#ifndef DEBUG
+#undef NSLog
+#define NSLog(args, ...)
+#endif
+
+// Debug Settings
+//#define DEBUG_PREINIT_POPULATE_DATA 1
+#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
