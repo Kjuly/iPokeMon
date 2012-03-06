@@ -53,22 +53,22 @@ static int attackDelayTime = 300;
     // TODO:
     //   Data Transform NSString -> NSArray
     //
-    NSLog(@"TODO: %@, %@", self.wildPokemon.maxStats, [self.wildPokemon.maxStats class]);
-    NSArray * maxStats;
-    if ([self.wildPokemon.maxStats isKindOfClass:[NSString class]]) {
-      NSLog(@"!!! WARNING: self.wildPokemon.maxStats isKindOfClass:[NSString class]");
-      NSMutableArray * maxStatsArray = [NSMutableArray arrayWithCapacity:8];
-      for (id stat in [self.wildPokemon.maxStats componentsSeparatedByString:@","])
-        [maxStatsArray addObject:[NSNumber numberWithInt:[stat intValue]]];
-      maxStats = [[NSArray alloc] initWithArray:maxStatsArray];
-      maxStatsArray = nil;
-    }
-    else maxStats = [[NSArray alloc] initWithArray:self.wildPokemon.maxStats];
+//    NSLog(@"TODO: %@, %@", self.wildPokemon.maxStats, [self.wildPokemon.maxStats class]);
+//    NSArray * maxStats;
+//    if ([self.wildPokemon.maxStats isKindOfClass:[NSString class]]) {
+//      NSLog(@"!!! WARNING: self.wildPokemon.maxStats isKindOfClass:[NSString class]");
+//      NSMutableArray * maxStatsArray = [NSMutableArray arrayWithCapacity:8];
+//      for (id stat in [self.wildPokemon.maxStats componentsSeparatedByString:@","])
+//        [maxStatsArray addObject:[NSNumber numberWithInt:[stat intValue]]];
+//      maxStats = [[NSArray alloc] initWithArray:maxStatsArray];
+//      maxStatsArray = nil;
+//    }
+//    else maxStats = [[NSArray alloc] initWithArray:self.wildPokemon.maxStats];
     
-    self.hpMax = [[maxStats objectAtIndex:0] intValue];
-//    self.hpMax = [[self.wildPokemon.maxStats objectAtIndex:0] intValue];
+//    self.hpMax = [[maxStats objectAtIndex:0] intValue];
+    self.hpMax = [[self.wildPokemon.maxStats objectAtIndex:0] intValue];
     self.hp    = self.hpMax;
-    maxStats = nil;
+//    maxStats = nil;
     
     // Create Hp Bar
     hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];

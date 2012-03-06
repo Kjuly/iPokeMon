@@ -41,22 +41,22 @@
     // TODO:
     //   Data Transform NSString -> NSArray
     //
-    NSLog(@"TODO: %@, %@", self.trainerPokemon.maxStats, [self.trainerPokemon.maxStats class]);
-    NSArray * maxStats;
-    if ([self.trainerPokemon.maxStats isKindOfClass:[NSString class]]) {
-      NSLog(@"!!! WARNING: self.trainerPokemon.maxStats isKindOfClass:[NSString class]");
-      NSMutableArray * maxStatsArray = [NSMutableArray arrayWithCapacity:8];
-      for (id stat in [self.trainerPokemon.maxStats componentsSeparatedByString:@","])
-        [maxStatsArray addObject:[NSNumber numberWithInt:[stat intValue]]];
-      maxStats = [[NSArray alloc] initWithArray:maxStatsArray];
-      maxStatsArray = nil;
-    }
-    else maxStats = [[NSArray alloc] initWithArray:self.trainerPokemon.maxStats];
+//    NSLog(@"TODO: %@, %@", self.trainerPokemon.maxStats, [self.trainerPokemon.maxStats class]);
+//    NSArray * maxStats;
+//    if ([self.trainerPokemon.maxStats isKindOfClass:[NSString class]]) {
+//      NSLog(@"!!! WARNING: self.trainerPokemon.maxStats isKindOfClass:[NSString class]");
+//      NSMutableArray * maxStatsArray = [NSMutableArray arrayWithCapacity:8];
+//      for (id stat in [self.trainerPokemon.maxStats componentsSeparatedByString:@","])
+//        [maxStatsArray addObject:[NSNumber numberWithInt:[stat intValue]]];
+//      maxStats = [[NSArray alloc] initWithArray:maxStatsArray];
+//      maxStatsArray = nil;
+//    }
+//    else maxStats = [[NSArray alloc] initWithArray:self.trainerPokemon.maxStats];
     
-    self.hpMax = [[maxStats objectAtIndex:0] intValue];
-//    self.hpMax = [[self.trainerPokemon.maxStats objectAtIndex:0] intValue];
+//    self.hpMax = [[maxStats objectAtIndex:0] intValue];
+    self.hpMax = [[self.trainerPokemon.maxStats objectAtIndex:0] intValue];
     self.hp    = [self.trainerPokemon.currHP intValue];
-    maxStats = nil;
+//    maxStats = nil;
     
     // Create Hp Bar
     hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
