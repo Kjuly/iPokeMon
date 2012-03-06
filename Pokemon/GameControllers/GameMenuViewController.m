@@ -27,14 +27,12 @@ typedef enum {
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
   UIView * menuArea_;
-  UIView * buttonBagAndRunBackground_;
 }
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
 @property (nonatomic, retain) UIView * menuArea;
-@property (nonatomic, retain) UIView * buttonBagAndRunBackground;
 
 // Button Actions
 - (void)openMoveView;
@@ -55,7 +53,6 @@ typedef enum {
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
 @synthesize menuArea = menuArea_;
-@synthesize buttonBagAndRunBackground = buttonBagAndRunBackground_;
 
 - (void)dealloc
 {
@@ -68,7 +65,6 @@ typedef enum {
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
   [menuArea_ release];
-  [buttonBagAndRunBackground_ release];
   
   [super dealloc];
 }
@@ -113,11 +109,10 @@ typedef enum {
                                              object:nil];
   
   // Constants
-  CGRect menuAreaFrame    = CGRectMake(0.0f, 270.0f, 320.0f, 210.0f);
-  CGRect buttonBagAndRunBackgroundFrame = CGRectMake(10.0f, 20.0f, 300.0f, 130.0f);
-  CGRect buttonBagFrame   = CGRectMake(10.0f, 25.0f, 80.0f, 80.0f);
-  CGRect buttonRunFrame   = CGRectMake(210.0f, 25.0f, 80.0f, 80.0f);
-  CGRect buttonFightFrame = CGRectMake(85.0f, 0.0f, 130.0f, 130.0f);
+  CGRect menuAreaFrame    = CGRectMake(0.f, 270.f, 320.f, 210.f);
+  CGRect buttonBagFrame   = CGRectMake(50.f, 5.f, 32.f, 32.f);
+  CGRect buttonRunFrame   = CGRectMake(320.f - 50.f - 32.f, 5.f, 32.f, 32.f);
+  CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
   
   // Menu Area
   UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
@@ -125,34 +120,24 @@ typedef enum {
   [menuArea release];
   [self.view addSubview:self.menuArea];
   
-  UIView * buttonBagAndRunBackground = [[UIView alloc] initWithFrame:buttonBagAndRunBackgroundFrame];
-  self.buttonBagAndRunBackground = buttonBagAndRunBackground;
-  [buttonBagAndRunBackground release];
-  [self.buttonBagAndRunBackground setBackgroundColor:
-   [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagRunBackground.png"]]];
-  [self.buttonBagAndRunBackground setOpaque:NO];
-  [self.menuArea addSubview:self.buttonBagAndRunBackground];
-  
   // Create Menu Buttons
   buttonBag_ = [[UIButton alloc] initWithFrame:buttonBagFrame];
   [buttonBag_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagIcon.png"]
               forState:UIControlStateNormal];
   [buttonBag_ addTarget:self action:@selector(openBagView) forControlEvents:UIControlEventTouchUpInside];
-  [self.buttonBagAndRunBackground addSubview:buttonBag_];
+  [self.menuArea addSubview:buttonBag_];
   
   buttonRun_ = [[UIButton alloc] initWithFrame:buttonRunFrame];
   [buttonRun_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonRunIcon.png"]
               forState:UIControlStateNormal];
   [buttonRun_ addTarget:self action:@selector(openRunConfirmView) forControlEvents:UIControlEventTouchUpInside];
-  [self.buttonBagAndRunBackground addSubview:buttonRun_];
+  [self.menuArea addSubview:buttonRun_];
   
   buttonFight_ = [[UIButton alloc] initWithFrame:buttonFightFrame];
-  [buttonFight_ setBackgroundColor:
-   [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightBackground.png"]]];
   [buttonFight_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightIcon.png"]
                 forState:UIControlStateNormal];
   [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
-  [self.buttonBagAndRunBackground addSubview:buttonFight_];
+  [self.menuArea addSubview:buttonFight_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -172,7 +157,6 @@ typedef enum {
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
   self.menuArea = nil;
-  self.buttonBagAndRunBackground = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
