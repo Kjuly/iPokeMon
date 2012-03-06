@@ -64,12 +64,10 @@
 {
   [super loadView];
   
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
-  
-  [self.view setBackgroundColor:[UIColor grayColor]];
-  [self.view setAlpha:0.0f];
+  [self.view setAlpha:0.f];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -132,14 +130,14 @@
                              [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
                              @"previousCenterMainButtonStatus", nil];
   
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
-                     [self.view setAlpha:0.0f];
+                     [self.view setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
-                     [self.view setFrame:CGRectMake(320.0f, 0.0f, 320.0f, 480.0f)];
+                     [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
                                                                          object:self
                                                                        userInfo:userInfo];
@@ -159,12 +157,12 @@
   // Replace the previous scene before show the battle scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
   
-  [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
-                     [self.view setAlpha:1.0f];
+                     [self.view setAlpha:1.f];
                    }
                    completion:^(BOOL finished) {
 //                     [[GameBattleLayer sharedInstance] generateNewSceneWithWildPokemonID:8];

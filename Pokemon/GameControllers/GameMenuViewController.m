@@ -8,6 +8,7 @@
 
 #import "GameMenuViewController.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatus.h"
@@ -100,9 +101,8 @@ typedef enum {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+//  [super loadView];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
@@ -145,7 +145,7 @@ typedef enum {
   self.messageView = messageView;
   [messageView release];
   [self.messageView setBackgroundColor:[UIColor clearColor]];
-  [self.messageView setFont:[GlobalRender textFontNormalInSizeOf:16.0f]];
+  [self.messageView setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
   [self.view addSubview:self.messageView];
 }

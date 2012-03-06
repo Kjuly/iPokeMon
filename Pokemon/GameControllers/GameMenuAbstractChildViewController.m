@@ -8,6 +8,8 @@
 
 #import "GameMenuAbstractChildViewController.h"
 
+#import "GlobalConstants.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -60,14 +62,13 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
-  
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+//  [super loadView];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   
   // Create Move Area View
-  CGRect tableAreaViewFrame  = CGRectMake(10.0f, 220.0f, 300.0f, 220.0f);
+  CGRect tableAreaViewFrame  = CGRectMake(10.f, 200.f, 300.f, 220.f);
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
