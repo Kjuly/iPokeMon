@@ -19,6 +19,7 @@
 
 - (void)dealloc
 {
+  self.pokemonSprite = nil;
   self.hpBar = nil;
   
   [super dealloc];

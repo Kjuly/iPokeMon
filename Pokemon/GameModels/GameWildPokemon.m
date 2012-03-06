@@ -42,14 +42,33 @@ static int attackDelayTime = 300;
     self.pokemonBattleStatus = kPokemonBattleStatusNormal;
     
     // Data Setting
-    self.wildPokemon = [WildPokemon queryPokemonDataWithID:pokemonID];
-    self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.pokemon.image).CGImage key:keyName];
+    self.wildPokemon   = [WildPokemon queryPokemonDataWithID:pokemonID];
+    self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.pokemon.image).CGImage
+                                                 key:keyName];
     [self.pokemonSprite setPosition:ccp(-90, 380)];
     [self addChild:self.pokemonSprite];
     
     // Set HP
-    self.hpMax = [[self.wildPokemon.maxStats objectAtIndex:0] intValue];
+    //
+    // TODO:
+    //   Data Transform NSString -> NSArray
+    //
+    NSLog(@"TODO: %@, %@", self.wildPokemon.maxStats, [self.wildPokemon.maxStats class]);
+    NSArray * maxStats;
+    if ([self.wildPokemon.maxStats isKindOfClass:[NSString class]]) {
+      NSLog(@"!!! WARNING: self.wildPokemon.maxStats isKindOfClass:[NSString class]");
+      NSMutableArray * maxStatsArray = [NSMutableArray arrayWithCapacity:8];
+      for (id stat in [self.wildPokemon.maxStats componentsSeparatedByString:@","])
+        [maxStatsArray addObject:[NSNumber numberWithInt:[stat intValue]]];
+      maxStats = [[NSArray alloc] initWithArray:maxStatsArray];
+      maxStatsArray = nil;
+    }
+    else maxStats = [[NSArray alloc] initWithArray:self.wildPokemon.maxStats];
+    
+    self.hpMax = [[maxStats objectAtIndex:0] intValue];
+//    self.hpMax = [[self.wildPokemon.maxStats objectAtIndex:0] intValue];
     self.hp    = self.hpMax;
+    maxStats = nil;
     
     // Create Hp Bar
     hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];

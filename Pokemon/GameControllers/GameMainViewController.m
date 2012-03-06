@@ -89,8 +89,8 @@
                                   depthFormat:0];                     // GL_DEPTH_COMPONENT16_OES
   [glView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
   [[CCDirector sharedDirector] setOpenGLView:glView];
-//  [self setView:glView];
-//  [self.view insertSubview:glView atIndex:0];
+  //[self setView:glView];
+  //[self.view insertSubview:glView atIndex:0];
   [self.view addSubview:glView];
   
   // Run Game Scene & but pause the game untile a Pokemon Appeared
@@ -126,10 +126,7 @@
 
 - (void)unloadBattleScene
 {
-#ifdef DEBUG
   NSLog(@"Battle Scene Unloading...");
-#endif
-  
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
                              @"previousCenterMainButtonStatus", nil];
@@ -157,9 +154,8 @@
   // Remember previous |centerMainButton_|'s status
   self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
   
-#ifdef DEBUG
   NSLog(@"Battle Scene Loading...");
-#endif
+  [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
   [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   [UIView animateWithDuration:0.3f
                         delay:0.0f
@@ -168,11 +164,10 @@
                      [self.view setAlpha:1.0f];
                    }
                    completion:^(BOOL finished) {
+//                     [[GameBattleLayer sharedInstance] generateNewSceneWithWildPokemonID:8];
                      [[CCDirector sharedDirector] resume];
                    }];
-#ifdef DEBUG
   NSLog(@"Pokemon Info: %@", notification.userInfo);
-#endif
 }
 
 @end

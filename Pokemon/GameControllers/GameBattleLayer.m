@@ -27,11 +27,25 @@
 
 @implementation GameBattleLayer
 
+static GameBattleLayer * gameBattleLayer = nil;
+
 @synthesize gameWildPokemon    = gameWildPoekmon_;
 @synthesize gameTrainerPokemon = gameTrainerPokemon_;
 @synthesize gameMoveEffect     = gameMoveEffect_;
 
-@synthesize isReadyToPlay        = isReadyToPlay_;
+@synthesize isReadyToPlay      = isReadyToPlay_;
+
++ (GameBattleLayer *)sharedInstance
+{
+  if (gameBattleLayer != nil)
+    return gameBattleLayer;
+  
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    gameBattleLayer = [[GameBattleLayer alloc] init];
+  });
+  return gameBattleLayer;
+}
 
 + (CCScene *)scene
 {
@@ -48,9 +62,9 @@
 
 - (void)dealloc
 {
-  [gameWildPoekmon_    release];
-  [gameTrainerPokemon_ release];
-  [gameMoveEffect_     release];
+//  [gameWildPoekmon_    release];
+//  [gameTrainerPokemon_ release];
+//  [gameMoveEffect_     release];
   
   self.gameWildPokemon    = nil;
   self.gameTrainerPokemon = nil;
@@ -64,20 +78,7 @@
   if (self = [super initWithColor:ccc4(255,255,255,255)]) {
     [self setIsTouchEnabled:YES];
     
-    // Wild Pokemon Node
-    gameWildPoekmon_ = [[GameWildPokemon alloc] initWithPokemonID:1 keyName:@"Pokemom"];
-    [self addChild:gameWildPoekmon_];
-    NSLog(@"HP: %d / %d", gameWildPoekmon_.hp, gameWildPoekmon_.hpMax);
-    
-    // Trainer's Pokemon Node
-    gameTrainerPokemon_ = [[GameTrainerPokemon alloc] init];
-    [self addChild:gameTrainerPokemon_];
-    NSLog(@"HP: %d / %d", gameTrainerPokemon_.hp, gameTrainerPokemon_.hpMax);
-    
-    // Create Move Effect Object
-    gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:gameTrainerPokemon_];
-    [self addChild:gameMoveEffect_];
-    
+    [self generateNewSceneWithWildPokemonID:8];
     self.isReadyToPlay = NO;
     
     // check whether a selector is scheduled. schedules the "update" method.
@@ -90,14 +91,35 @@
   return self;
 }
 
+// Generate a new scene
+- (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
+{
+  NSLog(@"Generating a new scene......");
+  // Wild Pokemon Node
+  GameWildPokemon * gameWildPoekmon = [[GameWildPokemon alloc] initWithPokemonID:wildPokemonID keyName:@"Pokemom"];
+  self.gameWildPokemon = gameWildPoekmon;
+  [gameWildPoekmon release];
+  [self addChild:self.gameWildPokemon];
+  NSLog(@"HP: %d / %d", self.gameWildPokemon.hp, self.gameWildPokemon.hpMax);
+  
+  // Trainer's Pokemon Node
+  GameTrainerPokemon * gameTrainerPokemon = [[GameTrainerPokemon alloc] init];
+  self.gameTrainerPokemon = gameTrainerPokemon;
+  [gameTrainerPokemon release];
+  [self addChild:self.gameTrainerPokemon];
+  NSLog(@"HP: %d / %d", self.gameTrainerPokemon.hp, self.gameTrainerPokemon.hpMax);
+  
+  // Create Move Effect Object
+  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:gameTrainerPokemon_];
+  [self addChild:gameMoveEffect_ z:9999];
+  
+  // Run battle begin animation is it's a new battle with the Pokemon
+  [self runBattleBeginAnimation];
+}
+
 // The method to be scheduled
 - (void)update:(ccTime)dt
 {
-//  NSLog(@"...Update game...");
-  // Run battle begin animation is it's a new battle with the Pokemon
-  if (! self.isReadyToPlay)
-    [self runBattleBeginAnimation];
-  
   // Update Wild Pokemon & Trainer Pokemon
   [self.gameWildPokemon    update:dt];
   [self.gameTrainerPokemon update:dt];
