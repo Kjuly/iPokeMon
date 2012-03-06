@@ -23,7 +23,6 @@
 @property (nonatomic, retain) GameTrainerPokemon * gameTrainerPokemon;
 @property (nonatomic, retain) GameMoveEffect     * gameMoveEffect;
 
-+ (GameBattleLayer *)sharedInstance;
 + (CCScene *)scene;
 - (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 

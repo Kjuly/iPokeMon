@@ -27,25 +27,11 @@
 
 @implementation GameBattleLayer
 
-static GameBattleLayer * gameBattleLayer = nil;
-
 @synthesize gameWildPokemon    = gameWildPoekmon_;
 @synthesize gameTrainerPokemon = gameTrainerPokemon_;
 @synthesize gameMoveEffect     = gameMoveEffect_;
 
 @synthesize isReadyToPlay      = isReadyToPlay_;
-
-+ (GameBattleLayer *)sharedInstance
-{
-  if (gameBattleLayer != nil)
-    return gameBattleLayer;
-  
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    gameBattleLayer = [[GameBattleLayer alloc] init];
-  });
-  return gameBattleLayer;
-}
 
 + (CCScene *)scene
 {
