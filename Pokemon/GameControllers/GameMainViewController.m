@@ -93,8 +93,10 @@
   //[self.view insertSubview:glView atIndex:0];
   [self.view addSubview:glView];
   
-  // Run Game Scene & but pause the game untile a Pokemon Appeared
-  [[CCDirector sharedDirector] runWithScene:[GameBattleLayer scene]];
+  // Run a blank scene & pause the it untile a Pokemon appeared
+  CCScene * blankScene = [CCScene node];
+  [[CCDirector sharedDirector] runWithScene:blankScene];
+  blankScene = nil;
   [[CCDirector sharedDirector] pause];
   
   // Set Game Menu View Controller
@@ -126,7 +128,6 @@
 
 - (void)unloadBattleScene
 {
-  NSLog(@"Battle Scene Unloading...");
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
                              @"previousCenterMainButtonStatus", nil];
@@ -151,11 +152,13 @@
 
 - (void)loadBattleScene:(NSNotification *)notification
 {
+  NSLog(@"Pokemon Info: %@", notification.userInfo);
   // Remember previous |centerMainButton_|'s status
   self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
   
-  NSLog(@"Battle Scene Loading...");
+  // Replace the previous scene before show the battle scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
+  
   [self.view setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
   [UIView animateWithDuration:0.3f
                         delay:0.0f
@@ -167,7 +170,6 @@
 //                     [[GameBattleLayer sharedInstance] generateNewSceneWithWildPokemonID:8];
                      [[CCDirector sharedDirector] resume];
                    }];
-  NSLog(@"Pokemon Info: %@", notification.userInfo);
 }
 
 @end
