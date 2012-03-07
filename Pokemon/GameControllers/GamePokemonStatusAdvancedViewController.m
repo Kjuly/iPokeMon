@@ -87,8 +87,9 @@
   // Reset gender, name, Lv., HPBar's frame
   [pokemonGender_ setFrame:pokemonGenderFrame];
   [pokemonName_ setFrame:pokemonNameFrame];
-  [pokemonLevel_ setFrame:pokemonLevelFrame];
   [pokemonHPBar_ setFrame:pokemonHPBarFrame];
+  [pokemonLevel_ setFrame:pokemonLevelFrame];
+  [pokemonLevel_ setTextColor:[GlobalRender textColorTitleWhite]];
   
   // Add HP
   pokemonHP_ = [[UILabel alloc] initWithFrame:pokemonHPFrame];
