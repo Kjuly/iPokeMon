@@ -8,17 +8,24 @@
 
 #import "PokemonHPBar.h"
 
+#import "GlobalRender.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface PokemonHPBar () {
  @private
-  UIImageView  * hpBar_;
-  UIImageView  * hpBarBackground_;
+//  UIImageView  * hpBar_;
+//  UIImageView  * hpBarBackground_;
+  UIView       * hpBar_;
+  UIView       * hpBarBackground_;
   NSInteger      hp_;
   NSInteger      hpMax_;
 }
 
-@property (nonatomic, retain) UIImageView  * hpBar;
-@property (nonatomic, retain) UIImageView  * hpBarBackground;
+//@property (nonatomic, retain) UIImageView  * hpBar;
+//@property (nonatomic, retain) UIImageView  * hpBarBackground;
+@property (nonatomic, retain) UIView  * hpBar;
+@property (nonatomic, retain) UIView  * hpBarBackground;
 @property (nonatomic, assign) NSInteger      hp;
 @property (nonatomic, assign) NSInteger      hpMax;
 
@@ -49,16 +56,20 @@
     UIImageView * hpBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 13.f)];
     self.hpBarBackground = hpBarBackground;
     [hpBarBackground release];
-    [self.hpBarBackground setContentMode:UIViewContentModeScaleAspectFit];
-    [self.hpBarBackground setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
+//    [self.hpBarBackground setContentMode:UIViewContentModeScaleAspectFit];
+//    [self.hpBarBackground setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
+    [self.hpBarBackground setBackgroundColor:[GlobalRender colorGray]];
+    [self.hpBarBackground.layer setCornerRadius:5.f];
     [self addSubview:self.hpBarBackground];
     
     CGRect hpBarFrame = CGRectMake(0.f, 0.f, frame.size.width * hp / hpMax, 13.f);
     UIImageView * hpBar = [[UIImageView alloc] initWithFrame:hpBarFrame];
     self.hpBar = hpBar;
     [hpBar release];
-    [self.hpBar setContentMode:UIViewContentModeScaleAspectFit];
-    [self.hpBar setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+//    [self.hpBar setContentMode:UIViewContentModeScaleAspectFit];
+//    [self.hpBar setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+    [self.hpBar setBackgroundColor:[GlobalRender colorOrange]];
+    [self.hpBar.layer setCornerRadius:5.f];
     [self.hpBarBackground addSubview:self.hpBar];
   }
   return self;
@@ -92,8 +103,9 @@
 
 - (void)updateHPBarWithHP:(NSInteger)hp
 {
+  self.hp = hp;
   CGRect hpBarFrame = self.hpBar.frame;
-  hpBarFrame.size.width = self.frame.size.width * hp / self.hpMax;
+  hpBarFrame.size.width = self.frame.size.width * self.hp / self.hpMax;
   [UIView animateWithDuration:1.f
                         delay:.5f
                       options:UIViewAnimationOptionCurveLinear

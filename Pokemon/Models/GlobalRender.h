@@ -18,6 +18,10 @@
 + (UIColor *)textColorOrange;
 + (UIColor *)textColorTitleWhite;
 
++ (UIColor *)colorOrange;
++ (UIColor *)colorBlue;
++ (UIColor *)colorGray;
+
 // Font Style
 + (UIFont *)textFontNormalInSizeOf:(CGFloat)fontSize;
 + (UIFont *)textFontBoldInSizeOf:(CGFloat)fontSize;

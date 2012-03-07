@@ -42,15 +42,30 @@
 
 // Orange | #EE9911
 + (UIColor *)textColorOrange {
+  return [self colorOrange];
+}
+
+// Blue   | #49627D
++ (UIColor *)textColorTitleWhite {
+  return [UIColor whiteColor];
+}
+
++ (UIColor *)colorOrange {
   return [UIColor colorWithRed:238.0f / 255.0f
                          green:153.0f / 255.0f
                           blue:17.0f  / 255.0f
                          alpha:1.0f];
 }
 
-// Blue   | #49627D
-+ (UIColor *)textColorTitleWhite {
-  return [UIColor whiteColor];
++ (UIColor *)colorBlue {
+  return [UIColor colorWithRed:91.0f / 255.0f
+                         green:155.0f / 255.0f
+                          blue:209.0f/ 255.0f
+                         alpha:1.0f];
+}
+
++ (UIColor *)colorGray {
+  return [UIColor grayColor];
 }
 
 #pragma mark - Font Style

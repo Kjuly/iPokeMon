@@ -8,16 +8,23 @@
 
 #import "PokemonEXPBar.h"
 
+#import "GlobalRender.h"
+#import <QuartzCore/QuartzCore.h>
+
 @interface PokemonEXPBar () {
  @private
-  UIImageView  * expBar_;
-  UIImageView  * expBarBackground_;
+//  UIImageView  * expBar_;
+//  UIImageView  * expBarBackground_;
+  UIView  * expBar_;
+  UIView  * expBarBackground_;
   NSInteger      exp_;
   NSInteger      expMax_;
 }
 
-@property (nonatomic, retain) UIImageView  * expBar;
-@property (nonatomic, retain) UIImageView  * expBarBackground;
+//@property (nonatomic, retain) UIImageView  * expBar;
+//@property (nonatomic, retain) UIImageView  * expBarBackground;
+@property (nonatomic, retain) UIView  * expBar;
+@property (nonatomic, retain) UIView  * expBarBackground;
 @property (nonatomic, assign) NSInteger      exp;
 @property (nonatomic, assign) NSInteger      expMax;
 
@@ -47,16 +54,20 @@
     UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
     self.expBarBackground = expBarBackground;
     [expBarBackground release];
-    [self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
-    [self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
+//    [self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
+//    [self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
+    [self.expBarBackground setBackgroundColor:[GlobalRender colorGray]];
+    [self.expBarBackground.layer setCornerRadius:3.f];
     [self addSubview:self.expBarBackground];
     
     CGRect expBarFrame = CGRectMake(0.f, 0.f, frame.size.width * exp / expMax, 6.f);
     UIImageView * expBar = [[UIImageView alloc] initWithFrame:expBarFrame];
     self.expBar = expBar;
     [expBar release];
-    [self.expBar setContentMode:UIViewContentModeScaleAspectFit];
-    [self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
+//    [self.expBar setContentMode:UIViewContentModeScaleAspectFit];
+//    [self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
+    [self.expBar setBackgroundColor:[GlobalRender colorBlue]];
+    [self.expBarBackground.layer setCornerRadius:3.f];
     [self.expBarBackground addSubview:self.expBar];
   }
   return self;
@@ -90,8 +101,9 @@
 
 - (void)updateExpBarWithExp:(NSInteger)exp
 {
+  self.exp = exp;
   CGRect hpBarFrame = self.expBar.frame;
-  hpBarFrame.size.width = self.frame.size.width * exp / self.expMax;
+  hpBarFrame.size.width = self.frame.size.width * self.exp / self.expMax;
   [UIView animateWithDuration:1.f
                         delay:0.f
                       options:UIViewAnimationOptionCurveLinear
