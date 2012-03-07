@@ -12,7 +12,6 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GameBattleLayer.h"
-#import "GameTopViewController.h"
 #import "GameMenuViewController.h"
 
 #import "cocos2d.h"
@@ -21,11 +20,9 @@
 @interface GameMainViewController () {
  @private
   CenterMainButtonStatus previousCenterMainButtonStatus_;
-  GameTopViewController * gameTopViewController_;
 }
 
 @property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
-@property (nonatomic, retain) GameTopViewController * gameTopViewController;
 
 - (void)loadBattleScene:(NSNotification *)notification;
 
@@ -33,16 +30,13 @@
 
 @implementation GameMainViewController
 
-@synthesize gameMenuViewController = gameMenuViewController_;
+@synthesize gameMenuViewController         = gameMenuViewController_;
 
-@synthesize gameTopViewController = gameTopViewController_;
 @synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
 
 - (void)dealloc
 {
   [gameMenuViewController_ release];
-  
-  [gameTopViewController_ release];
   
   [super dealloc];
 }
@@ -104,14 +98,10 @@
   blankScene = nil;
   [[CCDirector sharedDirector] pause];
   
-  // Set Game Menu View Controller
+  // Game Menu View Controller
   gameMenuViewController_ = [[GameMenuViewController alloc] init];
   gameMenuViewController_.delegate = self;
   [self.view addSubview:gameMenuViewController_.view];
-  
-  // Top Bar
-  gameTopViewController_ = [[GameTopViewController alloc] init];
-  [self.view addSubview:gameTopViewController_.view];
 }
 
 - (void)viewDidUnload
@@ -119,8 +109,6 @@
   [super viewDidUnload];
   
   self.gameMenuViewController = nil;
-  
-  self.gameTopViewController = nil;
 
   // Remove Notification Observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];

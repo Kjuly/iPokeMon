@@ -126,16 +126,16 @@
   
   BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:itemTag];
   [bagItemTableViewController.view setTag:999];
-  __block CGRect bagItemTableViewFrame = CGRectMake(0.0f, 480.0f, 320.0f, 480.0f);
+  __block CGRect bagItemTableViewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
   [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
   [self.view insertSubview:bagItemTableViewController.view belowSubview:self.cancelButton];
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
-                     bagItemTableViewFrame.origin.y = 0.0f;
+                     bagItemTableViewFrame.origin.y = 0.f;
                      [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
-                     [self.cancelButton setFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
+                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                             - (kMapButtonSize / 2),
                                                             kMapButtonSize,
                                                             kMapButtonSize)];

@@ -72,9 +72,9 @@ static int attackDelayTime = 150;
 //    maxStats = nil;
     
     // Create Hp Bar
-    hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
-    [hpBar_ setPosition:ccp(10, 330)];
-    [self addChild:hpBar_];
+//    hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
+//    [hpBar_ setPosition:ccp(10, 330)];
+//    [self addChild:hpBar_];
   }
   return self;
 }

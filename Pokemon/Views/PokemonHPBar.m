@@ -11,14 +11,14 @@
 
 @interface PokemonHPBar () {
  @private
-  UIView  * hpBar_;
-  UIView  * hpBarBackground_;
-  NSInteger hpMax_;
+  UIImageView  * hpBar_;
+  UIImageView  * hpBarBackground_;
+  NSInteger      hpMax_;
 }
 
-@property (nonatomic, retain) UIView  * hpBar;
-@property (nonatomic, retain) UIView  * hpBarBackground;
-@property (nonatomic, assign) NSInteger hpMax;
+@property (nonatomic, retain) UIImageView  * hpBar;
+@property (nonatomic, retain) UIImageView  * hpBarBackground;
+@property (nonatomic, assign) NSInteger      hpMax;
 
 @end
 
@@ -42,16 +42,20 @@
   if (self = [self initWithFrame:frame]) {
     hpMax_ = hpMax;
     
-    UIView * hpBarBackground = [[UIView alloc] initWithFrame:frame];
+    UIImageView * hpBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 13.f)];
     self.hpBarBackground = hpBarBackground;
     [hpBarBackground release];
+    [self.hpBarBackground setContentMode:UIViewContentModeScaleAspectFit];
+    [self.hpBarBackground setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
     [self addSubview:self.hpBarBackground];
     
-    CGRect hpBarFrame = CGRectMake(0.f, 0.f, frame.size.width * hp / hpMax, frame.size.height);
-    UIView * hpBar = [[UIView alloc] initWithFrame:hpBarFrame];
+    CGRect hpBarFrame = CGRectMake(0.f, 0.f, frame.size.width * hp / hpMax, 13.f);
+    UIImageView * hpBar = [[UIImageView alloc] initWithFrame:hpBarFrame];
     self.hpBar = hpBar;
     [hpBar release];
-    [self addSubview:self.hpBar];
+    [self.hpBar setContentMode:UIViewContentModeScaleAspectFit];
+    [self.hpBar setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+    [self.hpBarBackground addSubview:self.hpBar];
   }
   return self;
 }

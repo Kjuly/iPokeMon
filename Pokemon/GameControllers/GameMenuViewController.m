@@ -12,6 +12,8 @@
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatus.h"
+#import "GameTopViewController.h"
+#import "GamePokemonStatusAdvancedViewController.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
 
@@ -25,12 +27,20 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
+  GameTopViewController           * gameTopViewController_;
+  GamePokemonStatusViewController         * wildPokemonStatusViewController_;
+  GamePokemonStatusAdvancedViewController * myPokemonStatusViewController_;
+  
   GameMenuKeyView              gameMenuKeyView_;
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
   UIView * menuArea_;
   UITextView * messageView_;
 }
+
+@property (nonatomic, retain) GameTopViewController           * gameTopViewController;
+@property (nonatomic, retain) GamePokemonStatusViewController         * wildPokemonStatusViewController;
+@property (nonatomic, retain) GamePokemonStatusAdvancedViewController * myPokemonStatusViewController;
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
@@ -54,6 +64,10 @@ typedef enum {
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
 
+@synthesize gameTopViewController           = gameTopViewController_;
+@synthesize wildPokemonStatusViewController = wildPokemonStatusViewController_;
+@synthesize myPokemonStatusViewController   = myPokemonStatusViewController_;
+
 @synthesize gameMenuKeyView            = gameMenuKeyView_;
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
@@ -67,6 +81,10 @@ typedef enum {
   [buttonFight_ release];
   [buttonBag_   release];
   [buttonRun_   release];
+  
+  [gameTopViewController_           release];
+  [wildPokemonStatusViewController_ release];
+  [myPokemonStatusViewController_   release];
   
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
@@ -114,6 +132,21 @@ typedef enum {
   CGRect buttonRunFrame   = CGRectMake(320.f - 50.f - 32.f, 5.f, 32.f, 32.f);
   CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
   CGRect messageViewFrame = CGRectMake(10.f, 310.f, 300.f, 120.f);
+  
+  // Wild Pokemon Status View
+  CGRect wildPokemonStatusViewFrame = CGRectMake(0.f, 80.f, 180.f, 65.f);
+  CGRect myPokemonStatusViewFrame   = CGRectMake(40.f, 180.f, 280.f, 65.f);
+  wildPokemonStatusViewController_ = [[GamePokemonStatusViewController alloc] init];
+  [wildPokemonStatusViewController_.view setFrame:wildPokemonStatusViewFrame];
+  [self.view addSubview:wildPokemonStatusViewController_.view];
+  // My Pokemon Status Viwe
+  myPokemonStatusViewController_ = [[GamePokemonStatusAdvancedViewController alloc] init];
+  [myPokemonStatusViewController_.view setFrame:myPokemonStatusViewFrame];
+  [self.view addSubview:myPokemonStatusViewController_.view];
+  
+  // Top Bar
+  gameTopViewController_ = [[GameTopViewController alloc] init];
+  [self.view addSubview:gameTopViewController_.view];
   
   // Menu Area
   UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
@@ -177,6 +210,10 @@ typedef enum {
   self.buttonFight = nil;
   self.buttonBag   = nil;
   self.buttonRun   = nil;
+  
+  self.gameTopViewController           = nil;
+  self.wildPokemonStatusViewController = nil;
+  self.myPokemonStatusViewController   = nil;
   
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
