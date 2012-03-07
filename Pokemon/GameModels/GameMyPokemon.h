@@ -8,6 +8,6 @@
 
 #import "GameAbstractPokemon.h"
 
-@interface GameTrainerPokemon : GameAbstractPokemon
+@interface GameMyPokemon : GameAbstractPokemon
 
 @end

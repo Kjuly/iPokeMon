@@ -13,11 +13,13 @@
  @private
   UIImageView  * hpBar_;
   UIImageView  * hpBarBackground_;
+  NSInteger      hp_;
   NSInteger      hpMax_;
 }
 
 @property (nonatomic, retain) UIImageView  * hpBar;
 @property (nonatomic, retain) UIImageView  * hpBarBackground;
+@property (nonatomic, assign) NSInteger      hp;
 @property (nonatomic, assign) NSInteger      hpMax;
 
 @end
@@ -27,6 +29,7 @@
 
 @synthesize hpBar           = hpBar_;
 @synthesize hpBarBackground = hpBarBackground_;
+@synthesize hp              = hp_;
 @synthesize hpMax           = hpMax_;
 
 - (void)dealloc
@@ -40,6 +43,7 @@
 - (id)initWithFrame:(CGRect)frame HP:(NSInteger)hp HPMax:(NSInteger)hpMax
 {
   if (self = [self initWithFrame:frame]) {
+    hp_    = hp;
     hpMax_ = hpMax;
     
     UIImageView * hpBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 13.f)];
@@ -78,17 +82,30 @@
 }
 */
 
+- (NSInteger)hp {
+  return hp_;
+}
+
+- (NSInteger)hpMax {
+  return hpMax_;
+}
+
 - (void)updateHPBarWithHP:(NSInteger)hp
 {
   CGRect hpBarFrame = self.hpBar.frame;
   hpBarFrame.size.width = self.frame.size.width * hp / self.hpMax;
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
+  [UIView animateWithDuration:1.f
+                        delay:.5f
+                      options:UIViewAnimationOptionCurveLinear
                    animations:^{
                      [self.hpBar setFrame:hpBarFrame];
                    }
                    completion:nil];
+}
+
+- (void)updateHpBarWithHPMax:(NSInteger)hpMax
+{
+  self.hpMax = hpMax;
 }
 
 @end

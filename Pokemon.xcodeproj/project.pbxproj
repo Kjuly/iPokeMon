@@ -58,7 +58,7 @@
 		7F3F7A8414FB573C005E554E /* TrainerCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */; };
 		7F3F7AC414FB69E5005E554E /* GameAbstractPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */; };
 		7F3F7AC714FB7434005E554E /* GameWildPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC614FB7434005E554E /* GameWildPokemon.m */; };
-		7F3F7ACA14FB7445005E554E /* GameTrainerPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */; };
+		7F3F7ACA14FB7445005E554E /* GameMyPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC914FB7445005E554E /* GameMyPokemon.m */; };
 		7F3F7ACD14FB7EB0005E554E /* GamePokemonHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
@@ -815,8 +815,8 @@
 		7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAbstractPokemon.m; sourceTree = "<group>"; };
 		7F3F7AC514FB7434005E554E /* GameWildPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWildPokemon.h; sourceTree = "<group>"; };
 		7F3F7AC614FB7434005E554E /* GameWildPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameWildPokemon.m; sourceTree = "<group>"; };
-		7F3F7AC814FB7445005E554E /* GameTrainerPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTrainerPokemon.h; sourceTree = "<group>"; };
-		7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTrainerPokemon.m; sourceTree = "<group>"; };
+		7F3F7AC814FB7445005E554E /* GameMyPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GameMyPokemon.h; sourceTree = "<group>"; };
+		7F3F7AC914FB7445005E554E /* GameMyPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMyPokemon.m; sourceTree = "<group>"; };
 		7F3F7ACB14FB7EAF005E554E /* GamePokemonHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePokemonHPBar.h; path = ../GameModels/GamePokemonHPBar.h; sourceTree = "<group>"; };
 		7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GamePokemonHPBar.m; path = ../GameModels/GamePokemonHPBar.m; sourceTree = "<group>"; };
 		7F4570FE14F225EB0031A8F5 /* PokemonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailViewController.h; sourceTree = "<group>"; };
@@ -1777,8 +1777,8 @@
 				7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */,
 				7F3F7AC514FB7434005E554E /* GameWildPokemon.h */,
 				7F3F7AC614FB7434005E554E /* GameWildPokemon.m */,
-				7F3F7AC814FB7445005E554E /* GameTrainerPokemon.h */,
-				7F3F7AC914FB7445005E554E /* GameTrainerPokemon.m */,
+				7F3F7AC814FB7445005E554E /* GameMyPokemon.h */,
+				7F3F7AC914FB7445005E554E /* GameMyPokemon.m */,
 			);
 			path = GameModels;
 			sourceTree = "<group>";
@@ -2480,14 +2480,14 @@
 				7F7C88F914F74FEA0023D079 /* GameMainViewController.m */,
 				7F50B81A14F955A900883412 /* GameBattleLayer.h */,
 				7F50B81B14F955A900883412 /* GameBattleLayer.m */,
+				7F77F6F114FA75A200842700 /* GameMenuViewController.h */,
+				7F77F6F214FA75A200842700 /* GameMenuViewController.m */,
+				7F0D18CA15072E54009CFDBA /* GameTopViewController.h */,
+				7F0D18CB15072E54009CFDBA /* GameTopViewController.m */,
 				7F22C67C150781C00070CB36 /* GamePokemonStatusViewController.h */,
 				7F22C67D150781C00070CB36 /* GamePokemonStatusViewController.m */,
 				7F0D18D8150748F1009CFDBA /* GamePokemonStatusAdvancedViewController.h */,
 				7F0D18D9150748F1009CFDBA /* GamePokemonStatusAdvancedViewController.m */,
-				7F0D18CA15072E54009CFDBA /* GameTopViewController.h */,
-				7F0D18CB15072E54009CFDBA /* GameTopViewController.m */,
-				7F77F6F114FA75A200842700 /* GameMenuViewController.h */,
-				7F77F6F214FA75A200842700 /* GameMenuViewController.m */,
 				7F55B54F15061A4300ECCA82 /* GameMoveEffect.h */,
 				7F55B55015061A4300ECCA82 /* GameMoveEffect.m */,
 				7F77F6FE14FA826500842700 /* GameMenuAbstractChildViewController.h */,
@@ -3888,7 +3888,7 @@
 				7F3F7A8414FB573C005E554E /* TrainerCoreDataController.m in Sources */,
 				7F3F7AC414FB69E5005E554E /* GameAbstractPokemon.m in Sources */,
 				7F3F7AC714FB7434005E554E /* GameWildPokemon.m in Sources */,
-				7F3F7ACA14FB7445005E554E /* GameTrainerPokemon.m in Sources */,
+				7F3F7ACA14FB7445005E554E /* GameMyPokemon.m in Sources */,
 				7F3F7ACD14FB7EB0005E554E /* GamePokemonHPBar.m in Sources */,
 				7F52450114FBD9F30019C75A /* Move.m in Sources */,
 				7F52450414FBD9F40019C75A /* Pokemon.m in Sources */,

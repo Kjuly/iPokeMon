@@ -10,7 +10,7 @@
 
 #import "GlobalNotificationConstants.h"
 #import "GameWildPokemon.h"
-#import "GameTrainerPokemon.h"
+#import "GameMyPokemon.h"
 
 
 @interface GameMoveEffect () {
@@ -37,7 +37,7 @@
 }
 
 - (id)initWithwildPokemon:(GameWildPokemon *)gameWildPokemon
-           trainerPokemon:(GameTrainerPokemon *)gameTrainerPokemon
+           trainerPokemon:(GameMyPokemon *)gameTrainerPokemon
 {
   if (self = [super init]) {
     self.gameWildPokemon    = gameWildPokemon;
@@ -65,15 +65,38 @@
 {
   NSDictionary * userInfo = notification.userInfo;
   NSInteger moveDamage = [[userInfo objectForKey:@"damage"] intValue];
-  if ([[userInfo objectForKey:@"MoveOwner"] isEqualToString:@"TrainerPokemon"]) {
+  
+  // Prepare data for updating pokemon's status
+  NSString * target;
+  NSInteger  hp;
+  
+  if ([[userInfo objectForKey:@"MoveOwner"] isEqualToString:@"MyPokemon"]) {
     self.gameWildPokemon.hp -= moveDamage;
-    if (self.gameWildPokemon.hp < 0) self.gameWildPokemon.hp = 0;
+    if (self.gameWildPokemon.hp < 0)
+      self.gameWildPokemon.hp = 0;
+    if (self.gameWildPokemon.hp > self.gameWildPokemon.hpMax)
+      self.gameWildPokemon.hp = self.gameWildPokemon.hpMax;
+    
+    target = @"WildPokemon";
+    hp     = self.gameWildPokemon.hp;
   }
   else {
     self.gameTrainerPokemon.hp -= moveDamage;
-    if (self.gameTrainerPokemon.hp < 0) self.gameTrainerPokemon.hp = 0;
+    if (self.gameTrainerPokemon.hp < 0)
+      self.gameTrainerPokemon.hp = 0;
+    if (self.gameTrainerPokemon.hp > self.gameTrainerPokemon.hpMax)
+      self.gameTrainerPokemon.hp = self.gameTrainerPokemon.hpMax;
+    
+    target = @"MyPokemon";
+    hp     = self.gameTrainerPokemon.hp;
   }
   userInfo = nil;
+  
+  // Post to |GameMenuViewController|
+  NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                target, @"target", [NSNumber numberWithInt:hp], @"HP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
+  [newUserInfo release];
 }
 
 @end

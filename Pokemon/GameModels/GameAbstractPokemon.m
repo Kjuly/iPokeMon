@@ -15,13 +15,11 @@
 @synthesize pokemonSprite = pokemonSprite_;
 @synthesize hp            = hp_;
 @synthesize hpMax         = hpMax_;
-@synthesize hpBar         = hpBar_;
 @synthesize pokemonBattleStatus = pokemonBattleStatus_;
 
 - (void)dealloc
 {
   self.pokemonSprite = nil;
-  self.hpBar = nil;
   
   [super dealloc];
 }
@@ -35,7 +33,7 @@
 
 - (void)update:(ccTime)dt
 {
-  [self.hpBar update:dt withCurrntHP:self.hp currentHPMax:self.hpMax];
+//  [self.hpBar update:dt withCurrntHP:self.hp currentHPMax:self.hpMax];
 }
 
 - (void)newTurn

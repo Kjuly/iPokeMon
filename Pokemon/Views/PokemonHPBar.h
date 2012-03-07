@@ -11,6 +11,9 @@
 @interface PokemonHPBar : UIView
 
 - (id)initWithFrame:(CGRect)frame HP:(NSInteger)hp HPMax:(NSInteger)hpMax;
+- (NSInteger)hp;
+- (NSInteger)hpMax;
 - (void)updateHPBarWithHP:(NSInteger)hp;
+- (void)updateHpBarWithHPMax:(NSInteger)hpMax;
 
 @end

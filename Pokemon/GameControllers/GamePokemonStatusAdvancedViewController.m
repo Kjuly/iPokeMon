@@ -135,6 +135,18 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Public Methods
+
+// Parent |GamePokemonStatusViewController|
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo
+{
+  [super updatePokemonStatus:statusInfo];
+  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", self.pokemonHPBar.hp, self.pokemonHPBar.hpMax]];
+  
+  if ([statusInfo objectForKey:@"Exp"])
+    [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
+}
+
 #pragma mark - Private Methods
 
 - (void)toggleStatusBar

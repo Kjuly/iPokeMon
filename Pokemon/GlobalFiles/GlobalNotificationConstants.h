@@ -20,6 +20,7 @@ extern NSString * const kPMNToggleSixPokemons;
 
 extern NSString * const kPMNMoveEffect;
 extern NSString * const kPMNUpdateGameBattleMessage;
+extern NSString * const kPMNUpdatePokemonStatus;
 
 @interface GlobalNotificationConstants : NSObject
 

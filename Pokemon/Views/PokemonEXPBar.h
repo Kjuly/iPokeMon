@@ -11,5 +11,9 @@
 @interface PokemonEXPBar : UIView
 
 - (id)initWithFrame:(CGRect)frame EXP:(NSInteger)exp EXPMax:(NSInteger)expMax;
+- (NSInteger)exp;
+- (NSInteger)expMax;
+- (void)updateExpBarWithExp:(NSInteger)exp;
+- (void)updateExpBarWithExpMax:(NSInteger)expMax;
 
 @end

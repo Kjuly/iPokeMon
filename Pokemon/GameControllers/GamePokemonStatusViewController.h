@@ -24,4 +24,6 @@
 @property (nonatomic, retain) UIImageView  * pokemonGender;
 @property (nonatomic, retain) UIImageView  * backgroundView;
 
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo;
+
 @end

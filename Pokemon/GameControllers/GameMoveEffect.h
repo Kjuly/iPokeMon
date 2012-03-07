@@ -10,17 +10,17 @@
 #import "cocos2d.h"
 
 @class GameWildPokemon;
-@class GameTrainerPokemon;
+@class GameMyPokemon;
 
 @interface GameMoveEffect : CCNode {
   GameWildPokemon    * gameWildPoekmon_;
-  GameTrainerPokemon * gameTrainerPokemon_;
+  GameMyPokemon * gameTrainerPokemon_;
 }
 
 @property (nonatomic, retain) GameWildPokemon    * gameWildPokemon;
-@property (nonatomic, retain) GameTrainerPokemon * gameTrainerPokemon;
+@property (nonatomic, retain) GameMyPokemon * gameTrainerPokemon;
 
 - (id)initWithwildPokemon:(GameWildPokemon *)gameWildPokemon
-           trainerPokemon:(GameTrainerPokemon *)gameTrainerPokemon;
+           trainerPokemon:(GameMyPokemon *)gameTrainerPokemon;
 
 @end

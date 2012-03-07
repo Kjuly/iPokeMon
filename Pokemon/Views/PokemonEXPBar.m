@@ -12,11 +12,13 @@
  @private
   UIImageView  * expBar_;
   UIImageView  * expBarBackground_;
+  NSInteger      exp_;
   NSInteger      expMax_;
 }
 
 @property (nonatomic, retain) UIImageView  * expBar;
 @property (nonatomic, retain) UIImageView  * expBarBackground;
+@property (nonatomic, assign) NSInteger      exp;
 @property (nonatomic, assign) NSInteger      expMax;
 
 @end
@@ -25,6 +27,7 @@
 
 @synthesize expBar           = expBar_;
 @synthesize expBarBackground = expBarBackground_;
+@synthesize exp              = exp_;
 @synthesize expMax           = expMax_;
 
 - (void)dealloc
@@ -38,6 +41,7 @@
 - (id)initWithFrame:(CGRect)frame EXP:(NSInteger)exp EXPMax:(NSInteger)expMax
 {
   if (self = [self initWithFrame:frame]) {
+    exp_    = exp;
     expMax_ = expMax;
     
     UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
@@ -75,5 +79,31 @@
     // Drawing code
 }
 */
+
+- (NSInteger)exp {
+  return exp_;
+}
+
+- (NSInteger)expMax {
+  return expMax_;
+}
+
+- (void)updateExpBarWithExp:(NSInteger)exp
+{
+  CGRect hpBarFrame = self.expBar.frame;
+  hpBarFrame.size.width = self.frame.size.width * exp / self.expMax;
+  [UIView animateWithDuration:1.f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:^{
+                     [self.expBar setFrame:hpBarFrame];
+                   }
+                   completion:nil];
+}
+
+- (void)updateExpBarWithExpMax:(NSInteger)expMax
+{
+  self.expMax = expMax;
+}
 
 @end

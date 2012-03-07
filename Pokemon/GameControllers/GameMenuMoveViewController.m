@@ -191,7 +191,7 @@
   
   // Send parameter to Move Effect Controller
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             @"TrainerPokemon", @"MoveOwner",
+                             @"MyPokemon", @"MoveOwner",
                              move.baseDamage, @"damage",
                              nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];

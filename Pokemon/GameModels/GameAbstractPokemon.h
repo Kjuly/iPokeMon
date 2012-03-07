@@ -29,7 +29,7 @@ typedef enum {
 @property (nonatomic, retain) CCSprite * pokemonSprite;
 @property (nonatomic, assign) int        hp;
 @property (nonatomic, assign) int        hpMax;
-@property (nonatomic, retain) GamePokemonHPBar * hpBar;
+//@property (nonatomic, retain) GamePokemonHPBar * hpBar;
 @property (nonatomic, assign) PokemonBattleStatus pokemonBattleStatus;
 
 - (void)update:(ccTime)dt;

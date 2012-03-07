@@ -9,7 +9,7 @@
 #import "GameBattleLayer.h"
 
 #import "GameWildPokemon.h"
-#import "GameTrainerPokemon.h"
+#import "GameMyPokemon.h"
 #import "GameMoveEffect.h"
 
 
@@ -28,11 +28,11 @@
 
 @implementation GameBattleLayer
 
-@synthesize gameWildPokemon    = gameWildPoekmon_;
-@synthesize gameTrainerPokemon = gameTrainerPokemon_;
-@synthesize gameMoveEffect     = gameMoveEffect_;
+@synthesize gameWildPokemon = gameWildPoekmon_;
+@synthesize gameMyPokemon   = gameMyPokemon_;
+@synthesize gameMoveEffect  = gameMoveEffect_;
 
-@synthesize isReadyToPlay      = isReadyToPlay_;
+@synthesize isReadyToPlay   = isReadyToPlay_;
 
 + (CCScene *)scene
 {
@@ -53,9 +53,9 @@
 //  [gameTrainerPokemon_ release];
 //  [gameMoveEffect_     release];
   
-  self.gameWildPokemon    = nil;
-  self.gameTrainerPokemon = nil;
-  self.gameMoveEffect     = nil;
+  self.gameWildPokemon = nil;
+  self.gameMyPokemon   = nil;
+  self.gameMoveEffect  = nil;
   
   [super dealloc];
 }
@@ -87,17 +87,15 @@
   self.gameWildPokemon = gameWildPoekmon;
   [gameWildPoekmon release];
   [self addChild:self.gameWildPokemon];
-  NSLog(@"HP: %d / %d", self.gameWildPokemon.hp, self.gameWildPokemon.hpMax);
   
   // Trainer's Pokemon Node
-  GameTrainerPokemon * gameTrainerPokemon = [[GameTrainerPokemon alloc] init];
-  self.gameTrainerPokemon = gameTrainerPokemon;
-  [gameTrainerPokemon release];
-  [self addChild:self.gameTrainerPokemon];
-  NSLog(@"HP: %d / %d", self.gameTrainerPokemon.hp, self.gameTrainerPokemon.hpMax);
+  GameMyPokemon * gameMyPokemon = [[GameMyPokemon alloc] init];
+  self.gameMyPokemon = gameMyPokemon;
+  [gameMyPokemon release];
+  [self addChild:self.gameMyPokemon];
   
   // Create Move Effect Object
-  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:gameTrainerPokemon_];
+  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:self.gameMyPokemon];
   [self addChild:gameMoveEffect_ z:9999];
   
   // Run battle begin animation is it's a new battle with the Pokemon
@@ -108,8 +106,8 @@
 - (void)update:(ccTime)dt
 {
   // Update Wild Pokemon & Trainer Pokemon
-  [self.gameWildPokemon    update:dt];
-  [self.gameTrainerPokemon update:dt];
+  [self.gameWildPokemon update:dt];
+  [self.gameMyPokemon   update:dt];
 }
 
 #pragma mark - Touch Handler
@@ -134,8 +132,8 @@
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.gameWildPokemon.pokemonSprite    runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
-  [self.gameTrainerPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
+  [self.gameWildPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
+  [self.gameMyPokemon.pokemonSprite   runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
   
   // Set game play to ready
   self.isReadyToPlay = YES;

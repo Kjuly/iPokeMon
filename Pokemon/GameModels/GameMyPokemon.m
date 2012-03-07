@@ -6,11 +6,11 @@
 //  Copyright 2012 Kjuly. All rights reserved.
 //
 
-#import "GameTrainerPokemon.h"
+#import "GameMyPokemon.h"
 
 #import "TrainerCoreDataController.h"
 
-@interface GameTrainerPokemon () {
+@interface GameMyPokemon () {
  @private
   TrainerTamedPokemon * trainerPokemon_;
 }
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation GameTrainerPokemon
+@implementation GameMyPokemon
 
 @synthesize trainerPokemon = trainerPokemon_;
 

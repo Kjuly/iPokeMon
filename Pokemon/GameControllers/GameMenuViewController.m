@@ -54,6 +54,7 @@ typedef enum {
 - (void)openRunConfirmView;
 - (void)toggleSixPokemonsView:(NSNotification *)notification;
 - (void)updateMessage:(NSNotification *)notification;
+- (void)updatePokemonStatus:(NSNotification *)notification;
 
 @end
 
@@ -94,6 +95,7 @@ typedef enum {
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdatePokemonStatus object:nil];
   [super dealloc];
 }
 
@@ -213,6 +215,11 @@ typedef enum {
                                            selector:@selector(updateMessage:)
                                                name:kPMNUpdateGameBattleMessage
                                              object:nil];
+  // Add observer for notification from |GameMoveEffect|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(updatePokemonStatus:)
+                                               name:kPMNUpdatePokemonStatus
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -326,6 +333,15 @@ typedef enum {
                                       }
                                       completion:nil];
                    }];
+}
+
+// Update Pokemon's Status
+- (void)updatePokemonStatus:(NSNotification *)notification
+{
+  if ([[notification.userInfo objectForKey:@"target"] isEqualToString:@"MyPokemon"])
+    [self.myPokemonStatusViewController updatePokemonStatus:notification.userInfo];
+  else
+    [self.wildPokemonStatusViewController updatePokemonStatus:notification.userInfo];
 }
 
 @end
