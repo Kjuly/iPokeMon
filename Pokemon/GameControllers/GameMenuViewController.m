@@ -27,26 +27,26 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
-  GameTopViewController           * gameTopViewController_;
+  GameTopViewController                   * gameTopViewController_;
   GamePokemonStatusViewController         * wildPokemonStatusViewController_;
   GamePokemonStatusAdvancedViewController * myPokemonStatusViewController_;
   
   GameMenuKeyView              gameMenuKeyView_;
   GameMenuMoveViewController * gameMenuMoveViewController_;
   GameMenuBagViewController  * gameMenuBagViewController_;
-  UIView * menuArea_;
-  UITextView * messageView_;
+  UIView                     * menuArea_;
+  UITextView                 * messageView_;
 }
 
-@property (nonatomic, retain) GameTopViewController           * gameTopViewController;
+@property (nonatomic, retain) GameTopViewController                   * gameTopViewController;
 @property (nonatomic, retain) GamePokemonStatusViewController         * wildPokemonStatusViewController;
 @property (nonatomic, retain) GamePokemonStatusAdvancedViewController * myPokemonStatusViewController;
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController  * gameMenuBagViewController;
-@property (nonatomic, retain) UIView * menuArea;
-@property (nonatomic, retain) UITextView * messageView;
+@property (nonatomic, retain) UIView                     * menuArea;
+@property (nonatomic, retain) UITextView                 * messageView;
 
 // Button Actions
 - (void)openMoveView;
@@ -71,8 +71,8 @@ typedef enum {
 @synthesize gameMenuKeyView            = gameMenuKeyView_;
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController  = gameMenuBagViewController_;
-@synthesize menuArea = menuArea_;
-@synthesize messageView = messageView_;
+@synthesize menuArea                   = menuArea_;
+@synthesize messageView                = messageView_;
 
 - (void)dealloc
 {
@@ -88,8 +88,8 @@ typedef enum {
   
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
-  [menuArea_ release];
-  [messageView_ release];
+  [menuArea_                   release];
+  [messageView_                release];
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
@@ -123,7 +123,8 @@ typedef enum {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:
+                                 [UIImage imageNamed:@"GameBattleViewMainMenuBackground.png"]]];
   [self.view setOpaque:NO];
   
   // Constants
@@ -133,22 +134,30 @@ typedef enum {
   CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
   CGRect messageViewFrame = CGRectMake(10.f, 310.f, 300.f, 120.f);
   
+  //
+  // Pokemon Status
+  //
   // Wild Pokemon Status View
   CGRect wildPokemonStatusViewFrame = CGRectMake(0.f, 80.f, 180.f, 65.f);
   CGRect myPokemonStatusViewFrame   = CGRectMake(40.f, 180.f, 280.f, 65.f);
   wildPokemonStatusViewController_ = [[GamePokemonStatusViewController alloc] init];
   [wildPokemonStatusViewController_.view setFrame:wildPokemonStatusViewFrame];
   [self.view addSubview:wildPokemonStatusViewController_.view];
-  // My Pokemon Status Viwe
+  
+  // My Pokemon Status View
   myPokemonStatusViewController_ = [[GamePokemonStatusAdvancedViewController alloc] init];
   [myPokemonStatusViewController_.view setFrame:myPokemonStatusViewFrame];
   [self.view addSubview:myPokemonStatusViewController_.view];
   
+  //
   // Top Bar
+  //
   gameTopViewController_ = [[GameTopViewController alloc] init];
   [self.view addSubview:gameTopViewController_.view];
   
+  //
   // Menu Area
+  //
   UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
   self.menuArea = menuArea;
   [menuArea release];
@@ -173,13 +182,16 @@ typedef enum {
   [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
   [self.menuArea addSubview:buttonFight_];
   
+  //
   // Message View
+  //
   UITextView * messageView = [[UITextView alloc] initWithFrame:messageViewFrame];
   self.messageView = messageView;
   [messageView release];
   [self.messageView setBackgroundColor:[UIColor clearColor]];
   [self.messageView setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
+  [self.messageView setEditable:NO];
   [self.view addSubview:self.messageView];
 }
 
@@ -217,8 +229,8 @@ typedef enum {
   
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
-  self.menuArea = nil;
-  self.messageView = nil;
+  self.menuArea                   = nil;
+  self.messageView                = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

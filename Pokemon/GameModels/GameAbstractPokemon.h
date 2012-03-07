@@ -22,7 +22,6 @@ typedef enum {
   CCSprite * pokemonSprite_;
   int        hp_;
   int        hpMax_;
-  GamePokemonHPBar * hpBar_;
   PokemonBattleStatus pokemonBattleStatus_;
 }
 
