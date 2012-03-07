@@ -46,7 +46,7 @@ static int attackDelayTime = 150;
     self.pokemonID     = [self.wildPokemon.sid intValue];
     self.pokemonSprite = [CCSprite spriteWithCGImage:((UIImage *)self.wildPokemon.pokemon.image).CGImage
                                                  key:keyName];
-    [self.pokemonSprite setPosition:ccp(-90, 380)];
+    [self.pokemonSprite setPosition:ccp(-90, 350)];
     [self addChild:self.pokemonSprite];
     
     // Set HP
@@ -73,7 +73,7 @@ static int attackDelayTime = 150;
     
     // Create Hp Bar
     hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
-    [hpBar_ setPosition:ccp(10, 380)];
+    [hpBar_ setPosition:ccp(10, 330)];
     [self addChild:hpBar_];
   }
   return self;

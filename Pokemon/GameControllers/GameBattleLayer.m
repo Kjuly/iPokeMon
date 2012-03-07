@@ -134,8 +134,8 @@
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.gameWildPokemon.pokemonSprite    runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(220, 380)]];
-  [self.gameTrainerPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(100, 300)]];
+  [self.gameWildPokemon.pokemonSprite    runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
+  [self.gameTrainerPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
   
   // Set game play to ready
   self.isReadyToPlay = YES;

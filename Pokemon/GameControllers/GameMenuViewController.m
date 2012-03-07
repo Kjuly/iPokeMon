@@ -109,11 +109,11 @@ typedef enum {
   [self.view setOpaque:NO];
   
   // Constants
-  CGRect menuAreaFrame    = CGRectMake(0.f, 270.f, 320.f, 45.f);
+  CGRect menuAreaFrame    = CGRectMake(0.f, 250.f, 320.f, 45.f);
   CGRect buttonBagFrame   = CGRectMake(50.f, 5.f, 32.f, 32.f);
   CGRect buttonRunFrame   = CGRectMake(320.f - 50.f - 32.f, 5.f, 32.f, 32.f);
   CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
-  CGRect messageViewFrame = CGRectMake(10.f, 330.f, 300.f, 120.f);
+  CGRect messageViewFrame = CGRectMake(10.f, 310.f, 300.f, 120.f);
   
   // Menu Area
   UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];

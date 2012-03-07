@@ -34,7 +34,7 @@
     self.pokemonID      = [self.trainerPokemon.sid intValue];
     self.pokemonSprite  = [CCSprite spriteWithCGImage:((UIImage *)self.trainerPokemon.pokemon.image).CGImage
                                                   key:@"TrainerPokemon"];
-    [self.pokemonSprite setPosition:ccp(410, 300)];
+    [self.pokemonSprite setPosition:ccp(410, 250)];
     [self addChild:self.pokemonSprite];
     
     // Set HP
@@ -61,7 +61,7 @@
     
     // Create Hp Bar
     hpBar_ = [[GamePokemonHPBar alloc] initWithHP:self.hp hpMax:self.hpMax];
-    [hpBar_ setPosition:ccp(150, 300)];
+    [hpBar_ setPosition:ccp(150, 220)];
     [self addChild:hpBar_];
   }
   return self;
