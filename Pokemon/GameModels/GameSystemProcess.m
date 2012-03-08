@@ -16,9 +16,11 @@
 
 @interface GameSystemProcess () {
 @private
-  BOOL complete_;
+  BOOL      complete_;
+  NSInteger delayTime_; // Delay time for every turn
 }
 
+- (void)reset;
 - (void)applyMove;
 
 @end
@@ -55,7 +57,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (id)init
 {
   if (self = [super init]) {
-    complete_   = NO;
+    [self reset];
+    
     moveTarget_ = kGameSystemProcessMoveTargetEnemy;
     baseDamage_ = 0;
   }
@@ -64,9 +67,11 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)update:(ccTime)dt
 {
+  delayTime_ += 100 * dt;
   if (complete_) {
+    if (delayTime_ < 200) return;
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusSystemProcess];
-    complete_ = NO;
+    [self reset];
   }
   else [self applyMove];
 }
@@ -76,6 +81,11 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 #pragma mark - Private Methods
+
+- (void)reset {
+  complete_  = NO;
+  delayTime_ = 0;
+}
 
 - (void)applyMove
 {
