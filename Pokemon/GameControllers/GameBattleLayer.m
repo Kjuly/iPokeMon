@@ -16,8 +16,6 @@
 #import "TrainerCoreDataController.h"
 #import "WildPokemon+DataController.h"
 
-#import "GameMoveEffect.h"
-
 
 @interface GameBattleLayer () {
  @private
@@ -153,11 +151,6 @@
   [self.enemyPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.enemyPokemonSprite];
   
-    
-//  // Create Move Effect Object
-//  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:self.gameMyPokemon];
-//  [self addChild:gameMoveEffect_ z:9999];
-//  
 //  // Run battle begin animation is it's a new battle with the Pokemon
 //  [self runBattleBeginAnimation];
 }

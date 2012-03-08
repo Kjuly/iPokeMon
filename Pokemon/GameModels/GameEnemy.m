@@ -75,16 +75,6 @@
   NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage object:self userInfo:messageInfo];
   
-  // Send parameter to Move Effect Controller
-  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             @"WildPokemon", @"MoveOwner",
-                             enemyPokemon.sid, @"pokemonID",
-                             move.sid, @"moveID",
-                             move.baseDamage, @"damage", nil];
-  // Notification target: |GameMoveEffect|
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
-  [userInfo release];
-  
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetPlayer;
