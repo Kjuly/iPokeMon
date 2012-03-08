@@ -82,7 +82,7 @@ static GameStatusMachine * gameStatusMachine = nil;
       
     case kGameStatusEnemyTurn:
       gameNextStatus_ = kGameStatusPlayerTurn;
-      gameStatus_     = kGameStatusPlayerTurn;
+      gameStatus_     = kGameStatusSystemProcess;
       break;
       
     default:

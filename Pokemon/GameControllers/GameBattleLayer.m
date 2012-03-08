@@ -130,9 +130,9 @@
 //  [player release];
 //  self.player = [GamePlayer sharedInstance];
   
-//  GameEnemy * enemy = [[GameEnemy alloc] init];
-//  self.enemy = enemy;
-//  [enemy release];
+  GameEnemy * enemy = [[GameEnemy alloc] init];
+  self.enemy = enemy;
+  [enemy release];
   
   // Player pokemon sprite setting
   GamePokemonSprite * playerPokemonSprite
@@ -180,11 +180,10 @@
       break;
       
     case kGameStatusEnemyTurn:
-//      [self.enemy update:dt];
+      [self.enemy update:dt];
       break;
       
     case kGameStatusInitialization:
-      NSLog(@":: Game Status: kGameStatusInitialization");
       [self runBattleBeginAnimation];
     default:
       break;

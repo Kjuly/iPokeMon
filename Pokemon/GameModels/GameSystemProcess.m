@@ -84,43 +84,21 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (self.moveTarget == kGameSystemProcessMoveTargetEnemy) {
     moveTarget = @"WildPokemon";
     pokemonHP = [self.enemyPokemon.currHP intValue];
-    NSLog(@"Pokemon HP: %d", pokemonHP);
+    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
     pokemonHP -= self.baseDamage;
     pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
     self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
-    NSLog(@"Pokemon HP: %d", pokemonHP);
-  }
-  
-/*
-  NSDictionary * userInfo = notification.userInfo;
-  NSInteger moveDamage = [[userInfo objectForKey:@"damage"] intValue];
-  
-  // Prepare data for updating pokemon's status
-  NSString * target;
-  NSInteger  hp;
-  
-  if ([[userInfo objectForKey:@"MoveOwner"] isEqualToString:@"MyPokemon"]) {
-    self.gameWildPokemon.hp -= moveDamage;
-    if (self.gameWildPokemon.hp < 0)
-      self.gameWildPokemon.hp = 0;
-    if (self.gameWildPokemon.hp > self.gameWildPokemon.hpMax)
-      self.gameWildPokemon.hp = self.gameWildPokemon.hpMax;
-    
-    target = @"WildPokemon";
-    hp     = self.gameWildPokemon.hp;
+    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
   }
   else {
-    self.gameTrainerPokemon.hp -= moveDamage;
-    if (self.gameTrainerPokemon.hp < 0)
-      self.gameTrainerPokemon.hp = 0;
-    if (self.gameTrainerPokemon.hp > self.gameTrainerPokemon.hpMax)
-      self.gameTrainerPokemon.hp = self.gameTrainerPokemon.hpMax;
-    
-    target = @"MyPokemon";
-    hp     = self.gameTrainerPokemon.hp;
+    moveTarget = @"MyPokemon";
+    pokemonHP = [self.playerPokemon.currHP intValue];
+    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
+    pokemonHP -= self.baseDamage;
+    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
+    self.playerPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
+    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
   }
-  userInfo = nil;
- */
   
   // Post to |GameMenuViewController|
   NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
