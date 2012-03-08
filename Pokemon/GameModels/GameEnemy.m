@@ -90,6 +90,7 @@
   gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetPlayer;
   gameSystemProcess.baseDamage = [move.baseDamage intValue];
   
+  enemyPokemon = nil;
   [self endTurn];
 }
 

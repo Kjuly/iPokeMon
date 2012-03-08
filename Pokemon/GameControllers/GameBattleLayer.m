@@ -125,10 +125,9 @@
   self.gameSystemProcess.enemyPokemon  = self.enemyPokemon;
   
   
-//  GamePlayer * player = [[GamePlayer alloc] init];
-//  self.player = player;
-//  [player release];
-//  self.player = [GamePlayer sharedInstance];
+  GamePlayer * player = [[GamePlayer alloc] init];
+  self.player = player;
+  [player release];
   
   GameEnemy * enemy = [[GameEnemy alloc] init];
   self.enemy = enemy;
@@ -173,10 +172,11 @@
       // Updating for Pokemons
 //      [self.playerPokemonSprite update:dt];
 //      [self.enemyPokemonSprite  update:dt];
+      [self.player reset];
       break;
       
     case kGameStatusPlayerTurn:
-//      [self.player update:dt];
+      [self.player update:dt];
       break;
       
     case kGameStatusEnemyTurn:

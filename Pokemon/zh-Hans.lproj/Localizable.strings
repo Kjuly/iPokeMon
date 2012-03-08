@@ -47,6 +47,8 @@
 
 // Text Message
 "PMS_used" = "使用了";
+"PMSMessageWhatWillXXXDoPart1" = "";
+"PMSMessageWhatWillXXXDoPart3" = "要做什么？";
 
 
 /*

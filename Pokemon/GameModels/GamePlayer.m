@@ -8,7 +8,10 @@
 
 #import "GamePlayer.h"
 
+#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
+#import "TrainerTamedPokemon.h"
 
 
 @interface GamePlayer () {
@@ -16,29 +19,12 @@
   BOOL complete_;
 }
 
-@property (nonatomic, assign) BOOL complete;
+- (void)sendMessageToPlayer;
 
 @end
 
 
 @implementation GamePlayer
-
-@synthesize complete = complete_;
-
-static GamePlayer * gamePlayer = nil;
-
-+ (GamePlayer *)sharedInstance
-{
-  if (gamePlayer != nil)
-    return gamePlayer;
-  
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    gamePlayer = [[GamePlayer alloc] init];
-  });
-  
-  return gamePlayer;
-}
 
 - (void)dealloc
 {
@@ -55,14 +41,39 @@ static GamePlayer * gamePlayer = nil;
 
 - (void)update:(ccTime)dt
 {
-  if (self.complete) {
-//    [[GameStatusMachine sharedInstance] endTurn:self];
-    self.complete = NO;
-  }
+  // Player will control the turn and send
+  //   |[[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];|,
+  // so jsut pass here if completed.
+  if (complete_)
+    return;
+  else [self sendMessageToPlayer];
+}
+
+- (void)reset {
+  complete_ = NO;
 }
 
 - (void)endTurn {
-  self.complete = YES;
+  complete_ = YES;
+}
+
+#pragma mark - Private Methods
+
+- (void)sendMessageToPlayer
+{
+  TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
+  NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
+                        NSLocalizedString(@"PMSMessageWhatWillXXXDoPart1", nil),
+                        NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                            [playerPokemon.sid intValue]]), nil),
+                        NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
+  
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                      object:self
+                                                    userInfo:[NSDictionary dictionaryWithObject:message
+                                                                                         forKey:@"message"]];
+  playerPokemon = nil;
+  [self endTurn];
 }
 
 @end

@@ -12,9 +12,8 @@
 @interface GamePlayer : CCNode {
 }
 
-+ (GamePlayer *)sharedInstance;
-
 - (void)update:(ccTime)dt;
+- (void)reset;
 - (void)endTurn;
 
 @end
