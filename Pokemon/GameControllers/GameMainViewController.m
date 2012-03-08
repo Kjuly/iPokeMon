@@ -13,6 +13,8 @@
 #import "GlobalNotificationConstants.h"
 #import "GameBattleLayer.h"
 #import "GameMenuViewController.h"
+#import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
 
 #import "cocos2d.h"
 
@@ -144,6 +146,8 @@
                                                                        userInfo:userInfo];
                      [userInfo release];
                      [[CCDirector sharedDirector] pause];
+                     [[GameStatusMachine sharedInstance] resetStatus];
+                     [[GameSystemProcess sharedInstance] reset];
                    }];
 }
 

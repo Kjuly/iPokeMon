@@ -34,6 +34,7 @@ typedef enum {
 + (GameSystemProcess *)sharedInstance;
 
 - (void)update:(ccTime)dt;
+- (void)reset;
 - (void)endTurn;
 
 @end

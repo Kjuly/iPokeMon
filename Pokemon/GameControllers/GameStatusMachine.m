@@ -59,6 +59,10 @@ static GameStatusMachine * gameStatusMachine = nil;
   gameStatus_ = kGameStatusPlayerTurn;
 }
 
+- (void)resetStatus {
+  gameStatus_ = kGameStatusInitialization;
+}
+
 - (void)endStatus:(GameStatus)status
 {
   switch (status) {

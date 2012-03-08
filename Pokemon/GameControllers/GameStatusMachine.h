@@ -21,6 +21,7 @@ typedef enum {
 
 - (GameStatus)status;
 - (void)startNewTurn;
+- (void)resetStatus;
 - (void)endStatus:(GameStatus)status;
 
 @end

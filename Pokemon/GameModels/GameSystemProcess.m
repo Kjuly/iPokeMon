@@ -20,7 +20,6 @@
   NSInteger delayTime_; // Delay time for every turn
 }
 
-- (void)reset;
 - (void)applyMove;
 
 @end
