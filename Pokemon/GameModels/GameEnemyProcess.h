@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface GameEnemy : CCNode {
+@interface GameEnemyProcess : CCNode {
 }
 
 - (void)update:(ccTime)dt;

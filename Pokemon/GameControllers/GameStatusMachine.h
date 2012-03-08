@@ -21,13 +21,6 @@ typedef enum {
 
 - (GameStatus)status;
 - (void)startNewTurn;
-//- (void)endTurn:(id)sender;
 - (void)endStatus:(GameStatus)status;
-
-
-//
-//
-- (void)trainerTurnEnd;
-- (void)wildPokemonTurnEnd;
 
 @end

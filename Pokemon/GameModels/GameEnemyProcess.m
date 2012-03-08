@@ -6,7 +6,7 @@
 //  Copyright 2012 Kjuly. All rights reserved.
 //
 
-#import "GameEnemy.h"
+#import "GameEnemyProcess.h"
 
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
@@ -15,7 +15,7 @@
 #import "Move.h"
 
 
-@interface GameEnemy () {
+@interface GameEnemyProcess () {
  @private
   BOOL complete_;
 }
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation GameEnemy
+@implementation GameEnemyProcess
 
 - (void)dealloc
 {

@@ -12,7 +12,6 @@
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
-//#import "GameSystemProcess.h"
 #import "GameTopViewController.h"
 #import "GamePokemonStatusAdvancedViewController.h"
 #import "GameMenuMoveViewController.h"
@@ -29,7 +28,6 @@ typedef enum {
 @interface GameMenuViewController () {
  @private
   GameStatusMachine                       * gameStatusMachine_;
-//  GameSystemProcess                       * gameSystemProcess_;
   GameTopViewController                   * gameTopViewController_;
   GamePokemonStatusViewController         * enemyPokemonStatusViewController_;
   GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController_;
@@ -42,7 +40,6 @@ typedef enum {
 }
 
 @property (nonatomic, retain) GameStatusMachine                       * gameStatusMachine;
-//@property (nonatomic, retain) GameSystemProcess                       * gameSystemProcess;
 @property (nonatomic, retain) GameTopViewController                   * gameTopViewController;
 @property (nonatomic, retain) GamePokemonStatusViewController         * enemyPokemonStatusViewController;
 @property (nonatomic, retain) GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController;
@@ -71,7 +68,6 @@ typedef enum {
 @synthesize buttonRun   = buttonRun_;
 
 @synthesize gameStatusMachine                 = gameStatusMachine_;
-//@synthesize gameSystemProcess                 = gameSystemProcess_;
 @synthesize gameTopViewController             = gameTopViewController_;
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
 @synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
@@ -91,7 +87,6 @@ typedef enum {
   [buttonRun_   release];
   
   self.gameStatusMachine = nil;
-//  self.gameSystemProcess = nil;
   [gameTopViewController_           release];
   [enemyPokemonStatusViewController_ release];
   [playerPokemonStatusViewController_   release];
@@ -213,7 +208,6 @@ typedef enum {
   
   // Base Settings
   self.gameStatusMachine = [GameStatusMachine sharedInstance];
-//  self.gameSystemProcess = [GameSystemProcess sharedInstance];
   gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   // Add observer for notfication from |centerMainButton_|

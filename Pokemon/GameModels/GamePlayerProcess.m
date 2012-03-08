@@ -6,7 +6,7 @@
 //  Copyright 2012 Kjuly. All rights reserved.
 //
 
-#import "GamePlayer.h"
+#import "GamePlayerProcess.h"
 
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
@@ -14,7 +14,7 @@
 #import "TrainerTamedPokemon.h"
 
 
-@interface GamePlayer () {
+@interface GamePlayerProcess () {
  @private
   BOOL complete_;
 }
@@ -24,7 +24,7 @@
 @end
 
 
-@implementation GamePlayer
+@implementation GamePlayerProcess
 
 - (void)dealloc
 {

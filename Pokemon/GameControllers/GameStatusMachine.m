@@ -8,12 +8,6 @@
 
 #import "GameStatusMachine.h"
 
-#import "GlobalNotificationConstants.h"
-#import "GameSystemProcess.h"
-#import "GamePlayer.h"
-//#import "GameEnemy.h"
-
-
 @interface GameStatusMachine () {
  @private
   GameStatus gameStatus_;
@@ -22,9 +16,6 @@
   BOOL isTrainerTurn_;
   BOOL isWildPokemonTurn_;
 }
-
-- (void)setTrainerAsControllerForNextTurn;
-- (void)setWildPokemonAsControllerForNextTurn;
 
 @end
 
@@ -89,37 +80,5 @@ static GameStatusMachine * gameStatusMachine = nil;
       break;
   }
 }
-
-
-
-// 
-// Turn Check
-
-// Setting after Turn End
-- (void)trainerTurnEnd {
-  isTrainerTurn_ = NO;
-  [self performSelector:@selector(setWildPokemonAsControllerForNextTurn) withObject:self afterDelay:2.5f];
-}
-
-- (void)wildPokemonTurnEnd {
-  isWildPokemonTurn_ = NO;
-  [self performSelector:@selector(setTrainerAsControllerForNextTurn) withObject:self afterDelay:2.5f];
-}
-
-// Choose game controller for next turn
-- (void)setTrainerAsControllerForNextTurn {
-  isTrainerTurn_ = YES;
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
-                                                      object:self
-                                                    userInfo:[NSDictionary dictionaryWithObject:@"What's next?"
-                                                                                         forKey:@"message"]];
-}
-
-- (void)setWildPokemonAsControllerForNextTurn {
-  isWildPokemonTurn_ = YES;
-}
-
-
-
 
 @end

@@ -11,7 +11,6 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "GamePlayer.h"
 #import "TrainerCoreDataController.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"

@@ -10,8 +10,8 @@
 
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "GamePlayer.h"
-#import "GameEnemy.h"
+#import "GamePlayerProcess.h"
+#import "GameEnemyProcess.h"
 #import "GamePokemonSprite.h"
 #import "TrainerCoreDataController.h"
 #import "WildPokemon+DataController.h"
@@ -21,16 +21,16 @@
  @private
   GameStatusMachine * gameStatusMachine_;
   GameSystemProcess * gameSystemProcess_;
-  GamePlayer        * player_;
-  GameEnemy         * enemy_;
+  GamePlayerProcess * playerProcess_;
+  GameEnemyProcess  * enemyProcess_;
   GamePokemonSprite * playerPokemonSprite_;
   GamePokemonSprite * enemyPokemonSprite_;
 }
 
 @property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
 @property (nonatomic, retain) GameSystemProcess * gameSystemProcess;
-@property (nonatomic, retain) GamePlayer        * player;
-@property (nonatomic, retain) GameEnemy         * enemy;
+@property (nonatomic, retain) GamePlayerProcess * playerProcess;
+@property (nonatomic, retain) GameEnemyProcess  * enemyProcess;
 @property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
 @property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
 
@@ -46,8 +46,8 @@
 
 @synthesize gameStatusMachine   = gameStatusMachine_;
 @synthesize gameSystemProcess   = gameSystemProcess_;
-@synthesize player              = player_;
-@synthesize enemy               = enemy_;
+@synthesize playerProcess       = playerProcess_;
+@synthesize enemyProcess        = enemyProcess_;
 @synthesize playerPokemonSprite = playerPokemonSprite_;
 @synthesize enemyPokemonSprite  = enemyPokemonSprite_;
 
@@ -69,8 +69,8 @@
   self.gameMoveEffect  = nil;
   
   self.gameStatusMachine   = nil;
-  self.player              = nil;
-  self.enemy               = nil;
+  self.playerProcess       = nil;
+  self.enemyProcess        = nil;
   self.playerPokemonSprite = nil;
   self.enemyPokemonSprite  = nil;
   
@@ -111,13 +111,13 @@
   self.gameSystemProcess.enemyPokemon  = enemyPokemon;
   
   
-  GamePlayer * player = [[GamePlayer alloc] init];
-  self.player = player;
-  [player release];
+  GamePlayerProcess * playerProcess = [[GamePlayerProcess alloc] init];
+  self.playerProcess = playerProcess;
+  [playerProcess release];
   
-  GameEnemy * enemy = [[GameEnemy alloc] init];
-  self.enemy = enemy;
-  [enemy release];
+  GameEnemyProcess * enemyProcess = [[GameEnemyProcess alloc] init];
+  self.enemyProcess = enemyProcess;
+  [enemyProcess release];
   
   // Player pokemon sprite setting
   GamePokemonSprite * playerPokemonSprite
@@ -156,15 +156,15 @@
       // Updating for Pokemons
 //      [self.playerPokemonSprite update:dt];
 //      [self.enemyPokemonSprite  update:dt];
-      [self.player reset];
+      [self.playerProcess reset];
       break;
       
     case kGameStatusPlayerTurn:
-      [self.player update:dt];
+      [self.playerProcess update:dt];
       break;
       
     case kGameStatusEnemyTurn:
-      [self.enemy update:dt];
+      [self.enemyProcess update:dt];
       break;
       
     case kGameStatusInitialization:
