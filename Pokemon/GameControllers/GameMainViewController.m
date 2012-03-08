@@ -166,7 +166,6 @@
                      [self.view setAlpha:1.f];
                    }
                    completion:^(BOOL finished) {
-//                     [[GameBattleLayer sharedInstance] generateNewSceneWithWildPokemonID:8];
                      [[CCDirector sharedDirector] resume];
                    }];
 }

@@ -6,13 +6,19 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "GameStatus.h"
+#import "GameStatusMachine.h"
 
 #import "GlobalNotificationConstants.h"
+#import "GameSystemProcess.h"
+#import "GamePlayer.h"
+//#import "GameEnemy.h"
 
 
-@interface GameStatus () {
+@interface GameStatusMachine () {
  @private
+  GameStatus gameStatus_;
+  GameStatus gameNextStatus_;
+  
   BOOL isTrainerTurn_;
   BOOL isWildPokemonTurn_;
 }
@@ -23,21 +29,21 @@
 @end
 
 
-@implementation GameStatus
+@implementation GameStatusMachine
 
-static GameStatus * gameStatus = nil;
+static GameStatusMachine * gameStatusMachine = nil;
 
 // Singleton
-+ (GameStatus *)sharedInstance
++ (GameStatusMachine *)sharedInstance
 {
-  if (gameStatus != nil)
-    return gameStatus;
+  if (gameStatusMachine != nil)
+    return gameStatusMachine;
   
   static dispatch_once_t pred;        // Lock
   dispatch_once(&pred, ^{             // This code is called at most once per app
-    gameStatus = [[GameStatus alloc] init];
+    gameStatusMachine = [[GameStatusMachine alloc] init];
   });
-  return gameStatus;
+  return gameStatusMachine;
 }
 
 - (void)dealloc
@@ -48,19 +54,46 @@ static GameStatus * gameStatus = nil;
 - (id)init
 {
   if (self = [super init]) {
-    isTrainerTurn_ = YES;
+    gameStatus_     = kGameStatusInitialization;
+    gameNextStatus_ = kGameStatusSystemProcess;
   }
   return self;
 }
 
-// Turn Check
-- (BOOL)isTrainerTurn {
-  return isTrainerTurn_;
+- (GameStatus)status {
+  return gameStatus_;
 }
 
-- (BOOL)isWildPokemonTurn {
-  return isWildPokemonTurn_;
+- (void)startNewTurn {
+  gameStatus_ = kGameStatusPlayerTurn;
 }
+
+- (void)endStatus:(GameStatus)status
+{
+  switch (status) {
+    case kGameStatusSystemProcess:
+      gameStatus_ = gameNextStatus_;
+      break;
+      
+    case kGameStatusPlayerTurn:
+      gameNextStatus_ = kGameStatusEnemyTurn;
+      gameStatus_     = kGameStatusSystemProcess;
+      break;
+      
+    case kGameStatusEnemyTurn:
+      gameNextStatus_ = kGameStatusPlayerTurn;
+      gameStatus_     = kGameStatusPlayerTurn;
+      break;
+      
+    default:
+      break;
+  }
+}
+
+
+
+// 
+// Turn Check
 
 // Setting after Turn End
 - (void)trainerTurnEnd {

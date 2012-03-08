@@ -9,18 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@class GameWildPokemon;
-@class GameMyPokemon;
 @class GameMoveEffect;
 
 @interface GameBattleLayer : CCLayerColor {
-  GameWildPokemon * gameWildPoekmon_;
-  GameMyPokemon   * gameMyPokemon_;
   GameMoveEffect  * gameMoveEffect_;
 }
 
-@property (nonatomic, retain) GameWildPokemon * gameWildPokemon;
-@property (nonatomic, retain) GameMyPokemon   * gameMyPokemon;
 @property (nonatomic, retain) GameMoveEffect  * gameMoveEffect;
 
 + (CCScene *)scene;

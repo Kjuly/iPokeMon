@@ -8,7 +8,7 @@
 
 #import "GameWildPokemon.h"
 
-#import "GameStatus.h"
+#import "GameStatusMachine.h"
 #import "GlobalNotificationConstants.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon.h"
@@ -92,7 +92,7 @@ static int attackDelayTime = 150;
 
 - (void)attack:(ccTime)dt
 {
-  if ([[GameStatus sharedInstance] isWildPokemonTurn]) {
+  if ([[GameStatusMachine sharedInstance] status] == kGameStatusEnemyTurn) {
     attackDelayTime -= 100 * dt;
     if (attackDelayTime > 0)
       return;
@@ -125,7 +125,7 @@ static int attackDelayTime = 150;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
     [userInfo release];
     
-    [[GameStatus sharedInstance] wildPokemonTurnEnd];
+    [[GameStatusMachine sharedInstance] wildPokemonTurnEnd];
     attackDelayTime = 150;
   }
 }

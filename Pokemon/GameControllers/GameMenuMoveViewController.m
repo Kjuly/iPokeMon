@@ -9,7 +9,9 @@
 #import "GameMenuMoveViewController.h"
 
 #import "GlobalNotificationConstants.h"
-#import "GameStatus.h"
+#import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
+#import "GamePlayer.h"
 #import "TrainerCoreDataController.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"
@@ -187,18 +189,28 @@
                         NSLocalizedString(@"PMS_used", nil),
                         NSLocalizedString(([NSString stringWithFormat:@"PMSMoveName%.3d", moveID]), nil)];
   NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage object:self userInfo:messageInfo];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                      object:self
+                                                    userInfo:messageInfo];
   
   // Send parameter to Move Effect Controller
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              @"MyPokemon", @"MoveOwner",
                              move.baseDamage, @"damage",
                              nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect object:nil userInfo:userInfo];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect
+                                                      object:nil
+                                                    userInfo:userInfo];
   [userInfo release];
   
+  // System process setting
+  GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
+  gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetEnemy;
+  gameSystemProcess.baseDamage = [move.baseDamage intValue];
+  
+  
   [self unloadViewWithAnimation];
-  [[GameStatus sharedInstance] trainerTurnEnd];
+  [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
 @end

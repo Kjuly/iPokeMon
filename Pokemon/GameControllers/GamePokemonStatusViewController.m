@@ -92,7 +92,7 @@
   [backgroundView_ addSubview:pokemonLevel_];
   
   // HP bar
-  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame HP:60.f HPMax:100.f];
+  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame HP:160.f HPMax:200.f];
   [backgroundView_ addSubview:pokemonHPBar_];
 }
 
@@ -128,7 +128,7 @@
 
 // Update Pokemon's Status
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo
-{ 
+{
   if ([statusInfo objectForKey:@"name"])
     [self.pokemonName setText:[statusInfo objectForKey:@"name"]];
   if ([statusInfo objectForKey:@"gender"])

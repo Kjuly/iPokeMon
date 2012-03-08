@@ -11,7 +11,8 @@
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
-#import "GameStatus.h"
+#import "GameStatusMachine.h"
+//#import "GameSystemProcess.h"
 #import "GameTopViewController.h"
 #import "GamePokemonStatusAdvancedViewController.h"
 #import "GameMenuMoveViewController.h"
@@ -27,9 +28,11 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
+  GameStatusMachine                       * gameStatusMachine_;
+//  GameSystemProcess                       * gameSystemProcess_;
   GameTopViewController                   * gameTopViewController_;
-  GamePokemonStatusViewController         * wildPokemonStatusViewController_;
-  GamePokemonStatusAdvancedViewController * myPokemonStatusViewController_;
+  GamePokemonStatusViewController         * enemyPokemonStatusViewController_;
+  GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController_;
   
   GameMenuKeyView              gameMenuKeyView_;
   GameMenuMoveViewController * gameMenuMoveViewController_;
@@ -38,9 +41,11 @@ typedef enum {
   UITextView                 * messageView_;
 }
 
+@property (nonatomic, retain) GameStatusMachine                       * gameStatusMachine;
+//@property (nonatomic, retain) GameSystemProcess                       * gameSystemProcess;
 @property (nonatomic, retain) GameTopViewController                   * gameTopViewController;
-@property (nonatomic, retain) GamePokemonStatusViewController         * wildPokemonStatusViewController;
-@property (nonatomic, retain) GamePokemonStatusAdvancedViewController * myPokemonStatusViewController;
+@property (nonatomic, retain) GamePokemonStatusViewController         * enemyPokemonStatusViewController;
+@property (nonatomic, retain) GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController;
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
@@ -65,9 +70,11 @@ typedef enum {
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
 
-@synthesize gameTopViewController           = gameTopViewController_;
-@synthesize wildPokemonStatusViewController = wildPokemonStatusViewController_;
-@synthesize myPokemonStatusViewController   = myPokemonStatusViewController_;
+@synthesize gameStatusMachine                 = gameStatusMachine_;
+//@synthesize gameSystemProcess                 = gameSystemProcess_;
+@synthesize gameTopViewController             = gameTopViewController_;
+@synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
+@synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
 
 @synthesize gameMenuKeyView            = gameMenuKeyView_;
 @synthesize gameMenuMoveViewController = gameMenuMoveViewController_;
@@ -83,9 +90,11 @@ typedef enum {
   [buttonBag_   release];
   [buttonRun_   release];
   
+  self.gameStatusMachine = nil;
+//  self.gameSystemProcess = nil;
   [gameTopViewController_           release];
-  [wildPokemonStatusViewController_ release];
-  [myPokemonStatusViewController_   release];
+  [enemyPokemonStatusViewController_ release];
+  [playerPokemonStatusViewController_   release];
   
   [gameMenuMoveViewController_ release];
   [gameMenuBagViewController_  release];
@@ -142,14 +151,14 @@ typedef enum {
   // Wild Pokemon Status View
   CGRect wildPokemonStatusViewFrame = CGRectMake(0.f, 80.f, 180.f, 65.f);
   CGRect myPokemonStatusViewFrame   = CGRectMake(40.f, 180.f, 280.f, 65.f);
-  wildPokemonStatusViewController_ = [[GamePokemonStatusViewController alloc] init];
-  [wildPokemonStatusViewController_.view setFrame:wildPokemonStatusViewFrame];
-  [self.view addSubview:wildPokemonStatusViewController_.view];
+  enemyPokemonStatusViewController_ = [[GamePokemonStatusViewController alloc] init];
+  [enemyPokemonStatusViewController_.view setFrame:wildPokemonStatusViewFrame];
+  [self.view addSubview:enemyPokemonStatusViewController_.view];
   
   // My Pokemon Status View
-  myPokemonStatusViewController_ = [[GamePokemonStatusAdvancedViewController alloc] init];
-  [myPokemonStatusViewController_.view setFrame:myPokemonStatusViewFrame];
-  [self.view addSubview:myPokemonStatusViewController_.view];
+  playerPokemonStatusViewController_ = [[GamePokemonStatusAdvancedViewController alloc] init];
+  [playerPokemonStatusViewController_.view setFrame:myPokemonStatusViewFrame];
+  [self.view addSubview:playerPokemonStatusViewController_.view];
   
   //
   // Top Bar
@@ -203,6 +212,8 @@ typedef enum {
   [super viewDidLoad];
   
   // Base Settings
+  self.gameStatusMachine = [GameStatusMachine sharedInstance];
+//  self.gameSystemProcess = [GameSystemProcess sharedInstance];
   gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   // Add observer for notfication from |centerMainButton_|
@@ -230,9 +241,9 @@ typedef enum {
   self.buttonBag   = nil;
   self.buttonRun   = nil;
   
-  self.gameTopViewController           = nil;
-  self.wildPokemonStatusViewController = nil;
-  self.myPokemonStatusViewController   = nil;
+  self.gameTopViewController             = nil;
+  self.enemyPokemonStatusViewController  = nil;
+  self.playerPokemonStatusViewController = nil;
   
   self.gameMenuMoveViewController = nil;
   self.gameMenuBagViewController  = nil;
@@ -251,7 +262,7 @@ typedef enum {
 // Button actions
 // Action for |buttonFight_|
 - (void)openMoveView {
-  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+  if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (! self.gameMenuMoveViewController) {
       GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
       self.gameMenuMoveViewController = gameMenuMoveViewController;
@@ -265,7 +276,7 @@ typedef enum {
 
 // Action for |buttonBag_|
 - (void)openBagView {
-  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+  if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (! self.gameMenuBagViewController) {
       GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
       self.gameMenuBagViewController = gameMenuBagViewController;
@@ -279,7 +290,7 @@ typedef enum {
 
 // Action for |buttonRun_|
 - (void)openRunConfirmView {
-  if ([[GameStatus sharedInstance] isTrainerTurn]) {
+  if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     NSLog(@"Open Run Confirm View..");
     [delegate_ unloadBattleScene];
   }
@@ -339,9 +350,9 @@ typedef enum {
 - (void)updatePokemonStatus:(NSNotification *)notification
 {
   if ([[notification.userInfo objectForKey:@"target"] isEqualToString:@"MyPokemon"])
-    [self.myPokemonStatusViewController updatePokemonStatus:notification.userInfo];
+    [self.playerPokemonStatusViewController updatePokemonStatus:notification.userInfo];
   else
-    [self.wildPokemonStatusViewController updatePokemonStatus:notification.userInfo];
+    [self.enemyPokemonStatusViewController updatePokemonStatus:notification.userInfo];
 }
 
 @end

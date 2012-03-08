@@ -8,19 +8,41 @@
 
 #import "GameBattleLayer.h"
 
-#import "GameWildPokemon.h"
-#import "GameMyPokemon.h"
+#import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
+#import "GamePlayer.h"
+#import "GameEnemy.h"
+#import "GamePokemonSprite.h"
+#import "TrainerCoreDataController.h"
+#import "WildPokemon+DataController.h"
+
 #import "GameMoveEffect.h"
 
 
-@interface GameBattleLayer () {  
+@interface GameBattleLayer () {
  @private
-  BOOL isReadyToPlay_;
+  GameStatusMachine * gameStatusMachine_;
+  GameSystemProcess * gameSystemProcess_;
+  GamePlayer        * player_;
+  GameEnemy         * enemy_;
+  GamePokemonSprite * playerPokemonSprite_;
+  GamePokemonSprite * enemyPokemonSprite_;
+  
+  TrainerTamedPokemon * playerPokemon_;
+  WildPokemon         * enemyPokemon_;
 }
 
-@property (nonatomic, assign) BOOL isReadyToPlay;
+@property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
+@property (nonatomic, retain) GameSystemProcess * gameSystemProcess;
+@property (nonatomic, retain) GamePlayer        * player;
+@property (nonatomic, retain) GameEnemy         * enemy;
+@property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
+@property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
 
-- (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
+@property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
+@property (nonatomic, retain) WildPokemon         * enemyPokemon;
+
+- (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 - (void)runBattleBeginAnimation;
 
 @end
@@ -28,11 +50,17 @@
 
 @implementation GameBattleLayer
 
-@synthesize gameWildPokemon = gameWildPoekmon_;
-@synthesize gameMyPokemon   = gameMyPokemon_;
 @synthesize gameMoveEffect  = gameMoveEffect_;
 
-@synthesize isReadyToPlay   = isReadyToPlay_;
+@synthesize gameStatusMachine   = gameStatusMachine_;
+@synthesize gameSystemProcess   = gameSystemProcess_;
+@synthesize player              = player_;
+@synthesize enemy               = enemy_;
+@synthesize playerPokemonSprite = playerPokemonSprite_;
+@synthesize enemyPokemonSprite  = enemyPokemonSprite_;
+
+@synthesize playerPokemon = playerPokemon_;
+@synthesize enemyPokemon  = enemyPokemon_;
 
 + (CCScene *)scene
 {
@@ -49,13 +77,16 @@
 
 - (void)dealloc
 {
-//  [gameWildPoekmon_    release];
-//  [gameTrainerPokemon_ release];
-//  [gameMoveEffect_     release];
-  
-  self.gameWildPokemon = nil;
-  self.gameMyPokemon   = nil;
   self.gameMoveEffect  = nil;
+  
+  self.gameStatusMachine   = nil;
+  self.player              = nil;
+  self.enemy               = nil;
+  self.playerPokemonSprite = nil;
+  self.enemyPokemonSprite  = nil;
+  
+  self.playerPokemon = nil;
+  self.enemyPokemon  = nil;
   
   [super dealloc];
 }
@@ -65,8 +96,12 @@
   if (self = [super initWithColor:ccc4(255,255,255,255)]) {
     [self setIsTouchEnabled:YES];
     
-    [self generateNewSceneWithWildPokemonID:8];
-    self.isReadyToPlay = NO;
+    // Status Machine for Game
+    self.gameStatusMachine = [GameStatusMachine sharedInstance];
+    self.gameSystemProcess = [GameSystemProcess sharedInstance];
+    
+    // Create a new scene
+    [self createNewSceneWithWildPokemonID:8];
     
     // check whether a selector is scheduled. schedules the "update" method.
     // It will use the order number 0.
@@ -79,35 +114,81 @@
 }
 
 // Generate a new scene
-- (void)generateNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
+- (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
 {
   NSLog(@"Generating a new scene......");
-  // Wild Pokemon Node
-  GameWildPokemon * gameWildPoekmon = [[GameWildPokemon alloc] initWithPokemonID:wildPokemonID keyName:@"Pokemom"];
-  self.gameWildPokemon = gameWildPoekmon;
-  [gameWildPoekmon release];
-  [self addChild:self.gameWildPokemon];
+  self.playerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+  self.enemyPokemon  = [WildPokemon queryPokemonDataWithID:wildPokemonID];
   
-  // Trainer's Pokemon Node
-  GameMyPokemon * gameMyPokemon = [[GameMyPokemon alloc] init];
-  self.gameMyPokemon = gameMyPokemon;
-  [gameMyPokemon release];
-  [self addChild:self.gameMyPokemon];
+  // Set pokemon for |gameSystemProcess_|
+  self.gameSystemProcess.playerPokemon = self.playerPokemon;
+  self.gameSystemProcess.enemyPokemon  = self.enemyPokemon;
   
-  // Create Move Effect Object
-  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:self.gameMyPokemon];
-  [self addChild:gameMoveEffect_ z:9999];
   
-  // Run battle begin animation is it's a new battle with the Pokemon
-  [self runBattleBeginAnimation];
+//  GamePlayer * player = [[GamePlayer alloc] init];
+//  self.player = player;
+//  [player release];
+//  self.player = [GamePlayer sharedInstance];
+  
+//  GameEnemy * enemy = [[GameEnemy alloc] init];
+//  self.enemy = enemy;
+//  [enemy release];
+  
+  // Player pokemon sprite setting
+  GamePokemonSprite * playerPokemonSprite
+  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)self.playerPokemon.pokemon.image).CGImage
+                                           key:@"SpriteKeyPlayerPokemon"];
+  self.playerPokemonSprite = playerPokemonSprite;
+  [playerPokemonSprite release];
+  [self.playerPokemonSprite setPosition:ccp(410, 250)];
+  [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];
+  [self addChild:self.playerPokemonSprite];
+  
+  // Enemy pokemon sprite setting
+  GamePokemonSprite * enemyPokemonSprite =
+  [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)self.enemyPokemon.pokemon.image).CGImage
+                                         key:@"SpriteKeyEnemyPokemon"];
+  self.enemyPokemonSprite = enemyPokemonSprite;
+  [enemyPokemonSprite release];
+  [self.enemyPokemonSprite setPosition:ccp(-90, 350)];
+  [self.enemyPokemonSprite setStatus:kGamePokemonStatusNormal];
+  [self addChild:self.enemyPokemonSprite];
+  
+    
+//  // Create Move Effect Object
+//  gameMoveEffect_ = [[GameMoveEffect alloc] initWithwildPokemon:gameWildPoekmon_ trainerPokemon:self.gameMyPokemon];
+//  [self addChild:gameMoveEffect_ z:9999];
+//  
+//  // Run battle begin animation is it's a new battle with the Pokemon
+//  [self runBattleBeginAnimation];
 }
 
 // The method to be scheduled
 - (void)update:(ccTime)dt
 {
-  // Update Wild Pokemon & Trainer Pokemon
-  [self.gameWildPokemon update:dt];
-  [self.gameMyPokemon   update:dt];
+  switch ([self.gameStatusMachine status]) {
+    case kGameStatusSystemProcess:
+      [self.gameSystemProcess update:dt];
+      
+      // Updating for Pokemons
+//      [self.playerPokemonSprite update:dt];
+//      [self.enemyPokemonSprite  update:dt];
+      break;
+      
+    case kGameStatusPlayerTurn:
+//      [self.player update:dt];
+      break;
+      
+    case kGameStatusEnemyTurn:
+//      [self.enemy update:dt];
+      break;
+      
+    case kGameStatusInitialization:
+      NSLog(@":: Game Status: kGameStatusInitialization");
+      [self runBattleBeginAnimation];
+    default:
+      break;
+  }
 }
 
 #pragma mark - Touch Handler
@@ -122,8 +203,8 @@
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-  CGPoint location = [self convertTouchToNodeSpace:touch];
-  [self.gameWildPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1 position:location]];
+//  CGPoint location = [self convertTouchToNodeSpace:touch];
+//  [self.gameWildPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1 position:location]];
 }
 
 #pragma mark - Private Methods
@@ -132,11 +213,11 @@
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.gameWildPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
-  [self.gameMyPokemon.pokemonSprite   runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
+  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
+  [self.enemyPokemonSprite  runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
   
   // Set game play to ready
-  self.isReadyToPlay = YES;
+  [self.gameStatusMachine startNewTurn];
 }
 
 @end

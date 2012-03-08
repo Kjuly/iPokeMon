@@ -21,6 +21,7 @@ NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
 
 NSString * const kPMNMoveEffect = @"PMNMoveEffect";
 NSString * const kPMNUpdateGameBattleMessage = @"PMNUpdateGameBattleMessage";
+//NSString * const kPMNInitializePokemonStatus = @"PMNInitializePokemonStatus";
 NSString * const kPMNUpdatePokemonStatus     = @"PMNUpdatePokemonStatus";
 
 @implementation GlobalNotificationConstants
