@@ -25,9 +25,6 @@
   GameEnemy         * enemy_;
   GamePokemonSprite * playerPokemonSprite_;
   GamePokemonSprite * enemyPokemonSprite_;
-  
-  TrainerTamedPokemon * playerPokemon_;
-  WildPokemon         * enemyPokemon_;
 }
 
 @property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
@@ -36,9 +33,6 @@
 @property (nonatomic, retain) GameEnemy         * enemy;
 @property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
 @property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
-
-@property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
-@property (nonatomic, retain) WildPokemon         * enemyPokemon;
 
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 - (void)runBattleBeginAnimation;
@@ -56,9 +50,6 @@
 @synthesize enemy               = enemy_;
 @synthesize playerPokemonSprite = playerPokemonSprite_;
 @synthesize enemyPokemonSprite  = enemyPokemonSprite_;
-
-@synthesize playerPokemon = playerPokemon_;
-@synthesize enemyPokemon  = enemyPokemon_;
 
 + (CCScene *)scene
 {
@@ -82,9 +73,6 @@
   self.enemy               = nil;
   self.playerPokemonSprite = nil;
   self.enemyPokemonSprite  = nil;
-  
-  self.playerPokemon = nil;
-  self.enemyPokemon  = nil;
   
   [super dealloc];
 }
@@ -115,12 +103,12 @@
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
 {
   NSLog(@"Generating a new scene......");
-  self.playerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
-  self.enemyPokemon  = [WildPokemon queryPokemonDataWithID:wildPokemonID];
+  TrainerTamedPokemon * playerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+  WildPokemon * enemyPokemon  = [WildPokemon queryPokemonDataWithID:wildPokemonID];
   
   // Set pokemon for |gameSystemProcess_|
-  self.gameSystemProcess.playerPokemon = self.playerPokemon;
-  self.gameSystemProcess.enemyPokemon  = self.enemyPokemon;
+  self.gameSystemProcess.playerPokemon = playerPokemon;
+  self.gameSystemProcess.enemyPokemon  = enemyPokemon;
   
   
   GamePlayer * player = [[GamePlayer alloc] init];
@@ -133,7 +121,7 @@
   
   // Player pokemon sprite setting
   GamePokemonSprite * playerPokemonSprite
-  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)self.playerPokemon.pokemon.image).CGImage
+  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
                                            key:@"SpriteKeyPlayerPokemon"];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
@@ -143,13 +131,16 @@
   
   // Enemy pokemon sprite setting
   GamePokemonSprite * enemyPokemonSprite =
-  [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)self.enemyPokemon.pokemon.image).CGImage
+  [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)enemyPokemon.pokemon.image).CGImage
                                          key:@"SpriteKeyEnemyPokemon"];
   self.enemyPokemonSprite = enemyPokemonSprite;
   [enemyPokemonSprite release];
   [self.enemyPokemonSprite setPosition:ccp(-90, 350)];
   [self.enemyPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.enemyPokemonSprite];
+  
+  playerPokemon = nil;
+  enemyPokemon  = nil;
   
 //  // Run battle begin animation is it's a new battle with the Pokemon
 //  [self runBattleBeginAnimation];
