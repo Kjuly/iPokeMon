@@ -135,6 +135,6 @@
     [self.pokemonHPBar updateHpBarWithHPMax:[[statusInfo objectForKey:@"HPMax"] intValue]];
 }
 
-- (void)resetForNewScene {} // Overwired by child
+- (void)prepareForNewScene {} // Overwired by child
 
 @end

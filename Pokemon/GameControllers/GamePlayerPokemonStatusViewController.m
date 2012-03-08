@@ -143,7 +143,7 @@
     [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
 }
 
-- (void)resetForNewScene
+- (void)prepareForNewScene
 {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   [self.pokemonName setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",

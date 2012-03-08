@@ -25,6 +25,6 @@
 @property (nonatomic, retain) UIImageView  * backgroundView;
 
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo;
-- (void)resetForNewScene; // Overwrited by child
+- (void)prepareForNewScene; // Overwrited by child
 
 @end

@@ -53,7 +53,7 @@
 
 #pragma mark - Public Methods
 
-- (void)resetForNewScene
+- (void)prepareForNewScene
 {
   WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
   [pokemonName_ setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",

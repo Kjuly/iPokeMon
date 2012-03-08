@@ -28,6 +28,6 @@
 @property (nonatomic, retain) UIButton * buttonBag;
 @property (nonatomic, retain) UIButton * buttonRun;
 
-- (void)resetForNewScene;
+- (void)prepareForNewScene;
 
 @end

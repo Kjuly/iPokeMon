@@ -352,10 +352,10 @@ typedef enum {
 
 #pragma mark - Public Methods
 
-- (void)resetForNewScene
+- (void)prepareForNewScene
 {
-  [self.playerPokemonStatusViewController resetForNewScene];
-  [self.enemyPokemonStatusViewController  resetForNewScene];
+  [self.playerPokemonStatusViewController prepareForNewScene];
+  [self.enemyPokemonStatusViewController  prepareForNewScene];
 }
 
 @end

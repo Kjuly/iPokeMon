@@ -64,6 +64,11 @@ static GameSystemProcess * gameSystemProcess = nil;
   return self;
 }
 
+- (void)prepareForNewScene
+{
+//  self.enemyPokemon.currEXP = [self.enemyPokemon.maxStats objectAtIndex:0];
+}
+
 - (void)update:(ccTime)dt
 {
   delayTime_ += 100 * dt;
