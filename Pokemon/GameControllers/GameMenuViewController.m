@@ -13,7 +13,8 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameTopViewController.h"
-#import "GamePokemonStatusAdvancedViewController.h"
+#import "GamePlayerPokemonStatusViewController.h"
+#import "GameEnemyPokemonStatusViewController.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
 
@@ -27,10 +28,10 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
-  GameStatusMachine                       * gameStatusMachine_;
-  GameTopViewController                   * gameTopViewController_;
-  GamePokemonStatusViewController         * enemyPokemonStatusViewController_;
-  GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController_;
+  GameStatusMachine                     * gameStatusMachine_;
+  GameTopViewController                 * gameTopViewController_;
+  GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
+  GamePlayerPokemonStatusViewController * playerPokemonStatusViewController_;
   
   GameMenuKeyView              gameMenuKeyView_;
   GameMenuMoveViewController * gameMenuMoveViewController_;
@@ -39,10 +40,10 @@ typedef enum {
   UITextView                 * messageView_;
 }
 
-@property (nonatomic, retain) GameStatusMachine                       * gameStatusMachine;
-@property (nonatomic, retain) GameTopViewController                   * gameTopViewController;
-@property (nonatomic, retain) GamePokemonStatusViewController         * enemyPokemonStatusViewController;
-@property (nonatomic, retain) GamePokemonStatusAdvancedViewController * playerPokemonStatusViewController;
+@property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
+@property (nonatomic, retain) GameTopViewController                 * gameTopViewController;
+@property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
+@property (nonatomic, retain) GamePlayerPokemonStatusViewController * playerPokemonStatusViewController;
 
 @property (nonatomic, assign) GameMenuKeyView              gameMenuKeyView;
 @property (nonatomic, retain) GameMenuMoveViewController * gameMenuMoveViewController;
@@ -146,12 +147,12 @@ typedef enum {
   // Wild Pokemon Status View
   CGRect wildPokemonStatusViewFrame = CGRectMake(0.f, 80.f, 180.f, 65.f);
   CGRect myPokemonStatusViewFrame   = CGRectMake(40.f, 180.f, 280.f, 65.f);
-  enemyPokemonStatusViewController_ = [[GamePokemonStatusViewController alloc] init];
+  enemyPokemonStatusViewController_ = [[GameEnemyPokemonStatusViewController alloc] init];
   [enemyPokemonStatusViewController_.view setFrame:wildPokemonStatusViewFrame];
   [self.view addSubview:enemyPokemonStatusViewController_.view];
   
   // My Pokemon Status View
-  playerPokemonStatusViewController_ = [[GamePokemonStatusAdvancedViewController alloc] init];
+  playerPokemonStatusViewController_ = [[GamePlayerPokemonStatusViewController alloc] init];
   [playerPokemonStatusViewController_.view setFrame:myPokemonStatusViewFrame];
   [self.view addSubview:playerPokemonStatusViewController_.view];
   
@@ -347,6 +348,14 @@ typedef enum {
     [self.playerPokemonStatusViewController updatePokemonStatus:notification.userInfo];
   else
     [self.enemyPokemonStatusViewController updatePokemonStatus:notification.userInfo];
+}
+
+#pragma mark - Public Methods
+
+- (void)resetForNewScene
+{
+  [self.playerPokemonStatusViewController resetForNewScene];
+  [self.enemyPokemonStatusViewController  resetForNewScene];
 }
 
 @end

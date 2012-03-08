@@ -15,5 +15,6 @@
 - (NSInteger)hpMax;
 - (void)updateHPBarWithHP:(NSInteger)hp;
 - (void)updateHpBarWithHPMax:(NSInteger)hpMax;
+- (void)updateHPBarWithHP:(NSInteger)hp HPMax:(NSInteger)hpMax;
 
 @end

@@ -15,5 +15,6 @@
 - (NSInteger)expMax;
 - (void)updateExpBarWithExp:(NSInteger)exp;
 - (void)updateExpBarWithExpMax:(NSInteger)expMax;
+- (void)updateExpBarWithExp:(NSInteger)exp ExpMax:(NSInteger)expMax;
 
 @end

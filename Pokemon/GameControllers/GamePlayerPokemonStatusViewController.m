@@ -6,14 +6,16 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "GamePokemonStatusAdvancedViewController.h"
+#import "GamePlayerPokemonStatusViewController.h"
 
 #import "GlobalRender.h"
+#import "GameSystemProcess.h"
+#import "TrainerTamedPokemon.h"
 #import "PokemonHPBar.h"
 #import "PokemonEXPBar.h"
 
 
-@interface GamePokemonStatusAdvancedViewController () {
+@interface GamePlayerPokemonStatusViewController () {
  @private
   UILabel  * pokemonHP_;
   BOOL       isStatusBarOpening_;
@@ -29,7 +31,7 @@
 @end
 
 
-@implementation GamePokemonStatusAdvancedViewController
+@implementation GamePlayerPokemonStatusViewController
 
 @synthesize pokemonEXPBar      = pokemonEXPBar_;
 @synthesize pokemonHP          = pokemonHP_;
@@ -99,7 +101,7 @@
   [backgroundView_ addSubview:pokemonHP_];
   
   // Add Exp Bar
-  pokemonEXPBar_ = [[PokemonEXPBar alloc] initWithFrame:pokemonEXPBarFrame EXP:50.f EXPMax:100.f];
+  pokemonEXPBar_ = [[PokemonEXPBar alloc] initWithFrame:pokemonEXPBarFrame];
   [backgroundView_ addSubview:pokemonEXPBar_];
   
   // Add a transparent button for toggling status view
@@ -113,12 +115,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  [pokemonName_ setText:@"Pokemon Name"];
-  [pokemonGender_ setImage:[UIImage imageNamed:
-                            1 ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
-  [pokemonLevel_ setText:@"12"];
-  [pokemonHP_ setText:[NSString stringWithFormat:@"%d / %d", 123, 125]];
 }
 
 - (void)viewDidUnload
@@ -145,6 +141,25 @@
   
   if ([statusInfo objectForKey:@"Exp"])
     [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
+}
+
+- (void)resetForNewScene
+{
+  TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
+  [self.pokemonName setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                                [playerPokemon.sid intValue]]), nil)];
+  [self.pokemonGender setImage:[UIImage imageNamed:[playerPokemon.gender intValue]
+                                ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+  [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];
+  NSInteger hp    = [playerPokemon.currHP intValue];
+  NSInteger hpMax = [[playerPokemon.maxStats objectAtIndex:0] intValue];
+  [self.pokemonHPBar updateHPBarWithHP:hp HPMax:hpMax];
+  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", hp, hpMax]];
+  //
+  // TODO:
+  //   Max Exp Value not got here!!
+  //
+  [self.pokemonEXPBar updateExpBarWithExp:[playerPokemon.currEXP intValue] ExpMax:20000];
 }
 
 #pragma mark - Private Methods

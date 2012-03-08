@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PokemonHPBar;
+#import "PokemonHPBar.h"
 
 @interface GamePokemonStatusViewController : UIViewController {
   PokemonHPBar * pokemonHPBar_;
@@ -25,5 +25,6 @@
 @property (nonatomic, retain) UIImageView  * backgroundView;
 
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo;
+- (void)resetForNewScene; // Overwrited by child
 
 @end

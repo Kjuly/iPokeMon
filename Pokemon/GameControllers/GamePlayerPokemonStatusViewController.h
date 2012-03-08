@@ -10,7 +10,7 @@
 
 @class PokemonEXPBar;
 
-@interface GamePokemonStatusAdvancedViewController : GamePokemonStatusViewController {
+@interface GamePlayerPokemonStatusViewController : GamePokemonStatusViewController {
   PokemonEXPBar * pokemonEXPBar_;
 }
 

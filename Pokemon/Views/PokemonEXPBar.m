@@ -51,24 +51,8 @@
     exp_    = exp;
     expMax_ = expMax;
     
-    UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
-    self.expBarBackground = expBarBackground;
-    [expBarBackground release];
-//    [self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
-//    [self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
-    [self.expBarBackground setBackgroundColor:[GlobalRender colorGray]];
-    [self.expBarBackground.layer setCornerRadius:3.f];
-    [self addSubview:self.expBarBackground];
-    
     CGRect expBarFrame = CGRectMake(0.f, 0.f, frame.size.width * exp / expMax, 6.f);
-    UIImageView * expBar = [[UIImageView alloc] initWithFrame:expBarFrame];
-    self.expBar = expBar;
-    [expBar release];
-//    [self.expBar setContentMode:UIViewContentModeScaleAspectFit];
-//    [self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
-    [self.expBar setBackgroundColor:[GlobalRender colorBlue]];
-    [self.expBarBackground.layer setCornerRadius:3.f];
-    [self.expBarBackground addSubview:self.expBar];
+    [self.expBar setFrame:expBarFrame];
   }
   return self;
 }
@@ -77,7 +61,23 @@
 {
   self = [super initWithFrame:frame];
   if (self) {
-    // Initialization code
+    UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
+    self.expBarBackground = expBarBackground;
+    [expBarBackground release];
+    //[self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
+    //[self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
+    [self.expBarBackground setBackgroundColor:[GlobalRender colorGray]];
+    [self.expBarBackground.layer setCornerRadius:3.f];
+    [self addSubview:self.expBarBackground];
+    
+    UIImageView * expBar = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.expBar = expBar;
+    [expBar release];
+    //[self.expBar setContentMode:UIViewContentModeScaleAspectFit];
+    //[self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
+    [self.expBar setBackgroundColor:[GlobalRender colorBlue]];
+    [self.expBarBackground.layer setCornerRadius:3.f];
+    [self.expBarBackground addSubview:self.expBar];
   }
   return self;
 }
@@ -87,7 +87,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+  // Drawing code
 }
 */
 
@@ -116,6 +116,14 @@
 - (void)updateExpBarWithExpMax:(NSInteger)expMax
 {
   self.expMax = expMax;
+}
+
+- (void)updateExpBarWithExp:(NSInteger)exp ExpMax:(NSInteger)expMax
+{
+  self.expMax = expMax > 0 ? expMax : -expMax;
+  self.exp    = exp < expMax ? exp : expMax;
+  CGRect expBarFrame = CGRectMake(0.f, 0.f, self.frame.size.width * self.exp / self.expMax, 6.f);
+  [self.expBar setFrame:expBarFrame];
 }
 
 @end

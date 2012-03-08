@@ -9,8 +9,6 @@
 #import "GamePokemonStatusViewController.h"
 
 #import "GlobalRender.h"
-#import "PokemonHPBar.h"
-#import "PokemonEXPBar.h"
 
 
 @implementation GamePokemonStatusViewController
@@ -92,7 +90,7 @@
   [backgroundView_ addSubview:pokemonLevel_];
   
   // HP bar
-  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame HP:160.f HPMax:200.f];
+  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame];// HP:160.f HPMax:200.f];
   [backgroundView_ addSubview:pokemonHPBar_];
 }
 
@@ -100,11 +98,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  [pokemonName_ setText:@"Pokemon Name"];
-  [pokemonGender_ setImage:[UIImage imageNamed:
-                            1 ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
-  [pokemonLevel_ setText:[NSString stringWithFormat:@"Lv.%d", 12]];
 }
 
 - (void)viewDidUnload
@@ -141,5 +134,7 @@
   if ([statusInfo objectForKey:@"HPMax"])
     [self.pokemonHPBar updateHpBarWithHPMax:[[statusInfo objectForKey:@"HPMax"] intValue]];
 }
+
+- (void)resetForNewScene {} // Overwired by child
 
 @end

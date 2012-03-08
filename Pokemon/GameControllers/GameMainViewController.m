@@ -161,6 +161,7 @@
   
   // Replace the previous scene before show the battle scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
+  [self.gameMenuViewController resetForNewScene];
   
   [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [UIView animateWithDuration:.3f
