@@ -11,14 +11,14 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerTamedPokemon.h"
 #import "Move.h"
 #import "GameMenuMoveUnitView.h"
 
 
 @interface GameMenuMoveViewController () {
  @private
-  TrainerTamedPokemon * trainerPokemon_;
+  TrainerTamedPokemon * playerPokemon_;
   NSArray             * fourMoves_;
   NSArray             * fourMovesPP_;
   
@@ -28,7 +28,7 @@
   GameMenuMoveUnitView * moveFourView_;
 }
 
-@property (nonatomic, retain) TrainerTamedPokemon * trainerPokemon;
+@property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
 @property (nonatomic, copy) NSArray               * fourMoves;
 @property (nonatomic, copy) NSArray               * fourMovesPP;
 
@@ -44,7 +44,7 @@
 
 @implementation GameMenuMoveViewController
 
-@synthesize trainerPokemon = trainerPokemon_;
+@synthesize playerPokemon  = playerPokemon;
 @synthesize fourMoves      = fourMoves_;
 @synthesize fourMovesPP    = fourMovesPP_;
 
@@ -55,7 +55,7 @@
 
 - (void)dealloc
 {
-  [trainerPokemon_ release];
+  [playerPokemon   release];
   [fourMoves_      release];
   [fourMovesPP_    release];
   
@@ -119,16 +119,16 @@
 {
   [super viewDidLoad];
   
-  self.trainerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
-  self.fourMoves = [self.trainerPokemon.fourMoves allObjects];
+  self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
+  self.fourMoves = [self.playerPokemon.fourMoves allObjects];
   
-  if ([self.trainerPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
+  if ([self.playerPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
     NSMutableArray * movesPP = [NSMutableArray arrayWithCapacity:8];
-    for (id movePP in [self.trainerPokemon.fourMovesPP componentsSeparatedByString:@","])
+    for (id movePP in [self.playerPokemon.fourMovesPP componentsSeparatedByString:@","])
       [movesPP addObject:[NSNumber numberWithInt:[movePP intValue]]];
     fourMovesPP_ = [[NSArray alloc] initWithArray:movesPP];
   }
-  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.trainerPokemon.fourMovesPP];
+  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.playerPokemon.fourMovesPP];
   
   
   Move * moveOne   = [self.fourMoves objectAtIndex:0];
@@ -160,7 +160,7 @@
 {
   [super viewDidUnload];
   
-  self.trainerPokemon = nil;
+  self.playerPokemon  = nil;
   self.fourMoves      = nil;
   self.fourMovesPP    = nil;
   
@@ -175,12 +175,10 @@
 - (void)useSelectedMove:(id)sender
 {
   NSInteger moveTag = ((UIButton *)sender).tag;
-  NSLog(@"Use Move %d", moveTag);
-  
   Move * move = [self.fourMoves objectAtIndex:moveTag - 1];
   
   // Set data for message in |GameMenuViewController|
-  NSInteger pokemonID = [self.trainerPokemon.sid intValue];
+  NSInteger pokemonID = [self.playerPokemon.sid intValue];
   NSInteger moveID    = [move.sid intValue];
   // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
   NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
@@ -191,16 +189,6 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self
                                                     userInfo:messageInfo];
-  
-  // Send parameter to Move Effect Controller
-  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             @"MyPokemon", @"MoveOwner",
-                             move.baseDamage, @"damage",
-                             nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNMoveEffect
-                                                      object:nil
-                                                    userInfo:userInfo];
-  [userInfo release];
   
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
