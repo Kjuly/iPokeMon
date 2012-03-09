@@ -66,7 +66,16 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)prepareForNewScene
 {
-//  self.enemyPokemon.currEXP = [self.enemyPokemon.maxStats objectAtIndex:0];
+  //
+  // TODO:
+  //   Data transform problem.
+  //   | self.enemyPokemon.currEXP = [self.enemyPokemon.maxStats objectAtIndex:0]; |
+  //
+  // Reset HP for enemy pokemon
+  NSArray * stats = self.enemyPokemon.maxStats;
+  NSInteger currHP = [[stats objectAtIndex:0] intValue];
+  self.enemyPokemon.currHP = [NSNumber numberWithInt:currHP];
+  stats = nil;
 }
 
 - (void)update:(ccTime)dt
