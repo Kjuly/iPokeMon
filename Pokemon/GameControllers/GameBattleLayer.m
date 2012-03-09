@@ -235,6 +235,7 @@
   NSInteger newPokemon = [[notification.userInfo objectForKey:@"newPokemon"] intValue];
   TrainerTamedPokemon * playerPokemon
   = [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
+  [GameSystemProcess sharedInstance].playerPokemon = playerPokemon;
   
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
                                        [playerPokemon.sid intValue]];

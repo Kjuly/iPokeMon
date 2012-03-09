@@ -12,6 +12,7 @@
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
 #import "TrainerCoreDataController.h"
 #import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
@@ -482,6 +483,9 @@ typedef enum {
   
   // Set current battle pokemon ID
   self.currPokemon = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
+  
+  // Update player's pokemon status
+  [self.playerPokemonStatusViewController prepareForNewScene];
 }
 
 // Action for |buttonFight_|
