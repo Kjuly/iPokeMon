@@ -15,7 +15,7 @@
 #import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
-#import "GameMenuSixPokemonViewController.h"
+#import "GameMenuSixPokemonsViewController.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
 
@@ -34,12 +34,12 @@ typedef enum {
   GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
   GamePlayerPokemonStatusViewController * playerPokemonStatusViewController_;
   
-  GameMenuKeyView                    gameMenuKeyView_;
-  GameMenuSixPokemonViewController * gameMenuSixPokemonViewController_;
-  GameMenuMoveViewController       * gameMenuMoveViewController_;
-  GameMenuBagViewController        * gameMenuBagViewController_;
-  UIView                           * menuArea_;
-  UITextView                       * messageView_;
+  GameMenuKeyView                     gameMenuKeyView_;
+  GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
+  GameMenuMoveViewController        * gameMenuMoveViewController_;
+  GameMenuBagViewController         * gameMenuBagViewController_;
+  UIView                            * menuArea_;
+  UITextView                        * messageView_;
 }
 
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
@@ -47,12 +47,12 @@ typedef enum {
 @property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
 @property (nonatomic, retain) GamePlayerPokemonStatusViewController * playerPokemonStatusViewController;
 
-@property (nonatomic, assign) GameMenuKeyView                    gameMenuKeyView;
-@property (nonatomic, retain) GameMenuSixPokemonViewController * gameMenuSixPokemonViewController;
-@property (nonatomic, retain) GameMenuMoveViewController       * gameMenuMoveViewController;
-@property (nonatomic, retain) GameMenuBagViewController        * gameMenuBagViewController;
-@property (nonatomic, retain) UIView                           * menuArea;
-@property (nonatomic, retain) UITextView                       * messageView;
+@property (nonatomic, assign) GameMenuKeyView                     gameMenuKeyView;
+@property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
+@property (nonatomic, retain) GameMenuMoveViewController        * gameMenuMoveViewController;
+@property (nonatomic, retain) GameMenuBagViewController         * gameMenuBagViewController;
+@property (nonatomic, retain) UIView                            * menuArea;
+@property (nonatomic, retain) UITextView                        * messageView;
 
 // Button Actions
 - (void)toggleSixPokemonView;
@@ -77,12 +77,12 @@ typedef enum {
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
 @synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
 
-@synthesize gameMenuKeyView                  = gameMenuKeyView_;
-@synthesize gameMenuSixPokemonViewController = gameMenuSixPokemonViewController_;
-@synthesize gameMenuMoveViewController       = gameMenuMoveViewController_;
-@synthesize gameMenuBagViewController        = gameMenuBagViewController_;
-@synthesize menuArea                         = menuArea_;
-@synthesize messageView                      = messageView_;
+@synthesize gameMenuKeyView                   = gameMenuKeyView_;
+@synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
+@synthesize gameMenuMoveViewController        = gameMenuMoveViewController_;
+@synthesize gameMenuBagViewController         = gameMenuBagViewController_;
+@synthesize menuArea                          = menuArea_;
+@synthesize messageView                       = messageView_;
 
 - (void)dealloc
 {
@@ -97,11 +97,11 @@ typedef enum {
   [enemyPokemonStatusViewController_  release];
   [playerPokemonStatusViewController_ release];
   
-  [gameMenuSixPokemonViewController_ release];
-  [gameMenuMoveViewController_       release];
-  [gameMenuBagViewController_        release];
-  [menuArea_                         release];
-  [messageView_                      release];
+  [gameMenuSixPokemonsViewController_ release];
+  [gameMenuMoveViewController_        release];
+  [gameMenuBagViewController_         release];
+  [menuArea_                          release];
+  [messageView_                       release];
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
@@ -246,11 +246,11 @@ typedef enum {
   self.enemyPokemonStatusViewController  = nil;
   self.playerPokemonStatusViewController = nil;
   
-  self.gameMenuSixPokemonViewController = nil;
-  self.gameMenuMoveViewController       = nil;
-  self.gameMenuBagViewController        = nil;
-  self.menuArea                         = nil;
-  self.messageView                      = nil;
+  self.gameMenuSixPokemonsViewController = nil;
+  self.gameMenuMoveViewController        = nil;
+  self.gameMenuBagViewController         = nil;
+  self.menuArea                          = nil;
+  self.messageView                       = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -262,26 +262,28 @@ typedef enum {
 #pragma mark - Private Methods
 
 // Button actions
-// Action for |buttonFight_|
+// Toggle six pokemons' view
 - (void)toggleSixPokemonView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    if (! self.gameMenuSixPokemonViewController) {
-      GameMenuSixPokemonViewController * gameMenuSixPokemonViewController
-      = [[GameMenuSixPokemonViewController alloc] init];
-      self.gameMenuSixPokemonViewController = gameMenuSixPokemonViewController;
+    if (! self.gameMenuSixPokemonsViewController) {
+      GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
+      = [[GameMenuSixPokemonsViewController alloc] init];
+      self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
       [gameMenuSixPokemonViewController release];
     }
     if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
-      [self.view addSubview:self.gameMenuSixPokemonViewController.view];
+      [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
+      [self.gameMenuSixPokemonsViewController loadSixPokemons];
       self.gameMenuKeyView = kGameMenuKeyViewSixPokemonsView;
     }
     else {
-      [self.gameMenuSixPokemonViewController.view removeFromSuperview];
+      [self.gameMenuSixPokemonsViewController unloadSixPokemons];
       self.gameMenuKeyView = kGameMenuKeyViewNone;
     }
   }
 }
 
+// Action for |buttonFight_|
 - (void)openMoveView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (! self.gameMenuMoveViewController) {

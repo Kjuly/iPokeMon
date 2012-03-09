@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameMenuSixPokemonViewController : UIViewController
+@interface GameMenuSixPokemonsViewController : UIViewController
+
+- (void)loadSixPokemons;
+- (void)unloadSixPokemons;
 
 @end
