@@ -11,6 +11,7 @@
 @protocol GameMenuSixPokemonsUnitViewDelegate <NSObject>
 
 - (void)checkUnit:(id)sender;
+- (void)resetUnit;
 - (void)confirm:(id)sender;
 - (void)openInfoView:(id)sender;
 

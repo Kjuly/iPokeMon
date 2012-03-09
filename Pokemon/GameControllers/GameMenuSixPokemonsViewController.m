@@ -106,6 +106,10 @@
   self.currOpeningUnitViewTag = ((UIButton *)sender).tag;
 }
 
+- (void)resetUnit {
+  self.currOpeningUnitViewTag = 0;
+}
+
 - (void)confirm:(id)sender
 {
   

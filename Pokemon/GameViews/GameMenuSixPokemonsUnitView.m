@@ -131,8 +131,6 @@
                                      }
                                      completion:nil];
                   }];
-  
-  
 }
 
 - (void)cancelUnit {
@@ -157,6 +155,7 @@
                                         options:UIViewAnimationOptionTransitionFlipFromLeft
                                      completion:nil];
                    }];
+  [self.delegate resetUnit];
 }
 
 @end
