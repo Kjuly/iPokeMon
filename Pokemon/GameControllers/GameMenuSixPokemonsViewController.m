@@ -30,6 +30,7 @@
 @property (nonatomic, retain) UIButton * cancelButton;
 
 - (void)unloadSelcetedPokemonInfoView;
+- (void)resetUnit;
 
 @end
 
@@ -206,11 +207,12 @@
   self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
   
   CGFloat buttonSize = 60.f;
-  CGRect originFrame = CGRectMake(0.f,
-                                  kViewHeight - buttonSize / 2,
-                                  kViewWidth,
-                                  buttonSize);
+  CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
   
+  //
+  // TODO:
+  //   Every time they'll be created, no need actually
+  //
   for (int i = 0; i < [self.sixPokemons count];) {
     TrainerTamedPokemon * pokemon = [self.sixPokemons objectAtIndex:i];
     GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView
@@ -218,8 +220,9 @@
     gameMenuSixPokemonsUnitView.delegate = self;
     [gameMenuSixPokemonsUnitView setTag:i];
     [gameMenuSixPokemonsUnitView setAlpha:0.f];
-    if (self.currBattlePokemon == i)
+    if (self.currBattlePokemon == i) {
       [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
+    }
     [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
     [gameMenuSixPokemonsUnitView release];
     pokemon = nil;
@@ -302,6 +305,24 @@
                      self.sixPokemonsDetailTabViewController = nil;
                      self.isSelectedPokemonInfoViewOpening = NO;
                    }];
+}
+
+- (void)prepareForNewScene {
+  //
+  // TODO:
+  //   Redundancy!!
+  //
+  GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
+  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+  [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+  previousBattlePokemonUnitView = nil;
+  
+  self.currBattlePokemon = 1;
+  
+  GameMenuSixPokemonsUnitView * firstPokemonUnitView
+  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+  [firstPokemonUnitView setAsCurrentBattleOne:YES];
+  firstPokemonUnitView = nil;
 }
 
 @end

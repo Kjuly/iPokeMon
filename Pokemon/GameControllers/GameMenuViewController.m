@@ -590,7 +590,7 @@ typedef enum {
 {
   [self.playerPokemonStatusViewController prepareForNewScene];
   [self.enemyPokemonStatusViewController  prepareForNewScene];
-  
+  [self.gameMenuSixPokemonsViewController prepareForNewScene];
   self.currPokemon = 0;
 }
 

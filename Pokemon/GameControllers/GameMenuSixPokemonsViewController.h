@@ -23,5 +23,6 @@
 - (void)loadSixPokemons;
 - (void)unloadSixPokemons;
 - (void)unloadSelcetedPokemonInfoView;
+- (void)prepareForNewScene;
 
 @end
