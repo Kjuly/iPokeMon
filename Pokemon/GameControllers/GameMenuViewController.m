@@ -361,6 +361,7 @@ typedef enum {
 - (void)reset
 {
   [self.playerPokemonStatusViewController reset];
+  [self.enemyPokemonStatusViewController  reset];
 }
 
 @end

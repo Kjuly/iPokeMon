@@ -9,6 +9,14 @@
 #import "GamePokemonStatusViewController.h"
 
 #import "GlobalRender.h"
+#import "GlobalNotificationConstants.h"
+
+
+@interface GamePokemonStatusViewController ()
+
+- (void)showStatus:(NSNotification *)notification;
+
+@end
 
 
 @implementation GamePokemonStatusViewController
@@ -27,6 +35,8 @@
   [pokemonGender_  release];
   [backgroundView_ release];
   
+  // Remove observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowPokemonStatus object:nil];
   [super dealloc];
 }
 
@@ -55,6 +65,7 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 170.f, 60.f)];
   self.view = view;
   [view release];
+  [self.view setAlpha:0.f];
   
   // Constants
   CGRect backgroundViewFrame = CGRectMake(0.f, 0.f, 180.f, 65.f);
@@ -98,6 +109,12 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Add observer for notification to show status view
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showStatus:)
+                                               name:kPMNShowPokemonStatus
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -136,5 +153,22 @@
 }
 
 - (void)prepareForNewScene {} // Overwired by child
+
+- (void)reset {
+  [self.view setAlpha:0.f];
+}
+
+#pragma mark - Private Methods
+
+- (void)showStatus:(NSNotification *)notification
+{
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationCurveEaseInOut
+                   animations:^{
+                     [self.view setAlpha:1.f];
+                   }
+                   completion:nil];
+}
 
 @end

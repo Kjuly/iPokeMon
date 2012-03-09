@@ -26,5 +26,6 @@
 
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo;
 - (void)prepareForNewScene; // Overwrited by child
+- (void)reset;
 
 @end

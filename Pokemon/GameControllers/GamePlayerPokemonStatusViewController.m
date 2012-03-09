@@ -163,6 +163,7 @@
 }
 
 - (void)reset {
+  [super reset];
   if (self.isStatusBarOpening) [self toggleStatusBar];
 }
 

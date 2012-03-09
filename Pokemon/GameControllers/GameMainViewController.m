@@ -146,6 +146,7 @@
                                                                        userInfo:userInfo];
                      [userInfo release];
                      [[CCDirector sharedDirector] pause];
+                     // Reset all status
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
                      [self.gameMenuViewController reset];
@@ -162,6 +163,7 @@
   
   // Replace the previous scene before show the battle scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
+  // Prepare data for new scene
   [[GameSystemProcess sharedInstance] prepareForNewScene];
   [self.gameMenuViewController        prepareForNewScene];
   

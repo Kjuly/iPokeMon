@@ -8,6 +8,7 @@
 
 #import "GameBattleLayer.h"
 
+#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "GamePlayerProcess.h"
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
 
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
+- (void)startGameLoop;
 - (void)runBattleBeginAnimation;
 
 @end
@@ -142,8 +144,8 @@
   playerPokemon = nil;
   enemyPokemon  = nil;
   
-//  // Run battle begin animation is it's a new battle with the Pokemon
-//  [self runBattleBeginAnimation];
+  // Run battle begin animation is it's a new battle with the Pokemon
+  [self runBattleBeginAnimation];
 }
 
 // The method to be scheduled
@@ -168,7 +170,7 @@
       break;
       
     case kGameStatusInitialization:
-      [self runBattleBeginAnimation];
+      // Pass, until |startGameLoop| was sent
     default:
       break;
   }
@@ -192,15 +194,24 @@
 
 #pragma mark - Private Methods
 
+// Start game loop
+- (void)startGameLoop
+{
+  // Post notification to show pokemon status view
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowPokemonStatus object:self userInfo:nil];
+  // Set game play to ready
+  [self.gameStatusMachine startNewTurn];
+}
+
 // Battle Begin Animation
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(70, 250)]];
-  [self.enemyPokemonSprite  runAction:[CCMoveTo actionWithDuration:1.5 position:ccp(250, 350)]];
+  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:1.5f position:ccp(70, 250)]];
+  [self.enemyPokemonSprite  runAction:[CCMoveTo actionWithDuration:1.5f position:ccp(250, 350)]];
   
-  // Set game play to ready
-  [self.gameStatusMachine startNewTurn];
+  // Start game loop after some time delay (waiting the animation done)
+  [self performSelector:@selector(startGameLoop) withObject:nil afterDelay:2.f];
 }
 
 @end
