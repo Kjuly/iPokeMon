@@ -29,5 +29,6 @@
 @property (nonatomic, retain) UIButton * buttonRun;
 
 - (void)prepareForNewScene;
+- (void)reset;
 
 @end

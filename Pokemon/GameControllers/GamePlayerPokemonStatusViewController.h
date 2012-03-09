@@ -16,4 +16,6 @@
 
 @property (nonatomic, retain) PokemonEXPBar * pokemonEXPBar;
 
+- (void)reset;
+
 @end

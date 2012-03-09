@@ -358,4 +358,9 @@ typedef enum {
   [self.enemyPokemonStatusViewController  prepareForNewScene];
 }
 
+- (void)reset
+{
+  [self.playerPokemonStatusViewController reset];
+}
+
 @end

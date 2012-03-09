@@ -148,6 +148,7 @@
                      [[CCDirector sharedDirector] pause];
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
+                     [self.gameMenuViewController reset];
                    }];
 }
 

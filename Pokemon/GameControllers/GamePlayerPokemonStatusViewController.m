@@ -162,6 +162,10 @@
   [self.pokemonEXPBar updateExpBarWithExp:[playerPokemon.currEXP intValue] ExpMax:20000];
 }
 
+- (void)reset {
+  if (self.isStatusBarOpening) [self toggleStatusBar];
+}
+
 #pragma mark - Private Methods
 
 - (void)toggleStatusBar
