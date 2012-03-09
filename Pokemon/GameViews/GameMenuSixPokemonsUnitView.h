@@ -10,6 +10,7 @@
 
 @protocol GameMenuSixPokemonsUnitViewDelegate <NSObject>
 
+- (void)checkUnit:(id)sender;
 - (void)confirm:(id)sender;
 - (void)openInfoView:(id)sender;
 
@@ -22,5 +23,6 @@
 @property (nonatomic, assign) id <GameMenuSixPokemonsUnitViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame tag:(NSInteger)tag;
+- (void)cancelUnit;
 
 @end

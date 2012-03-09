@@ -21,8 +21,7 @@
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
 
-- (void)openUnits;
-- (void)cancelUnits;
+- (void)openUnit:(id)sender;
 
 @end
 
@@ -60,7 +59,7 @@
     [mainButton_ setTag:tag];
     [mainButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                            forState:UIControlStateNormal];
-    [mainButton_ addTarget:self action:@selector(openUnits) forControlEvents:UIControlEventTouchUpInside];
+    [mainButton_ addTarget:self action:@selector(openUnit:) forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:mainButton_];
     
     confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
@@ -85,7 +84,7 @@
     [cancelButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                              forState:UIControlStateNormal];
     [cancelButton_ setImage:[UIImage imageNamed:@"ButtonIconCancel.png"] forState:UIControlStateNormal];
-    [cancelButton_ addTarget:self action:@selector(cancelUnits) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton_ addTarget:self action:@selector(cancelUnit) forControlEvents:UIControlEventTouchUpInside];
   }
   return self;
 }
@@ -108,7 +107,9 @@
 }
 */
 
-- (void)openUnits {
+- (void)openUnit:(id)sender {
+  [self.delegate checkUnit:sender];
+  
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);
@@ -134,7 +135,7 @@
   
 }
 
-- (void)cancelUnits {
+- (void)cancelUnit {
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = mainButtonFrame;

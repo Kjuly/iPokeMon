@@ -15,10 +15,12 @@
 @interface GameMenuSixPokemonsViewController () {
  @private
   NSInteger pokemonCount_;
+  NSInteger currOpeningUnitViewTag_;
   UIView  * backgroundView_;
 }
 
 @property (nonatomic, assign) NSInteger pokemonCount;
+@property (nonatomic, assign) NSInteger currOpeningUnitViewTag;
 @property (nonatomic, retain) UIView  * backgroundView;
 
 @end
@@ -26,8 +28,9 @@
 
 @implementation GameMenuSixPokemonsViewController
 
-@synthesize pokemonCount   = pokemonCount_;
-@synthesize backgroundView = backgroundView_;
+@synthesize pokemonCount           = pokemonCount_;
+@synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
+@synthesize backgroundView         = backgroundView_;
 
 - (void)dealloc
 {
@@ -72,6 +75,9 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Basic Setting
+  currOpeningUnitViewTag_ = 0;
 }
 
 - (void)viewDidUnload
@@ -89,6 +95,17 @@
 
 #pragma mark - GameMenuSixPokemonsUnitViewDelegate
 
+- (void)checkUnit:(id)sender
+{
+  if (self.currOpeningUnitViewTag) {
+    GameMenuSixPokemonsUnitView * unitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+    [unitView cancelUnit];
+    unitView = nil;
+  }
+  self.currOpeningUnitViewTag = ((UIButton *)sender).tag;
+}
+
 - (void)confirm:(id)sender
 {
   
@@ -101,8 +118,7 @@
 
 #pragma mark - Public Methods
 
-- (void)loadSixPokemons
-{
+- (void)loadSixPokemons {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
@@ -125,10 +141,9 @@
                    completion:nil];
 }
 
-- (void)unloadSixPokemons
-{
+- (void)unloadSixPokemons {
   [UIView animateWithDuration:.3f
-                        delay:0.f
+                        delay:(self.currOpeningUnitViewTag != 0 ? .6f : 0.f)
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      CGFloat buttonSize = 60.f;
@@ -148,6 +163,15 @@
                    completion:^(BOOL finished) {
                      [self.view removeFromSuperview];
                    }];
+  
+  // If there's a unit view opening, close it first
+  if (self.currOpeningUnitViewTag != 0) {
+    GameMenuSixPokemonsUnitView * unitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+    [unitView cancelUnit];
+    unitView = nil;
+    self.currOpeningUnitViewTag = 0;
+  }
 }
 
 #pragma mark - Private Methods
@@ -162,9 +186,9 @@
                                   buttonSize);
   
   for (int i = 0; i < self.pokemonCount;) {
-    NSLog(@"!");
     GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView
     = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame tag:++i];
+    gameMenuSixPokemonsUnitView.delegate = self;
     [gameMenuSixPokemonsUnitView setTag:i];
     [gameMenuSixPokemonsUnitView setAlpha:0.f];
     [self.view addSubview:gameMenuSixPokemonsUnitView];
