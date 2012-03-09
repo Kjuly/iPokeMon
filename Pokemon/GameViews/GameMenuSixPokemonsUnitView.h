@@ -25,5 +25,6 @@
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag;
 - (void)cancelUnit;
+- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne;
 
 @end

@@ -19,6 +19,7 @@
   UIView  * backgroundView_;
   NSArray * sixPokemons_;
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
+  NSInteger currBattlePokemon_;
   UIButton * cancelButton_;
 }
 
@@ -26,6 +27,7 @@
 @property (nonatomic, retain) UIView  * backgroundView;
 @property (nonatomic, copy) NSArray   * sixPokemons;
 @property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
+@property (nonatomic, assign) NSInteger currBattlePokemon;
 @property (nonatomic, retain) UIButton * cancelButton;
 
 - (void)unloadSelcetedPokemonInfoView;
@@ -41,6 +43,7 @@
 @synthesize backgroundView         = backgroundView_;
 @synthesize sixPokemons            = sixPokemons_;
 @synthesize sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController_;
+@synthesize currBattlePokemon = currBattlePokemon_;
 @synthesize cancelButton = cancelButton_;
 
 - (void)dealloc
@@ -101,6 +104,9 @@
                         action:@selector(unloadSelcetedPokemonInfoView)
               forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
+  
+  // Basic Setting
+  currBattlePokemon_ = 1;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -147,14 +153,30 @@
 
 - (void)confirm:(id)sender
 {
+  NSInteger tag = ((UIButton *)sender).tag;
   
+  // Replace the current pokemon
+  GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
+  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+  [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+  previousBattlePokemonUnitView = nil;
+  
+  self.currBattlePokemon = tag;
+  
+  GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView
+  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+  [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
+  currentBattlePokemonUnitView = nil;
+  
+  // Cancel Six Pokemons view
+  [self unloadSixPokemons];
 }
 
 - (void)openInfoView:(id)sender
 {
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController
   = [[SixPokemonsDetailTabViewController alloc] initWithPokemon:
-     [self.sixPokemons objectAtIndex:((GameMenuSixPokemonsUnitView *)sender).tag - 1]];
+     [self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]];
   self.sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController;
   [sixPokemonsDetailTabViewController release];
   [self.view insertSubview:self.sixPokemonsDetailTabViewController.view belowSubview:self.cancelButton];
@@ -194,8 +216,9 @@
     gameMenuSixPokemonsUnitView.delegate = self;
     [gameMenuSixPokemonsUnitView setTag:i];
     [gameMenuSixPokemonsUnitView setAlpha:0.f];
+    if (self.currBattlePokemon == i)
+      [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
     [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
-//    [self.view addSubview:gameMenuSixPokemonsUnitView];
     [gameMenuSixPokemonsUnitView release];
     pokemon = nil;
   }

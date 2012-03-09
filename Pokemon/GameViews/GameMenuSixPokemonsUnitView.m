@@ -14,12 +14,14 @@
   UIButton * confirmButton_;
   UIButton * infoButton_;
   UIButton * cancelButton_;
+  BOOL       isCurrBattlePokemon_;
 }
 
 @property (nonatomic, retain) UIButton * mainButton;
 @property (nonatomic, retain) UIButton * confirmButton;
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, assign) BOOL       isCurrBattlePokemon;
 
 - (void)openUnit:(id)sender;
 
@@ -33,6 +35,7 @@
 @synthesize confirmButton = confirmButton_;
 @synthesize infoButton    = infoButton_;
 @synthesize cancelButton  = cancelButton_;
+@synthesize isCurrBattlePokemon = isCurrBattlePokemon_;
 
 - (void)dealloc
 {
@@ -95,6 +98,7 @@
   self = [super initWithFrame:frame];
   if (self) {
     [self setFrame:frame];
+    isCurrBattlePokemon_ = NO;
   }
   return self;
 }
@@ -124,9 +128,12 @@
                                           delay:.1f
                                         options:UIViewAnimationOptionCurveEaseInOut
                                      animations:^{
-                                       [self.confirmButton setAlpha:1.f];
+                                       // If it's the current battle pokemon, do not show confirm button
+                                       if (! self.isCurrBattlePokemon) {
+                                         [self.confirmButton setAlpha:1.f];
+                                         [self.confirmButton setFrame:confirmButtonFrame];
+                                       }
                                        [self.infoButton setAlpha:1.f];
-                                       [self.confirmButton setFrame:confirmButtonFrame];
                                        [self.infoButton setFrame:infoButtonFrame];
                                      }
                                      completion:nil];
@@ -156,6 +163,21 @@
                                      completion:nil];
                    }];
   [self.delegate resetUnit];
+}
+
+- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
+{
+  NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
+  if (isCurrentBattleOne) {
+    self.isCurrBattlePokemon = YES;
+    buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";
+  }
+  else self.isCurrBattlePokemon = NO;
+  [self.mainButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+                             forState:UIControlStateNormal];
+  [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+                               forState:UIControlStateNormal];
+  
 }
 
 @end
