@@ -10,31 +10,47 @@
 
 #import "GlobalConstants.h"
 #import "GameMenuSixPokemonsUnitView.h"
-//#import "GameMenuSixPokemonsUnitViewController.h"
+#import "TrainerCoreDataController.h"
+#import "SixPokemonsDetailTabViewController.h"
 
 @interface GameMenuSixPokemonsViewController () {
  @private
-  NSInteger pokemonCount_;
   NSInteger currOpeningUnitViewTag_;
   UIView  * backgroundView_;
+  NSArray * sixPokemons_;
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
+  UIButton * cancelButton_;
 }
 
-@property (nonatomic, assign) NSInteger pokemonCount;
 @property (nonatomic, assign) NSInteger currOpeningUnitViewTag;
 @property (nonatomic, retain) UIView  * backgroundView;
+@property (nonatomic, copy) NSArray   * sixPokemons;
+@property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
+@property (nonatomic, retain) UIButton * cancelButton;
+
+- (void)unloadSelcetedPokemonInfoView;
 
 @end
 
 
 @implementation GameMenuSixPokemonsViewController
 
-@synthesize pokemonCount           = pokemonCount_;
+@synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
+
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize backgroundView         = backgroundView_;
+@synthesize sixPokemons            = sixPokemons_;
+@synthesize sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController_;
+@synthesize cancelButton = cancelButton_;
 
 - (void)dealloc
 {
   [backgroundView_ release];
+  [sixPokemons_    release];
+  [sixPokemonsDetailTabViewController_ release];
+  [cancelButton_ release];
+  
+  self.sixPokemonsDetailTabViewController = nil;
   
   [super dealloc];
 }
@@ -43,7 +59,6 @@
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    // Custom initialization
   }
   return self;
 }
@@ -69,6 +84,23 @@
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
   [self.view addSubview:backgroundView_];
+  
+  // Create a fake |mapButton_| as the cancel button
+  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                                       - kMapButtonSize,
+                                                                       kMapButtonSize,
+                                                                       kMapButtonSize)];
+  self.cancelButton = cancelButton;
+  [cancelButton release];
+  [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
+  [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
+                               forState:UIControlStateNormal];
+  [self.cancelButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
+  [self.cancelButton setOpaque:NO];
+  [self.cancelButton addTarget:self
+                        action:@selector(unloadSelcetedPokemonInfoView)
+              forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.cancelButton];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -85,6 +117,9 @@
   [super viewDidUnload];
   
   self.backgroundView = nil;
+  self.sixPokemons    = nil;
+  self.sixPokemonsDetailTabViewController = nil;
+  self.cancelButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -117,10 +152,57 @@
 
 - (void)openInfoView:(id)sender
 {
-  
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController
+  = [[SixPokemonsDetailTabViewController alloc] initWithPokemon:
+     [self.sixPokemons objectAtIndex:((GameMenuSixPokemonsUnitView *)sender).tag - 1]];
+  self.sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController;
+  [sixPokemonsDetailTabViewController release];
+  [self.view insertSubview:self.sixPokemonsDetailTabViewController.view belowSubview:self.cancelButton];
+  __block CGRect viewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
+  [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     viewFrame.origin.y = 0.f;
+                     [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
+                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                            - (kMapButtonSize / 2),
+                                                            kMapButtonSize,
+                                                            kMapButtonSize)];
+                   }
+                   completion:nil];
+  self.isSelectedPokemonInfoViewOpening = YES;
 }
 
 #pragma mark - Public Methods
+
+- (void)initWithSixPokemons
+{
+  self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
+  
+  CGFloat buttonSize = 60.f;
+  CGRect originFrame = CGRectMake(0.f,
+                                  kViewHeight - buttonSize / 2,
+                                  kViewWidth,
+                                  buttonSize);
+  
+  for (int i = 0; i < [self.sixPokemons count];) {
+    TrainerTamedPokemon * pokemon = [self.sixPokemons objectAtIndex:i];
+    GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView
+    = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:++i];
+    gameMenuSixPokemonsUnitView.delegate = self;
+    [gameMenuSixPokemonsUnitView setTag:i];
+    [gameMenuSixPokemonsUnitView setAlpha:0.f];
+    [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
+//    [self.view addSubview:gameMenuSixPokemonsUnitView];
+    [gameMenuSixPokemonsUnitView release];
+    pokemon = nil;
+  }
+  
+  // Basic Setting
+  self.isSelectedPokemonInfoViewOpening = NO;
+}
 
 - (void)loadSixPokemons {
   [UIView animateWithDuration:.3f
@@ -129,11 +211,11 @@
                    animations:^{
                      [self.backgroundView setAlpha:.75f];
                      CGFloat buttonSize = 60.f;
-                     CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
+                     CGRect originFrame = CGRectMake(0.f,
                                                      kViewHeight - buttonSize / 2,
-                                                     buttonSize,
+                                                     kViewWidth,
                                                      buttonSize);
-                     for (int i = self.pokemonCount; i > 0; --i) {
+                     for (int i = [self.sixPokemons count]; i > 0; --i) {
                        GameMenuSixPokemonsUnitView * unitView
                        = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
                        originFrame.origin.y -= 70.f;
@@ -151,11 +233,11 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      CGFloat buttonSize = 60.f;
-                     CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
+                     CGRect originFrame = CGRectMake(0.f,
                                                      kViewHeight - buttonSize / 2,
-                                                     buttonSize,
+                                                     kViewWidth,
                                                      buttonSize);
-                     for (int i = self.pokemonCount; i > 0; --i) {
+                     for (int i = [self.sixPokemons count]; i > 0; --i) {
                        GameMenuSixPokemonsUnitView * unitView
                        = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
                        [unitView setFrame:originFrame];
@@ -178,26 +260,23 @@
   }
 }
 
-#pragma mark - Private Methods
-
-- (void)initWithPokemonCount:(NSInteger)pokemonCount
-{
-  pokemonCount_ = pokemonCount; // Min: 1, Max: 6
-  CGFloat buttonSize = 60.f;
-  CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
-                                  kViewHeight - buttonSize / 2,
-                                  buttonSize,
-                                  buttonSize);
-  
-  for (int i = 0; i < self.pokemonCount;) {
-    GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView
-    = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame tag:++i];
-    gameMenuSixPokemonsUnitView.delegate = self;
-    [gameMenuSixPokemonsUnitView setTag:i];
-    [gameMenuSixPokemonsUnitView setAlpha:0.f];
-    [self.view addSubview:gameMenuSixPokemonsUnitView];
-    [gameMenuSixPokemonsUnitView release];
-  }
+- (void)unloadSelcetedPokemonInfoView {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     CGRect viewFrame = self.sixPokemonsDetailTabViewController.view.frame;
+                     viewFrame.origin.y = kViewHeight;
+                     [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
+                     CGRect buttonFrame = self.cancelButton.frame;
+                     buttonFrame.origin.y = - kMapButtonSize;
+                     [self.cancelButton setFrame:buttonFrame];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.sixPokemonsDetailTabViewController.view removeFromSuperview];
+                     self.sixPokemonsDetailTabViewController = nil;
+                     self.isSelectedPokemonInfoViewOpening = NO;
+                   }];
 }
 
 @end

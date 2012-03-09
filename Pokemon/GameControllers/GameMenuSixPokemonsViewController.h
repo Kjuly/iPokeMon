@@ -11,9 +11,15 @@
 #import "GameMenuSixPokemonsUnitView.h"
 
 @interface GameMenuSixPokemonsViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate>
+{
+  BOOL isSelectedPokemonInfoViewOpening_;
+}
 
-- (void)initWithPokemonCount:(NSInteger)pokemonCount;
+@property (nonatomic, assign) BOOL isSelectedPokemonInfoViewOpening;
+
+- (void)initWithSixPokemons;
 - (void)loadSixPokemons;
 - (void)unloadSixPokemons;
+- (void)unloadSelcetedPokemonInfoView;
 
 @end

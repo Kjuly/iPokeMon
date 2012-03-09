@@ -68,7 +68,7 @@
   }
   
   // Create a fake |mapButton_| as the cancel button
-  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
+  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                                        - kMapButtonSize,
                                                                        kMapButtonSize,
                                                                        kMapButtonSize)];
@@ -113,7 +113,7 @@
                                                             kMapButtonSize,
                                                             kMapButtonSize)];
                    }
-                   completion:^(BOOL finished) {[bagItemTableView removeFromSuperview];}];
+                   completion:^(BOOL finished) { [bagItemTableView removeFromSuperview]; }];
   bagItemTableView = nil;
   self.isSelectedItemViewOpening = NO;
 }

@@ -46,7 +46,7 @@
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame tag:(NSInteger)tag
+- (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag
 {
   if (self = [self initWithFrame:frame]) {
     CGFloat buttonSize = 60.f;
@@ -59,6 +59,7 @@
     [mainButton_ setTag:tag];
     [mainButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                            forState:UIControlStateNormal];
+    [mainButton_ setImage:image forState:UIControlStateNormal];
     [mainButton_ addTarget:self action:@selector(openUnit:) forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:mainButton_];
     
@@ -67,7 +68,7 @@
     [confirmButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                               forState:UIControlStateNormal];
     [confirmButton_ setImage:[UIImage imageNamed:@"ButtonIconConfirm.png"] forState:UIControlStateNormal];
-    [confirmButton_ addTarget:self.delegate action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+    [confirmButton_ addTarget:self.delegate action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     [confirmButton_ setAlpha:0.f];
     [self addSubview:confirmButton_];
     
@@ -76,7 +77,7 @@
     [infoButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                            forState:UIControlStateNormal];
     [infoButton_ setImage:[UIImage imageNamed:@"ButtonIconInfo.png"] forState:UIControlStateNormal];
-    [infoButton_ addTarget:self.delegate action:@selector(openInfoView) forControlEvents:UIControlEventTouchUpInside];
+    [infoButton_ addTarget:self.delegate action:@selector(openInfoView:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton_ setAlpha:0.f];
     [self addSubview:infoButton_];
     
@@ -114,7 +115,6 @@
   CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);
   CGRect infoButtonFrame    = CGRectMake(mainButtonFrame.origin.x + 70.f, 0.f, buttonSize, buttonSize);
-  
   [UIView transitionFromView:self.mainButton
                       toView:self.cancelButton
                     duration:.3f
