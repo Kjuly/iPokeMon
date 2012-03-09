@@ -78,6 +78,8 @@
   self.playerPokemonSprite = nil;
   self.enemyPokemonSprite  = nil;
   
+  // Remove observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePlayerPokemon object:nil];
   [super dealloc];
 }
 
