@@ -643,6 +643,7 @@
 		7FB7645F1509FCA7008A9AA1 /* ButtonIconConfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB764591509FCA6008A9AA1 /* ButtonIconConfirm@2x.png */; };
 		7FB764601509FCA7008A9AA1 /* ButtonIconInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB7645A1509FCA7008A9AA1 /* ButtonIconInfo.png */; };
 		7FB764611509FCA7008A9AA1 /* ButtonIconInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB7645B1509FCA7008A9AA1 /* ButtonIconInfo@2x.png */; };
+		7FB76464150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */; };
 		7FB78FF81501FA350041D305 /* TabViewItemArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB78FF61501FA350041D305 /* TabViewItemArrow.png */; };
 		7FB78FF91501FA350041D305 /* TabViewItemArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB78FF71501FA350041D305 /* TabViewItemArrow@2x.png */; };
 		7FBAA70A14E15A2A0011DCB0 /* GlobalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBAA70914E15A2A0011DCB0 /* GlobalRender.m */; };
@@ -1610,6 +1611,8 @@
 		7FB764591509FCA6008A9AA1 /* ButtonIconConfirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonIconConfirm@2x.png"; sourceTree = "<group>"; };
 		7FB7645A1509FCA7008A9AA1 /* ButtonIconInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonIconInfo.png; sourceTree = "<group>"; };
 		7FB7645B1509FCA7008A9AA1 /* ButtonIconInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonIconInfo@2x.png"; sourceTree = "<group>"; };
+		7FB76462150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsUnitView.h; sourceTree = "<group>"; };
+		7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuSixPokemonsUnitView.m; sourceTree = "<group>"; };
 		7FB78FF61501FA350041D305 /* TabViewItemArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabViewItemArrow.png; sourceTree = "<group>"; };
 		7FB78FF71501FA350041D305 /* TabViewItemArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabViewItemArrow@2x.png"; sourceTree = "<group>"; };
 		7FBAA70814E15A2A0011DCB0 /* GlobalRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalRender.h; path = ../Models/GlobalRender.h; sourceTree = "<group>"; };
@@ -2539,6 +2542,8 @@
 				7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */,
 				7F3F7ACB14FB7EAF005E554E /* GamePokemonHPBar.h */,
 				7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */,
+				7FB76462150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.h */,
+				7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */,
 			);
 			path = GameViews;
 			sourceTree = "<group>";
@@ -3955,6 +3960,7 @@
 				7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */,
 				7FB764461509DFDA008A9AA1 /* GameMenuSixPokemonsViewController.m in Sources */,
 				7FB7644D1509EC6B008A9AA1 /* GameMenuSixPokemonsUnitViewController.m in Sources */,
+				7FB76464150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

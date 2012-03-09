@@ -9,22 +9,24 @@
 #import "GameMenuSixPokemonsViewController.h"
 
 #import "GlobalConstants.h"
-#import "GameMenuSixPokemonsUnitViewController.h"
+#import "GameMenuSixPokemonsUnitView.h"
+//#import "GameMenuSixPokemonsUnitViewController.h"
 
 @interface GameMenuSixPokemonsViewController () {
  @private
-  UIView * backgroundView_;
+  NSInteger pokemonCount_;
+  UIView  * backgroundView_;
 }
 
-@property (nonatomic, retain) UIView * backgroundView;
-
-- (void)initSixPokemonsButton;
+@property (nonatomic, assign) NSInteger pokemonCount;
+@property (nonatomic, retain) UIView  * backgroundView;
 
 @end
 
 
 @implementation GameMenuSixPokemonsViewController
 
+@synthesize pokemonCount   = pokemonCount_;
 @synthesize backgroundView = backgroundView_;
 
 - (void)dealloc
@@ -64,8 +66,6 @@
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
   [self.view addSubview:backgroundView_];
-  
-  [self initSixPokemonsButton];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -87,6 +87,18 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - GameMenuSixPokemonsUnitViewDelegate
+
+- (void)confirm:(id)sender
+{
+  
+}
+
+- (void)openInfoView:(id)sender
+{
+  
+}
+
 #pragma mark - Public Methods
 
 - (void)loadSixPokemons
@@ -96,6 +108,19 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.backgroundView setAlpha:.75f];
+                     CGFloat buttonSize = 60.f;
+                     CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
+                                                     kViewHeight - buttonSize / 2,
+                                                     buttonSize,
+                                                     buttonSize);
+                     for (int i = self.pokemonCount; i > 0; --i) {
+                       GameMenuSixPokemonsUnitView * unitView
+                       = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+                       originFrame.origin.y -= 70.f;
+                       [unitView setAlpha:1.f];
+                       [unitView setFrame:originFrame];
+                       unitView = nil;
+                     }
                    }
                    completion:nil];
 }
@@ -106,6 +131,18 @@
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
+                     CGFloat buttonSize = 60.f;
+                     CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
+                                                     kViewHeight - buttonSize / 2,
+                                                     buttonSize,
+                                                     buttonSize);
+                     for (int i = self.pokemonCount; i > 0; --i) {
+                       GameMenuSixPokemonsUnitView * unitView
+                       = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+                       [unitView setFrame:originFrame];
+                       [unitView setAlpha:0.f];
+                       unitView = nil;
+                     }
                      [self.backgroundView setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
@@ -115,20 +152,24 @@
 
 #pragma mark - Private Methods
 
-- (void)initSixPokemonsButton
+- (void)initWithPokemonCount:(NSInteger)pokemonCount
 {
-//  CGRect originRect = CGRectMake((kViewWidth - kCenterMenuSize) / 2,
-//                                 kViewHeight - kCenterMenuSize / 2,
-//                                 kCenterMenuSize,
-//                                 kCenterMenuSize);
+  pokemonCount_ = pokemonCount; // Min: 1, Max: 6
+  CGFloat buttonSize = 60.f;
+  CGRect originFrame = CGRectMake((kViewWidth - buttonSize) / 2,
+                                  kViewHeight - buttonSize / 2,
+                                  buttonSize,
+                                  buttonSize);
   
-//  for (int i = 0; i < 6; ++i) {
-    
-//  }
-  GameMenuSixPokemonsUnitViewController * gameMenuSixPokemonsUnitViewController
-  = [[GameMenuSixPokemonsUnitViewController alloc] init];
-  [self.view addSubview:gameMenuSixPokemonsUnitViewController.view];
-//  [gameMenuSixPokemonsUnitViewController release];
+  for (int i = 0; i < self.pokemonCount;) {
+    NSLog(@"!");
+    GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView
+    = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame tag:++i];
+    [gameMenuSixPokemonsUnitView setTag:i];
+    [gameMenuSixPokemonsUnitView setAlpha:0.f];
+    [self.view addSubview:gameMenuSixPokemonsUnitView];
+    [gameMenuSixPokemonsUnitView release];
+  }
 }
 
 @end

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameMenuSixPokemonsViewController : UIViewController
+#import "GameMenuSixPokemonsUnitView.h"
 
+@interface GameMenuSixPokemonsViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate>
+
+- (void)initWithPokemonCount:(NSInteger)pokemonCount;
 - (void)loadSixPokemons;
 - (void)unloadSixPokemons;
 

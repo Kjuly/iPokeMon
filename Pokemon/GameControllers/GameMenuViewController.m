@@ -273,6 +273,7 @@ typedef enum {
     }
     if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
+      [self.gameMenuSixPokemonsViewController initWithPokemonCount:6];
       [self.gameMenuSixPokemonsViewController loadSixPokemons];
       self.gameMenuKeyView = kGameMenuKeyViewSixPokemonsView;
     }
