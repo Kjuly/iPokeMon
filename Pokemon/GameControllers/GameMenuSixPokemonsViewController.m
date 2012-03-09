@@ -20,7 +20,6 @@
   UIView  * backgroundView_;
   NSArray * sixPokemons_;
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
-  NSInteger currBattlePokemon_;
   UIButton * cancelButton_;
 }
 
@@ -28,7 +27,6 @@
 @property (nonatomic, retain) UIView  * backgroundView;
 @property (nonatomic, copy) NSArray   * sixPokemons;
 @property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
-@property (nonatomic, assign) NSInteger currBattlePokemon;
 @property (nonatomic, retain) UIButton * cancelButton;
 
 - (void)unloadSelcetedPokemonInfoView;

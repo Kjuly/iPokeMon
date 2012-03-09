@@ -13,9 +13,11 @@
 @interface GameMenuSixPokemonsViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate>
 {
   BOOL isSelectedPokemonInfoViewOpening_;
+  NSInteger currBattlePokemon_;
 }
 
 @property (nonatomic, assign) BOOL isSelectedPokemonInfoViewOpening;
+@property (nonatomic, assign) NSInteger currBattlePokemon;
 
 - (void)initWithSixPokemons;
 - (void)loadSixPokemons;

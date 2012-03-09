@@ -12,6 +12,7 @@
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
+#import "TrainerCoreDataController.h"
 #import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
@@ -42,6 +43,8 @@ typedef enum {
   GameMenuBagViewController         * gameMenuBagViewController_;
   UIView                            * menuArea_;
   UITextView                        * messageView_;
+  NSInteger                           currPokemon_;
+  UIImageView                       * pokemonImageView_;
   UIView                            * pokeball_;
 }
 
@@ -56,12 +59,15 @@ typedef enum {
 @property (nonatomic, retain) GameMenuBagViewController         * gameMenuBagViewController;
 @property (nonatomic, retain) UIView                            * menuArea;
 @property (nonatomic, retain) UITextView                        * messageView;
+@property (nonatomic, assign) NSInteger                           currPokemon;
+@property (nonatomic, retain) UIImageView                       * pokemonImageView;
 @property (nonatomic, retain) UIView                            * pokeball;
 
 // Button Actions
 - (void)toggleSixPokemonView;
 - (void)replacePokemon:(NSNotification *)notification;
 - (void)throwPokeball;
+- (void)getPokemonBack;
 - (void)openMoveView;
 - (void)openBagView;
 - (void)openRunConfirmView;
@@ -89,6 +95,8 @@ typedef enum {
 @synthesize gameMenuBagViewController         = gameMenuBagViewController_;
 @synthesize menuArea                          = menuArea_;
 @synthesize messageView                       = messageView_;
+@synthesize currPokemon                       = currPokemon_;
+@synthesize pokemonImageView                  = pokemonImageView_;
 @synthesize pokeball                          = pokeball_;
 
 - (void)dealloc
@@ -109,6 +117,7 @@ typedef enum {
   [gameMenuBagViewController_         release];
   [menuArea_                          release];
   [messageView_                       release];
+  [pokemonImageView_                  release];
   [pokeball_                          release];
   
   // Rmove observer for notification
@@ -216,7 +225,12 @@ typedef enum {
   [self.messageView setEditable:NO];
   [self.view addSubview:self.messageView];
   
-  //
+  // Pokemon Image View (for animation of getting back pokemon)
+  UIImageView * pokemonImageView = [[UIImageView alloc] initWithFrame:CGRectMake(70.f, kViewHeight, 96.f, 96.f)];
+  self.pokemonImageView = pokemonImageView;
+  [pokemonImageView release];
+  [self.view addSubview:self.pokemonImageView];
+  
   // Pokeball
   UIView * pokeball = [[UIView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
   self.pokeball = pokeball;
@@ -316,11 +330,88 @@ typedef enum {
 {
   self.gameMenuKeyView = kGameMenuKeyViewNone;
   
-  // Retake current battling pokemon from scene
-  
+  // Get current battling pokemon back from scene
+  [self performSelector:@selector(getPokemonBack) withObject:nil afterDelay:1.f];
   // Send new pokemon to scene
-  [self performSelector:@selector(throwPokeball) withObject:nil afterDelay:1.f];
+  [self performSelector:@selector(throwPokeball) withObject:nil afterDelay:1.8f];
   
+}
+
+// Get current battling pokemon back from scene
+- (void)getPokemonBack {
+  UIBezierPath * path = [UIBezierPath bezierPath];
+  [path moveToPoint:CGPointMake(70.f, 230.f)];
+  [path addCurveToPoint:CGPointMake(100.f, 250.f)
+          controlPoint1:CGPointMake(80.f, 230.f)
+          controlPoint2:CGPointMake(90.f, 245.f)];
+  [path addCurveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)
+          controlPoint1:CGPointMake(130.f, 270.f)
+          controlPoint2:CGPointMake(160.f, 330.f)];
+  
+//#ifdef DEBUG
+//  CAShapeLayer * pathTrack = [CAShapeLayer layer];
+//	pathTrack.path = path.CGPath;
+//	pathTrack.strokeColor = [UIColor blackColor].CGColor;
+//	pathTrack.fillColor = [UIColor clearColor].CGColor;
+//	pathTrack.lineWidth = 10.0;
+//	[self.view.layer addSublayer:pathTrack];
+//#endif
+
+  // Basic Settings
+  CGFloat duration = .7f;
+  NSArray * keyTimes = [NSArray arrayWithObjects:
+                        [NSNumber numberWithFloat:.0f],
+                        [NSNumber numberWithFloat:.4f],
+                        [NSNumber numberWithFloat:duration], nil];
+  NSArray * timingFunctions = [NSArray arrayWithObjects:
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn], nil];
+  
+  // Move animation
+  CAKeyframeAnimation * moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+  moveAnimation.path = path.CGPath;
+  moveAnimation.keyTimes = keyTimes;
+  moveAnimation.duration = duration;
+  moveAnimation.timingFunctions = timingFunctions;
+  
+  // Scale animation
+  CAKeyframeAnimation * scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+  scaleAnimation.values = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:.6],
+                           [NSNumber numberWithFloat:1.6f],
+                           [NSNumber numberWithFloat:1.f], nil];
+  scaleAnimation.keyTimes = keyTimes;
+  scaleAnimation.duration = duration;
+  scaleAnimation.timingFunctions = timingFunctions;
+  
+  // Fade animation
+  CAKeyframeAnimation * fadeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+  fadeAnimation.values = [NSArray arrayWithObjects:
+                          [NSNumber numberWithFloat:.3f],
+                          [NSNumber numberWithFloat:1.f],
+                          [NSNumber numberWithFloat:0.f], nil];
+  fadeAnimation.keyTimes = keyTimes;
+  fadeAnimation.duration = duration;
+  fadeAnimation.timingFunctions = timingFunctions;
+  
+  // Throw pokeball group animation
+  CAAnimationGroup * getPokemonBackAnimation = [CAAnimationGroup animation];
+  getPokemonBackAnimation.delegate = self;
+  getPokemonBackAnimation.duration = duration;
+  NSArray * animations = [[NSArray alloc] initWithObjects:moveAnimation, scaleAnimation, fadeAnimation, nil];
+  getPokemonBackAnimation.animations = animations;
+  [animations release];
+  
+  TrainerTamedPokemon * pokemon =
+  [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+  [self.pokemonImageView setImage:pokemon.pokemon.image];
+  [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
+  pokemon = nil;
+  
+  // Post notification to |GameBattleLayer| to replace pokemon sprite
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:self.gameMenuSixPokemonsViewController.currBattlePokemon - 1], @"newPokemon", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePlayerPokemon object:self userInfo:userInfo];
+  [userInfo release];
 }
 
 // Send new pokemon to scene
@@ -388,6 +479,9 @@ typedef enum {
   throwPokeballAnimation.animations = animations;
   [animations release];
   [self.pokeball.layer addAnimation:throwPokeballAnimation forKey:@"throwPokeball"];
+  
+  // Set current battle pokemon ID
+  self.currPokemon = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
 }
 
 // Action for |buttonFight_|
@@ -492,6 +586,8 @@ typedef enum {
 {
   [self.playerPokemonStatusViewController prepareForNewScene];
   [self.enemyPokemonStatusViewController  prepareForNewScene];
+  
+  self.currPokemon = 0;
 }
 
 - (void)reset

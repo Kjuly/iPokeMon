@@ -20,6 +20,7 @@ NSString * const kPMNBattleEnd         = @"PMNBattleEnd";
 NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
 
 NSString * const kPMNReplacePokemon          = @"PMNReplacePokemon";
+NSString * const kPMNReplacePlayerPokemon    = @"PMNReplacePlayerPokemon";
 //NSString * const kPMNMoveEffect = @"PMNMoveEffect";
 NSString * const kPMNUpdateGameBattleMessage = @"PMNUpdateGameBattleMessage";
 //NSString * const kPMNInitializePokemonStatus = @"PMNInitializePokemonStatus";

@@ -38,6 +38,8 @@
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID;
 - (void)startGameLoop;
 - (void)runBattleBeginAnimation;
+- (void)replacePlayerPokemon:(NSNotification *)notification;
+- (void)loadNewPokemon;
 
 @end
 
@@ -91,6 +93,12 @@
     // Create a new scene
     [self createNewSceneWithWildPokemonID:8];
     
+    // Add observer for notification to replace player, enemy's pokemon
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(replacePlayerPokemon:)
+                                                 name:kPMNReplacePlayerPokemon
+                                               object:nil];
+    
     // check whether a selector is scheduled. schedules the "update" method.
     // It will use the order number 0.
     // This method will be called every frame.
@@ -122,9 +130,11 @@
   [enemyProcess release];
   
   // Player pokemon sprite setting
+  NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
+                                      [playerPokemon.sid intValue]];
   GamePokemonSprite * playerPokemonSprite
   = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
-                                           key:@"SpriteKeyPlayerPokemon"];
+                                           key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
   [self.playerPokemonSprite setPosition:ccp(410, 250)];
@@ -132,9 +142,11 @@
   [self addChild:self.playerPokemonSprite];
   
   // Enemy pokemon sprite setting
+  NSString * spriteKeyEnemyPokemon = [NSString stringWithFormat:@"SpriteKeyEnemyPokemon%.3d",
+                                      [enemyPokemon.sid intValue]];
   GamePokemonSprite * enemyPokemonSprite =
   [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)enemyPokemon.pokemon.image).CGImage
-                                         key:@"SpriteKeyEnemyPokemon"];
+                                         key:spriteKeyEnemyPokemon];
   self.enemyPokemonSprite = enemyPokemonSprite;
   [enemyPokemonSprite release];
   [self.enemyPokemonSprite setPosition:ccp(-90, 350)];
@@ -212,6 +224,37 @@
   
   // Start game loop after some time delay (waiting the animation done)
   [self performSelector:@selector(startGameLoop) withObject:nil afterDelay:2.f];
+}
+
+// Replace player's pokemon image
+- (void)replacePlayerPokemon:(NSNotification *)notification
+{
+  [self.playerPokemonSprite removeFromParentAndCleanup:YES];
+  self.playerPokemonSprite = nil;
+  
+  NSInteger newPokemon = [[notification.userInfo objectForKey:@"newPokemon"] intValue];
+  TrainerTamedPokemon * playerPokemon
+  = [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
+  
+  NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
+                                       [playerPokemon.sid intValue]];
+  GamePokemonSprite * playerPokemonSprite
+  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
+                                           key:spriteKeyPlayerPokemon];
+  self.playerPokemonSprite = playerPokemonSprite;
+  [playerPokemonSprite release];
+  playerPokemon = nil;
+  [self.playerPokemonSprite setPosition:ccp(70, 250)];
+  [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];
+  [self addChild:self.playerPokemonSprite];
+  
+  [self.playerPokemonSprite setOpacity:0];
+  [self performSelector:@selector(loadNewPokemon) withObject:nil afterDelay:1.2f];
+}
+
+// Load new pokemon
+- (void)loadNewPokemon {
+  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
 }
 
 @end
