@@ -56,6 +56,7 @@ typedef enum {
 
 // Button Actions
 - (void)toggleSixPokemonView;
+- (void)replacePokemon:(NSNotification *)notification;
 - (void)openMoveView;
 - (void)openBagView;
 - (void)openRunConfirmView;
@@ -107,6 +108,7 @@ typedef enum {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdatePokemonStatus object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePokemon object:self.gameMenuSixPokemonsViewController];
   [super dealloc];
 }
 
@@ -232,6 +234,11 @@ typedef enum {
                                            selector:@selector(updatePokemonStatus:)
                                                name:kPMNUpdatePokemonStatus
                                              object:nil];
+  // Add observer for notification from |GameMenuSixPokemonsViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(replacePokemon:)
+                                               name:kPMNReplacePokemon
+                                             object:self.gameMenuSixPokemonsViewController];
 }
 
 - (void)viewDidUnload
@@ -284,6 +291,12 @@ typedef enum {
       self.gameMenuKeyView = kGameMenuKeyViewNone;
     }
   }
+}
+
+// Replace the battle pokemon
+- (void)replacePokemon:(NSNotification *)notification
+{
+  self.gameMenuKeyView = kGameMenuKeyViewNone;
 }
 
 // Action for |buttonFight_|

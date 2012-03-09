@@ -9,6 +9,7 @@
 #import "GameMenuSixPokemonsViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalNotificationConstants.h"
 #import "GameMenuSixPokemonsUnitView.h"
 #import "TrainerCoreDataController.h"
 #import "SixPokemonsDetailTabViewController.h"
@@ -170,6 +171,9 @@
   
   // Cancel Six Pokemons view
   [self unloadSixPokemons];
+  
+  // Post notification to |GameMenuViewController| to replace the pokemon
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePokemon object:self userInfo:nil];
 }
 
 - (void)openInfoView:(id)sender
