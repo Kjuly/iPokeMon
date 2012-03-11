@@ -519,8 +519,13 @@ typedef enum {
 // Action for |buttonRun_|
 - (void)openRunConfirmView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    NSLog(@"Open Run Confirm View..");
-    [delegate_ unloadBattleScene];
+    UIAlertView * runConfirmView = [[UIAlertView alloc] initWithTitle:nil
+                                                              message:NSLocalizedString(@"PMSRunConfirmViewText", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"PMSRunConfirmViewYes", nil)
+                                                    otherButtonTitles:NSLocalizedString(@"PMSRunConfirmViewNo", nil), nil];
+    [runConfirmView show];
+    [runConfirmView release];
   }
 }
 
@@ -598,6 +603,13 @@ typedef enum {
 {
   [self.playerPokemonStatusViewController reset];
   [self.enemyPokemonStatusViewController  reset];
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+  if (buttonIndex == 0)
+    [delegate_ unloadBattleScene];
 }
 
 @end

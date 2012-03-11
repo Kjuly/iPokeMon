@@ -15,7 +15,7 @@
 @end
 
 
-@interface GameMenuViewController : UIViewController
+@interface GameMenuViewController : UIViewController <UIAlertViewDelegate>
 {
   id <GameMenuViewControllerDelegate> delegate_;  
   UIButton * buttonFight_;

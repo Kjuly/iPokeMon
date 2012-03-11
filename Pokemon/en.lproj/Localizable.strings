@@ -46,6 +46,9 @@
 "PMSGameMenuBagItem2" = "Status Healers";
 "PMSGameMenuBagItem3" = "PokeBalls";
 "PMSGameMenuBagItem4" = "Battle Items";
+"PMSRunConfirmViewText" = "Are you sure run away?";
+"PMSRunConfirmViewYes"  = "Yes";
+"PMSRunConfirmViewNo"   = "Nope";
 
 // Text Message
 "PMS_used" = "used";

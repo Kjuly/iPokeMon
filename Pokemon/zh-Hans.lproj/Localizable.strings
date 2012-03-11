@@ -44,6 +44,9 @@
 "PMSGameMenuBagItem2" = "状态回复";
 "PMSGameMenuBagItem3" = "精灵球";
 "PMSGameMenuBagItem4" = "战斗辅助";
+"PMSRunConfirmViewText" = "确认要逃跑吗？";
+"PMSRunConfirmViewYes"  = "是的";
+"PMSRunConfirmViewNo"   = "取消";
 
 // Text Message
 "PMS_used" = "使用了";
