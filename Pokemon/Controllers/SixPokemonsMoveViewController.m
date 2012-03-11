@@ -124,28 +124,32 @@
   
   Move * moveOne = [self.fourMoves objectAtIndex:0];
   [self.moveOneView.type1 setText:[moveOne.type stringValue]];
-  [self.moveOneView.name setText:NSLocalizedString(moveOne.name, nil)];
+  [self.moveOneView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                     [moveOne.sid intValue]]), nil)];
   [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                 [[fourMovesPP_ objectAtIndex:1] intValue], [[fourMovesPP_ objectAtIndex:0] intValue]]];
   moveOne = nil;
   
   Move * moveTwo = [self.fourMoves objectAtIndex:1];
   [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
-  [self.moveTwoView.name setText:NSLocalizedString(moveTwo.name, nil)];
+  [self.moveTwoView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                     [moveTwo.sid intValue]]), nil)];
   [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                 [[fourMovesPP_ objectAtIndex:3] intValue], [[fourMovesPP_ objectAtIndex:2] intValue]]];
   moveTwo = nil;
   
   Move * moveThree = [self.fourMoves objectAtIndex:2];
   [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
-  [self.moveThreeView.name setText:NSLocalizedString(moveThree.name, nil)];
+  [self.moveThreeView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                       [moveThree.sid intValue]]), nil)];
   [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                   [[fourMovesPP_ objectAtIndex:5] intValue], [[fourMovesPP_ objectAtIndex:4] intValue]]];
   moveThree = nil;
   
   Move * moveFour = [self.fourMoves objectAtIndex:3];
   [self.moveFourView.type1 setText:[moveFour.type stringValue]];
-  [self.moveFourView.name setText:NSLocalizedString(moveFour.name, nil)];
+  [self.moveFourView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                      [moveFour.sid intValue]]), nil)];
   [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
                                  [[fourMovesPP_ objectAtIndex:7] intValue], [[fourMovesPP_ objectAtIndex:6] intValue]]];
   moveFour = nil;
@@ -182,7 +186,8 @@
   NSInteger moveTag = ((UIButton *)sender).tag;
   Move * move = [self.fourMoves objectAtIndex:moveTag];
   [self.moveDetailView.moveBaseView.type1 setText:[move.type stringValue]];
-  [self.moveDetailView.moveBaseView.name  setText:NSLocalizedString(move.name, nil)];
+  [self.moveDetailView.moveBaseView.name  setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                                      [move.sid intValue]]), nil)];
   [self.moveDetailView.moveBaseView.pp    setText:[NSString stringWithFormat:@"%d / %d",
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2 + 1] intValue],
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2] intValue]]];
