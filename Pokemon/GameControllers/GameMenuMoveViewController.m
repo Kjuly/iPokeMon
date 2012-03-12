@@ -119,45 +119,7 @@
 {
   [super viewDidLoad];
   
-  self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
-  self.fourMoves = [self.playerPokemon.fourMoves allObjects];
-  
-  if ([self.playerPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
-    NSMutableArray * movesPP = [NSMutableArray arrayWithCapacity:8];
-    for (id movePP in [self.playerPokemon.fourMovesPP componentsSeparatedByString:@","])
-      [movesPP addObject:[NSNumber numberWithInt:[movePP intValue]]];
-    fourMovesPP_ = [[NSArray alloc] initWithArray:movesPP];
-  }
-  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.playerPokemon.fourMovesPP];
-  
-  
-  Move * moveOne   = [self.fourMoves objectAtIndex:0];
-  [self.moveOneView.type1 setText:[moveOne.type stringValue]];
-  [self.moveOneView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
-                                                     [moveOne.sid intValue]]), nil)];
-  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:1] intValue], [[fourMovesPP_ objectAtIndex:0] intValue]]];
-  
-  Move * moveTwo   = [self.fourMoves objectAtIndex:1];
-  [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
-  [self.moveTwoView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
-                                                     [moveTwo.sid intValue]]), nil)];
-  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:3] intValue], [[fourMovesPP_ objectAtIndex:2] intValue]]];
-  
-  Move * moveThree = [self.fourMoves objectAtIndex:2];
-  [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
-  [self.moveThreeView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
-                                                       [moveThree.sid intValue]]), nil)];
-  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                  [[fourMovesPP_ objectAtIndex:5] intValue], [[fourMovesPP_ objectAtIndex:4] intValue]]];
-  
-  Move * moveFour  = [self.fourMoves objectAtIndex:3];
-  [self.moveFourView.type1 setText:[moveFour.type stringValue]];
-  [self.moveFourView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
-                                                      [moveFour.sid intValue]]), nil)];
-  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                 [[fourMovesPP_ objectAtIndex:7] intValue], [[fourMovesPP_ objectAtIndex:6] intValue]]];
+  [self updateFourMoves];
 }
 
 - (void)viewDidUnload
@@ -202,6 +164,55 @@
   
   [self unloadViewWithAnimation];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
+}
+
+#pragma mark - Public Methods
+
+- (void)updateFourMoves
+{
+  self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
+  self.fourMoves = [self.playerPokemon.fourMoves allObjects];
+  
+  if ([self.playerPokemon.fourMovesPP isKindOfClass:[NSString class]]) {
+    NSMutableArray * movesPP = [NSMutableArray arrayWithCapacity:8];
+    for (id movePP in [self.playerPokemon.fourMovesPP componentsSeparatedByString:@","])
+      [movesPP addObject:[NSNumber numberWithInt:[movePP intValue]]];
+    fourMovesPP_ = [[NSArray alloc] initWithArray:movesPP];
+  }
+  else fourMovesPP_ = [[NSArray alloc] initWithArray:self.playerPokemon.fourMovesPP];
+  
+  
+  Move * moveOne = [self.fourMoves objectAtIndex:0];
+  [self.moveOneView.type1 setText:[moveOne.type stringValue]];
+  [self.moveOneView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                     [moveOne.sid intValue]]), nil)];
+  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                [[fourMovesPP_ objectAtIndex:1] intValue], [[fourMovesPP_ objectAtIndex:0] intValue]]];
+  moveOne = nil;
+  
+  Move * moveTwo = [self.fourMoves objectAtIndex:1];
+  [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
+  [self.moveTwoView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                     [moveTwo.sid intValue]]), nil)];
+  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                [[fourMovesPP_ objectAtIndex:3] intValue], [[fourMovesPP_ objectAtIndex:2] intValue]]];
+  moveTwo = nil;
+  
+  Move * moveThree = [self.fourMoves objectAtIndex:2];
+  [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
+  [self.moveThreeView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                       [moveThree.sid intValue]]), nil)];
+  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                  [[fourMovesPP_ objectAtIndex:5] intValue], [[fourMovesPP_ objectAtIndex:4] intValue]]];
+  moveThree = nil;
+  
+  Move * moveFour  = [self.fourMoves objectAtIndex:3];
+  [self.moveFourView.type1 setText:[moveFour.type stringValue]];
+  [self.moveFourView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
+                                                      [moveFour.sid intValue]]), nil)];
+  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                 [[fourMovesPP_ objectAtIndex:7] intValue], [[fourMovesPP_ objectAtIndex:6] intValue]]];
+  moveFour = nil;
 }
 
 @end

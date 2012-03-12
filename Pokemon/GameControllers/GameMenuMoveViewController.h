@@ -10,4 +10,6 @@
 
 @interface GameMenuMoveViewController : GameMenuAbstractChildViewController
 
+- (void)updateFourMoves;
+
 @end

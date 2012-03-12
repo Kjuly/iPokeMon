@@ -484,6 +484,9 @@ typedef enum {
   // Set current battle pokemon ID
   self.currPokemon = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
   
+  // Update Pokmeon's Move
+  [self.gameMenuMoveViewController updateFourMoves];
+  
   // Update player's pokemon status
   [self.playerPokemonStatusViewController prepareForNewScene];
 }
@@ -548,11 +551,6 @@ typedef enum {
     case kGameMenuKeyViewNone:
     case kGameMenuKeyViewSixPokemonsView:
     default:
-      //
-      // TODO:
-      //   Six Pokemons' List View
-      //   Throw PokeBall!!!
-      //
       [self toggleSixPokemonView];
       break;
   }
