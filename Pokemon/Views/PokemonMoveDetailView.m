@@ -23,13 +23,6 @@
 
 - (void)dealloc
 {
-//  [moveBaseView_      release];
-//  [backButton_        release];
-//  [categoryLabelView_ release];
-//  [powerLabelView_    release];
-//  [accuracyLabelView_ release];
-//  [infoTextView_      release];
-  
   self.moveBaseView      = nil;
   self.backButton        = nil;
   self.categoryLabelView = nil;

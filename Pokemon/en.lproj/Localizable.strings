@@ -1218,6 +1218,15 @@
 
 
 /*
+ * Category
+ * */
+
+"PMSMoveCategory1" = "Physical";
+"PMSMoveCategory2" = "Special";
+"PMSMoveCategory3" = "Status";
+
+
+/*
  * Move
  * */
 

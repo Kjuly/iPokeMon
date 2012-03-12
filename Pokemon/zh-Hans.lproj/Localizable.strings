@@ -1216,6 +1216,15 @@
 
 
 /*
+ * Category
+ * */
+
+"PMSMoveCategory1" = "物理";
+"PMSMoveCategory2" = "特殊";
+"PMSMoveCategory3" = "变化";
+
+
+/*
  * Move
  * */
 

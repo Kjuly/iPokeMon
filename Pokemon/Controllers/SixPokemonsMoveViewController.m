@@ -123,7 +123,8 @@
   else fourMovesPP_ = [[NSArray alloc] initWithArray:self.pokemon.fourMovesPP];
   
   Move * moveOne = [self.fourMoves objectAtIndex:0];
-  [self.moveOneView.type1 setText:[moveOne.type stringValue]];
+  [self.moveOneView.type1 setText:NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                      [moveOne.type intValue]]), nil)];
   [self.moveOneView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
                                                      [moveOne.sid intValue]]), nil)];
   [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
@@ -131,7 +132,8 @@
   moveOne = nil;
   
   Move * moveTwo = [self.fourMoves objectAtIndex:1];
-  [self.moveTwoView.type1 setText:[moveTwo.type stringValue]];
+  [self.moveTwoView.type1 setText:NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                      [moveTwo.type intValue]]), nil)];
   [self.moveTwoView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
                                                      [moveTwo.sid intValue]]), nil)];
   [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
@@ -139,7 +141,8 @@
   moveTwo = nil;
   
   Move * moveThree = [self.fourMoves objectAtIndex:2];
-  [self.moveThreeView.type1 setText:[moveThree.type stringValue]];
+  [self.moveThreeView.type1 setText:NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                        [moveThree.type intValue]]), nil)];
   [self.moveThreeView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
                                                        [moveThree.sid intValue]]), nil)];
   [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
@@ -147,7 +150,8 @@
   moveThree = nil;
   
   Move * moveFour = [self.fourMoves objectAtIndex:3];
-  [self.moveFourView.type1 setText:[moveFour.type stringValue]];
+  [self.moveFourView.type1 setText:NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                       [moveFour.type intValue]]), nil)];
   [self.moveFourView.name setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
                                                       [moveFour.sid intValue]]), nil)];
   [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
@@ -185,15 +189,19 @@
   
   NSInteger moveTag = ((UIButton *)sender).tag;
   Move * move = [self.fourMoves objectAtIndex:moveTag];
-  [self.moveDetailView.moveBaseView.type1 setText:[move.type stringValue]];
+  [self.moveDetailView.moveBaseView.type1 setText:NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                                      [move.type intValue]]), nil)];
   [self.moveDetailView.moveBaseView.name  setText:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d",
                                                                       [move.sid intValue]]), nil)];
   [self.moveDetailView.moveBaseView.pp    setText:[NSString stringWithFormat:@"%d / %d",
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2 + 1] intValue],
                                                    [[fourMovesPP_ objectAtIndex:moveTag * 2] intValue]]];
-  [self.moveDetailView.categoryLabelView.value setText:[move.category stringValue]];
-  [self.moveDetailView.powerLabelView.value    setText:[move.baseDamage stringValue]];
-  [self.moveDetailView.accuracyLabelView.value setText:[move.hitChance stringValue]];
+  [self.moveDetailView.categoryLabelView.value setText:
+   NSLocalizedString(([NSString stringWithFormat:@"PMSMoveCategory%d", [move.category intValue]]), nil)];
+  [self.moveDetailView.powerLabelView.value setText:
+   [[move.baseDamage stringValue] isEqualToString:@"0"] ? @"-" : [move.baseDamage stringValue]];
+  [self.moveDetailView.accuracyLabelView.value setText:
+   [[move.hitChance stringValue] isEqualToString:@"0"] ? @"-" : [move.hitChance stringValue]];
   [self.moveDetailView.infoTextView setText:move.info];
   move = nil;
   
