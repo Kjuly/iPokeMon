@@ -28,7 +28,7 @@
     Move * move = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                 inManagedObjectContext:managedObjectContext];
     
-    move.sid                    = [NSNumber numberWithInt:++i + 1000];
+    move.sid                    = [NSNumber numberWithInt:++i];
 //    move.name                   = [moveDict objectForKey:@"name"];
     move.type                   = [moveDict objectForKey:@"type"];
     move.category               = [moveDict objectForKey:@"category"];
