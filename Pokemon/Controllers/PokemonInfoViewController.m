@@ -79,7 +79,8 @@
   [descriptionField setEditable:NO];
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [descriptionField setTextColor:[GlobalRender textColorNormal]];
-  [descriptionField setText:[self.pokemonDataDict valueForKey:@"info"]];
+  [descriptionField setText:NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d",
+                                                [self.pokemonDataDict.sid intValue]]), nil)];
   [self.view addSubview:descriptionField];
   [descriptionField release];
 }

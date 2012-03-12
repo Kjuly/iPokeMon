@@ -708,7 +708,7 @@
 "PMSName646" = "Kyurem";
 "PMSName647" = "Keldeo";
 "PMSName648" = "Meloetta";
-"PMSName649" = "Genesect";      
+"PMSName649" = "Genesect";
 
 
 /*
@@ -1571,5 +1571,23 @@
 
 /*
  * Bag
+ * */
+
+
+
+/*
+ * Pokemon Info
+ * */
+
+/*
+ * Move Info
+ * */
+
+/*
+ * Ability Infos
+ * */
+
+/*
+ * BagItem Infos
  * */
 
