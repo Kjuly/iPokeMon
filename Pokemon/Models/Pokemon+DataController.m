@@ -52,7 +52,7 @@
     pokemon.area          = [pokemonDict objectForKey:@"area"];
     pokemon.baseStats     = [pokemonDict objectForKey:@"baseStats"];
     pokemon.effortPoints  = [pokemonDict objectForKey:@"effortPoints"];
-    pokemon.info          = [pokemonDict objectForKey:@"info"];
+//    pokemon.info          = [pokemonDict objectForKey:@"info"];
     pokemon.evolutions    = [pokemonDict objectForKey:@"evolutions"];
     pokemon.moves         = [pokemonDict objectForKey:@"moves"];
     pokemon.compatibility = [pokemonDict objectForKey:@"compatibility"];
