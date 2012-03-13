@@ -36,10 +36,10 @@
     move.basePP                 = [moveDict objectForKey:@"basePP"];
     move.baseDamage             = [moveDict objectForKey:@"baseDamage"];
 //    move.priority               = [moveDict objectForKey:@"priority"];
-//    move.effectCode             = [moveDict objectForKey:@"effectCode"];
+    move.effectCode             = [moveDict objectForKey:@"effectCode"];
     move.hitChance              = [moveDict objectForKey:@"hitChance"];
 //    move.additionalEffectChance = [moveDict objectForKey:@"additionalEffectChance"];
-//    move.target                 = [moveDict objectForKey:@"target"];
+    move.target                 = [moveDict objectForKey:@"target"];
 //    move.flags                  = [moveDict objectForKey:@"flags"];
 //    move.info                   = [moveDict objectForKey:@"info"];
     
