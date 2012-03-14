@@ -434,7 +434,7 @@
 		7F91D1D714EE868100476AFB /* 149.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14014EE868100476AFB /* 149.png */; };
 		7F91D1D814EE868100476AFB /* 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14114EE868100476AFB /* 150.png */; };
 		7F91D1D914EE868100476AFB /* 151.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14214EE868100476AFB /* 151.png */; };
-		7F91D1DA14EE868100476AFB /* 91.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14314EE868100476AFB /* 91.png */; };
+		7F91D1DA14EE868100476AFB /* 091.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14314EE868100476AFB /* 091.png */; };
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
@@ -1374,7 +1374,7 @@
 		7F91D14014EE868100476AFB /* 149.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 149.png; sourceTree = "<group>"; };
 		7F91D14114EE868100476AFB /* 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 150.png; sourceTree = "<group>"; };
 		7F91D14214EE868100476AFB /* 151.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 151.png; sourceTree = "<group>"; };
-		7F91D14314EE868100476AFB /* 91.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 91.png; sourceTree = "<group>"; };
+		7F91D14314EE868100476AFB /* 091.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 091.png; sourceTree = "<group>"; };
 		7F9F15B415089F8800795591 /* GamePokemonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePokemonSprite.h; sourceTree = "<group>"; };
 		7F9F15B515089F8900795591 /* GamePokemonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonSprite.m; sourceTree = "<group>"; };
 		7F9F15B71508B12600795591 /* GamePlayerProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayerProcess.h; sourceTree = "<group>"; };
@@ -2788,7 +2788,7 @@
 				7F91D14014EE868100476AFB /* 149.png */,
 				7F91D14114EE868100476AFB /* 150.png */,
 				7F91D14214EE868100476AFB /* 151.png */,
-				7F91D14314EE868100476AFB /* 91.png */,
+				7F91D14314EE868100476AFB /* 091.png */,
 			);
 			path = pieces;
 			sourceTree = "<group>";
@@ -3452,7 +3452,7 @@
 				7F91D1D714EE868100476AFB /* 149.png in Resources */,
 				7F91D1D814EE868100476AFB /* 150.png in Resources */,
 				7F91D1D914EE868100476AFB /* 151.png in Resources */,
-				7F91D1DA14EE868100476AFB /* 91.png in Resources */,
+				7F91D1DA14EE868100476AFB /* 091.png in Resources */,
 				7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */,
 				7FAD69CC14EFF8F400B3E2F9 /* BagBattleItems.plist in Resources */,
 				7FAD69CD14EFF8F400B3E2F9 /* BagBerries.plist in Resources */,
