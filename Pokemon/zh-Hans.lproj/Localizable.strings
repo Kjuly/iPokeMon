@@ -710,6 +710,22 @@
 
 
 /*
+ * Color
+ * */
+
+"PMSColor01" = "黑";
+"PMSColor02" = "蓝";
+"PMSColor03" = "棕";
+"PMSColor04" = "灰";
+"PMSColor05" = "绿";
+"PMSColor06" = "粉红";
+"PMSColor07" = "紫";
+"PMSColor08" = "红";
+"PMSColor09" = "白";
+"PMSColor10" = "黄";
+
+
+/*
  * Type
  * */
 

@@ -518,13 +518,13 @@ typedef enum {
 // Pokemon Gender Rate
 //
 typedef enum {
-  kPokemonGenderRateAlwaysMale = 1,
-  kPokemonGenderRateFemaleOneEighth,
-  kPokemonGenderRateFemale25Percent,
-  kPokemonGenderRateFemale50Percent,
-  kPokemonGenderRateFemale75Percent,
-  kPokemonGenderRateAlwaysFemale,
-  kPokemonGenderRateGenderless
+  kPokemonGenderRateAlwaysMale      = 1,
+  kPokemonGenderRateFemaleOneEighth = 2,
+  kPokemonGenderRateFemale25Percent = 3,
+  kPokemonGenderRateFemale50Percent = 4,
+  kPokemonGenderRateFemale75Percent = 5,
+  kPokemonGenderRateAlwaysFemale    = 6,
+  kPokemonGenderRateGenderless      = 7
 }PokemonGenderRate;
 
 ///
@@ -551,12 +551,12 @@ typedef enum {
 // The rate at which a Pokémon of this species gains levels (i.e. how much Experience is needed to level up), One of:
 //
 typedef enum {
-  kPokemonGrowthRateFast = 1,
-  kPokemonGrowthRateMedium,
-  kPokemonGrowthRateSlow,
-  kPokemonGrowthRateParabolic,
-  kPokemonGrowthRateErratic,
-  kPokemonGrouthRateFluctuating
+  kPokemonGrowthRateFast        = 1,
+  kPokemonGrowthRateMedium      = 2,
+  kPokemonGrowthRateSlow        = 3,
+  kPokemonGrowthRateParabolic   = 4,
+  kPokemonGrowthRateErratic     = 5,
+  kPokemonGrouthRateFluctuating = 6
 }PokemonGrowthRate;
 
 ///
@@ -619,15 +619,15 @@ typedef enum {
 // Pokemon Habitat
 //
 typedef enum {
-  kPokemonHabitatCave = 1,
-  kPokemonHabitatForest,
-  kPokemonHabitatGrassland,
-  kPokemonHabitatMountain,
-  kPokemonHabitatRare,        // Mean "Unknow"
-  kPokemonHabitatRoughTerrain,
-  kPokemonHabitatSea,
-  kPokemonHabitatUrban,
-  kPokemonHabitatWatersEdge
+  kPokemonHabitatCave         = 1,
+  kPokemonHabitatForest       = 2,
+  kPokemonHabitatGrassland    = 3,
+  kPokemonHabitatMountain     = 4,
+  kPokemonHabitatRare         = 5, // Mean "Unknow"
+  kPokemonHabitatRoughTerrain = 6,
+  kPokemonHabitatSea          = 7,
+  kPokemonHabitatUrban        = 8,
+  kPokemonHabitatWatersEdge   = 9
 }PokemonHabitat;
 
 

@@ -710,6 +710,20 @@
 "PMSName648" = "Meloetta";
 "PMSName649" = "Genesect";
 
+/*
+ * Color
+ * */
+
+"PMSColor01" = "Black";
+"PMSColor02" = "Blue";
+"PMSColor03" = "Brown";
+"PMSColor04" = "Gray";
+"PMSColor05" = "Green";
+"PMSColor06" = "Pink";
+"PMSColor07" = "Purple";
+"PMSColor08" = "Red";
+"PMSColor09" = "White";
+"PMSColor10" = "Yellow";
 
 /*
  * Type
