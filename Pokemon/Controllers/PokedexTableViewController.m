@@ -143,7 +143,8 @@
   NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
-  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16)))
+//  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16)))
+  if (rowID != 3 || rowID != 5)
     [self configureCell:cell atIndexPath:indexPath];
   else {
     [cell.labelTitle setText:@"? ? ?"];
@@ -199,12 +200,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger rowID = [indexPath row];
-  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
+//  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
     PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
                                                                        initWithPokemonID:++rowID];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
     [pokemonDetailTabViewController release];
-  }
+//  }
 }
 
 #pragma mark - Private Methods
