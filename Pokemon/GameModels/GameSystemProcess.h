@@ -40,7 +40,8 @@ typedef enum {
 
 // Setting Methods
 - (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex;
-- (void)setSystemProcessOfBagWithUser:(GameSystemProcessUser)user;
+- (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user;
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user;
+- (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user;
 
 @end

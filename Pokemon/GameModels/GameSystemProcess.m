@@ -40,6 +40,7 @@ typedef enum {
   PokemonStatus playerPokemonStatus_;
   PokemonStatus enemyPokemonStatus_;
   
+  GameSystemProcessType processType_; // What action process the system to deal with
   GameSystemProcessUser user_; // Action (use move, bag item, etc) user
   NSInteger moveIndex_;        // If the action is using move, it's used
   
@@ -50,10 +51,14 @@ typedef enum {
 @property (nonatomic, assign) PokemonStatus playerPokemonStatus;
 @property (nonatomic, assign) PokemonStatus enemyPokemonStatus;
 
+@property (nonatomic, assign) GameSystemProcessType processType;
 @property (nonatomic, assign) GameSystemProcessUser user;
 @property (nonatomic, assign) NSInteger moveIndex;
 
-- (void)applyMove;
+- (void)fight;
+- (void)useBagItem;
+- (void)replacePokemon;
+- (void)run;
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
 @end
@@ -67,8 +72,9 @@ typedef enum {
 @synthesize playerPokemonStatus = playerPokemonStatus_;
 @synthesize enemyPokemonStatus  = enemyPokemonStatus_;
 
-@synthesize user      = user_;
-@synthesize moveIndex = moveIndex_;
+@synthesize processType = processType_;
+@synthesize user        = user_;
+@synthesize moveIndex   = moveIndex_;
 
 static GameSystemProcess * gameSystemProcess = nil;
 
@@ -95,8 +101,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     playerPokemonStatus_ = kPokemonStatusNormal;
     enemyPokemonStatus_  = kPokemonStatusNormal;
     
-    user_      = kGameSystemProcessUserNone;
-    moveIndex_ = 0;
+    processType_ = kGameSystemProcessTypeNone;
+    user_        = kGameSystemProcessUserNone;
+    moveIndex_   = 0;
   }
   return self;
 }
@@ -118,7 +125,24 @@ static GameSystemProcess * gameSystemProcess = nil;
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusSystemProcess];
     [self reset];
   }
-  else [self applyMove];
+  else {
+    switch (self.processType) {
+      case kGameSystemProcessTypeFight:
+        [self fight];
+        break;
+      case kGameSystemProcessTypeUseBagItem:
+        [self useBagItem];
+        break;
+      case kGameSystemProcessTypeReplacePokemon:
+        [self replacePokemon];
+        break;
+      case kGameSystemProcessTypeRun:
+        [self run];
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 - (void)endTurn {
@@ -243,7 +267,7 @@ static GameSystemProcess * gameSystemProcess = nil;
  99 - All status changes eliminated
  Most past 99 are all glitched.
  */
-- (void)applyMove
+- (void)fight
 {
   if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
      NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
@@ -279,7 +303,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   //
   // Case the move user is Enemy
   //
-  else if (self.user == kGameSystemProcessUserEnemy){
+  else if (self.user == kGameSystemProcessUserEnemy) {
     move = [self.enemyPokemon moveWithIndex:self.moveIndex];
     
     // Post Message
@@ -308,6 +332,18 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   move = nil;
   [self endTurn];
+}
+
+- (void)useBagItem
+{
+}
+
+- (void)replacePokemon
+{
+}
+
+- (void)run
+{
 }
 
 // Post Message to |GameMenuViewController| to set message for game
@@ -350,18 +386,27 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex
 {
-  self.user      = user;
-  self.moveIndex = moveIndex;
+  self.processType = kGameSystemProcessTypeFight;
+  self.user        = user;
+  self.moveIndex   = moveIndex;
 }
 
-- (void)setSystemProcessOfBagWithUser:(GameSystemProcessUser)user
+- (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
 {
-  self.user = user;
+  self.processType = kGameSystemProcessTypeUseBagItem;
+  self.user        = user;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
 {
-  self.user = user;
+  self.processType = kGameSystemProcessTypeReplacePokemon;
+  self.user        = user;
+}
+
+- (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user
+{
+  self.processType = kGameSystemProcessTypeRun;
+  self.user        = user;
 }
 
 @end
