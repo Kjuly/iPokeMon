@@ -357,57 +357,65 @@ static GameSystemProcess * gameSystemProcess = nil;
  99 - All status changes eliminated
  Most past 99 are all glitched.
  */
+//
 // Calculate the effect of move
+//
+// Version Yellow has 8 types of move target:
+//  0   1   2   4   8   10  20  40
+// 选择 最近 随机 二体 全体 自身 全场 己方                     
+//
 - (void)calculateEffectForMove:(Move *)move
 {
   switch ([move.target intValue]) {
     case kMoveTargetSinglePokemonOtherThanTheUser:
-      // Single Pokemon other than the user
-      break;
-      
-    case kMoveTargetOneOpposingPokemonSelectedAtRandom:
-      // One opposing Pokemon selected at random
-      break;
-      
-    case kMoveTargetAllOpposingPokemon:
-      // All opposing Pokemon
-      break;
-      
-    case kMoveTargetAllPokemonOtherThanTheUser:
-      // All Pokemon other than the user (All non-users)
-      break;
-      
-    case kMoveTargetUser:
-      // User
-      break;
-      
-    case kMoveTargetBothSides:
-      // Both sides (e.g. Light Screen, Reflect, Heal Bell)
-      break;
-      
-    case kMoveTargetUserSide:
-      // User's side
-      break;
-      
-    case kMoveTargetOpposingPokemonSide:
-      // Opposing Pokemon's side
-      break;
-      
-    case kMoveTargetUserPartner:
-      // User's partner
-      break;
-      
-    case kMoveTargetPlayerChoiceOfUserOrUserPartner:
-      // Player's choice of user or user's partner (e.g. Acupressure)
-      break;
-      
-    case kMoveTargetSinglePokemonOnOpponentSide:
-      // Single Pokemon on opponent's side (e.g. Me First)
+      // 0 - 选择: Single Pokemon other than the user
       break;
       
     case kMoveTargetNone:
+      // 1 - 最近: No target
+      break;
+      
+    case kMoveTargetOneOpposingPokemonSelectedAtRandom:
+      // 2 - 随机: One opposing Pokemon selected at random
+      break;
+      
+    case kMoveTargetAllOpposingPokemon:
+      // 4 - 二体: All opposing Pokemon
+      break;
+      
+    case kMoveTargetAllPokemonOtherThanTheUser:
+      // 8 - 全体: All Pokemon other than the user (All non-users)
+      break;
+      
+    case kMoveTargetUser:
+      // 10 - 自身: User
+      break;
+      
+    case kMoveTargetBothSides:
+      // 20 - 全场: Both sides (e.g. Light Screen, Reflect, Heal Bell)
+      break;
+      
+    case kMoveTargetUserSide:
+      // 40 - 己方: User's side
+      break;
+      
+    case kMoveTargetOpposingPokemonSide:
+      // 80: Opposing Pokemon's side
+      break;
+      
+    case kMoveTargetUserPartner:
+      // 100: User's partner
+      break;
+      
+    case kMoveTargetPlayerChoiceOfUserOrUserPartner:
+      // 200: Player's choice of user or user's partner (e.g. Acupressure)
+      break;
+      
+    case kMoveTargetSinglePokemonOnOpponentSide:
+      // 400: Single Pokemon on opponent's side (e.g. Me First)
+      break;
+    
     default:
-      // No target
       break;
   }
 }
