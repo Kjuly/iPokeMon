@@ -23,14 +23,32 @@ typedef enum {
   kGameSystemProcessTypeRun            = 4
 }GameSystemProcessType;
 
+typedef enum {
+  kPokemonStatusNormal    = 0,
+  kPokemonStatusBurn      = 1 << 0,
+  kPokemonStatusConfused  = 1 << 1,
+  kPokemonStatusFlinch    = 1 << 2,
+  kPokemonStatusFreeze    = 1 << 3,
+  kPokemonStatusParalyze  = 1 << 4,
+  kPokemonStatusPoison    = 1 << 5,
+  kPokemonStatusSleep     = 1 << 6
+}PokemonStatus;
+
+
 @interface GameSystemProcess () {
 @private
+  PokemonStatus playerPokemonStatus_;
+  PokemonStatus enemyPokemonStatus_;
+  
   GameSystemProcessUser user_; // Action (use move, bag item, etc) user
   NSInteger moveIndex_;        // If the action is using move, it's used
   
   BOOL      complete_;
   NSInteger delayTime_; // Delay time for every turn
 }
+
+@property (nonatomic, assign) PokemonStatus playerPokemonStatus;
+@property (nonatomic, assign) PokemonStatus enemyPokemonStatus;
 
 @property (nonatomic, assign) GameSystemProcessUser user;
 @property (nonatomic, assign) NSInteger moveIndex;
@@ -45,6 +63,9 @@ typedef enum {
 
 @synthesize playerPokemon = playerPokemon_;
 @synthesize enemyPokemon  = enemyPokemon_;
+
+@synthesize playerPokemonStatus = playerPokemonStatus_;
+@synthesize enemyPokemonStatus  = enemyPokemonStatus_;
 
 @synthesize user      = user_;
 @synthesize moveIndex = moveIndex_;
@@ -71,6 +92,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (self = [super init]) {
     [self reset];
     
+    playerPokemonStatus_ = kPokemonStatusNormal;
+    enemyPokemonStatus_  = kPokemonStatusNormal;
+    
     user_      = kGameSystemProcessUserNone;
     moveIndex_ = 0;
   }
@@ -79,11 +103,6 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)prepareForNewScene
 {
-  //
-  // TODO:
-  //   Data transform problem.
-  //   | self.enemyPokemon.currEXP = [self.enemyPokemon.maxStats objectAtIndex:0]; |
-  //
   // Reset HP for enemy pokemon
   NSArray * stats = self.enemyPokemon.maxStats;
   NSInteger currHP = [[stats objectAtIndex:0] intValue];
@@ -226,16 +245,18 @@ static GameSystemProcess * gameSystemProcess = nil;
  */
 - (void)applyMove
 {
-  NSString * moveTarget;
-  NSInteger pokemonHP;
-  
   if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
      NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
     return;
   }
   
+  NSString * moveTarget;
+  NSInteger pokemonHP;
   Move * move;
+  
+  //
   // Case the move user is Player
+  //
   if (self.user == kGameSystemProcessUserPlayer) {
     move = [self.playerPokemon moveWithIndex:self.moveIndex];
     
@@ -255,7 +276,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
     NSLog(@"EnemyPokemon HP: %d", pokemonHP);
   }
+  //
   // Case the move user is Enemy
+  //
   else if (self.user == kGameSystemProcessUserEnemy){
     move = [self.enemyPokemon moveWithIndex:self.moveIndex];
     
@@ -277,12 +300,13 @@ static GameSystemProcess * gameSystemProcess = nil;
   }
   else { NSLog(@"!!! Exception: The Move has no user"); }
   
-  // Post to |GameMenuViewController|
+  // Post to |GameMenuViewController| to update pokemon status view
   NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 moveTarget, @"target", [NSNumber numberWithInt:pokemonHP], @"HP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
   
+  move = nil;
   [self endTurn];
 }
 

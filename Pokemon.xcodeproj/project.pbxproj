@@ -1377,10 +1377,10 @@
 		7F91D14314EE868100476AFB /* 091.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 091.png; sourceTree = "<group>"; };
 		7F9F15B415089F8800795591 /* GamePokemonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePokemonSprite.h; sourceTree = "<group>"; };
 		7F9F15B515089F8900795591 /* GamePokemonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonSprite.m; sourceTree = "<group>"; };
-		7F9F15B71508B12600795591 /* GamePlayerProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayerProcess.h; sourceTree = "<group>"; };
-		7F9F15B81508B12600795591 /* GamePlayerProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlayerProcess.m; sourceTree = "<group>"; };
-		7F9F15BA1508B13500795591 /* GameEnemyProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEnemyProcess.h; sourceTree = "<group>"; };
-		7F9F15BB1508B13500795591 /* GameEnemyProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEnemyProcess.m; sourceTree = "<group>"; };
+		7F9F15B71508B12600795591 /* GamePlayerProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePlayerProcess.h; path = ../GameModels/GamePlayerProcess.h; sourceTree = "<group>"; };
+		7F9F15B81508B12600795591 /* GamePlayerProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GamePlayerProcess.m; path = ../GameModels/GamePlayerProcess.m; sourceTree = "<group>"; };
+		7F9F15BA1508B13500795591 /* GameEnemyProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameEnemyProcess.h; path = ../GameModels/GameEnemyProcess.h; sourceTree = "<group>"; };
+		7F9F15BB1508B13500795591 /* GameEnemyProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameEnemyProcess.m; path = ../GameModels/GameEnemyProcess.m; sourceTree = "<group>"; };
 		7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuUtilityViewController.h; sourceTree = "<group>"; };
 		7FA1D86B15035DC700E0D2F6 /* IconPokemonGenderF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGenderF.png; sourceTree = "<group>"; };
 		7FA1D86C15035DC700E0D2F6 /* IconPokemonGenderF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGenderF@2x.png"; sourceTree = "<group>"; };
@@ -1691,8 +1691,8 @@
 		7FD14F0C14F4C4DC00082330 /* Move+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Move+DataController.m"; sourceTree = "<group>"; };
 		7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveView.h; sourceTree = "<group>"; };
 		7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveView.m; sourceTree = "<group>"; };
-		7FD183E31508BD1700F3D50B /* GameSystemProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSystemProcess.h; sourceTree = "<group>"; };
-		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSystemProcess.m; sourceTree = "<group>"; };
+		7FD183E31508BD1700F3D50B /* GameSystemProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameSystemProcess.h; path = ../GameModels/GameSystemProcess.h; sourceTree = "<group>"; };
+		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
@@ -1812,12 +1812,6 @@
 				7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */,
 				7F9F15B415089F8800795591 /* GamePokemonSprite.h */,
 				7F9F15B515089F8900795591 /* GamePokemonSprite.m */,
-				7F9F15B71508B12600795591 /* GamePlayerProcess.h */,
-				7F9F15B81508B12600795591 /* GamePlayerProcess.m */,
-				7F9F15BA1508B13500795591 /* GameEnemyProcess.h */,
-				7F9F15BB1508B13500795591 /* GameEnemyProcess.m */,
-				7FD183E31508BD1700F3D50B /* GameSystemProcess.h */,
-				7FD183E41508BD1700F3D50B /* GameSystemProcess.m */,
 			);
 			path = GameModels;
 			sourceTree = "<group>";
@@ -2515,6 +2509,12 @@
 				7F50B80B14F93BEA00883412 /* GameConfig.h */,
 				7F52451714FBEA800019C75A /* GameStatusMachine.h */,
 				7F52451814FBEA810019C75A /* GameStatusMachine.m */,
+				7F9F15B71508B12600795591 /* GamePlayerProcess.h */,
+				7F9F15B81508B12600795591 /* GamePlayerProcess.m */,
+				7F9F15BA1508B13500795591 /* GameEnemyProcess.h */,
+				7F9F15BB1508B13500795591 /* GameEnemyProcess.m */,
+				7FD183E31508BD1700F3D50B /* GameSystemProcess.h */,
+				7FD183E41508BD1700F3D50B /* GameSystemProcess.m */,
 				7F7C88F814F74FEA0023D079 /* GameMainViewController.h */,
 				7F7C88F914F74FEA0023D079 /* GameMainViewController.m */,
 				7F50B81A14F955A900883412 /* GameBattleLayer.h */,
