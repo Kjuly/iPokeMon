@@ -8,11 +8,8 @@
 
 #import "GameEnemyProcess.h"
 
-#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "WildPokemon+DataController.h"
-#import "Move.h"
 
 
 @interface GameEnemyProcess () {
@@ -61,27 +58,13 @@
   // TODO:
   //   Need an algorithm to choose the MOVE
   //
-  WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
-  Move * move = [enemyPokemon moveWithIndex:1];
-  
-  // Set data for message in |GameMenuViewController|
-  NSInteger pokemonID = [enemyPokemon.sid intValue];
-  NSInteger moveID    = [move.sid intValue];
-  // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
-  NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
-                        NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
-                        NSLocalizedString(@"PMS_used", nil),
-                        NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
-  NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage object:self userInfo:messageInfo];
+  NSInteger moveIndex = 1;
   
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
-  gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetPlayer;
-  gameSystemProcess.baseDamage = [move.baseDamage intValue];
+  [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserEnemy
+                                           moveIndex:moveIndex];
   
-  move = nil;
-  enemyPokemon = nil;
   [self endTurn];
 }
 

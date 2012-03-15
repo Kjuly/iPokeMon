@@ -10,32 +10,33 @@
 
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
-#import "TrainerTamedPokemon.h"
-#import "WildPokemon.h"
+#import "TrainerTamedPokemon+DataController.h"
+#import "WildPokemon+DataController.h"
+#import "Move.h"
+
 
 typedef enum {
-  kMoveTargetSinglePokemonOtherThanTheUser      = 0, // Single Pokémon other than the user
-  kMoveTargetNone                               = 1, // No target
-  kMoveTargetOneOpposingPokemonSelectedAtRandom = 2, // One opposing Pokémon selected at random
-  kMoveTargetAllOpposingPokemon                 = 4, // All opposing Pokémon
-  kMoveTargetAllPokemonOtherThanTheUser         = 8, // All Pokémon other than the user (All non-users)
-  kMoveTargetUser                               = 10, // User
-  kMoveTargetBothSides                          = 20, // Both sides (e.g. Light Screen, Reflect, Heal Bell)
-  kMoveTargetUserSide                           = 40, // User's side
-  kMoveTargetOpposingPokemonSide                = 80, // Opposing Pokémon's side
-  kMoveTargetUserPartner                        = 100, // User's partner
-  kMoveTargetPlayerChoiceOfUserOrUserPartner    = 200, // Player's choice of user or user's partner (e.g. Acupressure)
-  kMoveTargetSinglePokemonOnOpponentSide        = 400 // Single Pokémon on opponent's side (e.g. Me First)
-}MoveTarget;
-
+  kGameSystemProcessTypeNone           = 0,
+  kGameSystemProcessTypeFight          = 1,
+  kGameSystemProcessTypeUseBagItem     = 2,
+  kGameSystemProcessTypeReplacePokemon = 3,
+  kGameSystemProcessTypeRun            = 4
+}GameSystemProcessType;
 
 @interface GameSystemProcess () {
 @private
+  GameSystemProcessUser user_; // Action (use move, bag item, etc) user
+  NSInteger moveIndex_;        // If the action is using move, it's used
+  
   BOOL      complete_;
   NSInteger delayTime_; // Delay time for every turn
 }
 
+@property (nonatomic, assign) GameSystemProcessUser user;
+@property (nonatomic, assign) NSInteger moveIndex;
+
 - (void)applyMove;
+- (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
 @end
 
@@ -45,13 +46,12 @@ typedef enum {
 @synthesize playerPokemon = playerPokemon_;
 @synthesize enemyPokemon  = enemyPokemon_;
 
-@synthesize moveTarget = moveTarget_;
-@synthesize baseDamage = baseDamage_;
+@synthesize user      = user_;
+@synthesize moveIndex = moveIndex_;
 
 static GameSystemProcess * gameSystemProcess = nil;
 
-+ (GameSystemProcess *)sharedInstance
-{
++ (GameSystemProcess *)sharedInstance {
   if (gameSystemProcess != nil)
     return gameSystemProcess;
   
@@ -59,7 +59,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   dispatch_once(&onceToken, ^{
     gameSystemProcess = [[GameSystemProcess alloc] init];
   });
-  
   return gameSystemProcess;
 }
 
@@ -68,13 +67,12 @@ static GameSystemProcess * gameSystemProcess = nil;
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     [self reset];
     
-    moveTarget_ = kGameSystemProcessMoveTargetEnemy;
-    baseDamage_ = 0;
+    user_      = kGameSystemProcessUserNone;
+    moveIndex_ = 0;
   }
   return self;
 }
@@ -229,25 +227,55 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)applyMove
 {
   NSString * moveTarget;
-  NSInteger  pokemonHP;
-  if (self.moveTarget == kGameSystemProcessMoveTargetEnemy) {
+  NSInteger pokemonHP;
+  
+  if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
+     NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
+    return;
+  }
+  
+  Move * move;
+  // Case the move user is Player
+  if (self.user == kGameSystemProcessUserPlayer) {
+    move = [self.playerPokemon moveWithIndex:self.moveIndex];
+    
+    // Post Message
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  self.playerPokemon.sid, @"pokemonID",
+                                  move.sid,               @"moveID", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+    [messageInfo release];
+    
+    // Apply move
     moveTarget = @"WildPokemon";
     pokemonHP = [self.enemyPokemon.currHP intValue];
     NSLog(@"EnemyPokemon HP: %d", pokemonHP);
-    pokemonHP -= self.baseDamage;
+    pokemonHP -= [move.baseDamage intValue];
     pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
     self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
     NSLog(@"EnemyPokemon HP: %d", pokemonHP);
   }
-  else {
+  // Case the move user is Enemy
+  else if (self.user == kGameSystemProcessUserEnemy){
+    move = [self.enemyPokemon moveWithIndex:self.moveIndex];
+    
+    // Post Message
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  self.enemyPokemon.sid, @"pokemonID",
+                                  move.sid,              @"moveID", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+    [messageInfo release];
+    
+    // Apply move
     moveTarget = @"MyPokemon";
     pokemonHP = [self.playerPokemon.currHP intValue];
     NSLog(@"PlayerPokemon HP: %d", pokemonHP);
-    pokemonHP -= self.baseDamage;
+    pokemonHP -= [move.baseDamage intValue];
     pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
     self.playerPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
     NSLog(@"PlayerPokemon HP: %d", pokemonHP);
   }
+  else { NSLog(@"!!! Exception: The Move has no user"); }
   
   // Post to |GameMenuViewController|
   NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -256,6 +284,60 @@ static GameSystemProcess * gameSystemProcess = nil;
   [newUserInfo release];
   
   [self endTurn];
+}
+
+// Post Message to |GameMenuViewController| to set message for game
+- (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo
+{
+  switch (processType) {
+    case kGameSystemProcessTypeFight: {
+      NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
+      NSInteger moveID    = [[messageInfo valueForKey:@"moveID"] intValue];
+      // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
+      NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
+                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                            NSLocalizedString(@"PMS_used", nil),
+                            NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
+      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                          object:self
+                                                        userInfo:messageInfo];
+      break;
+    }
+      
+    case kGameSystemProcessTypeUseBagItem:
+      break;
+      
+    case kGameSystemProcessTypeReplacePokemon:
+      break;
+      
+    case kGameSystemProcessTypeRun:
+      break;
+      
+    case kGameSystemProcessTypeNone:
+      break;
+      
+    default:
+      break;
+  }
+}
+
+#pragma mark - Setting Methods
+
+- (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex
+{
+  self.user      = user;
+  self.moveIndex = moveIndex;
+}
+
+- (void)setSystemProcessOfBagWithUser:(GameSystemProcessUser)user
+{
+  self.user = user;
+}
+
+- (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
+{
+  self.user = user;
 }
 
 @end

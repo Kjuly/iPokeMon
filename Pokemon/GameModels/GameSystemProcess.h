@@ -13,23 +13,23 @@
 @class WildPokemon;
 
 typedef enum {
-  kGameSystemProcessMoveTargetPlayer = 0,
-  kGameSystemProcessMoveTargetEnemy  = 1
-}GameSystemProcessMoveTarget;
+  kGameSystemProcessTargetPlayer = 0,
+  kGameSystemProcessTargetEnemy  = 1
+}GameSystemProcessTarget;
+
+typedef enum {
+  kGameSystemProcessUserNone   = 0,
+  kGameSystemProcessUserPlayer = 1,
+  kGameSystemProcessUserEnemy  = 2
+}GameSystemProcessUser;
 
 @interface GameSystemProcess : CCNode {
   TrainerTamedPokemon * playerPokemon_;
   WildPokemon         * enemyPokemon_;
-  
-  GameSystemProcessMoveTarget moveTarget_;
-  NSInteger baseDamage_;
 }
 
 @property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
 @property (nonatomic, retain) WildPokemon         * enemyPokemon;
-
-@property (nonatomic, assign) GameSystemProcessMoveTarget moveTarget;
-@property (nonatomic, assign) NSInteger baseDamage;
 
 + (GameSystemProcess *)sharedInstance;
 
@@ -37,5 +37,10 @@ typedef enum {
 - (void)reset;
 - (void)update:(ccTime)dt;
 - (void)endTurn;
+
+// Setting Methods
+- (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex;
+- (void)setSystemProcessOfBagWithUser:(GameSystemProcessUser)user;
+- (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user;
 
 @end

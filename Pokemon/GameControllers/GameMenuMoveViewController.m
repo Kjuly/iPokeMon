@@ -8,7 +8,6 @@
 
 #import "GameMenuMoveViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"
@@ -133,28 +132,11 @@
 
 #pragma mark - Private Methods
 
-- (void)useSelectedMove:(id)sender
-{
-  Move * move = [self.playerPokemon moveWithIndex:((UIButton *)sender).tag];
-  
-  // Set data for message in |GameMenuViewController|
-  NSInteger pokemonID = [self.playerPokemon.sid intValue];
-  NSInteger moveID    = [move.sid intValue];
-  // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
-  NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
-                        NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
-                        NSLocalizedString(@"PMS_used", nil),
-                        NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
-  NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
-                                                      object:self
-                                                    userInfo:messageInfo];
-  
+- (void)useSelectedMove:(id)sender {
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
-  gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetEnemy;
-  gameSystemProcess.baseDamage = [move.baseDamage intValue];
-  
+  [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserPlayer
+                                           moveIndex:((UIButton *)sender).tag];
   
   [self unloadViewWithAnimation];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];

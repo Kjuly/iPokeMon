@@ -256,7 +256,7 @@ typedef enum {
                                            selector:@selector(toggleSixPokemonsView:)
                                                name:kPMNToggleSixPokemons
                                              object:nil];
-  // Add observer for notification from |GameMenuMoveViewController| & |GameWildPokemon|
+  // Add observer for notification from |GameSystemProcess|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(updateMessage:)
                                                name:kPMNUpdateGameBattleMessage
