@@ -38,18 +38,18 @@ typedef enum {
 
 // Move Target
 typedef enum {
-  kMoveTargetSinglePokemonOtherThanTheUser      = 0,   // Single Pokémon other than the user
+  kMoveTargetSinglePokemonOtherThanTheUser      = 0,   // Single Pokemon other than the user
   kMoveTargetNone                               = 1,   // No target
-  kMoveTargetOneOpposingPokemonSelectedAtRandom = 2,   // One opposing Pokémon selected at random
-  kMoveTargetAllOpposingPokemon                 = 4,   // All opposing Pokémon
-  kMoveTargetAllPokemonOtherThanTheUser         = 8,   // All Pokémon other than the user (All non-users)
+  kMoveTargetOneOpposingPokemonSelectedAtRandom = 2,   // One opposing Pokemon selected at random
+  kMoveTargetAllOpposingPokemon                 = 4,   // All opposing Pokemon
+  kMoveTargetAllPokemonOtherThanTheUser         = 8,   // All Pokemon other than the user (All non-users)
   kMoveTargetUser                               = 10,  // User
   kMoveTargetBothSides                          = 20,  // Both sides (e.g. Light Screen, Reflect, Heal Bell)
   kMoveTargetUserSide                           = 40,  // User's side
-  kMoveTargetOpposingPokemonSide                = 80,  // Opposing Pokémon's side
+  kMoveTargetOpposingPokemonSide                = 80,  // Opposing Pokemon's side
   kMoveTargetUserPartner                        = 100, // User's partner
   kMoveTargetPlayerChoiceOfUserOrUserPartner    = 200, // Player's choice of user or user's partner (e.g. Acupressure)
-  kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokémon on opponent's side (e.g. Me First)
+  kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokemon on opponent's side (e.g. Me First)
 }MoveTarget;
 
 
@@ -287,7 +287,7 @@ static GameSystemProcess * gameSystemProcess = nil;
  23 - 30.1% Chance of Freeze (e.g. None)
  24 - 30.1% Chance of Paralyze (e.g. Body Slam)
  25 - 30.1% Chance of Flinch (e.g. Stomp)
- 26 - OHKO (e.g. Fissure)
+ 26 - OHKO(One Hit Knock Out) (e.g. Fissure)
  27 - Charges for one turn, attacks on the next (e.g. Razor Wind)
  28 - Deals set damage, leaves 1HP (e.g. Super Fang)
  29 - Deals set damage (Special equation depending on move?) (e.g. Seismic Toss, Dragon Rage, Psywave)
