@@ -255,6 +255,7 @@
   self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
 */
+  
 #ifndef DEBUG_PREINIT_POPULATE_DATA
   // Game Main View
   gameMainViewController_ = [[GameMainViewController alloc] init];

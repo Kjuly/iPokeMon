@@ -13,7 +13,6 @@
 
 @interface SixPokemonsMoveViewController : SixPokemonsDetailViewController
 {
-  NSArray               * fourMoves_;
   NSArray               * fourMovesPP_;
   UIView                * fourMovesView_;
   PokemonMoveView       * moveOneView_;
@@ -23,7 +22,6 @@
   PokemonMoveDetailView * moveDetailView_;
 }
 
-@property (nonatomic, retain) NSArray               * fourMoves;
 @property (nonatomic, retain) NSArray               * fourMovesPP;
 @property (nonatomic, retain) UIView                * fourMovesView;
 @property (nonatomic, retain) PokemonMoveView       * moveOneView;

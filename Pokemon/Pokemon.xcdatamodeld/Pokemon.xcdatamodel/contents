@@ -84,8 +84,6 @@
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 16" maxValueString="400" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" maxValueString="17" defaultValueString="0" syncable="YES"/>
-        <relationship name="learnedPokemons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerTamedPokemon" inverseName="fourMoves" inverseEntity="TrainerTamedPokemon" syncable="YES"/>
-        <relationship name="learnedWildPokemons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WildPokemon" inverseName="fourMoves" inverseEntity="WildPokemon" syncable="YES"/>
     </entity>
     <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
         <attribute name="ability1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -187,7 +185,7 @@
         <attribute name="box" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
         <attribute name="currEXP" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="currHP" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
-        <attribute name="fourMovesPP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="fourMoves" optional="YES" attributeType="String" defaultValueString="0,0,0,0,0,0,0,0,0,0,0,0" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="happiness" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -197,14 +195,13 @@
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toNextLevel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="fourMoves" optional="YES" toMany="YES" maxCount="4" deletionRule="Nullify" destinationEntity="Move" inverseName="learnedPokemons" inverseEntity="Move" syncable="YES"/>
         <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="tamedPokemons" inverseEntity="Trainer" syncable="YES"/>
         <relationship name="pokemon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="tamedGroup" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <entity name="WildPokemon" representedClassName="WildPokemon" syncable="YES">
         <attribute name="currEXP" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="currHP" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
-        <attribute name="fourMovesPP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="fourMoves" optional="YES" attributeType="String" defaultValueString="0,0,0,0,0,0,0,0,0,0,0,0" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
@@ -212,7 +209,6 @@
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toNextLevel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="fourMoves" optional="YES" toMany="YES" maxCount="4" deletionRule="Nullify" destinationEntity="Move" inverseName="learnedWildPokemons" inverseEntity="Move" syncable="YES"/>
         <relationship name="pokemon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="wildGroup" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <elements>
@@ -237,6 +233,6 @@
         <element name="TrainerBagPokeball" positionX="126" positionY="360" width="128" height="105"/>
         <element name="TrainerBagTMHM" positionX="117" positionY="351" width="128" height="105"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
-        <element name="WildPokemon" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

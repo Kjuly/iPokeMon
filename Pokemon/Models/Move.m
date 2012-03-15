@@ -2,12 +2,11 @@
 //  Move.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/27/12.
+//  Created by Kaijie Yu on 3/15/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import "Move.h"
-#import "TrainerTamedPokemon.h"
 
 
 @implementation Move
@@ -26,7 +25,5 @@
 @dynamic sid;
 @dynamic target;
 @dynamic type;
-@dynamic learnedPokemons;
-@dynamic learnedWildPokemons;
 
 @end

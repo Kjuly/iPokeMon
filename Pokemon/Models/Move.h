@@ -2,14 +2,13 @@
 //  Move.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/27/12.
+//  Created by Kaijie Yu on 3/15/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TrainerTamedPokemon;
 
 @interface Move : NSManagedObject
 
@@ -27,18 +26,5 @@
 @property (nonatomic, retain) NSNumber * sid;
 @property (nonatomic, retain) NSNumber * target;
 @property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSSet *learnedPokemons;
-@property (nonatomic, retain) NSSet *learnedWildPokemons;
-@end
 
-@interface Move (CoreDataGeneratedAccessors)
-
-- (void)addLearnedPokemonsObject:(TrainerTamedPokemon *)value;
-- (void)removeLearnedPokemonsObject:(TrainerTamedPokemon *)value;
-- (void)addLearnedPokemons:(NSSet *)values;
-- (void)removeLearnedPokemons:(NSSet *)values;
-- (void)addLearnedWildPokemonsObject:(TrainerTamedPokemon *)value;
-- (void)removeLearnedWildPokemonsObject:(TrainerTamedPokemon *)value;
-- (void)addLearnedWildPokemons:(NSSet *)values;
-- (void)removeLearnedWildPokemons:(NSSet *)values;
 @end

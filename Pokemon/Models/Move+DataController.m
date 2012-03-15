@@ -90,7 +90,21 @@
 
 + (Move *)queryMoveDataWithID:(NSInteger)moveID
 {
-  return nil;
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", moveID];
+  [fetchRequest setPredicate:predicate];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  Move * move = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  [fetchRequest release];
+  
+  return move;
 }
 
 @end

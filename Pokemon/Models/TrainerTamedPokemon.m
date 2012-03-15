@@ -2,12 +2,11 @@
 //  TrainerTamedPokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/27/12.
+//  Created by Kaijie Yu on 3/15/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import "TrainerTamedPokemon.h"
-#import "Move.h"
 #import "Pokemon.h"
 #import "Trainer.h"
 
@@ -17,7 +16,6 @@
 @dynamic box;
 @dynamic currEXP;
 @dynamic currHP;
-@dynamic fourMovesPP;
 @dynamic gender;
 @dynamic happiness;
 @dynamic level;

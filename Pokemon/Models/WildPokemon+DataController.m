@@ -11,7 +11,6 @@
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
 #import "Pokemon+DataController.h"
-#import "Move+DataController.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -51,11 +50,11 @@
         wildPokemon.pokemon = pokemon;
         pokemon = nil;
         
-        NSArray * moveIDs = [[wildPokemonData valueForKey:@"fourMovesID"] componentsSeparatedByString:@","];
-        NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
-        [wildPokemon addFourMoves:[NSSet setWithArray:moves]];
-        moves = nil;
-        moveIDs = nil;
+//        NSArray * moveIDs = [[wildPokemonData valueForKey:@"fourMovesID"] componentsSeparatedByString:@","];
+//        NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
+//        [wildPokemon addFourMoves:[NSSet setWithArray:moves]];
+//        moves = nil;
+//        moveIDs = nil;
       }
       
       // Set data
@@ -64,7 +63,7 @@
       wildPokemon.status      = [wildPokemonData valueForKey:@"status"];
       wildPokemon.gender      = [wildPokemonData valueForKey:@"gender"];
       wildPokemon.level       = [wildPokemonData valueForKey:@"level"];
-      wildPokemon.fourMovesPP = [wildPokemonData valueForKey:@"fourMovesPP"];
+      wildPokemon.fourMoves   = [wildPokemonData valueForKey:@"fourMoves"];
       wildPokemon.maxStats    = [wildPokemonData valueForKey:@"maxStats"];
       wildPokemon.currHP      = [wildPokemonData valueForKey:@"currHP"];
       wildPokemon.currEXP     = [wildPokemonData valueForKey:@"currEXP"];
@@ -120,6 +119,44 @@
   [fetchRequest release];
   
   return pokemon;
+}
+
+#pragma mark - Base data dispatch
+//
+// |self.fourMoves|:
+//    move1ID,move1currPP,move1maxPP, move2ID,move2currPP,move2maxPP,
+//    move3ID,move3currPP,move3maxPP, move4ID,move4currPP,move4maxPP
+//
+- (Move *)moveWithIndex:(NSInteger)index {
+  NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
+  Move * move = [Move queryMoveDataWithID:[[fourMoves objectAtIndex:(--index * 3)] intValue]];
+  fourMoves = nil;
+  return move;
+}
+
+- (Move *)move1 { return [self moveWithIndex:1]; }
+- (Move *)move2 { return [self moveWithIndex:2]; }
+- (Move *)move3 { return [self moveWithIndex:3]; }
+- (Move *)move4 { return [self moveWithIndex:4]; }
+
+- (NSArray *)fourMovesPP {
+  NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
+  NSArray * fourMovesPP = [NSArray arrayWithObjects:
+                           [fourMoves objectAtIndex:1],
+                           [fourMoves objectAtIndex:2],
+                           [fourMoves objectAtIndex:4],
+                           [fourMoves objectAtIndex:5],
+                           [fourMoves objectAtIndex:7],
+                           [fourMoves objectAtIndex:8],
+                           [fourMoves objectAtIndex:10],
+                           [fourMoves objectAtIndex:11], nil];
+  fourMoves = nil;
+  return fourMovesPP;
+}
+
+- (void)setFourMovesPPWith:(NSArray *)newPPArray
+{
+  
 }
 
 @end

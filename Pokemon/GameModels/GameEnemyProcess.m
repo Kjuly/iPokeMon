@@ -11,7 +11,7 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "WildPokemon.h"
+#import "WildPokemon+DataController.h"
 #import "Move.h"
 
 
@@ -62,7 +62,7 @@
   //   Need an algorithm to choose the MOVE
   //
   WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
-  Move * move = [[enemyPokemon.fourMoves allObjects] objectAtIndex:0];
+  Move * move = [enemyPokemon moveWithIndex:1];
   
   // Set data for message in |GameMenuViewController|
   NSInteger pokemonID = [enemyPokemon.sid intValue];
@@ -80,6 +80,7 @@
   gameSystemProcess.moveTarget = kGameSystemProcessMoveTargetPlayer;
   gameSystemProcess.baseDamage = [move.baseDamage intValue];
   
+  move = nil;
   enemyPokemon = nil;
   [self endTurn];
 }

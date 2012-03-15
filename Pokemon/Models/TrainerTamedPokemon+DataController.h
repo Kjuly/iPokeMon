@@ -7,6 +7,7 @@
 //
 
 #import "TrainerTamedPokemon.h"
+#import "Move+DataController.h"
 
 @interface TrainerTamedPokemon (DataController)
 
@@ -14,5 +15,14 @@
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
 + (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
+
+// Base data dispatch
+- (Move *)moveWithIndex:(NSInteger)index;
+- (Move *)move1;
+- (Move *)move2;
+- (Move *)move3;
+- (Move *)move4;
+- (NSArray *)fourMovesPP;
+- (void)setFourMovesPPWith:(NSArray *)newPPArray;
 
 @end
