@@ -15,6 +15,7 @@
 #import "Move.h"
 
 
+// System Process Type
 typedef enum {
   kGameSystemProcessTypeNone           = 0,
   kGameSystemProcessTypeFight          = 1,
@@ -23,6 +24,7 @@ typedef enum {
   kGameSystemProcessTypeRun            = 4
 }GameSystemProcessType;
 
+// Pokemon Status
 typedef enum {
   kPokemonStatusNormal    = 0,
   kPokemonStatusBurn      = 1 << 0,
@@ -33,6 +35,22 @@ typedef enum {
   kPokemonStatusPoison    = 1 << 5,
   kPokemonStatusSleep     = 1 << 6
 }PokemonStatus;
+
+// Move Target
+typedef enum {
+  kMoveTargetSinglePokemonOtherThanTheUser      = 0,   // Single Pokémon other than the user
+  kMoveTargetNone                               = 1,   // No target
+  kMoveTargetOneOpposingPokemonSelectedAtRandom = 2,   // One opposing Pokémon selected at random
+  kMoveTargetAllOpposingPokemon                 = 4,   // All opposing Pokémon
+  kMoveTargetAllPokemonOtherThanTheUser         = 8,   // All Pokémon other than the user (All non-users)
+  kMoveTargetUser                               = 10,  // User
+  kMoveTargetBothSides                          = 20,  // Both sides (e.g. Light Screen, Reflect, Heal Bell)
+  kMoveTargetUserSide                           = 40,  // User's side
+  kMoveTargetOpposingPokemonSide                = 80,  // Opposing Pokémon's side
+  kMoveTargetUserPartner                        = 100, // User's partner
+  kMoveTargetPlayerChoiceOfUserOrUserPartner    = 200, // Player's choice of user or user's partner (e.g. Acupressure)
+  kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokémon on opponent's side (e.g. Me First)
+}MoveTarget;
 
 
 @interface GameSystemProcess () {
@@ -56,6 +74,7 @@ typedef enum {
 @property (nonatomic, assign) NSInteger moveIndex;
 
 - (void)fight;
+- (void)calculateEffectForMove:(Move *)move;
 - (void)useBagItem;
 - (void)replacePokemon;
 - (void)run;
@@ -154,6 +173,77 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)reset {
   complete_  = NO;
   delayTime_ = 0;
+}
+
+// Fight
+- (void)fight
+{
+  if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
+     NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
+    return;
+  }
+  
+  NSString * moveTarget;
+  NSInteger pokemonHP;
+  Move * move;
+  
+  //
+  // Case the move user is Player
+  //
+  if (self.user == kGameSystemProcessUserPlayer) {
+    move = [self.playerPokemon moveWithIndex:self.moveIndex];
+    
+    // Calculate the effect of move
+    [self calculateEffectForMove:move];
+    
+    // Post Message
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  self.playerPokemon.sid, @"pokemonID",
+                                  move.sid,               @"moveID", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+    [messageInfo release];
+    
+    // Apply move
+    moveTarget = @"WildPokemon";
+    pokemonHP = [self.enemyPokemon.currHP intValue];
+    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
+    pokemonHP -= [move.baseDamage intValue];
+    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
+    self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
+    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
+  }
+  //
+  // Case the move user is Enemy
+  //
+  else if (self.user == kGameSystemProcessUserEnemy) {
+    move = [self.enemyPokemon moveWithIndex:self.moveIndex];
+    
+    // Post Message
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  self.enemyPokemon.sid, @"pokemonID",
+                                  move.sid,              @"moveID", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+    [messageInfo release];
+    
+    // Apply move
+    moveTarget = @"MyPokemon";
+    pokemonHP = [self.playerPokemon.currHP intValue];
+    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
+    pokemonHP -= [move.baseDamage intValue];
+    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
+    self.playerPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
+    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
+  }
+  else { NSLog(@"!!! Exception: The Move has no user"); }
+  
+  // Post to |GameMenuViewController| to update pokemon status view
+  NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                moveTarget, @"target", [NSNumber numberWithInt:pokemonHP], @"HP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
+  [newUserInfo release];
+  
+  move = nil;
+  [self endTurn];
 }
 
 /*
@@ -267,81 +357,72 @@ static GameSystemProcess * gameSystemProcess = nil;
  99 - All status changes eliminated
  Most past 99 are all glitched.
  */
-- (void)fight
+// Calculate the effect of move
+- (void)calculateEffectForMove:(Move *)move
 {
-  if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
-     NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
-    return;
+  switch ([move.target intValue]) {
+    case kMoveTargetSinglePokemonOtherThanTheUser:
+      // Single Pokemon other than the user
+      break;
+      
+    case kMoveTargetOneOpposingPokemonSelectedAtRandom:
+      // One opposing Pokemon selected at random
+      break;
+      
+    case kMoveTargetAllOpposingPokemon:
+      // All opposing Pokemon
+      break;
+      
+    case kMoveTargetAllPokemonOtherThanTheUser:
+      // All Pokemon other than the user (All non-users)
+      break;
+      
+    case kMoveTargetUser:
+      // User
+      break;
+      
+    case kMoveTargetBothSides:
+      // Both sides (e.g. Light Screen, Reflect, Heal Bell)
+      break;
+      
+    case kMoveTargetUserSide:
+      // User's side
+      break;
+      
+    case kMoveTargetOpposingPokemonSide:
+      // Opposing Pokemon's side
+      break;
+      
+    case kMoveTargetUserPartner:
+      // User's partner
+      break;
+      
+    case kMoveTargetPlayerChoiceOfUserOrUserPartner:
+      // Player's choice of user or user's partner (e.g. Acupressure)
+      break;
+      
+    case kMoveTargetSinglePokemonOnOpponentSide:
+      // Single Pokemon on opponent's side (e.g. Me First)
+      break;
+      
+    case kMoveTargetNone:
+    default:
+      // No target
+      break;
   }
-  
-  NSString * moveTarget;
-  NSInteger pokemonHP;
-  Move * move;
-  
-  //
-  // Case the move user is Player
-  //
-  if (self.user == kGameSystemProcessUserPlayer) {
-    move = [self.playerPokemon moveWithIndex:self.moveIndex];
-    
-    // Post Message
-    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  self.playerPokemon.sid, @"pokemonID",
-                                  move.sid,               @"moveID", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
-    [messageInfo release];
-    
-    // Apply move
-    moveTarget = @"WildPokemon";
-    pokemonHP = [self.enemyPokemon.currHP intValue];
-    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
-    pokemonHP -= [move.baseDamage intValue];
-    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
-    self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
-    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
-  }
-  //
-  // Case the move user is Enemy
-  //
-  else if (self.user == kGameSystemProcessUserEnemy) {
-    move = [self.enemyPokemon moveWithIndex:self.moveIndex];
-    
-    // Post Message
-    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  self.enemyPokemon.sid, @"pokemonID",
-                                  move.sid,              @"moveID", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
-    [messageInfo release];
-    
-    // Apply move
-    moveTarget = @"MyPokemon";
-    pokemonHP = [self.playerPokemon.currHP intValue];
-    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
-    pokemonHP -= [move.baseDamage intValue];
-    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
-    self.playerPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
-    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
-  }
-  else { NSLog(@"!!! Exception: The Move has no user"); }
-  
-  // Post to |GameMenuViewController| to update pokemon status view
-  NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                moveTarget, @"target", [NSNumber numberWithInt:pokemonHP], @"HP", nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
-  [newUserInfo release];
-  
-  move = nil;
-  [self endTurn];
 }
 
+// Use bag item
 - (void)useBagItem
 {
 }
 
+// Replace pokemon
 - (void)replacePokemon
 {
 }
 
+// Run
 - (void)run
 {
 }
