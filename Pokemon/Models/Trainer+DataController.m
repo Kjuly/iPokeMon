@@ -10,7 +10,7 @@
 
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
-#import "TrainerTamedPokemon.h"
+#import "TrainerTamedPokemon+DataController.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -50,10 +50,11 @@
   void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
   ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
     // Set data for |Trainer|
-    trainer.sid     = [JSON valueForKey:@"id"];
-    trainer.name    = [JSON valueForKey:@"name"];
-    trainer.money   = [JSON valueForKey:@"money"];
-    trainer.pokedex = [JSON valueForKey:@"pokedex"];
+    trainer.sid           = [JSON valueForKey:@"id"];
+    trainer.name          = [JSON valueForKey:@"name"];
+    trainer.money         = [JSON valueForKey:@"money"];
+    trainer.pokedex       = [JSON valueForKey:@"pokedex"];
+    trainer.sixPokemonsID = [JSON valueForKey:@"sixPokemons"];
     trainer.adventureStarted = nil;
     
     NSError * error;
@@ -163,6 +164,28 @@
   NSError * error;
   if (! [managedObjectContext save:&error])
     NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
+}
+
+#pragma mark - Instance Methods
+
+- (NSArray *)sixPokemons
+{
+  NSArray * sixPokemonsID = [self.sixPokemonsID componentsSeparatedByString:@","];
+  NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithID:sixPokemonsID fetchLimit:6];
+  
+  // Sort six pokemons in order
+  NSMutableArray * sixPokemonsInOrder = [NSMutableArray arrayWithCapacity:[sixPokemonsID count]];
+  for (id pokemonID in sixPokemonsID)
+    for (TrainerTamedPokemon * pokemon in sixPokemons) {
+      NSNumber * pokemonIDInNumber = [NSNumber numberWithInt:[pokemonID intValue]];
+      if ([pokemon.uid isEqualToNumber:pokemonIDInNumber]) {
+        [sixPokemonsInOrder addObject:pokemon];
+        break;
+      }
+    }
+  sixPokemonsID = nil;
+  sixPokemons   = nil;
+  return sixPokemonsInOrder;
 }
 
 @end

@@ -16,4 +16,6 @@
 + (Trainer *)queryTrainerWithTrainerID:(NSInteger)trainerID;
 + (void)setTrainerWith:(NSInteger)id Name:(NSString *)name;
 
+- (NSArray *)sixPokemons;
+
 @end

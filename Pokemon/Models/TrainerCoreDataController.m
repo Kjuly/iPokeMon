@@ -28,13 +28,12 @@
 static TrainerCoreDataController * trainerCoreDataController = nil;
 
 // Singleton
-+ (TrainerCoreDataController *)sharedInstance
-{
++ (TrainerCoreDataController *)sharedInstance {
   if (trainerCoreDataController != nil)
     return trainerCoreDataController;
   
-  static dispatch_once_t pred;        // Lock
-  dispatch_once(&pred, ^{             // This code is called at most once per app
+  static dispatch_once_t onceToken; // Lock
+  dispatch_once(&onceToken, ^{      // This code is called at most once per app
     trainerCoreDataController = [[TrainerCoreDataController alloc] init];
   });
   return trainerCoreDataController;
@@ -55,25 +54,22 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 {
   if (self = [super init]) {
     self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
-    self.entitySixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+    self.entitySixPokemons = self.entityTrainer.sixPokemons;
   }
   return self;
 }
 
 #pragma mark - Data Related Methods
 
-- (Trainer *)trainer
-{
+- (Trainer *)trainer {
   return self.entityTrainer;
 }
 
-- (NSArray *)sixPokemons
-{
+- (NSArray *)sixPokemons {
   return self.entitySixPokemons;
 }
 
-- (TrainerTamedPokemon *)firstPokemonOfSix
-{
+- (TrainerTamedPokemon *)firstPokemonOfSix {
   return [self.entitySixPokemons objectAtIndex:0];
 }
 

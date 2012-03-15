@@ -123,6 +123,7 @@
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="pokedex" optional="YES" attributeType="String" maxValueString="100" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="sixPokemonsID" optional="YES" attributeType="String" defaultValueString="0" syncable="YES"/>
         <relationship name="bagBattleItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBattleItem" inverseName="owner" inverseEntity="TrainerBagBattleItem" syncable="YES"/>
         <relationship name="bagBerries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBerry" inverseName="owner" inverseEntity="TrainerBagBerry" syncable="YES"/>
         <relationship name="bagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagItem" inverseName="owner" inverseEntity="TrainerBagItem" syncable="YES"/>
@@ -223,7 +224,7 @@
         <element name="BagTMHM" positionX="144" positionY="378" width="128" height="135"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
-        <element name="Trainer" positionX="-38" positionY="108" width="128" height="120"/>
+        <element name="Trainer" positionX="-38" positionY="108" width="128" height="270"/>
         <element name="TrainerBagBattleItem" positionX="99" positionY="333" width="128" height="105"/>
         <element name="TrainerBagBerry" positionX="108" positionY="342" width="128" height="105"/>
         <element name="TrainerBagItem" positionX="117" positionY="108" width="128" height="105"/>

@@ -14,6 +14,7 @@
 + (BOOL)updateDataForTrainer:(NSInteger)trainerID;
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
++ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit;
 + (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
 // Base data dispatch

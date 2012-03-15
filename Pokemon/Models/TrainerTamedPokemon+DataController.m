@@ -127,6 +127,25 @@
   return sixPokemons;
 }
 
+// Get pokemons that in pokemons ID array
++ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsID]];
+  [fetchRequest setFetchLimit:fetchLimit];
+  
+  NSError * error;
+  NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return pokemons;
+}
+
 // Get one Pokemon that trainer brought
 + (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
 {

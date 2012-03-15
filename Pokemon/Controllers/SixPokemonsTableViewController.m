@@ -9,7 +9,8 @@
 #import "SixPokemonsTableViewController.h"
 
 #import "PListParser.h"
-#import "TrainerTamedPokemon+DataController.h"
+//#import "TrainerTamedPokemon+DataController.h"
+#import "TrainerCoreDataController.h"
 #import "Pokemon.h"
 #import "SixPokemonsTableViewCell.h"
 #import "SixPokemonsDetailTabViewController.h"
@@ -65,7 +66,8 @@
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
   
-  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+//  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+  self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
 }
 
 - (void)viewDidUnload
