@@ -45,21 +45,21 @@ typedef enum {
 @private
   // Pokemon transient status
   PokemonStatus playerPokemonStatus_;
-  NSInteger     playerPokemonTransientExtraAttack_;
-  NSInteger     playerPokemonTransientExtraDefense_;
-  NSInteger     playerPokemonTransientExtraSpeAttack_;
-  NSInteger     playerPokemonTransientExtraSpeDefense_;
-  NSInteger     playerPokemonTransientExtraSpeed_;
-  NSInteger     playerPokemonTransientExtraAccuracy_;
-  NSInteger     playerPokemonTransientExtraEvasion_;
+  NSInteger     playerPokemonTransientAttack_;
+  NSInteger     playerPokemonTransientDefense_;
+  NSInteger     playerPokemonTransientSpeAttack_;
+  NSInteger     playerPokemonTransientSpeDefense_;
+  NSInteger     playerPokemonTransientSpeed_;
+  NSInteger     playerPokemonTransientAccuracy_;
+  NSInteger     playerPokemonTransientEvasion_;
   PokemonStatus enemyPokemonStatus_;
-  NSInteger     enemyPokemonTransientExtraAttack_;
-  NSInteger     enemyPokemonTransientExtraDefense_;
-  NSInteger     enemyPokemonTransientExtraSpeAttack_;
-  NSInteger     enemyPokemonTransientExtraSpeDefense_;
-  NSInteger     enemyPokemonTransientExtraSpeed_;
-  NSInteger     enemyPokemonTransientExtraAccuracy_;
-  NSInteger     enemyPokemonTransientExtraEvasion_;
+  NSInteger     enemyPokemonTransientAttack_;
+  NSInteger     enemyPokemonTransientDefense_;
+  NSInteger     enemyPokemonTransientSpeAttack_;
+  NSInteger     enemyPokemonTransientSpeDefense_;
+  NSInteger     enemyPokemonTransientSpeed_;
+  NSInteger     enemyPokemonTransientAccuracy_;
+  NSInteger     enemyPokemonTransientEvasion_;
   
   GameSystemProcessType processType_; // What action process the system to deal with
   GameSystemProcessUser user_; // Action (use move, bag item, etc) user
@@ -69,6 +69,7 @@ typedef enum {
   NSInteger delayTime_; // Delay time for every turn
 }
 
+- (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
 - (void)fight;
 - (void)calculateEffectForMove:(Move *)move;
 - (NSInteger)calculateDamageForMove:(Move *)move;
@@ -167,29 +168,43 @@ static GameSystemProcess * gameSystemProcess = nil;
   complete_ = YES;
 }
 
-#pragma mark - Private Methods
-
 - (void)reset {
   complete_  = NO;
   delayTime_ = 0;
   
-  // Set transient status for pokemons
-  playerPokemonStatus_                   = kPokemonStatusNormal;
-  playerPokemonTransientExtraAttack_     = 0;
-  playerPokemonTransientExtraDefense_    = 0;
-  playerPokemonTransientExtraSpeAttack_  = 0;
-  playerPokemonTransientExtraSpeDefense_ = 0;
-  playerPokemonTransientExtraSpeed_      = 0;
-  playerPokemonTransientExtraAccuracy_   = 0;
-  playerPokemonTransientExtraEvasion_    = 0;
-  enemyPokemonStatus_                    = kPokemonStatusNormal;
-  enemyPokemonTransientExtraAttack_      = 0;
-  enemyPokemonTransientExtraDefense_     = 0;
-  enemyPokemonTransientExtraSpeAttack_   = 0;
-  enemyPokemonTransientExtraSpeDefense_  = 0;
-  enemyPokemonTransientExtraSpeed_       = 0;
-  enemyPokemonTransientExtraAccuracy_    = 0;
-  enemyPokemonTransientExtraEvasion_     = 0;
+  [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
+  [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
+}
+
+#pragma mark - Private Methods
+
+// Set transient status for pokemons
+// Pokemons stats:
+//   0. HP
+//   1. Attack
+//   2. Defense
+//   3. Speed
+//   4. Special Attack
+//   5. Special Defense
+// 
+- (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
+  NSArray * stats;
+  if (user == kGameSystemProcessUserPlayer) {
+    stats = self.playerPokemon.maxStats;
+  }
+  else if (user == kGameSystemProcessUserEnemy) {
+    stats = self.enemyPokemon.maxStats;
+  }
+  else return;
+  enemyPokemonStatus_               = kPokemonStatusNormal;
+  playerPokemonTransientAttack_     = [[stats objectAtIndex:1] intValue];
+  playerPokemonTransientDefense_    = [[stats objectAtIndex:2] intValue];
+  playerPokemonTransientSpeed_      = [[stats objectAtIndex:3] intValue];
+  playerPokemonTransientSpeAttack_  = [[stats objectAtIndex:4] intValue];
+  playerPokemonTransientSpeDefense_ = [[stats objectAtIndex:5] intValue];
+  playerPokemonTransientAccuracy_   = 100;                                      // TODO: How to use this two?
+  playerPokemonTransientEvasion_    = 100;
+  stats = nil;
 }
 
 // Fight
@@ -427,22 +442,22 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Delta values for user's & opposing pokemon
   __block PokemonStatus userPokemonStatusDelta                       = 0;
   __block NSInteger     userPokemonHPDelta                           = 0;
-  __block NSInteger     userPokemonTransientExtraAttackDelta         = 0;
-  __block NSInteger     userPokemonTransientExtraDefenseDelta        = 0;
-  __block NSInteger     userPokemonTransientExtraSpeAttackDelta      = 0;
-  __block NSInteger     userPokemonTransientExtraSpeDefenseDelta     = 0;
-  __block NSInteger     userPokemonTransientExtraSpeedDelta          = 0;
-  __block NSInteger     userPokemonTransientExtraAccuracyDelta       = 0;
-  __block NSInteger     userPokemonTransientExtraEvasionDelta        = 0;
+  __block NSInteger     userPokemonTransientAttackDelta         = 0;
+  __block NSInteger     userPokemonTransientDefenseDelta        = 0;
+  __block NSInteger     userPokemonTransientSpeAttackDelta      = 0;
+  __block NSInteger     userPokemonTransientSpeDefenseDelta     = 0;
+  __block NSInteger     userPokemonTransientSpeedDelta          = 0;
+  __block NSInteger     userPokemonTransientAccuracyDelta       = 0;
+  __block NSInteger     userPokemonTransientEvasionDelta        = 0;
   __block PokemonStatus opposingPokemonStatusDelta                   = 0;
   __block NSInteger     opposingPokemonHPDelta                       = 0;
-  __block NSInteger     opposingPokemonTransientExtraAttackDelta     = 0;
-  __block NSInteger     opposingPokemonTransientExtraDefenseDelta    = 0;
-  __block NSInteger     opposingPokemonTransientExtraSpeAttackDelta  = 0;
-  __block NSInteger     opposingPokemonTransientExtraSpeDefenseDelta = 0;
-  __block NSInteger     opposingPokemonTransientExtraSpeedDelta      = 0;
-  __block NSInteger     opposingPokemonTransientExtraAccuracyDelta   = 0;
-  __block NSInteger     opposingPokemonTransientExtraEvasionDelta    = 0;
+  __block NSInteger     opposingPokemonTransientAttackDelta     = 0;
+  __block NSInteger     opposingPokemonTransientDefenseDelta    = 0;
+  __block NSInteger     opposingPokemonTransientSpeAttackDelta  = 0;
+  __block NSInteger     opposingPokemonTransientSpeDefenseDelta = 0;
+  __block NSInteger     opposingPokemonTransientSpeedDelta      = 0;
+  __block NSInteger     opposingPokemonTransientAccuracyDelta   = 0;
+  __block NSInteger     opposingPokemonTransientEvasionDelta    = 0;
   
   // Player & enemy pokemon's HP
   __block NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue];
@@ -500,11 +515,11 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case 0x07: // Opponent's defense is halved during attack, user faints (e.g. Explosion)
       if (moveRealTarget == kMoveRealTargetEnemy) {
-        enemyPokemonTransientExtraDefense_ /= 2;
+        enemyPokemonTransientDefense_ /= 2;
         playerPokemonHP = 0;
       }
       else {
-        playerPokemonTransientExtraDefense_ /= 2;
+        playerPokemonTransientDefense_ /= 2;
         enemyPokemonHP = 0;
       }
       // Values have been calculated
@@ -537,28 +552,28 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x0A: // Raises Attack UP 1 Stage (e.g. Meditate)
-      userPokemonTransientExtraAttackDelta += stage;
+      userPokemonTransientAttackDelta += stage;
       break;
       
     case 0x0B: // Raises Defense UP 1 Stage (e.g. Harden)
-      userPokemonTransientExtraDefenseDelta += stage;
+      userPokemonTransientDefenseDelta += stage;
       break;
       
     //case 0x0C: // Raises Speed UP 1 Stage (e.g. None)
-      //userPokemonTransientExtraSpeedDelta += stage;
+      //userPokemonTransientSpeedDelta += stage;
       //break;
       
     case 0x0D: // Raises Special UP 1 Stage (e.g. Growth)
-      userPokemonTransientExtraSpeAttackDelta  += stage;
-      userPokemonTransientExtraSpeDefenseDelta += stage;
+      userPokemonTransientSpeAttackDelta  += stage;
+      userPokemonTransientSpeDefenseDelta += stage;
       break;
       
     //case 0x0E: // Raises Accuracy UP 1 Stage (e.g. None)
-      //userPokemonTransientExtraAccuracyDelta += stage;
+      //userPokemonTransientAccuracyDelta += stage;
       //break;
       
     case 0x0F: // Raises Evasion UP 1 Stage (e.g. Double Team)
-      userPokemonTransientExtraEvasionDelta += stage;
+      userPokemonTransientEvasionDelta += stage;
       break;
       
     case 0x10: // Gain money after battle (User's Level*2*Number of uses) (e.g. Pay Day)
@@ -579,28 +594,28 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x12: // Lowers Attack DOWN 1 Stage (Probability = Hit Chance)
-      opposingPokemonTransientExtraAttackDelta -= stage;
+      opposingPokemonTransientAttackDelta -= stage;
       break;
       
     case 0x13: // Lowers Defense DOWN 1 Stage (Probability = Hit Chance)
-      opposingPokemonTransientExtraDefenseDelta -= stage;
+      opposingPokemonTransientDefenseDelta -= stage;
       break;
       
     case 0x14: // Lowers Speed DOWN 1 Stage (Probability = Hit Chance)
-      opposingPokemonTransientExtraSpeedDelta -= stage;
+      opposingPokemonTransientSpeedDelta -= stage;
       break;
       
     //case 0x15: // - Lowers Special DOWN 1 Stage (Probability = Hit Chance)
-      //opposingPokemonTransientExtraSpeAttackDelta  -= stage;
-      //opposingPokemonTransientExtraSpeDefenseDelta -= stage;
+      //opposingPokemonTransientSpeAttackDelta  -= stage;
+      //opposingPokemonTransientSpeDefenseDelta -= stage;
       //break;
       
     case 0x16: // Lowers Accuracy DOWN 1 Stage (Probability = Hit Chance)
-      opposingPokemonTransientExtraAccuracyDelta -= stage;
+      opposingPokemonTransientAccuracyDelta -= stage;
       break;
       
     //case 0x17: // Lowers Evasion DOWN 1 Stage (Probability = Hit Chance)
-      //opposingPokemonTransientExtraEvasionDelta -= stage;
+      //opposingPokemonTransientEvasionDelta -= stage;
       //break;
       
     case 0x18: // Change user's type to match Opponent's (e.g. Conversion)
@@ -612,23 +627,8 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x19: // Removes all stat changes, returns opponent's status to Normal (e.g. Haze)
-      playerPokemonStatus_                   = kPokemonStatusNormal;
-      playerPokemonTransientExtraAttack_     = 0;
-      playerPokemonTransientExtraDefense_    = 0;
-      playerPokemonTransientExtraSpeAttack_  = 0;
-      playerPokemonTransientExtraSpeDefense_ = 0;
-      playerPokemonTransientExtraSpeed_      = 0;
-      playerPokemonTransientExtraAccuracy_   = 0;
-      playerPokemonTransientExtraEvasion_    = 0;
-      enemyPokemonStatus_                    = kPokemonStatusNormal;
-      enemyPokemonTransientExtraAttack_      = 0;
-      enemyPokemonTransientExtraDefense_     = 0;
-      enemyPokemonTransientExtraSpeAttack_   = 0;
-      enemyPokemonTransientExtraSpeDefense_  = 0;
-      enemyPokemonTransientExtraSpeed_       = 0;
-      enemyPokemonTransientExtraAccuracy_    = 0;
-      enemyPokemonTransientExtraEvasion_     = 0;
-      
+      [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
+      [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
       // Values have been calculated
       valuesHaveBeenCalculated = YES;
       break;
@@ -803,28 +803,28 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x32: // Raises Attack UP 2 Stages (e.g. Swords Dance)
-      userPokemonTransientExtraAttackDelta += 2 * stage;
+      userPokemonTransientAttackDelta += 2 * stage;
       break;
       
     case 0x33: // Raises Defense UP 2 Stages (e.g. Barrier)
-      userPokemonTransientExtraDefenseDelta += 2 * stage;
+      userPokemonTransientDefenseDelta += 2 * stage;
       break;
       
     case 0x34: // Raises Speed UP 2 Stages (e.g. Agility)
-      userPokemonTransientExtraSpeedDelta += 2 * stage;
+      userPokemonTransientSpeedDelta += 2 * stage;
       break;
       
     case 0x35: // Raises Special UP 2 Stages (e.g. Amnesia)
-      userPokemonTransientExtraSpeAttackDelta  += 2 * stage;
-      userPokemonTransientExtraSpeDefenseDelta += 2 * stage;
+      userPokemonTransientSpeAttackDelta  += 2 * stage;
+      userPokemonTransientSpeDefenseDelta += 2 * stage;
       break;
       
     //case 0x36: // Raises Accuracy UP 2 Stages (e.g. None)
-      //userPokemonTransientExtraAccuracyDelta += 2 * stage;
+      //userPokemonTransientAccuracyDelta += 2 * stage;
       //break;
       
     //case 0x37: // Raises Evasion UP 2 Stages (e.g. None)
-      //userPokemonTransientExtraEvasionDelta += 2 * stage;
+      //userPokemonTransientEvasionDelta += 2 * stage;
       //break;
       
     case 0x38: // User Recovers HP (Excluding rest HP = Max HP/2) (Examples: Recover, Rest)
@@ -853,28 +853,28 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     //case 0x3A: // Lowers Attack DOWN 2 Stages (Probability = Hit Chance)
-      //opposingPokemonTransientExtraAttackDelta -= 2 * stage;
+      //opposingPokemonTransientAttackDelta -= 2 * stage;
       //break;
       
     case 0x3B: // Lowers Defense DOWN 2 Stages (Probability = Hit Chance)
-      opposingPokemonTransientExtraDefenseDelta -= 2 * stage;
+      opposingPokemonTransientDefenseDelta -= 2 * stage;
       break;
       
     //case 0x3C: // Lowers Speed DOWN 2 Stages (Probability = Hit Chance)
-      //opposingPokemonTransientExtraSpeedDelta -= 2 * stage;
+      //opposingPokemonTransientSpeedDelta -= 2 * stage;
       //break;
       
     //case 0x3D: // Lowers Special DOWN 2 Stages (Probability = Hit Chance)
-      //opposingPokemonTransientExtraSpeAttackDelta  -= 2 * stage;
-      //opposingPokemonTransientExtraSpeDefenseDelta -= 2 * stage;
+      //opposingPokemonTransientSpeAttackDelta  -= 2 * stage;
+      //opposingPokemonTransientSpeDefenseDelta -= 2 * stage;
       //break;
       
     //case 0x3E: // Lowers Accuracy DOWN 2 Stages (Probability = Hit Chance)
-      //opposingPokemonTransientExtraAccuracyDelta -= 2 * stage;
+      //opposingPokemonTransientAccuracyDelta -= 2 * stage;
       //break;
       
     //case 0x3F: // Lowers Evasion DOWN 2 Stages (Probability = Hit Chance)
-      //opposingPokemonTransientExtraEvasionDelta -= 2 * stage;
+      //opposingPokemonTransientEvasionDelta -= 2 * stage;
       //break;
       
     case 0x40: // Doubles Special when being attacked (e.g. Light Screen)
@@ -903,35 +903,35 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case 0x44: // 9.8% Chance of lowering Attack DOWN 1 Stage
       opposingPokemonHPDelta -= moveDamage;
-      if (randomValue <= 9.8) opposingPokemonTransientExtraAttackDelta -= stage;
+      if (randomValue <= 9.8) opposingPokemonTransientAttackDelta -= stage;
       break;
       
     case 0x45: // 9.8% Chance of lowering Defence DOWN 1 Stage
       opposingPokemonHPDelta -= moveDamage;
-      if (randomValue <= 9.8) opposingPokemonTransientExtraDefenseDelta -= stage;
+      if (randomValue <= 9.8) opposingPokemonTransientDefenseDelta -= stage;
       break;
       
     case 0x46: // 9.8% Chance of lowering Speed DOWN 1 Stage
       opposingPokemonHPDelta -= moveDamage;
-      if (randomValue <= 9.8) opposingPokemonTransientExtraSpeedDelta -= stage;
+      if (randomValue <= 9.8) opposingPokemonTransientSpeedDelta -= stage;
       break;
       
     case 0x47: // 29.8% Chance of lowering Special DOWN 1 Stage
       opposingPokemonHPDelta -= moveDamage;
       if (randomValue <= 29.8) {
-        opposingPokemonTransientExtraSpeAttackDelta -= stage;
-        opposingPokemonTransientExtraDefenseDelta   -= stage;
+        opposingPokemonTransientSpeAttackDelta -= stage;
+        opposingPokemonTransientDefenseDelta   -= stage;
       }
       break;
       
     //case 0x48: // 9.8%? Chance of lowering Accuracy DOWN 1 Stage
       //opposingPokemonHPDelta -= moveDamage;
-      //if (randomValue <= 9.8) opposingPokemonTransientExtraAccuracyDelta -= stage;
+      //if (randomValue <= 9.8) opposingPokemonTransientAccuracyDelta -= stage;
       //break;
       
     //case 0x49: // 9.8%? Chance of lowering Evasion DOWN 1 Stage
       //opposingPokemonHPDelta -= moveDamage;
-      //if (randomValue <= 9.8) opposingPokemonTransientExtraEvasionDelta -= stage;
+      //if (randomValue <= 9.8) opposingPokemonTransientEvasionDelta -= stage;
       //break;
       
     //case 0x4A: // None
@@ -1025,72 +1025,72 @@ static GameSystemProcess * gameSystemProcess = nil;
     if (target == kMoveRealTargetEnemy) {
       if (opposingPokemonStatusDelta != 0) enemyPokemonStatus_ |= opposingPokemonStatusDelta;
       if (opposingPokemonHPDelta != 0)     enemyPokemonHP      += opposingPokemonHPDelta;
-      if (opposingPokemonTransientExtraAttackDelta != 0)
-        enemyPokemonTransientExtraAttack_ += opposingPokemonTransientExtraAttackDelta;
-      if (opposingPokemonTransientExtraDefenseDelta != 0)
-        enemyPokemonTransientExtraDefense_ += opposingPokemonTransientExtraDefenseDelta;
-      if (opposingPokemonTransientExtraSpeAttackDelta != 0)
-        enemyPokemonTransientExtraSpeAttack_ += opposingPokemonTransientExtraSpeAttackDelta;
-      if (opposingPokemonTransientExtraSpeDefenseDelta != 0)
-        enemyPokemonTransientExtraSpeDefense_ += opposingPokemonTransientExtraSpeDefenseDelta;
-      if (opposingPokemonTransientExtraSpeedDelta != 0)
-        enemyPokemonTransientExtraSpeed_ += opposingPokemonTransientExtraSpeedDelta;
-      if (opposingPokemonTransientExtraAccuracyDelta != 0)
-        enemyPokemonTransientExtraAccuracy_ += opposingPokemonTransientExtraAccuracyDelta;
-      if (opposingPokemonTransientExtraEvasionDelta != 0)
-        enemyPokemonTransientExtraEvasion_ += opposingPokemonTransientExtraEvasionDelta;
+      if (opposingPokemonTransientAttackDelta != 0)
+        enemyPokemonTransientAttack_ += opposingPokemonTransientAttackDelta;
+      if (opposingPokemonTransientDefenseDelta != 0)
+        enemyPokemonTransientDefense_ += opposingPokemonTransientDefenseDelta;
+      if (opposingPokemonTransientSpeAttackDelta != 0)
+        enemyPokemonTransientSpeAttack_ += opposingPokemonTransientSpeAttackDelta;
+      if (opposingPokemonTransientSpeDefenseDelta != 0)
+        enemyPokemonTransientSpeDefense_ += opposingPokemonTransientSpeDefenseDelta;
+      if (opposingPokemonTransientSpeedDelta != 0)
+        enemyPokemonTransientSpeed_ += opposingPokemonTransientSpeedDelta;
+      if (opposingPokemonTransientAccuracyDelta != 0)
+        enemyPokemonTransientAccuracy_ += opposingPokemonTransientAccuracyDelta;
+      if (opposingPokemonTransientEvasionDelta != 0)
+        enemyPokemonTransientEvasion_ += opposingPokemonTransientEvasionDelta;
       
       if (userPokemonStatusDelta != 0) playerPokemonStatus_ |= userPokemonStatusDelta;
       if (userPokemonHPDelta != 0)     playerPokemonHP      += userPokemonHPDelta;
-      if (userPokemonTransientExtraAttackDelta != 0)
-        playerPokemonTransientExtraAttack_ += userPokemonTransientExtraAttackDelta;
-      if (userPokemonTransientExtraDefenseDelta != 0)
-        playerPokemonTransientExtraDefense_ += userPokemonTransientExtraDefenseDelta;
-      if (userPokemonTransientExtraSpeAttackDelta != 0)
-        playerPokemonTransientExtraSpeAttack_ += userPokemonTransientExtraSpeAttackDelta;
-      if (userPokemonTransientExtraSpeDefenseDelta != 0)
-        playerPokemonTransientExtraSpeDefense_ += userPokemonTransientExtraSpeDefenseDelta;
-      if (userPokemonTransientExtraSpeedDelta != 0)
-        playerPokemonTransientExtraSpeed_ += userPokemonTransientExtraSpeedDelta;
-      if (userPokemonTransientExtraAccuracyDelta != 0)
-        playerPokemonTransientExtraAccuracy_ += userPokemonTransientExtraAccuracyDelta;
-      if (userPokemonTransientExtraEvasionDelta != 0)
-        playerPokemonTransientExtraEvasion_ += userPokemonTransientExtraEvasionDelta;
+      if (userPokemonTransientAttackDelta != 0)
+        playerPokemonTransientAttack_ += userPokemonTransientAttackDelta;
+      if (userPokemonTransientDefenseDelta != 0)
+        playerPokemonTransientDefense_ += userPokemonTransientDefenseDelta;
+      if (userPokemonTransientSpeAttackDelta != 0)
+        playerPokemonTransientSpeAttack_ += userPokemonTransientSpeAttackDelta;
+      if (userPokemonTransientSpeDefenseDelta != 0)
+        playerPokemonTransientSpeDefense_ += userPokemonTransientSpeDefenseDelta;
+      if (userPokemonTransientSpeedDelta != 0)
+        playerPokemonTransientSpeed_ += userPokemonTransientSpeedDelta;
+      if (userPokemonTransientAccuracyDelta != 0)
+        playerPokemonTransientAccuracy_ += userPokemonTransientAccuracyDelta;
+      if (userPokemonTransientEvasionDelta != 0)
+        playerPokemonTransientEvasion_ += userPokemonTransientEvasionDelta;
     }
     else {
       if (opposingPokemonStatusDelta != 0) playerPokemonStatus_ |= opposingPokemonStatusDelta;
       if (opposingPokemonHPDelta != 0)     playerPokemonHP      += opposingPokemonHPDelta;
-      if (opposingPokemonTransientExtraAttackDelta != 0)
-        playerPokemonTransientExtraAttack_ += opposingPokemonTransientExtraAttackDelta;
-      if (opposingPokemonTransientExtraDefenseDelta != 0)
-        playerPokemonTransientExtraDefense_ += opposingPokemonTransientExtraDefenseDelta;
-      if (opposingPokemonTransientExtraSpeAttackDelta != 0)
-        playerPokemonTransientExtraSpeAttack_ += opposingPokemonTransientExtraSpeAttackDelta;
-      if (opposingPokemonTransientExtraSpeDefenseDelta != 0)
-        playerPokemonTransientExtraSpeDefense_ += opposingPokemonTransientExtraSpeDefenseDelta;
-      if (opposingPokemonTransientExtraSpeedDelta != 0)
-        playerPokemonTransientExtraSpeed_ += opposingPokemonTransientExtraSpeedDelta;
-      if (opposingPokemonTransientExtraAccuracyDelta != 0)
-        playerPokemonTransientExtraAccuracy_ += opposingPokemonTransientExtraAccuracyDelta;
-      if (opposingPokemonTransientExtraEvasionDelta != 0)
-        playerPokemonTransientExtraEvasion_ += opposingPokemonTransientExtraEvasionDelta;
+      if (opposingPokemonTransientAttackDelta != 0)
+        playerPokemonTransientAttack_ += opposingPokemonTransientAttackDelta;
+      if (opposingPokemonTransientDefenseDelta != 0)
+        playerPokemonTransientDefense_ += opposingPokemonTransientDefenseDelta;
+      if (opposingPokemonTransientSpeAttackDelta != 0)
+        playerPokemonTransientSpeAttack_ += opposingPokemonTransientSpeAttackDelta;
+      if (opposingPokemonTransientSpeDefenseDelta != 0)
+        playerPokemonTransientSpeDefense_ += opposingPokemonTransientSpeDefenseDelta;
+      if (opposingPokemonTransientSpeedDelta != 0)
+        playerPokemonTransientSpeed_ += opposingPokemonTransientSpeedDelta;
+      if (opposingPokemonTransientAccuracyDelta != 0)
+        playerPokemonTransientAccuracy_ += opposingPokemonTransientAccuracyDelta;
+      if (opposingPokemonTransientEvasionDelta != 0)
+        playerPokemonTransientEvasion_ += opposingPokemonTransientEvasionDelta;
       
       if (userPokemonStatusDelta != 0) enemyPokemonStatus_ |= userPokemonStatusDelta;
       if (userPokemonHPDelta != 0)     enemyPokemonHP      += userPokemonHPDelta;
-      if (userPokemonTransientExtraAttackDelta != 0)
-        enemyPokemonTransientExtraAttack_ += userPokemonTransientExtraAttackDelta;
-      if (userPokemonTransientExtraDefenseDelta != 0)
-        enemyPokemonTransientExtraDefense_ += userPokemonTransientExtraDefenseDelta;
-      if (userPokemonTransientExtraSpeAttackDelta != 0)
-        enemyPokemonTransientExtraSpeAttack_ += userPokemonTransientExtraSpeAttackDelta;
-      if (userPokemonTransientExtraSpeDefenseDelta != 0)
-        enemyPokemonTransientExtraSpeDefense_ += userPokemonTransientExtraSpeDefenseDelta;
-      if (userPokemonTransientExtraSpeedDelta != 0)
-        enemyPokemonTransientExtraSpeed_ += userPokemonTransientExtraSpeedDelta;
-      if (userPokemonTransientExtraAccuracyDelta != 0)
-        enemyPokemonTransientExtraAccuracy_ += userPokemonTransientExtraAccuracyDelta;
-      if (userPokemonTransientExtraEvasionDelta != 0)
-        enemyPokemonTransientExtraEvasion_ += userPokemonTransientExtraEvasionDelta;
+      if (userPokemonTransientAttackDelta != 0)
+        enemyPokemonTransientAttack_ += userPokemonTransientAttackDelta;
+      if (userPokemonTransientDefenseDelta != 0)
+        enemyPokemonTransientDefense_ += userPokemonTransientDefenseDelta;
+      if (userPokemonTransientSpeAttackDelta != 0)
+        enemyPokemonTransientSpeAttack_ += userPokemonTransientSpeAttackDelta;
+      if (userPokemonTransientSpeDefenseDelta != 0)
+        enemyPokemonTransientSpeDefense_ += userPokemonTransientSpeDefenseDelta;
+      if (userPokemonTransientSpeedDelta != 0)
+        enemyPokemonTransientSpeed_ += userPokemonTransientSpeedDelta;
+      if (userPokemonTransientAccuracyDelta != 0)
+        enemyPokemonTransientAccuracy_ += userPokemonTransientAccuracyDelta;
+      if (userPokemonTransientEvasionDelta != 0)
+        enemyPokemonTransientEvasion_ += userPokemonTransientEvasionDelta;
     }
     // Fix HP value to make sure it is in range of [0, max]
     if (playerPokemonHP < 0) playerPokemonHP = 0;
