@@ -424,8 +424,26 @@ static GameSystemProcess * gameSystemProcess = nil;
   }
   
   // Move calculation result values
-  NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue]; // Player's pokemon HP
-  NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue]; // Enemy's pokemon HP
+  // Delta values for user's & opposing pokemon
+  __block PokemonStatus userPokemonStatusDelta                       = 0;
+  __block NSInteger     userPokemonHPDelta                           = 0;
+  __block NSInteger     userPokemonTransientExtraAttackDelta         = 0;
+  __block NSInteger     userPokemonTransientExtraDefenseDelta        = 0;
+  __block NSInteger     userPokemonTransientExtraSpeAttackDelta      = 0;
+  __block NSInteger     userPokemonTransientExtraSpeDefenseDelta     = 0;
+  __block NSInteger     userPokemonTransientExtraSpeedDelta          = 0;
+  __block NSInteger     userPokemonTransientExtraAccuracyDelta       = 0;
+  __block NSInteger     userPokemonTransientExtraEvasionDelta        = 0;
+  __block PokemonStatus opposingPokemonStatusDelta                   = 0;
+  __block NSInteger     opposingPokemonHPDelta                       = 0;
+  __block NSInteger     opposingPokemonTransientExtraAttackDelta     = 0;
+  __block NSInteger     opposingPokemonTransientExtraDefenseDelta    = 0;
+  __block NSInteger     opposingPokemonTransientExtraSpeAttackDelta  = 0;
+  __block NSInteger     opposingPokemonTransientExtraSpeDefenseDelta = 0;
+  __block NSInteger     opposingPokemonTransientExtraSpeedDelta      = 0;
+  __block NSInteger     opposingPokemonTransientExtraAccuracyDelta   = 0;
+  __block NSInteger     opposingPokemonTransientExtraEvasionDelta    = 0;
+  
   float randomValue         = arc4random() % 1000 / 10;             // Random value for calculating % chance
   MoveRealTarget statusUpdateTarget = moveRealTarget;               // Target for updating pokemon status
   
@@ -435,76 +453,39 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Calculation based on the move effect code
   switch ([move.effectCode intValue]) {
     case 0x00:
-      if (moveRealTarget & kMoveRealTargetEnemy)  enemyPokemonHP  -= moveDamage;
-      if (moveRealTarget & kMoveRealTargetPlayer) playerPokemonHP -= moveDamage;
+      opposingPokemonHPDelta -= moveDamage;
       break;
       
     case 0x01:
-      if (moveRealTarget & kMoveRealTargetEnemy)  playerPokemonStatus_ |= kPokemonStatusSleep;
-      if (moveRealTarget & kMoveRealTargetPlayer) enemyPokemonStatus_  |= kPokemonStatusSleep;
+      opposingPokemonStatusDelta |= kPokemonStatusSleep;
       break;
       
     case 0x02:
-      if (moveRealTarget & kMoveRealTargetEnemy) {
-        enemyPokemonHP -= moveDamage;
-        if (randomValue <= 29.8) enemyPokemonStatus_ |= kPokemonStatusPoison;
-      }
-      if (moveRealTarget & kMoveRealTargetPlayer) {
-        playerPokemonHP -= moveDamage;
-        if (randomValue <= 29.8) playerPokemonStatus_ |= kPokemonStatusPoison;
-      }
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 29.8) opposingPokemonStatusDelta |= kPokemonStatusPoison;
       break;
       
     case 0x03:
-      if (moveRealTarget & kMoveRealTargetEnemy) {
-        enemyPokemonHP  -= moveDamage;
-        playerPokemonHP += round(moveDamage / 2);
-        NSLog(@"<1 HP: %d, %d>", enemyPokemonHP, playerPokemonHP);
-        NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
-        if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
-      }
-      if (moveRealTarget & kMoveRealTargetPlayer) {
-        playerPokemonHP -= moveDamage;
-        enemyPokemonHP  += round(moveDamage / 2);
-        NSLog(@"<2 HP: %d, %d>", enemyPokemonHP, playerPokemonHP);
-        NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
-        if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
-      }
+      opposingPokemonHPDelta -= moveDamage;
+      userPokemonHPDelta     += round(moveDamage / 2);
+      
       // Update |statusUpdateTarget| to update both enemy & player pokemons' status
       statusUpdateTarget = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
       break;
       
     case 0x04:
-      if (moveRealTarget & kMoveRealTargetEnemy) {
-        enemyPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusBurn;
-      }
-      if (moveRealTarget & kMoveRealTargetPlayer) {
-        playerPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusBurn;
-      }
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusBurn;
       break;
       
     case 0x05:
-      if (moveRealTarget & kMoveRealTargetEnemy) {
-        enemyPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusFreeze;
-      }
-      if (moveRealTarget & kMoveRealTargetPlayer) {
-        playerPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusFreeze;
-      }
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusFreeze;
       break;
       
     case 0x06:
-      if (moveRealTarget & kMoveRealTargetEnemy) {
-        enemyPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusParalyze;
-      }
-      if (moveRealTarget & kMoveRealTargetPlayer) {
-        playerPokemonHP -= moveDamage;
-        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusParalyze;
-      }
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusParalyze;
       break;
       
     case 0x07:
@@ -751,9 +732,100 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
   }
   
-  // Update values for pokemons
-  if (playerPokemonHP < 0) playerPokemonHP = 0;
-  if (enemyPokemonHP  < 0) enemyPokemonHP  = 0;
+  // Player & enemy pokemon's HP
+  __block NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue];
+  __block NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue];
+  
+  // Block to set values
+  void (^updateValues)(MoveRealTarget) = ^(MoveRealTarget target) {
+    if (target == kMoveRealTargetEnemy) {
+      if (opposingPokemonStatusDelta != 0) enemyPokemonStatus_ |= opposingPokemonStatusDelta;
+      if (opposingPokemonHPDelta != 0)     enemyPokemonHP      += opposingPokemonHPDelta;
+      if (opposingPokemonTransientExtraAttackDelta != 0)
+        enemyPokemonTransientExtraAttack_ += opposingPokemonTransientExtraAttackDelta;
+      if (opposingPokemonTransientExtraDefenseDelta != 0)
+        enemyPokemonTransientExtraDefense_ += opposingPokemonTransientExtraDefenseDelta;
+      if (opposingPokemonTransientExtraSpeAttackDelta != 0)
+        enemyPokemonTransientExtraSpeAttack_ += opposingPokemonTransientExtraSpeAttackDelta;
+      if (opposingPokemonTransientExtraSpeDefenseDelta != 0)
+        enemyPokemonTransientExtraSpeDefense_ += opposingPokemonTransientExtraSpeDefenseDelta;
+      if (opposingPokemonTransientExtraSpeedDelta != 0)
+        enemyPokemonTransientExtraSpeed_ += opposingPokemonTransientExtraSpeedDelta;
+      if (opposingPokemonTransientExtraAccuracyDelta != 0)
+        enemyPokemonTransientExtraAccuracy_ += opposingPokemonTransientExtraAccuracyDelta;
+      if (opposingPokemonTransientExtraEvasionDelta != 0)
+        enemyPokemonTransientExtraEvasion_ += opposingPokemonTransientExtraEvasionDelta;
+      
+      if (userPokemonStatusDelta != 0) playerPokemonStatus_ |= userPokemonStatusDelta;
+      if (userPokemonHPDelta != 0)     playerPokemonHP      += userPokemonHPDelta;
+      if (userPokemonTransientExtraAttackDelta != 0)
+        playerPokemonTransientExtraAttack_ += userPokemonTransientExtraAttackDelta;
+      if (userPokemonTransientExtraDefenseDelta != 0)
+        playerPokemonTransientExtraDefense_ += userPokemonTransientExtraDefenseDelta;
+      if (userPokemonTransientExtraSpeAttackDelta != 0)
+        playerPokemonTransientExtraSpeAttack_ += userPokemonTransientExtraSpeAttackDelta;
+      if (userPokemonTransientExtraSpeDefenseDelta != 0)
+        playerPokemonTransientExtraSpeDefense_ += userPokemonTransientExtraSpeDefenseDelta;
+      if (userPokemonTransientExtraSpeedDelta != 0)
+        playerPokemonTransientExtraSpeed_ += userPokemonTransientExtraSpeedDelta;
+      if (userPokemonTransientExtraAccuracyDelta != 0)
+        playerPokemonTransientExtraAccuracy_ += userPokemonTransientExtraAccuracyDelta;
+      if (userPokemonTransientExtraEvasionDelta != 0)
+        playerPokemonTransientExtraEvasion_ += userPokemonTransientExtraEvasionDelta;
+    }
+    else {
+      if (opposingPokemonStatusDelta != 0) playerPokemonStatus_ |= opposingPokemonStatusDelta;
+      if (opposingPokemonHPDelta != 0)     playerPokemonHP      += opposingPokemonHPDelta;
+      if (opposingPokemonTransientExtraAttackDelta != 0)
+        playerPokemonTransientExtraAttack_ += opposingPokemonTransientExtraAttackDelta;
+      if (opposingPokemonTransientExtraDefenseDelta != 0)
+        playerPokemonTransientExtraDefense_ += opposingPokemonTransientExtraDefenseDelta;
+      if (opposingPokemonTransientExtraSpeAttackDelta != 0)
+        playerPokemonTransientExtraSpeAttack_ += opposingPokemonTransientExtraSpeAttackDelta;
+      if (opposingPokemonTransientExtraSpeDefenseDelta != 0)
+        playerPokemonTransientExtraSpeDefense_ += opposingPokemonTransientExtraSpeDefenseDelta;
+      if (opposingPokemonTransientExtraSpeedDelta != 0)
+        playerPokemonTransientExtraSpeed_ += opposingPokemonTransientExtraSpeedDelta;
+      if (opposingPokemonTransientExtraAccuracyDelta != 0)
+        playerPokemonTransientExtraAccuracy_ += opposingPokemonTransientExtraAccuracyDelta;
+      if (opposingPokemonTransientExtraEvasionDelta != 0)
+        playerPokemonTransientExtraEvasion_ += opposingPokemonTransientExtraEvasionDelta;
+      
+      if (userPokemonStatusDelta != 0) enemyPokemonStatus_ |= userPokemonStatusDelta;
+      if (userPokemonHPDelta != 0)     enemyPokemonHP      += userPokemonHPDelta;
+      if (userPokemonTransientExtraAttackDelta != 0)
+        enemyPokemonTransientExtraAttack_ += userPokemonTransientExtraAttackDelta;
+      if (userPokemonTransientExtraDefenseDelta != 0)
+        enemyPokemonTransientExtraDefense_ += userPokemonTransientExtraDefenseDelta;
+      if (userPokemonTransientExtraSpeAttackDelta != 0)
+        enemyPokemonTransientExtraSpeAttack_ += userPokemonTransientExtraSpeAttackDelta;
+      if (userPokemonTransientExtraSpeDefenseDelta != 0)
+        enemyPokemonTransientExtraSpeDefense_ += userPokemonTransientExtraSpeDefenseDelta;
+      if (userPokemonTransientExtraSpeedDelta != 0)
+        enemyPokemonTransientExtraSpeed_ += userPokemonTransientExtraSpeedDelta;
+      if (userPokemonTransientExtraAccuracyDelta != 0)
+        enemyPokemonTransientExtraAccuracy_ += userPokemonTransientExtraAccuracyDelta;
+      if (userPokemonTransientExtraEvasionDelta != 0)
+        enemyPokemonTransientExtraEvasion_ += userPokemonTransientExtraEvasionDelta;
+    }
+    // Fix HP value to make sure it is in range of [0, max]
+    if (playerPokemonHP < 0) playerPokemonHP = 0;
+    if (enemyPokemonHP  < 0) enemyPokemonHP  = 0;
+    NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
+    if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
+    NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
+    if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
+  };
+  
+  // Update values for player & enemy pokemon
+  if (moveRealTarget & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
+    if (user_ == kGameSystemProcessUserPlayer)     updateValues(kMoveRealTargetEnemy);
+    else                                           updateValues(kMoveRealTargetPlayer);
+  }
+  else if (moveRealTarget & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
+  else if (moveRealTarget & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
+  
+  // Set HP back to |playerPokemon_| & |enemyPokemon_|
   self.playerPokemon.currHP = [NSNumber numberWithInt:playerPokemonHP];
   self.enemyPokemon.currHP  = [NSNumber numberWithInt:enemyPokemonHP];
   
