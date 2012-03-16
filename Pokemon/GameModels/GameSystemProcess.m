@@ -55,8 +55,23 @@ typedef enum {
 
 @interface GameSystemProcess () {
 @private
+  // Pokemon transient status
   PokemonStatus playerPokemonStatus_;
+  NSInteger     playerPokemonTransientExtraAttack_;
+  NSInteger     playerPokemonTransientExtraDefense_;
+  NSInteger     playerPokemonTransientExtraSpeAttack_;
+  NSInteger     playerPokemonTransientExtraSpeDefense_;
+  NSInteger     playerPokemonTransientExtraSpeed_;
+  NSInteger     playerPokemonTransientExtraAccuracy_;
+  NSInteger     playerPokemonTransientExtraEvasion_;
   PokemonStatus enemyPokemonStatus_;
+  NSInteger     enemyPokemonTransientExtraAttack_;
+  NSInteger     enemyPokemonTransientExtraDefense_;
+  NSInteger     enemyPokemonTransientExtraSpeAttack_;
+  NSInteger     enemyPokemonTransientExtraSpeDefense_;
+  NSInteger     enemyPokemonTransientExtraSpeed_;
+  NSInteger     enemyPokemonTransientExtraAccuracy_;
+  NSInteger     enemyPokemonTransientExtraEvasion_;
   
   GameSystemProcessType processType_; // What action process the system to deal with
   GameSystemProcessUser user_; // Action (use move, bag item, etc) user
@@ -66,15 +81,20 @@ typedef enum {
   NSInteger delayTime_; // Delay time for every turn
 }
 
-@property (nonatomic, assign) PokemonStatus playerPokemonStatus;
-@property (nonatomic, assign) PokemonStatus enemyPokemonStatus;
-
-@property (nonatomic, assign) GameSystemProcessType processType;
-@property (nonatomic, assign) GameSystemProcessUser user;
-@property (nonatomic, assign) NSInteger moveIndex;
-
 - (void)fight;
 - (void)calculateEffectForMove:(Move *)move;
+//- (void)MoveTargetSinglePokemonOtherThanTheUser;
+//- (void)MoveTargetNone;
+//- (void)MoveTargetOneOpposingPokemonSelectedAtRandom;
+//- (void)MoveTargetAllOpposingPokemon;
+//- (void)MoveTargetAllPokemonOtherThanTheUser;
+//- (void)MoveTargetUser;
+//- (void)MoveTargetBothSides;
+//- (void)MoveTargetUserSide;
+//- (void)MoveTargetOpposingPokemonSide;
+//- (void)MoveTargetUserPartner;
+//- (void)MoveTargetPlayerChoiceOfUserOrUserPartner;
+//- (void)MoveTargetSinglePokemonOnOpponentSide;
 - (void)useBagItem;
 - (void)replacePokemon;
 - (void)run;
@@ -87,13 +107,6 @@ typedef enum {
 
 @synthesize playerPokemon = playerPokemon_;
 @synthesize enemyPokemon  = enemyPokemon_;
-
-@synthesize playerPokemonStatus = playerPokemonStatus_;
-@synthesize enemyPokemonStatus  = enemyPokemonStatus_;
-
-@synthesize processType = processType_;
-@synthesize user        = user_;
-@synthesize moveIndex   = moveIndex_;
 
 static GameSystemProcess * gameSystemProcess = nil;
 
@@ -116,9 +129,6 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (id)init {
   if (self = [super init]) {
     [self reset];
-    
-    playerPokemonStatus_ = kPokemonStatusNormal;
-    enemyPokemonStatus_  = kPokemonStatusNormal;
     
     processType_ = kGameSystemProcessTypeNone;
     user_        = kGameSystemProcessUserNone;
@@ -145,7 +155,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self reset];
   }
   else {
-    switch (self.processType) {
+    switch (processType_) {
       case kGameSystemProcessTypeFight:
         [self fight];
         break;
@@ -173,12 +183,30 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)reset {
   complete_  = NO;
   delayTime_ = 0;
+  
+  // Set transient status for pokemons
+  playerPokemonStatus_                   = kPokemonStatusNormal;
+  playerPokemonTransientExtraAttack_     = 0;
+  playerPokemonTransientExtraDefense_    = 0;
+  playerPokemonTransientExtraSpeAttack_  = 0;
+  playerPokemonTransientExtraSpeDefense_ = 0;
+  playerPokemonTransientExtraSpeed_      = 0;
+  playerPokemonTransientExtraAccuracy_   = 0;
+  playerPokemonTransientExtraEvasion_    = 0;
+  enemyPokemonStatus_                    = kPokemonStatusNormal;
+  enemyPokemonTransientExtraAttack_      = 0;
+  enemyPokemonTransientExtraDefense_     = 0;
+  enemyPokemonTransientExtraSpeAttack_   = 0;
+  enemyPokemonTransientExtraSpeDefense_  = 0;
+  enemyPokemonTransientExtraSpeed_       = 0;
+  enemyPokemonTransientExtraAccuracy_    = 0;
+  enemyPokemonTransientExtraEvasion_     = 0;
 }
 
 // Fight
 - (void)fight
 {
-  if (self.user == kGameSystemProcessUserNone || self.moveIndex == 0) {
+  if (user_ == kGameSystemProcessUserNone || moveIndex_ == 0) {
      NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
     return;
   }
@@ -190,8 +218,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   //
   // Case the move user is Player
   //
-  if (self.user == kGameSystemProcessUserPlayer) {
-    move = [self.playerPokemon moveWithIndex:self.moveIndex];
+  if (user_ == kGameSystemProcessUserPlayer) {
+    move = [self.playerPokemon moveWithIndex:moveIndex_];
     
     // Calculate the effect of move
     [self calculateEffectForMove:move];
@@ -215,8 +243,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   //
   // Case the move user is Enemy
   //
-  else if (self.user == kGameSystemProcessUserEnemy) {
-    move = [self.enemyPokemon moveWithIndex:self.moveIndex];
+  else if (user_ == kGameSystemProcessUserEnemy) {
+    move = [self.enemyPokemon moveWithIndex:moveIndex_];
     
     // Post Message
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -475,27 +503,27 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex
 {
-  self.processType = kGameSystemProcessTypeFight;
-  self.user        = user;
-  self.moveIndex   = moveIndex;
+  processType_ = kGameSystemProcessTypeFight;
+  user_        = user;
+  moveIndex_   = moveIndex;
 }
 
 - (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
 {
-  self.processType = kGameSystemProcessTypeUseBagItem;
-  self.user        = user;
+  processType_ = kGameSystemProcessTypeUseBagItem;
+  user_        = user;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
 {
-  self.processType = kGameSystemProcessTypeReplacePokemon;
-  self.user        = user;
+  processType_ = kGameSystemProcessTypeReplacePokemon;
+  user_        = user;
 }
 
 - (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user
 {
-  self.processType = kGameSystemProcessTypeRun;
-  self.user        = user;
+  processType_ = kGameSystemProcessTypeRun;
+  user_        = user;
 }
 
 @end
