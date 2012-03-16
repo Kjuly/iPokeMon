@@ -62,10 +62,10 @@ typedef enum {
   NSInteger     enemyPokemonTransientEvasion_;
   
   GameSystemProcessType processType_; // What action process the system to deal with
-  GameSystemProcessUser user_; // Action (use move, bag item, etc) user
-  NSInteger moveIndex_;        // If the action is using move, it's used
+  GameSystemProcessUser user_;        // Action (use move, bag item, etc) user
+  NSInteger             moveIndex_;   // If the action is using move, it's used
   
-  BOOL      complete_;
+  BOOL      complete_;  // Mark for system turn end
   NSInteger delayTime_; // Delay time for every turn
 }
 
@@ -179,6 +179,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 #pragma mark - Private Methods
 
 // Set transient status for pokemons
+//
 // Pokemons stats:
 //   0. HP
 //   1. Attack
@@ -189,12 +190,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 // 
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
   NSArray * stats;
-  if (user == kGameSystemProcessUserPlayer) {
-    stats = self.playerPokemon.maxStats;
-  }
-  else if (user == kGameSystemProcessUserEnemy) {
-    stats = self.enemyPokemon.maxStats;
-  }
+  if (user == kGameSystemProcessUserPlayer)     stats = self.playerPokemon.maxStats;
+  else if (user == kGameSystemProcessUserEnemy) stats = self.enemyPokemon.maxStats;
   else return;
   enemyPokemonStatus_               = kPokemonStatusNormal;
   playerPokemonTransientAttack_     = [[stats objectAtIndex:1] intValue];
@@ -440,8 +437,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // Move calculation result values
   // Delta values for user's & opposing pokemon
-  __block PokemonStatus userPokemonStatusDelta                       = 0;
-  __block NSInteger     userPokemonHPDelta                           = 0;
+  __block PokemonStatus userPokemonStatusDelta                  = 0;
+  __block NSInteger     userPokemonHPDelta                      = 0;
   __block NSInteger     userPokemonTransientAttackDelta         = 0;
   __block NSInteger     userPokemonTransientDefenseDelta        = 0;
   __block NSInteger     userPokemonTransientSpeAttackDelta      = 0;
@@ -449,8 +446,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   __block NSInteger     userPokemonTransientSpeedDelta          = 0;
   __block NSInteger     userPokemonTransientAccuracyDelta       = 0;
   __block NSInteger     userPokemonTransientEvasionDelta        = 0;
-  __block PokemonStatus opposingPokemonStatusDelta                   = 0;
-  __block NSInteger     opposingPokemonHPDelta                       = 0;
+  __block PokemonStatus opposingPokemonStatusDelta              = 0;
+  __block NSInteger     opposingPokemonHPDelta                  = 0;
   __block NSInteger     opposingPokemonTransientAttackDelta     = 0;
   __block NSInteger     opposingPokemonTransientDefenseDelta    = 0;
   __block NSInteger     opposingPokemonTransientSpeAttackDelta  = 0;
@@ -469,11 +466,11 @@ static GameSystemProcess * gameSystemProcess = nil;
   BOOL valuesHaveBeenCalculated = NO; 
   
   // Calculate the damage
-  NSInteger moveDamage = [self calculateDamageForMove:move];        // Move damage
+  NSInteger moveDamage = [self calculateDamageForMove:move];    // Move damage
   
-  float          randomValue        = arc4random() % 1000 / 10;     // Random value for calculating % chance
-  NSInteger      stage              = 1;                            // Used in "Raises Attack UP 1 Stage"
-  MoveRealTarget statusUpdateTarget = moveRealTarget;               // Target for updating pokemon status
+  float          randomValue        = arc4random() % 1000 / 10; // Random value for calculating % chance
+  NSInteger      stage              = 1;                        // Used in "Raises Attack UP 1 Stage"
+  MoveRealTarget statusUpdateTarget = moveRealTarget;           // Target for updating pokemon status
   
   // Calculation based on the move effect code
   switch ([move.effectCode intValue]) {
@@ -1133,6 +1130,10 @@ static GameSystemProcess * gameSystemProcess = nil;
   if ([move.baseDamage intValue] == 0)
     return 0;
   
+  //
+  // TODO:
+  //   Add more elements into the formular
+  //
   NSInteger damage
   = round(
           [move.baseDamage intValue] // Base damage
