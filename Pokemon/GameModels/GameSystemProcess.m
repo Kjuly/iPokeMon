@@ -444,28 +444,38 @@ static GameSystemProcess * gameSystemProcess = nil;
   __block NSInteger     opposingPokemonTransientExtraAccuracyDelta   = 0;
   __block NSInteger     opposingPokemonTransientExtraEvasionDelta    = 0;
   
-  float randomValue         = arc4random() % 1000 / 10;             // Random value for calculating % chance
-  MoveRealTarget statusUpdateTarget = moveRealTarget;               // Target for updating pokemon status
+  // Player & enemy pokemon's HP
+  __block NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue];
+  __block NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue];
+  
+  // Some type of move effect need to be calculated depend on current status,
+  // so, if values are calculated in |switch ([move.effectCode intValue])| directly,
+  // there's no need to call |^updateValues| block anymore, so mark it.
+  BOOL valuesHaveBeenCalculated = NO; 
   
   // Calculate the damage
   NSInteger moveDamage = [self calculateDamageForMove:move];        // Move damage
   
+  float          randomValue        = arc4random() % 1000 / 10;     // Random value for calculating % chance
+  NSInteger      stage              = 1;                            // Used in "Raises Attack UP 1 Stage"
+  MoveRealTarget statusUpdateTarget = moveRealTarget;               // Target for updating pokemon status
+  
   // Calculation based on the move effect code
   switch ([move.effectCode intValue]) {
-    case 0x00:
+    case 0x00: // Normal Damage (e.g. Pound)
       opposingPokemonHPDelta -= moveDamage;
       break;
       
-    case 0x01:
+    case 0x01: // Puts Enemy to Sleep, no damage
       opposingPokemonStatusDelta |= kPokemonStatusSleep;
       break;
       
-    case 0x02:
+    case 0x02: // 29.8% Chance of Poison (e.g. Poison Sting)
       opposingPokemonHPDelta -= moveDamage;
       if (randomValue <= 29.8) opposingPokemonStatusDelta |= kPokemonStatusPoison;
       break;
       
-    case 0x03:
+    case 0x03: // Absorbs half of damage inflicted (e.g. Mega Drain)
       opposingPokemonHPDelta -= moveDamage;
       userPokemonHPDelta     += round(moveDamage / 2);
       
@@ -473,268 +483,542 @@ static GameSystemProcess * gameSystemProcess = nil;
       statusUpdateTarget = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
       break;
       
-    case 0x04:
+    case 0x04: // 9.8% Chance of Burn (e.g. Ember)
       opposingPokemonHPDelta -= moveDamage;
       if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusBurn;
       break;
       
-    case 0x05:
+    case 0x05: // 9.8% Chance of Freeze (e.g. Ice Beam)
       opposingPokemonHPDelta -= moveDamage;
       if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusFreeze;
       break;
       
-    case 0x06:
+    case 0x06: // 9.8% Chance of Paralyze (e.g. Thunderbolt)
       opposingPokemonHPDelta -= moveDamage;
       if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusParalyze;
       break;
       
-    case 0x07:
+    case 0x07: // Opponent's defense is halved during attack, user faints (e.g. Explosion)
+      if (moveRealTarget == kMoveRealTargetEnemy) {
+        enemyPokemonTransientExtraDefense_ /= 2;
+        playerPokemonHP = 0;
+      }
+      else {
+        playerPokemonTransientExtraDefense_ /= 2;
+        enemyPokemonHP = 0;
+      }
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x08:
+    case 0x08: // Absorbs half of damage inflicted, only works if opponent is sleeping (e.g. Dream Eater)
+      if (moveRealTarget == kMoveRealTargetEnemy) {
+        if (enemyPokemonStatus_ & kPokemonStatusSleep) {
+          enemyPokemonHP  -= moveDamage;
+          playerPokemonHP += moveDamage / 2;
+        }
+      }
+      else {
+        if (playerPokemonStatus_ & kPokemonStatusSleep) {
+          playerPokemonHP -= moveDamage;
+          enemyPokemonHP  += moveDamage / 2;
+        }
+      }
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x09:
+    case 0x09: // User uses last attack used (e.g. Mirror Move)
+      //
+      // TODO:
+      //   It needs last move opposing pokemon used,
+      //   So, need an iVar
+      //
       break;
       
-    case 0x0A:
+    case 0x0A: // Raises Attack UP 1 Stage (e.g. Meditate)
+      userPokemonTransientExtraAttackDelta += stage;
       break;
       
-    case 0x0B:
+    case 0x0B: // Raises Defense UP 1 Stage (e.g. Harden)
+      userPokemonTransientExtraDefenseDelta += stage;
       break;
       
-    //case 0x0C:
+    //case 0x0C: // Raises Speed UP 1 Stage (e.g. None)
+      //userPokemonTransientExtraSpeedDelta += stage;
       //break;
       
-    case 0x0D:
+    case 0x0D: // Raises Special UP 1 Stage (e.g. Growth)
+      userPokemonTransientExtraSpeAttackDelta  += stage;
+      userPokemonTransientExtraSpeDefenseDelta += stage;
       break;
       
-    //case 0x0E:
+    //case 0x0E: // Raises Accuracy UP 1 Stage (e.g. None)
+      //userPokemonTransientExtraAccuracyDelta += stage;
       //break;
       
-    case 0x0F:
+    case 0x0F: // Raises Evasion UP 1 Stage (e.g. Double Team)
+      userPokemonTransientExtraEvasionDelta += stage;
       break;
       
-    case 0x10:
+    case 0x10: // Gain money after battle (User's Level*2*Number of uses) (e.g. Pay Day)
+      //
+      // TODO:
+      //   Money?
+      //   So, need an iVar
+      //
       break;
       
-    case 0x11:
+    case 0x11: // 99.6% of hitting the opponent (Ignores Stat changes, hits flying/digging opponents) (e.g. Swift)
+      //
+      // DOUBT:
+      //   Target = 4
+      //   Should it be the same as 0x00?
+      //
+      opposingPokemonHPDelta -= moveDamage;
       break;
       
-    case 0x12:
+    case 0x12: // Lowers Attack DOWN 1 Stage (Probability = Hit Chance)
+      opposingPokemonTransientExtraAttackDelta -= stage;
       break;
       
-    case 0x13:
+    case 0x13: // Lowers Defense DOWN 1 Stage (Probability = Hit Chance)
+      opposingPokemonTransientExtraDefenseDelta -= stage;
       break;
       
-    case 0x14:
+    case 0x14: // Lowers Speed DOWN 1 Stage (Probability = Hit Chance)
+      opposingPokemonTransientExtraSpeedDelta -= stage;
       break;
       
-    //case 0x15:
+    //case 0x15: // - Lowers Special DOWN 1 Stage (Probability = Hit Chance)
+      //opposingPokemonTransientExtraSpeAttackDelta  -= stage;
+      //opposingPokemonTransientExtraSpeDefenseDelta -= stage;
       //break;
       
-    case 0x16:
+    case 0x16: // Lowers Accuracy DOWN 1 Stage (Probability = Hit Chance)
+      opposingPokemonTransientExtraAccuracyDelta -= stage;
       break;
       
-    //case 0x17:
+    //case 0x17: // Lowers Evasion DOWN 1 Stage (Probability = Hit Chance)
+      //opposingPokemonTransientExtraEvasionDelta -= stage;
       //break;
       
-    case 0x18:
+    case 0x18: // Change user's type to match Opponent's (e.g. Conversion)
+               // 将自身属性变为自身其中一个招式的属性?
+      //
+      // TODO:
+      //   Not sure for this effect, the Pokemon is ３Ｄ龙.
+      //
       break;
       
-    case 0x19:
+    case 0x19: // Removes all stat changes, returns opponent's status to Normal (e.g. Haze)
+      playerPokemonStatus_                   = kPokemonStatusNormal;
+      playerPokemonTransientExtraAttack_     = 0;
+      playerPokemonTransientExtraDefense_    = 0;
+      playerPokemonTransientExtraSpeAttack_  = 0;
+      playerPokemonTransientExtraSpeDefense_ = 0;
+      playerPokemonTransientExtraSpeed_      = 0;
+      playerPokemonTransientExtraAccuracy_   = 0;
+      playerPokemonTransientExtraEvasion_    = 0;
+      enemyPokemonStatus_                    = kPokemonStatusNormal;
+      enemyPokemonTransientExtraAttack_      = 0;
+      enemyPokemonTransientExtraDefense_     = 0;
+      enemyPokemonTransientExtraSpeAttack_   = 0;
+      enemyPokemonTransientExtraSpeDefense_  = 0;
+      enemyPokemonTransientExtraSpeed_       = 0;
+      enemyPokemonTransientExtraAccuracy_    = 0;
+      enemyPokemonTransientExtraEvasion_     = 0;
+      
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x1A:
+    case 0x1A: // User doesn't attack for 2-3 turns, then returns double the damage taken (e.g. Bide)
+      //
+      // TODO:
+      //   Need turn counter to remember the move effect
+      //
       break;
       
-    case 0x1B:
+    case 0x1B: // Attacks 2-3 times, afterwards user becomes Confused (e.g. Thrash)
+      //
+      // TODO:
+      //   Need move apply times counter to count the attacks
+      //   Also, determine the time number
+      //   Currently, only once
+      //
+      opposingPokemonHPDelta -= moveDamage;
+      opposingPokemonStatusDelta |= kPokemonStatusConfused;
       break;
       
-    case 0x1C:
+    case 0x1C: // Ends battle (Probability = Hit Chance) (e.g. Teleport)
+      //
+      // TODO:
+      //   Same action like run, but has its own probability
+      //
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x1D:
+    case 0x1D: // Attacks 2-5 Times in one turn (e.g. Fury Swipes)
+      //
+      // TODO: (like 0x1B)
+      //   Need move apply times counter to count the attacks
+      //   Also, determine the time number
+      //   Currently, only once
+      //
+      opposingPokemonHPDelta -= moveDamage;
       break;
       
-    //case 0x1E:
+    //case 0x1E: // Attacks 2-5 Turns (e.g. None)
       //break;
       
-    case 0x1F:
+    case 0x1F: // 9.8% Chance of Flinch (e.g. Bite)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusFlinch;
       break;
       
-    case 0x20:
+    case 0x20: // Chance of putting opponent to Sleep for 1-7 Turns (Probability = Hit Chance) (e.g. Sleep Powder)
+      // The probability here is |move.hitChance|
+      opposingPokemonStatusDelta |= kPokemonStatusSleep;
       break;
       
-    case 0x21:
+    case 0x21: // 40% Chance of Poison (e.g. Smog)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 40) opposingPokemonStatusDelta |= kPokemonStatusPoison;
       break;
       
-    case 0x22:
+    case 0x22: // 30.1% Chance of Burn (e.g. Fire Blast)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 30.1) opposingPokemonStatusDelta |= kPokemonStatusBurn;
       break;
       
-    //case 0x23:
+    //case 0x23: // 30.1% Chance of Freeze (e.g. None)
+      //opposingPokemonHPDelta -= moveDamage;
+      //if (randomValue <= 30.1) opposingPokemonStatusDelta |= kPokemonStatusFreeze;
       //break;
       
-    case 0x24:
+    case 0x24: // 30.1% Chance of Paralyze (e.g. Body Slam)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 30.1) opposingPokemonStatusDelta |= kPokemonStatusParalyze;
       break;
       
-    case 0x25:
+    case 0x25: // 30.1% Chance of Flinch (e.g. Stomp)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 30.1) opposingPokemonStatusDelta |= kPokemonStatusFlinch;
       break;
       
-    case 0x26:
+    case 0x26: // OHKO (One Hit Knock Out) (e.g. Fissure)
+      if (moveRealTarget == kMoveRealTargetEnemy) enemyPokemonHP  = 0;
+      else                                        playerPokemonHP = 0;
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x27:
+    case 0x27: // Charges for one turn, attacks on the next (e.g. Razor Wind)
+      //
+      // TODO:
+      //   Turn counter, move remember
+      //
       break;
       
-    case 0x28:
+    case 0x28: // Deals set damage, leaves 1HP (e.g. Super Fang)
+               // 敌HP减半，但不会减为0
+      if (moveRealTarget == kMoveRealTargetEnemy) {
+        enemyPokemonHP /= 2;
+        if (enemyPokemonHP <= 0) enemyPokemonHP = 1;
+      }
+      else {
+        playerPokemonHP /= 2;
+        if (playerPokemonHP <= 0) playerPokemonHP = 1;
+      }
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x29:
+    case 0x29: // Deals set damage (Special equation depending on move?) (e.g. Seismic Toss, Dragon Rage, Psywave)
+               // 给予对手40HP的固定伤害
+      opposingPokemonHPDelta -= 40;
       break;
       
-    case 0x2A:
+    case 0x2A: // Attack 2-5 times, prevents opponent from attacking (e.g. Wrap)
+               // 2至5回合敌无法交换妖怪，每回合敌HP损失最大值的1/16
+      //
+      // TODO:
+      //   It's a special move..
+      //
       break;
       
-    case 0x2B:
+    case 0x2B: // Charges for one turn, attacks on the next (Can't be hit during) (e.g. Fly)
+      //
+      // TODO:
+      //   Like 0x27, but can't be hit during
+      //
       break;
       
-    case 0x2C:
+    case 0x2C: // Attacks 2 times (e.g. Double Kick)
+      //
+      // TODO:
+      //   Attacks mutilpe times..
+      //   Currently just once
+      //
+      opposingPokemonHPDelta -= moveDamage;
       break;
       
-    case 0x2D:
+    case 0x2D: // If user misses, 1 damage to user (e.g. Jump Kick)
+               // 攻击失误的话自身要受伤害的1/2
+      if (randomValue <= [move.hitChance intValue])
+        opposingPokemonHPDelta -= moveDamage;
+      else userPokemonHPDelta -= moveDamage / 2;
       break;
       
-    case 0x2E:
+    case 0x2E: // Evade effects that lower stats (e.g. Mist)
+               // 5回合内，已方不会受别人能力下降的技能影响，交换精灵效果持续 (白雾)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x2F:
+    case 0x2F: // No effect if user is faster than opponent.
+               // If user is slower, Critical Hit ratio goes to 0/511
+               // (In other words, completely broken) (e.g. Focus Energy)
+               // 使用后攻击容易会心一击 (蓄气)
+      //
+      // TODO:
+      //   Add iVar for probability of a critical hit?
+      //
       break;
       
-    case 0x30:
+    case 0x30: // User receives Recoil damage equal to 1/4 the damage dealed (e.g. Take Down)
+               // 全部技能PP用完时使用的技能，每次攻击将损失HP最大值的1/4，无视敌属性
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x31:
+    case 0x31: // Chance of Confusion (Probability = Hit Chance) (e.g. Supersonic)
+      opposingPokemonStatusDelta |= kPokemonStatusConfused;
       break;
       
-    case 0x32:
+    case 0x32: // Raises Attack UP 2 Stages (e.g. Swords Dance)
+      userPokemonTransientExtraAttackDelta += 2 * stage;
       break;
       
-    case 0x33:
+    case 0x33: // Raises Defense UP 2 Stages (e.g. Barrier)
+      userPokemonTransientExtraDefenseDelta += 2 * stage;
       break;
       
-    case 0x34:
+    case 0x34: // Raises Speed UP 2 Stages (e.g. Agility)
+      userPokemonTransientExtraSpeedDelta += 2 * stage;
       break;
       
-    case 0x35:
+    case 0x35: // Raises Special UP 2 Stages (e.g. Amnesia)
+      userPokemonTransientExtraSpeAttackDelta  += 2 * stage;
+      userPokemonTransientExtraSpeDefenseDelta += 2 * stage;
       break;
       
-    //case 0x36:
+    //case 0x36: // Raises Accuracy UP 2 Stages (e.g. None)
+      //userPokemonTransientExtraAccuracyDelta += 2 * stage;
       //break;
       
-    //case 0x37:
+    //case 0x37: // Raises Evasion UP 2 Stages (e.g. None)
+      //userPokemonTransientExtraEvasionDelta += 2 * stage;
       //break;
       
-    case 0x38:
+    case 0x38: // User Recovers HP (Excluding rest HP = Max HP/2) (Examples: Recover, Rest)
+               // 自身回复最大HP的1/2 (自我再生)
+      if (moveRealTarget == kMoveRealTargetEnemy) {
+        NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
+        enemyPokemonHP += enemyPokemonHPMax / 2;
+        if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
+      }
+      else {
+        NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
+        playerPokemonHP += playerPokemonHPMax / 2;
+        if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
+      }
+      // Values have been calculated
+      valuesHaveBeenCalculated = YES;
       break;
       
-    case 0x39:
+    case 0x39: // Transform into opponent, inheriting all stats (e.g. Transform)
+               // 战斗中暂时复制对手外观、No.、能力(HP除外)、招式、个体值、能力等级、特性、属性 (变身)
+      //
+      // TODO:
+      //   Copy all.
+      //   Use real value for attack, defense, speed, etc, not extra?
+      //
       break;
       
-    //case 0x3A:
+    //case 0x3A: // Lowers Attack DOWN 2 Stages (Probability = Hit Chance)
+      //opposingPokemonTransientExtraAttackDelta -= 2 * stage;
       //break;
       
-    case 0x3B:
+    case 0x3B: // Lowers Defense DOWN 2 Stages (Probability = Hit Chance)
+      opposingPokemonTransientExtraDefenseDelta -= 2 * stage;
       break;
       
-    //case 0x3C:
+    //case 0x3C: // Lowers Speed DOWN 2 Stages (Probability = Hit Chance)
+      //opposingPokemonTransientExtraSpeedDelta -= 2 * stage;
       //break;
       
-    //case 0x3D:
+    //case 0x3D: // Lowers Special DOWN 2 Stages (Probability = Hit Chance)
+      //opposingPokemonTransientExtraSpeAttackDelta  -= 2 * stage;
+      //opposingPokemonTransientExtraSpeDefenseDelta -= 2 * stage;
       //break;
       
-    //case 0x3E:
+    //case 0x3E: // Lowers Accuracy DOWN 2 Stages (Probability = Hit Chance)
+      //opposingPokemonTransientExtraAccuracyDelta -= 2 * stage;
       //break;
       
-    //case 0x3F:
+    //case 0x3F: // Lowers Evasion DOWN 2 Stages (Probability = Hit Chance)
+      //opposingPokemonTransientExtraEvasionDelta -= 2 * stage;
       //break;
       
-    case 0x40:
+    case 0x40: // Doubles Special when being attacked (e.g. Light Screen)
+               // 5回合内，我方受到特殊攻击时伤害减半(也就特殊防御加倍？)，交换效果持续；双打时伤害为2/3 (光之壁 target-40)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x41:
+    case 0x41: // Doubles Defense when being attacked (e.g. Reflect)
+               // 5回合内，我方受到物理攻击时伤害减半(也就普通防御加倍?)，交换效果持续；双打时伤害为2/3
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x42:
+    case 0x42: // Chance to Poison (Probability = Hit Chance) (e.g. Poison Gas)
+      opposingPokemonStatusDelta |= kPokemonStatusPoison;
       break;
       
-    case 0x43:
+    case 0x43: // Chance to Paralyze (Probability = Hit Chance) (e.g. Stun Spore)
+      opposingPokemonStatusDelta |= kPokemonStatusParalyze;
       break;
       
-    case 0x44:
+    case 0x44: // 9.8% Chance of lowering Attack DOWN 1 Stage
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonTransientExtraAttackDelta -= stage;
       break;
       
-    case 0x45:
+    case 0x45: // 9.8% Chance of lowering Defence DOWN 1 Stage
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonTransientExtraDefenseDelta -= stage;
       break;
       
-    case 0x46:
+    case 0x46: // 9.8% Chance of lowering Speed DOWN 1 Stage
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonTransientExtraSpeedDelta -= stage;
       break;
       
-    case 0x47:
+    case 0x47: // 29.8% Chance of lowering Special DOWN 1 Stage
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 29.8) {
+        opposingPokemonTransientExtraSpeAttackDelta -= stage;
+        opposingPokemonTransientExtraDefenseDelta   -= stage;
+      }
       break;
       
-    //case 0x48:
+    //case 0x48: // 9.8%? Chance of lowering Accuracy DOWN 1 Stage
+      //opposingPokemonHPDelta -= moveDamage;
+      //if (randomValue <= 9.8) opposingPokemonTransientExtraAccuracyDelta -= stage;
       //break;
       
-    //case 0x49:
+    //case 0x49: // 9.8%? Chance of lowering Evasion DOWN 1 Stage
+      //opposingPokemonHPDelta -= moveDamage;
+      //if (randomValue <= 9.8) opposingPokemonTransientExtraEvasionDelta -= stage;
       //break;
       
-    //case 0x4A:
+    //case 0x4A: // None
       //break;
       
-    //case 0x4B:
+    //case 0x4B: // None
       //break;
       
-    case 0x4C:
+    case 0x4C: // 9.8% Chance of Confusion (e.g. Confusion)
+      opposingPokemonHPDelta -= moveDamage;
+      if (randomValue <= 9.8) opposingPokemonStatusDelta |= kPokemonStatusConfused;
       break;
       
-    case 0x4D:
+    case 0x4D: // Attacks 2 times, 19.8% chance of Poison (e.g. Twineedle)
+      //
+      // TODO:
+      //   Attack times...
+      //
+      if (randomValue <= 19.8) opposingPokemonStatusDelta |= kPokemonStatusPoison;
       break;
       
-    //case 0x4E:
+    //case 0x4E: // Game crashes after attack?!
       //break;
       
-    case 0x4F:
+    case 0x4F: // Creates close of user, user HP decreases about 1/4 (e.g. Substitute)
+               // 自身使用最大HP的1/4制造替身，替身会替自身抵受攻击，直至替身0HP(最大HP的1/4) (替身)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x50:
+    case 0x50: // User can't attack second turn if opponent doesn't faint (e.g. Hyper Beam)
+               // 一回合攻击，次回合不能行动(攻击失误不计) (破坏死光)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x51:
+    case 0x51: // User's attack raises UP 1 stage each time user is hit, can't be cancelled (e.g. Rage)
+               // 如果受到攻击，连续使用威力倍增(攻击失误或没有受到攻击效果取消) (愤怒)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x52:
+    case 0x52: // Move is replaced by chosen move of opponent's for the rest of the battle or until switched (e.g. Mimic)
+               // 只在当次战斗中学会敌人最后使用的技能，PP为5 (模仿)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x53:
+    case 0x53: // Uses a random attack (e.g. Metronome)
+               // 随机使出任意一个技能 (摇手指)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x54:
+    case 0x54: // Absorbs HP each turn (About 1/16 of enemy HP) (e.g. Leech Seed)
+               // 每回合吸取对方最大HP的1/8 (1/16?)，对草系无效；巨大根茎可提升回复量。 (寄生种子)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
-    case 0x55:
+    case 0x55: // No effect (e.g. Splash)
+               // 鲤鱼王（水溅跃）
       break;
       
-    case 0x56:
+    case 0x56: // Disables a random attack of the opponent for 2-5 turns (e.g. Disable)
+               // 令对手最后使用的技能在2~5回合内不能使用 (束缚)
+      //
+      // TODO:
+      //   Special move..
+      //
       break;
       
     default:
       break;
   }
-  
-  // Player & enemy pokemon's HP
-  __block NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue];
-  __block NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue];
   
   // Block to set values
   void (^updateValues)(MoveRealTarget) = ^(MoveRealTarget target) {
@@ -817,13 +1101,16 @@ static GameSystemProcess * gameSystemProcess = nil;
     if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
   };
   
-  // Update values for player & enemy pokemon
-  if (moveRealTarget & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
-    if (user_ == kGameSystemProcessUserPlayer)     updateValues(kMoveRealTargetEnemy);
-    else                                           updateValues(kMoveRealTargetPlayer);
+  // If |valueHasBeenCalculated == NO|, i.e. value need to be calculated next
+  if (! valuesHaveBeenCalculated) {
+    // Update values for player & enemy pokemon
+    if (moveRealTarget & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
+      if (user_ == kGameSystemProcessUserPlayer)     updateValues(kMoveRealTargetEnemy);
+      else                                           updateValues(kMoveRealTargetPlayer);
+    }
+    else if (moveRealTarget & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
+    else if (moveRealTarget & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
   }
-  else if (moveRealTarget & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
-  else if (moveRealTarget & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
   
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
   self.playerPokemon.currHP = [NSNumber numberWithInt:playerPokemonHP];
