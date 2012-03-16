@@ -52,6 +52,13 @@ typedef enum {
   kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokemon on opponent's side (e.g. Me First)
 }MoveTarget;
 
+// Move Real Target
+typedef enum {
+  kMoveRealTargetNone   = 0,
+  kMoveRealTargetEnemy  = 1 << 0,
+  kMoveRealTargetPlayer = 1 << 1,
+}MoveRealTarget;
+
 
 @interface GameSystemProcess () {
 @private
@@ -391,42 +398,61 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Version Yellow has 8 types of move target:
 //  0   1   2   4   8   10  20  40
 // 选择 最近 随机 二体 全体 自身 全场 己方                     
+// 01  01  01 00/01 01  10  11  10   1vs1: 00-无, 01-对方, 10-自身, 11-双方
 //
 - (void)calculateEffectForMove:(Move *)move
 {
+  // Real move target
+  //  1vs1: 00-无, 01-对方, 10-自身, 11-双方
+  //  2vs2: ...
+  MoveRealTarget moveRealTarget;
   switch ([move.target intValue]) {
     case kMoveTargetSinglePokemonOtherThanTheUser:
       // 0 - 选择: Single Pokemon other than the user
+      moveRealTarget = kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetNone:
       // 1 - 最近: No target
+      moveRealTarget = kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetOneOpposingPokemonSelectedAtRandom:
       // 2 - 随机: One opposing Pokemon selected at random
+      moveRealTarget = kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetAllOpposingPokemon:
       // 4 - 二体: All opposing Pokemon
+      // Only apply move to different gender pokemon
+      if ([self.playerPokemon.gender intValue] ^ [self.enemyPokemon.gender intValue])
+        moveRealTarget = kMoveRealTargetEnemy;
+      else
+        moveRealTarget = kMoveRealTargetNone;
       break;
       
     case kMoveTargetAllPokemonOtherThanTheUser:
       // 8 - 全体: All Pokemon other than the user (All non-users)
+      moveRealTarget = kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetUser:
       // 10 - 自身: User
+      moveRealTarget = kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetBothSides:
       // 20 - 全场: Both sides (e.g. Light Screen, Reflect, Heal Bell)
+      moveRealTarget = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetUserSide:
       // 40 - 己方: User's side
+      moveRealTarget = kMoveRealTargetPlayer;
       break;
       
+    /*
+    // Version Yellow not used yet
     case kMoveTargetOpposingPokemonSide:
       // 80: Opposing Pokemon's side
       break;
@@ -441,9 +467,10 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case kMoveTargetSinglePokemonOnOpponentSide:
       // 400: Single Pokemon on opponent's side (e.g. Me First)
-      break;
+      break;*/
     
     default:
+      moveRealTarget = kMoveRealTargetEnemy;
       break;
   }
 }
