@@ -12,16 +12,37 @@
 @class TrainerTamedPokemon;
 @class WildPokemon;
 
-typedef enum {
-  kGameSystemProcessTargetPlayer = 0,
-  kGameSystemProcessTargetEnemy  = 1
-}GameSystemProcessTarget;
+//typedef enum {
+//  kGameSystemProcessTargetPlayer = 0,
+//  kGameSystemProcessTargetEnemy  = 1
+//}GameSystemProcessTarget;
 
+// User
 typedef enum {
-  kGameSystemProcessUserNone   = 0,
-  kGameSystemProcessUserPlayer = 1,
-  kGameSystemProcessUserEnemy  = 2
+  kGameSystemProcessUserNone   = 0, // None
+  kGameSystemProcessUserPlayer = 1, // Player
+  kGameSystemProcessUserEnemy  = 2  // Enemy
 }GameSystemProcessUser;
+
+// Move Real Target
+typedef enum {
+  kMoveRealTargetNone   = 0,      // None
+  kMoveRealTargetEnemy  = 1 << 0, // Enemy
+  kMoveRealTargetPlayer = 1 << 1, // Player
+}MoveRealTarget;
+
+// Pokemon Status
+typedef enum {
+  kPokemonStatusNormal    = 0,      // Normal
+  kPokemonStatusBurn      = 1 << 0, // Burn
+  kPokemonStatusConfused  = 1 << 1, // Confused
+  kPokemonStatusFlinch    = 1 << 2, // Flinch
+  kPokemonStatusFreeze    = 1 << 3, // Freeze
+  kPokemonStatusParalyze  = 1 << 4, // Paralyze
+  kPokemonStatusPoison    = 1 << 5, // Poison
+  kPokemonStatusSleep     = 1 << 6  // Sleep
+}PokemonStatus;
+
 
 @interface GameSystemProcess : CCNode {
   TrainerTamedPokemon * playerPokemon_;

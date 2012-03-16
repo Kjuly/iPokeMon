@@ -581,9 +581,10 @@ typedef enum {
 // Update Pokemon's Status
 - (void)updatePokemonStatus:(NSNotification *)notification
 {
-  if ([[notification.userInfo objectForKey:@"target"] isEqualToString:@"MyPokemon"])
+  NSInteger target = [[notification.userInfo objectForKey:@"target"] intValue];
+  if (target & kMoveRealTargetPlayer)
     [self.playerPokemonStatusViewController updatePokemonStatus:notification.userInfo];
-  else
+  if (target & kMoveRealTargetEnemy)
     [self.enemyPokemonStatusViewController updatePokemonStatus:notification.userInfo];
 }
 

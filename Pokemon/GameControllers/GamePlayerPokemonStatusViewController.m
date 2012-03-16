@@ -137,6 +137,10 @@
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo
 {
   [super updatePokemonStatus:statusInfo];
+  
+  if ([statusInfo objectForKey:@"playerPokemonHP"])
+    [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"playerPokemonHP"] intValue]];
+  
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", self.pokemonHPBar.hp, self.pokemonHPBar.hpMax]];
   
   if ([statusInfo objectForKey:@"Exp"])

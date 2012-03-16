@@ -24,18 +24,6 @@ typedef enum {
   kGameSystemProcessTypeRun            = 4
 }GameSystemProcessType;
 
-// Pokemon Status
-typedef enum {
-  kPokemonStatusNormal    = 0,
-  kPokemonStatusBurn      = 1 << 0,
-  kPokemonStatusConfused  = 1 << 1,
-  kPokemonStatusFlinch    = 1 << 2,
-  kPokemonStatusFreeze    = 1 << 3,
-  kPokemonStatusParalyze  = 1 << 4,
-  kPokemonStatusPoison    = 1 << 5,
-  kPokemonStatusSleep     = 1 << 6
-}PokemonStatus;
-
 // Move Target
 typedef enum {
   kMoveTargetSinglePokemonOtherThanTheUser      = 0,   // Single Pokemon other than the user
@@ -51,13 +39,6 @@ typedef enum {
   kMoveTargetPlayerChoiceOfUserOrUserPartner    = 200, // Player's choice of user or user's partner (e.g. Acupressure)
   kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokemon on opponent's side (e.g. Me First)
 }MoveTarget;
-
-// Move Real Target
-typedef enum {
-  kMoveRealTargetNone   = 0,
-  kMoveRealTargetEnemy  = 1 << 0,
-  kMoveRealTargetPlayer = 1 << 1,
-}MoveRealTarget;
 
 
 @interface GameSystemProcess () {
@@ -90,6 +71,7 @@ typedef enum {
 
 - (void)fight;
 - (void)calculateEffectForMove:(Move *)move;
+- (NSInteger)calculateDamageForMove:(Move *)move;
 //- (void)MoveTargetSinglePokemonOtherThanTheUser;
 //- (void)MoveTargetNone;
 //- (void)MoveTargetOneOpposingPokemonSelectedAtRandom;
@@ -218,64 +200,30 @@ static GameSystemProcess * gameSystemProcess = nil;
     return;
   }
   
-  NSString * moveTarget;
-  NSInteger pokemonHP;
-  Move * move;
+  NSInteger pokemonID;
+  Move    * move;
   
-  //
   // Case the move user is Player
-  //
   if (user_ == kGameSystemProcessUserPlayer) {
-    move = [self.playerPokemon moveWithIndex:moveIndex_];
-    
-    // Calculate the effect of move
-    [self calculateEffectForMove:move];
-    
-    // Post Message
-    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  self.playerPokemon.sid, @"pokemonID",
-                                  move.sid,               @"moveID", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
-    [messageInfo release];
-    
-    // Apply move
-    moveTarget = @"WildPokemon";
-    pokemonHP = [self.enemyPokemon.currHP intValue];
-    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
-    pokemonHP -= [move.baseDamage intValue];
-    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
-    self.enemyPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
-    NSLog(@"EnemyPokemon HP: %d", pokemonHP);
+    pokemonID = [self.playerPokemon.sid intValue];
+    move      = [self.playerPokemon moveWithIndex:moveIndex_];
   }
-  //
   // Case the move user is Enemy
-  //
   else if (user_ == kGameSystemProcessUserEnemy) {
-    move = [self.enemyPokemon moveWithIndex:moveIndex_];
-    
-    // Post Message
-    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  self.enemyPokemon.sid, @"pokemonID",
-                                  move.sid,              @"moveID", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
-    [messageInfo release];
-    
-    // Apply move
-    moveTarget = @"MyPokemon";
-    pokemonHP = [self.playerPokemon.currHP intValue];
-    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
-    pokemonHP -= [move.baseDamage intValue];
-    pokemonHP = pokemonHP > 0 ? pokemonHP : 0;
-    self.playerPokemon.currHP = [NSNumber numberWithInt:pokemonHP];
-    NSLog(@"PlayerPokemon HP: %d", pokemonHP);
+    pokemonID = [self.enemyPokemon.sid intValue];
+    move      = [self.enemyPokemon moveWithIndex:moveIndex_];
   }
   else { NSLog(@"!!! Exception: The Move has no user"); }
   
-  // Post to |GameMenuViewController| to update pokemon status view
-  NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                moveTarget, @"target", [NSNumber numberWithInt:pokemonHP], @"HP", nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
-  [newUserInfo release];
+  // Calculate the effect of move
+  [self calculateEffectForMove:move];
+  
+  // Post Message to update |messageView_| in |GameMenuViewController|
+  NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSNumber numberWithInt:pokemonID], @"pokemonID",
+                                move.sid,                           @"moveID", nil];
+  [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+  [messageInfo release];
   
   move = nil;
   [self endTurn];
@@ -405,40 +353,41 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Real move target
   //  1vs1: 00-无, 01-对方, 10-自身, 11-双方
   //  2vs2: ...
-  MoveRealTarget moveRealTarget;
+  MoveRealTarget moveRealTarget; // Real move target
+  
   switch ([move.target intValue]) {
     case kMoveTargetSinglePokemonOtherThanTheUser:
       // 0 - 选择: Single Pokemon other than the user
-      moveRealTarget = kMoveRealTargetEnemy;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetNone:
       // 1 - 最近: No target
-      moveRealTarget = kMoveRealTargetEnemy;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetOneOpposingPokemonSelectedAtRandom:
       // 2 - 随机: One opposing Pokemon selected at random
-      moveRealTarget = kMoveRealTargetEnemy;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetAllOpposingPokemon:
       // 4 - 二体: All opposing Pokemon
       // Only apply move to different gender pokemon
       if ([self.playerPokemon.gender intValue] ^ [self.enemyPokemon.gender intValue])
-        moveRealTarget = kMoveRealTargetEnemy;
+        moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       else
         moveRealTarget = kMoveRealTargetNone;
       break;
       
     case kMoveTargetAllPokemonOtherThanTheUser:
       // 8 - 全体: All Pokemon other than the user (All non-users)
-      moveRealTarget = kMoveRealTargetEnemy;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetUser:
       // 10 - 自身: User
-      moveRealTarget = kMoveRealTargetPlayer;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetBothSides:
@@ -448,7 +397,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case kMoveTargetUserSide:
       // 40 - 己方: User's side
-      moveRealTarget = kMoveRealTargetPlayer;
+      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
       break;
       
     /*
@@ -473,6 +422,365 @@ static GameSystemProcess * gameSystemProcess = nil;
       moveRealTarget = kMoveRealTargetEnemy;
       break;
   }
+  
+  // Move calculation result values
+  NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue]; // Player's pokemon HP
+  NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue]; // Enemy's pokemon HP
+  float randomValue         = arc4random() % 1000 / 10;             // Random value for calculating % chance
+  MoveRealTarget statusUpdateTarget = moveRealTarget;               // Target for updating pokemon status
+  
+  // Calculate the damage
+  NSInteger moveDamage = [self calculateDamageForMove:move];        // Move damage
+  
+  // Calculation based on the move effect code
+  switch ([move.effectCode intValue]) {
+    case 0x00:
+      if (moveRealTarget & kMoveRealTargetEnemy)  enemyPokemonHP  -= moveDamage;
+      if (moveRealTarget & kMoveRealTargetPlayer) playerPokemonHP -= moveDamage;
+      break;
+      
+    case 0x01:
+      if (moveRealTarget & kMoveRealTargetEnemy)  playerPokemonStatus_ |= kPokemonStatusSleep;
+      if (moveRealTarget & kMoveRealTargetPlayer) enemyPokemonStatus_  |= kPokemonStatusSleep;
+      break;
+      
+    case 0x02:
+      if (moveRealTarget & kMoveRealTargetEnemy) {
+        enemyPokemonHP -= moveDamage;
+        if (randomValue <= 29.8) enemyPokemonStatus_ |= kPokemonStatusPoison;
+      }
+      if (moveRealTarget & kMoveRealTargetPlayer) {
+        playerPokemonHP -= moveDamage;
+        if (randomValue <= 29.8) playerPokemonStatus_ |= kPokemonStatusPoison;
+      }
+      break;
+      
+    case 0x03:
+      if (moveRealTarget & kMoveRealTargetEnemy) {
+        enemyPokemonHP  -= moveDamage;
+        playerPokemonHP += round(moveDamage / 2);
+        NSLog(@"<1 HP: %d, %d>", enemyPokemonHP, playerPokemonHP);
+        NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
+        if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
+      }
+      if (moveRealTarget & kMoveRealTargetPlayer) {
+        playerPokemonHP -= moveDamage;
+        enemyPokemonHP  += round(moveDamage / 2);
+        NSLog(@"<2 HP: %d, %d>", enemyPokemonHP, playerPokemonHP);
+        NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
+        if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
+      }
+      // Update |statusUpdateTarget| to update both enemy & player pokemons' status
+      statusUpdateTarget = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
+      break;
+      
+    case 0x04:
+      if (moveRealTarget & kMoveRealTargetEnemy) {
+        enemyPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusBurn;
+      }
+      if (moveRealTarget & kMoveRealTargetPlayer) {
+        playerPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusBurn;
+      }
+      break;
+      
+    case 0x05:
+      if (moveRealTarget & kMoveRealTargetEnemy) {
+        enemyPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusFreeze;
+      }
+      if (moveRealTarget & kMoveRealTargetPlayer) {
+        playerPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusFreeze;
+      }
+      break;
+      
+    case 0x06:
+      if (moveRealTarget & kMoveRealTargetEnemy) {
+        enemyPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) enemyPokemonStatus_ |= kPokemonStatusParalyze;
+      }
+      if (moveRealTarget & kMoveRealTargetPlayer) {
+        playerPokemonHP -= moveDamage;
+        if (randomValue <= 9.8) playerPokemonStatus_ |= kPokemonStatusParalyze;
+      }
+      break;
+      
+    case 0x07:
+      break;
+      
+    case 0x08:
+      break;
+      
+    case 0x09:
+      break;
+      
+    case 0x0A:
+      break;
+      
+    case 0x0B:
+      break;
+      
+    //case 0x0C:
+      //break;
+      
+    case 0x0D:
+      break;
+      
+    //case 0x0E:
+      //break;
+      
+    case 0x0F:
+      break;
+      
+    case 0x10:
+      break;
+      
+    case 0x11:
+      break;
+      
+    case 0x12:
+      break;
+      
+    case 0x13:
+      break;
+      
+    case 0x14:
+      break;
+      
+    //case 0x15:
+      //break;
+      
+    case 0x16:
+      break;
+      
+    //case 0x17:
+      //break;
+      
+    case 0x18:
+      break;
+      
+    case 0x19:
+      break;
+      
+    case 0x1A:
+      break;
+      
+    case 0x1B:
+      break;
+      
+    case 0x1C:
+      break;
+      
+    case 0x1D:
+      break;
+      
+    //case 0x1E:
+      //break;
+      
+    case 0x1F:
+      break;
+      
+    case 0x20:
+      break;
+      
+    case 0x21:
+      break;
+      
+    case 0x22:
+      break;
+      
+    //case 0x23:
+      //break;
+      
+    case 0x24:
+      break;
+      
+    case 0x25:
+      break;
+      
+    case 0x26:
+      break;
+      
+    case 0x27:
+      break;
+      
+    case 0x28:
+      break;
+      
+    case 0x29:
+      break;
+      
+    case 0x2A:
+      break;
+      
+    case 0x2B:
+      break;
+      
+    case 0x2C:
+      break;
+      
+    case 0x2D:
+      break;
+      
+    case 0x2E:
+      break;
+      
+    case 0x2F:
+      break;
+      
+    case 0x30:
+      break;
+      
+    case 0x31:
+      break;
+      
+    case 0x32:
+      break;
+      
+    case 0x33:
+      break;
+      
+    case 0x34:
+      break;
+      
+    case 0x35:
+      break;
+      
+    //case 0x36:
+      //break;
+      
+    //case 0x37:
+      //break;
+      
+    case 0x38:
+      break;
+      
+    case 0x39:
+      break;
+      
+    //case 0x3A:
+      //break;
+      
+    case 0x3B:
+      break;
+      
+    //case 0x3C:
+      //break;
+      
+    //case 0x3D:
+      //break;
+      
+    //case 0x3E:
+      //break;
+      
+    //case 0x3F:
+      //break;
+      
+    case 0x40:
+      break;
+      
+    case 0x41:
+      break;
+      
+    case 0x42:
+      break;
+      
+    case 0x43:
+      break;
+      
+    case 0x44:
+      break;
+      
+    case 0x45:
+      break;
+      
+    case 0x46:
+      break;
+      
+    case 0x47:
+      break;
+      
+    //case 0x48:
+      //break;
+      
+    //case 0x49:
+      //break;
+      
+    //case 0x4A:
+      //break;
+      
+    //case 0x4B:
+      //break;
+      
+    case 0x4C:
+      break;
+      
+    case 0x4D:
+      break;
+      
+    //case 0x4E:
+      //break;
+      
+    case 0x4F:
+      break;
+      
+    case 0x50:
+      break;
+      
+    case 0x51:
+      break;
+      
+    case 0x52:
+      break;
+      
+    case 0x53:
+      break;
+      
+    case 0x54:
+      break;
+      
+    case 0x55:
+      break;
+      
+    case 0x56:
+      break;
+      
+    default:
+      break;
+  }
+  
+  // Update values for pokemons
+  if (playerPokemonHP < 0) playerPokemonHP = 0;
+  if (enemyPokemonHP  < 0) enemyPokemonHP  = 0;
+  self.playerPokemon.currHP = [NSNumber numberWithInt:playerPokemonHP];
+  self.enemyPokemon.currHP  = [NSNumber numberWithInt:enemyPokemonHP];
+  
+  // Post to |GameMenuViewController| to update pokemon status view
+  NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSNumber numberWithInt:statusUpdateTarget],   @"target",
+                                [NSNumber numberWithInt:playerPokemonStatus_], @"playerPokemonStatus",
+                                self.playerPokemon.currHP,                     @"playerPokemonHP",
+                                [NSNumber numberWithInt:enemyPokemonStatus_],  @"enemyPokemonStatus",
+                                self.enemyPokemon.currHP,                      @"enemyPokemonHP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
+  [newUserInfo release];
+}
+
+// Calculate the move damage
+- (NSInteger)calculateDamageForMove:(Move *)move
+{
+  if ([move.baseDamage intValue] == 0)
+    return 0;
+  
+  NSInteger damage
+  = round(
+          [move.baseDamage intValue] // Base damage
+          * (abs([self.playerPokemon.level intValue] - [self.enemyPokemon.level intValue]) + 1) // Delta level + 1
+          );
+  
+  return damage;
 }
 
 // Use bag item

@@ -53,6 +53,15 @@
 
 #pragma mark - Public Methods
 
+// Parent |GamePokemonStatusViewController|
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo
+{
+  [super updatePokemonStatus:statusInfo];
+  
+  if ([statusInfo objectForKey:@"enemyPokemonHP"])
+    [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"enemyPokemonHP"] intValue]];
+}
+
 - (void)prepareForNewScene
 {
   WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
