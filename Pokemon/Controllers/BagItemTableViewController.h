@@ -17,6 +17,6 @@
 @property (nonatomic, copy) NSMutableArray * items;
 @property (nonatomic, assign) NSInteger itemNumberSequence;
 
-- (id)initWithBagItem:(NSInteger)ItemTypeID;
+- (id)initWithBagItem:(NSInteger)itemTypeID;
 
 @end

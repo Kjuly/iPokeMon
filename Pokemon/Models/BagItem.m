@@ -14,5 +14,8 @@
 @dynamic code;
 @dynamic icon;
 @dynamic sid;
+@dynamic type;
+@dynamic location;
+@dynamic price;
 
 @end

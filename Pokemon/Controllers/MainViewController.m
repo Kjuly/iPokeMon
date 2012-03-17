@@ -23,6 +23,7 @@
 #import "GameMainViewController.h"
 
 #ifdef DEBUG
+#import "OriginalDataManager.h"
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
 #import "WildPokemon+DataController.h"
@@ -140,7 +141,8 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
 #ifdef DEBUG_PREINIT_POPULATE_DATA
-    // Hard Initialize the DB Data for |Pokemon|
+    // Hard Initialize the Core Data
+    [OriginalDataManager initDataForBag];
     [Pokemon populateData];
     [Move populateData];
 #endif

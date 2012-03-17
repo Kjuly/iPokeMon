@@ -8,22 +8,32 @@
     <entity name="BagBattleItem" representedClassName="BagBattleItem" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagBerry" representedClassName="BagBerry" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagItem" representedClassName="BagItem" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagKeyItem" representedClassName="BagKeyItem" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagMail" representedClassName="BagMail" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -33,12 +43,18 @@
     <entity name="BagMedicine" representedClassName="BagMedicine" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagPokeball" representedClassName="BagPokeball" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="BagTMHM" representedClassName="BagTMHM" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -141,13 +157,13 @@
     </entity>
     <elements>
         <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="BagBattleItem" positionX="108" positionY="342" width="128" height="90"/>
-        <element name="BagBerry" positionX="153" positionY="387" width="128" height="90"/>
-        <element name="BagItem" positionX="108" positionY="342" width="128" height="90"/>
-        <element name="BagKeyItem" positionX="117" positionY="351" width="128" height="90"/>
+        <element name="BagBattleItem" positionX="108" positionY="342" width="128" height="135"/>
+        <element name="BagBerry" positionX="153" positionY="387" width="128" height="120"/>
+        <element name="BagItem" positionX="108" positionY="342" width="128" height="135"/>
+        <element name="BagKeyItem" positionX="117" positionY="351" width="128" height="120"/>
         <element name="BagMail" positionX="99" positionY="333" width="128" height="90"/>
-        <element name="BagMedicine" positionX="126" positionY="360" width="128" height="90"/>
-        <element name="BagPokeball" positionX="135" positionY="369" width="128" height="90"/>
+        <element name="BagMedicine" positionX="126" positionY="360" width="128" height="135"/>
+        <element name="BagPokeball" positionX="135" positionY="369" width="128" height="135"/>
         <element name="BagTMHM" positionX="144" positionY="378" width="128" height="90"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>

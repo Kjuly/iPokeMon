@@ -9,6 +9,7 @@
 #import "BagItemTableViewController.h"
 
 #import "PListParser.h"
+#import "BagDataController.h"
 #import "BagItemTableViewCell.h"
 
 
@@ -24,50 +25,58 @@
   [super dealloc];
 }
 
-- (id)initWithBagItem:(NSInteger)ItemTypeID
+- (id)initWithBagItem:(NSInteger)itemTypeID
 {
   self = [self initWithStyle:UITableViewStylePlain];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    self.items = [[[BagDataController sharedInstance] queryAllDataFor:itemTypeID] mutableCopy];
     
-    switch (ItemTypeID) {
+    /*switch (ItemTypeID) {
       case 0:
-        items_ = [[PListParser bagItems] mutableCopy];
+//        items_ = [[PListParser bagItems] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeItem] mutableCopy];
         break;
         
       case 1:
-        items_ = [[PListParser bagMedicine] mutableCopy];
+//        items_ = [[PListParser bagMedicine] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeMedicine] mutableCopy];
         break;
         
       case 2:
-        items_ = [[PListParser bagPokeballs] mutableCopy];
+//        items_ = [[PListParser bagPokeballs] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypePokeball] mutableCopy];
         break;
         
       case 3:
-        items_ = [[PListParser bagTMsHMs] mutableCopy];
+//        items_ = [[PListParser bagTMsHMs] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeTMHM] mutableCopy];
         break;
         
       case 4:
-        items_ = [[PListParser bagBerries] mutableCopy];
+//        items_ = [[PListParser bagBerries] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeBerry] mutableCopy];
         break;
         
       case 5:
-        items_ = [[PListParser bagMail] mutableCopy];
+//        items_ = [[PListParser bagMail] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeMail] mutableCopy];
         break;
         
       case 6:
-        items_ = [[PListParser bagBattleItems] mutableCopy];
+//        items_ = [[PListParser bagBattleItems] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeBattleItem] mutableCopy];
         break;
         
       case 7:
-        items_ = [[PListParser bagKeyItems] mutableCopy];
+        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeKeyItem] mutableCopy];
         break;
         
       default:
         self.items = nil;
         break;
-    }
+    }*/
   }
   return self;
 }
@@ -157,8 +166,12 @@
   }
   
   // Configure the cell...
-  [cell.labelTitle setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
+//  [cell.labelTitle setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
+  BagMedicine * bagMedicine = [self.items objectAtIndex:[indexPath row]];
+  NSLog(@"%@", bagMedicine);
+  [cell.labelTitle setText:[bagMedicine.sid stringValue]];
 //  [cell.imageView setImage:];
+  bagMedicine = nil;
   
   return cell;
 }
