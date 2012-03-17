@@ -166,7 +166,7 @@
 {
   NSInteger row = [indexPath row];
   BagItemTableViewController * bagItemTableViewController
-  = [[BagItemTableViewController alloc] initWithBagItem:(row ? 1 << --row : 0)];
+  = [[BagItemTableViewController alloc] initWithBagItem:(row ? 1 << row : 0)];
   [self.navigationController pushViewController:bagItemTableViewController animated:YES];
   [bagItemTableViewController release];
 }

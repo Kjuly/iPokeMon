@@ -13,10 +13,24 @@
 #import "BagItemTableViewCell.h"
 
 
+@interface BagItemTableViewController () {
+ @private
+  BagQueryTargetType targetType_;
+}
+
+@property (nonatomic, assign) BagQueryTargetType targetType;
+
+- (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @implementation BagItemTableViewController
 
 @synthesize items = items_;
 @synthesize itemNumberSequence = itemNumberSequence;
+
+@synthesize targetType = targetType_;
 
 -(void)dealloc
 {
@@ -32,51 +46,7 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
     self.items = [[[BagDataController sharedInstance] queryAllDataFor:itemTypeID] mutableCopy];
-    
-    /*switch (ItemTypeID) {
-      case 0:
-//        items_ = [[PListParser bagItems] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeItem] mutableCopy];
-        break;
-        
-      case 1:
-//        items_ = [[PListParser bagMedicine] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeMedicine] mutableCopy];
-        break;
-        
-      case 2:
-//        items_ = [[PListParser bagPokeballs] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypePokeball] mutableCopy];
-        break;
-        
-      case 3:
-//        items_ = [[PListParser bagTMsHMs] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeTMHM] mutableCopy];
-        break;
-        
-      case 4:
-//        items_ = [[PListParser bagBerries] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeBerry] mutableCopy];
-        break;
-        
-      case 5:
-//        items_ = [[PListParser bagMail] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeMail] mutableCopy];
-        break;
-        
-      case 6:
-//        items_ = [[PListParser bagBattleItems] mutableCopy];
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeBattleItem] mutableCopy];
-        break;
-        
-      case 7:
-        self.items = [[[BagDataController sharedInstance] queryAllDataFor:kBagQueryTargetTypeKeyItem] mutableCopy];
-        break;
-        
-      default:
-        self.items = nil;
-        break;
-    }*/
+    targetType_ = itemTypeID;
   }
   return self;
 }
@@ -166,12 +136,12 @@
   }
   
   // Configure the cell...
-//  [cell.labelTitle setText:[[self.items objectAtIndex:[indexPath row]] objectForKey:@"name"]];
-  BagMedicine * bagMedicine = [self.items objectAtIndex:[indexPath row]];
-  NSLog(@"%@", bagMedicine);
-  [cell.labelTitle setText:[bagMedicine.sid stringValue]];
+//  id entity = [self.items objectAtIndex:[indexPath row]];
+  [self configureCell:cell atIndexPath:indexPath];
+  
+//  [cell.labelTitle setText:[entity.sid stringValue]];
 //  [cell.imageView setImage:];
-  bagMedicine = nil;
+//  entity = nil;
   
   return cell;
 }
@@ -227,6 +197,61 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+#pragma mark - Private Methods
+
+- (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+  id anonymousEntity = [self.items objectAtIndex:[indexPath row]];
+  NSString * localizedNameHeader;
+  NSInteger  entityID;
+  if (targetType_ & kBagQueryTargetTypeItem) {
+    BagItem * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagItem";
+    entityID            = [entity.sid intValue];
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeMedicine) {
+    BagMedicine * entity = anonymousEntity;
+    localizedNameHeader  = @"PMSBagMedicine";
+    entityID             = [entity.sid intValue];
+    entity               = nil;
+  } else if (targetType_ & kBagQueryTargetTypePokeball) {
+    BagPokeball * entity = anonymousEntity;
+    localizedNameHeader  = @"PMSBagPokeball";
+    entityID             = [entity.sid intValue];
+    entity               = nil;
+  } else if (targetType_ & kBagQueryTargetTypeTMHM) {
+    BagTMHM * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagTMHM";
+    entityID            = [entity.sid intValue];
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeBerry) {
+    BagBerry * entity   = anonymousEntity;
+    localizedNameHeader = @"PMSBagBerry";
+    entityID            = [entity.sid intValue];
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeMail) {
+    BagMail * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagMail";
+    entityID            = [entity.sid intValue];
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeBattleItem) {
+    BagBattleItem * entity = anonymousEntity;
+    localizedNameHeader    = @"PMSBagBattleItem";
+    entityID               = [entity.sid intValue];
+    entity                 = nil;
+  } else if (targetType_ & kBagQueryTargetTypeKeyItem) {
+    BagKeyItem * entity = anonymousEntity;
+    localizedNameHeader = @"PMSBagKeyItem";
+    entityID            = [entity.sid intValue];
+    entity = nil;
+  } else return;
+  
+  // Set the data for cell to display
+  [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d",
+                                               localizedNameHeader, entityID]), nil)];
+  anonymousEntity     = nil;
+  localizedNameHeader = nil;
 }
 
 @end
