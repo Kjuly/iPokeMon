@@ -6,68 +6,44 @@
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="BagBattleItem" representedClassName="BagBattleItem" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBattleItem" inverseName="data" inverseEntity="TrainerBagBattleItem" syncable="YES"/>
     </entity>
     <entity name="BagBerry" representedClassName="BagBerry" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBerry" inverseName="data" inverseEntity="TrainerBagBerry" syncable="YES"/>
     </entity>
     <entity name="BagItem" representedClassName="BagItem" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagItem" inverseName="data" inverseEntity="TrainerBagItem" syncable="YES"/>
     </entity>
     <entity name="BagKeyItem" representedClassName="BagKeyItem" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagKeyItem" inverseName="data" inverseEntity="TrainerBagKeyItem" syncable="YES"/>
     </entity>
     <entity name="BagMail" representedClassName="BagMail" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagMail" inverseName="data" inverseEntity="TrainerBagMail" syncable="YES"/>
     </entity>
     <entity name="BagMedicine" representedClassName="BagMedicine" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagMedicine" inverseName="data" inverseEntity="TrainerBagMedicine" syncable="YES"/>
     </entity>
     <entity name="BagPokeball" representedClassName="BagPokeball" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagPokeball" inverseName="data" inverseEntity="TrainerBagPokeball" syncable="YES"/>
     </entity>
     <entity name="BagTMHM" representedClassName="BagTMHM" syncable="YES">
-        <attribute name="effectCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="ownedGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagTMHM" inverseName="data" inverseEntity="TrainerBagTMHM" syncable="YES"/>
     </entity>
     <entity name="Move" representedClassName="Move" syncable="YES">
         <attribute name="additionalEffectChance" optional="YES" attributeType="Integer 16" maxValueString="100" defaultValueString="0" syncable="YES"/>
@@ -119,68 +95,19 @@
     </entity>
     <entity name="Trainer" representedClassName="Trainer" syncable="YES">
         <attribute name="adventureStarted" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="bagBattleItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagBerries" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagKeyItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicine" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagPokeballs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagTMHMs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="pokedex" optional="YES" attributeType="String" maxValueString="100" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="sixPokemonsID" optional="YES" attributeType="String" defaultValueString="0" syncable="YES"/>
-        <relationship name="bagBattleItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBattleItem" inverseName="owner" inverseEntity="TrainerBagBattleItem" syncable="YES"/>
-        <relationship name="bagBerries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagBerry" inverseName="owner" inverseEntity="TrainerBagBerry" syncable="YES"/>
-        <relationship name="bagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagItem" inverseName="owner" inverseEntity="TrainerBagItem" syncable="YES"/>
-        <relationship name="bagKeyItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagKeyItem" inverseName="owner" inverseEntity="TrainerBagKeyItem" syncable="YES"/>
-        <relationship name="bagMails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagMail" inverseName="owner" inverseEntity="TrainerBagMail" syncable="YES"/>
-        <relationship name="bagMedicine" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagMedicine" inverseName="owner" inverseEntity="TrainerBagMedicine" syncable="YES"/>
-        <relationship name="bagPokeballs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagPokeball" inverseName="owner" inverseEntity="TrainerBagPokeball" syncable="YES"/>
-        <relationship name="bagTMsHMs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerBagTMHM" inverseName="owner" inverseEntity="TrainerBagTMHM" syncable="YES"/>
         <relationship name="tamedPokemons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerTamedPokemon" inverseName="owner" inverseEntity="TrainerTamedPokemon" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagBattleItem" representedClassName="TrainerBagBattleItem" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagBattleItem" inverseName="ownedGroup" inverseEntity="BagBattleItem" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagBattleItems" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagBerry" representedClassName="TrainerBagBerry" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagBerry" inverseName="ownedGroup" inverseEntity="BagBerry" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagBerries" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagItem" representedClassName="TrainerBagItem" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagItem" inverseName="ownedGroup" inverseEntity="BagItem" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagItems" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagKeyItem" representedClassName="TrainerBagKeyItem" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagKeyItem" inverseName="ownedGroup" inverseEntity="BagKeyItem" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagKeyItems" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagMail" representedClassName="TrainerBagMail" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagMail" inverseName="ownedGroup" inverseEntity="BagMail" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagMails" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagMedicine" representedClassName="TrainerBagMedicine" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagMedicine" inverseName="ownedGroup" inverseEntity="BagMedicine" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagMedicine" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagPokeball" representedClassName="TrainerBagPokeball" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagPokeball" inverseName="ownedGroup" inverseEntity="BagPokeball" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagPokeballs" inverseEntity="Trainer" syncable="YES"/>
-    </entity>
-    <entity name="TrainerBagTMHM" representedClassName="TrainerBagTMHM" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" maxValueString="999" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <relationship name="data" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BagTMHM" inverseName="ownedGroup" inverseEntity="BagTMHM" syncable="YES"/>
-        <relationship name="owner" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Trainer" inverseName="bagTMsHMs" inverseEntity="Trainer" syncable="YES"/>
     </entity>
     <entity name="TrainerTamedPokemon" representedClassName="TrainerTamedPokemon" syncable="YES">
         <attribute name="box" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
@@ -214,25 +141,17 @@
     </entity>
     <elements>
         <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="BagBattleItem" positionX="108" positionY="342" width="128" height="135"/>
-        <element name="BagBerry" positionX="153" positionY="387" width="128" height="135"/>
-        <element name="BagItem" positionX="108" positionY="342" width="128" height="135"/>
-        <element name="BagKeyItem" positionX="117" positionY="351" width="128" height="135"/>
-        <element name="BagMail" positionX="99" positionY="333" width="128" height="135"/>
-        <element name="BagMedicine" positionX="126" positionY="360" width="128" height="135"/>
-        <element name="BagPokeball" positionX="135" positionY="369" width="128" height="135"/>
-        <element name="BagTMHM" positionX="144" positionY="378" width="128" height="135"/>
+        <element name="BagBattleItem" positionX="108" positionY="342" width="128" height="90"/>
+        <element name="BagBerry" positionX="153" positionY="387" width="128" height="90"/>
+        <element name="BagItem" positionX="108" positionY="342" width="128" height="90"/>
+        <element name="BagKeyItem" positionX="117" positionY="351" width="128" height="90"/>
+        <element name="BagMail" positionX="99" positionY="333" width="128" height="90"/>
+        <element name="BagMedicine" positionX="126" positionY="360" width="128" height="90"/>
+        <element name="BagPokeball" positionX="135" positionY="369" width="128" height="90"/>
+        <element name="BagTMHM" positionX="144" positionY="378" width="128" height="90"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="270"/>
-        <element name="TrainerBagBattleItem" positionX="99" positionY="333" width="128" height="105"/>
-        <element name="TrainerBagBerry" positionX="108" positionY="342" width="128" height="105"/>
-        <element name="TrainerBagItem" positionX="117" positionY="108" width="128" height="105"/>
-        <element name="TrainerBagKeyItem" positionX="153" positionY="387" width="128" height="105"/>
-        <element name="TrainerBagMail" positionX="144" positionY="378" width="128" height="105"/>
-        <element name="TrainerBagMedicine" positionX="135" positionY="369" width="128" height="105"/>
-        <element name="TrainerBagPokeball" positionX="126" positionY="360" width="128" height="105"/>
-        <element name="TrainerBagTMHM" positionX="117" positionY="351" width="128" height="105"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
         <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
