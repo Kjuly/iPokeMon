@@ -744,6 +744,7 @@
 		7FF3E3811514DBFD00F79316 /* BagTMHM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3801514DBFC00F79316 /* BagTMHM.m */; };
 		7FF3E3841514DC6100F79316 /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3831514DC6000F79316 /* Trainer.m */; };
 		7FF3E3871514DCFA00F79316 /* BagDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3861514DCF900F79316 /* BagDataController.m */; };
+		7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FF3E3881514ECEA00F79316 /* BagItems.plist */; };
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
@@ -1721,6 +1722,7 @@
 		7FF3E3831514DC6000F79316 /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
 		7FF3E3851514DCF800F79316 /* BagDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagDataController.h; sourceTree = "<group>"; };
 		7FF3E3861514DCF900F79316 /* BagDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagDataController.m; sourceTree = "<group>"; };
+		7FF3E3881514ECEA00F79316 /* BagItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagItems.plist; sourceTree = "<group>"; };
 		7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSectionHeaderView.h; sourceTree = "<group>"; };
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
@@ -2941,6 +2943,7 @@
 				7FD14F0614F4C0AC00082330 /* Moves.plist */,
 				7FAD69C214EFF8F400B3E2F9 /* BagBattleItems.plist */,
 				7FAD69C314EFF8F400B3E2F9 /* BagBerries.plist */,
+				7FF3E3881514ECEA00F79316 /* BagItems.plist */,
 				7FAD69C414EFF8F400B3E2F9 /* BagItems-Evolution.plist */,
 				7FCBAE551514AAFD00890EFD /* BagItems-Misc.plist */,
 				7FAD69C514EFF8F400B3E2F9 /* BagKeyItems.plist */,
@@ -3705,6 +3708,7 @@
 				7F199EDF150A6B55004CE84E /* GamePokeball.png in Resources */,
 				7F199EE0150A6B55004CE84E /* GamePokeball@2x.png in Resources */,
 				7FCBAE561514AAFD00890EFD /* BagItems-Misc.plist in Resources */,
+				7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

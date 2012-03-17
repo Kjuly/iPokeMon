@@ -10,11 +10,8 @@
 
 @interface Pokemon (DataController)
 
-// Hard Initialize the DB data
-+ (void)populateData;
 + (void)hardUpdateData;
 
-// Pokemon Data Query Mthods
 + (NSArray *)queryAllData;
 + (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 

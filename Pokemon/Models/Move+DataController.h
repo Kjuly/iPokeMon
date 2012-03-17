@@ -10,10 +10,6 @@
 
 @interface Move (DataController)
 
-// Hard Initialize the DB data
-+ (void)populateData;
-
-// Data Query Mthods
 + (NSArray *)queryFourMovesDataWithIDs:(NSArray *)moveIDs;
 + (Move *)queryMoveDataWithID:(NSInteger)moveID;
 

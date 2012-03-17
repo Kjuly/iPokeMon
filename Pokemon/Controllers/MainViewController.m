@@ -14,6 +14,7 @@
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
+#import "WildPokemon+DataController.h"
 #import "CustomNavigationController.h"
 #import "CenterMenuUtilityViewController.h"
 #import "CenterMenuSixPokemonsViewController.h"
@@ -24,9 +25,6 @@
 
 #ifdef DEBUG
 #import "OriginalDataManager.h"
-#import "Pokemon+DataController.h"
-#import "Move+DataController.h"
-#import "WildPokemon+DataController.h"
 #endif
 
 
@@ -142,9 +140,7 @@
   if (self) {
 #ifdef DEBUG_PREINIT_POPULATE_DATA
     // Hard Initialize the Core Data
-    [OriginalDataManager initDataForBag];
-    [Pokemon populateData];
-    [Move populateData];
+    [OriginalDataManager initData];
 #endif
     
     // Updata all data for current User with the trainer ID

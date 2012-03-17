@@ -10,6 +10,6 @@
 
 @interface OriginalDataManager : NSObject
 
-+ (void)initDataForBag;
++ (void)initData;
 
 @end
