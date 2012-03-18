@@ -85,7 +85,7 @@
 
 - (id)init
 {
-  if (self = [super initWithColor:ccc4(255,255,255,255)]) {
+  if (self = [super initWithColor:ccc4(0,0,0,0)]) {
     [self setIsTouchEnabled:YES];
     
     // Status Machine for Game

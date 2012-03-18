@@ -19,12 +19,10 @@
  @private
   UILabel  * pokemonHP_;
   BOOL       isStatusBarOpening_;
-  UIButton * transparentButton_;
 }
 
 @property (nonatomic, retain) UILabel  * pokemonHP;
 @property (nonatomic, assign) BOOL       isStatusBarOpening;
-@property (nonatomic, retain) UIButton * transparentButton;
 
 - (void)toggleStatusBar;
 
@@ -36,13 +34,11 @@
 @synthesize pokemonEXPBar      = pokemonEXPBar_;
 @synthesize pokemonHP          = pokemonHP_;
 @synthesize isStatusBarOpening = isStatusBarOpening_;
-@synthesize transparentButton  = transparentButton_;
 
 - (void)dealloc
 {
   [pokemonEXPBar_     release];
   [pokemonHP_         release];
-  [transparentButton_ release];
   
   [super dealloc];
 }
@@ -72,42 +68,25 @@
   [super loadView];
   
   // Constants
-  CGRect backgroundViewFrame = CGRectMake(100.f, 0.f, 280.f, 65.f);
-  CGRect pokemonGenderFrame  = CGRectMake(10.f, 5.f, 26.f, 26.f);
-  CGRect pokemonNameFrame    = CGRectMake(36.f, 5.f, 130.f, 32.f);
-  CGRect pokemonLevelFrame   = CGRectMake(210.f, 6.f, 70.f, 32.f);
-  CGRect pokemonHPFrame      = CGRectMake(210.f, 28.f, 70.f, 32.f);
-  CGRect pokemonHPBarFrame   = CGRectMake(10.f, 36.f, 150.f, 13.f);
-  CGRect pokemonEXPBarFrame  = CGRectMake(10.f, 51.f, 150.f, 6.f);
+  CGRect pokemonHPBarFrame   = CGRectMake(0.f, 0.f, 320.f, 8.f);
+  CGRect pokemonHPFrame      = CGRectMake(250.f, 22.f, 70.f, 20.f);
+  CGRect pokemonEXPBarFrame  = CGRectMake(0.f, 58.f, 320.f, 6.f);
   
-  // Reset |backgroundView_|
-  [backgroundView_ setFrame:backgroundViewFrame];
-  [backgroundView_ setImage:[UIImage imageNamed:@"GamePokemonStatusAdvancedBackground.png"]];
-  [backgroundView_ setOpaque:NO];
-  [backgroundView_ setUserInteractionEnabled:YES];
-  
-  // Reset gender, name, Lv., HPBar's frame
-  [pokemonGender_ setFrame:pokemonGenderFrame];
-  [pokemonName_ setFrame:pokemonNameFrame];
+  // Reset HPBar's frame
   [pokemonHPBar_ setFrame:pokemonHPBarFrame];
-  [pokemonLevel_ setFrame:pokemonLevelFrame];
-  [pokemonLevel_ setTextColor:[GlobalRender textColorTitleWhite]];
   
   // Add HP
   pokemonHP_ = [[UILabel alloc] initWithFrame:pokemonHPFrame];
   [pokemonHP_ setBackgroundColor:[UIColor clearColor]];
-  [pokemonHP_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [pokemonHP_ setTextColor:[UIColor blackColor]];
   [pokemonHP_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [backgroundView_ addSubview:pokemonHP_];
+  [self.view addSubview:pokemonHP_];
   
   // Add Exp Bar
   pokemonEXPBar_ = [[PokemonEXPBar alloc] initWithFrame:pokemonEXPBarFrame];
-  [backgroundView_ addSubview:pokemonEXPBar_];
+  [self.view addSubview:pokemonEXPBar_];
   
   // Add a transparent button for toggling status view
-  transparentButton_ = [[UIButton alloc] initWithFrame:CGRectMake(0.f, 0.f, 280.f, 65.f)];
-  [transparentButton_ addTarget:self action:@selector(toggleStatusBar) forControlEvents:UIControlEventTouchUpInside];
-  [self.backgroundView addSubview:transparentButton_];
   isStatusBarOpening_ = NO;
 }
 
@@ -175,15 +154,15 @@
 
 - (void)toggleStatusBar
 {
-  CGRect backgroundViewFrame = CGRectMake(0.f, 0.f, 280.f, 65.f);
+  CGRect viewFrame = CGRectMake(0.f, 0.f, 280.f, 65.f);
   if (self.isStatusBarOpening)
-    backgroundViewFrame.origin.x += 100.f;
+    viewFrame.origin.x += 100.f;
   
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
-                     [self.backgroundView setFrame:backgroundViewFrame];
+                     [self.view setFrame:viewFrame];
                    }
                    completion:nil];
   self.isStatusBarOpening = ! self.isStatusBarOpening;

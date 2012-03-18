@@ -9,7 +9,7 @@
 #import "PokemonEXPBar.h"
 
 #import "GlobalRender.h"
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
 
 @interface PokemonEXPBar () {
  @private
@@ -67,7 +67,7 @@
     //[self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
     //[self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
     [self.expBarBackground setBackgroundColor:[GlobalRender colorGray]];
-    [self.expBarBackground.layer setCornerRadius:3.f];
+//    [self.expBarBackground.layer setCornerRadius:3.f];
     [self addSubview:self.expBarBackground];
     
     UIImageView * expBar = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -76,7 +76,7 @@
     //[self.expBar setContentMode:UIViewContentModeScaleAspectFit];
     //[self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
     [self.expBar setBackgroundColor:[GlobalRender colorBlue]];
-    [self.expBarBackground.layer setCornerRadius:3.f];
+//    [self.expBarBackground.layer setCornerRadius:3.f];
     [self.expBarBackground addSubview:self.expBar];
   }
   return self;

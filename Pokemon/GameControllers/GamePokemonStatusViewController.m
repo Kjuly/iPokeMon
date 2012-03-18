@@ -25,7 +25,6 @@
 @synthesize pokemonName    = pokemonName_;
 @synthesize pokemonLevel   = pokemonLevel_;
 @synthesize pokemonGender  = pokemonGender_;
-@synthesize backgroundView = backgroundView_;
 
 - (void)dealloc
 {
@@ -33,7 +32,6 @@
   [pokemonName_    release];
   [pokemonLevel_   release];
   [pokemonGender_  release];
-  [backgroundView_ release];
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowPokemonStatus object:nil];
@@ -62,47 +60,40 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 170.f, 60.f)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 64.f)];
   self.view = view;
   [view release];
-  [self.view setAlpha:0.f];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
+  [self.view setAlpha:1.f];
   
   // Constants
-  CGRect backgroundViewFrame = CGRectMake(0.f, 0.f, 180.f, 65.f);
-  CGRect pokemonGenderFrame = CGRectMake(15.f, 0.f, 26.f, 26.f);
-  CGRect pokemonLevelFrame  = CGRectMake(45.f, 0.f, 70.f, 32.f);
-  CGRect pokemonNameFrame   = CGRectMake(20.f, 18.f, 150.f, 32.f);
-  CGRect pokemonHPBarFrame  = CGRectMake(15.f, 45.f, 150.f, 13.f);
-  
-  // Background View
-  backgroundView_ = [[UIImageView alloc] initWithFrame:backgroundViewFrame];
-  [backgroundView_ setImage:[UIImage imageNamed:@"GamePokemonStatusBackground.png"]];
-  [backgroundView_ setOpaque:NO];
-  [backgroundView_ setUserInteractionEnabled:YES];
-  [self.view addSubview:backgroundView_];
+  CGRect pokemonGenderFrame = CGRectMake(10.f, 22.f, 20.f, 20.f);
+  CGRect pokemonNameFrame   = CGRectMake(30.f, 22.f, 150.f, 20.f);
+  CGRect pokemonLevelFrame  = CGRectMake(180.f, 22.f, 70.f, 20.f);
+  CGRect pokemonHPBarFrame  = CGRectMake(0.f, 56.f, 320.f, 8.f);
   
   // Pokemon Gender
   pokemonGender_ = [[UIImageView alloc] initWithFrame:pokemonGenderFrame];
   [pokemonGender_ setBackgroundColor:[UIColor clearColor]];
-  [backgroundView_ addSubview:pokemonGender_];
+  [self.view addSubview:pokemonGender_];
   
   // Name
   pokemonName_ = [[UILabel alloc] initWithFrame:pokemonNameFrame];
   [pokemonName_ setBackgroundColor:[UIColor clearColor]];
   [pokemonName_ setTextColor:[GlobalRender textColorOrange]];
-  [pokemonName_ setFont:[GlobalRender textFontBoldInSizeOf:12.f]];
-  [backgroundView_ addSubview:pokemonName_];
+  [pokemonName_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+  [self.view addSubview:pokemonName_];
   
   // Lv.
   pokemonLevel_ = [[UILabel alloc] initWithFrame:pokemonLevelFrame];
   [pokemonLevel_ setBackgroundColor:[UIColor clearColor]];
   [pokemonLevel_ setTextColor:[UIColor blackColor]];
-  [pokemonLevel_ setFont:[GlobalRender textFontBoldInSizeOf:12.f]];
-  [backgroundView_ addSubview:pokemonLevel_];
+  [pokemonLevel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+  [self.view addSubview:pokemonLevel_];
   
   // HP bar
-  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame];// HP:160.f HPMax:200.f];
-  [backgroundView_ addSubview:pokemonHPBar_];
+  pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame];
+  [self.view addSubview:pokemonHPBar_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -125,7 +116,6 @@
   self.pokemonName    = nil;
   self.pokemonLevel   = nil;
   self.pokemonGender  = nil;
-  self.backgroundView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

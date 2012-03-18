@@ -90,8 +90,8 @@
 @synthesize centerMainButton = centerMainButton_;
 @synthesize mapButton        = mapButton_;
 
-@synthesize utilityViewController  = utilityViewController_;
-@synthesize poketchViewController  = poketchViewController_;
+//@synthesize utilityViewController  = utilityViewController_;
+//@synthesize poketchViewController  = poketchViewController_;
 @synthesize gameMainViewController = gameMainViewController_;
 
 @synthesize centerMenuUtilityNavigationController     = centerMenuUtilityNavigationController_;
@@ -118,8 +118,8 @@
   [centerMainButton_ release];
   [mapButton_        release];
   
-  [utilityViewController_ release];
-  [poketchViewController_ release];
+//  [utilityViewController_ release];
+//  [poketchViewController_ release];
   [gameMainViewController_ release];
   
   self.centerMenuUtilityNavigationController     = nil;
@@ -282,8 +282,8 @@
   self.centerMainButton = nil;
   self.mapButton        = nil;
   
-  self.utilityViewController  = nil;
-  self.poketchViewController  = nil;
+//  self.utilityViewController  = nil;
+//  self.poketchViewController  = nil;
   self.gameMainViewController = nil;
   
   self.centerMenuUtilityNavigationController     = nil;

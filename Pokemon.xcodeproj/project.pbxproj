@@ -47,6 +47,8 @@
 		7F22C67E150781C00070CB36 /* GamePokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F22C67D150781C00070CB36 /* GamePokemonStatusViewController.m */; };
 		7F22C681150787190070CB36 /* GamePokemonStatusAdvancedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F22C67F150787190070CB36 /* GamePokemonStatusAdvancedBackground.png */; };
 		7F22C682150787190070CB36 /* GamePokemonStatusAdvancedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F22C680150787190070CB36 /* GamePokemonStatusAdvancedBackground@2x.png */; };
+		7F2B7CE21515B3210091E739 /* GameMessageViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */; };
+		7F2B7CE31515B3210091E739 /* GameMessageViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */; };
 		7F2EFB7314DE5F370068F681 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7214DE5F370068F681 /* PListParser.m */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
 		7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7B14DE9FDB0068F681 /* PokedexDefaultImage.png */; };
@@ -809,6 +811,8 @@
 		7F22C67D150781C00070CB36 /* GamePokemonStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonStatusViewController.m; sourceTree = "<group>"; };
 		7F22C67F150787190070CB36 /* GamePokemonStatusAdvancedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GamePokemonStatusAdvancedBackground.png; sourceTree = "<group>"; };
 		7F22C680150787190070CB36 /* GamePokemonStatusAdvancedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GamePokemonStatusAdvancedBackground@2x.png"; sourceTree = "<group>"; };
+		7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameMessageViewBackground.png; sourceTree = "<group>"; };
+		7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameMessageViewBackground@2x.png"; sourceTree = "<group>"; };
 		7F2EFB7114DE5F370068F681 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F2EFB7214DE5F370068F681 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
 		7F2EFB7514DE78250068F681 /* GenerationOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenerationOne.png; sourceTree = "<group>"; };
@@ -3029,6 +3033,8 @@
 		7FC127FF1504C24400E2A8F7 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
+				7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */,
+				7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */,
 				7F199EDD150A6B54004CE84E /* GamePokeball.png */,
 				7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */,
 				7F199ED4150A45D6004CE84E /* GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png */,
@@ -3709,6 +3715,8 @@
 				7F199EE0150A6B55004CE84E /* GamePokeball@2x.png in Resources */,
 				7FCBAE561514AAFD00890EFD /* BagItems-Misc.plist in Resources */,
 				7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */,
+				7F2B7CE21515B3210091E739 /* GameMessageViewBackground.png in Resources */,
+				7F2B7CE31515B3210091E739 /* GameMessageViewBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
