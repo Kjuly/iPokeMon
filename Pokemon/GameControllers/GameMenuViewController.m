@@ -53,10 +53,12 @@ typedef enum {
   UIView                            * pokeball_;
   
   // Gestures
-  UISwipeGestureRecognizer * swipeRightGestureRecognizer_;
-  UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;
-  UISwipeGestureRecognizer * swipeUpGestureRecognizer_;
-  UISwipeGestureRecognizer * swipeDownGestureRecognizer_;
+  UISwipeGestureRecognizer * swipeRightGestureRecognizer_; // Open Move view for Fight
+  UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;  // Open Bag view
+  UISwipeGestureRecognizer * swipeUpGestureRecognizer_;    // Open player pokemon status view
+  UISwipeGestureRecognizer * swipeDownGestureRecognizer_;  // Open enemy pokemon status view
+  UITapGestureRecognizer   * twoFingersTwoTaps_;           // Open Run confirm view
+  
 }
 
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
@@ -79,6 +81,7 @@ typedef enum {
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeUpGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeDownGestureRecognizer;
+@property (nonatomic, retain) UITapGestureRecognizer   * twoFingersTwoTaps;
 
 // Button Actions
 - (void)updateGameMenuKeyView:(NSNotification *)notification;
@@ -95,6 +98,7 @@ typedef enum {
 
 // Gesture Action
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer;
+- (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -125,6 +129,7 @@ typedef enum {
 @synthesize swipeLeftGestureRecognizer  = swipeLeftGestureRecognizer_;
 @synthesize swipeUpGestureRecognizer    = swipeUpGestureRecognizer_;
 @synthesize swipeDownGestureRecognizer  = swipeDownGestureRecognizer_;
+@synthesize twoFingersTwoTaps           = twoFingersTwoTaps_;
 
 - (void)dealloc
 {
@@ -151,6 +156,7 @@ typedef enum {
   [swipeLeftGestureRecognizer_  release];
   [swipeUpGestureRecognizer_    release];
   [swipeDownGestureRecognizer_  release];
+  [twoFingersTwoTaps_           release];
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameMenuKeyView object:nil];
@@ -318,6 +324,15 @@ typedef enum {
   [self.swipeDownGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
   [self.view addGestureRecognizer:self.swipeDownGestureRecognizer];
   
+  // Two finger with two taps to open Run confirm view
+  UITapGestureRecognizer * twoFingersTwoTaps
+  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
+  self.twoFingersTwoTaps = twoFingersTwoTaps;
+  [twoFingersTwoTaps release];
+  [self.twoFingersTwoTaps setNumberOfTapsRequired:2];
+  [self.twoFingersTwoTaps setNumberOfTouchesRequired:2];
+  [self.view addGestureRecognizer:self.twoFingersTwoTaps];
+  
   //
   // Notification Observers
   //
@@ -371,6 +386,7 @@ typedef enum {
   self.swipeLeftGestureRecognizer  = nil;
   self.swipeUpGestureRecognizer    = nil;
   self.swipeDownGestureRecognizer  = nil;
+  self.twoFingersTwoTaps           = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -659,6 +675,7 @@ typedef enum {
 
 #pragma mark - Gestures ()
 
+// Action for swipe gesture recognizer
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
   void (^animationBlock)();
   
@@ -722,6 +739,12 @@ typedef enum {
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:animationBlock
                    completion:nil];
+}
+
+// Action for tap gesture recognizer
+- (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
+  if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2)
+    [self openRunConfirmView];
 }
 
 #pragma mark - Public Methods
