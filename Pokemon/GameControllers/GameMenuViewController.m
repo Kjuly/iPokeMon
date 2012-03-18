@@ -45,7 +45,7 @@ typedef enum {
   GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
   GameMenuMoveViewController        * gameMenuMoveViewController_;
   GameMenuBagViewController         * gameMenuBagViewController_;
-//  UIView                            * menuArea_;
+  UIView                            * menuArea_;
   UITextView                        * messageView_;
   
   NSInteger                           currPokemon_;
@@ -53,11 +53,12 @@ typedef enum {
   UIView                            * pokeball_;
   
   // Gestures
-  UISwipeGestureRecognizer * swipeRightGestureRecognizer_; // Open Move view for Fight
-  UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;  // Open Bag view
-  UISwipeGestureRecognizer * swipeUpGestureRecognizer_;    // Open player pokemon status view
-  UISwipeGestureRecognizer * swipeDownGestureRecognizer_;  // Open enemy pokemon status view
-  UITapGestureRecognizer   * twoFingersTwoTaps_;           // Open Run confirm view
+  UISwipeGestureRecognizer * swipeRightGestureRecognizer_;        // Open Move view for Fight
+  UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;         // Open Bag view
+  UISwipeGestureRecognizer * swipeUpGestureRecognizer_;           // Open player pokemon status view
+  UISwipeGestureRecognizer * swipeDownGestureRecognizer_;         // Open enemy pokemon status view
+  UITapGestureRecognizer   * twoFingersTwoTapsGestureRecognizer_; // Open Run confirm view
+  UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer_;  // Open Menu
   
 }
 
@@ -70,7 +71,7 @@ typedef enum {
 @property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
 @property (nonatomic, retain) GameMenuMoveViewController        * gameMenuMoveViewController;
 @property (nonatomic, retain) GameMenuBagViewController         * gameMenuBagViewController;
-//@property (nonatomic, retain) UIView                            * menuArea;
+@property (nonatomic, retain) UIView                            * menuArea;
 @property (nonatomic, retain) UITextView                        * messageView;
 
 @property (nonatomic, assign) NSInteger                           currPokemon;
@@ -81,7 +82,8 @@ typedef enum {
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeUpGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeDownGestureRecognizer;
-@property (nonatomic, retain) UITapGestureRecognizer   * twoFingersTwoTaps;
+@property (nonatomic, retain) UITapGestureRecognizer   * twoFingersTwoTapsGestureRecognizer;
+@property (nonatomic, retain) UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer;
 
 // Button Actions
 - (void)updateGameMenuKeyView:(NSNotification *)notification;
@@ -95,6 +97,7 @@ typedef enum {
 - (void)toggleSixPokemonsView:(NSNotification *)notification;
 - (void)updateMessage:(NSNotification *)notification;
 - (void)updatePokemonStatus:(NSNotification *)notification;
+- (void)toggleMenu:(BOOL)hide;
 
 // Gesture Action
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer;
@@ -118,18 +121,19 @@ typedef enum {
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 @synthesize gameMenuMoveViewController        = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController         = gameMenuBagViewController_;
-//@synthesize menuArea                          = menuArea_;
+@synthesize menuArea                          = menuArea_;
 @synthesize messageView                       = messageView_;
 
 @synthesize currPokemon                       = currPokemon_;
 @synthesize pokemonImageView                  = pokemonImageView_;
 @synthesize pokeball                          = pokeball_;
 
-@synthesize swipeRightGestureRecognizer = swipeRightGestureRecognizer_;
-@synthesize swipeLeftGestureRecognizer  = swipeLeftGestureRecognizer_;
-@synthesize swipeUpGestureRecognizer    = swipeUpGestureRecognizer_;
-@synthesize swipeDownGestureRecognizer  = swipeDownGestureRecognizer_;
-@synthesize twoFingersTwoTaps           = twoFingersTwoTaps_;
+@synthesize swipeRightGestureRecognizer        = swipeRightGestureRecognizer_;
+@synthesize swipeLeftGestureRecognizer         = swipeLeftGestureRecognizer_;
+@synthesize swipeUpGestureRecognizer           = swipeUpGestureRecognizer_;
+@synthesize swipeDownGestureRecognizer         = swipeDownGestureRecognizer_;
+@synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
+@synthesize twoFingersOneTapGestureRecognizer  = twoFingersOneTapGestureRecognizer_;
 
 - (void)dealloc
 {
@@ -147,16 +151,17 @@ typedef enum {
   [gameMenuSixPokemonsViewController_ release];
   [gameMenuMoveViewController_        release];
   [gameMenuBagViewController_         release];
-//  [menuArea_                          release];
+  [menuArea_                          release];
   [messageView_                       release];
   [pokemonImageView_                  release];
   [pokeball_                          release];
   
-  [swipeRightGestureRecognizer_ release];
-  [swipeLeftGestureRecognizer_  release];
-  [swipeUpGestureRecognizer_    release];
-  [swipeDownGestureRecognizer_  release];
-  [twoFingersTwoTaps_           release];
+  [swipeRightGestureRecognizer_        release];
+  [swipeLeftGestureRecognizer_         release];
+  [swipeUpGestureRecognizer_           release];
+  [swipeDownGestureRecognizer_         release];
+  [twoFingersTwoTapsGestureRecognizer_ release];
+  [twoFingersOneTapGestureRecognizer_  release];
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameMenuKeyView object:nil];
@@ -198,10 +203,6 @@ typedef enum {
 //  [self.view setOpaque:NO];
   
   // Constants
-//  CGRect menuAreaFrame    = CGRectMake(0.f, 250.f, 320.f, 45.f);
-//  CGRect buttonBagFrame   = CGRectMake(50.f, 5.f, 32.f, 32.f);
-//  CGRect buttonRunFrame   = CGRectMake(320.f - 50.f - 32.f, 5.f, 32.f, 32.f);
-//  CGRect buttonFightFrame = CGRectMake((320.f - 64.f) / 2.f, -10.f, 64.f, 64.f);
   CGRect messageViewFrame             = CGRectMake(0.f, kViewHeight - 150.f, 320.f, 150.f);
   CGRect enemyPokemonStatusViewFrame  = CGRectMake(0.f, -56.f, 320.f, 64.f);
   CGRect playerPokemonStatusViewFrame = CGRectMake(0.f, kViewHeight - 150.f - 8.f, 320.f, 64.f);
@@ -222,35 +223,8 @@ typedef enum {
   //
   // Top Bar
   //
-//  gameTopViewController_ = [[GameTopViewController alloc] init];
-//  [self.view addSubview:gameTopViewController_.view];
-  
-  //
-  // Menu Area
-  //
-  /*UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
-  self.menuArea = menuArea;
-  [menuArea release];
-  [self.view addSubview:self.menuArea];
-  
-  // Create Menu Buttons
-  buttonBag_ = [[UIButton alloc] initWithFrame:buttonBagFrame];
-  [buttonBag_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagIcon.png"]
-              forState:UIControlStateNormal];
-  [buttonBag_ addTarget:self action:@selector(openBagView) forControlEvents:UIControlEventTouchUpInside];
-  [self.menuArea addSubview:buttonBag_];
-  
-  buttonRun_ = [[UIButton alloc] initWithFrame:buttonRunFrame];
-  [buttonRun_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonRunIcon.png"]
-              forState:UIControlStateNormal];
-  [buttonRun_ addTarget:self action:@selector(openRunConfirmView) forControlEvents:UIControlEventTouchUpInside];
-  [self.menuArea addSubview:buttonRun_];
-  
-  buttonFight_ = [[UIButton alloc] initWithFrame:buttonFightFrame];
-  [buttonFight_ setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightIcon.png"]
-                forState:UIControlStateNormal];
-  [buttonFight_ addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
-  [self.menuArea addSubview:buttonFight_];*/
+  //gameTopViewController_ = [[GameTopViewController alloc] init];
+  //[self.view addSubview:gameTopViewController_.view];
   
   //
   // Message View
@@ -325,13 +299,22 @@ typedef enum {
   [self.view addGestureRecognizer:self.swipeDownGestureRecognizer];
   
   // Two finger with two taps to open Run confirm view
-  UITapGestureRecognizer * twoFingersTwoTaps
+  UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer
   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
-  self.twoFingersTwoTaps = twoFingersTwoTaps;
-  [twoFingersTwoTaps release];
-  [self.twoFingersTwoTaps setNumberOfTapsRequired:2];
-  [self.twoFingersTwoTaps setNumberOfTouchesRequired:2];
-  [self.view addGestureRecognizer:self.twoFingersTwoTaps];
+  self.twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer;
+  [twoFingersTwoTapsGestureRecognizer release];
+  [self.twoFingersTwoTapsGestureRecognizer setNumberOfTapsRequired:2];
+  [self.twoFingersTwoTapsGestureRecognizer setNumberOfTouchesRequired:2];
+  [self.view addGestureRecognizer:self.twoFingersTwoTapsGestureRecognizer];
+  
+  // Two finger with one tap to open Menu
+  UITapGestureRecognizer * twoFingersOneTapGestureRecognizer
+  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
+  self.twoFingersOneTapGestureRecognizer = twoFingersOneTapGestureRecognizer;
+  [twoFingersOneTapGestureRecognizer release];
+  [self.twoFingersOneTapGestureRecognizer setNumberOfTapsRequired:1];
+  [self.twoFingersOneTapGestureRecognizer setNumberOfTouchesRequired:2];
+  [self.view addGestureRecognizer:self.twoFingersOneTapGestureRecognizer];
   
   //
   // Notification Observers
@@ -378,15 +361,16 @@ typedef enum {
   self.gameMenuSixPokemonsViewController = nil;
   self.gameMenuMoveViewController        = nil;
   self.gameMenuBagViewController         = nil;
-//  self.menuArea                          = nil;
+  self.menuArea                          = nil;
   self.messageView                       = nil;
   self.pokeball                          = nil;
   
-  self.swipeRightGestureRecognizer = nil;
-  self.swipeLeftGestureRecognizer  = nil;
-  self.swipeUpGestureRecognizer    = nil;
-  self.swipeDownGestureRecognizer  = nil;
-  self.twoFingersTwoTaps           = nil;
+  self.swipeRightGestureRecognizer        = nil;
+  self.swipeLeftGestureRecognizer         = nil;
+  self.swipeUpGestureRecognizer           = nil;
+  self.swipeDownGestureRecognizer         = nil;
+  self.twoFingersTwoTapsGestureRecognizer = nil;
+  self.twoFingersOneTapGestureRecognizer  = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -673,6 +657,46 @@ typedef enum {
     [self.enemyPokemonStatusViewController updatePokemonStatus:notification.userInfo];
 }
 
+// Show menu
+- (void)toggleMenu:(BOOL)hide {
+  if (self.menuArea == nil) {
+    CGRect menuAreaFrame    = CGRectMake((kViewWidth - 64.f) / 2.f, 28.f, 64.f, 254.f);
+    CGRect buttonBagFrame   = CGRectMake(0.f, 0.f, 64.f, 64.f);
+    CGRect buttonFightFrame = CGRectMake(0.f, 64.f + 32.f, 64.f, 64.f);
+    CGRect buttonRunFrame   = CGRectMake(0.f, (64.f + 32.f) * 2, 64.f, 64.f);
+    
+    UIView * menuArea = [[UIView alloc] initWithFrame:menuAreaFrame];
+    self.menuArea = menuArea;
+    [menuArea release];
+    [self.view addSubview:self.menuArea];
+    
+    // Create Menu Buttons
+    UIButton * buttonBag = [[UIButton alloc] initWithFrame:buttonBagFrame];
+    [buttonBag setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+                         forState:UIControlStateNormal];
+    [buttonBag setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonBagIcon.png"] forState:UIControlStateNormal];
+    [buttonBag addTarget:self action:@selector(openBagView) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuArea addSubview:buttonBag];
+    [buttonBag release];
+    
+    UIButton * buttonRun = [[UIButton alloc] initWithFrame:buttonRunFrame];
+    [buttonRun setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+                         forState:UIControlStateNormal];
+    [buttonRun setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonRunIcon.png"] forState:UIControlStateNormal];
+    [buttonRun addTarget:self action:@selector(openRunConfirmView) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuArea addSubview:buttonRun];
+    [buttonRun release];
+    
+    UIButton * buttonFight = [[UIButton alloc] initWithFrame:buttonFightFrame];
+    [buttonFight setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+                           forState:UIControlStateNormal];
+    [buttonFight setImage:[UIImage imageNamed:@"GameBattleViewMainMenuButtonFightIcon.png"] forState:UIControlStateNormal];
+    [buttonFight addTarget:self action:@selector(openMoveView) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuArea addSubview:buttonFight];
+    [buttonFight release];
+  }
+}
+
 #pragma mark - Gestures ()
 
 // Action for swipe gesture recognizer
@@ -745,6 +769,8 @@ typedef enum {
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2)
     [self openRunConfirmView];
+//  if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 1)
+//    [self toggleMenu:NO];
 }
 
 #pragma mark - Public Methods
