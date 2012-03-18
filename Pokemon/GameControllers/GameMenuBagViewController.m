@@ -60,7 +60,7 @@
   // Base Setting
   isSelectedItemViewOpening_ = NO;
   
-  CGRect tableAreaViewFrame  = CGRectMake(10.f, 10.f, 310.f, kViewHeight - 20.f);
+  CGRect tableAreaViewFrame  = CGRectMake(8.f, 8.f, 312.f, kViewHeight - 16.f);
   [self.tableAreaView setFrame:tableAreaViewFrame];
   
   CGFloat unitViewHeight = (kViewHeight - 20.f) / 4.f;

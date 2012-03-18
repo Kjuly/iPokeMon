@@ -66,7 +66,7 @@
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Create Move Area View
-  CGRect tableAreaViewFrame  = CGRectMake(0.f, 10.f, 310.f, kViewHeight - 20.f);
+  CGRect tableAreaViewFrame  = CGRectMake(0.f, 8.f, 312.f, kViewHeight - 16.f);
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
