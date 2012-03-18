@@ -623,15 +623,13 @@ typedef enum {
 {
   switch (self.gameMenuKeyView) {
     case kGameMenuKeyViewMoveView:
-//      [self.gameMenuMoveViewController unloadViewWithAnimation];
-//      self.gameMenuKeyView = kGameMenuKeyViewNone;
+      [self.gameMenuMoveViewController unloadViewWithAnimationToLeft:YES];
       break;
       
     case kGameMenuKeyViewBagView:
-//      if (self.gameMenuBagViewController.isSelectedItemViewOpening)
-//        [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
-//      [self.gameMenuBagViewController unloadViewWithAnimation];
-//      self.gameMenuKeyView = kGameMenuKeyViewNone;
+      if (self.gameMenuBagViewController.isSelectedItemViewOpening)
+        [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
+      [self.gameMenuBagViewController unloadViewWithAnimationToLeft:NO];
       break;
       
     case kGameMenuKeyViewNone:
@@ -646,22 +644,7 @@ typedef enum {
 - (void)updateMessage:(NSNotification *)notification
 {
   NSDictionary * userInfo = notification.userInfo;
-  [UIView animateWithDuration:.2f
-                        delay:0.f
-                      options:UIViewAnimationCurveEaseOut
-                   animations:^{
-                     [self.messageView setAlpha:0.f];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.messageView setText:[userInfo objectForKey:@"message"]];
-                     [UIView animateWithDuration:.3f
-                                           delay:0.f
-                                         options:UIViewAnimationCurveEaseIn
-                                      animations:^{
-                                        [self.messageView setAlpha:1.f];
-                                      }
-                                      completion:nil];
-                   }];
+  [self.messageView setText:[userInfo objectForKey:@"message"]];
 }
 
 // Update Pokemon's Status

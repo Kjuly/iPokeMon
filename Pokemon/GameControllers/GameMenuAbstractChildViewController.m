@@ -60,7 +60,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
@@ -156,10 +155,8 @@
   viewFrame.origin.x = 0.f;
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     [self.view setFrame:viewFrame];
-                   }
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{ [self.view setFrame:viewFrame]; }
                    completion:nil];
 //  [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
 }
@@ -169,13 +166,9 @@
   viewFrame.origin.x = toLeft ? -kViewWidth : kViewWidth;
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     [self.view setFrame:viewFrame];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.view removeFromSuperview];
-                   }];
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{ [self.view setFrame:viewFrame]; }
+                   completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView object:self userInfo:nil];
 //  [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
 }
