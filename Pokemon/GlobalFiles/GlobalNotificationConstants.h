@@ -18,6 +18,7 @@ extern NSString * const kPMNBattleStart;
 extern NSString * const kPMNBattleEnd;
 extern NSString * const kPMNToggleSixPokemons;
 
+extern NSString * const kPMNUpdateGameMenuKeyView;
 extern NSString * const kPMNReplacePokemon;
 extern NSString * const kPMNReplacePlayerPokemon;
 //extern NSString * const kPMNMoveEffect;

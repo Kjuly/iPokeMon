@@ -17,9 +17,11 @@
 @interface GameMenuBagViewController () {
  @private
   UIButton * cancelButton_;
+  UISwipeGestureRecognizer * swipeRightGestureRecognizer_;
 }
 
 @property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
 
 - (void)loadSelcetedItemTalbeView:(id)sender;
 
@@ -28,11 +30,14 @@
 
 @implementation GameMenuBagViewController
 
-@synthesize cancelButton              = cancelButton_;
 @synthesize isSelectedItemViewOpening = isSelectedItemViewOpening_;
+
+@synthesize cancelButton                = cancelButton_;
+@synthesize swipeRightGestureRecognizer = swipeRightGestureRecognizer_;
 
 - (void)dealloc {
   [cancelButton_ release]; 
+  [swipeRightGestureRecognizer_ release];
   
   [super dealloc];
 }
@@ -55,8 +60,13 @@
   // Base Setting
   isSelectedItemViewOpening_ = NO;
   
+  CGRect tableAreaViewFrame  = CGRectMake(10.f, 10.f, 310.f, kViewHeight - 20.f);
+  [self.tableAreaView setFrame:tableAreaViewFrame];
+  
+  CGFloat unitViewHeight = (kViewHeight - 20.f) / 4.f;
+  CGFloat unitViewWidth  = kViewWidth - 10.f;
   for (int i = 0; i < 4;) {
-    CGRect buttonFrame = CGRectMake(10.f, 20.f + 45 * i, 280.f, 45.f);
+    CGRect buttonFrame = CGRectMake(0.f, unitViewHeight * i, unitViewWidth, unitViewHeight);
     UIButton * button = [[UIButton alloc] initWithFrame:buttonFrame];
     [button setTitleColor:[GlobalRender textColorTitleWhite] forState:UIControlStateNormal];
     [button setTag:++i];
@@ -89,6 +99,14 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Swipte to RIGHT, close bag view
+  UISwipeGestureRecognizer * swipeRightGestureRecognizer
+  = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
+  self.swipeRightGestureRecognizer = swipeRightGestureRecognizer;
+  [swipeRightGestureRecognizer release];
+  [self.swipeRightGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+  [self.view addGestureRecognizer:self.swipeRightGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -96,6 +114,7 @@
   [super viewDidUnload];
   
   self.cancelButton = nil;
+  self.swipeRightGestureRecognizer = nil;
 }
 
 #pragma mark - Public Methods

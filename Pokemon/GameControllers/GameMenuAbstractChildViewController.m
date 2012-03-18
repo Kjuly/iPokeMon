@@ -8,19 +8,17 @@
 
 #import "GameMenuAbstractChildViewController.h"
 
-#import "GlobalConstants.h"
-
-#import <QuartzCore/QuartzCore.h>
+#import "GlobalNotificationConstants.h"
 
 
 @interface GameMenuAbstractChildViewController () {
  @private
-  CAAnimationGroup * animationGroupToShow_;
-  CAAnimationGroup * animationGroupToHide_;
+//  CAAnimationGroup * animationGroupToShow_;
+//  CAAnimationGroup * animationGroupToHide_;
 }
 
-@property (nonatomic, retain) CAAnimationGroup * animationGroupToShow;
-@property (nonatomic, retain) CAAnimationGroup * animationGroupToHide;
+//@property (nonatomic, retain) CAAnimationGroup * animationGroupToShow;
+//@property (nonatomic, retain) CAAnimationGroup * animationGroupToHide;
 
 @end
 
@@ -28,14 +26,14 @@
 @implementation GameMenuAbstractChildViewController
 
 @synthesize tableAreaView        = tableAreaView_;
-@synthesize animationGroupToShow = animationGroupToShow_;
-@synthesize animationGroupToHide = animationGroupToHide_;
+//@synthesize animationGroupToShow = animationGroupToShow_;
+//@synthesize animationGroupToHide = animationGroupToHide_;
 
 - (void)dealloc
 {
   [tableAreaView_ release];
-  self.animationGroupToShow = nil;
-  self.animationGroupToHide = nil;
+//  self.animationGroupToShow = nil;
+//  self.animationGroupToHide = nil;
   
   [super dealloc];
 }
@@ -66,16 +64,16 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Create Move Area View
-  CGRect tableAreaViewFrame  = CGRectMake(10.f, 200.f, 300.f, 220.f);
+  CGRect tableAreaViewFrame  = CGRectMake(0.f, 10.f, 310.f, kViewHeight - 20.f);
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
-  [self.tableAreaView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"GameViewPokemonMoveView.png"]]];
+  [self.tableAreaView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   [self.tableAreaView setOpaque:NO];
-  [self.tableAreaView.layer setCornerRadius:20.0f];
-  [self.view addSubview:tableAreaView];
+  [self.view addSubview:self.tableAreaView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -83,6 +81,7 @@
 {
   [super viewDidLoad];
   
+  /*
   // Set up animations
   // Animation group to show view
   CGFloat duration = .3f;
@@ -130,7 +129,7 @@
   NSArray * animationsToHide = [[NSArray alloc] initWithObjects:animationScaleToHide, animationFadeOut, nil];
   [self.animationGroupToHide setAnimations:animationsToHide];
   [animationsToHide release];
-  [self.animationGroupToHide setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+  [self.animationGroupToHide setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];*/
 }
 
 - (void)viewDidUnload
@@ -138,8 +137,8 @@
   [super viewDidUnload];
   
   self.tableAreaView   = nil;
-  self.animationGroupToShow = nil;
-  self.animationGroupToHide = nil;
+//  self.animationGroupToShow = nil;
+//  self.animationGroupToHide = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -150,18 +149,58 @@
 
 #pragma mark - Public Methods
 
-- (void)loadViewWithAnimation {
-  [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
+- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft {
+  CGRect viewFrame = self.view.frame;
+  viewFrame.origin.x = fromLeft ? -kViewWidth : kViewWidth;
+  [self.view setFrame:viewFrame];
+  viewFrame.origin.x = 0.f;
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     [self.view setFrame:viewFrame];
+                   }
+                   completion:nil];
+//  [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
 }
 
-- (void)unloadViewWithAnimation {
-  [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft {
+  CGRect viewFrame = self.view.frame;
+  viewFrame.origin.x = toLeft ? -kViewWidth : kViewWidth;
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     [self.view setFrame:viewFrame];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.view removeFromSuperview];
+                   }];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView object:self userInfo:nil];
+//  [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
 }
 
 // Animation delegate
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+/*- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
   if ([[anim valueForKey:@"animationType"] isEqualToString:@"hide"])
     [self.view removeFromSuperview];
+}*/
+
+- (void)swipeView:(UISwipeGestureRecognizer *)recognizer
+{
+  switch (recognizer.direction) {
+    case UISwipeGestureRecognizerDirectionRight:
+      [self unloadViewWithAnimationToLeft:NO];
+      break;
+      
+    case UISwipeGestureRecognizerDirectionLeft:
+      [self unloadViewWithAnimationToLeft:YES];
+      break;
+      
+    default:
+      return;
+      break;
+  }
 }
 
 @end

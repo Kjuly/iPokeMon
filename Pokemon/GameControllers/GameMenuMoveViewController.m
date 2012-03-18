@@ -20,19 +20,23 @@
   TrainerTamedPokemon * playerPokemon_;
   NSArray             * fourMovesPP_;
   
-  GameMenuMoveUnitView * moveOneView_;
-  GameMenuMoveUnitView * moveTwoView_;
-  GameMenuMoveUnitView * moveThreeView_;
-  GameMenuMoveUnitView * moveFourView_;
+  GameMenuMoveUnitView * move1View_;
+  GameMenuMoveUnitView * move2View_;
+  GameMenuMoveUnitView * move3View_;
+  GameMenuMoveUnitView * move4View_;
+  
+  UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;
 }
 
 @property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
 @property (nonatomic, copy) NSArray               * fourMovesPP;
 
-@property (nonatomic, retain) GameMenuMoveUnitView * moveOneView;
-@property (nonatomic, retain) GameMenuMoveUnitView * moveTwoView;
-@property (nonatomic, retain) GameMenuMoveUnitView * moveThreeView;
-@property (nonatomic, retain) GameMenuMoveUnitView * moveFourView;
+@property (nonatomic, retain) GameMenuMoveUnitView * move1View;
+@property (nonatomic, retain) GameMenuMoveUnitView * move2View;
+@property (nonatomic, retain) GameMenuMoveUnitView * move3View;
+@property (nonatomic, retain) GameMenuMoveUnitView * move4View;
+
+@property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 
 - (void)useSelectedMove:(id)sender;
 
@@ -44,20 +48,24 @@
 @synthesize playerPokemon  = playerPokemon;
 @synthesize fourMovesPP    = fourMovesPP_;
 
-@synthesize moveOneView   = moveOneView_;
-@synthesize moveTwoView   = moveTwoView_;
-@synthesize moveThreeView = moveThreeView_;
-@synthesize moveFourView  = moveFourView_;
+@synthesize move1View = move1View_;
+@synthesize move2View = move2View_;
+@synthesize move3View = move3View_;
+@synthesize move4View = move4View_;
+
+@synthesize swipeLeftGestureRecognizer = swipeLeftGestureRecognizer_;
 
 - (void)dealloc
 {
-  [playerPokemon   release];
-  [fourMovesPP_    release];
+  [playerPokemon release];
+  [fourMovesPP_  release];
   
-  [moveOneView_    release];
-  [moveTwoView_    release];
-  [moveThreeView_  release];
-  [moveFourView_   release];
+  [move1View_ release];
+  [move2View_ release];
+  [move3View_ release];
+  [move4View_ release];
+  
+  [swipeLeftGestureRecognizer_ release];
   
   [super dealloc];
 }
@@ -78,35 +86,37 @@
   [super loadView];
   
   // Constants
-  CGRect moveOneViewFrame   = CGRectMake(10.f, 20.f, 280.f, 45.f);
-  CGRect moveTwoViewFrame   = CGRectMake(10.f, 65.f, 280.f, 45.f);
-  CGRect moveThreeViewFrame = CGRectMake(10.f, 110.f, 280.f, 45.f);
-  CGRect moveFourViewFrame  = CGRectMake(10.f, 155.f, 280.f, 45.f);
+  CGFloat moveViewHeight = (kViewHeight - 20.f) / 4.f;
+  CGFloat moveViewWidth  = kViewWidth - 10.f;
+  CGRect moveOneViewFrame   = CGRectMake(0.f, 0.f,                moveViewWidth, moveViewHeight);
+  CGRect moveTwoViewFrame   = CGRectMake(0.f, moveViewHeight,     moveViewWidth, moveViewHeight);
+  CGRect moveThreeViewFrame = CGRectMake(0.f, moveViewHeight * 2, moveViewWidth, moveViewHeight);
+  CGRect moveFourViewFrame  = CGRectMake(0.f, moveViewHeight * 3, moveViewWidth, moveViewHeight);
   
   // Set Four Moves' layout
-  moveOneView_   = [[GameMenuMoveUnitView alloc] initWithFrame:moveOneViewFrame];
-  moveTwoView_   = [[GameMenuMoveUnitView alloc] initWithFrame:moveTwoViewFrame];
-  moveThreeView_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveThreeViewFrame];
-  moveFourView_  = [[GameMenuMoveUnitView alloc] initWithFrame:moveFourViewFrame];
+  move1View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveOneViewFrame];
+  move2View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveTwoViewFrame];
+  move3View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveThreeViewFrame];
+  move4View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveFourViewFrame];
   
-  [moveOneView_.viewButton   setTag:1];
-  [moveTwoView_.viewButton   setTag:2];
-  [moveThreeView_.viewButton setTag:3];
-  [moveFourView_.viewButton  setTag:4];
+  [move1View_.viewButton setTag:1];
+  [move2View_.viewButton setTag:2];
+  [move3View_.viewButton setTag:3];
+  [move4View_.viewButton setTag:4];
   
-  [moveOneView_.viewButton   addTarget:self action:@selector(useSelectedMove:)
-                      forControlEvents:UIControlEventTouchUpInside];
-  [moveTwoView_.viewButton   addTarget:self action:@selector(useSelectedMove:)
-                      forControlEvents:UIControlEventTouchUpInside];
-  [moveThreeView_.viewButton addTarget:self action:@selector(useSelectedMove:)
-                      forControlEvents:UIControlEventTouchUpInside];
-  [moveFourView_.viewButton  addTarget:self action:@selector(useSelectedMove:)
-                      forControlEvents:UIControlEventTouchUpInside];
+  [move1View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+                  forControlEvents:UIControlEventTouchUpInside];
+  [move2View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+                  forControlEvents:UIControlEventTouchUpInside];
+  [move3View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+                  forControlEvents:UIControlEventTouchUpInside];
+  [move4View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+                  forControlEvents:UIControlEventTouchUpInside];
   
-  [self.tableAreaView addSubview:moveOneView_];
-  [self.tableAreaView addSubview:moveTwoView_];
-  [self.tableAreaView addSubview:moveThreeView_];
-  [self.tableAreaView addSubview:moveFourView_];
+  [self.tableAreaView addSubview:move1View_];
+  [self.tableAreaView addSubview:move2View_];
+  [self.tableAreaView addSubview:move3View_];
+  [self.tableAreaView addSubview:move4View_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -115,19 +125,29 @@
   [super viewDidLoad];
   
   [self updateFourMoves];
+  
+  // Swipte to LEFT, close move view
+  UISwipeGestureRecognizer * swipeLeftGestureRecognizer
+  = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
+  self.swipeLeftGestureRecognizer = swipeLeftGestureRecognizer;
+  [swipeLeftGestureRecognizer release];
+  [self.swipeLeftGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+  [self.view addGestureRecognizer:self.swipeLeftGestureRecognizer];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
   
-  self.playerPokemon  = nil;
-  self.fourMovesPP    = nil;
+  self.playerPokemon = nil;
+  self.fourMovesPP   = nil;
   
-  self.moveOneView    = nil;
-  self.moveTwoView    = nil;
-  self.moveThreeView  = nil;
-  self.moveFourView   = nil;
+  self.move1View = nil;
+  self.move2View = nil;
+  self.move3View = nil;
+  self.move4View = nil;
+  
+  self.swipeLeftGestureRecognizer = nil;
 }
 
 #pragma mark - Private Methods
@@ -138,7 +158,7 @@
   [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserPlayer
                                            moveIndex:((UIButton *)sender).tag];
   
-  [self unloadViewWithAnimation];
+  [self unloadViewWithAnimationToLeft:YES];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
@@ -151,39 +171,39 @@
   
   // Four moves
   Move * move1 = self.playerPokemon.move1;
-  [self.moveOneView.type1 setText:
+  [self.move1View.type1 setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
-  [self.moveOneView.name setText:
+  [self.move1View.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move1.sid intValue]]), nil)];
-  [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:1] intValue],
-                                                                      [[fourMovesPP_ objectAtIndex:0] intValue]]];
+  [self.move1View.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:1] intValue],
+                                                                    [[fourMovesPP_ objectAtIndex:0] intValue]]];
   move1 = nil;
   
   Move * move2 = self.playerPokemon.move2;
-  [self.moveTwoView.type1 setText:
+  [self.move2View.type1 setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
-  [self.moveTwoView.name setText:
+  [self.move2View.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move2.sid intValue]]), nil)];
-  [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:3] intValue],
-                                                                      [[fourMovesPP_ objectAtIndex:2] intValue]]];
+  [self.move2View.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:3] intValue],
+                                                                    [[fourMovesPP_ objectAtIndex:2] intValue]]];
   move2 = nil;
   
   Move * move3 = self.playerPokemon.move3;
-  [self.moveThreeView.type1 setText:
+  [self.move3View.type1 setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
-  [self.moveThreeView.name setText:
+  [self.move3View.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move3.sid intValue]]), nil)];
-  [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:5] intValue],
-                                                                        [[fourMovesPP_ objectAtIndex:4] intValue]]];
+  [self.move3View.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:5] intValue],
+                                                                    [[fourMovesPP_ objectAtIndex:4] intValue]]];
   move3 = nil;
   
   Move * move4 = self.playerPokemon.move4;
-  [self.moveFourView.type1 setText:
+  [self.move4View.type1 setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
-  [self.moveFourView.name setText:
+  [self.move4View.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move4.sid intValue]]), nil)];
-  [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:7] intValue],
-                                                                       [[fourMovesPP_ objectAtIndex:6] intValue]]];
+  [self.move4View.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:7] intValue],
+                                                                    [[fourMovesPP_ objectAtIndex:6] intValue]]];
   move4 = nil;
 }
 

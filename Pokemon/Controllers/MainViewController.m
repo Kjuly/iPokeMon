@@ -253,26 +253,25 @@
   self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
   [self.view addSubview:self.utilityViewController.view];
 */
-  
-#ifndef DEBUG_PREINIT_POPULATE_DATA
-  // Game Main View
-  gameMainViewController_ = [[GameMainViewController alloc] init];
-  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
-#endif
-  
-#ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
-//#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
-  self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalPokemonAppeared;
-  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
-                         forState:UIControlStateNormal];
-  [self runCenterMainButtonTouchUpInsideAction:nil];
-#endif
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+#ifndef DEBUG_PREINIT_POPULATE_DATA
+  // Game Main View
+  gameMainViewController_ = [[GameMainViewController alloc] init];
+  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
+#endif
+#ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
+  //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
+  self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalPokemonAppeared;
+  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
+                         forState:UIControlStateNormal];
+  [self runCenterMainButtonTouchUpInsideAction:nil];
+#endif
 }
 
 - (void)viewDidUnload

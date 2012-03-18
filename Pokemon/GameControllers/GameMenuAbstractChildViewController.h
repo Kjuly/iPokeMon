@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalConstants.h"
+
 @interface GameMenuAbstractChildViewController : UIViewController {
   UIView * tableAreaView_;
 }
 
 @property (nonatomic, retain) UIView * tableAreaView;
 
-- (void)loadViewWithAnimation;
-- (void)unloadViewWithAnimation;
+- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft;
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft;
+- (void)swipeView:(UISwipeGestureRecognizer *)recognizer;
 
 @end
