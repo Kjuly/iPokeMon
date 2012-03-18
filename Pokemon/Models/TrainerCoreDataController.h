@@ -11,9 +11,8 @@
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
 #import "Pokemon.h"
+#import "BagDataController.h"
 
-//@class Trainer;
-//@class TrainerTamedPokemon;
 
 @interface TrainerCoreDataController : NSObject
 
@@ -23,5 +22,6 @@
 - (Trainer *)trainer;
 - (NSArray *)sixPokemons;
 - (TrainerTamedPokemon *)firstPokemonOfSix;
+- (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;
 
 @end

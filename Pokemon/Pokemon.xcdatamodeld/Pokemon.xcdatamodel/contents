@@ -115,9 +115,11 @@
         <attribute name="bagBerries" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="bagItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="bagKeyItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagMedicine" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicineHP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicinePP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicineStatus" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="bagPokeballs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagTMHMs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagTMsHMs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="pokedex" optional="YES" attributeType="String" maxValueString="100" defaultValueString="0" syncable="YES"/>
@@ -167,7 +169,7 @@
         <element name="BagTMHM" positionX="144" positionY="378" width="128" height="90"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Pokemon" positionX="252" positionY="135" width="128" height="480"/>
-        <element name="Trainer" positionX="-38" positionY="108" width="128" height="270"/>
+        <element name="Trainer" positionX="-38" positionY="108" width="128" height="285"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
         <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
     </elements>

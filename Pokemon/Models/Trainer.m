@@ -2,7 +2,7 @@
 //  Trainer.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 3/17/12.
+//  Created by Kaijie Yu on 3/19/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -17,14 +17,16 @@
 @dynamic bagBerries;
 @dynamic bagItems;
 @dynamic bagKeyItems;
-@dynamic bagMedicine;
 @dynamic bagPokeballs;
-@dynamic bagTMHMs;
+@dynamic bagTMsHMs;
 @dynamic money;
 @dynamic name;
 @dynamic pokedex;
 @dynamic sid;
 @dynamic sixPokemonsID;
+@dynamic bagMedicineHP;
+@dynamic bagMedicinePP;
+@dynamic bagMedicineStatus;
 @dynamic tamedPokemons;
 
 @end

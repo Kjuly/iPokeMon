@@ -672,6 +672,8 @@
 		7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */; };
 		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
 		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
+		7FC0897615165317009FA14B /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0897515165316009FA14B /* Trainer.m */; };
+		7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */; };
 		7FC128021504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128001504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png */; };
 		7FC128031504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128011504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png */; };
 		7FC1280F1504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128051504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png */; };
@@ -744,7 +746,6 @@
 		7FF3E37B1514D8CD00F79316 /* BagBerry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E37A1514D8CC00F79316 /* BagBerry.m */; };
 		7FF3E37E1514DBFB00F79316 /* BagMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E37D1514DBFB00F79316 /* BagMail.m */; };
 		7FF3E3811514DBFD00F79316 /* BagTMHM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3801514DBFC00F79316 /* BagTMHM.m */; };
-		7FF3E3841514DC6100F79316 /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3831514DC6000F79316 /* Trainer.m */; };
 		7FF3E3871514DCFA00F79316 /* BagDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3861514DCF900F79316 /* BagDataController.m */; };
 		7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FF3E3881514ECEA00F79316 /* BagItems.plist */; };
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
@@ -1632,6 +1633,10 @@
 		7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewController.m; sourceTree = "<group>"; };
 		7FBD73F114E41AE900965CED /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCardViewController.h; sourceTree = "<group>"; };
 		7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
+		7FC0897415165315009FA14B /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
+		7FC0897515165316009FA14B /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
+		7FC08978151654B2009FA14B /* BagMedicineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewController.h; sourceTree = "<group>"; };
+		7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagMedicineTableViewController.m; sourceTree = "<group>"; };
 		7FC128001504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewMainMenuBackground.png; sourceTree = "<group>"; };
 		7FC128011504C24400E2A8F7 /* GameBattleViewMainMenuBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleViewMainMenuBackground@2x.png"; sourceTree = "<group>"; };
 		7FC128051504C78B00E2A8F7 /* GameBattleViewMainMenuButtonBagIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewMainMenuButtonBagIcon.png; sourceTree = "<group>"; };
@@ -1722,8 +1727,6 @@
 		7FF3E37D1514DBFB00F79316 /* BagMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagMail.m; sourceTree = "<group>"; };
 		7FF3E37F1514DBFC00F79316 /* BagTMHM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTMHM.h; sourceTree = "<group>"; };
 		7FF3E3801514DBFC00F79316 /* BagTMHM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTMHM.m; sourceTree = "<group>"; };
-		7FF3E3821514DC5F00F79316 /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
-		7FF3E3831514DC6000F79316 /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
 		7FF3E3851514DCF800F79316 /* BagDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagDataController.h; sourceTree = "<group>"; };
 		7FF3E3861514DCF900F79316 /* BagDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagDataController.m; sourceTree = "<group>"; };
 		7FF3E3881514ECEA00F79316 /* BagItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagItems.plist; sourceTree = "<group>"; };
@@ -2285,6 +2288,8 @@
 				7FAC497114DEE701008BAB45 /* SixPokemonsMoveViewController.m */,
 				7F0E513A14DFC3D3006F7477 /* BagTableViewController.h */,
 				7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */,
+				7FC08978151654B2009FA14B /* BagMedicineTableViewController.h */,
+				7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */,
 				7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */,
 				7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */,
 				7FBD73F114E41AE900965CED /* TrainerCardViewController.h */,
@@ -2324,8 +2329,8 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
-				7FF3E3821514DC5F00F79316 /* Trainer.h */,
-				7FF3E3831514DC6000F79316 /* Trainer.m */,
+				7FC0897415165315009FA14B /* Trainer.h */,
+				7FC0897515165316009FA14B /* Trainer.m */,
 				7F581F531511DBE600F154FA /* TrainerTamedPokemon.h */,
 				7F581F541511DBE600F154FA /* TrainerTamedPokemon.m */,
 				7F52450214FBD9F40019C75A /* Pokemon.h */,
@@ -3955,8 +3960,9 @@
 				7FF3E37B1514D8CD00F79316 /* BagBerry.m in Sources */,
 				7FF3E37E1514DBFB00F79316 /* BagMail.m in Sources */,
 				7FF3E3811514DBFD00F79316 /* BagTMHM.m in Sources */,
-				7FF3E3841514DC6100F79316 /* Trainer.m in Sources */,
 				7FF3E3871514DCFA00F79316 /* BagDataController.m in Sources */,
+				7FC0897615165317009FA14B /* Trainer.m in Sources */,
+				7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

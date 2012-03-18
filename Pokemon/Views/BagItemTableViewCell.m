@@ -12,16 +12,15 @@
 
 @implementation BagItemTableViewCell
 
-@synthesize imageView     = imageView_;
-@synthesize labelTitle    = labelTitle_;
+@synthesize imageView = imageView_;
+@synthesize name      = name_;
+@synthesize quantity  = quantity_;
 
 - (void)dealloc
 {
-//  [imageView_     release];
-//  [labelTitle_    release];
-  
-  self.imageView     = nil;
-  self.labelTitle    = nil;
+  self.imageView = nil;
+  self.name      = nil;
+  self.quantity  = nil;
   
   [super dealloc];
 }
@@ -35,7 +34,11 @@
     CGFloat const cellWidth      = 320.f;
     CGFloat const imageWidth     = 30.f; 
     CGFloat const titleHeight    = 30.f;
-    CGFloat const titleWidth     = cellWidth - imageWidth;
+    
+    CGRect imageViewFrame = CGRectMake(25.f, 11.f, imageWidth, imageWidth);
+    CGRect nameFrame      = CGRectMake(imageWidth + 20.f, 11.f, 170.f, titleHeight);
+    CGRect symbalFrame    = CGRectMake(imageWidth + 190.f, 11.f, 15.f, titleHeight);
+    CGRect quantityFrame  = CGRectMake(imageWidth + 205.f, 11.f, 60.f, titleHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -54,17 +57,34 @@
     
     // Set layouts for |contentView|(readonly)
     // Set Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(25.f, 11.f, imageWidth, imageWidth)];
+    imageView_ = [[UIImageView alloc] initWithFrame:imageViewFrame];
     [imageView_ setUserInteractionEnabled:YES];
     [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
     [self.contentView addSubview:imageView_];
     
-    // Set Title Label
-    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 50.f, 11.f, titleWidth, titleHeight)];
-    [labelTitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-    [labelTitle_ setTextColor:[GlobalRender textColorOrange]];
-    [self.contentView addSubview:labelTitle_];
+    // Name
+    name_ = [[UILabel alloc] initWithFrame:nameFrame];
+    [name_ setBackgroundColor:[UIColor clearColor]];
+    [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [name_ setTextColor:[GlobalRender textColorOrange]];
+    [self.contentView addSubview:name_];
+    
+    // Symbal
+    UILabel * symbal = [[UILabel alloc] initWithFrame:symbalFrame];
+    [symbal setBackgroundColor:[UIColor clearColor]];
+    [symbal setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [symbal setTextColor:[UIColor whiteColor]];
+    [symbal setText:@"X"];
+    [self.contentView addSubview:symbal];
+    [symbal release];
+    
+    // Quantity
+    quantity_ = [[UILabel alloc] initWithFrame:quantityFrame];
+    [quantity_ setBackgroundColor:[UIColor clearColor]];
+    [quantity_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [quantity_ setTextColor:[GlobalRender textColorOrange]];
+    [quantity_ setTextAlignment:UITextAlignmentRight];
+    [self.contentView addSubview:quantity_];
   }
   return self;
 }

@@ -62,6 +62,21 @@ enum {
   kTagUtilityBallButtonClose
 };
 
+// Bag data query target type
+typedef enum {
+  kBagQueryTargetTypeItem           = 1 << 0,
+  kBagQueryTargetTypeMedicine       = 1 << 1, // If it is 1, check last three
+  kBagQueryTargetTypePokeball       = 1 << 2,
+  kBagQueryTargetTypeTMHM           = 1 << 3,
+  kBagQueryTargetTypeBerry          = 1 << 4,
+  kBagQueryTargetTypeMail           = 1 << 5,
+  kBagQueryTargetTypeBattleItem     = 1 << 6,
+  kBagQueryTargetTypeKeyItem        = 1 << 7,
+  kBagQueryTargetTypeMedicineStatus = 1 << 8,
+  kBagQueryTargetTypeMedicineHP     = 1 << 9,
+  kBagQueryTargetTypeMedicinePP     = 1 << 10
+}BagQueryTargetType;
+
 #define kTabBarHeight 115.0f
 #define kTabBarWdith  215.0f
 

@@ -50,12 +50,21 @@
   void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
   ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
     // Set data for |Trainer|
-    trainer.sid           = [JSON valueForKey:@"id"];
-    trainer.name          = [JSON valueForKey:@"name"];
-    trainer.money         = [JSON valueForKey:@"money"];
-    trainer.pokedex       = [JSON valueForKey:@"pokedex"];
-    trainer.sixPokemonsID = [JSON valueForKey:@"sixPokemons"];
-    trainer.adventureStarted = nil;
+    trainer.sid               = [JSON valueForKey:@"id"];
+    trainer.name              = [JSON valueForKey:@"name"];
+    trainer.money             = [JSON valueForKey:@"money"];
+    trainer.pokedex           = [JSON valueForKey:@"pokedex"];
+    trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
+    trainer.bagItems          = [JSON valueForKey:@"bagItems"];
+    trainer.bagMedicineStatus = [JSON valueForKey:@"bagMedicineStatus"];
+    trainer.bagMedicineHP     = [JSON valueForKey:@"bagMedicineHP"];
+    trainer.bagMedicinePP     = [JSON valueForKey:@"bagMedicinePP"];
+    trainer.bagPokeballs      = [JSON valueForKey:@"bagPokeballs"];
+    trainer.bagTMsHMs         = [JSON valueForKey:@"bagTMsHMs"];
+    trainer.bagBerries        = [JSON valueForKey:@"bagBerries"];
+    trainer.bagBattleItems    = [JSON valueForKey:@"bagBattleItems"];
+    trainer.bagKeyItems       = [JSON valueForKey:@"bagKeyItems"];
+    trainer.adventureStarted  = nil;
     
     NSError * error;
     if (! [managedObjectContext save:&error])

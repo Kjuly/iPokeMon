@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GlobalConstants.h"
 #import "BagItem.h"
 #import "BagMedicine.h"
 #import "BagPokeball.h"
@@ -17,21 +18,11 @@
 #import "BagBattleItem.h"
 #import "BagKeyItem.h"
 
-typedef enum {
-  kBagQueryTargetTypeItem       = 1 << 0,
-  kBagQueryTargetTypeMedicine   = 1 << 1,
-  kBagQueryTargetTypePokeball   = 1 << 2,
-  kBagQueryTargetTypeTMHM       = 1 << 3,
-  kBagQueryTargetTypeBerry      = 1 << 4,
-  kBagQueryTargetTypeMail       = 1 << 5,
-  kBagQueryTargetTypeBattleItem = 1 << 6,
-  kBagQueryTargetTypeKeyItem    = 1 << 7
-}BagQueryTargetType;
-
 
 @interface BagDataController : NSObject
 
 + (BagDataController *)sharedInstance;
 - (NSArray *)queryAllDataFor:(BagQueryTargetType)targetType;
+- (id)queryDataFor:(BagQueryTargetType)targetType withID:(NSInteger)targetID;
 
 @end

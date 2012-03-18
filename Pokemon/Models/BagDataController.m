@@ -10,6 +10,14 @@
 
 #import "AppDelegate.h"
 
+
+@interface BagDataController ()
+
+- (NSString *)entityNameFor:(BagQueryTargetType)targetType;
+
+@end
+
+
 @implementation BagDataController
 
 static BagDataController * bagDataController = nil;
@@ -38,8 +46,43 @@ static BagDataController * bagDataController = nil;
   return self;
 }
 
-- (NSArray *)queryAllDataFor:(BagQueryTargetType)targetType
-{
+#pragma mark - Public Methods
+
+- (NSArray *)queryAllDataFor:(BagQueryTargetType)targetType {
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSError * error;
+  NSArray * fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest
+                                                                 error:&error];
+  [fetchRequest release];
+  return fetchedObjects;
+}
+
+- (id)queryDataFor:(BagQueryTargetType)targetType withID:(NSInteger)targetID {
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", targetID];
+  [fetchRequest setPredicate:predicate];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  id queryResult = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  [fetchRequest release];
+  
+  return queryResult;
+}
+
+#pragma mark - Private Methods
+
+- (NSString *)entityNameFor:(BagQueryTargetType)targetType {
   NSString * entityName;
   if      (targetType & kBagQueryTargetTypeItem)       entityName = NSStringFromClass([BagItem class]);
   else if (targetType & kBagQueryTargetTypeMedicine)   entityName = NSStringFromClass([BagMedicine class]);
@@ -50,18 +93,7 @@ static BagDataController * bagDataController = nil;
   else if (targetType & kBagQueryTargetTypeBattleItem) entityName = NSStringFromClass([BagBattleItem class]);
   else if (targetType & kBagQueryTargetTypeKeyItem)    entityName = NSStringFromClass([BagKeyItem class]);
   else return nil;
-  
-  NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:entityName
-                                             inManagedObjectContext:managedObjectContext];
-  [fetchRequest setEntity:entity];
-  NSError * error;
-  NSArray * fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest
-                                                                 error:&error];
-  [fetchRequest release];
-  return fetchedObjects;
+  return entityName;
 }
 
 @end

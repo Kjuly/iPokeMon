@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BagItemTableViewCell : UITableViewCell
-{
+@interface BagItemTableViewCell : UITableViewCell {
   UIImageView * imageView_;
-  UILabel     * labelTitle_;
+  UILabel     * name_;
+  UILabel     * quantity_;
 }
 
 @property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * labelTitle;
+@property (nonatomic, retain) UILabel     * name;
+@property (nonatomic, retain) UILabel     * quantity;
+
 @end

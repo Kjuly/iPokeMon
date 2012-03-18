@@ -42,10 +42,12 @@
 "PMSLabelSteps"            = "Steps: ";
 
 // Game
-"PMSGameMenuBagItem1" = "HP/PP Restore";
-"PMSGameMenuBagItem2" = "Status Healers";
-"PMSGameMenuBagItem3" = "PokeBalls";
-"PMSGameMenuBagItem4" = "Battle Items";
+"PMSGameMenuBagItem1" = "Status Healers";
+"PMSGameMenuBagItem2" = "HP Restore";
+"PMSGameMenuBagItem3" = "PP Restore";
+"PMSGameMenuBagItem4" = "Berries";
+"PMSGameMenuBagItem5" = "PokeBalls";
+"PMSGameMenuBagItem6" = "Battle Items";
 "PMSRunConfirmViewText" = "Are you sure run away?";
 "PMSRunConfirmViewYes"  = "Yes";
 "PMSRunConfirmViewNo"   = "Nope";

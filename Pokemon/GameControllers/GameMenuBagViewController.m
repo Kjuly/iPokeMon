@@ -63,9 +63,9 @@
   CGRect tableAreaViewFrame  = CGRectMake(8.f, 8.f, 312.f, kViewHeight - 16.f);
   [self.tableAreaView setFrame:tableAreaViewFrame];
   
-  CGFloat unitViewHeight = (kViewHeight - 20.f) / 4.f;
+  CGFloat unitViewHeight = (kViewHeight - 20.f) / 6.f;
   CGFloat unitViewWidth  = kViewWidth - 10.f;
-  for (int i = 0; i < 4;) {
+  for (int i = 0; i < 6;) {
     CGRect buttonFrame = CGRectMake(0.f, unitViewHeight * i, unitViewWidth, unitViewHeight);
     UIButton * button = [[UIButton alloc] initWithFrame:buttonFrame];
     [button setTitleColor:[GlobalRender textColorTitleWhite] forState:UIControlStateNormal];
@@ -141,18 +141,46 @@
 
 - (void)loadSelcetedItemTalbeView:(id)sender
 {
-  NSInteger itemTag = ((UIButton *)sender).tag;
+  BagQueryTargetType targetType;
+  switch (((UIButton *)sender).tag) {
+    case 1:
+      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus;
+      break;
+      
+    case 2:
+      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP;
+      break;
+      
+    case 3:
+      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP;
+      break;
+      
+    case 4:
+      targetType = kBagQueryTargetTypeBerry;
+      break;
+      
+    case 5:
+      targetType = kBagQueryTargetTypePokeball;
+      break;
+      
+    case 6:
+      targetType = kBagQueryTargetTypeBattleItem;
+      break;
+      
+    default:
+      break;
+  }
   
-  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:itemTag];
+  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:targetType];
   [bagItemTableViewController.view setTag:999];
-  __block CGRect bagItemTableViewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
+  CGRect bagItemTableViewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
   [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
   [self.view insertSubview:bagItemTableViewController.view belowSubview:self.cancelButton];
+  bagItemTableViewFrame.origin.y = 0.f;
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
-                     bagItemTableViewFrame.origin.y = 0.f;
                      [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
                      [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                             - (kMapButtonSize / 2),

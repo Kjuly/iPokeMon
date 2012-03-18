@@ -6,13 +6,24 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "BagTableViewController.h"
-
-#import "BagTableViewCell.h"
 #import "BagMedicineTableViewController.h"
+
+#import "GlobalConstants.h"
+#import "BagTableViewCell.h"
 #import "BagItemTableViewController.h"
 
-@implementation BagTableViewController
+
+@interface BagMedicineTableViewController () {
+ @private
+  NSArray * bagItems_;
+}
+
+@property (nonatomic, copy) NSArray * bagItems;
+
+@end
+
+
+@implementation BagMedicineTableViewController
 
 @synthesize bagItems = bagItems_;
 
@@ -47,14 +58,9 @@
   [super viewDidLoad];
   
   bagItems_ = [[NSArray alloc] initWithObjects:
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Items",       @"item", @"BagItemIcon_Items",       @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Medicine",    @"item", @"BagItemIcon_Medicine",    @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Pokeballs",   @"item", @"BagItemIcon_Pokeballs",   @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"TMs & HMs",   @"item", @"BagItemIcon_TMsHMs",      @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Berries",     @"item", @"BagItemIcon_Berries",     @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Mail",        @"item", @"BagItemIcon_Mail",        @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"BattleItems", @"item", @"BagItemIcon_BattleItems", @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"KeyItems",    @"item", @"BagItemIcon_KeyItems",    @"image", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"Status", @"item", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"HP",     @"item", nil],
+               [NSDictionary dictionaryWithObjectsAndKeys:@"PP",     @"item", nil],
                nil];
 }
 
@@ -102,7 +108,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 52.f; // ~ (480 - 60) / 8
+  return (kViewHeight - 60.f) / 3.f; // ~ (480 - 60) / 8
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,7 +123,6 @@
   // Configure the cell...
   NSDictionary * itemDict = [self.bagItems objectAtIndex:[indexPath row]];
   [cell.labelTitle setText:[itemDict valueForKey:@"item"]];
-  [cell.imageView setImage:[UIImage imageNamed:[itemDict objectForKey:@"image"]]];
   
   return cell;
 }
@@ -165,19 +170,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSInteger row = [indexPath row];
-  if (row != 1) { // Not Bag Medicine, as it has three sub types
-    BagItemTableViewController * bagItemTableViewController
-    = [[BagItemTableViewController alloc] initWithBagItem:(1 << row)];
-    [self.navigationController pushViewController:bagItemTableViewController animated:YES];
-    [bagItemTableViewController release];
-  }
-  else {
-    BagMedicineTableViewController * bagMedicineTableViewController
-    = [[BagMedicineTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:bagMedicineTableViewController animated:YES];
-    [bagMedicineTableViewController release];
-  }
+  BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << ([indexPath row] + 8));
+  BagItemTableViewController * bagItemTableViewController
+  = [[BagItemTableViewController alloc] initWithBagItem:targetType];
+  [self.navigationController pushViewController:bagItemTableViewController animated:YES];
+  [bagItemTableViewController release];
 }
 
 @end
