@@ -12,13 +12,16 @@
 
 @interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate>
 {
-  NSMutableArray * items_;
-  NSInteger itemNumberSequence_;
+  NSMutableArray     * items_;
+  NSInteger            itemNumberSequence_;
+  BagQueryTargetType   targetType_;
 }
 
-@property (nonatomic, copy) NSMutableArray * items;
-@property (nonatomic, assign) NSInteger itemNumberSequence;
+@property (nonatomic, copy) NSMutableArray       * items;
+@property (nonatomic, assign) NSInteger            itemNumberSequence;
+@property (nonatomic, assign) BagQueryTargetType   targetType;
 
-- (id)initWithBagItem:(NSInteger)itemTypeID;
+- (id)initWithBagItem:(BagQueryTargetType)targetType;
+- (void)setBagItem:(BagQueryTargetType)targetType;
 
 @end

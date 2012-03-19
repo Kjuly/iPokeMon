@@ -17,11 +17,13 @@
 @interface GameMenuBagViewController () {
  @private
   UIButton * cancelButton_;
-  UISwipeGestureRecognizer * swipeRightGestureRecognizer_;
+  UISwipeGestureRecognizer   * swipeRightGestureRecognizer_;
+  BagItemTableViewController * bagItemTableViewController_;
 }
 
 @property (nonatomic, retain) UIButton * cancelButton;
-@property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
+@property (nonatomic, retain) UISwipeGestureRecognizer   * swipeRightGestureRecognizer;
+@property (nonatomic, retain) BagItemTableViewController * bagItemTableViewController;
 
 - (void)loadSelcetedItemTalbeView:(id)sender;
 
@@ -34,10 +36,12 @@
 
 @synthesize cancelButton                = cancelButton_;
 @synthesize swipeRightGestureRecognizer = swipeRightGestureRecognizer_;
+@synthesize bagItemTableViewController  = bagItemTableViewController_;
 
 - (void)dealloc {
   [cancelButton_ release]; 
   [swipeRightGestureRecognizer_ release];
+  [bagItemTableViewController_  release];
   
   [super dealloc];
 }
@@ -115,25 +119,23 @@
   
   self.cancelButton = nil;
   self.swipeRightGestureRecognizer = nil;
+  self.bagItemTableViewController  = nil;
 }
 
 #pragma mark - Public Methods
 
-- (void)unloadSelcetedItemTalbeView:(id)sender
-{
-  UIView * bagItemTableView = [self.view viewWithTag:999];
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+- (void)unloadSelcetedItemTalbeView:(id)sender {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
-                     [bagItemTableView setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 480.0f)];
-                     [self.cancelButton setFrame:CGRectMake((320.0f - kMapButtonSize) / 2,
+                     [self.bagItemTableViewController.view setFrame:CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight)];
+                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                             - kMapButtonSize,
                                                             kMapButtonSize,
                                                             kMapButtonSize)];
                    }
-                   completion:^(BOOL finished) { [bagItemTableView removeFromSuperview]; }];
-  bagItemTableView = nil;
+                   completion:^(BOOL finished) { [self.bagItemTableViewController.view removeFromSuperview]; }];
   self.isSelectedItemViewOpening = NO;
 }
 
@@ -143,52 +145,40 @@
 {
   BagQueryTargetType targetType;
   switch (((UIButton *)sender).tag) {
-    case 1:
-      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus;
-      break;
-      
-    case 2:
-      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP;
-      break;
-      
-    case 3:
-      targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP;
-      break;
-      
-    case 4:
-      targetType = kBagQueryTargetTypeBerry;
-      break;
-      
-    case 5:
-      targetType = kBagQueryTargetTypePokeball;
-      break;
-      
-    case 6:
-      targetType = kBagQueryTargetTypeBattleItem;
-      break;
-      
-    default:
-      break;
+    case 1: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus; break;
+    case 2: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP;     break;
+    case 3: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP;     break;
+    case 4: targetType = kBagQueryTargetTypeBerry;                                        break;
+    case 5: targetType = kBagQueryTargetTypePokeball;                                     break;
+    case 6: targetType = kBagQueryTargetTypeBattleItem;                                   break;
+    default: break;
   }
   
-  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:targetType];
-  [bagItemTableViewController.view setTag:999];
+  if (self.bagItemTableViewController == nil) {
+    BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] init];
+    self.bagItemTableViewController = bagItemTableViewController;
+    [bagItemTableViewController release];
+  }
+  
+  // Only if current |targetType| is not the same as new one, reset it & reload data for tableview
+  if (self.bagItemTableViewController.targetType ^ targetType)
+    [self.bagItemTableViewController setBagItem:targetType];
+  
   CGRect bagItemTableViewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
-  [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
-  [self.view insertSubview:bagItemTableViewController.view belowSubview:self.cancelButton];
+  [self.bagItemTableViewController.view setFrame:bagItemTableViewFrame];
+  [self.view insertSubview:self.bagItemTableViewController.view belowSubview:self.cancelButton];
   bagItemTableViewFrame.origin.y = 0.f;
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
-                     [bagItemTableViewController.view setFrame:bagItemTableViewFrame];
+                     [self.bagItemTableViewController.view setFrame:bagItemTableViewFrame];
                      [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                             - (kMapButtonSize / 2),
                                                             kMapButtonSize,
                                                             kMapButtonSize)];
                    }
                    completion:nil];
-  [bagItemTableViewController release];
   self.isSelectedItemViewOpening = YES;
 }
 

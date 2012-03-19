@@ -17,12 +17,10 @@
 
 @interface BagItemTableViewController () {
  @private
-  BagQueryTargetType targetType_;
   BagItemTableViewCell       * selectedCell_;
   BagItemTableViewHiddenCell * hiddenCell_;
 }
 
-@property (nonatomic, assign) BagQueryTargetType targetType;
 @property (nonatomic, retain) BagItemTableViewCell       * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
 
@@ -35,10 +33,10 @@
 
 @implementation BagItemTableViewController
 
-@synthesize items = items_;
+@synthesize items              = items_;
 @synthesize itemNumberSequence = itemNumberSequence;
+@synthesize targetType         = targetType_;
 
-@synthesize targetType   = targetType_;
 @synthesize selectedCell = selectedCell_;
 @synthesize hiddenCell   = hiddenCell_;
 
@@ -52,29 +50,34 @@
   [super dealloc];
 }
 
-- (id)initWithBagItem:(NSInteger)itemTypeID
+- (id)initWithBagItem:(BagQueryTargetType)targetType
 {
   self = [self initWithStyle:UITableViewStylePlain];
-  if (self) {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
-    self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:itemTypeID] mutableCopy];
-    targetType_ = itemTypeID;
-    
-    // Hidden Cell
-    hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
-    [self.hiddenCell setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, 45.f)];
-    self.hiddenCell.delegate = self;
-    [self.tableView addSubview:self.hiddenCell];
-  }
+  if (self) [self setBagItem:targetType];
   return self;
+}
+
+- (void)setBagItem:(BagQueryTargetType)targetType {
+  self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:targetType] mutableCopy];
+  self.targetType = targetType;
+  [self.tableView reloadData];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
   if (self) {
-    // Custom initialization
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    
+    // Basic setting
+    targetType_ = 0;
+    
+    // Hidden Cell
+    hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
+    [self.hiddenCell setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, 45.f)];
+    self.hiddenCell.delegate = self;
+    [self.tableView addSubview:self.hiddenCell];
   }
   return self;
 }
@@ -210,6 +213,7 @@
 {
   BagItemTableViewCell * cell = (BagItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self showHiddenCellToReplaceCell:cell];
+  NSLog(@"!!!!!!!!");
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
