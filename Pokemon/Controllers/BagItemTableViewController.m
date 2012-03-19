@@ -74,6 +74,12 @@
 - (void)setBagItem:(BagQueryTargetType)targetType {
   self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:targetType] mutableCopy];
   self.targetType = targetType;
+  
+  if ([self.items count] <= 1)
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"EmptyTableViewBackground.png"]]];
+  else
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  
   [self.tableView reloadData];
   
   // Pokeball, Battle Items can only be used during battle
