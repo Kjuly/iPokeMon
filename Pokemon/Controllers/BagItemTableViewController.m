@@ -12,6 +12,8 @@
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface BagItemTableViewController () {
  @private
@@ -210,6 +212,11 @@
   [self showHiddenCellToReplaceCell:cell];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
+}
+
 #pragma mark - Private Methods
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -304,8 +311,26 @@
                      cellFrame.origin.x = kViewWidth;
                      [self.hiddenCell setFrame:cellFrame];
                    }
-                   completion:completion];
-  self.selectedCell = nil;
+                   completion:^(BOOL finished) {
+                     [UIView animateWithDuration:.1f
+                                           delay:0.f
+                                         options:UIViewAnimationOptionCurveEaseOut
+                                      animations:^{
+                                        cellFrame.origin.x = -10.f;
+                                        [self.selectedCell setFrame:cellFrame];
+                                      }
+                                      completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:.1f
+                                                              delay:0.f
+                                                            options:UIViewAnimationOptionCurveEaseOut
+                                                         animations:^{
+                                                           cellFrame.origin.x = 0.f;
+                                                           [self.selectedCell setFrame:cellFrame];
+                                                           self.selectedCell = nil;
+                                                         }
+                                                         completion:completion];
+                                      }];
+                   }];
 }
 
 #pragma mark - BagItemTableViewHiddenCell Delegate
