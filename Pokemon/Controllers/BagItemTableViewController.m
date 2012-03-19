@@ -11,19 +11,22 @@
 #import "PListParser.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
-#import "BagItemTableViewHiddenCell.h"
 
 
 @interface BagItemTableViewController () {
  @private
   BagQueryTargetType targetType_;
+  BagItemTableViewCell       * selectedCell_;
   BagItemTableViewHiddenCell * hiddenCell_;
 }
 
 @property (nonatomic, assign) BagQueryTargetType targetType;
+@property (nonatomic, retain) BagItemTableViewCell       * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
+- (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
 
 @end
 
@@ -33,14 +36,16 @@
 @synthesize items = items_;
 @synthesize itemNumberSequence = itemNumberSequence;
 
-@synthesize targetType = targetType_;
-@synthesize hiddenCell = hiddenCell_;
+@synthesize targetType   = targetType_;
+@synthesize selectedCell = selectedCell_;
+@synthesize hiddenCell   = hiddenCell_;
 
 -(void)dealloc
 {
   [items_ release];
   
-  self.hiddenCell = nil;
+  self.selectedCell = nil;
+  self.hiddenCell   = nil;
   
   [super dealloc];
 }
@@ -57,6 +62,7 @@
     // Hidden Cell
     hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
     [self.hiddenCell setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, 45.f)];
+    self.hiddenCell.delegate = self;
     [self.tableView addSubview:self.hiddenCell];
   }
   return self;
@@ -200,20 +206,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-  __block CGRect cellFrame = cell.frame;
-  cellFrame.origin.x = kViewWidth;
-  [self.hiddenCell setFrame:cellFrame];
-  [UIView animateWithDuration:.2f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     cellFrame.origin.x = 0.f;
-                     [self.hiddenCell setFrame:cellFrame];
-                     cellFrame.origin.x = -kViewWidth;
-                     [cell setFrame:cellFrame];
-                   }
-                   completion:nil];
+  BagItemTableViewCell * cell = (BagItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+  [self showHiddenCellToReplaceCell:cell];
 }
 
 #pragma mark - Private Methods
@@ -273,6 +267,66 @@
   [cell.quantity setText:[NSString stringWithFormat:@"%d", entityQuantity]];
 //  anonymousEntity     = nil;
   localizedNameHeader = nil;
+}
+
+// Show |hiddenCell_|
+- (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell {
+  void (^showHiddenCellAnimationBlock)(BOOL) = ^(BOOL finished) {
+    __block CGRect cellFrame = cell.frame;
+    cellFrame.origin.x = kViewWidth;
+    [self.hiddenCell setFrame:cellFrame];
+    [UIView animateWithDuration:.2f
+                          delay:0.f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       cellFrame.origin.x = 0.f;
+                       [self.hiddenCell setFrame:cellFrame];
+                       cellFrame.origin.x = -kViewWidth;
+                       [cell setFrame:cellFrame];
+                     }
+                     completion:nil];
+    self.selectedCell = cell;
+  };
+  
+  if (self.selectedCell == nil) showHiddenCellAnimationBlock(YES);
+  else [self cancelHiddenCellWithCompletionBlock:showHiddenCellAnimationBlock];
+}
+
+// Cancel |hiddenCell_|
+- (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion {
+  __block CGRect cellFrame = self.selectedCell.frame;
+  [UIView animateWithDuration:.2f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     cellFrame.origin.x = 0.f;
+                     [self.selectedCell setFrame:cellFrame];
+                     cellFrame.origin.x = kViewWidth;
+                     [self.hiddenCell setFrame:cellFrame];
+                   }
+                   completion:completion];
+  self.selectedCell = nil;
+}
+
+#pragma mark - BagItemTableViewHiddenCell Delegate
+
+- (void)useItem:(id)sender
+{
+  
+}
+
+- (void)giveItem:(id)sender
+{
+  
+}
+
+- (void)tossItem:(id)sender
+{
+  
+}
+
+- (void)cancelHiddenCell:(id)sender {
+  [self cancelHiddenCellWithCompletionBlock:nil];
 }
 
 @end

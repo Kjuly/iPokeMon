@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BagItemTableViewController : UITableViewController
+#import "BagItemTableViewHiddenCell.h"
+
+@interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate>
 {
   NSMutableArray * items_;
   NSInteger itemNumberSequence_;

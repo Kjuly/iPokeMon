@@ -219,6 +219,14 @@
 		7F61D86B1500FF09007C0BBD /* TabView2TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D8591500FF09007C0BBD /* TabView2TabsCircleBarBackground@2x.png */; };
 		7F6910DA14EF6B4300127E2F /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910D914EF6B4200127E2F /* PokemonConstants.m */; };
 		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
+		7F6C19241517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */; };
+		7F6C19251517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191D1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png */; };
+		7F6C19261517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191E1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive.png */; };
+		7F6C19271517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191F1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive@2x.png */; };
+		7F6C19281517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19201517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss.png */; };
+		7F6C19291517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19211517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png */; };
+		7F6C192A1517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19221517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png */; };
+		7F6C192B1517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */; };
@@ -1131,6 +1139,14 @@
 		7F6910D914EF6B4200127E2F /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
 		7F6910DC14EF95AF00127E2F /* DataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTransformer.m; sourceTree = "<group>"; };
+		7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconCancel.png; sourceTree = "<group>"; };
+		7F6C191D1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconCancel@2x.png"; sourceTree = "<group>"; };
+		7F6C191E1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconGive.png; sourceTree = "<group>"; };
+		7F6C191F1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconGive@2x.png"; sourceTree = "<group>"; };
+		7F6C19201517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconToss.png; sourceTree = "<group>"; };
+		7F6C19211517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconToss@2x.png"; sourceTree = "<group>"; };
+		7F6C19221517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconUse.png; sourceTree = "<group>"; };
+		7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconUse@2x.png"; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2793,6 +2809,14 @@
 		7FA1D86A15035DC700E0D2F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */,
+				7F6C191D1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png */,
+				7F6C191E1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive.png */,
+				7F6C191F1517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive@2x.png */,
+				7F6C19201517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss.png */,
+				7F6C19211517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png */,
+				7F6C19221517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png */,
+				7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */,
 				7FA1D86B15035DC700E0D2F6 /* IconPokemonGenderF.png */,
 				7FA1D86C15035DC700E0D2F6 /* IconPokemonGenderF@2x.png */,
 				7FA1D86D15035DC700E0D2F6 /* IconPokemonGenderM.png */,
@@ -3740,6 +3764,14 @@
 				7F2B7CE31515B3210091E739 /* GameMessageViewBackground@2x.png in Resources */,
 				7FFC96201517170A004D3D8F /* BagMedicineTableViewCellBackground.png in Resources */,
 				7FFC96211517170A004D3D8F /* BagMedicineTableViewCellBackground@2x.png in Resources */,
+				7F6C19241517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png in Resources */,
+				7F6C19251517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png in Resources */,
+				7F6C19261517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive.png in Resources */,
+				7F6C19271517270F0000682B /* BagItemTableViewHiddenCellButtonIconGive@2x.png in Resources */,
+				7F6C19281517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss.png in Resources */,
+				7F6C19291517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png in Resources */,
+				7F6C192A1517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png in Resources */,
+				7F6C192B1517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
