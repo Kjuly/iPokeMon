@@ -8,6 +8,7 @@
 
 #import "BagItemTableViewController.h"
 
+#import "AppDelegate.h"
 #import "PListParser.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
@@ -259,6 +260,13 @@
   if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
 }
 
+#pragma mark - Public Methods
+
+// Reset the view status
+- (void)reset {
+  if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
+}
+
 #pragma mark - Private Methods
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -426,7 +434,7 @@
     [bagItemInfoViewController release];
   }
   
-  [self.view addSubview:self.bagItemInfoViewController.view];
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
   NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
                                                         withID:itemID];
@@ -489,7 +497,7 @@
   NSString * info = NSLocalizedString(([NSString stringWithFormat:@"%@Info%.3d",
                                         localizedNameHeader, entityID]), nil);
   
-  [self.bagItemInfoViewController setDataWithName:name price:price info:info];
+  [self.bagItemInfoViewController setDataWithName:name price:price info:info duringBattle:self.isDuringBattle];
   [self.bagItemInfoViewController loadViewWithAnimation];
 }
 

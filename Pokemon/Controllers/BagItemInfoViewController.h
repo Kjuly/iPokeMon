@@ -10,7 +10,10 @@
 
 @interface BagItemInfoViewController : UIViewController
 
-- (void)setDataWithName:(NSString *)name price:(NSInteger)price info:(NSString *)info;
+- (void)setDataWithName:(NSString *)name
+                  price:(NSInteger)price
+                   info:(NSString *)info
+           duringBattle:(BOOL)duringBattle;
 - (void)loadViewWithAnimation;
 
 @end

@@ -9,11 +9,13 @@
 #import "BagItemInfoViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 
 
 @interface BagItemInfoViewController () {
  @private
+  BOOL                     isDuringBattle_;
   UIView                 * backgroundView_;
   UILabel                * name_;
   UILabel                * price_;
@@ -21,6 +23,7 @@
   UITapGestureRecognizer * tapGestureRecognizer_;
 }
 
+@property (nonatomic, assign) BOOL                     isDuringBattle;
 @property (nonatomic, retain) UIView                 * backgroundView;
 @property (nonatomic, retain) UILabel                * name;
 @property (nonatomic, retain) UILabel                * price;
@@ -34,6 +37,7 @@
 
 @implementation BagItemInfoViewController
 
+@synthesize isDuringBattle       = isDuringBattle_;
 @synthesize backgroundView       = backgroundView_;
 @synthesize name                 = name_;
 @synthesize price                = price_;
@@ -73,14 +77,14 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 480.f)];
   self.view = view;
   [view release];
   
   // Constants
-  CGRect nameFrame  = CGRectMake(20.f, 30.f, 280.f, 32.f);
-  CGRect priceFrame = CGRectMake(20.f, 62.f, 280.f, 32.f);
-  CGRect infoFrame  = CGRectMake(20.f, 120.f, 280.f, 32.f);
+  CGRect nameFrame  = CGRectMake(30.f, 60.f, 260.f, 32.f);
+  CGRect priceFrame = CGRectMake(30.f, 92.f, 260.f, 32.f);
+  CGRect infoFrame  = CGRectMake(30.f, 150.f, 260.f, 32.f);
   
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
@@ -113,6 +117,7 @@
 {
   [super viewDidLoad];
   
+  self.isDuringBattle = NO;
   [self.name  setAlpha:0.f];
   [self.price setAlpha:0.f];
   [self.info  setAlpha:0.f];
@@ -146,9 +151,16 @@
 
 #pragma mark - Public Methods
 
-- (void)setDataWithName:(NSString *)name price:(NSInteger)price info:(NSString *)info {
+- (void)setDataWithName:(NSString *)name
+                  price:(NSInteger)price
+                   info:(NSString *)info
+           duringBattle:(BOOL)duringBattle
+{
+  self.isDuringBattle = duringBattle;
   [self.name setText:name];
   [self.price setText:(price ? [NSString stringWithFormat:@"$ %d", price] : @"- - -")];
+  CGRect infoFrame  = CGRectMake(30.f, 150.f, 260.f, 32.f);
+  [self.info setFrame:infoFrame];
   [self.info setText:info];
   [self.info sizeToFit];
 }
@@ -164,6 +176,8 @@
                      [self.info  setAlpha:1.f];
                    }
                    completion:nil];
+  if (self.isDuringBattle)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton object:self userInfo:nil];
 }
 
 #pragma mark - Private Methods
@@ -183,6 +197,8 @@
                      [self.price setAlpha:0.f];
                      [self.info  setAlpha:0.f];
                    }];
+  if (self.isDuringBattle)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton object:self userInfo:nil];
 }
 
 @end

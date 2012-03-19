@@ -25,5 +25,6 @@
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType;
 - (void)setBagItem:(BagQueryTargetType)targetType;
+- (void)reset;
 
 @end

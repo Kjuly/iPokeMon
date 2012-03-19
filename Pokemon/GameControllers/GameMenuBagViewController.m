@@ -11,6 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
+#import "GlobalNotificationConstants.h"
 #import "BagItemTableViewController.h"
 
 
@@ -26,6 +27,7 @@
 @property (nonatomic, retain) BagItemTableViewController * bagItemTableViewController;
 
 - (void)loadSelcetedItemTalbeView:(id)sender;
+- (void)toggleTopCancelButton:(NSNotification *)notification;
 
 @end
 
@@ -43,6 +45,8 @@
   [swipeRightGestureRecognizer_ release];
   [bagItemTableViewController_  release];
   
+  // Remove observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleTopCancelButton object:nil];
   [super dealloc];
 }
 
@@ -111,6 +115,12 @@
   [swipeRightGestureRecognizer release];
   [self.swipeRightGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
   [self.view addGestureRecognizer:self.swipeRightGestureRecognizer];
+  
+  // Add observer for notification from |BagItemInfoViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(toggleTopCancelButton:)
+                                               name:kPMNToggleTopCancelButton
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -135,7 +145,10 @@
                                                             kMapButtonSize,
                                                             kMapButtonSize)];
                    }
-                   completion:^(BOOL finished) { [self.bagItemTableViewController.view removeFromSuperview]; }];
+                   completion:^(BOOL finished) {
+                     [self.bagItemTableViewController.view removeFromSuperview];
+                     [self.bagItemTableViewController reset];
+                   }];
   self.isSelectedItemViewOpening = NO;
 }
 
@@ -181,6 +194,19 @@
                    }
                    completion:nil];
   self.isSelectedItemViewOpening = YES;
+}
+
+- (void)toggleTopCancelButton:(NSNotification *)notification {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionTransitionCurlUp
+                   animations:^{
+                     CGRect cancelButtonFrame = self.cancelButton.frame;
+                     cancelButtonFrame.origin.y = (cancelButtonFrame.origin.y == - kMapButtonSize)
+                     ? -(kMapButtonSize / 2) : -kMapButtonSize;
+                     [self.cancelButton setFrame:cancelButtonFrame];
+                   }
+                   completion:nil];
 }
 
 @end
