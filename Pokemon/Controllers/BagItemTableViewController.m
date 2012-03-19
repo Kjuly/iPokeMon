@@ -17,10 +17,12 @@
 
 @interface BagItemTableViewController () {
  @private
+  NSInteger                    selectedCellIndex_; // For query data
   BagItemTableViewCell       * selectedCell_;
   BagItemTableViewHiddenCell * hiddenCell_;
 }
 
+@property (nonatomic, assign) NSInteger                    selectedCellIndex;
 @property (nonatomic, retain) BagItemTableViewCell       * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
 
@@ -36,9 +38,11 @@
 @synthesize items              = items_;
 @synthesize itemNumberSequence = itemNumberSequence;
 @synthesize targetType         = targetType_;
+@synthesize isDuringBattle     = isDuringBattle_;
 
-@synthesize selectedCell = selectedCell_;
-@synthesize hiddenCell   = hiddenCell_;
+@synthesize selectedCellIndex = selectedCellIndex_;
+@synthesize selectedCell      = selectedCell_;
+@synthesize hiddenCell        = hiddenCell_;
 
 -(void)dealloc
 {
@@ -61,6 +65,32 @@
   self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:targetType] mutableCopy];
   self.targetType = targetType;
   [self.tableView reloadData];
+  
+  if      (targetType & kBagQueryTargetTypeItem)       {}
+  else if (targetType & kBagQueryTargetTypeMedicine)   {}
+  // Pokeball can only be used during battle
+  else if ((targetType & kBagQueryTargetTypePokeball) && ! self.isDuringBattle)
+    [self.hiddenCell.use setHidden:YES];
+  else if (targetType & kBagQueryTargetTypeTMHM)       {}
+  else if (targetType & kBagQueryTargetTypeBerry)      {}
+  else if (targetType & kBagQueryTargetTypeMail)       {}
+  // Battle Items can only be used during battle
+  else if ((targetType & kBagQueryTargetTypeBattleItem) && ! self.isDuringBattle)
+    [self.hiddenCell.use setHidden:YES];
+  else if (targetType & kBagQueryTargetTypeKeyItem)    {}
+
+  //
+  // TODO:
+  // Implement thme!
+  //
+  [self.hiddenCell.give setHidden:YES];
+  [self.hiddenCell.toss setHidden:YES];
+  
+  // When during battle, |give| & |toss| can not be actioned
+  if (self.isDuringBattle) {
+    [self.hiddenCell.give setHidden:YES];
+    [self.hiddenCell.toss setHidden:YES];
+  }
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -71,7 +101,9 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
     
     // Basic setting
-    targetType_ = 0;
+    selectedCellIndex_ = 0;
+    targetType_        = 0;
+    isDuringBattle_    = NO;
     
     // Hidden Cell
     hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
@@ -213,7 +245,7 @@
 {
   BagItemTableViewCell * cell = (BagItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self showHiddenCellToReplaceCell:cell];
-  NSLog(@"!!!!!!!!");
+  self.selectedCellIndex = [indexPath row];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -300,6 +332,7 @@
   };
   
   if (self.selectedCell == nil) showHiddenCellAnimationBlock(YES);
+  else if (self.selectedCell == cell) return;
   else [self cancelHiddenCellWithCompletionBlock:showHiddenCellAnimationBlock];
 }
 
@@ -341,7 +374,34 @@
 
 - (void)useItem:(id)sender
 {
+  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
+  id entity = [[BagDataController sharedInstance] queryDataFor:self.targetType
+                                                        withID:itemID];
   
+  if (self.targetType & kBagQueryTargetTypeItem)
+    return;
+  else if (self.targetType & kBagQueryTargetTypeMedicine) {
+    if (self.targetType & kBagQueryTargetTypeMedicineStatus)  {}
+    else if (self.targetType & kBagQueryTargetTypeMedicineHP) {}
+    else if (self.targetType & kBagQueryTargetTypeMedicinePP) {}
+    else return;
+  }
+  else if (self.targetType & kBagQueryTargetTypePokeball) {
+  }
+  else if (self.targetType & kBagQueryTargetTypeTMHM)
+    return;
+  else if (self.targetType & kBagQueryTargetTypeBerry)
+    return;
+  else if (self.targetType & kBagQueryTargetTypeMail)
+    return;
+  else if (self.targetType & kBagQueryTargetTypeBattleItem)
+    return;
+  else if (self.targetType & kBagQueryTargetTypeKeyItem)
+    return;
+  else {
+    entity = nil;
+    return;
+  }
 }
 
 - (void)giveItem:(id)sender
@@ -350,6 +410,11 @@
 }
 
 - (void)tossItem:(id)sender
+{
+  
+}
+
+- (void)showInfo:(id)sender
 {
   
 }

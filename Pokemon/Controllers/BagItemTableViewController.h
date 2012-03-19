@@ -15,11 +15,13 @@
   NSMutableArray     * items_;
   NSInteger            itemNumberSequence_;
   BagQueryTargetType   targetType_;
+  BOOL                 isDuringBattle_;
 }
 
-@property (nonatomic, copy) NSMutableArray       * items;
+@property (nonatomic, copy)   NSMutableArray     * items;
 @property (nonatomic, assign) NSInteger            itemNumberSequence;
 @property (nonatomic, assign) BagQueryTargetType   targetType;
+@property (nonatomic, assign) BOOL                 isDuringBattle;
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType;
 - (void)setBagItem:(BagQueryTargetType)targetType;

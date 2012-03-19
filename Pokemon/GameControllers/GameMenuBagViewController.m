@@ -158,6 +158,7 @@
     BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] init];
     self.bagItemTableViewController = bagItemTableViewController;
     [bagItemTableViewController release];
+    self.bagItemTableViewController.isDuringBattle = YES;
   }
   
   // Only if current |targetType| is not the same as new one, reset it & reload data for tableview

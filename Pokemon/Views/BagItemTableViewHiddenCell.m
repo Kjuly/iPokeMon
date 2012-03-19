@@ -14,6 +14,7 @@
 @synthesize use      = use_;
 @synthesize give     = give_;
 @synthesize toss     = toss_;
+@synthesize info     = info_;
 @synthesize cancel   = cancel_;
 
 - (void)dealloc
@@ -22,6 +23,7 @@
   self.use      = nil;
   self.give     = nil;
   self.toss     = nil;
+  self.info     = nil;
   self.cancel   = nil;
   
   [super dealloc];
@@ -35,12 +37,13 @@
     CGFloat const cellHeight   = kCellHeightOfBagItemTableView;
     CGFloat const cellWidth    = kViewWidth;
     CGFloat const buttonHeight = cellHeight;
-    CGFloat const buttonWidth  = cellWidth / 4.f;
+    CGFloat const buttonWidth  = cellWidth / 5.f;
     
     CGRect const useFrame    = CGRectMake(0.f,             0.f, buttonWidth, buttonHeight);
     CGRect const giveFrame   = CGRectMake(buttonWidth,     0.f, buttonWidth, buttonHeight);
     CGRect const tossFrame   = CGRectMake(buttonWidth * 2, 0.f, buttonWidth, buttonHeight);
-    CGRect const cancelFrame = CGRectMake(buttonWidth * 3, 0.f, buttonWidth, buttonHeight);
+    CGRect const infoFrame   = CGRectMake(buttonWidth * 3, 0.f, buttonWidth, buttonHeight);
+    CGRect const cancelFrame = CGRectMake(buttonWidth * 4, 0.f, buttonWidth, buttonHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -63,6 +66,11 @@
     [toss_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconToss.png"] forState:UIControlStateNormal];
     [toss_ addTarget:self.delegate action:@selector(tossItem:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:toss_];
+    
+    info_ = [[UIButton alloc] initWithFrame:infoFrame];
+    [info_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconInfo.png"] forState:UIControlStateNormal];
+    [info_ addTarget:self.delegate action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:info_];
     
     cancel_ = [[UIButton alloc] initWithFrame:cancelFrame];
     [cancel_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconCancel.png"] forState:UIControlStateNormal];
