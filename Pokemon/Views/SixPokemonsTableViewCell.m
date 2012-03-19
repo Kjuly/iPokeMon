@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 
+
 @implementation SixPokemonsTableViewCell
 
 @synthesize imageView       = imageView_;
@@ -46,32 +47,32 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight       = 70.0f;
-    CGFloat const cellWidth        = 320.0f;
-    CGFloat const imageWidth       = 60.0f; 
-    CGFloat const labelHeight      = 30.0f;
-    CGFloat const nameLabelWidth   = 100.0f;
-    CGFloat const genderLabelWidth = 30.0f;
-    CGFloat const levelLabelWidth  = 40.0f;
-    CGFloat const HPLabelWidth     = 70.0f;
+    CGFloat const cellHeight       = kCellHeightOfSixPokemonsTableView;
+    CGFloat const cellWidth        = kViewWidth;
+    CGFloat const imageWidth       = 60.f; 
+    CGFloat const labelHeight      = 30.f;
+    CGFloat const nameLabelWidth   = 100.f;
+    CGFloat const genderLabelWidth = 30.f;
+    CGFloat const levelLabelWidth  = 40.f;
+    CGFloat const HPLabelWidth     = 70.f;
     
-    CGRect dataViewFrame    = CGRectMake(imageWidth + 20.0f, 5.0f, cellWidth - imageWidth - 40.0f, cellHeight - 10.0f);
-    CGRect nameLabelFrame   = CGRectMake(0.0f, 0.0f, nameLabelWidth, labelHeight);
-    CGRect genderImageViewFrame = CGRectMake(dataViewFrame.size.width - levelLabelWidth - genderLabelWidth, 0.0f, genderLabelWidth, labelHeight);
-    CGRect levelLabelFrame  = CGRectMake(dataViewFrame.size.width - levelLabelWidth, 0.0f, levelLabelWidth, labelHeight);
-    CGRect HPBarFrame       = CGRectMake(0.0f, labelHeight + 2.0f, 160.0f, 13.0f);
-    CGRect HPLabelFrame     = CGRectMake(HPBarFrame.size.width, labelHeight, HPLabelWidth, 16.0f);
+    CGRect dataViewFrame    = CGRectMake(imageWidth + 20.f, 5.f, cellWidth - imageWidth - 40.f, cellHeight - 10.f);
+    CGRect nameLabelFrame   = CGRectMake(0.f, 0.f, nameLabelWidth, labelHeight);
+    CGRect genderImageViewFrame = CGRectMake(dataViewFrame.size.width - levelLabelWidth - genderLabelWidth, 0.f, genderLabelWidth, labelHeight);
+    CGRect levelLabelFrame  = CGRectMake(dataViewFrame.size.width - levelLabelWidth, 0.f, levelLabelWidth, labelHeight);
+    CGRect HPBarFrame       = CGRectMake(0.f, labelHeight + 2.f, 160.f, 13.f);
+    CGRect HPLabelFrame     = CGRectMake(HPBarFrame.size.width, labelHeight, HPLabelWidth, 16.f);
     
     
     // Set |backgroundView| for Cell
-    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
     // Set |selectedBackgroundView|
-    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
@@ -79,7 +80,7 @@
     
     // Set Layouts for |contentView|(readonly)
     // Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];
+    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 5.f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
     [self.contentView addSubview:imageView_];
     
@@ -92,7 +93,7 @@
     [nameLabel_ setBackgroundColor:[UIColor clearColor]];
     [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
     [nameLabel_ setTextAlignment:UITextAlignmentLeft];
-    [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
+    [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
     [dataView addSubview:nameLabel_];
     
     // Gender Label
@@ -105,14 +106,14 @@
     [levelLabel_ setBackgroundColor:[UIColor clearColor]];
     [levelLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
     [levelLabel_ setTextAlignment:UITextAlignmentRight];
-    [levelLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.0f]];
+    [levelLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.f]];
     [dataView addSubview:levelLabel_];
     
     // HP Bar
     HPBarTotal_ = [[UIImageView alloc] initWithFrame:HPBarFrame];
     [HPBarTotal_ setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
     // HP Bar Left Part
-    HPBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, HPBarFrame.size.height)];
+    HPBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 0.f, HPBarFrame.size.height)];
     [HPBarLeft_ setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
     [HPBarTotal_ addSubview:HPBarLeft_];
     [dataView addSubview:HPBarTotal_];
@@ -121,7 +122,7 @@
     HPLabel_ = [[UILabel alloc] initWithFrame:HPLabelFrame];
     [HPLabel_ setBackgroundColor:[UIColor clearColor]];
     [HPLabel_ setTextAlignment:UITextAlignmentRight];
-    [HPLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:16.0f]];
+    [HPLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:16.f]];
     [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [dataView addSubview:HPLabel_];
     

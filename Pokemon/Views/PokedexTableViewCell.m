@@ -35,23 +35,23 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 70.0f;
-    CGFloat const cellWidth      = 320.0f;
-    CGFloat const imageWidth     = 60.0f; 
-    CGFloat const titleHeight    = 30.0f;
+    CGFloat const cellHeight     = kCellHeightOfPokedexTableView;
+    CGFloat const cellWidth      = kViewWidth;
+    CGFloat const imageWidth     = 60.f; 
+    CGFloat const titleHeight    = 30.f;
     CGFloat const titleWidth     = cellWidth - imageWidth;
-    CGFloat const subtitleHeight = 30.0f;
+    CGFloat const subtitleHeight = 30.f;
     CGFloat const subtitleWidth  = titleWidth;
     
     // Set |backgroundView| for Cell
-    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
-    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellSelectedBackground.png"]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
@@ -59,22 +59,22 @@
     
     // Set layouts for |contentView|(readonly)
     // Set Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, imageWidth, imageWidth)];
+    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 5.f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
     [self.contentView addSubview:imageView_];
     
     // Set Title Label
-    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, 5.0f, titleWidth, titleHeight)];
+    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.f, 5.f, titleWidth, titleHeight)];
     [labelTitle_ setBackgroundColor:[UIColor clearColor]];
     [labelTitle_ setTextColor:[GlobalRender textColorOrange]];
-    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:14.0f]];
+    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
     [self.contentView addSubview:labelTitle_];
     
     // Set Subtitle Label
-    labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.0f, titleHeight, subtitleWidth, subtitleHeight)];
+    labelSubtitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 20.f, titleHeight, subtitleWidth, subtitleHeight)];
     [labelSubtitle_ setBackgroundColor:[UIColor clearColor]];
     [labelSubtitle_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [labelSubtitle_ setFont:[GlobalRender textFontBoldInSizeOf:12.0f]];
+    [labelSubtitle_ setFont:[GlobalRender textFontBoldInSizeOf:12.f]];
     [labelSubtitle_ setTextColor:[UIColor grayColor]];
     [self.contentView addSubview:labelSubtitle_];
   }

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalConstants.h"
+
+
 @interface BagTableViewCell : UITableViewCell
 {
   UIImageView * imageView_;

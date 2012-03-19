@@ -125,6 +125,10 @@ typedef enum {
   }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kCellHeightOfSettingTableView;
+}
+
 // Section Header Height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   return 32.f;

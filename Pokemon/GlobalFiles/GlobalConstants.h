@@ -83,6 +83,13 @@ typedef enum {
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10
 
+#define kCellHeightOfTrainerBadgesTableView 52.5f
+#define kCellHeightOfPokedexTableView       70.f
+#define kCellHeightOfSixPokemonsTableView   70.f
+#define kCellHeightOfBagTableView           52.f
+#define kCellHeightOfBagItemTableView       64.f
+#define kCellHeightOfSettingTableView       44.f
+
 #define kTabArrowImageTag   2394859
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345

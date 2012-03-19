@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 
+
 @implementation SettingTableViewCell
 
 @synthesize labelTitle = labelTitle_;
@@ -25,8 +26,8 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight  = 44.f;
-    CGFloat const cellWidth   = 320.f; 
+    CGFloat const cellHeight  = kCellHeightOfSettingTableView;
+    CGFloat const cellWidth   = kViewWidth; 
     CGFloat const titleHeight = 34.f;
     CGFloat const titleWidth  = 300.f;
     

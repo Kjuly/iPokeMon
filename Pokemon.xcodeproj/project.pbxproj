@@ -751,6 +751,7 @@
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
+		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1735,6 +1736,8 @@
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
 		7FF4B3F614F629BF007B7E22 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		7FF4B3F714F629BF007B7E22 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
+		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2462,6 +2465,8 @@
 				7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */,
 				7F58BB511505239500640F57 /* BagItemTableViewCell.h */,
 				7F58BB521505239600640F57 /* BagItemTableViewCell.m */,
+				7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */,
+				7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */,
 				7FBB60D514E6C37C00C24BA5 /* TrainerBadgesTableViewCell.h */,
 				7FBB60D614E6C37C00C24BA5 /* TrainerBadgesTableViewCell.m */,
 				7F58BB6B1505349300640F57 /* SettingTableViewCell.h */,
@@ -3963,6 +3968,7 @@
 				7FF3E3871514DCFA00F79316 /* BagDataController.m in Sources */,
 				7FC0897615165317009FA14B /* Trainer.m in Sources */,
 				7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */,
+				7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

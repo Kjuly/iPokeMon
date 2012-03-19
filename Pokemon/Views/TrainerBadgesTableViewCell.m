@@ -10,6 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+
 @implementation TrainerBadgesTableViewCell
 
 @synthesize imageView     = imageView_;
@@ -34,8 +35,8 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 52.5f;
-    CGFloat const cellWidth      = 320.0f;
+    CGFloat const cellHeight     = kCellHeightOfTrainerBadgesTableView;
+    CGFloat const cellWidth      = kViewWidth;
     CGFloat const imageWidth     = 60.0f; 
     CGFloat const titleHeight    = 30.0f;
     CGFloat const titleWidth     = cellWidth - imageWidth;

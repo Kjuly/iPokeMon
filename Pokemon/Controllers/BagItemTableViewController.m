@@ -11,14 +11,17 @@
 #import "PListParser.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
+#import "BagItemTableViewHiddenCell.h"
 
 
 @interface BagItemTableViewController () {
  @private
   BagQueryTargetType targetType_;
+  BagItemTableViewHiddenCell * hiddenCell_;
 }
 
 @property (nonatomic, assign) BagQueryTargetType targetType;
+@property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
@@ -31,10 +34,13 @@
 @synthesize itemNumberSequence = itemNumberSequence;
 
 @synthesize targetType = targetType_;
+@synthesize hiddenCell = hiddenCell_;
 
 -(void)dealloc
 {
   [items_ release];
+  
+  self.hiddenCell = nil;
   
   [super dealloc];
 }
@@ -47,6 +53,11 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
     self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:itemTypeID] mutableCopy];
     targetType_ = itemTypeID;
+    
+    // Hidden Cell
+    hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
+    [self.hiddenCell setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, 45.f)];
+    [self.tableView addSubview:self.hiddenCell];
   }
   return self;
 }
@@ -119,7 +130,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 45.f;
+  return kCellHeightOfBagItemTableView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -189,14 +200,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+  __block CGRect cellFrame = cell.frame;
+  cellFrame.origin.x = kViewWidth;
+  [self.hiddenCell setFrame:cellFrame];
+  [UIView animateWithDuration:.2f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     cellFrame.origin.x = 0.f;
+                     [self.hiddenCell setFrame:cellFrame];
+                     cellFrame.origin.x = -kViewWidth;
+                     [cell setFrame:cellFrame];
+                   }
+                   completion:nil];
 }
 
 #pragma mark - Private Methods

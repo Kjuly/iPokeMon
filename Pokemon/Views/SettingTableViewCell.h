@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalConstants.h"
+
+
 @interface SettingTableViewCell : UITableViewCell {
   UILabel * labelTitle_;
 }

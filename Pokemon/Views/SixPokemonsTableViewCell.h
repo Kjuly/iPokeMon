@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GlobalConstants.h"
+
+
 @interface SixPokemonsTableViewCell : UITableViewCell
 {
   UIImageView * imageView_;

@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 
+
 @implementation BagTableViewCell
 
 @synthesize imageView     = imageView_;
@@ -31,8 +32,8 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
-    CGFloat const cellHeight     = 52.f;
-    CGFloat const cellWidth      = 320.f;
+    CGFloat const cellHeight     = kCellHeightOfBagTableView;
+    CGFloat const cellWidth      = kViewWidth;
     CGFloat const imageWidth     = 30.f; 
     CGFloat const titleHeight    = 30.f;
     CGFloat const titleWidth     = cellWidth - imageWidth;

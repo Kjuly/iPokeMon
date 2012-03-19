@@ -9,7 +9,6 @@
 #import "SixPokemonsTableViewController.h"
 
 #import "PListParser.h"
-//#import "TrainerTamedPokemon+DataController.h"
 #import "TrainerCoreDataController.h"
 #import "Pokemon.h"
 #import "SixPokemonsTableViewCell.h"
@@ -114,7 +113,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 70.f; // (480 - 60) / 6
+  return kCellHeightOfSixPokemonsTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
