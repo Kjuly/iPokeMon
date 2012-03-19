@@ -11,6 +11,7 @@
 #import "PListParser.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
+#import "BagItemInfoViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -20,11 +21,15 @@
   NSInteger                    selectedCellIndex_; // For query data
   BagItemTableViewCell       * selectedCell_;
   BagItemTableViewHiddenCell * hiddenCell_;
+  UIView                     * hiddenCellAreaView_;
+  BagItemInfoViewController  * bagItemInfoViewController_;
 }
 
 @property (nonatomic, assign) NSInteger                    selectedCellIndex;
 @property (nonatomic, retain) BagItemTableViewCell       * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
+@property (nonatomic, retain) UIView                     * hiddenCellAreaView;
+@property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
@@ -40,9 +45,11 @@
 @synthesize targetType         = targetType_;
 @synthesize isDuringBattle     = isDuringBattle_;
 
-@synthesize selectedCellIndex = selectedCellIndex_;
-@synthesize selectedCell      = selectedCell_;
-@synthesize hiddenCell        = hiddenCell_;
+@synthesize selectedCellIndex         = selectedCellIndex_;
+@synthesize selectedCell              = selectedCell_;
+@synthesize hiddenCell                = hiddenCell_;
+@synthesize hiddenCellAreaView        = hiddenCellAreaView_;
+@synthesize bagItemInfoViewController = bagItemInfoViewController_;
 
 -(void)dealloc
 {
@@ -50,6 +57,8 @@
   
   self.selectedCell = nil;
   self.hiddenCell   = nil;
+  [hiddenCellAreaView_        release];
+  [bagItemInfoViewController_ release];
   
   [super dealloc];
 }
@@ -66,18 +75,11 @@
   self.targetType = targetType;
   [self.tableView reloadData];
   
-  if      (targetType & kBagQueryTargetTypeItem)       {}
-  else if (targetType & kBagQueryTargetTypeMedicine)   {}
-  // Pokeball can only be used during battle
-  else if ((targetType & kBagQueryTargetTypePokeball) && ! self.isDuringBattle)
+  // Pokeball, Battle Items can only be used during battle
+  // can only be used during battle
+  if (((targetType & kBagQueryTargetTypePokeball) || (targetType & kBagQueryTargetTypeBattleItem))
+      && ! self.isDuringBattle)
     [self.hiddenCell.use setHidden:YES];
-  else if (targetType & kBagQueryTargetTypeTMHM)       {}
-  else if (targetType & kBagQueryTargetTypeBerry)      {}
-  else if (targetType & kBagQueryTargetTypeMail)       {}
-  // Battle Items can only be used during battle
-  else if ((targetType & kBagQueryTargetTypeBattleItem) && ! self.isDuringBattle)
-    [self.hiddenCell.use setHidden:YES];
-  else if (targetType & kBagQueryTargetTypeKeyItem)    {}
 
   //
   // TODO:
@@ -105,11 +107,15 @@
     targetType_        = 0;
     isDuringBattle_    = NO;
     
+    // Cell Area View
+    hiddenCellAreaView_ = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
+    [self.view addSubview:hiddenCellAreaView_];
+    
     // Hidden Cell
     hiddenCell_ = [[BagItemTableViewHiddenCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
-    [self.hiddenCell setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, 45.f)];
+    [self.hiddenCell setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
     self.hiddenCell.delegate = self;
-    [self.tableView addSubview:self.hiddenCell];
+    [hiddenCellAreaView_ addSubview:self.hiddenCell];
   }
   return self;
 }
@@ -138,6 +144,10 @@
   [super viewDidUnload];
   
   self.items = nil;
+  self.selectedCell              = nil;
+  self.hiddenCell                = nil;
+  self.hiddenCellAreaView        = nil;
+  self.bagItemInfoViewController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -186,16 +196,12 @@
   
   BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                        reuseIdentifier:CellIdentifier] autorelease];
   }
   
-  // Configure the cell...
-//  id entity = [self.items objectAtIndex:[indexPath row]];
+  // Configure the cell
   [self configureCell:cell atIndexPath:indexPath];
-  
-//  [cell.labelTitle setText:[entity.sid stringValue]];
-//  [cell.imageView setImage:];
-//  entity = nil;
   
   return cell;
 }
@@ -317,13 +323,13 @@
   void (^showHiddenCellAnimationBlock)(BOOL) = ^(BOOL finished) {
     __block CGRect cellFrame = cell.frame;
     cellFrame.origin.x = kViewWidth;
-    [self.hiddenCell setFrame:cellFrame];
+    [self.hiddenCellAreaView setFrame:cellFrame];
     [UIView animateWithDuration:.2f
                           delay:0.f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        cellFrame.origin.x = 0.f;
-                       [self.hiddenCell setFrame:cellFrame];
+                       [self.hiddenCellAreaView setFrame:cellFrame];
                        cellFrame.origin.x = -kViewWidth;
                        [cell setFrame:cellFrame];
                      }
@@ -346,7 +352,7 @@
                      cellFrame.origin.x = 0.f;
                      [self.selectedCell setFrame:cellFrame];
                      cellFrame.origin.x = kViewWidth;
-                     [self.hiddenCell setFrame:cellFrame];
+                     [self.hiddenCellAreaView setFrame:cellFrame];
                    }
                    completion:^(BOOL finished) {
                      [UIView animateWithDuration:.1f
@@ -406,17 +412,85 @@
 
 - (void)giveItem:(id)sender
 {
-  
 }
 
 - (void)tossItem:(id)sender
 {
-  
 }
 
 - (void)showInfo:(id)sender
 {
+  if (self.bagItemInfoViewController == nil) {
+    BagItemInfoViewController * bagItemInfoViewController = [[BagItemInfoViewController alloc] init];
+    self.bagItemInfoViewController = bagItemInfoViewController;
+    [bagItemInfoViewController release];
+  }
   
+  [self.view addSubview:self.bagItemInfoViewController.view];
+  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
+  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
+                                                        withID:itemID];
+  
+  NSString * localizedNameHeader;
+  NSInteger entityID;
+  NSInteger price;
+  if (targetType_ & kBagQueryTargetTypeItem) {
+    BagItem * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagItem";
+    entityID            = [entity.sid intValue];
+    price               = [entity.price intValue];
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeMedicine) {
+    BagMedicine * entity = anonymousEntity;
+    localizedNameHeader  = @"PMSBagMedicine";
+    entityID             = [entity.sid intValue];
+    price                = [entity.price intValue];
+    entity               = nil;
+  } else if (targetType_ & kBagQueryTargetTypePokeball) {
+    BagPokeball * entity = anonymousEntity;
+    localizedNameHeader  = @"PMSBagPokeball";
+    entityID             = [entity.sid intValue];
+    price                = [entity.price intValue];
+    entity               = nil;
+  } else if (targetType_ & kBagQueryTargetTypeTMHM) {
+    BagTMHM * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagTMHM";
+    entityID            = [entity.sid intValue];
+    price               = 0;
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeBerry) {
+    BagBerry * entity   = anonymousEntity;
+    localizedNameHeader = @"PMSBagBerry";
+    entityID            = [entity.sid intValue];
+    price               = 0;
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeMail) {
+    BagMail * entity    = anonymousEntity;
+    localizedNameHeader = @"PMSBagMail";
+    entityID            = [entity.sid intValue];
+    price               = 0;
+    entity              = nil;
+  } else if (targetType_ & kBagQueryTargetTypeBattleItem) {
+    BagBattleItem * entity = anonymousEntity;
+    localizedNameHeader    = @"PMSBagBattleItem";
+    entityID               = [entity.sid intValue];
+    price                  = [entity.price intValue];
+    entity                 = nil;
+  } else if (targetType_ & kBagQueryTargetTypeKeyItem) {
+    BagKeyItem * entity = anonymousEntity;
+    localizedNameHeader = @"PMSBagKeyItem";
+    price               = 0;
+    entityID            = [entity.sid intValue];
+    entity = nil;
+  } else return;
+    
+  NSString * name = NSLocalizedString(([NSString stringWithFormat:@"%@%.3d",
+                                        localizedNameHeader, entityID]), nil);
+  NSString * info = NSLocalizedString(([NSString stringWithFormat:@"%@Info%.3d",
+                                        localizedNameHeader, entityID]), nil);
+  
+  [self.bagItemInfoViewController setDataWithName:name price:price info:info];
+  [self.bagItemInfoViewController loadViewWithAnimation];
 }
 
 - (void)cancelHiddenCell:(id)sender {

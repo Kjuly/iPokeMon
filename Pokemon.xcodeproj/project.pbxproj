@@ -229,6 +229,7 @@
 		7F6C192B1517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */; };
 		7F6C19331517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */; };
 		7F6C19341517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C19321517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png */; };
+		7F6C193815176BAA0000682B /* BagItemInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6C193715176BAA0000682B /* BagItemInfoViewController.m */; };
 		7F6E6CB914D6CAA600033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */; };
@@ -1151,6 +1152,8 @@
 		7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconUse@2x.png"; sourceTree = "<group>"; };
 		7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconInfo.png; sourceTree = "<group>"; };
 		7F6C19321517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewHiddenCellButtonIconInfo@2x.png"; sourceTree = "<group>"; };
+		7F6C193615176BA90000682B /* BagItemInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemInfoViewController.h; sourceTree = "<group>"; };
+		7F6C193715176BAA0000682B /* BagItemInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemInfoViewController.m; sourceTree = "<group>"; };
 		7F6E6CB414D6CAA600033C65 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2322,6 +2325,8 @@
 				7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */,
 				7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */,
 				7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */,
+				7F6C193615176BA90000682B /* BagItemInfoViewController.h */,
+				7F6C193715176BAA0000682B /* BagItemInfoViewController.m */,
 				7FBD73F114E41AE900965CED /* TrainerCardViewController.h */,
 				7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */,
 				7FBB60AF14E6A6B100C24BA5 /* TrainerInfoViewController.h */,
@@ -4023,6 +4028,7 @@
 				7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */,
 				7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */,
 				7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */,
+				7F6C193815176BAA0000682B /* BagItemInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
