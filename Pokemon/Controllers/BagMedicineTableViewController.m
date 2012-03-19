@@ -9,7 +9,7 @@
 #import "BagMedicineTableViewController.h"
 
 #import "GlobalConstants.h"
-#import "BagTableViewCell.h"
+#import "BagMedicineTableViewCell.h"
 #import "BagItemTableViewController.h"
 
 
@@ -108,21 +108,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return (kViewHeight - 60.f) / 3.f; // ~ (480 - 60) / 8
+  return kCellHeightOfBagMedicineTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *CellIdentifier = @"Cell";
   
-  BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
   NSDictionary * itemDict = [self.bagItems objectAtIndex:[indexPath row]];
-  [cell.labelTitle setText:[itemDict valueForKey:@"item"]];
+  [cell.name setText:[itemDict valueForKey:@"item"]];
   
   return cell;
 }

@@ -137,7 +137,7 @@ typedef enum {
 // Section Header View Style
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, 320.f, 32.f);
+  CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:[self.sectionNames objectAtIndex:section]];
   return [sectionHeaderView autorelease];

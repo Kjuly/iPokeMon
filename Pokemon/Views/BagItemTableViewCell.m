@@ -36,10 +36,10 @@
     CGFloat const imageWidth     = 30.f; 
     CGFloat const titleHeight    = 30.f;
     
-    CGRect imageViewFrame = CGRectMake(25.f, 11.f, imageWidth, imageWidth);
-    CGRect nameFrame      = CGRectMake(imageWidth + 20.f, 11.f, 170.f, titleHeight);
-    CGRect symbalFrame    = CGRectMake(imageWidth + 190.f, 11.f, 15.f, titleHeight);
-    CGRect quantityFrame  = CGRectMake(imageWidth + 205.f, 11.f, 60.f, titleHeight);
+    CGRect imageViewFrame = CGRectMake(25.f, 17.f, imageWidth, imageWidth);
+    CGRect nameFrame      = CGRectMake(imageWidth + 20.f, 17.f, 170.f, titleHeight);
+    CGRect symbalFrame    = CGRectMake(imageWidth + 190.f, 17.f, 15.f, titleHeight);
+    CGRect quantityFrame  = CGRectMake(imageWidth + 205.f, 17.f, 60.f, titleHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -49,7 +49,7 @@
     [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
-    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, cellWidth, cellHeight)];
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:
      [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagItemTableViewCellSelectedBackground.png"]]];
     [selectedBackgroundView setOpaque:NO];
@@ -66,14 +66,14 @@
     // Name
     name_ = [[UILabel alloc] initWithFrame:nameFrame];
     [name_ setBackgroundColor:[UIColor clearColor]];
-    [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [name_ setTextColor:[GlobalRender textColorOrange]];
     [self.contentView addSubview:name_];
     
     // Symbal
     UILabel * symbal = [[UILabel alloc] initWithFrame:symbalFrame];
     [symbal setBackgroundColor:[UIColor clearColor]];
-    [symbal setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [symbal setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [symbal setTextColor:[UIColor whiteColor]];
     [symbal setText:@"X"];
     [self.contentView addSubview:symbal];
@@ -82,7 +82,7 @@
     // Quantity
     quantity_ = [[UILabel alloc] initWithFrame:quantityFrame];
     [quantity_ setBackgroundColor:[UIColor clearColor]];
-    [quantity_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [quantity_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [quantity_ setTextColor:[GlobalRender textColorOrange]];
     [quantity_ setTextAlignment:UITextAlignmentRight];
     [self.contentView addSubview:quantity_];

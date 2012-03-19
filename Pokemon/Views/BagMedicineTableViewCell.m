@@ -1,28 +1,23 @@
 //
-//  BagTableViewCell.m
+//  BagMedicineTableViewCell.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/11/12.
+//  Created by Kaijie Yu on 3/19/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "BagTableViewCell.h"
+#import "BagMedicineTableViewCell.h"
 
 #import "GlobalRender.h"
 
 
-@implementation BagTableViewCell
+@implementation BagMedicineTableViewCell
 
-@synthesize imageView     = imageView_;
-@synthesize labelTitle    = labelTitle_;
+@synthesize name = name_;
 
 - (void)dealloc
 {
-//  [imageView_     release];
-//  [labelTitle_    release];
-  
-  self.imageView     = nil;
-  self.labelTitle    = nil;
+  self.name = nil;
   
   [super dealloc];
 }
@@ -34,13 +29,15 @@
     // Constans
     CGFloat const cellHeight     = kCellHeightOfBagTableView;
     CGFloat const cellWidth      = kViewWidth;
-    CGFloat const imageWidth     = 30.f; 
     CGFloat const titleHeight    = 30.f;
-    CGFloat const titleWidth     = cellWidth - imageWidth;
+    CGFloat const titleWidth     = cellWidth;
+    
+    CGRect nameFrame = CGRectMake(0.f, 50.f, titleWidth, titleHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
+    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:
+                                        [UIImage imageNamed:@"BagMedicineTableViewCellBackground.png"]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
@@ -48,24 +45,19 @@
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:
-     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellSelectedBackground.png"]]];
+     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagMedicineTableViewCellBackground.png"]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
     
     // Set layouts for |contentView|(readonly)
-    // Set Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(25.f, 11.f, imageWidth, imageWidth)];
-    [imageView_ setUserInteractionEnabled:YES];
-    [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
-    [self.contentView addSubview:imageView_];
-    
-    // Set Title Label
-    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 50.f, 11.f, titleWidth, titleHeight)];
-    [labelTitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [labelTitle_ setTextColor:[GlobalRender textColorOrange]];
-    [self.contentView addSubview:labelTitle_];
+    // Set name Label
+    name_ = [[UILabel alloc] initWithFrame:nameFrame];
+    [name_ setBackgroundColor:[UIColor clearColor]];
+    [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
+    [name_ setTextColor:[GlobalRender textColorOrange]];
+    [name_ setTextAlignment:UITextAlignmentCenter];
+    [self.contentView addSubview:name_];
   }
   return self;
 }

@@ -752,6 +752,9 @@
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
+		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
+		7FFC96201517170A004D3D8F /* BagMedicineTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFC961E15171709004D3D8F /* BagMedicineTableViewCellBackground.png */; };
+		7FFC96211517170A004D3D8F /* BagMedicineTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFC961F15171709004D3D8F /* BagMedicineTableViewCellBackground@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1738,6 +1741,10 @@
 		7FF4B3F714F629BF007B7E22 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
+		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
+		7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagMedicineTableViewCell.m; sourceTree = "<group>"; };
+		7FFC961E15171709004D3D8F /* BagMedicineTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagMedicineTableViewCellBackground.png; sourceTree = "<group>"; };
+		7FFC961F15171709004D3D8F /* BagMedicineTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagMedicineTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2463,6 +2470,8 @@
 				7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */,
 				7F8B816914E5786A0085CE22 /* BagTableViewCell.h */,
 				7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */,
+				7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */,
+				7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */,
 				7F58BB511505239500640F57 /* BagItemTableViewCell.h */,
 				7F58BB521505239600640F57 /* BagItemTableViewCell.m */,
 				7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */,
@@ -2981,6 +2990,8 @@
 				7F0A485614E636E5001C62A0 /* BagTableViewCellBackground@2x.png */,
 				7F58BB57150524C200640F57 /* BagItemTableViewCellBackground.png */,
 				7F58BB58150524C200640F57 /* BagItemTableViewCellBackground@2x.png */,
+				7FFC961E15171709004D3D8F /* BagMedicineTableViewCellBackground.png */,
+				7FFC961F15171709004D3D8F /* BagMedicineTableViewCellBackground@2x.png */,
 				7F58BB5B150526F800640F57 /* BagItemTableViewCellSelectedBackground.png */,
 				7F58BB5C150526F800640F57 /* BagItemTableViewCellSelectedBackground@2x.png */,
 				7F58BB5D150526F900640F57 /* BagTableViewCellSelectedBackground.png */,
@@ -3727,6 +3738,8 @@
 				7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */,
 				7F2B7CE21515B3210091E739 /* GameMessageViewBackground.png in Resources */,
 				7F2B7CE31515B3210091E739 /* GameMessageViewBackground@2x.png in Resources */,
+				7FFC96201517170A004D3D8F /* BagMedicineTableViewCellBackground.png in Resources */,
+				7FFC96211517170A004D3D8F /* BagMedicineTableViewCellBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3969,6 +3982,7 @@
 				7FC0897615165317009FA14B /* Trainer.m in Sources */,
 				7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */,
 				7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */,
+				7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
