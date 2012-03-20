@@ -19,14 +19,15 @@ NSString * const kPMNBattleStart       = @"PMNBattleStart";
 NSString * const kPMNBattleEnd         = @"PMNBattleEnd";
 NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
 
-NSString * const kPMNUpdateGameMenuKeyView   = @"PMNUpdateGameMenuKeyView";
-NSString * const kPMNReplacePokemon          = @"PMNReplacePokemon";
-NSString * const kPMNReplacePlayerPokemon    = @"PMNReplacePlayerPokemon";
+NSString * const kPMNUpdateGameMenuKeyView     = @"PMNUpdateGameMenuKeyView";
+NSString * const kPMNReplacePokemon            = @"PMNReplacePokemon";
+NSString * const kPMNReplacePlayerPokemon      = @"PMNReplacePlayerPokemon";
+NSString * const kPMNUseItemForSelectedPokemon = @"PMNUseItemForSelectedPokemon";
 //NSString * const kPMNMoveEffect = @"PMNMoveEffect";
-NSString * const kPMNUpdateGameBattleMessage = @"PMNUpdateGameBattleMessage";
+NSString * const kPMNUpdateGameBattleMessage   = @"PMNUpdateGameBattleMessage";
 //NSString * const kPMNInitializePokemonStatus = @"PMNInitializePokemonStatus";
-NSString * const kPMNUpdatePokemonStatus     = @"PMNUpdatePokemonStatus";
-NSString * const kPMNShowPokemonStatus       = @"PMNShowPokemonStatus";
+NSString * const kPMNUpdatePokemonStatus       = @"PMNUpdatePokemonStatus";
+NSString * const kPMNShowPokemonStatus         = @"PMNShowPokemonStatus";
 NSString * const kPMNToggleTopCancelButton     = @"PMNToggleTopCancelButton";
 
 @implementation GlobalNotificationConstants

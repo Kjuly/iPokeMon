@@ -73,6 +73,10 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   return [self.entitySixPokemons objectAtIndex:0];
 }
 
+- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index {
+  return [self.entitySixPokemons objectAtIndex:index];
+}
+
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
   if      (targetType & kBagQueryTargetTypeItem)       return self.entityTrainer.bagItems;
   else if (targetType & kBagQueryTargetTypeMedicine) {

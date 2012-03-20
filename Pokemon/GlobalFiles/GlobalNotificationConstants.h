@@ -21,6 +21,7 @@ extern NSString * const kPMNToggleSixPokemons;
 extern NSString * const kPMNUpdateGameMenuKeyView;
 extern NSString * const kPMNReplacePokemon;
 extern NSString * const kPMNReplacePlayerPokemon;
+extern NSString * const kPMNUseItemForSelectedPokemon;
 //extern NSString * const kPMNMoveEffect;
 extern NSString * const kPMNUpdateGameBattleMessage;
 //extern NSString * const kPMNInitializePokemonStatus;

@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "PListParser.h"
+#import "GlobalNotificationConstants.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
@@ -33,11 +34,20 @@
 @property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
 @property (nonatomic, retain) UIView                            * hiddenCellAreaView;
 @property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
+
 @property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
 - (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
+- (void)useItemForSelectedPokemon:(NSNotification *)notification;
+
+// Methods for using different items' type
+- (void)healStatusForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)restorePPForPokemonMove:(Move *)move withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)useBerryForPokemon:(TrainerTamedPokemon *)pokemon withBagBerry:(BagBerry *)bagBerry;
+- (void)useBattleItemForPokemon:(TrainerTamedPokemon *)pokemon withBagBattleItem:(BagBattleItem *)bagBattleItem;
 
 @end
 
@@ -66,6 +76,10 @@
   [bagItemInfoViewController_         release];
   [gameMenuSixPokemonsViewController_ release];
   
+  // Remove observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNUseItemForSelectedPokemon
+                                                object:self.gameMenuSixPokemonsViewController];
   [super dealloc];
 }
 
@@ -149,6 +163,12 @@
   // Fetch data from web service
   // max: 0x03e7 = 999
   self.itemNumberSequence = 0x0000;
+  
+  // Add observer for notification from |GameMenuSixPokemonsViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(useItemForSelectedPokemon:)
+                                               name:kPMNUseItemForSelectedPokemon
+                                             object:self.gameMenuSixPokemonsViewController];
 }
 
 - (void)viewDidUnload
@@ -359,55 +379,58 @@
                    }];
 }
 
+// Action for notification from |GameMenuSixPokemonsViewController|
+- (void)useItemForSelectedPokemon:(NSNotification *)notification
+{
+  NSInteger selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
+  NSInteger selectedItemID       = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
+  TrainerTamedPokemon * targetPokemon
+  = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex];
+  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType withID:selectedItemID];
+  
+  if (self.targetType & kBagQueryTargetTypeItem)              {}
+  else if (self.targetType & kBagQueryTargetTypeMedicine) {
+    if (self.targetType & kBagQueryTargetTypeMedicineStatus)
+      [self healStatusForPokemon:targetPokemon withBagMedicine:(BagMedicine *)anonymousEntity];
+    else if (self.targetType & kBagQueryTargetTypeMedicineHP)
+      [self restoreHPForPokemon:targetPokemon withBagMedicine:(BagMedicine *)anonymousEntity];
+    else if (self.targetType & kBagQueryTargetTypeMedicinePP) {
+      NSInteger selectedMoveIndex = [[notification.userInfo objectForKey:@"selectedMoveIndex"] intValue];
+      [self restorePPForPokemonMove:[targetPokemon moveWithIndex:selectedMoveIndex]
+                    withBagMedicine:(BagMedicine *)anonymousEntity];
+    } else return;
+  }
+  else if (self.targetType & kBagQueryTargetTypePokeball)     {}
+  else if (self.targetType & kBagQueryTargetTypeTMHM)         {}
+  else if (self.targetType & kBagQueryTargetTypeBerry)
+    [self useBerryForPokemon:targetPokemon withBagBerry:(BagBerry *)anonymousEntity];
+  else if (self.targetType & kBagQueryTargetTypeMail)         {}
+  else if (self.targetType & kBagQueryTargetTypeBattleItem)
+    [self useBattleItemForPokemon:targetPokemon withBagBattleItem:(BagBattleItem *)anonymousEntity];
+  else if (self.targetType & kBagQueryTargetTypeKeyItem)      {}
+  else { anonymousEntity = nil; return; }
+}
+
 #pragma mark - BagItemTableViewHiddenCell Delegate
 
 // Hidden Cell Button Action: Use Item
-- (void)useItem:(id)sender
-{
-  if (self.gameMenuSixPokemonsViewController == nil) {
-    GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
-    = [[GameMenuSixPokemonsViewController alloc] init];
-    self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
-    [gameMenuSixPokemonViewController release];
+- (void)useItem:(id)sender {
+  // Throw pokeball to catch wild Pokemon
+  if (self.targetType & kBagQueryTargetTypePokeball) {
+    
   }
-//  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameMenuSixPokemonsViewController.view];
-  [[[[UIApplication sharedApplication] delegate] window] insertSubview:self.gameMenuSixPokemonsViewController.view
-                                                               atIndex:1];
-  if (! self.isDuringBattle) {
-    self.gameMenuSixPokemonsViewController.currBattlePokemon = 0;
-  }
-//  [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
-  [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:NO];
-  [self.gameMenuSixPokemonsViewController loadSixPokemons];
-  
-  
-  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
-  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
-                                                                 withID:itemID];
-  
-  if (self.targetType & kBagQueryTargetTypeItem)
-    return;
-  else if (self.targetType & kBagQueryTargetTypeMedicine) {
-    if (self.targetType & kBagQueryTargetTypeMedicineStatus)  {}
-    else if (self.targetType & kBagQueryTargetTypeMedicineHP) {}
-    else if (self.targetType & kBagQueryTargetTypeMedicinePP) {}
-    else return;
-  }
-  else if (self.targetType & kBagQueryTargetTypePokeball) {
-  }
-  else if (self.targetType & kBagQueryTargetTypeTMHM)
-    return;
-  else if (self.targetType & kBagQueryTargetTypeBerry)
-    return;
-  else if (self.targetType & kBagQueryTargetTypeMail)
-    return;
-  else if (self.targetType & kBagQueryTargetTypeBattleItem)
-    return;
-  else if (self.targetType & kBagQueryTargetTypeKeyItem)
-    return;
+  // Only open |gameMenuSixPokemonsViewController|'s view when the item is used for pokemon
+  // (e.g. HP, PP restore, etc)
   else {
-    anonymousEntity = nil;
-    return;
+    if (self.gameMenuSixPokemonsViewController == nil) {
+      GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
+      = [[GameMenuSixPokemonsViewController alloc] init];
+      self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
+      [gameMenuSixPokemonViewController release];
+    }
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameMenuSixPokemonsViewController.view];
+    [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:NO];
+    [self.gameMenuSixPokemonsViewController loadSixPokemons];
   }
 }
 
@@ -431,7 +454,7 @@
   }
   
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
-  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
+  NSInteger itemID = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
                                                         withID:itemID];
   NSString * localizedNameHeader;
@@ -499,6 +522,37 @@
 // Hidden Cell Button Action: Cancel Hidden Cell
 - (void)cancelHiddenCell:(id)sender {
   [self cancelHiddenCellWithCompletionBlock:nil];
+}
+
+#pragma mark - Methods for using different items' type
+
+// Use 'Status Healers' to heal pokemon
+- (void)healStatusForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine
+{
+  
+}
+
+// Use 'HP Restore' to restore pokemon HP
+- (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine
+{
+  
+}
+
+// Use 'PP Restore' to restore pokemon's move PP
+- (void)restorePPForPokemonMove:(Move *)move withBagMedicine:(BagMedicine *)bagMedicine
+{
+  
+}
+
+// Use 'Berry' for pokemon
+- (void)useBerryForPokemon:(TrainerTamedPokemon *)pokemon withBagBerry:(BagBerry *)bagBerry
+{
+  
+}
+
+- (void)useBattleItemForPokemon:(TrainerTamedPokemon *)pokemon withBagBattleItem:(BagBattleItem *)bagBattleItem
+{
+  
 }
 
 @end

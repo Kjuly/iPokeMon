@@ -175,10 +175,8 @@
   self.currOpeningUnitViewTag = 0;
 }
 
-- (void)confirm:(id)sender
-{
+- (void)confirm:(id)sender {
   NSInteger tag = ((UIButton *)sender).tag;
-  
   if (self.isForReplacing) {
     // Replace the current pokemon
     GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
@@ -193,12 +191,19 @@
     [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
     currentBattlePokemonUnitView = nil;
     
-    // Cancel Six Pokemons view
-    [self unloadSixPokemons];
-    
     // Post notification to |GameMenuViewController| to replace the pokemon
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePokemon object:self userInfo:nil];
   }
+  // Post noficaiton with selected pokemon index number to |BagItemTableViewController|
+  else {
+    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSNumber numberWithInt:tag], @"selectedPokemonIndex", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseItemForSelectedPokemon object:self userInfo:userInfo];
+    [userInfo release];
+  }
+  
+  // Cancel Six Pokemons view
+  [self unloadSixPokemons];
 }
 
 - (void)openInfoView:(id)sender

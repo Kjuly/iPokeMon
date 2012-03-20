@@ -22,6 +22,7 @@
 - (Trainer *)trainer;
 - (NSArray *)sixPokemons;
 - (TrainerTamedPokemon *)firstPokemonOfSix;
+- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index;
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;
 
 @end
