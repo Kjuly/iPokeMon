@@ -9,8 +9,9 @@
 #import "BagItemTableViewController.h"
 
 #import "AppDelegate.h"
-#import "PListParser.h"
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
+#import "PListParser.h"
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
@@ -552,60 +553,92 @@
 // Use 'Status Healers' to heal Pokemon
 - (void)healStatusForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine
 {
-  NSInteger effectCode = [bagMedicine.code intValue];
-  if (effectCode & 0x80) {
-    [self healStatusAndRestoreHPForPokemon:pokemon withBagMedicine:bagMedicine];
+  NSInteger effectCode     = [bagMedicine.code intValue];
+  NSInteger pokemonStatus  = [pokemon.status intValue];
+  BOOL      healStatusDone = YES;
+  
+  // 0x80~0x8F: Status Healer & HP Restoree
+  if (effectCode & 0x80) [self healStatusAndRestoreHPForPokemon:pokemon withBagMedicine:bagMedicine];
+  // If Pokemon's status is Normal, no need to use Status Healers
+  else if (pokemonStatus == kPokemonStatusNormal) {
+    healStatusDone = NO;
   }
   // 0x7F: 0111 1111
   // Cures one Pokemon of any status effect
   else if (effectCode == 0x7F) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x7F");
+    pokemonStatus = kPokemonStatusNormal;
   }
   // 0x01: 0000 0001
   // Cures one Pokemon of the Burn status effect
   else if (effectCode & 0x01) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x01");
+    if (pokemonStatus & kPokemonStatusBurn)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusBurn;
+    else healStatusDone = NO;
   }
   // 0x02: 0000 0010
   // Cures one Pokemon of the Confused status effect
   else if (effectCode & 0x02) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x02");
+    if (pokemonStatus & kPokemonStatusConfused)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusConfused;
+    else healStatusDone = NO;
   }
   // 0x04: 0000 0100
   // Cures one Pokemon of the Flinch status effect
   else if (effectCode & 0x04) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x04");
+    if (pokemonStatus & kPokemonStatusFlinch)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusFlinch;
+    else healStatusDone = NO;
   }
   // 0x08: 0000 1000
   // Cures one Pokemon of the Freeze status effect
   else if (effectCode & 0x08) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x08");
+    if (pokemonStatus & kPokemonStatusFreeze)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusFreeze;
+    else healStatusDone = NO;
   }
   // 0x10: 0001 0000
   // Cures one Pokemon of the Paralyze status effect
   else if (effectCode & 0x10) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x10");
+    if (pokemonStatus & kPokemonStatusParalyze)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusParalyze;
+    else healStatusDone = NO;
   }
   // 0x20: 0010 0000
   // Cures one Pokemon of the Poison status effect
   else if (effectCode & 0x20) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x20");
+    if (pokemonStatus & kPokemonStatusPoison)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusPoison;
+    else healStatusDone = NO;
   }
   // 0x40: 0100 0000
   // Cures one Pokemon of the Sleep status effect
   else if (effectCode & 0x40) {
     NSLog(@"- BagMedicine - Status - EffectCode: 0x40");
+    if (pokemonStatus & kPokemonStatusSleep)
+      pokemonStatus = pokemonStatus & ~kPokemonStatusSleep;
+    else healStatusDone = NO;
   }
+  
+  // If Heal Status Done, set new Status to pokemon
+  if (healStatusDone) pokemon.status = [NSNumber numberWithInt:pokemonStatus];
 }
 
 // Use 'HP Restore' to restore Pokemon HP
 - (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine
 {
-  NSInteger effectCode = [bagMedicine.code intValue];
-  // 0x80 ~ 0x 8F
-  if (effectCode & 0x80) {
-    [self healStatusAndRestoreHPForPokemon:pokemon withBagMedicine:bagMedicine];
-  }
+  NSInteger effectCode   = [bagMedicine.code intValue];
+  NSInteger pokemonHP    = [pokemon.currHP intValue];
+  NSInteger pokemonHPMax = [[pokemon.maxStats objectAtIndex:0] intValue];
+  
+  // 0x80~0x8F: Status Healer & HP Restoree
+  if (effectCode & 0x80) [self healStatusAndRestoreHPForPokemon:pokemon withBagMedicine:bagMedicine];
   // 0x7F: 0111 1111
   // Restores all HP to every Pokemon
   else if (effectCode == 0x7F) {}
@@ -613,37 +646,48 @@
   // Restores all HP to one Pokemon
   else if (effectCode == 0x3F) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x3F");
+    pokemonHP = pokemonHPMax;
   }
   // 0x01: 0000 0001
   // Restores 20 HP to one Pokemon
   else if (effectCode & 0x01) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x01");
+    pokemonHP += 20;
   }
   // 0x02: 0000 0010
   // Restores 50 HP to one Pokemon
   else if (effectCode & 0x02) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x02");
+    pokemonHP += 50;
   }
   // 0x04: 0000 0100
   // Restores 60 HP to one Pokemon
   else if (effectCode & 0x04) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x04");
+    pokemonHP += 60;
   }
   // 0x08: 0000 1000
   // Restores 80 HP to one Pokemon
   else if (effectCode & 0x08) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x08");
+    pokemonHP += 80;
   }
   // 0x10: 0001 0000
   // Restores 100 HP to one Pokemon
   else if (effectCode & 0x10) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x10");
+    pokemonHP += 100;
   }
   // 0x20: 0010 0000
   // Restores 200 HP to one Pokemon
   else if (effectCode & 0x20) {
     NSLog(@"- BagMedicine - HP - EffectCode: 0x20");
+    pokemonHP += 200;
   }
+  else return;
+  
+  // Set new HP value to |currHP| for Pokemon
+  pokemon.currHP = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP

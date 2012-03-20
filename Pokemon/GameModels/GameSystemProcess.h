@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+#import "GlobalConstants.h"
+
 @class TrainerTamedPokemon;
 @class WildPokemon;
 
@@ -30,19 +32,6 @@ typedef enum {
   kMoveRealTargetEnemy  = 1 << 0, // Enemy
   kMoveRealTargetPlayer = 1 << 1, // Player
 }MoveRealTarget;
-
-// Pokemon Status
-typedef enum {
-  kPokemonStatusNormal    = 0,      // Normal
-  kPokemonStatusBurn      = 1 << 0, // Burn
-  kPokemonStatusConfused  = 1 << 1, // Confused
-  kPokemonStatusFlinch    = 1 << 2, // Flinch
-  kPokemonStatusFreeze    = 1 << 3, // Freeze
-  kPokemonStatusParalyze  = 1 << 4, // Paralyze
-  kPokemonStatusPoison    = 1 << 5, // Poison
-  kPokemonStatusSleep     = 1 << 6, // Sleep
-  kPokemonStatusFaint     = 1 << 7  // Faint
-}PokemonStatus;
 
 
 @interface GameSystemProcess : CCNode {

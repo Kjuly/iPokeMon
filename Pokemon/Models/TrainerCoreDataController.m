@@ -74,7 +74,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 }
 
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index {
-  return [self.entitySixPokemons objectAtIndex:index];
+  return [self.entitySixPokemons objectAtIndex:--index];
 }
 
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
