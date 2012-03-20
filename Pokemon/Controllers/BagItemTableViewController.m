@@ -22,7 +22,6 @@
 
 @interface BagItemTableViewController () {
  @private
-  NSInteger                           selectedCellIndex_; // For query data
   BagItemTableViewCell              * selectedCell_;
   BagItemTableViewHiddenCell        * hiddenCell_;
   UIView                            * hiddenCellAreaView_;
@@ -30,7 +29,6 @@
   GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
 }
 
-@property (nonatomic, assign) NSInteger                           selectedCellIndex;
 @property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
 @property (nonatomic, retain) UIView                            * hiddenCellAreaView;
@@ -411,6 +409,9 @@
     [self useBattleItemForPokemon:targetPokemon withBagBattleItem:(BagBattleItem *)anonymousEntity];
   else if (self.targetType & kBagQueryTargetTypeKeyItem)      {}
   else { anonymousEntity = nil; return; }
+  
+  // Cancel self view after Use Bag Item done
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
 }
 
 #pragma mark - BagItemTableViewHiddenCell Delegate
@@ -432,7 +433,7 @@
     }
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameMenuSixPokemonsViewController.view];
     [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:NO];
-    [self.gameMenuSixPokemonsViewController loadSixPokemons];
+    [self.gameMenuSixPokemonsViewController loadSixPokemonsAnimated:YES];
   }
 }
 
@@ -688,6 +689,14 @@
   
   // Set new HP value to |currHP| for Pokemon
   pokemon.currHP = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
+  
+  // Post to |GameMenuViewController| to update pokemon status view
+  NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
+                                  pokemon.status,                                 @"playerPokemonStatus",
+                                  pokemon.currHP,                                 @"playerPokemonHP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
+  [pokemonStatus release];
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP

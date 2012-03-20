@@ -13,12 +13,14 @@
 @interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate>
 {
   NSMutableArray     * items_;
+  NSInteger            selectedCellIndex_; // For query data
   NSInteger            itemNumberSequence_;
   BagQueryTargetType   targetType_;
   BOOL                 isDuringBattle_;
 }
 
 @property (nonatomic, copy)   NSMutableArray     * items;
+@property (nonatomic, assign) NSInteger            selectedCellIndex;
 @property (nonatomic, assign) NSInteger            itemNumberSequence;
 @property (nonatomic, assign) BagQueryTargetType   targetType;
 @property (nonatomic, assign) BOOL                 isDuringBattle;

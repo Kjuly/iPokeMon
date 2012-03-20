@@ -11,7 +11,8 @@
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
-#import "GlobalNotificationConstants.h"
+#import "GameStatusMachine.h"
+#import "GameSystemProcess.h"
 #import "BagItemTableViewController.h"
 
 
@@ -28,6 +29,7 @@
 
 - (void)loadSelcetedItemTalbeView:(id)sender;
 - (void)toggleTopCancelButton:(NSNotification *)notification;
+- (void)endUsingBagItem:(NSNotification *)notification;
 
 @end
 
@@ -47,6 +49,7 @@
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleTopCancelButton object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUseBagItemDone object:self.bagItemTableViewController];
   [super dealloc];
 }
 
@@ -121,6 +124,11 @@
                                            selector:@selector(toggleTopCancelButton:)
                                                name:kPMNToggleTopCancelButton
                                              object:nil];
+  // Add observer for notification from |BagItemViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(endUsingBagItem:)
+                                               name:kPMNUseBagItemDone
+                                             object:self.bagItemTableViewController];
 }
 
 - (void)viewDidUnload
@@ -207,6 +215,21 @@
                      [self.cancelButton setFrame:cancelButtonFrame];
                    }
                    completion:nil];
+}
+
+- (void)endUsingBagItem:(NSNotification *)notification {
+  // Set data for Game System Process & start it
+  NSInteger selectedItemID = [[self.bagItemTableViewController.items
+                               objectAtIndex:(self.bagItemTableViewController.selectedCellIndex * 2)] intValue];
+  GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
+  [gameSystemProcess setSystemProcessOfUseBagItemWithUser:kGameSystemProcessUserPlayer
+                                               targetType:self.bagItemTableViewController.targetType
+                                                itemIndex:selectedItemID];
+  [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
+  
+  // Unload bag menu
+  [self unloadViewWithAnimationToLeft:NO animated:NO];
+  [self unloadSelcetedItemTalbeView:nil];
 }
 
 @end

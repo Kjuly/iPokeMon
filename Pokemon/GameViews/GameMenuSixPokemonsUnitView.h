@@ -24,7 +24,7 @@
 @property (nonatomic, assign) id <GameMenuSixPokemonsUnitViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag;
-- (void)cancelUnit;
+- (void)cancelUnitAnimated:(BOOL)animated;
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne;
 
 @end

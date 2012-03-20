@@ -140,28 +140,32 @@
                   }];
 }
 
-- (void)cancelUnit {
-  CGFloat buttonSize = 60.f;
-  CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
-  CGRect confirmButtonFrame = mainButtonFrame;
-  CGRect infoButtonFrame    = mainButtonFrame;
+- (void)cancelUnitAnimated:(BOOL)animated {
+  void (^animation)() = ^(){
+    CGFloat buttonSize = 60.f;
+    CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
+    CGRect confirmButtonFrame = mainButtonFrame;
+    CGRect infoButtonFrame    = mainButtonFrame;
+    
+    [self.confirmButton setFrame:confirmButtonFrame];
+    [self.infoButton setFrame:infoButtonFrame];
+    [self.confirmButton setAlpha:0.f];
+    [self.infoButton setAlpha:0.f];
+  };
+  void (^completion)(BOOL finished) = ^(BOOL finished) {
+    [UIView transitionFromView:self.cancelButton
+                        toView:self.mainButton
+                      duration:(animated ? .3f : 0.f)
+                       options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
+                    completion:nil];
+  };
   
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     [self.confirmButton setFrame:confirmButtonFrame];
-                     [self.infoButton setFrame:infoButtonFrame];
-                     [self.confirmButton setAlpha:0.f];
-                     [self.infoButton setAlpha:0.f];
-                   }
-                   completion:^(BOOL finished) {
-                     [UIView transitionFromView:self.cancelButton
-                                         toView:self.mainButton
-                                       duration:.3f
-                                        options:UIViewAnimationOptionTransitionFlipFromLeft
-                                     completion:nil];
-                   }];
+  if (! animated) { animation(); completion(YES); }
+  else [UIView animateWithDuration:.3f
+                             delay:0.f
+                           options:UIViewAnimationOptionCurveEaseInOut
+                        animations:animation
+                        completion:completion];
   [self.delegate resetUnit];
 }
 

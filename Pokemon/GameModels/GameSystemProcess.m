@@ -64,6 +64,8 @@ typedef enum {
   GameSystemProcessType processType_; // What action process the system to deal with
   GameSystemProcessUser user_;        // Action (use move, bag item, etc) user
   NSInteger             moveIndex_;   // If the action is using move, it's used
+  BagQueryTargetType    targetType_;  // For bag item's 8 different types
+  NSInteger             itemIndex_;   // Bag item index
   
   BOOL      complete_;  // Mark for system turn end
   NSInteger delayTime_; // Delay time for every turn
@@ -1146,6 +1148,25 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Use bag item
 - (void)useBagItem
 {
+  NSInteger pokemonID;
+  
+  // Case the move user is Player
+  if (user_ == kGameSystemProcessUserPlayer) {
+    pokemonID = [self.playerPokemon.sid intValue];
+  }
+  // Case the move user is Enemy
+  else if (user_ == kGameSystemProcessUserEnemy) {
+    pokemonID = [self.enemyPokemon.sid intValue];
+  }
+  else { NSLog(@"!!! Exception: The Move has no user"); }
+  
+  // Post Message to update |messageView_| in |GameMenuViewController|
+  NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
+  [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
+  [messageInfo release];
+  
+  [self endTurn];
 }
 
 // Replace pokemon
@@ -1177,8 +1198,30 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
     }
       
-    case kGameSystemProcessTypeUseBagItem:
+    case kGameSystemProcessTypeUseBagItem: {
+      NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
+      
+      NSString * localizedNameHeader;
+      if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
+      else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
+      else if (targetType_ & kBagQueryTargetTypePokeball)   localizedNameHeader = @"PMSBagPokeball";
+      else if (targetType_ & kBagQueryTargetTypeTMHM)       localizedNameHeader = @"PMSBagTMHM";
+      else if (targetType_ & kBagQueryTargetTypeBerry)      localizedNameHeader = @"PMSBagBerry";
+      else if (targetType_ & kBagQueryTargetTypeMail)       localizedNameHeader = @"PMSBagMail";
+      else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
+      else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
+      
+      // Post message: (<PokemonName> used <ItemName>, etc) to |messageView_| in |GameMenuViewController|
+      NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
+                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                            NSLocalizedString(@"PMS_used", nil),
+                            NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil)];
+      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                          object:self
+                                                        userInfo:messageInfo];
       break;
+    }
       
     case kGameSystemProcessTypeReplacePokemon:
       break;
@@ -1204,9 +1247,13 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 - (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
+                                  targetType:(BagQueryTargetType)targetType
+                                   itemIndex:(NSInteger)itemIndex
 {
   processType_ = kGameSystemProcessTypeUseBagItem;
   user_        = user;
+  targetType_  = targetType;
+  itemIndex_   = itemIndex;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user

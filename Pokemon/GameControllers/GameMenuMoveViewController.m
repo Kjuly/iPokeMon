@@ -158,7 +158,7 @@
   [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserPlayer
                                            moveIndex:((UIButton *)sender).tag];
   
-  [self unloadViewWithAnimationToLeft:YES];
+  [self unloadViewWithAnimationToLeft:YES animated:YES];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 

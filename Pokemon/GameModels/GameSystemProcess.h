@@ -14,24 +14,12 @@
 @class TrainerTamedPokemon;
 @class WildPokemon;
 
-//typedef enum {
-//  kGameSystemProcessTargetPlayer = 0,
-//  kGameSystemProcessTargetEnemy  = 1
-//}GameSystemProcessTarget;
-
 // User
 typedef enum {
   kGameSystemProcessUserNone   = 0, // None
   kGameSystemProcessUserPlayer = 1, // Player
   kGameSystemProcessUserEnemy  = 2  // Enemy
 }GameSystemProcessUser;
-
-// Move Real Target
-typedef enum {
-  kMoveRealTargetNone   = 0,      // None
-  kMoveRealTargetEnemy  = 1 << 0, // Enemy
-  kMoveRealTargetPlayer = 1 << 1, // Player
-}MoveRealTarget;
 
 
 @interface GameSystemProcess : CCNode {
@@ -51,7 +39,9 @@ typedef enum {
 
 // Setting Methods
 - (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex;
-- (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user;
+- (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
+                                  targetType:(BagQueryTargetType)targetType
+                                   itemIndex:(NSInteger)itemIndex;
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user;
 - (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user;
 

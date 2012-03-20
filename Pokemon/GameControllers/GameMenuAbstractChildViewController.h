@@ -16,8 +16,8 @@
 
 @property (nonatomic, retain) UIView * tableAreaView;
 
-- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft;
-- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft;
+- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft animated:(BOOL)animated;
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated;
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer;
 
 @end

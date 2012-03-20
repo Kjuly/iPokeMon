@@ -400,13 +400,13 @@ typedef enum {
     if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
       [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:YES];
-      [self.gameMenuSixPokemonsViewController loadSixPokemons];
+      [self.gameMenuSixPokemonsViewController loadSixPokemonsAnimated:YES];
       self.gameMenuKeyView = kGameMenuKeyViewSixPokemonsView;
     }
     else {
       if (self.gameMenuSixPokemonsViewController.isSelectedPokemonInfoViewOpening)
         [self.gameMenuSixPokemonsViewController unloadSelcetedPokemonInfoView];
-      [self.gameMenuSixPokemonsViewController unloadSixPokemons];
+      [self.gameMenuSixPokemonsViewController unloadSixPokemonsAnimated:YES];
       self.gameMenuKeyView = kGameMenuKeyViewNone;
     }
   }
@@ -586,7 +586,7 @@ typedef enum {
       [gameMenuMoveViewController release];
     }
     [self.view addSubview:self.gameMenuMoveViewController.view];
-    [self.gameMenuMoveViewController loadViewWithAnimationFromLeft:YES];
+    [self.gameMenuMoveViewController loadViewWithAnimationFromLeft:YES animated:YES];
     self.gameMenuKeyView = kGameMenuKeyViewMoveView;
   }
 }
@@ -600,7 +600,7 @@ typedef enum {
       [gameMenuBagViewController release];
     }
     [self.view addSubview:self.gameMenuBagViewController.view];
-    [self.gameMenuBagViewController loadViewWithAnimationFromLeft:NO];
+    [self.gameMenuBagViewController loadViewWithAnimationFromLeft:NO animated:YES];
     self.gameMenuKeyView = kGameMenuKeyViewBagView;
   }
 }
@@ -623,13 +623,13 @@ typedef enum {
 {
   switch (self.gameMenuKeyView) {
     case kGameMenuKeyViewMoveView:
-      [self.gameMenuMoveViewController unloadViewWithAnimationToLeft:YES];
+      [self.gameMenuMoveViewController unloadViewWithAnimationToLeft:YES animated:YES];
       break;
       
     case kGameMenuKeyViewBagView:
       if (self.gameMenuBagViewController.isSelectedItemViewOpening)
         [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
-      [self.gameMenuBagViewController unloadViewWithAnimationToLeft:NO];
+      [self.gameMenuBagViewController unloadViewWithAnimationToLeft:NO animated:YES];
       break;
       
     case kGameMenuKeyViewNone:

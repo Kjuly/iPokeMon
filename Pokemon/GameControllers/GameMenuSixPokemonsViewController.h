@@ -20,8 +20,8 @@
 @property (nonatomic, assign) NSInteger currBattlePokemon;
 
 - (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing;
-- (void)loadSixPokemons;
-- (void)unloadSixPokemons;
+- (void)loadSixPokemonsAnimated:(BOOL)animated;
+- (void)unloadSixPokemonsAnimated:(BOOL)animated;
 - (void)unloadSelcetedPokemonInfoView;
 - (void)prepareForNewScene;
 

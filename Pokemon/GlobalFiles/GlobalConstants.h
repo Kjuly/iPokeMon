@@ -90,6 +90,13 @@ typedef enum {
   kPokemonStatusFaint     = 1 << 7  // Faint
 }PokemonStatus;
 
+// Move Real Target
+typedef enum {
+  kMoveRealTargetNone   = 0,      // None
+  kMoveRealTargetEnemy  = 1 << 0, // Enemy
+  kMoveRealTargetPlayer = 1 << 1, // Player
+}MoveRealTarget;
+
 #define kTabBarHeight 115.0f
 #define kTabBarWdith  215.0f
 

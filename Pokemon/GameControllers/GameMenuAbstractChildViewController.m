@@ -148,27 +148,34 @@
 
 #pragma mark - Public Methods
 
-- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft {
+- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft animated:(BOOL)animated {
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = fromLeft ? -kViewWidth : kViewWidth;
   [self.view setFrame:viewFrame];
   viewFrame.origin.x = 0.f;
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{ [self.view setFrame:viewFrame]; }
-                   completion:nil];
+  
+  if (! animated) [self.view setFrame:viewFrame];
+  else[UIView animateWithDuration:.3f
+                            delay:0.f
+                          options:UIViewAnimationOptionCurveEaseInOut
+                       animations:^{ [self.view setFrame:viewFrame]; }
+                       completion:nil];
 //  [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
 }
 
-- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft {
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated {
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = toLeft ? -kViewWidth : kViewWidth;
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{ [self.view setFrame:viewFrame]; }
-                   completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
+  
+  if (! animated) {
+    [self.view setFrame:viewFrame];
+    [self.view removeFromSuperview];
+  }
+  else [UIView animateWithDuration:.3f
+                             delay:0.f
+                           options:UIViewAnimationOptionCurveEaseInOut
+                        animations:^{ [self.view setFrame:viewFrame]; }
+                        completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView object:self userInfo:nil];
 //  [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
 }
@@ -183,11 +190,11 @@
 {
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight:
-      [self unloadViewWithAnimationToLeft:NO];
+      [self unloadViewWithAnimationToLeft:NO animated:YES];
       break;
       
     case UISwipeGestureRecognizerDirectionLeft:
-      [self unloadViewWithAnimationToLeft:YES];
+      [self unloadViewWithAnimationToLeft:YES animated:YES];
       break;
       
     default:

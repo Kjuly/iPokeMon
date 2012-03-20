@@ -23,6 +23,7 @@ NSString * const kPMNUpdateGameMenuKeyView     = @"PMNUpdateGameMenuKeyView";
 NSString * const kPMNReplacePokemon            = @"PMNReplacePokemon";
 NSString * const kPMNReplacePlayerPokemon      = @"PMNReplacePlayerPokemon";
 NSString * const kPMNUseItemForSelectedPokemon = @"PMNUseItemForSelectedPokemon";
+NSString * const kPMNUseBagItemDone            = @"PMNUseBagItemDone";
 //NSString * const kPMNMoveEffect = @"PMNMoveEffect";
 NSString * const kPMNUpdateGameBattleMessage   = @"PMNUpdateGameBattleMessage";
 //NSString * const kPMNInitializePokemonStatus = @"PMNInitializePokemonStatus";
