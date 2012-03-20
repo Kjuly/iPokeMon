@@ -314,7 +314,6 @@
                      completion:nil];
     self.selectedCell = cell;
   };
-  
   if (self.selectedCell == nil) showHiddenCellAnimationBlock(YES);
   else if (self.selectedCell == cell) return;
   else [self cancelHiddenCellWithCompletionBlock:showHiddenCellAnimationBlock];
@@ -356,11 +355,12 @@
 
 #pragma mark - BagItemTableViewHiddenCell Delegate
 
+// Hidden Cell Button Action: Use Item
 - (void)useItem:(id)sender
 {
   NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
-  id entity = [[BagDataController sharedInstance] queryDataFor:self.targetType
-                                                        withID:itemID];
+  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
+                                                                 withID:itemID];
   
   if (self.targetType & kBagQueryTargetTypeItem)
     return;
@@ -383,19 +383,22 @@
   else if (self.targetType & kBagQueryTargetTypeKeyItem)
     return;
   else {
-    entity = nil;
+    anonymousEntity = nil;
     return;
   }
 }
 
+// Hidden Cell Button Action: Give Item
 - (void)giveItem:(id)sender
 {
 }
 
+// Hidden Cell Button Action: Toss Item
 - (void)tossItem:(id)sender
 {
 }
 
+// Hidden Cell Button Action: Show Info
 - (void)showInfo:(id)sender
 {
   if (self.bagItemInfoViewController == nil) {
@@ -408,7 +411,6 @@
   NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
                                                         withID:itemID];
-  
   NSString * localizedNameHeader;
   NSInteger entityID;
   NSInteger price;
@@ -471,6 +473,7 @@
   [self.bagItemInfoViewController loadViewWithAnimation];
 }
 
+// Hidden Cell Button Action: Cancel Hidden Cell
 - (void)cancelHiddenCell:(id)sender {
   [self cancelHiddenCellWithCompletionBlock:nil];
 }
