@@ -90,7 +90,7 @@
 
   //
   // TODO:
-  // Implement thme!
+  // Implement them!
   //
   [self.hiddenCell.give setHidden:YES];
   [self.hiddenCell.toss setHidden:YES];
@@ -276,59 +276,23 @@
 #pragma mark - Private Methods
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  NSInteger row = [indexPath row];
-//  id anonymousEntity = [self.items objectAtIndex:[indexPath row]];
   NSString * localizedNameHeader;
-  NSInteger entityID = [[self.items objectAtIndex:(row * 2)] intValue];
+  if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
+  else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
+  else if (targetType_ & kBagQueryTargetTypePokeball)   localizedNameHeader = @"PMSBagPokeball";
+  else if (targetType_ & kBagQueryTargetTypeTMHM)       localizedNameHeader = @"PMSBagTMHM";
+  else if (targetType_ & kBagQueryTargetTypeBerry)      localizedNameHeader = @"PMSBagBerry";
+  else if (targetType_ & kBagQueryTargetTypeMail)       localizedNameHeader = @"PMSBagMail";
+  else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
+  else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
+  else return;
+  NSInteger row            = [indexPath row];
+  NSInteger entityID       = [[self.items objectAtIndex:(row * 2)] intValue];
   NSInteger entityQuantity = [[self.items objectAtIndex:(row * 2 + 1)] intValue];
-//  NSInteger  entityID;
-  if (targetType_ & kBagQueryTargetTypeItem) {
-//    BagItem * entity    = anonymousEntity;
-    localizedNameHeader = @"PMSBagItem";
-//    entityID            = [entity.sid intValue];
-//    entity              = nil;
-  } else if (targetType_ & kBagQueryTargetTypeMedicine) {
-//    BagMedicine * entity = anonymousEntity;
-    localizedNameHeader  = @"PMSBagMedicine";
-//    entityID             = [entity.sid intValue];
-//    entity               = nil;
-  } else if (targetType_ & kBagQueryTargetTypePokeball) {
-//    BagPokeball * entity = anonymousEntity;
-    localizedNameHeader  = @"PMSBagPokeball";
-//    entityID             = [entity.sid intValue];
-//    entity               = nil;
-  } else if (targetType_ & kBagQueryTargetTypeTMHM) {
-//    BagTMHM * entity    = anonymousEntity;
-    localizedNameHeader = @"PMSBagTMHM";
-//    entityID            = [entity.sid intValue];
-//    entity              = nil;
-  } else if (targetType_ & kBagQueryTargetTypeBerry) {
-//    BagBerry * entity   = anonymousEntity;
-    localizedNameHeader = @"PMSBagBerry";
-//    entityID            = [entity.sid intValue];
-//    entity              = nil;
-  } else if (targetType_ & kBagQueryTargetTypeMail) {
-//    BagMail * entity    = anonymousEntity;
-    localizedNameHeader = @"PMSBagMail";
-//    entityID            = [entity.sid intValue];
-//    entity              = nil;
-  } else if (targetType_ & kBagQueryTargetTypeBattleItem) {
-//    BagBattleItem * entity = anonymousEntity;
-    localizedNameHeader    = @"PMSBagBattleItem";
-//    entityID               = [entity.sid intValue];
-//    entity                 = nil;
-  } else if (targetType_ & kBagQueryTargetTypeKeyItem) {
-//    BagKeyItem * entity = anonymousEntity;
-    localizedNameHeader = @"PMSBagKeyItem";
-//    entityID            = [entity.sid intValue];
-//    entity = nil;
-  } else return;
   
   // Set the data for cell to display
-  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d",
-                                         localizedNameHeader, entityID]), nil)];
+  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)];
   [cell.quantity setText:[NSString stringWithFormat:@"%d", entityQuantity]];
-//  anonymousEntity     = nil;
   localizedNameHeader = nil;
 }
 
