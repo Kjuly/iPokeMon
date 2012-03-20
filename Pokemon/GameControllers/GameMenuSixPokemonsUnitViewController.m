@@ -131,7 +131,6 @@
 #pragma mark - Private Methods
 
 - (void)open {
-  NSLog(@"!!!");
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((kViewWidth - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);

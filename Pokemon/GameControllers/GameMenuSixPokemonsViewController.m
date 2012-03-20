@@ -14,20 +14,29 @@
 #import "TrainerCoreDataController.h"
 #import "SixPokemonsDetailTabViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
 @interface GameMenuSixPokemonsViewController () {
  @private
+  BOOL      isForReplacing_;         // If it is YES, when |confirm|, replace pokemon, otherwise, use item
   NSInteger currOpeningUnitViewTag_;
   UIView  * backgroundView_;
   NSArray * sixPokemons_;
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
-  UIButton * cancelButton_;
+  CAAnimationGroup                   * animationGroupForNotReplacing_;
+  UISwipeGestureRecognizer           * swipeGestureRecognizer_;
+  UIButton                           * cancelButton_;
 }
 
+@property (nonatomic, assign) BOOL      isForReplacing;
 @property (nonatomic, assign) NSInteger currOpeningUnitViewTag;
 @property (nonatomic, retain) UIView  * backgroundView;
 @property (nonatomic, copy) NSArray   * sixPokemons;
 @property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
-@property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, retain) CAAnimationGroup                   * animationGroupForNotReplacing;
+@property (nonatomic, retain) UISwipeGestureRecognizer           * swipeGestureRecognizer;
+@property (nonatomic, retain) UIButton                           * cancelButton;
 
 - (void)unloadSelcetedPokemonInfoView;
 - (void)resetUnit;
@@ -38,22 +47,27 @@
 @implementation GameMenuSixPokemonsViewController
 
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
+@synthesize currBattlePokemon                = currBattlePokemon_;
 
+@synthesize isForReplacing         = isForReplacing_;
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize backgroundView         = backgroundView_;
 @synthesize sixPokemons            = sixPokemons_;
 @synthesize sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController_;
-@synthesize currBattlePokemon = currBattlePokemon_;
-@synthesize cancelButton = cancelButton_;
+@synthesize animationGroupForNotReplacing      = animationGroupForNotReplacing_;
+@synthesize swipeGestureRecognizer             = swipeGestureRecognizer_;
+@synthesize cancelButton                       = cancelButton_;
 
 - (void)dealloc
 {
   [backgroundView_ release];
   [sixPokemons_    release];
   [sixPokemonsDetailTabViewController_ release];
-  [cancelButton_ release];
+  [swipeGestureRecognizer_             release];
+  [cancelButton_                       release];
   
   self.sixPokemonsDetailTabViewController = nil;
+  self.animationGroupForNotReplacing      = nil;
   
   [super dealloc];
 }
@@ -106,7 +120,8 @@
   [self.view addSubview:self.cancelButton];
   
   // Basic Setting
-  currBattlePokemon_ = 1;
+  isForReplacing_    = NO;
+//  currBattlePokemon_ = 0;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -116,6 +131,14 @@
   
   // Basic Setting
   currOpeningUnitViewTag_ = 0;
+  
+  // Tap Gesture Recoginzer
+  UISwipeGestureRecognizer * swipeGestureRecognizer
+  = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(unloadSixPokemons)];
+  self.swipeGestureRecognizer = swipeGestureRecognizer;
+  [swipeGestureRecognizer release];
+  [self.swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
+  [self.view addGestureRecognizer:self.swipeGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -125,7 +148,8 @@
   self.backgroundView = nil;
   self.sixPokemons    = nil;
   self.sixPokemonsDetailTabViewController = nil;
-  self.cancelButton = nil;
+  self.swipeGestureRecognizer             = nil;
+  self.cancelButton                       = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -155,24 +179,26 @@
 {
   NSInteger tag = ((UIButton *)sender).tag;
   
-  // Replace the current pokemon
-  GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
-  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-  [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
-  previousBattlePokemonUnitView = nil;
-  
-  self.currBattlePokemon = tag;
-  
-  GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView
-  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-  [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
-  currentBattlePokemonUnitView = nil;
-  
-  // Cancel Six Pokemons view
-  [self unloadSixPokemons];
-  
-  // Post notification to |GameMenuViewController| to replace the pokemon
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePokemon object:self userInfo:nil];
+  if (self.isForReplacing) {
+    // Replace the current pokemon
+    GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+    previousBattlePokemonUnitView = nil;
+    
+    self.currBattlePokemon = tag;
+    
+    GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
+    currentBattlePokemonUnitView = nil;
+    
+    // Cancel Six Pokemons view
+    [self unloadSixPokemons];
+    
+    // Post notification to |GameMenuViewController| to replace the pokemon
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePokemon object:self userInfo:nil];
+  }
 }
 
 - (void)openInfoView:(id)sender
@@ -202,13 +228,12 @@
 
 #pragma mark - Public Methods
 
-- (void)initWithSixPokemons
-{
-  self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
-  
-  CGFloat buttonSize = 60.f;
-  CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
-  
+- (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
+  self.isForReplacing    = forReplacing;
+  self.currBattlePokemon = forReplacing ? 1 : 0;
+  self.sixPokemons       = [[TrainerCoreDataController sharedInstance] sixPokemons];
+  CGFloat buttonSize     = 60.f;
+  CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
   //
   // TODO:
   //   Every time they'll be created, no need actually
@@ -227,32 +252,77 @@
     [gameMenuSixPokemonsUnitView release];
     pokemon = nil;
   }
-  
   // Basic Setting
   self.isSelectedPokemonInfoViewOpening = NO;
 }
 
 - (void)loadSixPokemons {
+  if (! self.isForReplacing) [self.view setFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
+  
+  // Set new position for six pokemons' unit
+  void (^setPositionForSixPokemonsUnit)() = ^(){
+    CGFloat buttonSize = 60.f;
+    CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
+    for (int i = [self.sixPokemons count]; i > 0; --i) {
+      GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+      originFrame.origin.y -= 70.f;
+      [unitView setAlpha:1.f];
+      [unitView setFrame:originFrame];
+      unitView = nil;
+    }
+  };
+  
+  void (^animationForNotReplacing)() = ^(){
+    if (self.animationGroupForNotReplacing == nil) {
+      CGFloat duration = .6f;
+      CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+      animationScale.duration = duration;
+      animationScale.values   = [NSArray arrayWithObjects:[NSNumber numberWithFloat:.8f],
+                                                          [NSNumber numberWithFloat:1.2f],
+                                                          [NSNumber numberWithFloat:1.f], nil];
+      animationScale.keyTimes = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.f],
+                                                          [NSNumber numberWithFloat:.3f],
+                                                          [NSNumber numberWithFloat:duration], nil];
+      animationScale.timingFunctions = [NSArray arrayWithObjects:
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], nil];
+      
+      CABasicAnimation * animationFade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+      animationFade.duration       = duration * .4f;
+      animationFade.fromValue      = [NSNumber numberWithFloat:0.f];
+      animationFade.toValue        = [NSNumber numberWithFloat:1.f];
+      animationFade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+      animationFade.fillMode       = kCAFillModeForwards;
+      
+      self.animationGroupForNotReplacing = [CAAnimationGroup animation];
+      self.animationGroupForNotReplacing.delegate = self;
+      self.animationGroupForNotReplacing.duration = duration;
+      NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
+      [self.animationGroupForNotReplacing setAnimations:animations];
+      [animations release];
+    }
+    
+    for (int i = [self.sixPokemons count]; i > 0; --i) {
+      GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+      [unitView.layer addAnimation:self.animationGroupForNotReplacing forKey:@"animationToShowForNotReplacing"];
+      unitView = nil;
+    }
+  };
+  
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.backgroundView setAlpha:.75f];
-                     CGFloat buttonSize = 60.f;
-                     CGRect originFrame = CGRectMake(0.f,
-                                                     kViewHeight - buttonSize / 2,
-                                                     kViewWidth,
-                                                     buttonSize);
-                     for (int i = [self.sixPokemons count]; i > 0; --i) {
-                       GameMenuSixPokemonsUnitView * unitView
-                       = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
-                       originFrame.origin.y -= 70.f;
-                       [unitView setAlpha:1.f];
-                       [unitView setFrame:originFrame];
-                       unitView = nil;
-                     }
+                     if (self.isForReplacing) setPositionForSixPokemonsUnit();
                    }
-                   completion:nil];
+                   completion:^(BOOL finished) {
+                     // If the view is not for replacing pokemon
+                     if (! self.isForReplacing) {
+                       setPositionForSixPokemonsUnit();
+                       animationForNotReplacing();
+                     }
+                   }];
 }
 
 - (void)unloadSixPokemons {
@@ -261,23 +331,16 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      CGFloat buttonSize = 60.f;
-                     CGRect originFrame = CGRectMake(0.f,
-                                                     kViewHeight - buttonSize / 2,
-                                                     kViewWidth,
-                                                     buttonSize);
+                     CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
                      for (int i = [self.sixPokemons count]; i > 0; --i) {
-                       GameMenuSixPokemonsUnitView * unitView
-                       = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+                       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
                        [unitView setFrame:originFrame];
                        [unitView setAlpha:0.f];
                        unitView = nil;
                      }
                      [self.backgroundView setAlpha:0.f];
                    }
-                   completion:^(BOOL finished) {
-                     [self.view removeFromSuperview];
-                   }];
-  
+                   completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
   // If there's a unit view opening, close it first
   if (self.currOpeningUnitViewTag != 0) {
     GameMenuSixPokemonsUnitView * unitView
@@ -312,17 +375,20 @@
   // TODO:
   //   Redundancy!!
   //
-  GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
-  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-  [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
-  previousBattlePokemonUnitView = nil;
-  
-  self.currBattlePokemon = 1;
-  
-  GameMenuSixPokemonsUnitView * firstPokemonUnitView
-  = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-  [firstPokemonUnitView setAsCurrentBattleOne:YES];
-  firstPokemonUnitView = nil;
+  if (self.currBattlePokemon != 1) {
+    if (self.currBattlePokemon != 0) {
+      GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
+      = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+      [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+      previousBattlePokemonUnitView = nil;
+    }
+    
+    self.currBattlePokemon = 1;
+    GameMenuSixPokemonsUnitView * firstPokemonUnitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    [firstPokemonUnitView setAsCurrentBattleOne:YES];
+    firstPokemonUnitView = nil;
+  }
 }
 
 @end

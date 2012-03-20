@@ -13,24 +13,27 @@
 #import "TrainerCoreDataController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
+#import "GameMenuSixPokemonsViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 
 @interface BagItemTableViewController () {
  @private
-  NSInteger                    selectedCellIndex_; // For query data
-  BagItemTableViewCell       * selectedCell_;
-  BagItemTableViewHiddenCell * hiddenCell_;
-  UIView                     * hiddenCellAreaView_;
-  BagItemInfoViewController  * bagItemInfoViewController_;
+  NSInteger                           selectedCellIndex_; // For query data
+  BagItemTableViewCell              * selectedCell_;
+  BagItemTableViewHiddenCell        * hiddenCell_;
+  UIView                            * hiddenCellAreaView_;
+  BagItemInfoViewController         * bagItemInfoViewController_;
+  GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
 }
 
-@property (nonatomic, assign) NSInteger                    selectedCellIndex;
-@property (nonatomic, retain) BagItemTableViewCell       * selectedCell;
-@property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
-@property (nonatomic, retain) UIView                     * hiddenCellAreaView;
-@property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
+@property (nonatomic, assign) NSInteger                           selectedCellIndex;
+@property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
+@property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
+@property (nonatomic, retain) UIView                            * hiddenCellAreaView;
+@property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
+@property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
 
 - (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
@@ -46,11 +49,12 @@
 @synthesize targetType         = targetType_;
 @synthesize isDuringBattle     = isDuringBattle_;
 
-@synthesize selectedCellIndex         = selectedCellIndex_;
-@synthesize selectedCell              = selectedCell_;
-@synthesize hiddenCell                = hiddenCell_;
-@synthesize hiddenCellAreaView        = hiddenCellAreaView_;
-@synthesize bagItemInfoViewController = bagItemInfoViewController_;
+@synthesize selectedCellIndex                 = selectedCellIndex_;
+@synthesize selectedCell                      = selectedCell_;
+@synthesize hiddenCell                        = hiddenCell_;
+@synthesize hiddenCellAreaView                = hiddenCellAreaView_;
+@synthesize bagItemInfoViewController         = bagItemInfoViewController_;
+@synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 
 -(void)dealloc
 {
@@ -58,8 +62,9 @@
   
   self.selectedCell = nil;
   self.hiddenCell   = nil;
-  [hiddenCellAreaView_        release];
-  [bagItemInfoViewController_ release];
+  [hiddenCellAreaView_                release];
+  [bagItemInfoViewController_         release];
+  [gameMenuSixPokemonsViewController_ release];
   
   [super dealloc];
 }
@@ -150,11 +155,12 @@
 {
   [super viewDidUnload];
   
-  self.items = nil;
-  self.selectedCell              = nil;
-  self.hiddenCell                = nil;
-  self.hiddenCellAreaView        = nil;
-  self.bagItemInfoViewController = nil;
+  self.items                             = nil;
+  self.selectedCell                      = nil;
+  self.hiddenCell                        = nil;
+  self.hiddenCellAreaView                = nil;
+  self.bagItemInfoViewController         = nil;
+  self.gameMenuSixPokemonsViewController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -358,6 +364,23 @@
 // Hidden Cell Button Action: Use Item
 - (void)useItem:(id)sender
 {
+  if (self.gameMenuSixPokemonsViewController == nil) {
+    GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
+    = [[GameMenuSixPokemonsViewController alloc] init];
+    self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
+    [gameMenuSixPokemonViewController release];
+  }
+//  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameMenuSixPokemonsViewController.view];
+  [[[[UIApplication sharedApplication] delegate] window] insertSubview:self.gameMenuSixPokemonsViewController.view
+                                                               atIndex:1];
+  if (! self.isDuringBattle) {
+    self.gameMenuSixPokemonsViewController.currBattlePokemon = 0;
+  }
+//  [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
+  [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:NO];
+  [self.gameMenuSixPokemonsViewController loadSixPokemons];
+  
+  
   NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
                                                                  withID:itemID];

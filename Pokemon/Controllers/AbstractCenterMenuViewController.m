@@ -143,8 +143,7 @@
 }
 
 // Push View Controller
-- (void)pushViewController:(id)viewController
-{
+- (void)pushViewController:(id)viewController {
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
@@ -156,7 +155,6 @@
                      // Show Navigation Bar
                      [self.navigationController setNavigationBarHidden:NO];
                      CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
-                     NSLog(@"!!!!!! %f", self.navigationController.navigationBar.frame.origin.y);
                      if (navigationBarFrame.origin.y < 0) {
                        navigationBarFrame.origin.y = 0;
                        [self.navigationController.navigationBar setFrame:navigationBarFrame];

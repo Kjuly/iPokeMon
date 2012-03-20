@@ -399,7 +399,7 @@ typedef enum {
     }
     if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
-      [self.gameMenuSixPokemonsViewController initWithSixPokemons];
+      [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:YES];
       [self.gameMenuSixPokemonsViewController loadSixPokemons];
       self.gameMenuKeyView = kGameMenuKeyViewSixPokemonsView;
     }
@@ -775,16 +775,14 @@ typedef enum {
 
 #pragma mark - Public Methods
 
-- (void)prepareForNewScene
-{
+- (void)prepareForNewScene {
   [self.playerPokemonStatusViewController prepareForNewScene];
   [self.enemyPokemonStatusViewController  prepareForNewScene];
   [self.gameMenuSixPokemonsViewController prepareForNewScene];
   self.currPokemon = 0;
 }
 
-- (void)reset
-{
+- (void)reset {
   [self.playerPokemonStatusViewController reset];
   [self.enemyPokemonStatusViewController  reset];
 }

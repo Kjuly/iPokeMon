@@ -19,7 +19,7 @@
 @property (nonatomic, assign) BOOL isSelectedPokemonInfoViewOpening;
 @property (nonatomic, assign) NSInteger currBattlePokemon;
 
-- (void)initWithSixPokemons;
+- (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing;
 - (void)loadSixPokemons;
 - (void)unloadSixPokemons;
 - (void)unloadSelcetedPokemonInfoView;
