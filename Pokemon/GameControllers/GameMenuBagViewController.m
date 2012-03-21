@@ -228,8 +228,17 @@
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
   
   // Unload bag menu
-  [self unloadViewWithAnimationToLeft:NO animated:NO];
-  [self unloadSelcetedItemTalbeView:nil];
+  [UIView animateWithDuration:0.6f
+                        delay:0.f
+                      options:UIViewAnimationCurveLinear
+                   animations:^{ [self.view setAlpha:0.f]; }
+                   completion:^(BOOL finished) {
+                     [self unloadViewWithAnimationToLeft:NO animated:NO];
+                     [self unloadSelcetedItemTalbeView:nil];
+                     [self.view setAlpha:1.f];
+                   }];
+  
+  
 }
 
 @end

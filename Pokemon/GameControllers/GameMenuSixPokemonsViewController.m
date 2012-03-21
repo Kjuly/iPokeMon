@@ -203,7 +203,14 @@
                                [NSNumber numberWithInt:tag], @"selectedPokemonIndex", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseItemForSelectedPokemon object:self userInfo:userInfo];
     [userInfo release];
-    [self unloadSixPokemonsAnimated:NO];
+    [UIView animateWithDuration:.3f
+                          delay:0.f
+                        options:UIViewAnimationCurveLinear
+                     animations:^{ [self.view setAlpha:0.f]; }
+                     completion:^(BOOL finished) {
+                       [self unloadSixPokemonsAnimated:NO];
+                       [self.view setAlpha:1.f];
+                     }];
   }
 }
 
