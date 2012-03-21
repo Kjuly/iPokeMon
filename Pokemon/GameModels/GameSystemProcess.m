@@ -1207,7 +1207,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
       NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
                             NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
-                            NSLocalizedString(@"PMS_used", nil),
+                            NSLocalizedString(@"PMSMessage_used", nil),
                             NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
       NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
@@ -1229,11 +1229,12 @@ static GameSystemProcess * gameSystemProcess = nil;
       else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
       else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
       
-      // Post message: (<PokemonName> used <ItemName>, etc) to |messageView_| in |GameMenuViewController|
-      NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
-                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
-                            NSLocalizedString(@"PMS_used", nil),
-                            NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil)];
+      // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
+      NSString * message = [NSString stringWithFormat:@"%@ %@ %@ %@",
+                            NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
+                            NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
+                            NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
+                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
       NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                           object:self

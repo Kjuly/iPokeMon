@@ -51,7 +51,9 @@
 "PMSRunConfirmViewNo"   = "取消";
 
 // Text Message
-"PMS_used" = "使用了";
+"PMSMessage_used" = "使用了";
+"PMSMessageYouUsedXXXToXXX_1"  = "你对";
+"PMSMessageYouUsedXXXToXXX_3"  = "使用了";
 "PMSMessageWhatWillXXXDoPart1" = "";
 "PMSMessageWhatWillXXXDoPart3" = "要做什么？";
 

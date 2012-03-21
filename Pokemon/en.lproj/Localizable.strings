@@ -53,7 +53,9 @@
 "PMSRunConfirmViewNo"   = "Nope";
 
 // Text Message
-"PMS_used" = "used";
+"PMSMessage_used" = "used";
+"PMSMessageYouUsedXXXToXXX_1"  = "You used";
+"PMSMessageYouUsedXXXToXXX_3"  = "to";
 "PMSMessageWhatWillXXXDoPart1" = "What will";
 "PMSMessageWhatWillXXXDoPart3" = "do?";
 
