@@ -505,7 +505,7 @@ typedef enum {
   // Set Game System Process
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   [gameSystemProcess setSystemProcessOfReplacePokemonWithUser:kGameSystemProcessUserPlayer
-                                         selectedPokemonIndex:newPokemonIndex];
+                                         selectedPokemonIndex:++newPokemonIndex];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
