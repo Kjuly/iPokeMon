@@ -10,7 +10,8 @@
 
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
-#import "TrainerTamedPokemon+DataController.h"
+#import "TrainerCoreDataController.h"
+//#import "TrainerTamedPokemon+DataController.h"
 #import "WildPokemon+DataController.h"
 #import "Move.h"
 
@@ -61,11 +62,12 @@ typedef enum {
   NSInteger     enemyPokemonTransientAccuracy_;
   NSInteger     enemyPokemonTransientEvasion_;
   
-  GameSystemProcessType processType_; // What action process the system to deal with
-  GameSystemProcessUser user_;        // Action (use move, bag item, etc) user
-  NSInteger             moveIndex_;   // If the action is using move, it's used
-  BagQueryTargetType    targetType_;  // For bag item's 8 different types
-  NSInteger             itemIndex_;   // Bag item index
+  GameSystemProcessType processType_;          // What action process the system to deal with
+  GameSystemProcessUser user_;                 // Action (use move, bag item, etc) user
+  NSInteger             moveIndex_;            // If the action is using move, it's used
+  BagQueryTargetType    targetType_;           // For bag item's 8 different types
+  NSInteger             selectedPokemonIndex_; // The Pokemon bag item used for
+  NSInteger             itemIndex_;            // Bag item index
   
   BOOL      complete_;  // Mark for system turn end
   NSInteger delayTime_; // Delay time for every turn
@@ -122,9 +124,11 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (self = [super init]) {
     [self reset];
     
-    processType_ = kGameSystemProcessTypeNone;
-    user_        = kGameSystemProcessUserNone;
-    moveIndex_   = 0;
+    processType_          = kGameSystemProcessTypeNone;
+    user_                 = kGameSystemProcessUserNone;
+    moveIndex_            = 0;
+    selectedPokemonIndex_ = 0;
+    itemIndex_            = 0;
   }
   return self;
 }
@@ -227,7 +231,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     pokemonID = [self.enemyPokemon.sid intValue];
     move      = [self.enemyPokemon moveWithIndex:moveIndex_];
   }
-  else { NSLog(@"!!! Exception: The Move has no user"); }
+  else { NSLog(@"!!! Exception: The Move has no user"); return; }
   
   // Calculate the effect of move
   [self calculateEffectForMove:move];
@@ -1148,19 +1152,33 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Use bag item
 - (void)useBagItem
 {
-  NSInteger pokemonID;
+//  NSInteger pokemonID;
+//  
+//  // Case the move user is Player
+//  if (user_ == kGameSystemProcessUserPlayer) {
+//    pokemonID = [self.playerPokemon.sid intValue];
+//  }
+//  // Case the move user is Enemy
+//  else if (user_ == kGameSystemProcessUserEnemy) {
+//    pokemonID = [self.enemyPokemon.sid intValue];
+//  }
+//  else { NSLog(@"!!! Exception: The Bag Item has no user"); return; }
   
-  // Case the move user is Player
-  if (user_ == kGameSystemProcessUserPlayer) {
-    pokemonID = [self.playerPokemon.sid intValue];
-  }
-  // Case the move user is Enemy
-  else if (user_ == kGameSystemProcessUserEnemy) {
-    pokemonID = [self.enemyPokemon.sid intValue];
-  }
-  else { NSLog(@"!!! Exception: The Move has no user"); }
+  // Post to |GameMenuViewController| to update pokemon status view
+  NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
+                                  self.playerPokemon.status,                      @"playerPokemonStatus",
+                                  self.playerPokemon.currHP,                      @"playerPokemonHP",
+                                  self.enemyPokemon.status,                       @"enemyPokemonStatus",
+                                  self.enemyPokemon.currHP,                       @"enemyPokemonHP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
+  [pokemonStatus release];
+  
   
   // Post Message to update |messageView_| in |GameMenuViewController|
+  TrainerTamedPokemon * pokemon = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
+  NSInteger pokemonID = [pokemon.sid intValue];
+  pokemon = nil;
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
   [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
@@ -1248,12 +1266,14 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
                                   targetType:(BagQueryTargetType)targetType
+                        selectedPokemonIndex:(NSInteger)selectedPokemonIndex
                                    itemIndex:(NSInteger)itemIndex
 {
-  processType_ = kGameSystemProcessTypeUseBagItem;
-  user_        = user;
-  targetType_  = targetType;
-  itemIndex_   = itemIndex;
+  processType_          = kGameSystemProcessTypeUseBagItem;
+  user_                 = user;
+  targetType_           = targetType;
+  selectedPokemonIndex_ = selectedPokemonIndex;
+  itemIndex_            = itemIndex;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user

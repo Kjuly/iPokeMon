@@ -16,6 +16,7 @@
   NSInteger            selectedCellIndex_; // For query data
   NSInteger            itemNumberSequence_;
   BagQueryTargetType   targetType_;
+  NSInteger            selectedPokemonIndex_;
   BOOL                 isDuringBattle_;
 }
 
@@ -23,6 +24,7 @@
 @property (nonatomic, assign) NSInteger            selectedCellIndex;
 @property (nonatomic, assign) NSInteger            itemNumberSequence;
 @property (nonatomic, assign) BagQueryTargetType   targetType;
+@property (nonatomic, assign) NSInteger            selectedPokemonIndex;
 @property (nonatomic, assign) BOOL                 isDuringBattle;
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType;

@@ -224,6 +224,7 @@
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   [gameSystemProcess setSystemProcessOfUseBagItemWithUser:kGameSystemProcessUserPlayer
                                                targetType:self.bagItemTableViewController.targetType
+                                     selectedPokemonIndex:self.bagItemTableViewController.selectedPokemonIndex
                                                 itemIndex:selectedItemID];
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
   

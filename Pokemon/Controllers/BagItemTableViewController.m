@@ -54,10 +54,11 @@
 
 @implementation BagItemTableViewController
 
-@synthesize items              = items_;
-@synthesize itemNumberSequence = itemNumberSequence;
-@synthesize targetType         = targetType_;
-@synthesize isDuringBattle     = isDuringBattle_;
+@synthesize items                = items_;
+@synthesize itemNumberSequence   = itemNumberSequence;
+@synthesize targetType           = targetType_;
+@synthesize selectedPokemonIndex = selectedPokemonIndex_;
+@synthesize isDuringBattle       = isDuringBattle_;
 
 @synthesize selectedCellIndex                 = selectedCellIndex_;
 @synthesize selectedCell                      = selectedCell_;
@@ -129,9 +130,10 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
     
     // Basic setting
-    selectedCellIndex_ = 0;
-    targetType_        = 0;
-    isDuringBattle_    = NO;
+    selectedCellIndex_    = 0;
+    targetType_           = 0;
+    selectedPokemonIndex_ = 0;
+    isDuringBattle_       = NO;
     
     // Cell Area View
     hiddenCellAreaView_ = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
@@ -382,10 +384,10 @@
 // Action for notification from |GameMenuSixPokemonsViewController|
 - (void)useItemForSelectedPokemon:(NSNotification *)notification
 {
-  NSInteger selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
+  self.selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
   NSInteger selectedItemID       = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
   TrainerTamedPokemon * targetPokemon
-  = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex];
+  = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:self.selectedPokemonIndex];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType withID:selectedItemID];
   
   if (self.targetType & kBagQueryTargetTypeItem)              {}
@@ -689,14 +691,6 @@
   
   // Set new HP value to |currHP| for Pokemon
   pokemon.currHP = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
-  
-  // Post to |GameMenuViewController| to update pokemon status view
-  NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
-                                  pokemon.status,                                 @"playerPokemonStatus",
-                                  pokemon.currHP,                                 @"playerPokemonHP", nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
-  [pokemonStatus release];
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP
