@@ -52,6 +52,7 @@
 
 // Text Message
 "PMSMessage_used" = "使用了";
+"PMSMessage_Go"   = "看你了";
 "PMSMessageYouUsedXXXToXXX_1"  = "你对";
 "PMSMessageYouUsedXXXToXXX_3"  = "使用了";
 "PMSMessageWhatWillXXXDoPart1" = "";

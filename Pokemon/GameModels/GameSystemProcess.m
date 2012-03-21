@@ -1190,6 +1190,27 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Replace pokemon
 - (void)replacePokemon
 {
+  // Post to |GameMenuViewController| to update pokemon status view
+  NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
+                                  self.playerPokemon.status,                      @"playerPokemonStatus",
+                                  self.playerPokemon.currHP,                      @"playerPokemonHP",
+                                  self.enemyPokemon.status,                       @"enemyPokemonStatus",
+                                  self.enemyPokemon.currHP,                       @"enemyPokemonHP", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
+  [pokemonStatus release];
+  
+  
+  // Post Message to update |messageView_| in |GameMenuViewController|
+  TrainerTamedPokemon * pokemon = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
+  NSInteger pokemonID = [pokemon.sid intValue];
+  pokemon = nil;
+  NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
+  [self postMessageForProcessType:kGameSystemProcessTypeReplacePokemon withMessageInfo:messageInfo];
+  [messageInfo release];
+  
+  [self endTurn];
 }
 
 // Run
@@ -1242,8 +1263,18 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
     }
       
-    case kGameSystemProcessTypeReplacePokemon:
+    case kGameSystemProcessTypeReplacePokemon: {
+      NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
+      // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
+      NSString * message = [NSString stringWithFormat:@"%@, %@!",
+                            NSLocalizedString(@"PMSMessage_Go", nil),
+                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                          object:self
+                                                        userInfo:messageInfo];
       break;
+    }
       
     case kGameSystemProcessTypeRun:
       break;
@@ -1278,9 +1309,11 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
+                            selectedPokemonIndex:(NSInteger)selectedPokemonIndex
 {
-  processType_ = kGameSystemProcessTypeReplacePokemon;
-  user_        = user;
+  processType_          = kGameSystemProcessTypeReplacePokemon;
+  selectedPokemonIndex_ = selectedPokemonIndex;
+  user_                 = user;
 }
 
 - (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user

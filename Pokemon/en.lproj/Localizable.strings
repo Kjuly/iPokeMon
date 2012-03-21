@@ -54,6 +54,7 @@
 
 // Text Message
 "PMSMessage_used" = "used";
+"PMSMessage_Go"   = "Go";
 "PMSMessageYouUsedXXXToXXX_1"  = "You used";
 "PMSMessageYouUsedXXXToXXX_3"  = "to";
 "PMSMessageWhatWillXXXDoPart1" = "What will";

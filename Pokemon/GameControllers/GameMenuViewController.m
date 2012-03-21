@@ -496,9 +496,17 @@ typedef enum {
   pokemon = nil;
   
   // Post notification to |GameBattleLayer| to replace pokemon sprite
-  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:self.gameMenuSixPokemonsViewController.currBattlePokemon - 1], @"newPokemon", nil];
+  NSInteger newPokemonIndex = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSNumber numberWithInt:newPokemonIndex], @"newPokemon", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePlayerPokemon object:self userInfo:userInfo];
   [userInfo release];
+  
+  // Set Game System Process
+  GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
+  [gameSystemProcess setSystemProcessOfReplacePokemonWithUser:kGameSystemProcessUserPlayer
+                                         selectedPokemonIndex:newPokemonIndex];
+  [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
 // Send new pokemon to scene

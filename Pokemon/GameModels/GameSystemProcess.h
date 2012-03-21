@@ -43,7 +43,8 @@ typedef enum {
                                   targetType:(BagQueryTargetType)targetType
                         selectedPokemonIndex:(NSInteger)selectedPokemonIndex
                                    itemIndex:(NSInteger)itemIndex;
-- (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user;
+- (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
+                            selectedPokemonIndex:(NSInteger)selectedPokemonIndex;
 - (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user;
 
 @end

@@ -88,7 +88,7 @@
     [cancelButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                              forState:UIControlStateNormal];
     [cancelButton_ setImage:[UIImage imageNamed:@"ButtonIconCancel.png"] forState:UIControlStateNormal];
-    [cancelButton_ addTarget:self action:@selector(cancelUnit) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton_ addTarget:self action:@selector(cancelUnitAnimated:) forControlEvents:UIControlEventTouchUpInside];
   }
   return self;
 }
