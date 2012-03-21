@@ -121,7 +121,7 @@
   
   // Basic Setting
   isForReplacing_    = NO;
-//  currBattlePokemon_ = 0;
+  currBattlePokemon_ = 1;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -243,7 +243,7 @@
 
 - (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
   self.isForReplacing    = forReplacing;
-  self.currBattlePokemon = forReplacing ? 1 : 0;
+  self.currBattlePokemon = forReplacing ? self.currBattlePokemon : 0;
   self.sixPokemons       = [[TrainerCoreDataController sharedInstance] sixPokemons];
   CGFloat buttonSize     = 60.f;
   CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);

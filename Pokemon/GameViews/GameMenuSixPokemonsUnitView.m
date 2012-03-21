@@ -171,12 +171,10 @@
 
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
 {
+  self.isCurrBattlePokemon = isCurrentBattleOne;
   NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
-  if (isCurrentBattleOne) {
-    self.isCurrBattlePokemon = YES;
+  if (isCurrentBattleOne)
     buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";
-  }
-  else self.isCurrBattlePokemon = NO;
   [self.mainButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
                              forState:UIControlStateNormal];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
