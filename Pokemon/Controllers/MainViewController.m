@@ -11,16 +11,14 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
-#import "CenterMainButtonTouchDownCircleView.h"
 #import "Trainer+DataController.h"
-#import "TrainerTamedPokemon+DataController.h"
 #import "WildPokemon+DataController.h"
+#import "CenterMainButtonTouchDownCircleView.h"
+#import "TrainerTamedPokemon+DataController.h"
 #import "CustomNavigationController.h"
 #import "CenterMenuUtilityViewController.h"
 #import "CenterMenuSixPokemonsViewController.h"
 #import "MapViewController.h"
-#import "UtilityViewController.h"
-#import "PoketchTabViewController.h"
 #import "GameMainViewController.h"
 
 #ifdef DEBUG
@@ -89,9 +87,6 @@
 
 @synthesize centerMainButton = centerMainButton_;
 @synthesize mapButton        = mapButton_;
-
-//@synthesize utilityViewController  = utilityViewController_;
-//@synthesize poketchViewController  = poketchViewController_;
 @synthesize gameMainViewController = gameMainViewController_;
 
 @synthesize centerMenuUtilityNavigationController     = centerMenuUtilityNavigationController_;
@@ -117,9 +112,6 @@
 {
   [centerMainButton_ release];
   [mapButton_        release];
-  
-//  [utilityViewController_ release];
-//  [poketchViewController_ release];
   [gameMainViewController_ release];
   
   self.centerMenuUtilityNavigationController     = nil;
@@ -164,8 +156,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-//  [super loadView];
-//  [[UIApplication sharedApplication] setStatusBarHidden:YES];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
@@ -236,23 +226,6 @@
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:self.mapButton];
-
-/*
-  // Poketch( Short for Pocket Watch ) View Controller
-  PoketchTabViewController * pocktchViewController = [[PoketchTabViewController alloc] init];
-  self.poketchViewController = pocktchViewController;
-  [pocktchViewController release];
-  [self.view addSubview:self.poketchViewController.view];
-  
-  // Utility View Controller
-  UtilityViewController * utilityViewController = [[UtilityViewController alloc] init];
-  self.utilityViewController = utilityViewController;
-  [utilityViewController release];
-  // Set |mapViewController_| as |utilityViewController_|'s |delegate|,
-  // for |buttonLocateMe| & |buttonShowWorld|
-  self.utilityViewController.delegate = (id <UtilityViewControllerDelegate>)self.mapViewController;
-  [self.view addSubview:self.utilityViewController.view];
-*/
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -280,9 +253,6 @@
   
   self.centerMainButton = nil;
   self.mapButton        = nil;
-  
-//  self.utilityViewController  = nil;
-//  self.poketchViewController  = nil;
   self.gameMainViewController = nil;
   
   self.centerMenuUtilityNavigationController     = nil;
