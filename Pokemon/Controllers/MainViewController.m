@@ -35,6 +35,7 @@
   CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController_;
   CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView_;
   MapViewController                   * mapViewController_;
+  LoginViewController                 * loginViewController_;
  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
@@ -54,7 +55,8 @@
 @property (nonatomic, retain) CustomNavigationController          * centerMenuSixPokemonsNavigationController;
 @property (nonatomic, retain) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
 @property (nonatomic, retain) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
-@property (nonatomic, retain) MapViewController * mapViewController;
+@property (nonatomic, retain) MapViewController                   * mapViewController;
+@property (nonatomic, retain) LoginViewController                 * loginViewController;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
@@ -96,6 +98,7 @@
 @synthesize centerMenuSixPokemonsViewController       = centerMenuSixPokemonsViewController_;
 @synthesize centerMainButtonTouchDownCircleView       = centerMainButtonTouchDownCircleView_;
 @synthesize mapViewController                         = mapViewController_;
+@synthesize loginViewController                       = loginViewController_;
 
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
@@ -121,6 +124,7 @@
   self.centerMenuSixPokemonsViewController       = nil;
   self.centerMainButtonTouchDownCircleView       = nil;
   self.mapViewController                         = nil;
+  self.loginViewController                       = nil;
   
   self.currentKeyButton = nil;
   
@@ -250,8 +254,12 @@
   // If the User has not login, show |LoginViewController|'s view
 //  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]) {
   if (YES) {
-    LoginViewController * loginViewController = [[[LoginViewController alloc] init] autorelease];
-    [self.view addSubview:loginViewController.view];
+    if (self.loginViewController == nil) {
+      LoginViewController * loginViewController = [[LoginViewController alloc] init];
+      self.loginViewController = loginViewController;
+      [loginViewController release];
+    }
+    [self.view addSubview:self.loginViewController.view];
   }
 }
 
@@ -269,6 +277,7 @@
   self.centerMenuSixPokemonsViewController       = nil;
   self.centerMainButtonTouchDownCircleView       = nil;
   self.mapViewController                         = nil;
+  self.loginViewController                       = nil;
   
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;
