@@ -266,6 +266,8 @@
 		7F7F2EFC14EBE4A800315EC5 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF114EBE4A800315EC5 /* AFXMLRequestOperation.m */; };
 		7F7F2EFD14EBE4A800315EC5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */; };
 		7F84C2B6151C4F1A00E8D27E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */; };
+		7F84C2BA151C617400E8D27E /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84C2B9151C617400E8D27E /* KeychainWrapper.m */; };
+		7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84C2BB151C678800E8D27E /* Security.framework */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8B816B14E5786A0085CE22 /* BagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
@@ -1217,6 +1219,9 @@
 		7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		7F84C2B4151C4F1A00E8D27E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7F84C2B8151C617400E8D27E /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
+		7F84C2B9151C617400E8D27E /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
+		7F84C2BB151C678800E8D27E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewCell.h; sourceTree = "<group>"; };
 		7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewCell.m; sourceTree = "<group>"; };
 		7F8B816914E5786A0085CE22 /* BagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewCell.h; sourceTree = "<group>"; };
@@ -1782,6 +1787,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */,
 				7F50B81514F9410700883412 /* QuartzCore.framework in Frameworks */,
 				7F50B81314F940B100883412 /* AudioToolbox.framework in Frameworks */,
 				7F50B81114F9409200883412 /* OpenAL.framework in Frameworks */,
@@ -2216,6 +2222,7 @@
 		7F6E6CB714D6CAA600033C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F84C2BB151C678800E8D27E /* Security.framework */,
 				7F50B81414F9410700883412 /* QuartzCore.framework */,
 				7F50B81214F940B100883412 /* AudioToolbox.framework */,
 				7F50B81014F9409200883412 /* OpenAL.framework */,
@@ -2288,6 +2295,8 @@
 			children = (
 				7F84C2B4151C4F1A00E8D27E /* LoginViewController.h */,
 				7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */,
+				7F84C2B8151C617400E8D27E /* KeychainWrapper.h */,
+				7F84C2B9151C617400E8D27E /* KeychainWrapper.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
 				7F51C3D614D7C4DF0091902D /* MainViewController.m */,
 				7F51C40614D7D3C60091902D /* MapViewController.h */,
@@ -4043,6 +4052,7 @@
 				7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */,
 				7F6C193815176BAA0000682B /* BagItemInfoViewController.m in Sources */,
 				7F84C2B6151C4F1A00E8D27E /* LoginViewController.m in Sources */,
+				7F84C2BA151C617400E8D27E /* KeychainWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

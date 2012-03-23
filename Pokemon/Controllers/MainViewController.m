@@ -20,6 +20,7 @@
 #import "CenterMenuSixPokemonsViewController.h"
 #import "MapViewController.h"
 #import "GameMainViewController.h"
+#import "LoginViewController.h"
 
 #ifdef DEBUG
 #import "OriginalDataManager.h"
@@ -245,6 +246,13 @@
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
+  
+  // If the User has not login, show |LoginViewController|'s view
+//  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]) {
+  if (YES) {
+    LoginViewController * loginViewController = [[[LoginViewController alloc] init] autorelease];
+    [self.view addSubview:loginViewController.view];
+  }
 }
 
 - (void)viewDidUnload
