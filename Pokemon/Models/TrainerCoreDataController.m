@@ -61,22 +61,41 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 
 #pragma mark - Data Related Methods
 
+// Update data
+- (void)update
+{
+  [Trainer updateDataForTrainer:1];
+  [TrainerTamedPokemon updateDataForTrainer:1];
+  [WildPokemon updateDataForCurrentRegion:1];
+}
+
+// Save data
+- (void)save
+{
+  
+}
+
+// Return trainer entity
 - (Trainer *)trainer {
   return self.entityTrainer;
 }
 
+// Return six Pokemons
 - (NSArray *)sixPokemons {
   return self.entitySixPokemons;
 }
 
+// Return first Pokemon of six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix {
   return [self.entitySixPokemons objectAtIndex:0];
 }
 
+// Return Pokemon at |index|(1-6) of six Pokemons
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index {
   return [self.entitySixPokemons objectAtIndex:--index];
 }
 
+// Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
   if      (targetType & kBagQueryTargetTypeItem)       return self.entityTrainer.bagItems;
   else if (targetType & kBagQueryTargetTypeMedicine) {

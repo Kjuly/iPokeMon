@@ -10,7 +10,6 @@
 
 #import "PokemonServerAPI.h"
 #import "Trainer+DataController.h"
-#import "Pokemon+DataController.h"
 #import "AppDelegate.h"
 #import "AFJSONRequestOperation.h"
 

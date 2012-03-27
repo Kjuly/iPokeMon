@@ -8,6 +8,7 @@
 
 #import "TrainerTamedPokemon.h"
 #import "Move+DataController.h"
+#import "Pokemon+DataController.h"
 
 @interface TrainerTamedPokemon (DataController)
 

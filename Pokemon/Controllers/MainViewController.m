@@ -14,7 +14,8 @@
 #import "Trainer+DataController.h"
 #import "WildPokemon+DataController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
-#import "TrainerTamedPokemon+DataController.h"
+#import "TrainerCoreDataController.h"
+//#import "TrainerTamedPokemon+DataController.h"
 #import "CustomNavigationController.h"
 #import "CenterMenuUtilityViewController.h"
 #import "CenterMenuSixPokemonsViewController.h"
@@ -143,11 +144,6 @@
     // Hard Initialize the Core Data
     [OriginalDataManager initData];
 #endif
-    
-    // Updata all data for current User with the trainer ID
-    [Trainer updateDataForTrainer:1];
-    [TrainerTamedPokemon updateDataForTrainer:1];
-    [WildPokemon updateDataForCurrentRegion:1];
   }
   return self;
 }
@@ -255,9 +251,12 @@
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
   
-  // If the User has not login, show view for user to choose login service provider
-//  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
-  if (! [[OAuthManager sharedInstance] isSessionValid]) {
+  // If the user has logged in, updata data for current User with the trainer ID
+  if ([[OAuthManager sharedInstance] isSessionValid]) {
+    [[TrainerCoreDataController sharedInstance] update];
+  }
+  // If the User has not logged in, show view for user to choose OAuth Service Provider
+  else {
     if (self.loginNavigationController == nil) {
       if (self.loginTableViewController == nil) {
         LoginTableViewController * loginTableViewController;

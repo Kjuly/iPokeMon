@@ -10,13 +10,16 @@
 
 #import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
-#import "Pokemon.h"
+#import "WildPokemon+DataController.h"
 #import "BagDataController.h"
 
 
 @interface TrainerCoreDataController : NSObject
 
 + (TrainerCoreDataController *)sharedInstance;
+
+- (void)update;
+- (void)save;
 
 // Get Trainer's Data
 - (Trainer *)trainer;
