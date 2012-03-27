@@ -27,5 +27,6 @@ typedef enum {
 - (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider;
 - (void)logout;
 - (BOOL)isSessionValid;
+- (OAuthServiceProviderChoice)serviceProvider;
 
 @end

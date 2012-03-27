@@ -125,6 +125,11 @@ static OAuthManager * oauthManager_ = nil;
   return [self.oauth canAuthorize];
 }
 
+// Current service provider user using
+- (OAuthServiceProviderChoice)serviceProvider {
+  return [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+}
+
 #pragma mark - Private Methods
 
 // Get OAuth data for the service provider
