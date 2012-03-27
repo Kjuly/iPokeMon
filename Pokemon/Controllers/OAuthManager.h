@@ -23,7 +23,9 @@ typedef enum {
 @interface OAuthManager : NSObject
 
 + (OAuthManager *)sharedInstance;
-- (UIViewController *)loginWith:(OAuthServiceProviderChoice)loginProvider;
+- (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider;
+- (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider;
+- (void)logout;
 - (BOOL)isSessionValid;
 
 @end

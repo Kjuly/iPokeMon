@@ -255,18 +255,19 @@
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
   
-  // If the User has not login, show |LoginViewController|'s view
-//  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]) {
+  // If the User has not login, show view for user to choose login service provider
+//  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   if (! [[OAuthManager sharedInstance] isSessionValid]) {
     if (self.loginNavigationController == nil) {
       if (self.loginTableViewController == nil) {
-        LoginTableViewController * loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        LoginTableViewController * loginTableViewController;
+        loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
         self.loginTableViewController = loginTableViewController;
         [loginTableViewController release];
       }
-      loginNavigationController_ = [CustomNavigationController
-                                   initWithRootViewController:self.loginTableViewController
-                                   navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      loginNavigationController_ =
+        [CustomNavigationController initWithRootViewController:self.loginTableViewController
+                                  navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
       [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
       [loginNavigationController_ setNavigationBarHidden:NO];
     }
