@@ -20,7 +20,7 @@
 #import "CenterMenuSixPokemonsViewController.h"
 #import "MapViewController.h"
 #import "GameMainViewController.h"
-#import "LoginViewController.h"
+#import "LoginTableViewController.h"
 
 #ifdef DEBUG
 #import "OriginalDataManager.h"
@@ -35,7 +35,8 @@
   CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController_;
   CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView_;
   MapViewController                   * mapViewController_;
-  LoginViewController                 * loginViewController_;
+  CustomNavigationController          * loginNavigationController_;
+  LoginTableViewController            * loginTableViewController_;
  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
@@ -56,7 +57,8 @@
 @property (nonatomic, retain) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
 @property (nonatomic, retain) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
 @property (nonatomic, retain) MapViewController                   * mapViewController;
-@property (nonatomic, retain) LoginViewController                 * loginViewController;
+@property (nonatomic, retain) CustomNavigationController          * loginNavigationController;
+@property (nonatomic, retain) LoginTableViewController            * loginTableViewController;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
@@ -98,7 +100,8 @@
 @synthesize centerMenuSixPokemonsViewController       = centerMenuSixPokemonsViewController_;
 @synthesize centerMainButtonTouchDownCircleView       = centerMainButtonTouchDownCircleView_;
 @synthesize mapViewController                         = mapViewController_;
-@synthesize loginViewController                       = loginViewController_;
+@synthesize loginNavigationController                 = loginNavigationController_;
+@synthesize loginTableViewController                  = loginTableViewController_;
 
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
@@ -124,7 +127,8 @@
   self.centerMenuSixPokemonsViewController       = nil;
   self.centerMainButtonTouchDownCircleView       = nil;
   self.mapViewController                         = nil;
-  self.loginViewController                       = nil;
+  self.loginNavigationController                 = nil;
+  self.loginTableViewController                  = nil;
   
   self.currentKeyButton = nil;
   
@@ -253,13 +257,20 @@
   
   // If the User has not login, show |LoginViewController|'s view
 //  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]) {
-  if (YES) {
-    if (self.loginViewController == nil) {
-      LoginViewController * loginViewController = [[LoginViewController alloc] init];
-      self.loginViewController = loginViewController;
-      [loginViewController release];
+  if (! [[OAuthManager sharedInstance] isSessionValid]) {
+    if (self.loginNavigationController == nil) {
+      if (self.loginTableViewController == nil) {
+        LoginTableViewController * loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        self.loginTableViewController = loginTableViewController;
+        [loginTableViewController release];
+      }
+      loginNavigationController_ = [CustomNavigationController
+                                   initWithRootViewController:self.loginTableViewController
+                                   navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+      [loginNavigationController_ setNavigationBarHidden:NO];
     }
-    [self.view addSubview:self.loginViewController.view];
+    [self.view addSubview:loginNavigationController_.view];
   }
 }
 
@@ -277,7 +288,8 @@
   self.centerMenuSixPokemonsViewController       = nil;
   self.centerMainButtonTouchDownCircleView       = nil;
   self.mapViewController                         = nil;
-  self.loginViewController                       = nil;
+  self.loginNavigationController                 = nil;
+  self.loginTableViewController                  = nil;
   
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;

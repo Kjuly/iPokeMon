@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/100/trunk/Source
+END
+GTMReadMonitorInputStream.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/64/trunk/Source/GTMReadMonitorInputStream.m
+END
+GTMHTTPUploadFetcher.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/77/trunk/Source/GTMHTTPUploadFetcher.h
+END
+GTMHTTPFetcher.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/99/trunk/Source/GTMHTTPFetcher.m
+END
+GTMMIMEDocument.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/79/trunk/Source/GTMMIMEDocument.h
+END
+GTMHTTPFetcherLogging.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/44/trunk/Source/GTMHTTPFetcherLogging.h
+END
+UnitTests-Info.plist
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/7/trunk/Source/UnitTests-Info.plist
+END
+GTMHTTPUploadFetcher.m
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/95/trunk/Source/GTMHTTPUploadFetcher.m
+END
+GTMMIMEDocument.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/7/trunk/Source/GTMMIMEDocument.m
+END
+GTMHTTPFetcherLogging.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/100/trunk/Source/GTMHTTPFetcherLogging.m
+END
+GTMHTTPFetcherService.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/95/trunk/Source/GTMHTTPFetcherService.h
+END
+GTMGatherInputStream.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/90/trunk/Source/GTMGatherInputStream.h
+END
+GTMHTTPFetcherService.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/95/trunk/Source/GTMHTTPFetcherService.m
+END
+ReleaseNotes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/95/trunk/Source/ReleaseNotes.txt
+END
+GTMHTTPFetchHistory.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/50/trunk/Source/GTMHTTPFetchHistory.h
+END
+GTMGatherInputStream.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/7/trunk/Source/GTMGatherInputStream.m
+END
+GTMReadMonitorInputStream.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/64/trunk/Source/GTMReadMonitorInputStream.h
+END
+GTMHTTPFetcher.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/99/trunk/Source/GTMHTTPFetcher.h
+END
+GTMHTTPFetchHistory.m
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/76/trunk/Source/GTMHTTPFetchHistory.m
+END

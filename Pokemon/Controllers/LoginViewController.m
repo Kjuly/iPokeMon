@@ -9,10 +9,16 @@
 #import "LoginViewController.h"
 
 #import "GlobalConstants.h"
+#import "GTMOAuth2ViewControllerTouch.h"
+//#import "AFHTTPRequestOperation.h"
+
+
+static NSString * const kKeychainItemName = @"OAuth2 Sample: Google+";
 
 typedef enum {
   kLoginTypeNormal = 0,
-  kLoginTypeGoogle = 1
+  kLoginTypeGoogle = 1,
+  kLoginTypeGithub = 2
 }LoginType;
 
 
@@ -28,6 +34,9 @@ typedef enum {
 @property (nonatomic, copy)   NSString  * domain;
 
 - (NSString *)getTokenFromCookie;
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuth2Authentication *)auth
+                 error:(NSError *)error;
 - (void)loadWebView:(id)sender;
 - (void)unloadWebView;
 
@@ -77,6 +86,7 @@ typedef enum {
   [self.view setBackgroundColor:[UIColor blackColor]];
   
   // Login buttons
+  // Google
   UIButton * loginWithGoogle = [[UIButton alloc] initWithFrame:CGRectMake(10.f, 30.f, 300.f, 30.f)];
   [loginWithGoogle setBackgroundColor:[UIColor whiteColor]];
   [loginWithGoogle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -85,6 +95,17 @@ typedef enum {
   [loginWithGoogle setTag:kLoginTypeGoogle];
   [self.view addSubview:loginWithGoogle];
   [loginWithGoogle release];
+  
+  // Github
+  UIButton * loginWithGithub = [[UIButton alloc] initWithFrame:CGRectMake(10.f, 70.f, 300.f, 30.f)];
+  [loginWithGithub setBackgroundColor:[UIColor whiteColor]];
+  [loginWithGithub setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  [loginWithGithub setTitle:@"Login with Github" forState:UIControlStateNormal];
+  [loginWithGithub addTarget:self action:@selector(loadWebView:) forControlEvents:UIControlEventTouchUpInside];
+  [loginWithGithub setTag:kLoginTypeGithub];
+  [self.view addSubview:loginWithGithub];
+  [loginWithGithub release];
+  
   
   // Web view
   CGRect webViewFrame = self.view.frame;
@@ -152,6 +173,41 @@ typedef enum {
 
 #pragma mark - UIWebView Delegate
 
+- (BOOL)           webView:(UIWebView *)webView
+shouldStartLoadWithRequest:(NSURLRequest *)request
+            navigationType:(UIWebViewNavigationType)navigationType {
+  NSLog(@"- Request URL: %@", request.URL);
+  if ([request.URL.scheme isEqualToString:@"pm-ios-auth-github"]) {
+    [self.webView stopLoading];
+    
+    NSString * URLString = [request.URL absoluteString];
+    NSString * code = [[URLString componentsSeparatedByString:@"="] lastObject];
+    NSLog(@"-- Code: %@", code);
+    NSLog(@"-- URL.Query: %@", request.URL.query);
+    NSString * authenticateURLString = [NSString stringWithFormat:
+                                        @"https://github.com/login/oauth/access_token?client_id=%@&client_secret=%@&code=%@",
+                                        @"f8f903e2a3e2dab5d32b",//CLIENT_ID,
+                                        @"57d5d921e1a08114d286cba415712ea8182436dc",//CLIENT_SECRET
+                                        code];
+//    NSString * authenticateURLString = @"https://github.com/login/oauth/access_token";
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:authenticateURLString]];
+    NSString * body = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&code=%@",
+                       @"f8f903e2a3e2dab5d32b",//CLIENT_ID,
+                       @"57d5d921e1a08114d286cba415712ea8182436dc",//CLIENT_SECRET
+                       code];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    [self.webView loadRequest:request];
+    [request release];
+//    [self.webView stopLoading];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:authenticateURLString]]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authenticateURLString]];
+//    [[UIApplication sharedApplication] openURL:request.URL];
+    return NO;
+  }
+  return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
   NSLog(@"WebView Did Start Load");
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -161,12 +217,25 @@ typedef enum {
   NSLog(@"WebView Did Finish Load");
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
   
-  NSString * token = [self getTokenFromCookie];
-  if (token != nil) {
-    NSLog(@"TOKEN: %@", token);
+  NSString * URLString = [[self.webView.request URL] absoluteString];
+  NSLog(@"- URL: %@", URLString);
+  if ([URLString rangeOfString:@"access_token="].location != NSNotFound) {
+    NSString * accessToken = [[URLString componentsSeparatedByString:@"="] lastObject];
+    NSLog(@"-- AccessToken: %@", accessToken);
+//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:accessToken forKey:@"access_token"];
+//    [defaults synchronize];
+//    [self dismissModalViewControllerAnimated:YES];
+    [self unloadWebView];
+  }
+  
+  
+//  NSString * token = [self getTokenFromCookie];
+//  if (token != nil) {
+//    NSLog(@"TOKEN: %@", token);
 //    [self.delegate gotToken:token];
 //    [self.navigationController popViewControllerAnimated:YES];
-  }
+//  }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -197,37 +266,73 @@ typedef enum {
   return nil;
 }
 
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuth2Authentication *)auth
+                 error:(NSError *)error {
+  if (error != nil) {
+    // Authentication failed
+  } else {
+    // Authentication succeeded
+  }
+}
+
 - (void)loadWebView:(id)sender {
-  CGRect webViewFrame = self.view.frame;
+//  CGRect webViewFrame = self.view.frame;
   
-  NSString * authenticateUrl;
+  NSString * authenticateURLString;
   switch (((UIButton *)sender).tag) {
     case kLoginTypeGoogle:
-//      authenticateUrl = @"https://www.google.com/accounts/o8/id\
+//      authenticateURLString = @"https://www.google.com/accounts/o8/id\
 //      ?openid.ns=http://specs.openid.net/auth/2.0\
 //      &openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select\
 //      &openid.identity=http://specs.openid.net/auth/2.0/identifier_select";
-      authenticateUrl = @"https://developer.apple.com";
+      authenticateURLString = @"https://developer.apple.com";
+      break;
+      
+    case kLoginTypeGithub:
+      authenticateURLString = [NSString stringWithFormat:
+                               @"https://github.com/login/oauth/authorize?client_id=%@&scope=%@",
+                               @"f8f903e2a3e2dab5d32b",//CLIENT_ID,
+                               @"user"];
       break;
       
     default:
       break;
   }
   
-  [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:authenticateUrl]]];
-  self.domain = [[NSURL URLWithString:authenticateUrl] host];
+  NSString * kMyClientID     = @"890704274988.apps.googleusercontent.com"; // pre-assigned by service
+  NSString * kMyClientSecret = @"skqxc_5MysvtBsFFhIXqADr2"; // pre-assigned by service
   
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionTransitionCurlUp
-                   animations:^{
-                     [self.webView setFrame:webViewFrame];
-                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                            - (kMapButtonSize / 2),
-                                                            kMapButtonSize,
-                                                            kMapButtonSize)];
-                   }
-                   completion:nil];
+  NSString *scope = @"https://www.googleapis.com/auth/plus.me"; // scope for Google+ API
+  
+  GTMOAuth2ViewControllerTouch * viewController;
+  viewController = [[[GTMOAuth2ViewControllerTouch alloc] initWithScope:scope
+                                                              clientID:kMyClientID
+                                                          clientSecret:kMyClientSecret
+                                                      keychainItemName:kKeychainItemName
+                                                              delegate:self
+                                                      finishedSelector:@selector(viewController:finishedWithAuth:error:)] autorelease];
+  // Optional: display some html briefly before the sign-in page loads
+  NSString *html = @"<html><body bgcolor=silver><div align=center>Loading sign-in page...</div></body></html>";
+  viewController.initialHTMLString = html;
+  
+  [self.view addSubview:viewController.view];
+  
+  
+//  [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:authenticateURLString]]];
+//  self.domain = [[NSURL URLWithString:authenticateURLString] host];
+//  
+//  [UIView animateWithDuration:.3f
+//                        delay:0.f
+//                      options:UIViewAnimationOptionTransitionCurlUp
+//                   animations:^{
+//                     [self.webView setFrame:webViewFrame];
+//                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+//                                                            - (kMapButtonSize / 2),
+//                                                            kMapButtonSize,
+//                                                            kMapButtonSize)];
+//                   }
+//                   completion:nil];
 }
 
 - (void)unloadWebView {
