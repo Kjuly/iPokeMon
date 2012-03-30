@@ -9,6 +9,8 @@
 #import "GlobalNotificationConstants.h"
 
 // PMN: PokeMon Notification
+NSString * const kPMNSessionIsInvalid             = @"PMNSessionIsInvalid";
+
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
 //NSString * const kPMNBackToMainView               = @"PMNBackToMainView";

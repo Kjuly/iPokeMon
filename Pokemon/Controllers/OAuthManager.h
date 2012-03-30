@@ -39,8 +39,8 @@ typedef enum {
 - (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider;
 - (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider;
 - (void)logout;
-- (BOOL)isSessionValid;
-- (OAuthServiceProviderChoice)serviceProvider;
+- (BOOL)isSessionValid;                        // Session status for User
+- (OAuthServiceProviderChoice)serviceProvider; // Current service provider user using
 
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success

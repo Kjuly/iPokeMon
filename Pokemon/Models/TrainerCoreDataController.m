@@ -8,20 +8,26 @@
 
 #import "TrainerCoreDataController.h"
 
+#import "GlobalNotificationConstants.h"
+#import "OAuthManager.h"
+
 
 @interface TrainerCoreDataController () {
  @private
-  Trainer * entityTrainer_;
-  NSArray * entitySixPokemons_;
+  NSInteger   userID_;            // User ID, same as Trainer UID
+  Trainer   * entityTrainer_;     // Trainer
+  NSArray   * entitySixPokemons_; // SixPokemons
 }
 
-@property (nonatomic, retain) Trainer * entityTrainer;
-@property (nonatomic, retain) NSArray * entitySixPokemons;
+@property (nonatomic, assign) NSInteger   userID;
+@property (nonatomic, retain) Trainer   * entityTrainer;
+@property (nonatomic, retain) NSArray   * entitySixPokemons;
 
 @end
 
 @implementation TrainerCoreDataController
 
+@synthesize userID            = userID_;
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
 
@@ -29,6 +35,13 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 
 // Singleton
 + (TrainerCoreDataController *)sharedInstance {
+  // Check Session first,
+  //   if it's not valid, post notification to show login view & return nil
+  if (! [[OAuthManager sharedInstance] isSessionValid]) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid object:self userInfo:nil];
+    return nil;
+  }
+  
   if (trainerCoreDataController != nil)
     return trainerCoreDataController;
   
@@ -50,29 +63,28 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
-    self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
-    self.entitySixPokemons = self.entityTrainer.sixPokemons;
+//    self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
+//    self.entitySixPokemons = self.entityTrainer.sixPokemons;
   }
   return self;
 }
 
+- (void)initTrainerWithUserID:(NSInteger)userID {
+  self.userID            = userID;
+  self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
+  self.entitySixPokemons = self.entityTrainer.sixPokemons;
+}
+
 #pragma mark - Data Related Methods
 
-// Update data
-- (void)update
+// Sync data between Client & Server
+- (void)sync
 {
   [Trainer updateDataForTrainer:1];
   [TrainerTamedPokemon updateDataForTrainer:1];
   [WildPokemon updateDataForCurrentRegion:1];
-}
-
-// Save data
-- (void)save
-{
-  
 }
 
 // Return trainer entity

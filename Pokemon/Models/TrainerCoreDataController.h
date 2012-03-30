@@ -18,8 +18,10 @@
 
 + (TrainerCoreDataController *)sharedInstance;
 
-- (void)update;
-- (void)save;
+- (void)initTrainerWithUserID:(NSInteger)userID;
+
+// Sync data between Client & Server
+- (void)sync;
 
 // Get Trainer's Data
 - (Trainer *)trainer;

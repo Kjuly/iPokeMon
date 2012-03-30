@@ -11,17 +11,14 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
-#import "Trainer+DataController.h"
-#import "WildPokemon+DataController.h"
-#import "CenterMainButtonTouchDownCircleView.h"
 #import "TrainerCoreDataController.h"
-//#import "TrainerTamedPokemon+DataController.h"
+#import "CenterMainButtonTouchDownCircleView.h"
+#import "LoginTableViewController.h"
 #import "CustomNavigationController.h"
 #import "CenterMenuUtilityViewController.h"
 #import "CenterMenuSixPokemonsViewController.h"
 #import "MapViewController.h"
 #import "GameMainViewController.h"
-#import "LoginTableViewController.h"
 
 #ifdef DEBUG
 #import "OriginalDataManager.h"
@@ -73,6 +70,7 @@
 @property (nonatomic, assign) NSInteger              centerMenuOpenStatusTimeCounter;
 @property (nonatomic, assign) NSInteger              timeCounter;
 
+- (void)showLoginTableView:(NSNotification *)notification;
 - (void)changeCenterMainButtonStatus:(NSNotification *)notification;
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender;
 - (void)openCenterMenuView;
@@ -133,6 +131,20 @@
   
   self.currentKeyButton = nil;
   
+  // Remove notification observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNSessionIsInvalid
+                                                object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNChangeCenterMainButtonStatus
+                                                object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNPokemonAppeared
+                                                object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNBattleEnd
+                                                object:self.gameMainViewController];
+  
   [super dealloc];
 }
 
@@ -178,6 +190,10 @@
   isGameMainViewOpening_  = NO;
   
   // Add self as Notification observer
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showLoginTableView:)
+                                               name:kPMNSessionIsInvalid
+                                             object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNChangeCenterMainButtonStatus
@@ -251,27 +267,11 @@
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
   
-  // If the user has logged in, updata data for current User with the trainer ID
-  if ([[OAuthManager sharedInstance] isSessionValid]) {
-    [[TrainerCoreDataController sharedInstance] update];
-  }
-  // If the User has not logged in, show view for user to choose OAuth Service Provider
-  else {
-    if (self.loginNavigationController == nil) {
-      if (self.loginTableViewController == nil) {
-        LoginTableViewController * loginTableViewController;
-        loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        self.loginTableViewController = loginTableViewController;
-        [loginTableViewController release];
-      }
-      loginNavigationController_ =
-        [CustomNavigationController initWithRootViewController:self.loginTableViewController
-                                  navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
-      [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-      [loginNavigationController_ setNavigationBarHidden:NO];
-    }
-    [self.view addSubview:loginNavigationController_.view];
-  }
+  // If the user has logged in (Session is Invalid), sync data between Client & Server.
+  //   Else, post notification to show login table view to choose OAuth Service Provider
+  // Session is checked at |TrainerCoreDataController|'s class method:|sharedInstance|,
+  //   and Notification is also sent at there.
+  [[TrainerCoreDataController sharedInstance] sync];
 }
 
 - (void)viewDidUnload
@@ -293,17 +293,6 @@
   
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;
-  
-  // Remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNChangeCenterMainButtonStatus
-                                                object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNPokemonAppeared
-                                                object:self.mapViewController];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNBattleEnd
-                                                object:self.gameMainViewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -318,6 +307,24 @@
 }
 
 #pragma mark - Private Methods
+
+// Show login table view if user session is invalid
+- (void)showLoginTableView:(NSNotification *)notification {
+  if (self.loginNavigationController == nil) {
+    if (self.loginTableViewController == nil) {
+      LoginTableViewController * loginTableViewController;
+      loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
+      self.loginTableViewController = loginTableViewController;
+      [loginTableViewController release];
+    }
+    loginNavigationController_ =
+      [CustomNavigationController initWithRootViewController:self.loginTableViewController
+                                navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+    [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    [loginNavigationController_ setNavigationBarHidden:NO];
+  }
+  [self.view addSubview:loginNavigationController_.view];
+}
 
 // Slide |centerMainButton_| to view bottom when button in center menu is clicked
 - (void)changeCenterMainButtonStatus:(NSNotification *)notification

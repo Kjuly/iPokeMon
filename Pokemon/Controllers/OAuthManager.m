@@ -9,6 +9,7 @@
 #import "OAuthManager.h"
 
 #import "PokemonServerAPI.h"
+#import "TrainerCoreDataController.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "AFHTTPRequestOperation.h"
@@ -17,14 +18,14 @@
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
 NSString * const kServerAPIRoot         = @"http://localhost:8080";
-NSString * const kServerAPIOAuth        = @"/%d/%@"; // ROOT/<Provider:Int>/<Identity:String>
+NSString * const kServerAPIOAuth        = @"/%d/%@";  // ROOT/<Provider:Int>/<Identity:String>
 // User
-NSString * const kServerAPIGetUser      = @"";
+NSString * const kServerAPIGetUser      = @"/u";      // /u:User
 NSString * const kServerAPIUpdateUser   = @"/update";
 // User's Pokemon
-NSString * const kServerAPIGetPokemon   = @"/pm/%d"; // /pm:PokeMon/<PokemonID:Int>
-NSString * const kServerAPIGet6Pokemons = @"/6pm";   // /6pm:SixPokeMons
-NSString * const kServerAPIGetPokedex   = @"/pd";    // /pd:PokeDex
+NSString * const kServerAPIGetPokemon   = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
+NSString * const kServerAPIGet6Pokemons = @"/6pm";    // /6pm:SixPokeMons
+NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
 
 #pragma mark - OAuthManager Constants
 NSString * const kUserDefaultsLastUsedServiceProvider = @"keyLastUsedServiceProvider";
@@ -116,6 +117,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 @property (nonatomic, assign) OAuthServiceProviderChoice   selectedServiceProvider;
 
 - (NSDictionary *)oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
+- (void)syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error;
@@ -217,6 +219,24 @@ static OAuthManager * oauthManager_ = nil;
   return [self.oauth canAuthorize];
 }
 
+// Current authticated User's ID (Trainer's |uid|)
+//- (NSInteger)userID {
+//  ///Fetch Data from server & populate the |trainer|
+//  // Success Block Method
+//  void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
+//  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+//    NSLog(@"...Get |userID| for current user succeed...userID:%d", [[JSON valueForKey:@"userID"] intValue]);
+//  };
+//  
+//  // Failure Block Method
+//  void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
+//  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+//    NSLog(@"!!! Get |userID| for current user failed. ERROR: %@", error);
+//  };
+//  
+//  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
+//}
+
 // Current service provider user using
 - (OAuthServiceProviderChoice)serviceProvider {
   return [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
@@ -277,6 +297,24 @@ static OAuthManager * oauthManager_ = nil;
           scope,            @"scope", nil];
 }
 
+// Current authticated User's ID (Trainer's |uid|)
+- (void)syncUserID {
+  // Success Block Method
+  void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
+    ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+      NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
+      NSLog(@"Get |userID| for current user succeed... userID:%d", userID);
+      [[TrainerCoreDataController sharedInstance] initTrainerWithUserID:userID];
+    };
+  // Failure Block Method
+  void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
+    ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+      NSLog(@"!!! Get |userID| for current user failed. ERROR: %@", error);
+    };
+  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
+}
+
+// Callback for method:|loginWith:|
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error {
@@ -318,6 +356,9 @@ static OAuthManager * oauthManager_ = nil;
     [userDefaults setInteger:self.selectedServiceProvider forKey:kUserDefaultsLastUsedServiceProvider];
     [userDefaults synchronize];
     userDefaults = nil;
+    
+    // Current authticated User's ID (Trainer's |uid|)
+    [self syncUserID];
   }
 }
 
