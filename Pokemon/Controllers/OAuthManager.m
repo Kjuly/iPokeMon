@@ -42,6 +42,8 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 #pragma mark - ServerAPI
 @interface ServerAPI ()
 // User
++ (NSURL *)getUserIDWithProvider:(OAuthServiceProviderChoice)provider      // GET UserID
+                        identity:(NSString *)identity;
 + (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider        // GET
                       identity:(NSString *)identity;
 + (NSURL *)updateUserWithProvider:(OAuthServiceProviderChoice)provider     // POST
@@ -59,17 +61,21 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 @implementation ServerAPI
 // User
+// GET UserID
++ (NSURL *)getUserIDWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
+  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:oauthString]];
+}
+
 // GET
-+ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider
-                      identity:(NSString *)identity {
++ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
   NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
   NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetUser];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
 }
 
 // POST
-+ (NSURL *)updateUserWithProvider:(OAuthServiceProviderChoice)provider
-                         identity:(NSString *)identity {
++ (NSURL *)updateUserWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
   NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
   NSString * subPath     = [oauthString stringByAppendingString:kServerAPIUpdateUser];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
@@ -86,15 +92,13 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
 }
 
-+ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider
-                             identity:(NSString *)identity {
++ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
   NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
   NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGet6Pokemons];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
 }
 
-+ (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider
-                         identity:(NSString *)identity {
++ (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
   NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
   NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetPokedex];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
@@ -208,9 +212,9 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Logout
-- (void)logout
-{
-  
+- (void)logout {
+  self.oauth = nil;
+  [self.operationQueue cancelAllOperations];
 }
 
 // Session status for User
@@ -311,7 +315,18 @@ static OAuthManager * oauthManager_ = nil;
     ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
       NSLog(@"!!! Get |userID| for current user failed. ERROR: %@", error);
     };
-  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
+  
+  // Fetch data for Trainer
+  OAuthServiceProviderChoice provider =
+  [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+  NSLog(@"|syncUserID| RequestURL: %@", [ServerAPI getUserWithProvider:provider identity:self.oauth.userEmail]);
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getUserIDWithProvider:provider
+                                                                                     identity:self.oauth.userEmail]];
+  AFJSONRequestOperation * operation;
+  operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
+  [request release];
+  [operation start];
+  [self.operationQueue addOperation:operation];
 }
 
 // Callback for method:|loginWith:|

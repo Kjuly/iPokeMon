@@ -271,6 +271,7 @@
   //   Else, post notification to show login table view to choose OAuth Service Provider
   // Session is checked at |TrainerCoreDataController|'s class method:|sharedInstance|,
   //   and Notification is also sent at there.
+//  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerCoreDataController sharedInstance] sync];
 }
 
