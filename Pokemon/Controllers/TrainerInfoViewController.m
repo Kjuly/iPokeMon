@@ -92,6 +92,10 @@
   
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 25.f, 30.f, 300.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(10.f, imageHeight + 35.f, 300.f, 195.f);
+  CGRect  const adventureStartedTimeLabelFrame =
+    CGRectMake(0.f, dataViewFrame.size.height - labelHeight, 170.f, labelHeight);
+  CGRect  const adventureStartedTimeValueFrame =
+    CGRectMake(170.f, dataViewFrame.size.height - labelHeight, 130.f, valueHeight);
   
   
   ///Left Image View
@@ -181,14 +185,8 @@
   [dataView_ addSubview:badgesValue_];
   
   // Adventure Started
-  adventureStartedTimeLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.f,
-                                                                         dataView_.frame.size.height - labelHeight,
-                                                                         170.f,
-                                                                         labelHeight)];
-  adventureStartedTimeValue_ = [[UILabel alloc] initWithFrame:CGRectMake(170.f,
-                                                                         dataView_.frame.size.height - labelHeight,
-                                                                         130.f,
-                                                                         valueHeight)];
+  adventureStartedTimeLabel_ = [[UILabel alloc] initWithFrame:adventureStartedTimeLabelFrame];
+  adventureStartedTimeValue_ = [[UILabel alloc] initWithFrame:adventureStartedTimeValueFrame];
   [adventureStartedTimeLabel_ setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeValue_ setBackgroundColor:[UIColor clearColor]];
   [adventureStartedTimeLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
@@ -214,7 +212,6 @@
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
   [self.adventureStartedTimeLabel setText:NSLocalizedString(@"PMSLabelAdventureStarted", nil)];
-  [self.adventureStartedTimeValue setText:@"2012-01-22"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -235,6 +232,10 @@
   
   [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];
   [self.badgesValue  setText:@"123"];
+  NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
+  [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
+  [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:self.trainer.adventureStarted]];
+  [dateFormat release];
 }
 
 - (void)viewDidUnload

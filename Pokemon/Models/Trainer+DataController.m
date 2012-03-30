@@ -54,7 +54,7 @@
     trainer.money             = [NSNumber numberWithInt:[[JSON valueForKey:@"money"] intValue]];
     trainer.pokedex           = [JSON valueForKey:@"pokedex"];
     trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
-//    trainer.adventureStarted  = [JSON valueForKey:@"timeStarted"];
+    trainer.adventureStarted  = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"timeStarted"] intValue]];
     
     // <bag>: <bagItems>_<bagMedicineStatus>_<bagMedicineHP>_<bagMedicinePP>
     //        <bagPokeballs>_<bagTMsHMs>_<bagBerries>_<bagBattleItems>_<bagKeyItems>
