@@ -49,21 +49,27 @@
   void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
   ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
     // Set data for |Trainer|
-//    trainer.sid               = [JSON valueForKey:@"id"];
-//    trainer.name              = [JSON valueForKey:@"name"];
-//    trainer.money             = [JSON valueForKey:@"money"];
-//    trainer.pokedex           = [JSON valueForKey:@"pokedex"];
-//    trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
-//    trainer.bagItems          = [JSON valueForKey:@"bagItems"];
-//    trainer.bagMedicineStatus = [JSON valueForKey:@"bagMedicineStatus"];
-//    trainer.bagMedicineHP     = [JSON valueForKey:@"bagMedicineHP"];
-//    trainer.bagMedicinePP     = [JSON valueForKey:@"bagMedicinePP"];
-//    trainer.bagPokeballs      = [JSON valueForKey:@"bagPokeballs"];
-//    trainer.bagTMsHMs         = [JSON valueForKey:@"bagTMsHMs"];
-//    trainer.bagBerries        = [JSON valueForKey:@"bagBerries"];
-//    trainer.bagBattleItems    = [JSON valueForKey:@"bagBattleItems"];
-//    trainer.bagKeyItems       = [JSON valueForKey:@"bagKeyItems"];
-//    trainer.adventureStarted  = nil;
+    trainer.sid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
+    trainer.name              = [JSON valueForKey:@"name"];
+    trainer.money             = [NSNumber numberWithInt:[[JSON valueForKey:@"money"] intValue]];
+    trainer.pokedex           = [JSON valueForKey:@"pokedex"];
+    trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
+//    trainer.adventureStarted  = [JSON valueForKey:@"timeStarted"];
+    
+    // <bag>: <bagItems>_<bagMedicineStatus>_<bagMedicineHP>_<bagMedicinePP>
+    //        <bagPokeballs>_<bagTMsHMs>_<bagBerries>_<bagBattleItems>_<bagKeyItems>
+    // "0_0_0_0_0_0_0_0_0"
+    NSArray * bagItems = [[JSON valueForKey:@"bag"] componentsSeparatedByString:@"_"];
+    trainer.bagItems          = [bagItems objectAtIndex:0];
+    trainer.bagMedicineStatus = [bagItems objectAtIndex:1];
+    trainer.bagMedicineHP     = [bagItems objectAtIndex:2];
+    trainer.bagMedicinePP     = [bagItems objectAtIndex:3];
+    trainer.bagPokeballs      = [bagItems objectAtIndex:4];
+    trainer.bagTMsHMs         = [bagItems objectAtIndex:5];
+    trainer.bagBerries        = [bagItems objectAtIndex:6];
+    trainer.bagBattleItems    = [bagItems objectAtIndex:7];
+    trainer.bagKeyItems       = [bagItems objectAtIndex:8];
+    bagItems = nil;
     
     NSError * error;
     if (! [managedObjectContext save:&error])
