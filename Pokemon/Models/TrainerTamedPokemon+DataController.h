@@ -12,7 +12,7 @@
 
 @interface TrainerTamedPokemon (DataController)
 
-+ (BOOL)updateDataForTrainer:(NSInteger)trainerID;
++ (BOOL)initWithUserID:(NSInteger)userID;
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
 + (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit;

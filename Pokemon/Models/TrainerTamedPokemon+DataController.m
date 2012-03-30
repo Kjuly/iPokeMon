@@ -17,7 +17,7 @@
 @implementation TrainerTamedPokemon (DataController)
 
 // Update |TrainerTamedPokemon|
-+ (BOOL)updateDataForTrainer:(NSInteger)trainerID
++ (BOOL)initWithUserID:(NSInteger)userID
 {
   // Success Block Method
   void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
@@ -32,7 +32,7 @@
     }
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pokedex"];
     
-    Trainer * trainer = [Trainer queryTrainerWithTrainerID:trainerID];
+    Trainer * trainer = [Trainer queryTrainerWithTrainerID:userID];
     
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];

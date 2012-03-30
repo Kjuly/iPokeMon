@@ -14,11 +14,13 @@
 
 @interface TrainerCoreDataController () {
  @private
+  BOOL        isInitialized_;     // Is initialized for current user
   NSInteger   userID_;            // User ID, same as Trainer UID
   Trainer   * entityTrainer_;     // Trainer
   NSArray   * entitySixPokemons_; // SixPokemons
 }
 
+@property (nonatomic, assign) BOOL        isInitialized;
 @property (nonatomic, assign) NSInteger   userID;
 @property (nonatomic, retain) Trainer   * entityTrainer;
 @property (nonatomic, retain) NSArray   * entitySixPokemons;
@@ -27,6 +29,7 @@
 
 @implementation TrainerCoreDataController
 
+@synthesize isInitialized     = isInitialized_;
 @synthesize userID            = userID_;
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
@@ -36,7 +39,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 // Singleton
 + (TrainerCoreDataController *)sharedInstance {
   // Check Session first,
-  //   if it's not valid, post notification to show login view & return nil
+  //   if it's not valid, post notification to |MainViewController| to show login view & return nil
   if (! [[OAuthManager sharedInstance] isSessionValid]) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid object:self userInfo:nil];
     return nil;
@@ -65,26 +68,29 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 
 - (id)init {
   if (self = [super init]) {
-//    self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
-//    self.entitySixPokemons = self.entityTrainer.sixPokemons;
+    isInitialized_ = NO;
   }
   return self;
 }
 
+// It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
   self.userID            = userID;
-  self.entityTrainer     = [Trainer queryTrainerWithTrainerID:1];
+  self.entityTrainer     = [Trainer queryTrainerWithTrainerID:self.userID];
   self.entitySixPokemons = self.entityTrainer.sixPokemons;
 }
 
 #pragma mark - Data Related Methods
 
 // Sync data between Client & Server
-- (void)sync
-{
-  [Trainer updateDataForTrainer:1];
-  [TrainerTamedPokemon updateDataForTrainer:1];
-  [WildPokemon updateDataForCurrentRegion:1];
+- (void)sync {
+  // If Client data is not initialzied, do it
+  if (! self.isInitialized) {
+    [Trainer             initWithUserID:self.userID];
+    [TrainerTamedPokemon initWithUserID:self.userID];
+  }
+  // Sync data...
+  [WildPokemon updateDataForCurrentRegion:self.userID];
 }
 
 // Return trainer entity

@@ -10,7 +10,7 @@
 
 @interface Trainer (DataController)
 
-+ (BOOL)updateDataForTrainer:(NSInteger)trainerID;
++ (BOOL)initWithUserID:(NSInteger)userID;
 + (void)addData;
 + (NSArray *)queryAllData;
 + (Trainer *)queryTrainerWithTrainerID:(NSInteger)trainerID;

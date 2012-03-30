@@ -18,7 +18,7 @@
 @implementation Trainer (DataController)
 
 // Update Data
-+ (BOOL)updateDataForTrainer:(NSInteger)trainerID
++ (BOOL)initWithUserID:(NSInteger)userID
 {
   // Fetch current User's Trainer Data
   NSManagedObjectContext * managedObjectContext =
@@ -27,7 +27,7 @@
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", trainerID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", userID];
   [fetchRequest setPredicate:predicate];
   //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];

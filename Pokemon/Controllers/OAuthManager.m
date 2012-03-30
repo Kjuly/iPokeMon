@@ -114,11 +114,13 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
   NSOperationQueue           * operationQueue_;          // Operation Queue
   GTMOAuth2Authentication    * oauth_;                   // OAuth object
   OAuthServiceProviderChoice   selectedServiceProvider_; // Selected service provider
+  BOOL                         isUserIDSynced_;          // Mark for whether user ID has been synced
 }
 
 @property (nonatomic, retain) NSOperationQueue           * operationQueue;
 @property (nonatomic, retain) GTMOAuth2Authentication    * oauth;
 @property (nonatomic, assign) OAuthServiceProviderChoice   selectedServiceProvider;
+@property (nonatomic, assign) BOOL                         isUserIDSynced;
 
 - (NSDictionary *)oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
 - (void)syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
@@ -134,6 +136,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 @synthesize operationQueue          = operationQueue_;
 @synthesize oauth                   = oauth_;
 @synthesize selectedServiceProvider = selectedServiceProvider_;
+@synthesize isUserIDSynced          = isUserIDSynced_;
 
 // Singleton
 static OAuthManager * oauthManager_ = nil;
@@ -161,6 +164,8 @@ static OAuthManager * oauthManager_ = nil;
 - (id)init
 {
   if (self = [super init]) {
+    isUserIDSynced_ = NO;
+    
     OAuthServiceProviderChoice lastUsedServiceProvider =
       [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
     self.selectedServiceProvider = lastUsedServiceProvider;
@@ -213,14 +218,17 @@ static OAuthManager * oauthManager_ = nil;
 
 // Logout
 - (void)logout {
-  self.oauth = nil;
+  self.isUserIDSynced = NO;
+  self.oauth          = nil;
   [self.operationQueue cancelAllOperations];
 }
 
 // Session status for User
 - (BOOL)isSessionValid {
   NSLog(@"<::LOG::> OAuthManager - isSessionValid: Email:%@, VerifiedEmail:%@, ClientID:%@, ClientSecret:%@, TokenType:%@, AccessToken:%@, RefreshToken:%@, Code:%@, UserData:%@", self.oauth.userEmail,self.oauth.userEmailIsVerified, self.oauth.clientID, self.oauth.clientSecret, self.oauth.tokenType, self.oauth.accessToken, self.oauth.refreshToken, self.oauth.code, self.oauth.userData);
-  return [self.oauth canAuthorize];
+  if (! [self.oauth canAuthorize]) return NO;
+  if (! self.isUserIDSynced) [self syncUserID];
+  return YES;
 }
 
 // Current authticated User's ID (Trainer's |uid|)
@@ -306,22 +314,24 @@ static OAuthManager * oauthManager_ = nil;
   // Success Block Method
   void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
     ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+      self.isUserIDSynced = YES;
       NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
-      NSLog(@"Get |userID| for current user succeed... userID:%d", userID);
+      NSLog(@"|syncUserID| - Get |userID| for current user succeed... userID:%d", userID);
       [[TrainerCoreDataController sharedInstance] initTrainerWithUserID:userID];
     };
   // Failure Block Method
   void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
     ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
-      NSLog(@"!!! Get |userID| for current user failed. ERROR: %@", error);
+      NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
     };
   
   // Fetch data for Trainer
   OAuthServiceProviderChoice provider =
-  [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
-  NSLog(@"|syncUserID| RequestURL: %@", [ServerAPI getUserWithProvider:provider identity:self.oauth.userEmail]);
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getUserIDWithProvider:provider
-                                                                                     identity:self.oauth.userEmail]];
+    [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+  NSURL * url = [ServerAPI getUserIDWithProvider:provider identity:self.oauth.userEmail];
+  NSLog(@"|syncUserID| - RequestURL: %@", url);
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+  url = nil;
   AFJSONRequestOperation * operation;
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
   [request release];
