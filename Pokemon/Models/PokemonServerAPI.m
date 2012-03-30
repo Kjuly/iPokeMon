@@ -9,16 +9,16 @@
 #import "PokemonServerAPI.h"
 
 
-NSString * const kServerAPIRoot        = @"http://localhost:8080";
+NSString * const kPokemonServerAPIRoot        = @"http://localhost:8080";
 
-NSString * const kServerAPIGetTrainer  = @"/user/%d";
-NSString * const kServerAPIGetPokedex  = @"/user/%d/pokedex";
-NSString * const kServerAPIGetBag      = @"/user/%d/bag";
-NSString * const kServerAPIGetWildPokemons = @"/region/%d/wildpokemons";
+NSString * const kPokemonServerAPIGetTrainer  = @"/user/%d";
+NSString * const kPokemonServerAPIGetPokedex  = @"/user/%d/pokedex";
+NSString * const kPokemonServerAPIGetBag      = @"/user/%d/bag";
+NSString * const kPokemonServerAPIGetWildPokemons = @"/region/%d/wildpokemons";
 
-NSString * const kServerAPIPostTrainer = @"/user/%d";
-NSString * const kServerAPIPostPokedex = @"/user/%d/pokedex";
-NSString * const kServerAPIPostBag     = @"/user/%d/bag";
+NSString * const kPokemonServerAPIPostTrainer = @"/user/%d";
+NSString * const kPokemonServerAPIPostPokedex = @"/user/%d/pokedex";
+NSString * const kPokemonServerAPIPostBag     = @"/user/%d/bag";
 
 
 @implementation PokemonServerAPI
@@ -26,23 +26,23 @@ NSString * const kServerAPIPostBag     = @"/user/%d/bag";
 #pragma mark - GET methods
 
 + (NSURL *)APIGetTrainerWithTrainerID:(NSInteger)trainerID {
-  NSString * subPath = [NSString stringWithFormat:kServerAPIGetTrainer, trainerID];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
+  NSString * subPath = [NSString stringWithFormat:kPokemonServerAPIGetTrainer, trainerID];
+  return [NSURL URLWithString:[kPokemonServerAPIRoot stringByAppendingString:subPath]];
 }
 
 + (NSURL *)APIGetPokedexWithTrainerID:(NSInteger)trainerID {
-  NSString * subPath = [NSString stringWithFormat:kServerAPIGetPokedex, trainerID];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
+  NSString * subPath = [NSString stringWithFormat:kPokemonServerAPIGetPokedex, trainerID];
+  return [NSURL URLWithString:[kPokemonServerAPIRoot stringByAppendingString:subPath]];
 }
 
 + (NSURL *)APIGetBagWithTrainerID:(NSInteger)trainerID {
-  NSString * subPath = [NSString stringWithFormat:kServerAPIGetBag, trainerID];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
+  NSString * subPath = [NSString stringWithFormat:kPokemonServerAPIGetBag, trainerID];
+  return [NSURL URLWithString:[kPokemonServerAPIRoot stringByAppendingString:subPath]];
 }
 
 + (NSURL *)APIGetWildPokemonsForCurrentRegion:(NSInteger)regionID {
-  NSString * subPath = [NSString stringWithFormat:kServerAPIGetWildPokemons, regionID];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingFormat:subPath]];
+  NSString * subPath = [NSString stringWithFormat:kPokemonServerAPIGetWildPokemons, regionID];
+  return [NSURL URLWithString:[kPokemonServerAPIRoot stringByAppendingFormat:subPath]];
 }
 
 #pragma mark - POST methods

@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "TrainerTamedPokemon+DataController.h"
 
+#import "OAuthManager.h"
 #import "AFJSONRequestOperation.h"
 
 @implementation Trainer (DataController)
@@ -37,9 +38,7 @@
   
   // If no Trainer Data for current User exists, insert new one
   if (! trainer) {
-#if DEBUG
     NSLog(@"!!! No data for Trainer, insert new one");
-#endif
     trainer = nil;
     trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                             inManagedObjectContext:managedObjectContext];
@@ -50,44 +49,36 @@
   void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
   ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
     // Set data for |Trainer|
-    trainer.sid               = [JSON valueForKey:@"id"];
-    trainer.name              = [JSON valueForKey:@"name"];
-    trainer.money             = [JSON valueForKey:@"money"];
-    trainer.pokedex           = [JSON valueForKey:@"pokedex"];
-    trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
-    trainer.bagItems          = [JSON valueForKey:@"bagItems"];
-    trainer.bagMedicineStatus = [JSON valueForKey:@"bagMedicineStatus"];
-    trainer.bagMedicineHP     = [JSON valueForKey:@"bagMedicineHP"];
-    trainer.bagMedicinePP     = [JSON valueForKey:@"bagMedicinePP"];
-    trainer.bagPokeballs      = [JSON valueForKey:@"bagPokeballs"];
-    trainer.bagTMsHMs         = [JSON valueForKey:@"bagTMsHMs"];
-    trainer.bagBerries        = [JSON valueForKey:@"bagBerries"];
-    trainer.bagBattleItems    = [JSON valueForKey:@"bagBattleItems"];
-    trainer.bagKeyItems       = [JSON valueForKey:@"bagKeyItems"];
-    trainer.adventureStarted  = nil;
+//    trainer.sid               = [JSON valueForKey:@"id"];
+//    trainer.name              = [JSON valueForKey:@"name"];
+//    trainer.money             = [JSON valueForKey:@"money"];
+//    trainer.pokedex           = [JSON valueForKey:@"pokedex"];
+//    trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
+//    trainer.bagItems          = [JSON valueForKey:@"bagItems"];
+//    trainer.bagMedicineStatus = [JSON valueForKey:@"bagMedicineStatus"];
+//    trainer.bagMedicineHP     = [JSON valueForKey:@"bagMedicineHP"];
+//    trainer.bagMedicinePP     = [JSON valueForKey:@"bagMedicinePP"];
+//    trainer.bagPokeballs      = [JSON valueForKey:@"bagPokeballs"];
+//    trainer.bagTMsHMs         = [JSON valueForKey:@"bagTMsHMs"];
+//    trainer.bagBerries        = [JSON valueForKey:@"bagBerries"];
+//    trainer.bagBattleItems    = [JSON valueForKey:@"bagBattleItems"];
+//    trainer.bagKeyItems       = [JSON valueForKey:@"bagKeyItems"];
+//    trainer.adventureStarted  = nil;
     
     NSError * error;
     if (! [managedObjectContext save:&error])
       NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
-#if DEBUG
     NSLog(@"...Update |%@| data done...", [self class]);
-#endif
   };
   
   // Failure Block Method
   void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
   ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
-    NSLog(@"!!! ERROR: %@", error);
+    NSLog(@"!!! |%@| data fetch ERROR: %@", [self class], error);
   };
   
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetTrainerWithTrainerID:trainerID]];
-  AFJSONRequestOperation * operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:blockPopulateData
-                                                  failure:blockError];
-  [request release];
-  [operation start];
-  
+  // Fetch data from server & populate the data for Tainer
+  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:blockPopulateData failure:blockError];
   return true;
 }
 

@@ -8,6 +8,23 @@
 
 #import "OAuthManager.h"
 
+#import "PokemonServerAPI.h"
+#import "AFJSONRequestOperation.h"
+
+
+#pragma mark - Constants
+#pragma mark - ServerAPI Constants
+NSString * const kServerAPIRootWithAuth = @"http://localhost:8080";
+NSString * const kServerAPIOAuth        = @"/%d/%@"; // ROOT/<Provider:Int>/<Identity:String>
+// User
+NSString * const kServerAPIGetUser      = @"";
+NSString * const kServerAPIUpdateUser   = @"/update";
+// User's Pokemon
+NSString * const kServerAPIGetPokemon   = @"/pm/%d"; // /pm:PokeMon/<PokemonID:Int>
+NSString * const kServerAPIGet6Pokemons = @"/6pm";   // /6pm:SixPokeMons
+NSString * const kServerAPIGetPokedex   = @"/pd";    // /pd:PokeDex
+
+#pragma mark - OAuthManager Constants
 NSString * const kUserDefaultsLastUsedServiceProvider = @"keyLastUsedServiceProvider";
 
 // TODO:
@@ -18,12 +35,81 @@ static NSString * const kOAuthGoogleKeychainItemName = @"PMOAuth2_Google";
 static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.com/auth/plus.me"; // scope for Google+ API
 
 
+#pragma mark -
+#pragma mark - ServerAPI
+@interface ServerAPI ()
+// User
++ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider        // GET
+                      identity:(NSString *)identity;
++ (BOOL)updateUserWithProvider:(OAuthServiceProviderChoice)provider        // POST
+                      identity:(NSString *)identity
+                          data:(NSDictionary *)data;
+// User's Pokemon
++ (NSURL *)getPokemonWithProvider:(OAuthServiceProviderChoice)provider     // GET
+                         identity:(NSString *)identity
+                        pokemonID:(NSInteger)pokemonID;
++ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider // GET
+                             identity:(NSString *)identity;
++ (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider     // GET
+                         identity:(NSString *)identity;
+@end
+
+
+@implementation ServerAPI
+// User
+// GET
++ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider
+                      identity:(NSString *)identity {
+  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
+  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetUser];
+  return [NSURL URLWithString:[kServerAPIRootWithAuth stringByAppendingString:subPath]];
+}
+
+// POST
++ (BOOL)updateUserWithProvider:(OAuthServiceProviderChoice)provider
+                      identity:(NSString *)identity
+                          data:(NSDictionary *)data {
+  return NO;
+}
+
+// User's Pokemon
+// GET
++ (NSURL *)getPokemonWithProvider:(OAuthServiceProviderChoice)provider
+                         identity:(NSString *)identity
+                        pokemonID:(NSInteger)pokemonID {
+  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
+  NSString * subPath     = [oauthString stringByAppendingString:
+                            [NSString stringWithFormat:kServerAPIGetPokemon, pokemonID]];
+  return [NSURL URLWithString:[kServerAPIRootWithAuth stringByAppendingString:subPath]];
+}
+
++ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider
+                             identity:(NSString *)identity {
+  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
+  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGet6Pokemons];
+  return [NSURL URLWithString:[kServerAPIRootWithAuth stringByAppendingString:subPath]];
+}
+
++ (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider
+                         identity:(NSString *)identity {
+  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
+  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetPokedex];
+  return [NSURL URLWithString:[kServerAPIRootWithAuth stringByAppendingString:subPath]];
+}
+
+@end
+
+
+#pragma mark -
+#pragma mark - OAuthManager
 @interface OAuthManager () {
  @private
+  NSOperationQueue           * operationQueue_;          // Operation Queue
   GTMOAuth2Authentication    * oauth_;                   // OAuth object
   OAuthServiceProviderChoice   selectedServiceProvider_; // Selected service provider
 }
 
+@property (nonatomic, retain) NSOperationQueue           * operationQueue;
 @property (nonatomic, retain) GTMOAuth2Authentication    * oauth;
 @property (nonatomic, assign) OAuthServiceProviderChoice   selectedServiceProvider;
 
@@ -37,6 +123,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 @implementation OAuthManager
 
+@synthesize operationQueue          = operationQueue_;
 @synthesize oauth                   = oauth_;
 @synthesize selectedServiceProvider = selectedServiceProvider_;
 
@@ -56,6 +143,9 @@ static OAuthManager * oauthManager_ = nil;
 - (void)dealloc
 {
   self.oauth = nil;
+  
+  [self.operationQueue cancelAllOperations];
+  self.operationQueue = nil;
   
   [super dealloc];
 }
@@ -227,6 +317,45 @@ static OAuthManager * oauthManager_ = nil;
     [userDefaults synchronize];
     userDefaults = nil;
   }
+}
+
+#pragma mark - C/S Data Transfer Methods
+
+- (void)fetchDataFor:(DataFetchTarget)target
+             success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, id))success
+             failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id))failure {
+  OAuthServiceProviderChoice provider =
+  [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+  
+  // Fetch data for Trainer
+  if (target & kDataFetchTargetTrainer) {
+    NSLog(@"RequestURL: %@", [ServerAPI getUserWithProvider:provider identity:self.oauth.userEmail]);
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getUserWithProvider:provider
+                                                                                     identity:self.oauth.userEmail]];
+    AFJSONRequestOperation * operation;
+    operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
+    [request release];
+    [operation start];
+    [self.operationQueue addOperation:operation];
+  }
+  // Fetch data for Trainer's Pokedex
+  if (target & kDataFetchTargetTamedPokemon) {
+    NSLog(@"RequestURL: %@", [ServerAPI getPokedexWithProvider:provider identity:self.oauth.userEmail]);
+    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getPokedexWithProvider:provider
+                                                                                        identity:self.oauth.userEmail]];
+    AFJSONRequestOperation * operation;
+    operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
+    [request release];
+    [operation start];
+    [self.operationQueue addOperation:operation];
+  }
+}
+
+- (void)updateDataFor:(DataFetchTarget)target
+              success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, id))success
+              failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id))failure
+{
+  
 }
 
 @end

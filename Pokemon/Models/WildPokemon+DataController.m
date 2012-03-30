@@ -74,9 +74,7 @@
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
-#if DEBUG
     NSLog(@"...Update |%@| data done...", [self class]);
-#endif
   };
   
   // Failure Block Method

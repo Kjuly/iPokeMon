@@ -19,7 +19,18 @@ typedef enum {
   kOAuthServiceProviderChoicesCount
 }OAuthServiceProviderChoice;
 
+typedef enum {
+  kDataFetchTargetTrainer      = 1 << 0,
+  kDataFetchTargetTamedPokemon = 1 << 1,
+  kDataFetchTargetWildPokemon  = 1 << 2,
+}DataFetchTarget;
 
+
+// Server API
+@interface ServerAPI : NSObject
+@end
+
+// OAuth Manager
 @interface OAuthManager : NSObject
 
 + (OAuthManager *)sharedInstance;
@@ -28,5 +39,12 @@ typedef enum {
 - (void)logout;
 - (BOOL)isSessionValid;
 - (OAuthServiceProviderChoice)serviceProvider;
+
+- (void)fetchDataFor:(DataFetchTarget)target
+             success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
+             failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
+- (void)updateDataFor:(DataFetchTarget)target
+              success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
+              failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
 
 @end

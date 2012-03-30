@@ -11,7 +11,8 @@
 #import "PokemonServerAPI.h"
 #import "Trainer+DataController.h"
 #import "AppDelegate.h"
-#import "AFJSONRequestOperation.h"
+#import "OAuthManager.h"
+//#import "AFJSONRequestOperation.h"
 
 @implementation TrainerTamedPokemon (DataController)
 
@@ -25,7 +26,12 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
     // Get JSON Data Array from HTTP Response
+    if ([[JSON valueForKey:@"pokedex"] isKindOfClass:[NSNull class]]) {
+      NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
+      return;
+    }
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pokedex"];
+    
     Trainer * trainer = [Trainer queryTrainerWithTrainerID:trainerID];
     
     NSError * error;
@@ -79,9 +85,7 @@
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
-#if DEBUG
     NSLog(@"...Update |%@| data done...", [self class]);
-#endif
   };
   
   // Failure Block Method
@@ -92,16 +96,7 @@
   
   
   // Fetch data from server & populate the |teamedPokemon|
-  NSURLRequest * request =
-  [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetPokedexWithTrainerID:trainerID]];
-  
-  AFJSONRequestOperation * operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:blockPopulateData
-                                                  failure:blockError];
-  [request release];
-  [operation start];
-  
+  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:blockPopulateData failure:blockError];
   return true;
 }
 
