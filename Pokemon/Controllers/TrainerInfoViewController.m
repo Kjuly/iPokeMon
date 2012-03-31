@@ -17,11 +17,18 @@
 @interface TrainerInfoViewController () {
  @private
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer_;
+  BOOL                     isSetttingButtonsHidden_;
+  UIButton               * avatarSetttingButton_;
+  UIButton               * nameSettingButton_;
 }
 
 @property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
+@property (nonatomic, assign) BOOL                     isSetttingButtonsHidden;
+@property (nonatomic, retain) UIButton               * avatarSetttingButton;
+@property (nonatomic, retain) UIButton               * nameSettingButton;
 
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
+- (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
 
@@ -44,6 +51,9 @@
 @synthesize adventureStartedTimeValue = adventureStartedTimeValue_;
 
 @synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
+@synthesize isSetttingButtonsHidden            = isSetttingButtonsHidden_;
+@synthesize avatarSetttingButton               = avatarSetttingButton_;
+@synthesize nameSettingButton                  = nameSettingButton_;
 
 - (void)dealloc
 {
@@ -66,6 +76,8 @@
   [adventureStartedTimeValue_ release];
   
   [twoFingersTwoTapsGestureRecognizer_ release];
+  self.avatarSetttingButton = nil;
+  self.nameSettingButton    = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -220,6 +232,9 @@
 {
   [super viewDidLoad];
   
+  // Basic Setting
+  isSetttingButtonsHidden_ = YES;
+  
   [self.imageView setImage:[self.trainer avatar]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
@@ -231,7 +246,7 @@
   [dateFormat release];
   
   // Add Gesture
-  // Two fingers with two taps to open Trainer Info Setting View
+  // Two fingers with two taps to show setting buttons for Trainer Info View
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
   self.twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer;
@@ -278,6 +293,8 @@
   self.adventureStartedTimeValue = nil;
   
   self.twoFingersTwoTapsGestureRecognizer = nil;
+  self.avatarSetttingButton               = nil;
+  self.nameSettingButton                  = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -290,10 +307,45 @@
 
 // Action for tap gesture recognizer
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
-  // Two fingers with two taps to open Trainer Info Setting View
+  // Two fingers with two taps to show setting buttons for Trainer Info View
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2) {
     NSLog(@"Two Fingers Two Taps");
+    [self setSettingButtonsHidden:!self.isSetttingButtonsHidden animated:YES];
   }
+}
+
+- (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
+  self.isSetttingButtonsHidden = hidden;
+  
+  if (self.avatarSetttingButton == nil) {
+    CGRect avatarSetttingButtonFrame = self.imageView.frame;
+    avatarSetttingButtonFrame.origin.x = 0;
+    avatarSetttingButtonFrame.origin.y = 0;
+    UIButton * avatarSetttingButton = [[UIButton alloc] initWithFrame:avatarSetttingButtonFrame];
+    self.avatarSetttingButton = avatarSetttingButton;
+    [avatarSetttingButton release];
+    [self.avatarSetttingButton setBackgroundColor:[UIColor grayColor]];
+    [self.imageView addSubview:self.avatarSetttingButton];
+  }
+  if (self.nameSettingButton == nil) {
+    CGRect nameSettingButtonFrame = self.nameLabel.frame;
+    nameSettingButtonFrame.origin.x = 0;
+    nameSettingButtonFrame.origin.y = 0;
+    UIButton * nameSettingButton = [[UIButton alloc] initWithFrame:nameSettingButtonFrame];
+    self.nameSettingButton = nameSettingButton;
+    [nameSettingButton release];
+    [self.nameSettingButton setBackgroundColor:[UIColor grayColor]];
+    [self.nameLabel addSubview:self.nameSettingButton];
+  }
+  
+  CGFloat alpha = hidden ? 0.f : 1.f;
+  void (^animations)() = ^{ [self.avatarSetttingButton setAlpha:alpha]; [self.nameLabel setAlpha:alpha]; };
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveLinear
+                                 animations:animations
+                                 completion:nil];
+  else animations();
 }
 
 @end
