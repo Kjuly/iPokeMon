@@ -462,16 +462,19 @@
   else if (self.timeCounter <= 5) {
     if (! self.centerMenuSixPokemonsNavigationController) {
       if (! self.centerMenuSixPokemonsViewController) {
-        CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController = [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:3];
+        NSInteger numberOfSixPokemons = [[TrainerCoreDataController sharedInstance] numberOfSixPokemons];
+        CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController =
+          [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:numberOfSixPokemons];
         self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
         [centerMenuSixPokemonsViewController release];
       }
-      centerMenuSixPokemonsNavigationController_ = [CustomNavigationController
-                                                    initWithRootViewController:self.centerMenuSixPokemonsViewController
-                                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      centerMenuSixPokemonsNavigationController_ =
+        [CustomNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController
+                                  navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
       [centerMenuSixPokemonsNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
-    [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view belowSubview:self.gameMainViewController.view];
+    [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view
+                belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {[self.centerMenuSixPokemonsViewController openCenterMenuView];};

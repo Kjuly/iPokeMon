@@ -69,16 +69,18 @@
 {
   [super viewWillAppear:animated];
   
-  // Set Buttons' style in center menu view
-  NSInteger i = -1;
-  for (UIButton * button in [self.centerMenu subviews]) {
-    TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:++i];
-    Pokemon * pokemonBaseInfo = pokemonData.pokemon;
-    //
-    // TODO:
-    //   Replace |image| to |imageIcon|
-    //
-    [button setImage:pokemonBaseInfo.imageIcon forState:UIControlStateNormal];
+  if ([self.sixPokemons count] > 0) {
+    // Set Buttons' style in center menu view
+    NSInteger i = -1;
+    for (UIButton * button in [self.centerMenu subviews]) {
+      TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:++i];
+      Pokemon * pokemonBaseInfo = pokemonData.pokemon;
+      //
+      // TODO:
+      //   Replace |image| to |imageIcon|
+      //
+      [button setImage:pokemonBaseInfo.imageIcon forState:UIControlStateNormal];
+    }
   }
 }
 

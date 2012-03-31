@@ -28,6 +28,7 @@
 - (NSDate *)timeStarted;                                       // Adventured Time Started
 - (NSString *)pokedex;                                         // Pokedex
 - (NSArray *)sixPokemons;                                      // Six Pokemons
+- (NSInteger)numberOfSixPokemons;                              // Number of Six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix;                    // First of Six Pokemons
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index; // Pokemon at |index| of Six Pokemons
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;       // Bag Items

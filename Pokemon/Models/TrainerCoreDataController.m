@@ -102,6 +102,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
+- (NSInteger)numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
 
 // Return first Pokemon of six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix {
