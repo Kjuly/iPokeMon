@@ -384,8 +384,9 @@ static OAuthManager * oauthManager_ = nil;
   NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100", [email toMD5]]];
   
   NSError * error;
-  NSData * avatarData = [[NSData alloc] initWithContentsOfURL:url
-                                                      options:NSDataReadingUncached error:&error];
+  NSData * avatarData = [NSData dataWithContentsOfURL:url
+                                              options:NSDataReadingUncached
+                                                error:&error];
   // Return the image got from Gravatar
   // If no data got, return a default image as the avatar
   if (avatarData)
