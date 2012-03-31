@@ -88,6 +88,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   if (! self.isInitialized) {
     [Trainer             initWithUserID:self.userID];
     [TrainerTamedPokemon initWithUserID:self.userID];
+    self.isInitialized = YES;
   }
   // Sync data...
   [WildPokemon updateDataForCurrentRegion:self.userID];
