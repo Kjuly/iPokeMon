@@ -91,9 +91,9 @@
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
   CGRect  const adventureStartedTimeLabelFrame =
-    CGRectMake(0.f, dataViewFrame.size.height - labelHeight, 170.f, labelHeight);
+    CGRectMake(0.f, dataViewFrame.size.height - labelHeight * 2, 150.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
-    CGRectMake(170.f, dataViewFrame.size.height - labelHeight, 130.f, valueHeight);
+    CGRectMake(150.f, dataViewFrame.size.height - labelHeight * 2, 140.f, valueHeight);
   
   
   ///Left Image View
