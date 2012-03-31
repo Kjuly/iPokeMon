@@ -377,6 +377,10 @@ static OAuthManager * oauthManager_ = nil;
 
 #pragma mark - C/S Data Transfer Methods
 
+- (UIImage *)avatar {
+  return nil;
+}
+
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, id))success
              failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id))failure {
