@@ -8,6 +8,7 @@
 
 #import "OAuthManager.h"
 
+#import "NSString+Algorithm.h"
 #import "PokemonServerAPI.h"
 #import "TrainerCoreDataController.h"
 #import "AFJSONRequestOperation.h"
@@ -378,7 +379,19 @@ static OAuthManager * oauthManager_ = nil;
 #pragma mark - C/S Data Transfer Methods
 
 - (UIImage *)avatar {
-  return nil;
+  NSString * email =
+    [[self.oauth.userEmail stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] lowercaseString];
+  NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100", [email toMD5]]];
+  
+  NSError * error;
+  NSData * avatarData = [[NSData alloc] initWithContentsOfURL:url
+                                                      options:NSDataReadingUncached error:&error];
+  // Return the image got from Gravatar
+  // If no data got, return a default image as the avatar
+  if (avatarData)
+    return [UIImage imageWithData:avatarData];
+  NSLog(@"!!!ERROR OAuthManager |avatar| ERROR:%@", error);
+  return [UIImage imageNamed:@"UserAvatar.png"];
 }
 
 - (void)fetchDataFor:(DataFetchTarget)target

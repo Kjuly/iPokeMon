@@ -205,11 +205,15 @@
 {
   [super viewDidLoad];
   
-  [self.imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
+  [self.imageView setImage:[self.trainer avatar]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
   [self.adventureStartedTimeLabel setText:NSLocalizedString(@"PMSLabelAdventureStarted", nil)];
+  NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
+  [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
+  [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:[self.trainer timeStarted]]];
+  [dateFormat release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -217,7 +221,7 @@
   [super viewWillAppear:animated];
   
   // Set new data
-  [self.nameLabel setText:self.trainer.name];
+  [self.nameLabel setText:[self.trainer name]];
   [self.nameLabel sizeToFit];
   [self.moneyValue setText:[NSString stringWithFormat:@"$ %d", [self.trainer money]]];
   
@@ -228,10 +232,6 @@
   
   [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];
   [self.badgesValue  setText:@"123"];
-  NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
-  [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
-  [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:[self.trainer timeStarted]]];
-  [dateFormat release];
 }
 
 - (void)viewDidUnload

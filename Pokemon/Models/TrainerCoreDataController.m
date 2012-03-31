@@ -111,6 +111,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 // Trainer's basic data
 - (NSInteger) UID         {return [self.entityTrainer.sid intValue];}
 - (NSString *)name        {return self.entityTrainer.name;}
+- (UIImage *) avatar      {return [[OAuthManager sharedInstance] avatar];}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}

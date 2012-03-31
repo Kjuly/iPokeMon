@@ -24,6 +24,7 @@
 // Trainer's Data
 - (NSInteger)UID;                                              // UID
 - (NSString *)name;                                            // Name
+- (UIImage *)avatar;                                           // Avatar
 - (NSInteger)money;                                            // Money
 - (NSDate *)timeStarted;                                       // Adventured Time Started
 - (NSString *)pokedex;                                         // Pokedex
