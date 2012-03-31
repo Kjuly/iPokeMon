@@ -14,6 +14,17 @@
 #import <QuartzCore/QuartzCore.h>
 
 
+@interface TrainerInfoViewController () {
+ @private
+  UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer_;
+}
+
+@property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
+
+- (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
+
+@end
+
 @implementation TrainerInfoViewController
 
 @synthesize trainer = trainer_;
@@ -31,6 +42,8 @@
 @synthesize badgesValue  = badgesValue_;
 @synthesize adventureStartedTimeLabel = adventureStartedTimeLabel_;
 @synthesize adventureStartedTimeValue = adventureStartedTimeValue_;
+
+@synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
 
 - (void)dealloc
 {
@@ -51,6 +64,8 @@
   [badgesValue_ release];
   [adventureStartedTimeLabel_ release];
   [adventureStartedTimeValue_ release];
+  
+  [twoFingersTwoTapsGestureRecognizer_ release];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -214,6 +229,16 @@
   [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
   [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:[self.trainer timeStarted]]];
   [dateFormat release];
+  
+  // Add Gesture
+  // Two fingers with two taps to open Trainer Info Setting View
+  UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
+  self.twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer;
+  [twoFingersTwoTapsGestureRecognizer release];
+  [self.twoFingersTwoTapsGestureRecognizer setNumberOfTapsRequired:2];
+  [self.twoFingersTwoTapsGestureRecognizer setNumberOfTouchesRequired:2];
+  [self.view addGestureRecognizer:self.twoFingersTwoTapsGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -251,12 +276,24 @@
   self.badgesValue  = nil;
   self.adventureStartedTimeLabel = nil;
   self.adventureStartedTimeValue = nil;
+  
+  self.twoFingersTwoTapsGestureRecognizer = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Private Method
+
+// Action for tap gesture recognizer
+- (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
+  // Two fingers with two taps to open Trainer Info Setting View
+  if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2) {
+    NSLog(@"Two Fingers Two Taps");
+  }
 }
 
 @end
