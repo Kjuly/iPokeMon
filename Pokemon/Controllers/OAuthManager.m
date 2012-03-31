@@ -18,8 +18,8 @@
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
 NSString * const kServerAPIRoot         = @"http://localhost:8080";
-NSString * const kServerAPIOAuth        = @"/%d/%@";  // ROOT/<Provider:Int>/<Identity:String>
 // User
+NSString * const kServerAPIGetUserID    = @"/id";      // /uid:User's Unique ID
 NSString * const kServerAPIGetUser      = @"/u";      // /u:User
 NSString * const kServerAPIUpdateUser   = @"/update";
 // User's Pokemon
@@ -42,66 +42,46 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 #pragma mark - ServerAPI
 @interface ServerAPI ()
 // User
-+ (NSURL *)getUserIDWithProvider:(OAuthServiceProviderChoice)provider      // GET UserID
-                        identity:(NSString *)identity;
-+ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider        // GET
-                      identity:(NSString *)identity;
-+ (NSURL *)updateUserWithProvider:(OAuthServiceProviderChoice)provider     // POST
-                         identity:(NSString *)identity;
++ (NSURL *)getUserID;                                    // GET
++ (NSURL *)getUser;                                      // GET
++ (NSURL *)updateUser;                                   // POST
 // User's Pokemon
-+ (NSURL *)getPokemonWithProvider:(OAuthServiceProviderChoice)provider     // GET
-                         identity:(NSString *)identity
-                        pokemonID:(NSInteger)pokemonID;
-+ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider // GET
-                             identity:(NSString *)identity;
-+ (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider     // GET
-                         identity:(NSString *)identity;
++ (NSURL *)getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
++ (NSURL *)getSixPokemons;                               // GET
++ (NSURL *)getPokedex;                                   // GET
 @end
 
 
 @implementation ServerAPI
 // User
-// GET UserID
-+ (NSURL *)getUserIDWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:oauthString]];
++ (NSURL *)getUserID {
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGetUserID]];
 }
 
-// GET
-+ (NSURL *)getUserWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetUser];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
++ (NSURL *)getUser {
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGetUser]];
 }
 
-// POST
-+ (NSURL *)updateUserWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIUpdateUser];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
++ (NSURL *)updateUser {
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIUpdateUser]];
 }
 
 // User's Pokemon
-// GET
-+ (NSURL *)getPokemonWithProvider:(OAuthServiceProviderChoice)provider
-                         identity:(NSString *)identity
-                        pokemonID:(NSInteger)pokemonID {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  NSString * subPath     = [oauthString stringByAppendingString:
-                            [NSString stringWithFormat:kServerAPIGetPokemon, pokemonID]];
++ (NSURL *)getPokemonWithPokemonID:(NSInteger)pokemonID {
+  NSString * subPath = [NSString stringWithFormat:kServerAPIGetPokemon, pokemonID];
   return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
 }
 
-+ (NSURL *)getSixPokemonsWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGet6Pokemons];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
++ (NSURL *)getSixPokemons {
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGet6Pokemons]];
 }
 
 + (NSURL *)getPokedexWithProvider:(OAuthServiceProviderChoice)provider identity:(NSString *)identity {
-  NSString * oauthString = [NSString stringWithFormat:kServerAPIOAuth, provider, identity];
-  NSString * subPath     = [oauthString stringByAppendingString:kServerAPIGetPokedex];
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:subPath]];
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGetPokedex]];
+}
+
++ (NSURL *)getPokedex {
+  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGetPokedex]];
 }
 
 @end
@@ -124,6 +104,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 - (NSDictionary *)oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
 - (void)syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
+- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error;
@@ -326,17 +307,24 @@ static OAuthManager * oauthManager_ = nil;
     };
   
   // Fetch data for Trainer
-  OAuthServiceProviderChoice provider =
-    [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
-  NSURL * url = [ServerAPI getUserIDWithProvider:provider identity:self.oauth.userEmail];
-  NSLog(@"|syncUserID| - RequestURL: %@", url);
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-  url = nil;
+  NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getUserID]];
+  [self setHTTPHeaderForRequest:request];
+  [request setHTTPMethod:@"GET"];
+  NSLog(@"|syncUserID| - Request URL:%@ --- HTTPHeader:%@", [ServerAPI getUserID], [request allHTTPHeaderFields]);
   AFJSONRequestOperation * operation;
   operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
   [request release];
   [operation start];
   [self.operationQueue addOperation:operation];
+}
+
+// Set HTTP Header for URL request
+- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request {
+  NSString * provider = [NSString stringWithFormat:@"%d",
+                         [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]];
+  [request setValue:@"123456" forHTTPHeaderField:@"key"];
+  [request setValue:provider forHTTPHeaderField:@"provider"];
+  [request setValue:self.oauth.userEmail forHTTPHeaderField:@"identity"];
 }
 
 // Callback for method:|loginWith:|
@@ -392,14 +380,12 @@ static OAuthManager * oauthManager_ = nil;
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, id))success
              failure:(void (^)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id))failure {
-  OAuthServiceProviderChoice provider =
-    [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
-  
   // Fetch data for Trainer
   if (target & kDataFetchTargetTrainer) {
-    NSLog(@"RequestURL: %@", [ServerAPI getUserWithProvider:provider identity:self.oauth.userEmail]);
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getUserWithProvider:provider
-                                                                                     identity:self.oauth.userEmail]];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getUser]];
+    [self setHTTPHeaderForRequest:request];
+    [request setHTTPMethod:@"GET"];
+    NSLog(@"Request URL:%@ --- HTTPHeader:%@", [ServerAPI getUser], [request allHTTPHeaderFields]);
     AFJSONRequestOperation * operation;
     operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
     [request release];
@@ -408,9 +394,10 @@ static OAuthManager * oauthManager_ = nil;
   }
   // Fetch data for Trainer's Pokedex
   if (target & kDataFetchTargetTamedPokemon) {
-    NSLog(@"RequestURL: %@", [ServerAPI getPokedexWithProvider:provider identity:self.oauth.userEmail]);
-    NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[ServerAPI getPokedexWithProvider:provider
-                                                                                        identity:self.oauth.userEmail]];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getPokedex]];
+    [self setHTTPHeaderForRequest:request];
+    [request setHTTPMethod:@"GET"];
+    NSLog(@"Request URL:%@ --- HTTPHeader:%@", [ServerAPI getPokedex], [request allHTTPHeaderFields]);
     AFJSONRequestOperation * operation;
     operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
     [request release];
@@ -423,14 +410,15 @@ static OAuthManager * oauthManager_ = nil;
          forTarget:(DataFetchTarget)target
            success:(void (^)(AFHTTPRequestOperation *, id))success
            failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  OAuthServiceProviderChoice provider =
-    [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
-  
   // Update data for Trainer
   if (target & kDataFetchTargetTrainer) {
-    NSLog(@"RequestURL: %@", [ServerAPI updateUserWithProvider:provider identity:self.oauth.userEmail]);
-    AFHTTPClient * client =
-      [[AFHTTPClient alloc] initWithBaseURL:[ServerAPI updateUserWithProvider:provider identity:self.oauth.userEmail]];
+    AFHTTPClient * client = [[AFHTTPClient alloc] initWithBaseURL:[ServerAPI updateUser]];
+    [client setDefaultHeader:@"key" value:@"123456"];
+    NSString * provider = [NSString stringWithFormat:@"%d",
+                           [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]];
+    [client setDefaultHeader:@"provider" value:provider];
+    [client setDefaultHeader:@"identity" value:self.oauth.userEmail];
+    NSLog(@"Request URL:%@ --- HTTPHeader: key:%@", [ServerAPI updateUser], [client defaultValueForHeader:@"key"]);
     [client postPath:nil parameters:data success:success failure:failure];
     [client release];
   }
