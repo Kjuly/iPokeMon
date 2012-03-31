@@ -15,6 +15,7 @@
 #import "OAuthManager.h"
 #import "AFJSONRequestOperation.h"
 
+
 @implementation Trainer (DataController)
 
 // Update Data
@@ -86,6 +87,47 @@
   // Fetch data from server & populate the data for Tainer
   [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:blockPopulateData failure:blockError];
   return true;
+}
+
+// Sync data between Client & Server
++ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag {
+  Trainer * trainer = [self queryTrainerWithTrainerID:userID];
+  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+  if (! (flag & kDataModifyTrainer))
+    return;
+  
+  if (flag & kDataModifyTrainerName)        [data setValue:trainer.name          forKey:@"name"];
+  if (flag & kDataModifyTrainerMoney)       [data setValue:trainer.money         forKey:@"money"];
+  if (flag & kDataModifyTrainerBadges)      [data setValue:nil                   forKey:@"badges"];
+  if (flag & kDataModifyTrainerPokedex)     [data setValue:trainer.pokedex       forKey:@"pokedex"];
+  if (flag & kDataModifyTrainerSixPokemons) [data setValue:trainer.sixPokemonsID forKey:@"sixPokemons"];
+  if (flag & kDataModifyTrainerBag) {
+    NSMutableString * bag = [NSMutableString string];
+    [bag stringByAppendingString:trainer.bagItems];
+    [bag stringByAppendingString:trainer.bagMedicineStatus];
+    [bag stringByAppendingString:trainer.bagMedicineHP];
+    [bag stringByAppendingString:trainer.bagMedicinePP];
+    [bag stringByAppendingString:trainer.bagPokeballs];
+    [bag stringByAppendingString:trainer.bagTMsHMs];
+    [bag stringByAppendingString:trainer.bagBerries];
+    [bag stringByAppendingString:trainer.bagBattleItems];
+    [bag stringByAppendingString:trainer.bagKeyItems];
+    [data setValue:bag forKey:@"bag"];
+  }
+  
+  void (^success)(AFHTTPRequestOperation *, id) =
+    ^(AFHTTPRequestOperation *operation, id responseObject) {
+      NSLog(@"...Sync |%@| data done...", [self class]);
+    };
+  
+  void (^failure)(AFHTTPRequestOperation *, NSError *) =
+    ^(AFHTTPRequestOperation *operation, NSError *error) {
+      NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+    };
+  
+  NSLog(@"Sync Data:%@", data);
+  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+  [data release];
 }
 
 // Add new Entity Data

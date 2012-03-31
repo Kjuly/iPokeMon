@@ -14,6 +14,7 @@
 #import "OAuthManager.h"
 //#import "AFJSONRequestOperation.h"
 
+
 @implementation TrainerTamedPokemon (DataController)
 
 // Update |TrainerTamedPokemon|
@@ -98,6 +99,43 @@
   // Fetch data from server & populate the |teamedPokemon|
   [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:blockPopulateData failure:blockError];
   return true;
+}
+
+// Sync data between Client & Server
++ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag {
+  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithID:1];
+  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+  if (! (flag & kDataModifyTamedPokemon))
+    return;
+  
+  if (flag & kDataModifyTamedPokemonBasic) {
+    [data setValue:pokemon.status forKey:@"status"];
+    [data setValue:pokemon.happiness forKey:@"happiness"];
+    [data setValue:pokemon.level forKey:@"level"];
+    [data setValue:pokemon.fourMoves forKey:@"fourMoves"];
+    [data setValue:pokemon.maxStats forKey:@"maxStats"];
+    [data setValue:pokemon.currHP forKey:@"currHP"];
+    [data setValue:pokemon.currEXP forKey:@"currEXP"];
+    [data setValue:pokemon.toNextLevel forKey:@"toNextLevel"];
+  }
+  if (flag & kDataModifyTamedPokemonExtra) {
+    [data setValue:pokemon.box forKey:@"box"];
+    [data setValue:pokemon.memo forKey:@"memo"];
+  }
+  
+  void (^success)(AFHTTPRequestOperation *, id) =
+    ^(AFHTTPRequestOperation *operation, id responseObject) {
+      NSLog(@"...Sync |%@| data done...", [self class]);
+    };
+  
+  void (^failure)(AFHTTPRequestOperation *, NSError *) =
+    ^(AFHTTPRequestOperation *operation, NSError *error) {
+      NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+    };
+  
+  NSLog(@"Sync Data:%@", data);
+  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+  [data release];
 }
 
 // Get Six Pokemons that trainer brought

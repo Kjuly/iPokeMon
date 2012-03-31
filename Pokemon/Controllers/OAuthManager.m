@@ -410,16 +410,16 @@ static OAuthManager * oauthManager_ = nil;
          forTarget:(DataFetchTarget)target
            success:(void (^)(AFHTTPRequestOperation *, id))success
            failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+  NSString * provider = [NSString stringWithFormat:@"%d",
+                         [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]];
   // Update data for Trainer
   if (target & kDataFetchTargetTrainer) {
     AFHTTPClient * client = [[AFHTTPClient alloc] initWithBaseURL:[ServerAPI updateUser]];
-    [client setDefaultHeader:@"key" value:@"123456"];
-    NSString * provider = [NSString stringWithFormat:@"%d",
-                           [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]];
+    [client setDefaultHeader:@"key"      value:@"123456"];
     [client setDefaultHeader:@"provider" value:provider];
     [client setDefaultHeader:@"identity" value:self.oauth.userEmail];
-    NSLog(@"Request URL:%@ --- HTTPHeader: key:%@", [ServerAPI updateUser], [client defaultValueForHeader:@"key"]);
-    [client postPath:nil parameters:data success:success failure:failure];
+    NSLog(@"Sync Data Request - clientDescription:%@", [client description]);
+    [client postPath:@"" parameters:data success:success failure:failure];
     [client release];
   }
 }

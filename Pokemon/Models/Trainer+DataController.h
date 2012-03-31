@@ -8,9 +8,12 @@
 
 #import "Trainer.h"
 
+#import "GlobalConstants.h"
+
 @interface Trainer (DataController)
 
 + (BOOL)initWithUserID:(NSInteger)userID;
++ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag; // Sync data between Client & Server
 + (void)addData;
 + (NSArray *)queryAllData;
 + (Trainer *)queryTrainerWithTrainerID:(NSInteger)trainerID;

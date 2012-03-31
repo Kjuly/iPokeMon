@@ -15,22 +15,25 @@
 
 @interface TrainerCoreDataController () {
  @private
-  BOOL        isInitialized_;     // Is initialized for current user
-  NSInteger   userID_;            // User ID, same as Trainer UID
-  Trainer   * entityTrainer_;     // Trainer
-  NSArray   * entitySixPokemons_; // SixPokemons
+  BOOL             isInitialized_;     // Is initialized for current user
+  DataModifyFlag   flag_;              // Data modify flag
+  NSInteger        userID_;            // User ID, same as Trainer UID
+  Trainer        * entityTrainer_;     // Trainer
+  NSArray        * entitySixPokemons_; // SixPokemons
 }
 
-@property (nonatomic, assign) BOOL        isInitialized;
-@property (nonatomic, assign) NSInteger   userID;
-@property (nonatomic, retain) Trainer   * entityTrainer;
-@property (nonatomic, retain) NSArray   * entitySixPokemons;
+@property (nonatomic, assign) BOOL             isInitialized;
+@property (nonatomic, assign) DataModifyFlag   flag;
+@property (nonatomic, assign) NSInteger        userID;
+@property (nonatomic, retain) Trainer        * entityTrainer;
+@property (nonatomic, retain) NSArray        * entitySixPokemons;
 
 @end
 
 @implementation TrainerCoreDataController
 
 @synthesize isInitialized     = isInitialized_;
+@synthesize flag              = flag_;
 @synthesize userID            = userID_;
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
@@ -70,6 +73,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 - (id)init {
   if (self = [super init]) {
     isInitialized_ = NO;
+    flag_          = 0;
   }
   return self;
 }
@@ -85,14 +89,23 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 
 // Sync data between Client & Server
 - (void)sync {
-  // If Client data is not initialzied, do it
-  if (! self.isInitialized) {
+  // If Client data has initialzied, just do sync
+  if (self.isInitialized) {
+    NSLog(@"Sync.......");
+//    [Trainer             syncWithUserID:self.userID flag:(1111 << 0)];
+    [Trainer             syncWithUserID:self.userID flag:self.flag];
+    [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
+    
+    [WildPokemon updateDataForCurrentRegion:self.userID];
+  }
+  // Client data has not initialzied, so initialize it
+  else {
+    NSLog(@"Init......");
     [Trainer             initWithUserID:self.userID];
     [TrainerTamedPokemon initWithUserID:self.userID];
     self.isInitialized = YES;
   }
-  // Sync data...
-  [WildPokemon updateDataForCurrentRegion:self.userID];
+  
 }
 
 // Trainer's basic data
