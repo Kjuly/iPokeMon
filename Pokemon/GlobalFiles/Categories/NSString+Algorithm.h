@@ -1,5 +1,5 @@
 //
-//  NSString+Encrypt.h
+//  NSString+Algorithm.h
 //  Pokemon
 //
 //  Created by Kaijie Yu on 3/31/12.
@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (Encrypt)
+@interface NSString (Algorithm)
 
 - (NSString *)encrypt;
+- (NSString *)toMD5;
 
 @end

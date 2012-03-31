@@ -1,19 +1,25 @@
 //
-//  NSString+Encrypt.m
+//  NSString+Algorithm.m
 //  Pokemon
 //
 //  Created by Kaijie Yu on 3/31/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "NSString+Encrypt.h"
+#import "NSString+Algorithm.h"
 
 #import <CommonCrypto/CommonDigest.h>
 
-@implementation NSString (Encrypt)
+
+@implementation NSString (Algorithm)
 
 // Encrypt NSString with MD5
 - (NSString *)encrypt {
+  return [self toMD5];
+}
+
+// MD5
+- (NSString *)toMD5 {
   // Create pointer to the string as UTF8
   const char * ptr = [self UTF8String];
   
