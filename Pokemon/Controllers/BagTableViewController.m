@@ -167,14 +167,14 @@
 {
   NSInteger row = [indexPath row];
   if (row != 1) { // Not Bag Medicine, as it has three sub types
-    BagItemTableViewController * bagItemTableViewController
-    = [[BagItemTableViewController alloc] initWithBagItem:(1 << row)];
+    BagItemTableViewController * bagItemTableViewController =
+      [[BagItemTableViewController alloc] initWithBagItem:(1 << row)];
     [self.navigationController pushViewController:bagItemTableViewController animated:YES];
     [bagItemTableViewController release];
   }
   else {
-    BagMedicineTableViewController * bagMedicineTableViewController
-    = [[BagMedicineTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    BagMedicineTableViewController * bagMedicineTableViewController =
+      [[BagMedicineTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:bagMedicineTableViewController animated:YES];
     [bagMedicineTableViewController release];
   }

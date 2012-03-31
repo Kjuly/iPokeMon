@@ -14,14 +14,12 @@
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerCoreDataController.h"
-#import "GameTopViewController.h"
+//#import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
 #import "GameMenuSixPokemonsViewController.h"
 #import "GameMenuMoveViewController.h"
 #import "GameMenuBagViewController.h"
-
-#import <QuartzCore/QuartzCore.h>
 
 
 typedef enum {
@@ -490,7 +488,7 @@ typedef enum {
   [animations release];
   
   TrainerTamedPokemon * pokemon =
-  [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+    [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
   [self.pokemonImageView setImage:pokemon.pokemon.image];
   [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
   pokemon = nil;

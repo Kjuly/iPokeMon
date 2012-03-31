@@ -64,8 +64,6 @@
                     [NSNumber numberWithInt:0x0051],
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
-  
-//  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
   self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
 }
 

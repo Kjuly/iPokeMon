@@ -10,6 +10,7 @@
 
 #import "GlobalNotificationConstants.h"
 #import "OAuthManager.h"
+#import "Trainer+DataController.h"
 
 
 @interface TrainerCoreDataController () {
@@ -94,15 +95,13 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   [WildPokemon updateDataForCurrentRegion:self.userID];
 }
 
-// Return trainer entity
-- (Trainer *)trainer {
-  return self.entityTrainer;
-}
-
-// Return six Pokemons
-- (NSArray *)sixPokemons {
-  return self.entitySixPokemons;
-}
+// Trainer's basic data
+- (NSInteger) UID         {return [self.entityTrainer.sid intValue];}
+- (NSString *)name        {return self.entityTrainer.name;}
+- (NSInteger) money       {return [self.entityTrainer.money intValue];}
+- (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
+- (NSString *)pokedex     {return self.entityTrainer.pokedex;}
+- (NSArray *) sixPokemons {return self.entitySixPokemons;}
 
 // Return first Pokemon of six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix {

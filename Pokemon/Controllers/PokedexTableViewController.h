@@ -12,13 +12,11 @@
 
 @interface PokedexTableViewController : CustomTableViewController <NSFetchedResultsControllerDelegate>
 {
-  NSMutableArray * pokedexSequence_;
-  
+  NSMutableArray             * pokedexSequence_; 
   NSFetchedResultsController * fetchedResultsController_;
 }
 
-@property (nonatomic, copy) NSMutableArray * pokedexSequence;
-
+@property (nonatomic, copy)   NSMutableArray             * pokedexSequence;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
 @end

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Trainer;
+@class TrainerCoreDataController;
 
 @interface TrainerInfoViewController : UIViewController
 {
-  Trainer * trainer_;
+  TrainerCoreDataController * trainer_;
   
   UIImageView * imageView_;
   UIView  * IDView_;
@@ -29,7 +29,7 @@
   UILabel * adventureStartedTimeValue_;
 }
 
-@property (nonatomic, retain) Trainer * trainer;
+@property (nonatomic, retain) TrainerCoreDataController * trainer;
 
 @property (nonatomic, retain) UIImageView * imageView;
 @property (nonatomic, retain) UIView  * IDView;

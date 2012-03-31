@@ -127,8 +127,8 @@
   [self updateFourMoves];
   
   // Swipte to LEFT, close move view
-  UISwipeGestureRecognizer * swipeLeftGestureRecognizer
-  = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
+  UISwipeGestureRecognizer * swipeLeftGestureRecognizer =
+    [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
   self.swipeLeftGestureRecognizer = swipeLeftGestureRecognizer;
   [swipeLeftGestureRecognizer release];
   [self.swipeLeftGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];

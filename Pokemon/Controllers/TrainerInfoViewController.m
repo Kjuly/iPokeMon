@@ -8,10 +8,10 @@
 
 #import "TrainerInfoViewController.h"
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "GlobalRender.h"
-#import "Trainer+DataController.h"
+#import "TrainerCoreDataController.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation TrainerInfoViewController
@@ -36,7 +36,7 @@
 {
   [super dealloc];
   
-  [trainer_ release];
+  self.trainer = nil;
   
   [imageView_ release];
   [IDView_ release];
@@ -58,7 +58,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    self.trainer = [Trainer queryTrainerWithTrainerID:1];
+    self.trainer = [TrainerCoreDataController sharedInstance];
   }
   return self;
 }
@@ -208,7 +208,7 @@
   [super viewDidLoad];
   
   [self.imageView setImage:[UIImage imageNamed:@"UserAvatar.png"]];
-  [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer.sid intValue]]];
+  [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
   [self.adventureStartedTimeLabel setText:NSLocalizedString(@"PMSLabelAdventureStarted", nil)];
@@ -218,23 +218,21 @@
 {
   [super viewWillAppear:animated];
   
-  // Update |trainer_|'s data
-  self.trainer = [Trainer queryTrainerWithTrainerID:1];
-  
   // Set new data
   [self.nameLabel setText:self.trainer.name];
   [self.nameLabel sizeToFit];
-  [self.moneyValue setText:[NSString stringWithFormat:@"$ %d", [self.trainer.money intValue]]];
+  [self.moneyValue setText:[NSString stringWithFormat:@"$ %d", [self.trainer money]]];
   
-  NSArray * tamedPokemonSeq = [self.trainer.pokedex componentsSeparatedByString:@"1"];
-  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", [tamedPokemonSeq count] - 1]];
+  NSArray * tamedPokemonSeq = [[self.trainer pokedex] componentsSeparatedByString:@"1"];
+  NSInteger pokedexValue = [tamedPokemonSeq count] >= 1 ? [tamedPokemonSeq count] - 1 : 0;
+  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", pokedexValue]];
   tamedPokemonSeq = nil;
   
   [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];
   [self.badgesValue  setText:@"123"];
   NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
   [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
-  [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:self.trainer.adventureStarted]];
+  [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:[self.trainer timeStarted]]];
   [dateFormat release];
 }
 

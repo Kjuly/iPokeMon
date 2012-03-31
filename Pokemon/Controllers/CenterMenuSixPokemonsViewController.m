@@ -9,8 +9,7 @@
 #import "CenterMenuSixPokemonsViewController.h"
 
 #import "GlobalNotificationConstants.h"
-#import "TrainerTamedPokemon+DataController.h"
-#import "Pokemon.h"
+#import "TrainerCoreDataController.h"
 #import "SixPokemonsDetailTabViewController.h"
 
 
@@ -56,7 +55,7 @@
 {
   [super viewDidLoad];
   
-  self.sixPokemons = [TrainerTamedPokemon sixPokemonsForTrainer:1];
+  self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
 }
 
 - (void)viewDidUnload
@@ -92,8 +91,8 @@
   
   // Load Pokemon's detail information view
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
-  [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons
-                                                               objectAtIndex:((UIButton *)sender).tag - 1]];
+    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:
+      [self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]];
   [self pushViewController:sixPokemonsDetailTabViewController];
   [sixPokemonsDetailTabViewController release];
   

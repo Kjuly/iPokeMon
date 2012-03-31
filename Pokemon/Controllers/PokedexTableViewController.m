@@ -11,7 +11,7 @@
 #import "GlobalRender.h"
 #import "PListParser.h"
 #import "DataDecoder.h"
-#import "Pokemon.h"
+#import "TrainerCoreDataController.h"
 #import "PokedexTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
@@ -27,16 +27,14 @@
 
 @implementation PokedexTableViewController
 
-@synthesize pokedexSequence = pokedexSequence_;
-
+@synthesize pokedexSequence          = pokedexSequence_;
 @synthesize fetchedResultsController = fetchedResultsController_;
 
 - (void)dealloc
 {
   [pokedexSequence_ release];
-  
   self.fetchedResultsController.delegate = nil;
-  self.fetchedResultsController = nil;
+  self.fetchedResultsController          = nil;
   
   [super dealloc];
 }
@@ -77,14 +75,14 @@
   // Fetch data from web service
   NSString * dataFromWebService = @"2db7aab7";
   self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
+//  self.pokedexSequence = [[[TrainerCoreDataController sharedInstance] pokedex] mutableCopy];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
 
-  self.pokedexSequence = nil;
-  
+  self.pokedexSequence          = nil;
   self.fetchedResultsController = nil;
 }
 

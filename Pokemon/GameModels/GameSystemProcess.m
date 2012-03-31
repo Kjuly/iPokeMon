@@ -11,7 +11,6 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "TrainerCoreDataController.h"
-//#import "TrainerTamedPokemon+DataController.h"
 #import "WildPokemon+DataController.h"
 #import "Move.h"
 

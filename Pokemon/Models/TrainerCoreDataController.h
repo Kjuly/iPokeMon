@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Trainer+DataController.h"
 #import "TrainerTamedPokemon+DataController.h"
 #import "WildPokemon+DataController.h"
 #import "BagDataController.h"
@@ -17,17 +16,20 @@
 @interface TrainerCoreDataController : NSObject
 
 + (TrainerCoreDataController *)sharedInstance;
-
 - (void)initTrainerWithUserID:(NSInteger)userID;
 
 // Sync data between Client & Server
 - (void)sync;
 
-// Get Trainer's Data
-- (Trainer *)trainer;
-- (NSArray *)sixPokemons;
-- (TrainerTamedPokemon *)firstPokemonOfSix;
-- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index;
-- (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;
+// Trainer's Data
+- (NSInteger)UID;                                              // UID
+- (NSString *)name;                                            // Name
+- (NSInteger)money;                                            // Money
+- (NSDate *)timeStarted;                                       // Adventured Time Started
+- (NSString *)pokedex;                                         // Pokedex
+- (NSArray *)sixPokemons;                                      // Six Pokemons
+- (TrainerTamedPokemon *)firstPokemonOfSix;                    // First of Six Pokemons
+- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index; // Pokemon at |index| of Six Pokemons
+- (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;       // Bag Items
 
 @end
