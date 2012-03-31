@@ -81,17 +81,15 @@
   // Constants
   CGFloat const imageHeight       = 100.f;
   CGFloat const imageWidth        = 100.f;
-  
   CGFloat const labelHeight       = 30.f;
   CGFloat const labelWidth        = 105.f;
   CGFloat const valueHeight       = 30.f;
-  CGFloat const valueWidth        = 300.f - labelWidth;
-  
-  CGFloat const nameLabelWidth    = 300.f - imageWidth;
+  CGFloat const valueWidth        = 290.f - labelWidth;
+  CGFloat const nameLabelWidth    = 290.f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
-  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 25.f, 30.f, 300.f - imageWidth, imageHeight - 50.f);
-  CGRect  const dataViewFrame     = CGRectMake(10.f, imageHeight + 35.f, 300.f, 195.f);
+  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
+  CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
   CGRect  const adventureStartedTimeLabelFrame =
     CGRectMake(0.f, dataViewFrame.size.height - labelHeight, 170.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
@@ -99,7 +97,7 @@
   
   
   ///Left Image View
-  imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(10.f, 20.f, imageWidth, imageHeight)];
+  imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(15.f, 20.f, imageWidth, imageHeight)];
   [imageView_ setUserInteractionEnabled:YES];
   [imageView_ setContentMode:UIViewContentModeCenter];
   [imageView_ setBackgroundColor:[UIColor clearColor]];

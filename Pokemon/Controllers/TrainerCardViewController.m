@@ -29,18 +29,16 @@
     TrainerInfoViewController        * trainerInfoViewController        = [[TrainerInfoViewController alloc] init];
     TrainerBadgesTableViewController * trainerBadgesTableViewController = [[TrainerBadgesTableViewController alloc] init];
     
-    CGRect childViewFrame = CGRectMake(0.f, kTopBarHeight, 320.f, 480.f - kTopBarHeight);
-    [trainerInfoViewController.view setFrame:childViewFrame];
-    childViewFrame.size.height -= 60.f;
+    CGRect childViewFrame = CGRectMake(0.f, kTopBarHeight, kViewWidth, kViewHeight - kTopBarHeight);
+    [trainerInfoViewController.view        setFrame:childViewFrame];
     [trainerBadgesTableViewController.view setFrame:childViewFrame];
     
-    self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:
-                         @"TrainerCardTabIcon_Info.png",   @"image", trainerInfoViewController,        @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:
-                         @"TrainerCardTabIcon_Badges.png", @"image", trainerBadgesTableViewController, @"viewController", nil],
-                        nil];
-    
+    self.tabBarItems =
+      [NSArray arrayWithObjects:
+        [NSDictionary dictionaryWithObjectsAndKeys:@"TrainerCardTabIcon_Info.png",   @"image",
+                                                   trainerInfoViewController,        @"viewController", nil],
+        [NSDictionary dictionaryWithObjectsAndKeys:@"TrainerCardTabIcon_Badges.png", @"image",
+                                                   trainerBadgesTableViewController, @"viewController", nil], nil];
     [trainerInfoViewController   release];
     [trainerBadgesTableViewController release];
   }
