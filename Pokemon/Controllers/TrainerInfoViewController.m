@@ -138,6 +138,8 @@ typedef enum {
   
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
+  CGRect  const IDLabelFrame      = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
+  CGRect  const nameLabelFrame    = CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight);
   CGRect  const adventureStartedTimeLabelFrame =
     CGRectMake(0.f, dataViewFrame.size.height - labelHeight * 2, 150.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
@@ -158,7 +160,7 @@ typedef enum {
   IDView_ = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
-  IDLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, IDView_.frame.size.width, labelHeight)];
+  IDLabel_ = [[UILabel alloc] initWithFrame:IDLabelFrame];
   [IDLabel_ setBackgroundColor:[UIColor clearColor]];
   [IDLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
   [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
@@ -169,7 +171,7 @@ typedef enum {
   [IDView_ addSubview:IDLabel_];
   
   // Name
-  nameLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight)];
+  nameLabel_ = [[UILabel alloc] initWithFrame:nameLabelFrame];
   [nameLabel_ setBackgroundColor:[UIColor clearColor]];
   [nameLabel_ setLineBreakMode:UILineBreakModeWordWrap];
   [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
@@ -444,6 +446,9 @@ typedef enum {
         [self.nameSettingField setKeyboardType:UIKeyboardTypeDefault];
       }
       [self.settingView addSubview:self.nameSettingField];
+      // Set |nameLabel_.text| as the default text for |nameSettingField_|,
+      //   and show Keyboard
+      self.nameSettingField.text = self.nameLabel.text;
       [self.nameSettingField becomeFirstResponder];
       break;
     }
@@ -470,10 +475,21 @@ typedef enum {
 
 // Commit settings done by user
 - (void)commitSetting {
-  NSLog(@"InputText:%@", self.nameSettingField.text);
-  [self.trainer setName:self.nameSettingField.text];
-  [self.nameLabel setText:[self.trainer name]];
-  [self.nameLabel sizeToFit];
+  NSLog(@"|commitSetting| - InputText:%@", self.nameSettingField.text);
+  // If user changed name, reset |trainer_.name| & |nameLabel_.text|
+  if (! [self.nameSettingField.text isEqualToString:self.nameLabel.text]) {
+    NSLog(@"|commitSetting| - User name changed, do sync work...");
+    [self.trainer setName:self.nameSettingField.text];
+    
+    CGFloat const imageSize       = 100.f;
+    CGFloat const labelHeight     = 30.f;
+    CGFloat const nameLabelWidth  = 290.f - imageSize;
+    CGFloat const nameLabelHeight = imageSize / 2 - labelHeight;
+    CGRect  const nameLabelFrame  = CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight);
+    [self.nameLabel setFrame:nameLabelFrame];
+    [self.nameLabel setText:[self.trainer name]];
+    [self.nameLabel sizeToFit];
+  }
   [self cancelSettingViewAnimated:YES];
 }
 
