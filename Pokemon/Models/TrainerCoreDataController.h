@@ -34,4 +34,7 @@
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index; // Pokemon at |index| of Six Pokemons
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;       // Bag Items
 
+// Setting
+- (void)setName:(NSString *)name; // Set trainer name
+
 @end

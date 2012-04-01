@@ -105,7 +105,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
     [TrainerTamedPokemon initWithUserID:self.userID];
     self.isInitialized = YES;
   }
-  
+  self.flag = 0;
 }
 
 // Trainer's basic data
@@ -148,6 +148,14 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   else if (targetType & kBagQueryTargetTypeBattleItem) return self.entityTrainer.bagBattleItems;
   else if (targetType & kBagQueryTargetTypeKeyItem)    return self.entityTrainer.bagKeyItems;
   else return nil;
+}
+
+#pragma mark - Settings
+
+- (void)setName:(NSString *)name {
+  self.entityTrainer.name = name;
+  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
+  [self sync];
 }
 
 @end

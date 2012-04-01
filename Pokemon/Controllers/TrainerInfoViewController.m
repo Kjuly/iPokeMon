@@ -471,6 +471,9 @@ typedef enum {
 // Commit settings done by user
 - (void)commitSetting {
   NSLog(@"InputText:%@", self.nameSettingField.text);
+  [self.trainer setName:self.nameSettingField.text];
+  [self.nameLabel setText:[self.trainer name]];
+  [self.nameLabel sizeToFit];
   [self cancelSettingViewAnimated:YES];
 }
 
