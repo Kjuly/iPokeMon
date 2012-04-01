@@ -85,6 +85,8 @@
 		7F2FA20114FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2FA1FF14FD2BD1006006C8 /* MainViewMapButtonImageHalfCancel@2x.png */; };
 		7F2FA44C14ECCC670077C4E0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F2FA44B14ECCC670077C4E0 /* libsqlite3.dylib */; };
 		7F2FA49114ED2F670077C4E0 /* Trainer+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */; };
+		7F37216E15283A10007D9A00 /* IconSettingModify.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F37216C15283A10007D9A00 /* IconSettingModify.png */; };
+		7F37216F15283A10007D9A00 /* IconSettingModify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */; };
 		7F3F7A8414FB573C005E554E /* TrainerCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */; };
 		7F3F7AC414FB69E5005E554E /* GameAbstractPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7AC314FB69E5005E554E /* GameAbstractPokemon.m */; };
 		7F3F7ACD14FB7EB0005E554E /* GamePokemonHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F7ACC14FB7EB0005E554E /* GamePokemonHPBar.m */; };
@@ -918,6 +920,8 @@
 		7F2FA44B14ECCC670077C4E0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		7F2FA48F14ED2F670077C4E0 /* Trainer+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Trainer+DataController.h"; sourceTree = "<group>"; };
 		7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Trainer+DataController.m"; sourceTree = "<group>"; };
+		7F37216C15283A10007D9A00 /* IconSettingModify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconSettingModify.png; sourceTree = "<group>"; };
+		7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconSettingModify@2x.png"; sourceTree = "<group>"; };
 		7F3F7A7F14FB53EB005E554E /* TrainerCoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCoreDataController.h; sourceTree = "<group>"; };
 		7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCoreDataController.m; sourceTree = "<group>"; };
 		7F3F7AC214FB69E5005E554E /* GameAbstractPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAbstractPokemon.h; sourceTree = "<group>"; };
@@ -2988,6 +2992,8 @@
 		7FA1D86A15035DC700E0D2F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7F37216C15283A10007D9A00 /* IconSettingModify.png */,
+				7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */,
 				7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */,
 				7F6C19321517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png */,
 				7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */,
@@ -3962,6 +3968,8 @@
 				7F09A9EE1521786100D4F5DB /* GTMOAuth2ViewTouch.xib in Resources */,
 				7F09AA28152178B200D4F5DB /* ReleaseNotes.txt in Resources */,
 				7F09AA34152178B200D4F5DB /* UnitTests-Info.plist in Resources */,
+				7F37216E15283A10007D9A00 /* IconSettingModify.png in Resources */,
+				7F37216F15283A10007D9A00 /* IconSettingModify@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

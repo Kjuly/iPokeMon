@@ -14,6 +14,11 @@
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 
+typedef enum {
+ kTrainerInfoSettingButtonTypeName   = 100,
+ kTrainerInfoSettingButtonTypeAvatar 
+}TrainerInfoSettingButtonType;
+
 
 @interface TrainerInfoViewController () {
  @private
@@ -21,15 +26,24 @@
   BOOL                     isSetttingButtonsHidden_;
   UIButton               * avatarSetttingButton_;
   UIButton               * nameSettingButton_;
+  UIView                 * settingView_;
+  UITextField            * nameSettingField_;
+  UIView                 * transparentView_;
 }
 
 @property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 @property (nonatomic, assign) BOOL                     isSetttingButtonsHidden;
 @property (nonatomic, retain) UIButton               * avatarSetttingButton;
 @property (nonatomic, retain) UIButton               * nameSettingButton;
+@property (nonatomic, retain) UIView                 * settingView;
+@property (nonatomic, retain) UITextField            * nameSettingField;
+@property (nonatomic, retain) UIView                 * transparentView;
 
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
 - (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)showSettingView:(id)sender;
+- (void)commitSetting;
+- (void)cancelSettingViewAnimated:(BOOL)animated;
 
 @end
 
@@ -55,6 +69,9 @@
 @synthesize isSetttingButtonsHidden            = isSetttingButtonsHidden_;
 @synthesize avatarSetttingButton               = avatarSetttingButton_;
 @synthesize nameSettingButton                  = nameSettingButton_;
+@synthesize settingView                        = settingView_;
+@synthesize nameSettingField                   = nameSettingField_;
+@synthesize transparentView                    = transparentView_;
 
 - (void)dealloc
 {
@@ -79,6 +96,9 @@
   [twoFingersTwoTapsGestureRecognizer_ release];
   self.avatarSetttingButton = nil;
   self.nameSettingButton    = nil;
+  self.settingView          = nil;
+  self.nameSettingField     = nil;
+  self.transparentView      = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -297,6 +317,8 @@
   self.twoFingersTwoTapsGestureRecognizer = nil;
   self.avatarSetttingButton               = nil;
   self.nameSettingButton                  = nil;
+  self.settingView                        = nil;
+  self.transparentView                    = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -319,16 +341,22 @@
 - (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
   self.isSetttingButtonsHidden = hidden;
   
-  if (self.avatarSetttingButton == nil) {
+  /*if (self.avatarSetttingButton == nil) {
     CGRect avatarSetttingButtonFrame = self.imageView.frame;
     avatarSetttingButtonFrame.origin.x = 0;
     avatarSetttingButtonFrame.origin.y = 0;
     UIButton * avatarSetttingButton = [[UIButton alloc] initWithFrame:avatarSetttingButtonFrame];
     self.avatarSetttingButton = avatarSetttingButton;
     [avatarSetttingButton release];
-    [self.avatarSetttingButton setBackgroundColor:[UIColor grayColor]];
+    [self.avatarSetttingButton setAlpha:0.f];
+    [self.avatarSetttingButton setTag:kTrainerInfoSettingButtonTypeAvatar];
+    [self.avatarSetttingButton addTarget:self action:@selector(showSettingView:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.avatarSetttingButton];
-  }
+    
+    UIImageView * setableMarkView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSettingModify"]];
+    [self.avatarSetttingButton addSubview:setableMarkView];
+    [setableMarkView release];
+  }*/
   if (self.nameSettingButton == nil) {
     CGRect nameSettingButtonFrame = self.nameLabel.frame;
     nameSettingButtonFrame.origin.x = 0;
@@ -336,18 +364,133 @@
     UIButton * nameSettingButton = [[UIButton alloc] initWithFrame:nameSettingButtonFrame];
     self.nameSettingButton = nameSettingButton;
     [nameSettingButton release];
-    [self.nameSettingButton setBackgroundColor:[UIColor grayColor]];
+    [self.nameSettingButton setAlpha:0.f];
+    [self.nameSettingButton setTag:kTrainerInfoSettingButtonTypeName];
+    [self.nameSettingButton addTarget:self action:@selector(showSettingView:) forControlEvents:UIControlEventTouchUpInside];
     [self.nameLabel addSubview:self.nameSettingButton];
+    [self.nameLabel setUserInteractionEnabled:YES];
+    
+    UIImageView * setableMarkView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSettingModify"]];
+    [setableMarkView setFrame:CGRectMake(0.f, 0.f, 22.f, 22.f)];
+    [self.nameSettingButton addSubview:setableMarkView];
+    [setableMarkView release];
   }
   
   CGFloat alpha = hidden ? 0.f : 1.f;
-  void (^animations)() = ^{ [self.avatarSetttingButton setAlpha:alpha]; [self.nameLabel setAlpha:alpha]; };
+  void (^animations)() = ^{
+//    [self.avatarSetttingButton setAlpha:alpha];
+    [self.nameSettingButton    setAlpha:alpha];
+  };
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:animations
                                  completion:nil];
   else animations();
+}
+
+- (void)showSettingView:(id)sender {
+  if (self.transparentView == nil) {
+    UIView * transparentView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.transparentView = transparentView;
+    [transparentView release];
+    [self.transparentView setBackgroundColor:[UIColor blackColor]];
+    [self.transparentView setAlpha:0.f];
+    [self.view addSubview:self.transparentView];
+  }
+  if (self.settingView == nil) {
+    CGFloat buttonSize        = 45.f;
+    CGFloat settingViewHeight = 120.f;
+    CGRect settingViewFrame = CGRectMake(0.f, -settingViewHeight, kViewWidth, settingViewHeight);
+    CGRect settingViewBackgroundFrame = CGRectMake(0.f, 0.f, kViewWidth, settingViewHeight - buttonSize / 2);
+    CGRect doneButtonFrame   = CGRectMake(80.f, settingViewHeight - buttonSize, buttonSize, buttonSize);
+    CGRect cancelButtonFrame = CGRectMake(kViewWidth - 80.f - buttonSize, settingViewHeight - buttonSize, buttonSize, buttonSize);
+    
+    
+    UIView * settingView = [[UIView alloc] initWithFrame:settingViewFrame];
+    self.settingView = settingView;
+    [settingView release];
+    [self.view addSubview:self.settingView];
+    
+    UIView * settingViewBackground = [[UIView alloc] initWithFrame:settingViewBackgroundFrame];
+    [settingViewBackground setBackgroundColor:[GlobalRender colorBlue]];
+    [self.settingView addSubview:settingViewBackground];
+    [settingViewBackground release];
+    
+    UIButton * doneButton = [[UIButton alloc] initWithFrame:doneButtonFrame];
+    [doneButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"] forState:UIControlStateNormal];
+    [doneButton setImage:[UIImage imageNamed:@"ButtonIconConfirm.png"] forState:UIControlStateNormal];
+    [doneButton addTarget:self action:@selector(commitSetting) forControlEvents:UIControlEventTouchUpInside];
+    [self.settingView addSubview:doneButton];
+    [doneButton release];
+    
+    UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:@"ButtonIconCancel.png"] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [self.settingView addSubview:cancelButton];
+    [cancelButton release];
+  }
+  
+  switch (((UIButton *)sender).tag) {
+    case kTrainerInfoSettingButtonTypeName: {
+      NSLog(@"Commit Setting -> Name");
+      if (self.nameSettingField == nil) {
+        CGRect nameSettingFieldFrame = CGRectMake(10.f, 15.f, 300.f, 32.f);
+        UITextField * nameSettingField = [[UITextField alloc] initWithFrame:nameSettingFieldFrame];
+        self.nameSettingField = nameSettingField;
+        [self.nameSettingField release];
+        [self.nameSettingField setBackgroundColor:[UIColor whiteColor]];
+        [self.nameSettingField setKeyboardType:UIKeyboardTypeDefault];
+      }
+      [self.settingView addSubview:self.nameSettingField];
+      [self.nameSettingField becomeFirstResponder];
+      break;
+    }
+      
+    case kTrainerInfoSettingButtonTypeAvatar:
+      NSLog(@"Commit Setting -> Avatar");
+      break;
+      
+    default:
+      break;
+  }
+  
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     [self.transparentView setAlpha:.6f];
+                     CGRect settingViewFrame = self.settingView.frame;
+                     settingViewFrame.origin.y = 0.f;
+                     [self.settingView setFrame:settingViewFrame];
+                   }
+                   completion:nil];
+}
+
+// Commit settings done by user
+- (void)commitSetting {
+  NSLog(@"InputText:%@", self.nameSettingField.text);
+  [self cancelSettingViewAnimated:YES];
+}
+
+// Cancel |settingView_|
+- (void)cancelSettingViewAnimated:(BOOL)animated {
+  void (^animations)() = ^(){
+    CGRect settingViewFrame = self.settingView.frame;
+    settingViewFrame.origin.y = -settingViewFrame.size.height;
+    [self.settingView setFrame:settingViewFrame];
+    [self.transparentView setAlpha:0.f];
+  };
+  
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:nil];
+  else animations();
+  [self.nameSettingField removeFromSuperview];
+  [self.nameSettingField resignFirstResponder];
 }
 
 @end
