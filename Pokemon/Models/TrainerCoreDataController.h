@@ -20,6 +20,7 @@
 
 // Sync data between Client & Server
 - (void)sync;
+- (void)syncDoneWithFlag:(DataModifyFlag)flag;
 
 // Trainer's Data
 - (NSInteger)UID;                                              // UID

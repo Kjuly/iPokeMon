@@ -105,7 +105,21 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
     [TrainerTamedPokemon initWithUserID:self.userID];
     self.isInitialized = YES;
   }
-  self.flag = 0;
+}
+
+// Dispatch this method after Sync done
+// It can be dispatched in URL Request Callback method
+- (void)syncDoneWithFlag:(DataModifyFlag)flag {
+  self.flag -= flag;
+  
+  // If sync data for Trainer done, set all related flags to 0
+  if (flag & kDataModifyTrainer) {
+    self.flag &= (00000000 << 0);
+  }
+  // If sync data for Tamed Pokemon done, set all related flags to 0
+  if (flag & kDataModifyTamedPokemon) {
+    self.flag &= (000 << 8);
+  }
 }
 
 // Trainer's basic data

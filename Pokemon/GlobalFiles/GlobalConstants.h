@@ -41,10 +41,10 @@ typedef enum {
   kDataModifyTrainer                 = 1 << 0,  // Trainer
   kDataModifyTrainerName             = 1 << 1,
   kDataModifyTrainerMoney            = 1 << 2,
-  kDataModifyTrainerBadges           = 1 << 4,
-  kDataModifyTrainerPokedex          = 1 << 3,
-  kDataModifyTrainerSixPokemons      = 1 << 4,
-  kDataModifyTrainerBag              = 1 << 5,
+  kDataModifyTrainerBadges           = 1 << 3,
+  kDataModifyTrainerPokedex          = 1 << 4,
+  kDataModifyTrainerSixPokemons      = 1 << 5,
+  kDataModifyTrainerBag              = 1 << 6,
   kDataModifyTamedPokemon            = 1 << 8,  // Tamed Pokemon
   kDataModifyTamedPokemonBasic       = 1 << 9,  // For all except |box|, |memo|
   kDataModifyTamedPokemonExtra       = 1 << 10, // For |box|, |memo|
