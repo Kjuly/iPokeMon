@@ -111,12 +111,13 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 // Trainer's basic data
 - (NSInteger) UID         {return [self.entityTrainer.sid intValue];}
 - (NSString *)name        {return self.entityTrainer.name;}
-- (UIImage *) avatar      {return [[OAuthManager sharedInstance] avatar];}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
-- (NSInteger)numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
+- (NSInteger) numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
+// Avatar URL, asynchronously downloads the image with the specified url request object
+- (NSURL *)   avatarURL   {return [[OAuthManager sharedInstance] avatarURL];}
 
 // Return first Pokemon of six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix {

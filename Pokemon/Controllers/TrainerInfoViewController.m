@@ -11,6 +11,7 @@
 #import "GlobalRender.h"
 #import "TrainerCoreDataController.h"
 
+#import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -235,7 +236,8 @@
   // Basic Setting
   isSetttingButtonsHidden_ = YES;
   
-  [self.imageView setImage:[self.trainer avatar]];
+  [self.imageView setImageWithURL:[self.trainer avatarURL]
+                 placeholderImage:[UIImage imageNamed:@"UserAvatar.png"]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];

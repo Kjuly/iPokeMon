@@ -42,7 +42,7 @@ typedef enum {
 - (BOOL)isSessionValid;                        // Session status for User
 - (OAuthServiceProviderChoice)serviceProvider; // Current service provider user using
 
-- (UIImage *)avatar;
+- (NSURL *)avatarURL;                          // Avatar URL (use Gravatar)
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
              failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;

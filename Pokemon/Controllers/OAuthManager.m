@@ -378,21 +378,12 @@ static OAuthManager * oauthManager_ = nil;
 
 #pragma mark - C/S Data Transfer Methods
 
-- (UIImage *)avatar {
-  NSString * email =
-    [[self.oauth.userEmail stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] lowercaseString];
-  NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100", [email toMD5]]];
-  
-  NSError * error;
-  NSData * avatarData = [NSData dataWithContentsOfURL:url
-                                              options:NSDataReadingUncached
-                                                error:&error];
-  // Return the image got from Gravatar
-  // If no data got, return a default image as the avatar
-  if (avatarData)
-    return [UIImage imageWithData:avatarData];
-  NSLog(@"!!!ERROR OAuthManager |avatar| ERROR:%@", error);
-  return [UIImage imageNamed:@"UserAvatar.png"];
+// Return URL for avatar (Gravatar)
+- (NSURL *)avatarURL {
+  return [NSURL URLWithString:
+          [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100",
+           [[[self.oauth.userEmail stringByTrimmingCharactersInSet:
+              [NSCharacterSet whitespaceCharacterSet]] lowercaseString] toMD5]]];
 }
 
 - (void)fetchDataFor:(DataFetchTarget)target
