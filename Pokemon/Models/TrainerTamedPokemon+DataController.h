@@ -14,7 +14,7 @@
 
 @interface TrainerTamedPokemon (DataController)
 
-+ (BOOL)initWithUserID:(NSInteger)userID;
++ (void)initWithUserID:(NSInteger)userID;
 + (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag; // Sync data between Client & Server
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;

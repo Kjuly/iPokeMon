@@ -17,13 +17,13 @@
 @implementation TrainerTamedPokemon (DataController)
 
 // Update |TrainerTamedPokemon|
-+ (BOOL)initWithUserID:(NSInteger)userID
-{
++ (void)initWithUserID:(NSInteger)userID {
+  if (userID <= 0) return;
+  
   // Success Block Method
-  void (^success)(AFHTTPRequestOperation *, id) =
-  ^(AFHTTPRequestOperation *operation, id JSON) {
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
     // Get JSON Data Array from HTTP Response
     if ([[JSON valueForKey:@"pokedex"] isKindOfClass:[NSNull class]]) {
@@ -32,7 +32,7 @@
     }
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pokedex"];
     
-    Trainer * trainer = [Trainer queryTrainerWithTrainerID:userID];
+    Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
     
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
@@ -89,16 +89,12 @@
   };
   
   // Failure Block Method
-  void (^failure)(AFHTTPRequestOperation *, NSError *) =
-  ^(AFHTTPRequestOperation *operation, NSError * error) {
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! ERROR: %@", error);
   };
   
-  
   // Fetch data from server & populate the |teamedPokemon|
   [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:success failure:failure];
-//  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:blockPopulateData failure:blockError];
-  return true;
 }
 
 // Sync data between Client & Server
@@ -123,22 +119,19 @@
     [data setValue:pokemon.memo forKey:@"memo"];
   }
   
-  void (^success)(AFHTTPRequestOperation *, id) =
-    ^(AFHTTPRequestOperation *operation, id responseObject) {
-      NSLog(@"...Sync |%@| data done...Reset FLAG_", [self class]);
-      // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
-      if ([[responseObject valueForKey:@"v"] intValue])
-        [[TrainerCoreDataController sharedInstance] syncDoneWithFlag:kDataModifyTamedPokemon];
-    };
-  
-  void (^failure)(AFHTTPRequestOperation *, NSError *) =
-    ^(AFHTTPRequestOperation *operation, NSError *error) {
-      NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
-    };
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Sync |%@| data done...Reset FLAG_", [self class]);
+    // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
+    if ([[responseObject valueForKey:@"v"] intValue])
+      [[TrainerCoreDataController sharedInstance] syncDoneWithFlag:kDataModifyTamedPokemon];
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+  };
   
   NSLog(@"Sync Data:%@", data);
   [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTamedPokemon success:success failure:failure];
-//  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
   [data release];
 }
 
@@ -152,8 +145,9 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %@ AND owner.sid == %@",
-                              [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
+//  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %@ AND owner.sid == %@",
+//                              [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %d AND owner.sid == %d", 3, trainerID]];
   [fetchRequest setFetchLimit:6];
   
   NSError * error;
@@ -191,8 +185,7 @@
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"status == %@ AND sid == %d",
-                             [NSNumber numberWithInt:3], pokemonID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"status == %d AND sid == %d", 3, pokemonID];
   [fetchRequest setPredicate:predicate];
   //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];

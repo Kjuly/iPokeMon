@@ -81,7 +81,7 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
   self.userID            = userID;
-  self.entityTrainer     = [Trainer queryTrainerWithTrainerID:self.userID];
+  self.entityTrainer     = [Trainer queryTrainerWithUserID:userID];
   self.entitySixPokemons = self.entityTrainer.sixPokemons;
 }
 
@@ -89,16 +89,17 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 
 // Sync data between Client & Server
 - (void)sync {
-  // If Client data has initialzied, just do sync
+  if (! self.userID) return;
+  
+  // C->S: If Client data has initialzied, just do sync Client to Server
   if (self.isInitialized) {
     NSLog(@"Sync.......");
 //    [Trainer             syncWithUserID:self.userID flag:(1111 << 0)];
     [Trainer             syncWithUserID:self.userID flag:self.flag];
     [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
-    
     [WildPokemon updateDataForCurrentRegion:self.userID];
   }
-  // Client data has not initialzied, so initialize it
+  // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
     NSLog(@"Init......");
     [Trainer             initWithUserID:self.userID];

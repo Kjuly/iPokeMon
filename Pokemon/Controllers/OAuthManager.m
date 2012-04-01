@@ -220,7 +220,9 @@ static OAuthManager * oauthManager_ = nil;
       self.isUserIDSynced = YES;
       NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
       NSLog(@"|syncUserID| - Get |userID| for current user succeed... userID:%d", userID);
-      [[TrainerCoreDataController sharedInstance] initTrainerWithUserID:userID];
+      TrainerCoreDataController * trainer = [TrainerCoreDataController sharedInstance];
+      [trainer initTrainerWithUserID:userID];
+      [trainer sync];
     };
   // Failure Block Method
   void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
@@ -288,7 +290,7 @@ static OAuthManager * oauthManager_ = nil;
     userDefaults = nil;
     
     // Current authticated User's ID (Trainer's |uid|)
-    [self syncUserID];
+//    [self syncUserID];
   }
 }
 

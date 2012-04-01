@@ -19,36 +19,24 @@
 @implementation Trainer (DataController)
 
 // Update Data
-+ (BOOL)initWithUserID:(NSInteger)userID
-{
-  // Fetch current User's Trainer Data
-  NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
-                                             inManagedObjectContext:managedObjectContext];
-  [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", userID];
-  [fetchRequest setPredicate:predicate];
-  //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
-  [fetchRequest setFetchLimit:1];
++ (void)initWithUserID:(NSInteger)userID {
+  if (userID <= 0) return;
   
-  NSError * error;
-  Trainer * trainer = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
-  
-  // If no Trainer Data for current User exists, insert new one
-  if (! trainer) {
-    NSLog(@"!!! No data for Trainer, insert new one");
-    trainer = nil;
-    trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                            inManagedObjectContext:managedObjectContext];
-  }
-  
-  ///Fetch Data from server & populate the |trainer|
+  ///Fetch Data from server & update the date for |trainer|
   // Success Block Method
-  void (^success)(AFHTTPRequestOperation *, id) =
-  ^(AFHTTPRequestOperation *operation, id JSON) {
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    // Get |trainer| entity with |userID|
+    // If failed (i.e. No data for current user), insert new one for user
+    Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
+    if (! trainer) {
+      NSLog(@"!!! No data for Trainer, insert new one");
+      trainer = nil;
+      trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                              inManagedObjectContext:managedObjectContext];
+    }
+    
     // Set data for |Trainer|
     trainer.sid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
     trainer.name              = [JSON valueForKey:@"name"];
@@ -79,20 +67,17 @@
   };
   
   // Failure Block Method
-  void (^failure)(AFHTTPRequestOperation *, NSError *) =
-  ^(AFHTTPRequestOperation *operation, NSError * error) {
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! |%@| data fetch ERROR: %@", [self class], error);
   };
   
   // Fetch data from server & populate the data for Tainer
   [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
-//  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:blockPopulateData failure:blockError];
-  return true;
 }
 
 // Sync data between Client & Server
 + (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag {
-  Trainer * trainer = [self queryTrainerWithTrainerID:userID];
+  Trainer * trainer = [self queryTrainerWithUserID:userID];
   NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   if (! (flag & kDataModifyTrainer))
     return;
@@ -116,22 +101,19 @@
     [data setValue:bag forKey:@"bag"];
   }
   
-  void (^success)(AFHTTPRequestOperation *, id) =
-    ^(AFHTTPRequestOperation *operation, id responseObject) {
-      NSLog(@"...Sync |%@| data done...Reset FLAG", [self class]);
-      // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
-      if ([[responseObject valueForKey:@"v"] intValue])
-        [[TrainerCoreDataController sharedInstance] syncDoneWithFlag:kDataModifyTrainer];
-    };
-  
-  void (^failure)(AFHTTPRequestOperation *, NSError *) =
-    ^(AFHTTPRequestOperation *operation, NSError *error) {
-      NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
-    };
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Sync |%@| data done...Reset FLAG", [self class]);
+    // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
+    if ([[responseObject valueForKey:@"v"] intValue])
+      [[TrainerCoreDataController sharedInstance] syncDoneWithFlag:kDataModifyTrainer];
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+  };
   
   NSLog(@"Sync Data:%@", data);
   [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
-//  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
   [data release];
 }
 
@@ -184,21 +166,20 @@
 }
 
 // Get current User's trainer data
-+ (Trainer *)queryTrainerWithTrainerID:(NSInteger)trainerID
-{
++ (Trainer *)queryTrainerWithUserID:(NSInteger)userID {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", trainerID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", userID];
   [fetchRequest setPredicate:predicate];
   [fetchRequest setFetchLimit:1];
   
   NSError * error;
-  Trainer * trainer = [[managedObjectContext executeFetchRequest:fetchRequest
-                                                                 error:&error] lastObject];
+  Trainer * trainer = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  NSLog(@"|queryTrainerWithUserID:%d| - Trainer:%@", userID, trainer);
   [fetchRequest release];
   
   return trainer;
