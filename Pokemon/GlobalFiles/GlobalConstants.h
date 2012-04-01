@@ -6,12 +6,17 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 // Device System Version Checking
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+// UserDefautls
+extern NSString * const kUserDefaultsLastUsedServiceProvider;
 
 // View Basic
 #define kViewHeight 460.f
@@ -142,3 +147,6 @@ typedef enum {
 #define kTabArrowImageTag   2394859
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345
+
+@interface GlobalConstants : NSObject
+@end

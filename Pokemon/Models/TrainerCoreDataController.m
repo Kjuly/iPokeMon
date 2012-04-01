@@ -117,7 +117,10 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
 - (NSInteger) numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
 // Avatar URL, asynchronously downloads the image with the specified url request object
-- (NSURL *)   avatarURL   {return [[OAuthManager sharedInstance] avatarURL];}
+- (NSURL *)   avatarURL   {
+  return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100",
+                               [[OAuthManager sharedInstance] userEmailInMD5]]];
+}
 
 // Return first Pokemon of six Pokemons
 - (TrainerTamedPokemon *)firstPokemonOfSix {

@@ -10,7 +10,6 @@
 
 #import "GTMOAuth2ViewControllerTouch.h"
 
-@class AFHTTPRequestOperation;
 
 typedef enum {
   kOAuthServiceProviderChoiceFacebook = 0,
@@ -21,34 +20,18 @@ typedef enum {
   kOAuthServiceProviderChoicesCount
 }OAuthServiceProviderChoice;
 
-typedef enum {
-  kDataFetchTargetTrainer      = 1 << 0,
-  kDataFetchTargetTamedPokemon = 1 << 1,
-  kDataFetchTargetWildPokemon  = 1 << 2,
-}DataFetchTarget;
-
-
-// Server API
-@interface ServerAPI : NSObject
-@end
 
 // OAuth Manager
 @interface OAuthManager : NSObject
 
 + (OAuthManager *)sharedInstance;
+
+- (BOOL)isSessionValid;                        // Session status for User
+- (NSString *)userEmailInMD5;                  // User Email in MD5
+- (OAuthServiceProviderChoice)serviceProvider; // Current service provider user using
+
 - (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider;
 - (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider;
 - (void)logout;
-- (BOOL)isSessionValid;                        // Session status for User
-- (OAuthServiceProviderChoice)serviceProvider; // Current service provider user using
-
-- (NSURL *)avatarURL;                          // Avatar URL (use Gravatar)
-- (void)fetchDataFor:(DataFetchTarget)target
-             success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
-             failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
-- (void)updateData:(NSDictionary *)data
-         forTarget:(DataFetchTarget)target
-           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end

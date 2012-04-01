@@ -8,11 +8,10 @@
 
 #import "Trainer+DataController.h"
 
-#import "PokemonServerAPI.h"
 #import "AppDelegate.h"
+#import "ServerAPIClient.h"
 #import "TrainerTamedPokemon+DataController.h"
 
-#import "OAuthManager.h"
 #import "AFJSONRequestOperation.h"
 
 
@@ -47,8 +46,8 @@
   
   ///Fetch Data from server & populate the |trainer|
   // Success Block Method
-  void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
-  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+  void (^success)(AFHTTPRequestOperation *, id) =
+  ^(AFHTTPRequestOperation *operation, id JSON) {
     // Set data for |Trainer|
     trainer.sid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
     trainer.name              = [JSON valueForKey:@"name"];
@@ -79,13 +78,14 @@
   };
   
   // Failure Block Method
-  void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
-  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+  void (^failure)(AFHTTPRequestOperation *, NSError *) =
+  ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! |%@| data fetch ERROR: %@", [self class], error);
   };
   
   // Fetch data from server & populate the data for Tainer
-  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:blockPopulateData failure:blockError];
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
+//  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:blockPopulateData failure:blockError];
   return true;
 }
 
@@ -126,7 +126,8 @@
     };
   
   NSLog(@"Sync Data:%@", data);
-  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+  [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+//  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
   [data release];
 }
 

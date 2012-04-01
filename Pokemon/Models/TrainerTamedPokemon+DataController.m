@@ -8,11 +8,9 @@
 
 #import "TrainerTamedPokemon+DataController.h"
 
-#import "PokemonServerAPI.h"
-#import "Trainer+DataController.h"
 #import "AppDelegate.h"
-#import "OAuthManager.h"
-//#import "AFJSONRequestOperation.h"
+#import "ServerAPIClient.h"
+#import "Trainer+DataController.h"
 
 
 @implementation TrainerTamedPokemon (DataController)
@@ -21,8 +19,8 @@
 + (BOOL)initWithUserID:(NSInteger)userID
 {
   // Success Block Method
-  void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
-  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
+  void (^success)(AFHTTPRequestOperation *, id) =
+  ^(AFHTTPRequestOperation *operation, id JSON) {
     NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
@@ -90,14 +88,15 @@
   };
   
   // Failure Block Method
-  void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
-  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+  void (^failure)(AFHTTPRequestOperation *, NSError *) =
+  ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! ERROR: %@", error);
   };
   
   
   // Fetch data from server & populate the |teamedPokemon|
-  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:blockPopulateData failure:blockError];
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:success failure:failure];
+//  [[OAuthManager sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:blockPopulateData failure:blockError];
   return true;
 }
 
@@ -134,7 +133,8 @@
     };
   
   NSLog(@"Sync Data:%@", data);
-  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+  [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTamedPokemon success:success failure:failure];
+//  [[OAuthManager sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
   [data release];
 }
 

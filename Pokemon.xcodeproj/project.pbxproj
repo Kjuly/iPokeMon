@@ -789,6 +789,8 @@
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
+		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
+		7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* GlobalConstants.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
 		7FFC96201517170A004D3D8F /* BagMedicineTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFC961E15171709004D3D8F /* BagMedicineTableViewCellBackground.png */; };
@@ -1836,6 +1838,9 @@
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
 		7FF4B3F614F629BF007B7E22 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		7FF4B3F714F629BF007B7E22 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
+		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
+		7FF56402152823E200BA5E28 /* GlobalConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalConstants.m; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
@@ -2437,6 +2442,8 @@
 				7F84C2B9151C617400E8D27E /* KeychainWrapper.m */,
 				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
+				7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */,
+				7FF56400152817AB00BA5E28 /* ServerAPIClient.m */,
 				7F09AA431521912E00D4F5DB /* OAuthManager.h */,
 				7F09AA441521912F00D4F5DB /* OAuthManager.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
@@ -2737,6 +2744,7 @@
 			isa = PBXGroup;
 			children = (
 				7F7C88FF14F755170023D079 /* GlobalConstants.h */,
+				7FF56402152823E200BA5E28 /* GlobalConstants.m */,
 				7F7C890014F755170023D079 /* GlobalNotificationConstants.h */,
 				7F7C890114F755170023D079 /* GlobalNotificationConstants.m */,
 				7F27D083152749A60092DD68 /* PokemonServerAPI.h */,
@@ -4217,6 +4225,8 @@
 				7F27D088152749A60092DD68 /* PokemonServerAPI.m in Sources */,
 				7F27D08E152749F30092DD68 /* PokemonConstants.m in Sources */,
 				7F27D09515274FAC0092DD68 /* NSString+Algorithm.m in Sources */,
+				7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */,
+				7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
