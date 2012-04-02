@@ -9,7 +9,7 @@
 #import "TrainerCardViewController.h"
 
 #import "GlobalRender.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
@@ -22,7 +22,7 @@ typedef enum {
 
 @interface TrainerCardViewController () {
  @private
-  TrainerCoreDataController * trainer_;
+  TrainerController * trainer_;
   UIView  * mainView_;
   UIImageView * imageView_;
   UIView  * IDView_;
@@ -47,7 +47,7 @@ typedef enum {
   UIView                 * transparentView_;
 }
 
-@property (nonatomic, retain) TrainerCoreDataController * trainer;
+@property (nonatomic, retain) TrainerController * trainer;
 @property (nonatomic, retain) UIView  * mainView;
 @property (nonatomic, retain) UIImageView * imageView;
 @property (nonatomic, retain) UIView  * IDView;
@@ -138,7 +138,7 @@ typedef enum {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    self.trainer = [TrainerCoreDataController sharedInstance];
+    self.trainer = [TrainerController sharedInstance];
   }
   return self;
 }

@@ -12,7 +12,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "PListParser.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
 #import "GameMenuSixPokemonsViewController.h"
@@ -92,7 +92,7 @@
 }
 
 - (void)setBagItem:(BagQueryTargetType)targetType {
-  self.items = [[[TrainerCoreDataController sharedInstance] bagItemsFor:targetType] mutableCopy];
+  self.items = [[[TrainerController sharedInstance] bagItemsFor:targetType] mutableCopy];
   self.targetType = targetType;
   
   if ([self.items count] <= 1)
@@ -387,7 +387,7 @@
   self.selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
   NSInteger selectedItemID       = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
   TrainerTamedPokemon * targetPokemon
-  = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:self.selectedPokemonIndex];
+  = [[TrainerController sharedInstance] pokemonOfSixAtIndex:self.selectedPokemonIndex];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType withID:selectedItemID];
   
   if (self.targetType & kBagQueryTargetTypeItem)              {}

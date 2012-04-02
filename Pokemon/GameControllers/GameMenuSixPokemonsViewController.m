@@ -11,7 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GameMenuSixPokemonsUnitView.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "SixPokemonsDetailTabViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -244,7 +244,7 @@
 - (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
   self.isForReplacing    = forReplacing;
   self.currBattlePokemon = forReplacing ? self.currBattlePokemon : 0;
-  self.sixPokemons       = [[TrainerCoreDataController sharedInstance] sixPokemons];
+  self.sixPokemons       = [[TrainerController sharedInstance] sixPokemons];
   CGFloat buttonSize     = 60.f;
   CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
   //

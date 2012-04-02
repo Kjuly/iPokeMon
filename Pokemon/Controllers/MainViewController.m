@@ -11,7 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "LoginTableViewController.h"
 #import "CustomNavigationController.h"
@@ -272,7 +272,7 @@
   // Session is checked at |TrainerCoreDataController|'s class method:|sharedInstance|,
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
-  [[TrainerCoreDataController sharedInstance] sync];
+  [[TrainerController sharedInstance] sync];
 }
 
 - (void)viewDidUnload
@@ -462,7 +462,7 @@
   else if (self.timeCounter <= 5) {
     if (! self.centerMenuSixPokemonsNavigationController) {
       if (! self.centerMenuSixPokemonsViewController) {
-        NSInteger numberOfSixPokemons = [[TrainerCoreDataController sharedInstance] numberOfSixPokemons];
+        NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
         CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController =
           [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:numberOfSixPokemons];
         self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;

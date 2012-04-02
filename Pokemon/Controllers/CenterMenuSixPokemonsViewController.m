@@ -9,7 +9,7 @@
 #import "CenterMenuSixPokemonsViewController.h"
 
 #import "GlobalNotificationConstants.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "SixPokemonsDetailTabViewController.h"
 
 
@@ -55,7 +55,7 @@
 {
   [super viewDidLoad];
   
-  self.sixPokemons = [[TrainerCoreDataController sharedInstance] sixPokemons];
+  self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
 }
 
 - (void)viewDidUnload

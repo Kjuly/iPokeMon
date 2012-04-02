@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 
 #import "GlobalNotificationConstants.h"
 #import "OAuthManager.h"
 #import "Trainer+DataController.h"
 
 
-@interface TrainerCoreDataController () {
+@interface TrainerController () {
  @private
   BOOL             isInitialized_;     // Is initialized for current user
   DataModifyFlag   flag_;              // Data modify flag
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation TrainerCoreDataController
+@implementation TrainerController
 
 @synthesize isInitialized     = isInitialized_;
 @synthesize flag              = flag_;
@@ -38,10 +38,10 @@
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
 
-static TrainerCoreDataController * trainerCoreDataController = nil;
+static TrainerController * trainerController = nil;
 
 // Singleton
-+ (TrainerCoreDataController *)sharedInstance {
++ (TrainerController *)sharedInstance {
   // Check Session first,
   //   if it's not valid, post notification to |MainViewController| to show login view & return nil
   if (! [[OAuthManager sharedInstance] isSessionValid]) {
@@ -49,14 +49,14 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
     return nil;
   }
   
-  if (trainerCoreDataController != nil)
-    return trainerCoreDataController;
+  if (trainerController != nil)
+    return trainerController;
   
   static dispatch_once_t onceToken; // Lock
   dispatch_once(&onceToken, ^{      // This code is called at most once per app
-    trainerCoreDataController = [[TrainerCoreDataController alloc] init];
+    trainerController = [[TrainerController alloc] init];
   });
-  return trainerCoreDataController;
+  return trainerController;
 }
 
 - (void)dealloc

@@ -11,7 +11,7 @@
 #import "GlobalRender.h"
 #import "PListParser.h"
 #import "DataDecoder.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "PokedexTableViewCell.h"
 #import "PokemonDetailTabViewController.h"
 
@@ -75,7 +75,7 @@
   // Fetch data from web service
   NSString * dataFromWebService = @"2db7aab7";
   self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
-//  self.pokedexSequence = [[[TrainerCoreDataController sharedInstance] pokedex] mutableCopy];
+//  self.pokedexSequence = [[[TrainerController sharedInstance] pokedex] mutableCopy];
 }
 
 - (void)viewDidUnload

@@ -13,9 +13,9 @@
 #import "BagDataController.h"
 
 
-@interface TrainerCoreDataController : NSObject
+@interface TrainerController : NSObject
 
-+ (TrainerCoreDataController *)sharedInstance;
++ (TrainerController *)sharedInstance;
 - (void)initTrainerWithUserID:(NSInteger)userID;
 
 // Sync data between Client & Server

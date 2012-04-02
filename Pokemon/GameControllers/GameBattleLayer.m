@@ -14,7 +14,7 @@
 #import "GamePlayerProcess.h"
 #import "GameEnemyProcess.h"
 #import "GamePokemonSprite.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "WildPokemon+DataController.h"
 
 
@@ -115,7 +115,7 @@
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
 {
   NSLog(@"Generating a new scene......");
-  TrainerTamedPokemon * playerPokemon = [[TrainerCoreDataController sharedInstance] firstPokemonOfSix];
+  TrainerTamedPokemon * playerPokemon = [[TrainerController sharedInstance] firstPokemonOfSix];
   WildPokemon * enemyPokemon  = [WildPokemon queryPokemonDataWithID:wildPokemonID];
   
   // Set pokemon for |gameSystemProcess_|
@@ -236,7 +236,7 @@
   
   NSInteger newPokemon = [[notification.userInfo objectForKey:@"newPokemon"] intValue];
   TrainerTamedPokemon * playerPokemon
-  = [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
+  = [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
   [GameSystemProcess sharedInstance].playerPokemon = playerPokemon;
   
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",

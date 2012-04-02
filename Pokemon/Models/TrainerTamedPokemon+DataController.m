@@ -10,7 +10,7 @@
 
 #import "AppDelegate.h"
 #import "ServerAPIClient.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "Trainer+DataController.h"
 
 
@@ -124,7 +124,7 @@
     NSLog(@"...Sync |%@| data done...Reset FLAG_", [self class]);
     // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
     if ([[responseObject valueForKey:@"v"] intValue])
-      [[TrainerCoreDataController sharedInstance] syncDoneWithFlag:kDataModifyTamedPokemon];
+      [[TrainerController sharedInstance] syncDoneWithFlag:kDataModifyTamedPokemon];
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);

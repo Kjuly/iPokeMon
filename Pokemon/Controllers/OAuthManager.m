@@ -10,7 +10,7 @@
 
 #import "NSString+Algorithm.h"
 #import "ServerAPIClient.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "AFJSONRequestOperation.h"
 
 
@@ -220,7 +220,7 @@ static OAuthManager * oauthManager_ = nil;
       self.isUserIDSynced = YES;
       NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
       NSLog(@"|syncUserID| - Get |userID| for current user succeed... userID:%d", userID);
-      TrainerCoreDataController * trainer = [TrainerCoreDataController sharedInstance];
+      TrainerController * trainer = [TrainerController sharedInstance];
       [trainer initTrainerWithUserID:userID];
       [trainer sync];
     };

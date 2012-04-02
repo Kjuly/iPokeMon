@@ -13,7 +13,7 @@
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 //#import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
@@ -488,7 +488,7 @@ typedef enum {
   [animations release];
   
   TrainerTamedPokemon * pokemon =
-    [[[TrainerCoreDataController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
   [self.pokemonImageView setImage:pokemon.pokemon.image];
   [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
   pokemon = nil;

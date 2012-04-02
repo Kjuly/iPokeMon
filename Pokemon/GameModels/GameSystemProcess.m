@@ -10,7 +10,7 @@
 
 #import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
-#import "TrainerCoreDataController.h"
+#import "TrainerController.h"
 #import "WildPokemon+DataController.h"
 #import "Move.h"
 
@@ -1175,7 +1175,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   
   // Post Message to update |messageView_| in |GameMenuViewController|
-  TrainerTamedPokemon * pokemon = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
+  TrainerTamedPokemon * pokemon = [[TrainerController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
   NSInteger pokemonID = [pokemon.sid intValue];
   pokemon = nil;
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -1201,7 +1201,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   
   // Post Message to update |messageView_| in |GameMenuViewController|
-  TrainerTamedPokemon * pokemon = [[TrainerCoreDataController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
+  TrainerTamedPokemon * pokemon = [[TrainerController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
   NSInteger pokemonID = [pokemon.sid intValue];
   pokemon = nil;
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
