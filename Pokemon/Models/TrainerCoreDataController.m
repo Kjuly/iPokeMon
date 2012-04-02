@@ -95,8 +95,11 @@ static TrainerCoreDataController * trainerCoreDataController = nil;
   if (self.isInitialized) {
     NSLog(@"Sync.......");
 //    [Trainer             syncWithUserID:self.userID flag:(1111 << 0)];
-    [Trainer             syncWithUserID:self.userID flag:self.flag];
-    [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
+    if (self.flag & kDataModifyTrainer)
+      [Trainer             syncWithUserID:self.userID flag:self.flag];
+    if (self.flag & kDataModifyTamedPokemon)
+      [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
+    
     [WildPokemon updateDataForCurrentRegion:self.userID];
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
