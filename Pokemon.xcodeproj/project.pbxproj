@@ -663,6 +663,13 @@
 		7FB4129F1529D776003F41F0 /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB4129E1529D776003F41F0 /* Trainer.m */; };
 		7FB412A21529DB12003F41F0 /* WildPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412A11529DB12003F41F0 /* WildPokemon.m */; };
 		7FB412A51529DB14003F41F0 /* TrainerTamedPokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412A41529DB14003F41F0 /* TrainerTamedPokemon.m */; };
+		7FB412AC152A02F0003F41F0 /* IconBadgeBronze.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */; };
+		7FB412AD152A02F0003F41F0 /* IconBadgeBronze@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A7152A02EF003F41F0 /* IconBadgeBronze@2x.png */; };
+		7FB412AE152A02F0003F41F0 /* IconBadgeGold.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A8152A02EF003F41F0 /* IconBadgeGold.png */; };
+		7FB412AF152A02F0003F41F0 /* IconBadgeGold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A9152A02EF003F41F0 /* IconBadgeGold@2x.png */; };
+		7FB412B0152A02F0003F41F0 /* IconBadgeSilver.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412AA152A02EF003F41F0 /* IconBadgeSilver.png */; };
+		7FB412B1152A02F0003F41F0 /* IconBadgeSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */; };
+		7FB412B4152A0469003F41F0 /* TrainerBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */; };
 		7FB764461509DFDA008A9AA1 /* GameMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */; };
 		7FB7644D1509EC6B008A9AA1 /* GameMenuSixPokemonsUnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7644C1509EC6A008A9AA1 /* GameMenuSixPokemonsUnitViewController.m */; };
 		7FB7645C1509FCA7008A9AA1 /* ButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB764561509FCA6008A9AA1 /* ButtonIconCancel.png */; };
@@ -1675,6 +1682,14 @@
 		7FB412A11529DB12003F41F0 /* WildPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildPokemon.m; sourceTree = "<group>"; };
 		7FB412A31529DB13003F41F0 /* TrainerTamedPokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerTamedPokemon.h; sourceTree = "<group>"; };
 		7FB412A41529DB14003F41F0 /* TrainerTamedPokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerTamedPokemon.m; sourceTree = "<group>"; };
+		7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBadgeBronze.png; sourceTree = "<group>"; };
+		7FB412A7152A02EF003F41F0 /* IconBadgeBronze@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBadgeBronze@2x.png"; sourceTree = "<group>"; };
+		7FB412A8152A02EF003F41F0 /* IconBadgeGold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBadgeGold.png; sourceTree = "<group>"; };
+		7FB412A9152A02EF003F41F0 /* IconBadgeGold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBadgeGold@2x.png"; sourceTree = "<group>"; };
+		7FB412AA152A02EF003F41F0 /* IconBadgeSilver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBadgeSilver.png; sourceTree = "<group>"; };
+		7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBadgeSilver@2x.png"; sourceTree = "<group>"; };
+		7FB412B2152A0469003F41F0 /* TrainerBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBadgeView.h; sourceTree = "<group>"; };
+		7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBadgeView.m; sourceTree = "<group>"; };
 		7FB764441509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FB7644B1509EC69008A9AA1 /* GameMenuSixPokemonsUnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsUnitViewController.h; sourceTree = "<group>"; };
@@ -2621,6 +2636,8 @@
 				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
+				7FB412B2152A0469003F41F0 /* TrainerBadgeView.h */,
+				7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */,
 				7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */,
 				7F51BF6D14F3FDED008FCF1D /* PokemonInfoLabelView.m */,
 				7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */,
@@ -2962,6 +2979,12 @@
 		7FA1D86A15035DC700E0D2F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */,
+				7FB412A7152A02EF003F41F0 /* IconBadgeBronze@2x.png */,
+				7FB412A8152A02EF003F41F0 /* IconBadgeGold.png */,
+				7FB412A9152A02EF003F41F0 /* IconBadgeGold@2x.png */,
+				7FB412AA152A02EF003F41F0 /* IconBadgeSilver.png */,
+				7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */,
 				7F37216C15283A10007D9A00 /* IconSettingModify.png */,
 				7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */,
 				7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */,
@@ -3940,6 +3963,12 @@
 				7F09AA34152178B200D4F5DB /* UnitTests-Info.plist in Resources */,
 				7F37216E15283A10007D9A00 /* IconSettingModify.png in Resources */,
 				7F37216F15283A10007D9A00 /* IconSettingModify@2x.png in Resources */,
+				7FB412AC152A02F0003F41F0 /* IconBadgeBronze.png in Resources */,
+				7FB412AD152A02F0003F41F0 /* IconBadgeBronze@2x.png in Resources */,
+				7FB412AE152A02F0003F41F0 /* IconBadgeGold.png in Resources */,
+				7FB412AF152A02F0003F41F0 /* IconBadgeGold@2x.png in Resources */,
+				7FB412B0152A02F0003F41F0 /* IconBadgeSilver.png in Resources */,
+				7FB412B1152A02F0003F41F0 /* IconBadgeSilver@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4199,6 +4228,7 @@
 				7FB4129F1529D776003F41F0 /* Trainer.m in Sources */,
 				7FB412A21529DB12003F41F0 /* WildPokemon.m in Sources */,
 				7FB412A51529DB14003F41F0 /* TrainerTamedPokemon.m in Sources */,
+				7FB412B4152A0469003F41F0 /* TrainerBadgeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

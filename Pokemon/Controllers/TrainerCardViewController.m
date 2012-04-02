@@ -9,6 +9,7 @@
 #import "TrainerCardViewController.h"
 
 #import "GlobalRender.h"
+#import "TrainerBadgeView.h"
 #import "TrainerController.h"
 
 #import "UIImageView+AFNetworking.h"
@@ -23,20 +24,19 @@ typedef enum {
 @interface TrainerCardViewController () {
  @private
   TrainerController * trainer_;
-  UIView  * mainView_;
-  UIImageView * imageView_;
-  UIView  * IDView_;
-  UILabel * IDLabel_;
-  UILabel * nameLabel_;
-  UIView  * dataView_;
-  UILabel * moneyLabel_;
-  UILabel * moneyValue_;
-  UILabel * pokedexLabel_;
-  UILabel * pokedexValue_;
-  UILabel * badgesLabel_;
-  UILabel * badgesValue_;
-  UILabel * adventureStartedTimeLabel_;
-  UILabel * adventureStartedTimeValue_;
+  UIView            * mainView_;
+  UIImageView       * imageView_;
+  UIView            * IDView_;
+  UILabel           * IDLabel_;
+  UILabel           * nameLabel_;
+  UIView            * dataView_;
+  UILabel           * moneyLabel_;
+  UILabel           * moneyValue_;
+  UILabel           * pokedexLabel_;
+  UILabel           * pokedexValue_;
+  TrainerBadgeView  * badgeView_;
+  UILabel           * adventureStartedTimeLabel_;
+  UILabel           * adventureStartedTimeValue_;
   
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer_;
   BOOL                     isSetttingButtonsHidden_;
@@ -48,20 +48,19 @@ typedef enum {
 }
 
 @property (nonatomic, retain) TrainerController * trainer;
-@property (nonatomic, retain) UIView  * mainView;
-@property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UIView  * IDView;
-@property (nonatomic, retain) UILabel * IDLabel;
-@property (nonatomic, retain) UILabel * nameLabel;
-@property (nonatomic, retain) UIView  * dataView;
-@property (nonatomic, retain) UILabel * moneyLabel;
-@property (nonatomic, retain) UILabel * moneyValue;
-@property (nonatomic, retain) UILabel * pokedexLabel;
-@property (nonatomic, retain) UILabel * pokedexValue;
-@property (nonatomic, retain) UILabel * badgesLabel;
-@property (nonatomic, retain) UILabel * badgesValue;
-@property (nonatomic, retain) UILabel * adventureStartedTimeLabel;
-@property (nonatomic, retain) UILabel * adventureStartedTimeValue;
+@property (nonatomic, retain) UIView            * mainView;
+@property (nonatomic, retain) UIImageView       * imageView;
+@property (nonatomic, retain) UIView            * IDView;
+@property (nonatomic, retain) UILabel           * IDLabel;
+@property (nonatomic, retain) UILabel           * nameLabel;
+@property (nonatomic, retain) UIView            * dataView;
+@property (nonatomic, retain) UILabel           * moneyLabel;
+@property (nonatomic, retain) UILabel           * moneyValue;
+@property (nonatomic, retain) UILabel           * pokedexLabel;
+@property (nonatomic, retain) UILabel           * pokedexValue;
+@property (nonatomic, retain) TrainerBadgeView  * badgeView;
+@property (nonatomic, retain) UILabel           * adventureStartedTimeLabel;
+@property (nonatomic, retain) UILabel           * adventureStartedTimeValue;
 
 @property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 @property (nonatomic, assign) BOOL                     isSetttingButtonsHidden;
@@ -92,8 +91,7 @@ typedef enum {
 @synthesize moneyValue   = moneyValue_;
 @synthesize pokedexLabel = pokedexLabel_;
 @synthesize pokedexValue = pokedexValue_;
-@synthesize badgesLabel  = badgesLabel_;
-@synthesize badgesValue  = badgesValue_;
+@synthesize badgeView    = badgeView_;
 @synthesize adventureStartedTimeLabel = adventureStartedTimeLabel_;
 @synthesize adventureStartedTimeValue = adventureStartedTimeValue_;
 
@@ -110,18 +108,17 @@ typedef enum {
   [super dealloc];
   
   self.trainer = nil;
-  [mainView_  release];
-  [imageView_ release];
-  [IDView_ release];
-  [IDLabel_ release];
-  [nameLabel_ release];
-  [dataView_ release];
-  [moneyLabel_ release];
-  [moneyValue_ release];
+  [mainView_     release];
+  [imageView_    release];
+  [IDView_       release];
+  [IDLabel_      release];
+  [nameLabel_    release];
+  [dataView_     release];
+  [moneyLabel_   release];
+  [moneyValue_   release];
   [pokedexLabel_ release];
   [pokedexValue_ release];
-  [badgesLabel_ release];
-  [badgesValue_ release];
+  [badgeView_    release];
   [adventureStartedTimeLabel_ release];
   [adventureStartedTimeValue_ release];
   
@@ -174,11 +171,12 @@ typedef enum {
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
   CGRect  const IDLabelFrame      = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
-  CGRect  const nameLabelFrame    = CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight);
+  CGRect  const nameLabelFrame    = CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight);
+  CGRect  const badgeViewFrame    = CGRectMake(0.f, labelHeight * 2, 290.f, labelHeight);
   CGRect  const adventureStartedTimeLabelFrame =
-    CGRectMake(0.f, dataViewFrame.size.height - labelHeight * 2, 150.f, labelHeight);
+    CGRectMake(0.f, dataViewFrame.size.height - labelHeight, 150.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
-    CGRectMake(150.f, dataViewFrame.size.height - labelHeight * 2, 140.f, valueHeight);
+    CGRectMake(150.f, dataViewFrame.size.height - labelHeight, 140.f, valueHeight);
   
   
   // Main View
@@ -257,18 +255,8 @@ typedef enum {
   [dataView_ addSubview:pokedexValue_];
   
   // Badges
-  badgesLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0.f, labelHeight * 2, labelWidth, labelHeight)];
-  badgesValue_ = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth, labelHeight * 2, valueWidth, valueHeight)];
-  [badgesLabel_ setBackgroundColor:[UIColor clearColor]];
-  [badgesValue_ setBackgroundColor:[UIColor clearColor]];
-  [badgesLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
-  [badgesValue_ setTextColor:[GlobalRender textColorNormal]];
-  [badgesLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  [badgesValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  [badgesLabel_ setTextAlignment:UITextAlignmentRight];
-  [badgesValue_ setTextAlignment:UITextAlignmentLeft];
-  [dataView_ addSubview:badgesLabel_];
-  [dataView_ addSubview:badgesValue_];
+  badgeView_ = [[TrainerBadgeView alloc] initWithFrame:badgeViewFrame];
+  [self.dataView addSubview:badgeView_];
   
   // Adventure Started
   adventureStartedTimeLabel_ = [[UILabel alloc] initWithFrame:adventureStartedTimeLabelFrame];
@@ -300,6 +288,7 @@ typedef enum {
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
+  [self.badgeView updateBadges:[NSArray arrayWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]];
   [self.adventureStartedTimeLabel setText:NSLocalizedString(@"PMSLabelAdventureStarted", nil)];
   NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
   [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
@@ -330,9 +319,6 @@ typedef enum {
   NSInteger pokedexValue = [tamedPokemonSeq count] >= 1 ? [tamedPokemonSeq count] - 1 : 0;
   [self.pokedexValue setText:[NSString stringWithFormat:@"%d", pokedexValue]];
   tamedPokemonSeq = nil;
-  
-  [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];
-  [self.badgesValue  setText:@"123"];
 }
 
 - (void)viewDidUnload
@@ -348,8 +334,7 @@ typedef enum {
   self.moneyValue   = nil;
   self.pokedexLabel = nil;
   self.pokedexValue = nil;
-  self.badgesLabel  = nil;
-  self.badgesValue  = nil;
+  self.badgeView    = nil;
   self.adventureStartedTimeLabel = nil;
   self.adventureStartedTimeValue = nil;
   
