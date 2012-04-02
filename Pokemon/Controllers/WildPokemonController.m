@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "WildPokemon.h"
 #import "Pokemon+DataController.h"
+#import "Move+DataController.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -24,6 +25,10 @@
 }
 
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data;
+- (NSInteger)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
+- (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
+- (NSArray *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
+- (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level;
 
 @end
 
@@ -111,13 +116,37 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.sid         = [data valueForKey:@"sid"];
   wildPokemon.status      = kPokemonStatusNormal;
   wildPokemon.level       = [data valueForKey:@"level"];
+  NSInteger level = [wildPokemon.level intValue];
   
   // Fetch Pokemon entity with |sid|
   Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[data valueForKey:@"sid"] intValue]];
   wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
   
-  // Gender: 0:Female 1:Male 2:Genderless
-  PokemonGenderRate pokemonGenderRate = [pokemon.genderRate intValue];
+  // |gender|
+  wildPokemon.gender = [NSNumber numberWithInt:[self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]]];
+  
+  // |fourMoves|
+  wildPokemon.fourMoves = [self calculateFourMovesWithMoves:pokemon.moves level:level];
+  
+  // |maxStats| & |hp|
+  NSArray * maxStats   = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
+  wildPokemon.maxStats = maxStats;
+  wildPokemon.hp       = [maxStats objectAtIndex:0];
+  
+  // |exp| & |toNextLevel|
+  // Calculate EXP based on Level Formular with value:|level|
+  NSInteger baseEXP       = [pokemon.baseEXP intValue];
+  NSInteger currEXP       = [self calculateEXPWithBaseEXP:baseEXP level:level];
+  NSInteger nextLevelEXP  = [self calculateEXPWithBaseEXP:baseEXP level:(level + 1)];
+  wildPokemon.exp         = [NSNumber numberWithInt:currEXP];
+  wildPokemon.toNextLevel = [NSNumber numberWithInt:(nextLevelEXP - currEXP)];
+  
+  pokemon = nil;
+}
+
+// Calculate |gender| based on |pokemonGenderRate|
+// 0:Female 1:Male 2:Genderless
+- (NSInteger)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate {
   NSInteger gender;
   if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
   else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
@@ -127,18 +156,78 @@ static WildPokemonController * wildPokemonController_ = nil;
     float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
     gender = randomValue < genderRate ? 0 : 1;
   }
-  wildPokemon.gender = [NSNumber numberWithInt:gender];
+  return gender;
+}
+
+// Calculate |fourMoves| based on |moves| & |leve|
+- (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level {
+  NSInteger moveCount = [moves count];
+  // Get the last learned Move index
+  NSInteger lastLearnedMoveIndex = 0;
+  NSMutableArray * fourMovesID = [[NSMutableArray alloc] init];
+  for (int i = 0; i < moveCount - 1; i += 2) {
+    if ([[moves objectAtIndex:i] intValue] < level)
+      break;
+    // Remove the first Move when there're foru Moves learned
+    if ([fourMovesID count] == 4)
+      [fourMovesID removeObjectAtIndex:0];
+    // Push new Move ID
+    [fourMovesID addObject:[moves objectAtIndex:(i + 1)]];
+    ++lastLearnedMoveIndex;
+  }
+  // Fetch |fourMoves| with |fourMovesID|
+  NSArray * fourMoves = [Move queryFourMovesDataWithIDs:fourMovesID];
+  [fourMovesID release];
   
-  // Set data
+  NSMutableString * fourMovesInString = [NSMutableString string];
+  moveCount = 0;
+  for (Move * move in fourMoves) {
+    if (moveCount != 0) [fourMovesInString appendString:@","];
+    ++moveCount;
+    [fourMovesInString appendString:[NSString stringWithFormat:@"%d,%d,%d",
+                                     [move.sid intValue], [move.basePP intValue], [move.basePP intValue]]];
+  }
+  fourMoves = nil;
+  return fourMovesInString;
+}
+
+// Calculate |stats| based on |baseStats|
+- (NSArray *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level {
+  NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
+  NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
+  NSInteger statDefense   = [[baseStats objectAtIndex:2] intValue];
+  NSInteger statSpAttack  = [[baseStats objectAtIndex:3] intValue];
+  NSInteger statSpDefense = [[baseStats objectAtIndex:4] intValue];
+  NSInteger statSpeed     = [[baseStats objectAtIndex:5] intValue];
   
+  // Calculate the stats
+  statHP        += 3 * level;
+  statAttack    += level;
+  statDefense   += level;
+  statSpAttack  += level;
+  statSpDefense += level;
+  statSpeed     += level;
   
-  wildPokemon.fourMoves   = [data valueForKey:@"fourMoves"];
-  wildPokemon.maxStats    = [data valueForKey:@"maxStats"];
-  wildPokemon.hp          = [data valueForKey:@"currHP"];
-  wildPokemon.exp         = [data valueForKey:@"currEXP"];
-  wildPokemon.toNextLevel = [data valueForKey:@"toNextLevel"];
-  
-  pokemon = nil;
+  return [NSArray arrayWithObjects:
+          [NSNumber numberWithInt:statHP],
+          [NSNumber numberWithInt:statAttack],
+          [NSNumber numberWithInt:statDefense],
+          [NSNumber numberWithInt:statSpAttack],
+          [NSNumber numberWithInt:statSpDefense],
+          [NSNumber numberWithInt:statSpeed], nil];
+}
+
+// Calculate EXP based on |baseEXP| with |level|
+// y:return value:|result|
+// x:|level|
+//
+// TODO:
+//   The formular is not suit now!!
+//
+- (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level {
+  NSInteger result;
+  result = (10000000 - 100) / (100 - 1) * baseEXP;
+  return result;
 }
 
 @end
