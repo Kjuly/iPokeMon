@@ -39,7 +39,7 @@
                                                    trainerInfoViewController,        @"viewController", nil],
         [NSDictionary dictionaryWithObjectsAndKeys:@"TrainerCardTabIcon_Badges.png", @"image",
                                                    trainerBadgesTableViewController, @"viewController", nil], nil];
-    [trainerInfoViewController   release];
+    [trainerInfoViewController        release];
     [trainerBadgesTableViewController release];
   }
   return self;

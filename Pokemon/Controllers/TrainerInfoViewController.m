@@ -22,6 +22,22 @@ typedef enum {
 
 @interface TrainerInfoViewController () {
  @private
+  TrainerCoreDataController * trainer_;
+  UIView  * mainView_;
+  UIImageView * imageView_;
+  UIView  * IDView_;
+  UILabel * IDLabel_;
+  UILabel * nameLabel_;
+  UIView  * dataView_;
+  UILabel * moneyLabel_;
+  UILabel * moneyValue_;
+  UILabel * pokedexLabel_;
+  UILabel * pokedexValue_;
+  UILabel * badgesLabel_;
+  UILabel * badgesValue_;
+  UILabel * adventureStartedTimeLabel_;
+  UILabel * adventureStartedTimeValue_;
+  
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer_;
   BOOL                     isSetttingButtonsHidden_;
   UIButton               * avatarSetttingButton_;
@@ -30,6 +46,22 @@ typedef enum {
   UITextField            * nameSettingField_;
   UIView                 * transparentView_;
 }
+
+@property (nonatomic, retain) TrainerCoreDataController * trainer;
+@property (nonatomic, retain) UIView  * mainView;
+@property (nonatomic, retain) UIImageView * imageView;
+@property (nonatomic, retain) UIView  * IDView;
+@property (nonatomic, retain) UILabel * IDLabel;
+@property (nonatomic, retain) UILabel * nameLabel;
+@property (nonatomic, retain) UIView  * dataView;
+@property (nonatomic, retain) UILabel * moneyLabel;
+@property (nonatomic, retain) UILabel * moneyValue;
+@property (nonatomic, retain) UILabel * pokedexLabel;
+@property (nonatomic, retain) UILabel * pokedexValue;
+@property (nonatomic, retain) UILabel * badgesLabel;
+@property (nonatomic, retain) UILabel * badgesValue;
+@property (nonatomic, retain) UILabel * adventureStartedTimeLabel;
+@property (nonatomic, retain) UILabel * adventureStartedTimeValue;
 
 @property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 @property (nonatomic, assign) BOOL                     isSetttingButtonsHidden;
@@ -49,8 +81,8 @@ typedef enum {
 
 @implementation TrainerInfoViewController
 
-@synthesize trainer = trainer_;
-
+@synthesize trainer      = trainer_;
+@synthesize mainView     = mainView_;
 @synthesize imageView    = imageView_;
 @synthesize IDView       = IDView_;
 @synthesize IDLabel      = IDLabel_;
@@ -78,7 +110,7 @@ typedef enum {
   [super dealloc];
   
   self.trainer = nil;
-  
+  [mainView_  release];
   [imageView_ release];
   [IDView_ release];
   [IDLabel_ release];
@@ -124,7 +156,9 @@ typedef enum {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  [super loadView];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  self.view = view;
+  [view release];
   
   // Constants
   CGFloat const imageHeight       = 100.f;
@@ -136,6 +170,7 @@ typedef enum {
   CGFloat const nameLabelWidth    = 290.f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
+  CGRect  const mainViewFrame     = CGRectMake(0.f, kTopBarHeight, kViewWidth, kViewHeight - kTopBarHeight);
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
   CGRect  const IDLabelFrame      = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
@@ -146,6 +181,10 @@ typedef enum {
     CGRectMake(150.f, dataViewFrame.size.height - labelHeight * 2, 140.f, valueHeight);
   
   
+  // Main View
+  mainView_ = [[UIView alloc] initWithFrame:mainViewFrame];
+  [self.view addSubview:mainView_];
+  
   ///Left Image View
   imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(15.f, 20.f, imageWidth, imageHeight)];
   [imageView_ setUserInteractionEnabled:YES];
@@ -153,7 +192,7 @@ typedef enum {
   [imageView_ setBackgroundColor:[UIColor clearColor]];
   [imageView_.layer setMasksToBounds:YES];
   [imageView_.layer setCornerRadius:5.f];
-  [self.view addSubview:imageView_];
+  [self.mainView addSubview:imageView_];
   
   
   ///Right ID View
@@ -183,8 +222,7 @@ typedef enum {
   [nameLabel_.layer setShadowRadius:0.f];
   [IDView_ addSubview:nameLabel_];
   
-  // Add Right ID View to |self.view| & Release it
-  [self.view addSubview:IDView_];
+  [self.mainView addSubview:IDView_];
   
   
   ///Data View in Center
@@ -246,8 +284,7 @@ typedef enum {
   [dataView_ addSubview:adventureStartedTimeLabel_];
   [dataView_ addSubview:adventureStartedTimeValue_];
   
-  // Add Data View to |self.view| & Release it
-  [self.view addSubview:dataView_];
+  [self.mainView addSubview:dataView_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -398,7 +435,7 @@ typedef enum {
     [transparentView release];
     [self.transparentView setBackgroundColor:[UIColor blackColor]];
     [self.transparentView setAlpha:0.f];
-    [self.view addSubview:self.transparentView];
+    [self.mainView addSubview:self.transparentView];
   }
   if (self.settingView == nil) {
     CGFloat buttonSize        = 45.f;
@@ -412,7 +449,7 @@ typedef enum {
     UIView * settingView = [[UIView alloc] initWithFrame:settingViewFrame];
     self.settingView = settingView;
     [settingView release];
-    [self.view addSubview:self.settingView];
+    [self.mainView addSubview:self.settingView];
     
     UIView * settingViewBackground = [[UIView alloc] initWithFrame:settingViewBackgroundFrame];
     [settingViewBackground setBackgroundColor:[GlobalRender colorBlue]];
