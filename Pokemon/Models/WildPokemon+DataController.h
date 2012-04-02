@@ -11,8 +11,6 @@
 
 @interface WildPokemon (DataController)
 
-+ (BOOL)updateDataForCurrentRegion:(NSInteger)regionID;
-
 + (WildPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
 // Base data dispatch

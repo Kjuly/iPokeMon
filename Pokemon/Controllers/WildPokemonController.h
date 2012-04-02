@@ -12,4 +12,6 @@
 
 + (WildPokemonController *)sharedInstance;
 
+- (void)updateForCurrentRegion:(NSInteger)regionID;
+
 @end

@@ -98,8 +98,6 @@ static TrainerController * trainerController_ = nil;
       [Trainer             syncWithUserID:self.userID flag:self.flag];
     if (self.flag & kDataModifyTamedPokemon)
       [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
-    
-    [WildPokemon updateDataForCurrentRegion:self.userID];
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
