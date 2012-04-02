@@ -12,7 +12,7 @@
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
-#import "TrainerInfoViewController.h"
+#import "TrainerCardViewController.h"
 #import "SettingTableViewController.h"
 
 
@@ -21,14 +21,14 @@
   PokedexTableViewController     * pokedexTableViewController_;
   SixPokemonsTableViewController * sixPokemonsTableViewController_;
   BagTableViewController         * bagTableViewController_;
-  TrainerInfoViewController      * trainerInfoViewController_;
+  TrainerCardViewController      * trainerCardViewController_;
   SettingTableViewController     * settingTableViewController_;
 }
 
 @property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
 @property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
 @property (nonatomic, retain) BagTableViewController         * bagTableViewController;
-@property (nonatomic, retain) TrainerInfoViewController      * trainerInfoViewController;
+@property (nonatomic, retain) TrainerCardViewController      * trainerCardViewController;
 @property (nonatomic, retain) SettingTableViewController     * settingTableViewController;
 
 // Buttons' Action
@@ -47,7 +47,7 @@
 @synthesize pokedexTableViewController     = pokedexTableViewController_;
 @synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;
 @synthesize bagTableViewController         = bagTableViewController_;
-@synthesize trainerInfoViewController      = trainerInfoViewController_;
+@synthesize trainerCardViewController      = trainerCardViewController;
 @synthesize settingTableViewController     = settingTableViewController_;
 
 -(void)dealloc
@@ -55,7 +55,7 @@
   [pokedexTableViewController_     release];
   [sixPokemonsTableViewController_ release];
   [bagTableViewController_         release];
-  [trainerInfoViewController_      release];
+  [trainerCardViewController_      release];
   [settingTableViewController_     release];
   
   [super dealloc];
@@ -95,7 +95,7 @@
   self.pokedexTableViewController     = nil;
   self.sixPokemonsTableViewController = nil;
   self.bagTableViewController         = nil;
-  self.trainerInfoViewController      = nil;
+  self.trainerCardViewController      = nil;
   self.settingTableViewController     = nil;
 }
 
@@ -173,10 +173,9 @@
 }
 
 - (void)showTrainerCard:(id)sender {
-  if (self.trainerInfoViewController == nil)
-    trainerInfoViewController_ = [[TrainerInfoViewController alloc] initWithNibName:nil bundle:nil];
-  [trainerInfoViewController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  [self pushViewController:self.trainerInfoViewController];
+  if (self.trainerCardViewController == nil)
+    trainerCardViewController = [[TrainerCardViewController alloc] initWithNibName:nil bundle:nil];
+  [self pushViewController:self.trainerCardViewController];
 }
 
 - (void)runHotkey:(id)sender {

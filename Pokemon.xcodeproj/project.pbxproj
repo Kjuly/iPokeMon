@@ -685,7 +685,7 @@
 		7FBAA72314E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71B14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png */; };
 		7FBAA72414E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBAA71C14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png */; };
 		7FBB60AD14E6A51000C24BA5 /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */; };
-		7FBB60B114E6A6B500C24BA5 /* TrainerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */; };
+		7FBB60B114E6A6B500C24BA5 /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */; };
 		7FBB60B914E6A95F00C24BA5 /* TrainerCardTabIcon_Badges.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */; };
 		7FBB60BA14E6A95F00C24BA5 /* TrainerCardTabIcon_Badges@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */; };
 		7FBB60BB14E6A95F00C24BA5 /* TrainerCardTabIcon_Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */; };
@@ -711,7 +711,6 @@
 		7FBD73EC14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EA14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot.png */; };
 		7FBD73ED14E3F1EC00965CED /* CustomNavigationBar_backButtonToRoot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */; };
 		7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */; };
-		7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */; };
 		7FC0897615165317009FA14B /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0897515165316009FA14B /* Trainer.m */; };
 		7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */; };
 		7FC128021504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC128001504C24400E2A8F7 /* GameBattleViewMainMenuBackground.png */; };
@@ -1708,8 +1707,8 @@
 		7FBAA71B14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityBallMenuIconBackgroundSmall.png; sourceTree = "<group>"; };
 		7FBAA71C14E177200011DCB0 /* UtilityBallMenuIconBackgroundSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UtilityBallMenuIconBackgroundSmall@2x.png"; sourceTree = "<group>"; };
 		7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
-		7FBB60AF14E6A6B100C24BA5 /* TrainerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerInfoViewController.h; sourceTree = "<group>"; };
-		7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerInfoViewController.m; sourceTree = "<group>"; };
+		7FBB60AF14E6A6B100C24BA5 /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TrainerCardViewController.h; sourceTree = "<group>"; };
+		7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
 		7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Badges.png; sourceTree = "<group>"; };
 		7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerCardTabIcon_Badges@2x.png"; sourceTree = "<group>"; };
 		7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Info.png; sourceTree = "<group>"; };
@@ -1738,8 +1737,6 @@
 		7FBD73EB14E3F1EB00965CED /* CustomNavigationBar_backButtonToRoot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CustomNavigationBar_backButtonToRoot@2x.png"; sourceTree = "<group>"; };
 		7FBD73EE14E40CF300965CED /* SixPokemonsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewController.h; sourceTree = "<group>"; };
 		7FBD73EF14E40CF400965CED /* SixPokemonsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewController.m; sourceTree = "<group>"; };
-		7FBD73F114E41AE900965CED /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCardViewController.h; sourceTree = "<group>"; };
-		7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
 		7FC0897415165315009FA14B /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		7FC0897515165316009FA14B /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
 		7FC08978151654B2009FA14B /* BagMedicineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewController.h; sourceTree = "<group>"; };
@@ -2498,10 +2495,8 @@
 				7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */,
 				7F6C193615176BA90000682B /* BagItemInfoViewController.h */,
 				7F6C193715176BAA0000682B /* BagItemInfoViewController.m */,
-				7FBD73F114E41AE900965CED /* TrainerCardViewController.h */,
-				7FBD73F214E41AEA00965CED /* TrainerCardViewController.m */,
-				7FBB60AF14E6A6B100C24BA5 /* TrainerInfoViewController.h */,
-				7FBB60B014E6A6B300C24BA5 /* TrainerInfoViewController.m */,
+				7FBB60AF14E6A6B100C24BA5 /* TrainerCardViewController.h */,
+				7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */,
 				7FBB60C214E6BB8600C24BA5 /* TrainerBadgesTableViewController.h */,
 				7FBB60C314E6BB8700C24BA5 /* TrainerBadgesTableViewController.m */,
 				7FEED5C214E4E8F10010F7F2 /* SettingTableViewController.h */,
@@ -4027,13 +4022,12 @@
 				7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */,
 				7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */,
 				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
-				7FBD73F314E41AEB00965CED /* TrainerCardViewController.m in Sources */,
 				7FEED5C414E4E8F10010F7F2 /* SettingTableViewController.m in Sources */,
 				7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */,
 				7F90C5AF14E5640B00147718 /* PokedexTableViewCell.m in Sources */,
 				7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */,
 				7F8B816B14E5786A0085CE22 /* BagTableViewCell.m in Sources */,
-				7FBB60B114E6A6B500C24BA5 /* TrainerInfoViewController.m in Sources */,
+				7FBB60B114E6A6B500C24BA5 /* TrainerCardViewController.m in Sources */,
 				7FBB60C414E6BB8700C24BA5 /* TrainerBadgesTableViewController.m in Sources */,
 				7FBB60D714E6C37D00C24BA5 /* TrainerBadgesTableViewCell.m in Sources */,
 				7FAF625514E7984F00A14AE0 /* PoketchSixPokemonsViewController.m in Sources */,

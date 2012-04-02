@@ -1,13 +1,13 @@
 //
-//  TrainerCardViewController.h
+//  TrainerInfoViewController.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/9/12.
+//  Created by Kaijie Yu on 2/11/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "CustomTabViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface TrainerCardViewController : CustomTabViewController
+@interface TrainerCardViewController : UIViewController
 
 @end
