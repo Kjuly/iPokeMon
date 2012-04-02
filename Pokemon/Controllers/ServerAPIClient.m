@@ -23,6 +23,8 @@ NSString * const kServerAPIUpdateUser   = @"/update";
 NSString * const kServerAPIGetPokemon   = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
 NSString * const kServerAPIGet6Pokemons = @"/6pm";    // /6pm:SixPokeMons
 NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
+// WildPokemon
+NSString * const kServerAPIGetWildPokemon = @"/wpm";  // /wp:WildPokeMon
 
 #pragma mark -
 #pragma mark - ServerAPI
@@ -35,6 +37,8 @@ NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
 + (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
 + (NSString *)getSixPokemons;                               // GET
 + (NSString *)getPokedex;                                   // GET
+// WildPokemon
++ (NSString *)getWildPokemon;
 @end
 
 
@@ -58,6 +62,9 @@ NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
 + (NSString *)getSixPokemons { return kServerAPIGet6Pokemons; }
 + (NSString *)getPokedex     { return kServerAPIGetPokedex; }
 
+// WildPokemon
++ (NSString *)getWildPokemon { return kServerAPIGetWildPokemon; }
+
 @end
 
 #pragma mark -
@@ -67,7 +74,7 @@ NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
   
 }
 
-- (void)updateHeader;
+- (void)updateHeaderWithRegion:(BOOL)withRegion;
 //- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 
 @end
@@ -96,7 +103,7 @@ static ServerAPIClient * client_;
 }
 
 #pragma mark - Public Methods
-
+#pragma mark - Public Methods: Trainer
 // GET
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(AFHTTPRequestOperation *, id))success
@@ -108,7 +115,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI getPokedex];
   else return;
   
-  [self updateHeader];
+  [self updateHeaderWithRegion:NO];
   NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:path parameters:nil success:success failure:failure];
   
@@ -137,18 +144,31 @@ static ServerAPIClient * client_;
     path = [ServerAPI updateUser];
   else return;
   
-  [self updateHeader];
+  [self updateHeaderWithRegion:NO];
   NSLog(@"Sync Data Request - clientDescription:%@", [self description]);
   [self postPath:path parameters:data success:success failure:failure];
 }
 
+#pragma mark - Public Methods: WildPokemon
+
+- (void)updateWildPokemonsForCurrentRegionSuccess:(void (^)(AFHTTPRequestOperation *, id))success
+                                          failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+  [self updateHeaderWithRegion:YES];
+  [self postPath:[ServerAPI getWildPokemon] parameters:nil success:success failure:failure];
+}
+
 #pragma mark - Provate Methods
 
-- (void)updateHeader {
+- (void)updateHeaderWithRegion:(BOOL)withRegion {
   [self setDefaultHeader:@"provider" value:
     [NSString stringWithFormat:@"%d",
       [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]]];
   [self setDefaultHeader:@"identity" value:[[OAuthManager sharedInstance] userEmailInMD5]];
+  
+  // Include user location info if needed
+  if (withRegion) {
+    
+  }
 }
 
 // Set HTTP Header for URL request

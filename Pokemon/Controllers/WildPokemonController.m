@@ -15,6 +15,7 @@
 #import "WildPokemon.h"
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
+#import "ServerAPIClient.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -58,14 +59,12 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 - (void)updateForCurrentRegion:(NSInteger)regionID {
   // Success Block Method
-  void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
-  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-    NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     // Get JSON Data Array from HTTP Response
     NSArray * wildPokemons = [JSON valueForKey:@"wildpokemons"];
     
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
@@ -73,11 +72,10 @@ static WildPokemonController * wildPokemonController_ = nil;
     [fetchRequest setFetchLimit:1];
     // Update the data for |WildPokemon|
     for (NSDictionary * wildPokemonData in wildPokemons) {
-      // Check the existence of the object
-      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [wildPokemonData valueForKey:@"uid"]]];
-      
-      // If exist, execute fetching request, otherwise, insert new object
+      // Check the existence of the entity
+      // If exist, execute fetching request, otherwise, insert new one
       WildPokemon * wildPokemon;
+      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [wildPokemonData valueForKey:@"uid"]]];
       if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
         wildPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
       else wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
@@ -93,18 +91,12 @@ static WildPokemonController * wildPokemonController_ = nil;
   };
   
   // Failure Block Method
-  void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
-  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! ERROR: %@", error);
   };
   
-  // Fetch data from server & populate the |teamedPokemon|
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetWildPokemonsForCurrentRegion:1]];
-  AFJSONRequestOperation * operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                       success:blockPopulateData
-                                                                                       failure:blockError];
-  [request release];
-  [operation start];
+  // Update data via |ServerAPIClient|
+  [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegionSuccess:success failure:failure];
 }
 
 #pragma mark - Private Methods
