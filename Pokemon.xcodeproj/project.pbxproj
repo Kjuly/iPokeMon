@@ -289,7 +289,6 @@
 		7F7F2EFB14EBE4A800315EC5 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EEF14EBE4A800315EC5 /* AFURLConnectionOperation.m */; };
 		7F7F2EFC14EBE4A800315EC5 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF114EBE4A800315EC5 /* AFXMLRequestOperation.m */; };
 		7F7F2EFD14EBE4A800315EC5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */; };
-		7F84C2B6151C4F1A00E8D27E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */; };
 		7F84C2BA151C617400E8D27E /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84C2B9151C617400E8D27E /* KeychainWrapper.m */; };
 		7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84C2BB151C678800E8D27E /* Security.framework */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
@@ -1283,8 +1282,6 @@
 		7F7F2EF114EBE4A800315EC5 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		7F7F2EF214EBE4A800315EC5 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		7F84C2B4151C4F1A00E8D27E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7F84C2B8151C617400E8D27E /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		7F84C2B9151C617400E8D27E /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		7F84C2BB151C678800E8D27E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -2431,16 +2428,14 @@
 		7F6E6CED14D6CB9800033C65 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7F84C2B4151C4F1A00E8D27E /* LoginViewController.h */,
-				7F84C2B5151C4F1A00E8D27E /* LoginViewController.m */,
-				7F84C2B8151C617400E8D27E /* KeychainWrapper.h */,
-				7F84C2B9151C617400E8D27E /* KeychainWrapper.m */,
-				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
-				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */,
 				7FF56400152817AB00BA5E28 /* ServerAPIClient.m */,
 				7F09AA431521912E00D4F5DB /* OAuthManager.h */,
 				7F09AA441521912F00D4F5DB /* OAuthManager.m */,
+				7F84C2B8151C617400E8D27E /* KeychainWrapper.h */,
+				7F84C2B9151C617400E8D27E /* KeychainWrapper.m */,
+				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
+				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
 				7F51C3D614D7C4DF0091902D /* MainViewController.m */,
 				7F51C40614D7D3C60091902D /* MapViewController.h */,
@@ -2552,10 +2547,6 @@
 				7FF3E3711514D8C800F79316 /* BagKeyItem.m */,
 				7F6910DB14EF95AF00127E2F /* DataTransformer.h */,
 				7F6910DC14EF95AF00127E2F /* DataTransformer.m */,
-				7FF3E3671514D44900F79316 /* OriginalDataManager.h */,
-				7FF3E3681514D44A00F79316 /* OriginalDataManager.m */,
-				7F3F7A7F14FB53EB005E554E /* TrainerCoreDataController.h */,
-				7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */,
 				7F2FA48F14ED2F670077C4E0 /* Trainer+DataController.h */,
 				7F2FA49014ED2F670077C4E0 /* Trainer+DataController.m */,
 				7F51BF5D14F3C93F008FCF1D /* TrainerTamedPokemon+DataController.h */,
@@ -2568,6 +2559,10 @@
 				7FD14F0C14F4C4DC00082330 /* Move+DataController.m */,
 				7FF3E3851514DCF800F79316 /* BagDataController.h */,
 				7FF3E3861514DCF900F79316 /* BagDataController.m */,
+				7FF3E3671514D44900F79316 /* OriginalDataManager.h */,
+				7FF3E3681514D44A00F79316 /* OriginalDataManager.m */,
+				7F3F7A7F14FB53EB005E554E /* TrainerCoreDataController.h */,
+				7F3F7A8314FB573C005E554E /* TrainerCoreDataController.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4191,7 +4186,6 @@
 				7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */,
 				7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */,
 				7F6C193815176BAA0000682B /* BagItemInfoViewController.m in Sources */,
-				7F84C2B6151C4F1A00E8D27E /* LoginViewController.m in Sources */,
 				7F84C2BA151C617400E8D27E /* KeychainWrapper.m in Sources */,
 				7F09A9EB1521786100D4F5DB /* GTMOAuth2Authentication.m in Sources */,
 				7F09A9EC1521786100D4F5DB /* GTMOAuth2SignIn.m in Sources */,
