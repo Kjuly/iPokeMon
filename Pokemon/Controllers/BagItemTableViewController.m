@@ -637,7 +637,7 @@
 - (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine
 {
   NSInteger effectCode   = [bagMedicine.code intValue];
-  NSInteger pokemonHP    = [pokemon.currHP intValue];
+  NSInteger pokemonHP    = [pokemon.hp intValue];
   NSInteger pokemonHPMax = [[pokemon.maxStats objectAtIndex:0] intValue];
   
   // 0x80~0x8F: Status Healer & HP Restoree
@@ -690,7 +690,7 @@
   else return;
   
   // Set new HP value to |currHP| for Pokemon
-  pokemon.currHP = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
+  pokemon.hp = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP

@@ -8,12 +8,24 @@
 
 #import "WildPokemonController.h"
 
+#import "GlobalConstants.h"
+#import "PokemonConstants.h"
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
 #import "WildPokemon.h"
 #import "Pokemon+DataController.h"
 
 #import "AFJSONRequestOperation.h"
+
+
+@interface WildPokemonController () {
+ @private
+  
+}
+
+- (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data;
+
+@end
 
 
 @implementation WildPokemonController
@@ -54,8 +66,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
-    
-    // Update the data for |tamedPokemmon|
+    // Update the data for |WildPokemon|
     for (NSDictionary * wildPokemonData in wildPokemons) {
       // Check the existence of the object
       [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [wildPokemonData valueForKey:@"uid"]]];
@@ -64,34 +75,11 @@ static WildPokemonController * wildPokemonController_ = nil;
       WildPokemon * wildPokemon;
       if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
         wildPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-      else {
-        wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                                    inManagedObjectContext:managedObjectContext];
-        // Set relationships
-        Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[wildPokemonData valueForKey:@"sid"] intValue]];
-        wildPokemon.pokemon = pokemon;
-        pokemon = nil;
-        
-//        NSArray * moveIDs = [[wildPokemonData valueForKey:@"fourMovesID"] componentsSeparatedByString:@","];
-//        NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
-//        [wildPokemon addFourMoves:[NSSet setWithArray:moves]];
-//        moves = nil;
-//        moveIDs = nil;
-      }
-      
-      // Set data
-      wildPokemon.uid         = [wildPokemonData valueForKey:@"uid"];
-      wildPokemon.sid         = [wildPokemonData valueForKey:@"sid"];
-      wildPokemon.status      = [wildPokemonData valueForKey:@"status"];
-      wildPokemon.gender      = [wildPokemonData valueForKey:@"gender"];
-      wildPokemon.level       = [wildPokemonData valueForKey:@"level"];
-      wildPokemon.fourMoves   = [wildPokemonData valueForKey:@"fourMoves"];
-      wildPokemon.maxStats    = [wildPokemonData valueForKey:@"maxStats"];
-      wildPokemon.currHP      = [wildPokemonData valueForKey:@"currHP"];
-      wildPokemon.currEXP     = [wildPokemonData valueForKey:@"currEXP"];
-      wildPokemon.toNextLevel = [wildPokemonData valueForKey:@"toNextLevel"];
+      else wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                                       inManagedObjectContext:managedObjectContext];
+      // Update data for current |wildPokemon|
+      [self updateWildPokemon:wildPokemon withData:wildPokemonData];
     }
-    
     [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
@@ -105,17 +93,52 @@ static WildPokemonController * wildPokemonController_ = nil;
     NSLog(@"!!! ERROR: %@", error);
   };
   
-  
   // Fetch data from server & populate the |teamedPokemon|
-  NSURLRequest * request =
-  [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetWildPokemonsForCurrentRegion:1]];
-  
-  AFJSONRequestOperation * operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:blockPopulateData
-                                                  failure:blockError];
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:[PokemonServerAPI APIGetWildPokemonsForCurrentRegion:1]];
+  AFJSONRequestOperation * operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                       success:blockPopulateData
+                                                                                       failure:blockError];
   [request release];
   [operation start];
+}
+
+#pragma mark - Private Methods
+
+// Update data for WildPokemon entity
+- (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data {
+  // Update basic data fetched from server
+  wildPokemon.uid         = [data valueForKey:@"uid"];
+  wildPokemon.sid         = [data valueForKey:@"sid"];
+  wildPokemon.status      = kPokemonStatusNormal;
+  wildPokemon.level       = [data valueForKey:@"level"];
+  
+  // Fetch Pokemon entity with |sid|
+  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[data valueForKey:@"sid"] intValue]];
+  wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
+  
+  // Gender: 0:Female 1:Male 2:Genderless
+  PokemonGenderRate pokemonGenderRate = [pokemon.genderRate intValue];
+  NSInteger gender;
+  if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
+  else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
+  else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
+  else {
+    float randomValue = arc4random() % 100 / 10; // Random value for calculating
+    float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
+    gender = randomValue < genderRate ? 0 : 1;
+  }
+  wildPokemon.gender = [NSNumber numberWithInt:gender];
+  
+  // Set data
+  
+  
+  wildPokemon.fourMoves   = [data valueForKey:@"fourMoves"];
+  wildPokemon.maxStats    = [data valueForKey:@"maxStats"];
+  wildPokemon.hp          = [data valueForKey:@"currHP"];
+  wildPokemon.exp         = [data valueForKey:@"currEXP"];
+  wildPokemon.toNextLevel = [data valueForKey:@"toNextLevel"];
+  
+  pokemon = nil;
 }
 
 @end

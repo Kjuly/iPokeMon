@@ -123,17 +123,17 @@
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="pokedex" optional="YES" attributeType="String" maxValueString="100" defaultValueString="0" syncable="YES"/>
-        <attribute name="sid" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="sixPokemonsID" optional="YES" attributeType="String" defaultValueString="0" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="tamedPokemons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrainerTamedPokemon" inverseName="owner" inverseEntity="TrainerTamedPokemon" syncable="YES"/>
     </entity>
     <entity name="TrainerTamedPokemon" representedClassName="TrainerTamedPokemon" syncable="YES">
         <attribute name="box" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
-        <attribute name="currEXP" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="currHP" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
+        <attribute name="exp" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="fourMoves" optional="YES" attributeType="String" defaultValueString="0,0,0,0,0,0,0,0,0,0,0,0" syncable="YES"/>
-        <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="happiness" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="hp" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="memo" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
@@ -145,10 +145,10 @@
         <relationship name="pokemon" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="tamedGroup" inverseEntity="Pokemon" syncable="YES"/>
     </entity>
     <entity name="WildPokemon" representedClassName="WildPokemon" syncable="YES">
-        <attribute name="currEXP" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="currHP" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
+        <attribute name="exp" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="fourMoves" optional="YES" attributeType="String" defaultValueString="0,0,0,0,0,0,0,0,0,0,0,0" syncable="YES"/>
-        <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="hp" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>

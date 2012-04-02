@@ -145,7 +145,7 @@
     maxStatsArray  = [pokemonData.maxStats  componentsSeparatedByString:@","];
   else
     maxStatsArray  = pokemonData.maxStats;
-  NSInteger HPLeft  = [pokemonData.currHP intValue];
+  NSInteger HPLeft  = [pokemonData.hp intValue];
   NSInteger HPTotal = [[maxStatsArray objectAtIndex:0] intValue];
   [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];
   [cell.HPBarLeft setFrame:CGRectMake(0.f, 0.f, 160.f * HPLeft / HPTotal, cell.HPBarLeft.frame.size.height)];

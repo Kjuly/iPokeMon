@@ -37,7 +37,7 @@
     }
     
     // Set data for |Trainer|
-    trainer.sid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
+    trainer.uid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
     trainer.name              = [JSON valueForKey:@"name"];
     trainer.money             = [NSNumber numberWithInt:[[JSON valueForKey:@"money"] intValue]];
     trainer.pokedex           = [JSON valueForKey:@"pokedex"];
@@ -133,7 +133,7 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
                                                     // Set data for |Trainer|
-                                                    trainer.sid = [JSON valueForKey:@"id"];
+                                                    trainer.uid = [JSON valueForKey:@"id"];
                                                     trainer.name = [JSON valueForKey:@"name"];
                                                     trainer.money = [JSON valueForKey:@"money"];
                                                     trainer.adventureStarted = nil;
@@ -191,7 +191,7 @@
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   Trainer * trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                          inManagedObjectContext:managedObjectContext];
-  trainer.sid  = [NSNumber numberWithInt:trainerID];
+  trainer.uid  = [NSNumber numberWithInt:trainerID];
   trainer.name = name;
   
   NSError * error;

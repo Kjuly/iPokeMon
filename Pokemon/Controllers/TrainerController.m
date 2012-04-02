@@ -124,7 +124,7 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Trainer's basic data
-- (NSInteger) UID         {return [self.entityTrainer.sid intValue];}
+- (NSInteger) UID         {return [self.entityTrainer.uid intValue];}
 - (NSString *)name        {return self.entityTrainer.name;}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}

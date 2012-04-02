@@ -137,13 +137,13 @@
   [super viewWillAppear:animated];
   
   [self.levelLabelView.value       setText:[self.pokemon.level stringValue]];
-  [self.expLabelView.value         setText:[self.pokemon.currEXP stringValue]];
+  [self.expLabelView.value         setText:[self.pokemon.exp stringValue]];
   [self.toNextLevelLabelView.value setText:[self.pokemon.toNextLevel stringValue]];
   //
   // TODO:
   //   !!! Need Recompute Here
   //
-  [self.expBarCurrntPoint setFrame:CGRectMake(0.f, 0.f, 300.f * abs([self.pokemon.currHP intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.currHP intValue] + [self.pokemon.toNextLevel intValue]), 6.f)];
+  [self.expBarCurrntPoint setFrame:CGRectMake(0.f, 0.f, 300.f * abs([self.pokemon.hp intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.hp intValue] + [self.pokemon.toNextLevel intValue]), 6.f)];
 }
 
 @end

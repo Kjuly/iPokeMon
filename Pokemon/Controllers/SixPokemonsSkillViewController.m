@@ -134,7 +134,7 @@
   else
     statsMax  = self.pokemon.maxStats;
   
-  NSInteger hpLeft = [self.pokemon.currHP intValue];
+  NSInteger hpLeft = [self.pokemon.hp intValue];
   NSInteger hpTotal = [[statsMax objectAtIndex:0] intValue];
   [self.hpLabelView.value setText:[NSString stringWithFormat:@"%d / %d", hpLeft, hpTotal]];
   [self.hpBarLeft setFrame:CGRectMake(0.f, 0.f, 160.f * hpLeft / hpTotal, 13.f)];

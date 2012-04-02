@@ -134,7 +134,7 @@
   [self.pokemonGender setImage:[UIImage imageNamed:[playerPokemon.gender intValue]
                                 ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];
-  NSInteger hp    = [playerPokemon.currHP intValue];
+  NSInteger hp    = [playerPokemon.hp intValue];
   NSInteger hpMax = [[playerPokemon.maxStats objectAtIndex:0] intValue];
   [self.pokemonHPBar updateHPBarWithHP:hp HPMax:hpMax];
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", hp, hpMax]];
@@ -142,7 +142,7 @@
   // TODO:
   //   Max Exp Value not got here!!
   //
-  [self.pokemonEXPBar updateExpBarWithExp:[playerPokemon.currEXP intValue] ExpMax:20000];
+  [self.pokemonEXPBar updateExpBarWithExp:[playerPokemon.hp intValue] ExpMax:20000];
 }
 
 - (void)reset {

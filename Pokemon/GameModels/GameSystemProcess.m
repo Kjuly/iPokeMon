@@ -137,7 +137,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Reset HP for enemy pokemon
   NSArray * stats = self.enemyPokemon.maxStats;
   NSInteger currHP = [[stats objectAtIndex:0] intValue];
-  self.enemyPokemon.currHP = [NSNumber numberWithInt:currHP];
+  self.enemyPokemon.hp = [NSNumber numberWithInt:currHP];
   stats = nil;
 }
 
@@ -462,8 +462,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   __block NSInteger     opposingPokemonTransientEvasionDelta    = 0;
   
   // Player & enemy pokemon's HP
-  __block NSInteger playerPokemonHP = [self.playerPokemon.currHP intValue];
-  __block NSInteger enemyPokemonHP  = [self.enemyPokemon.currHP  intValue];
+  __block NSInteger playerPokemonHP = [self.playerPokemon.hp intValue];
+  __block NSInteger enemyPokemonHP  = [self.enemyPokemon.hp  intValue];
   
   // Some type of move effect need to be calculated depend on current status,
   // so, if values are calculated in |switch ([move.effectCode intValue])| directly,
@@ -1115,16 +1115,16 @@ static GameSystemProcess * gameSystemProcess = nil;
   }
   
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
-  self.playerPokemon.currHP = [NSNumber numberWithInt:playerPokemonHP];
-  self.enemyPokemon.currHP  = [NSNumber numberWithInt:enemyPokemonHP];
+  self.playerPokemon.hp = [NSNumber numberWithInt:playerPokemonHP];
+  self.enemyPokemon.hp  = [NSNumber numberWithInt:enemyPokemonHP];
   
   // Post to |GameMenuViewController| to update pokemon status view
   NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:statusUpdateTarget],   @"target",
                                 [NSNumber numberWithInt:playerPokemonStatus_], @"playerPokemonStatus",
-                                self.playerPokemon.currHP,                     @"playerPokemonHP",
+                                self.playerPokemon.hp,                         @"playerPokemonHP",
                                 [NSNumber numberWithInt:enemyPokemonStatus_],  @"enemyPokemonStatus",
-                                self.enemyPokemon.currHP,                      @"enemyPokemonHP", nil];
+                                self.enemyPokemon.hp,                          @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
 }
@@ -1167,9 +1167,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
                                   self.playerPokemon.status,                      @"playerPokemonStatus",
-                                  self.playerPokemon.currHP,                      @"playerPokemonHP",
+                                  self.playerPokemon.hp,                          @"playerPokemonHP",
                                   self.enemyPokemon.status,                       @"enemyPokemonStatus",
-                                  self.enemyPokemon.currHP,                       @"enemyPokemonHP", nil];
+                                  self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
   [pokemonStatus release];
   
@@ -1193,9 +1193,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
                                   self.playerPokemon.status,                      @"playerPokemonStatus",
-                                  self.playerPokemon.currHP,                      @"playerPokemonHP",
+                                  self.playerPokemon.hp,                          @"playerPokemonHP",
                                   self.enemyPokemon.status,                       @"enemyPokemonStatus",
-                                  self.enemyPokemon.currHP,                       @"enemyPokemonHP", nil];
+                                  self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
   [pokemonStatus release];
   

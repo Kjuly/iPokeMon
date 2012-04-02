@@ -2,7 +2,7 @@
 //  WildPokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 3/15/12.
+//  Created by Kaijie Yu on 4/2/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -12,8 +12,9 @@
 
 @implementation WildPokemon
 
-@dynamic currEXP;
-@dynamic currHP;
+@dynamic exp;
+@dynamic hp;
+@dynamic fourMoves;
 @dynamic gender;
 @dynamic level;
 @dynamic maxStats;
@@ -21,7 +22,6 @@
 @dynamic status;
 @dynamic toNextLevel;
 @dynamic uid;
-@dynamic fourMoves;
 @dynamic pokemon;
 
 @end

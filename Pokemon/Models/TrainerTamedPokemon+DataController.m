@@ -75,8 +75,8 @@
       tamedPokemon.level       = [tamedPokemonData valueForKey:@"level"];
       tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
       tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
-      tamedPokemon.currHP      = [tamedPokemonData valueForKey:@"currHP"];
-      tamedPokemon.currEXP     = [tamedPokemonData valueForKey:@"currEXP"];
+      tamedPokemon.hp          = [tamedPokemonData valueForKey:@"hp"];
+      tamedPokemon.exp         = [tamedPokemonData valueForKey:@"exp"];
       tamedPokemon.toNextLevel = [tamedPokemonData valueForKey:@"toNextLevel"];
       tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
     }
@@ -105,17 +105,17 @@
     return;
   
   if (flag & kDataModifyTamedPokemonBasic) {
-    [data setValue:pokemon.status forKey:@"status"];
-    [data setValue:pokemon.happiness forKey:@"happiness"];
-    [data setValue:pokemon.level forKey:@"level"];
-    [data setValue:pokemon.fourMoves forKey:@"fourMoves"];
-    [data setValue:pokemon.maxStats forKey:@"maxStats"];
-    [data setValue:pokemon.currHP forKey:@"currHP"];
-    [data setValue:pokemon.currEXP forKey:@"currEXP"];
+    [data setValue:pokemon.status      forKey:@"status"];
+    [data setValue:pokemon.happiness   forKey:@"happiness"];
+    [data setValue:pokemon.level       forKey:@"level"];
+    [data setValue:pokemon.fourMoves   forKey:@"fourMoves"];
+    [data setValue:pokemon.maxStats    forKey:@"maxStats"];
+    [data setValue:pokemon.hp          forKey:@"hp"];
+    [data setValue:pokemon.exp         forKey:@"exp"];
     [data setValue:pokemon.toNextLevel forKey:@"toNextLevel"];
   }
   if (flag & kDataModifyTamedPokemonExtra) {
-    [data setValue:pokemon.box forKey:@"box"];
+    [data setValue:pokemon.box  forKey:@"box"];
     [data setValue:pokemon.memo forKey:@"memo"];
   }
   
