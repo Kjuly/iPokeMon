@@ -661,6 +661,7 @@
 		7FAF625014E797BA00A14AE0 /* AllPokemonImageSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */; };
 		7FAF625114E797BA00A14AE0 /* PokedexDefaultImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */; };
 		7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB4128D1529C979003F41F0 /* TrainerController.m */; };
+		7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412941529CC98003F41F0 /* WildPokemonController.m */; };
 		7FB764461509DFDA008A9AA1 /* GameMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */; };
 		7FB7644D1509EC6B008A9AA1 /* GameMenuSixPokemonsUnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7644C1509EC6A008A9AA1 /* GameMenuSixPokemonsUnitViewController.m */; };
 		7FB7645C1509FCA7008A9AA1 /* ButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB764561509FCA6008A9AA1 /* ButtonIconCancel.png */; };
@@ -1668,8 +1669,10 @@
 		7FAD69CB14EFF8F400B3E2F9 /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
 		7FAF624E14E797BA00A14AE0 /* AllPokemonImageSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AllPokemonImageSmall.png; sourceTree = "<group>"; };
 		7FAF624F14E797BA00A14AE0 /* PokedexDefaultImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokedexDefaultImage@2x.png"; sourceTree = "<group>"; };
-		7FB4128C1529C979003F41F0 /* TrainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TrainerController.h; sourceTree = "<group>"; };
+		7FB4128C1529C979003F41F0 /* TrainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerController.h; sourceTree = "<group>"; };
 		7FB4128D1529C979003F41F0 /* TrainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerController.m; sourceTree = "<group>"; };
+		7FB412931529CC98003F41F0 /* WildPokemonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildPokemonController.h; sourceTree = "<group>"; };
+		7FB412941529CC98003F41F0 /* WildPokemonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildPokemonController.m; sourceTree = "<group>"; };
 		7FB764441509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FB7644B1509EC69008A9AA1 /* GameMenuSixPokemonsUnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsUnitViewController.h; sourceTree = "<group>"; };
@@ -2427,6 +2430,8 @@
 				7FF56400152817AB00BA5E28 /* ServerAPIClient.m */,
 				7FB4128C1529C979003F41F0 /* TrainerController.h */,
 				7FB4128D1529C979003F41F0 /* TrainerController.m */,
+				7FB412931529CC98003F41F0 /* WildPokemonController.h */,
+				7FB412941529CC98003F41F0 /* WildPokemonController.m */,
 				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
@@ -4193,6 +4198,7 @@
 				7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */,
 				7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */,
 				7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */,
+				7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

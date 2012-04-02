@@ -38,9 +38,8 @@
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
 
-static TrainerController * trainerController = nil;
-
 // Singleton
+static TrainerController * trainerController_ = nil;
 + (TrainerController *)sharedInstance {
   // Check Session first,
   //   if it's not valid, post notification to |MainViewController| to show login view & return nil
@@ -49,14 +48,14 @@ static TrainerController * trainerController = nil;
     return nil;
   }
   
-  if (trainerController != nil)
-    return trainerController;
+  if (trainerController_ != nil)
+    return trainerController_;
   
   static dispatch_once_t onceToken; // Lock
   dispatch_once(&onceToken, ^{      // This code is called at most once per app
-    trainerController = [[TrainerController alloc] init];
+    trainerController_ = [[TrainerController alloc] init];
   });
-  return trainerController;
+  return trainerController_;
 }
 
 - (void)dealloc
