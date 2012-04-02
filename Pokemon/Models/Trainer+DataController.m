@@ -172,7 +172,7 @@
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", userID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"uid == %d", userID];
   [fetchRequest setPredicate:predicate];
   [fetchRequest setFetchLimit:1];
   
