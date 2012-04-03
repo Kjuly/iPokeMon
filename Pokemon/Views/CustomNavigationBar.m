@@ -15,8 +15,10 @@
 #define kBackButtonWith   40.f
 
 
-@interface CustomNavigationBar ()
-
+@interface CustomNavigationBar () {
+ @private
+  BOOL isButtonHidden_;
+}
 //- (void)backToRootWithCenterMainButton:(NSNotification *)notification;
 
 @end
@@ -91,6 +93,7 @@
   
   // Initialize |viewCount_|
   viewCount_ = 0;
+  isButtonHidden_ = NO;
 }
 
 // Settings for |backButton|
@@ -107,20 +110,22 @@
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     // Slide up the Navigation bar to hide it
-                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
-                     navigationBarFrame.origin.y = - navigationBarFrame.size.height;
-                     [self.navigationController.navigationBar setFrame:navigationBarFrame];
+                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+                       // Slide up the Navigation bar to hide it
+                       CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+                       navigationBarFrame.origin.y = - navigationBarFrame.size.height;
+                       [self.navigationController.navigationBar setFrame:navigationBarFrame];
+                     }
+                     else [self setBackToRootButtonToHidden:YES animated:YES];
                    }
                    completion:^(BOOL finished) {
-                     [self.navigationController setNavigationBarHidden:YES];
-                     
-                     // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
-                     // And recover button' layout in center view
-                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]])
+                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+                       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
+                       // And recover button' layout in center view
+                       [self.navigationController setNavigationBarHidden:YES];
                        [(AbstractCenterMenuViewController *)self.navigationController.topViewController
                           changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
-                     
+                     }
                      // Remove notification observer
 //                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];
                    }];
@@ -138,15 +143,36 @@
 }
 
 // Create |backButton| to Root
-- (void)setBackButtonForRoot
-{
-  if (! self.backButtonToRoot) {
-    backButtonToRoot_ = [[UIButton alloc] initWithFrame:CGRectMake(10.f, 0.f, kBackButtonWith, kBackButtonHeight)];
+- (void)setBackButtonForRoot {
+  if (self.backButtonToRoot == nil) {
+    CGRect buttonFrame = CGRectMake((isButtonHidden_ ? 160.f : 10.f), 0.f, kBackButtonWith, kBackButtonHeight);
+    backButtonToRoot_ = [[UIButton alloc] initWithFrame:buttonFrame];
     [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
                        forState:UIControlStateNormal];
     [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
   }
   [self addSubview:self.backButtonToRoot];
+  [self.backButtonToRoot setAlpha:(isButtonHidden_ ? 0.f : 1.f)];
+}
+
+// Set |backButtonToRoot_| to hidden or not
+- (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated {
+  NSLog(@"--- |CustomNavigationBar|: %@ navigation bar...", hidden ? @"hide" : @"show");
+  isButtonHidden_ = hidden;
+  CGRect backToRootButtonFrame = self.backButtonToRoot.frame;
+  backToRootButtonFrame.origin.x = hidden ? 160.f : 10.f;
+  CGFloat alpha                  = hidden ? 0.f   : 1.f;
+  void (^animations)() = ^(){
+    [self.backButtonToRoot setFrame:backToRootButtonFrame];
+    [self.backButtonToRoot setAlpha:alpha];
+  };
+  
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:nil];
+  else animations();
 }
 
 // Add |backButton| for previous view

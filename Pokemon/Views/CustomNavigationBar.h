@@ -26,6 +26,7 @@
 - (void)initNavigationBarWith:(UIImage *)backgroundImage;
 - (void)backToRoot:(id)sender;
 - (void)setBackButtonForRoot;
+- (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)addBackButtonForPreviousView;
 - (void)removeBackButtonForPreviousView;
 - (void)clearBackground;

@@ -11,6 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
+#import "CustomNavigationBar.h"
 
 
 @interface LoginTableViewController () {
@@ -66,6 +67,10 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Show navigation bar, but hide back button
+  [self.navigationController setNavigationBarHidden:NO];
+  [(CustomNavigationBar *)self.navigationController.navigationBar setBackToRootButtonToHidden:YES animated:NO];
   
   // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -204,22 +209,9 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     // Show Navigation Bar
-                     [self.navigationController setNavigationBarHidden:NO];
-                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
-                     if (navigationBarFrame.origin.y < 0) {
-                       navigationBarFrame.origin.y = 0;
-                       [self.navigationController.navigationBar setFrame:navigationBarFrame];
-                     }
-                   }
-                   completion:^(BOOL finished) {
-                     [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
-                                                          animated:YES];
-                   }];
+  [(CustomNavigationBar *)self.navigationController.navigationBar setBackToRootButtonToHidden:NO animated:YES];
+  [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
+                                       animated:YES];
 }
 
 #pragma mark - Private Methods
@@ -264,12 +256,18 @@
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
+                     
+                     // Slide up the Navigation bar to hide it
+                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+                     navigationBarFrame.origin.y = - navigationBarFrame.size.height;
+                     [self.navigationController.navigationBar setFrame:navigationBarFrame];
                    }
                    completion:^(BOOL finished) {
+                     [self.navigationController setNavigationBarHidden:YES];
                      [self.authenticatingView  removeFromSuperview];
                      [self.authenticatingLabel removeFromSuperview];
-                     [self.view removeFromSuperview];
                      [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+                     [self.navigationController.view removeFromSuperview];
                    }];
 }
 
