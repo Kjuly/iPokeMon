@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "NewTrainerGuideViewController.h"
+#import "NewbieGuideViewController.h"
 
-@implementation NewTrainerGuideViewController
+@implementation NewbieGuideViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

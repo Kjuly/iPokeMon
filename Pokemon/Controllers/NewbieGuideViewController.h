@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewTrainerGuideViewController : UIViewController
+@interface NewbieGuideViewController : UIViewController
 
 @end

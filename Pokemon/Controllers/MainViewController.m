@@ -15,6 +15,8 @@
 #import "WildPokemonController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "LoginTableViewController.h"
+#import "NewbieGuideViewController.h"
+#import "HelpViewController.h"
 #import "CustomNavigationController.h"
 #import "CenterMenuUtilityViewController.h"
 #import "CenterMenuSixPokemonsViewController.h"
@@ -36,6 +38,8 @@
   MapViewController                   * mapViewController_;
   CustomNavigationController          * loginNavigationController_;
   LoginTableViewController            * loginTableViewController_;
+  NewbieGuideViewController           * newbieGuideViewController_;
+  HelpViewController                  * helpViewController_;
  
   UIButton             * currentKeyButton_;
   CenterMainButtonStatus centerMainButtonStatus_;
@@ -58,6 +62,8 @@
 @property (nonatomic, retain) MapViewController                   * mapViewController;
 @property (nonatomic, retain) CustomNavigationController          * loginNavigationController;
 @property (nonatomic, retain) LoginTableViewController            * loginTableViewController;
+@property (nonatomic, retain) NewbieGuideViewController           * newbieGuideViewController;
+@property (nonatomic, retain) HelpViewController                  * helpViewController;
 
 @property (nonatomic, retain) UIButton             * currentKeyButton;
 @property (nonatomic, assign) CenterMainButtonStatus centerMainButtonStatus;
@@ -102,6 +108,8 @@
 @synthesize mapViewController                         = mapViewController_;
 @synthesize loginNavigationController                 = loginNavigationController_;
 @synthesize loginTableViewController                  = loginTableViewController_;
+@synthesize newbieGuideViewController                 = newbieGuideViewController_;
+@synthesize helpViewController                        = helpViewController_;
 
 @synthesize currentKeyButton                = currentKeyButton_;
 @synthesize centerMainButtonStatus          = centerMainButtonStatus_;
@@ -129,6 +137,8 @@
   self.mapViewController                         = nil;
   self.loginNavigationController                 = nil;
   self.loginTableViewController                  = nil;
+  self.newbieGuideViewController                 = nil;
+  self.helpViewController                        = nil;
   
   self.currentKeyButton = nil;
   
@@ -293,6 +303,8 @@
   self.mapViewController                         = nil;
   self.loginNavigationController                 = nil;
   self.loginTableViewController                  = nil;
+  self.newbieGuideViewController                 = nil;
+  self.helpViewController                        = nil;
   
   [self.longTapTimer invalidate];
   self.longTapTimer = nil;

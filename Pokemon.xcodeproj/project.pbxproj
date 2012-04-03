@@ -213,8 +213,8 @@
 		7F51C42A14D8180D0091902D /* UtilityView_LocateMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */; };
 		7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */; };
 		7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */; };
-		7F51CADE152B3AEF00B97249 /* NewTrainerGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CADD152B3AEF00B97249 /* NewTrainerGuideViewController.m */; };
 		7F51CAE1152B3B0200B97249 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CAE0152B3B0200B97249 /* HelpViewController.m */; };
+		7F51CAE3152B3D3700B97249 /* NewbieGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */; };
 		7F52450414FBD9F40019C75A /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52450314FBD9F40019C75A /* Pokemon.m */; };
 		7F52451314FBDACE0019C75A /* WildPokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451214FBDACE0019C75A /* WildPokemon+DataController.m */; };
 		7F52451914FBEA810019C75A /* GameStatusMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451814FBEA810019C75A /* GameStatusMachine.m */; };
@@ -1177,10 +1177,10 @@
 		7F51C42614D8180D0091902D /* UtilityView_LocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_LocateMe.png; sourceTree = "<group>"; };
 		7F51C42714D8180D0091902D /* UtilityView_SetAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_SetAccount.png; sourceTree = "<group>"; };
 		7F51C42814D8180D0091902D /* UtilityView_ShowWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UtilityView_ShowWorld.png; sourceTree = "<group>"; };
-		7F51CADC152B3AEF00B97249 /* NewTrainerGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTrainerGuideViewController.h; sourceTree = "<group>"; };
-		7F51CADD152B3AEF00B97249 /* NewTrainerGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTrainerGuideViewController.m; sourceTree = "<group>"; };
+		7F51CADC152B3AEF00B97249 /* NewbieGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewbieGuideViewController.h; sourceTree = "<group>"; };
 		7F51CADF152B3B0200B97249 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		7F51CAE0152B3B0200B97249 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewbieGuideViewController.m; sourceTree = "<group>"; };
 		7F52450214FBD9F40019C75A /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
 		7F52450314FBD9F40019C75A /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
 		7F52451114FBDACE0019C75A /* WildPokemon+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WildPokemon+DataController.h"; sourceTree = "<group>"; };
@@ -2460,8 +2460,8 @@
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7FCEDEF4152ACC9500CE96AB /* GTMOAuth2ViewControllerTouch+Custom.h */,
 				7FCEDEF5152ACC9600CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m */,
-				7F51CADC152B3AEF00B97249 /* NewTrainerGuideViewController.h */,
-				7F51CADD152B3AEF00B97249 /* NewTrainerGuideViewController.m */,
+				7F51CADC152B3AEF00B97249 /* NewbieGuideViewController.h */,
+				7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */,
 				7F51CADF152B3B0200B97249 /* HelpViewController.h */,
 				7F51CAE0152B3B0200B97249 /* HelpViewController.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
@@ -4245,8 +4245,8 @@
 				7FB412B4152A0469003F41F0 /* TrainerBadgeView.m in Sources */,
 				7FCEDEF2152AB7EB00CE96AB /* Trainer.m in Sources */,
 				7FCEDEF6152ACC9700CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m in Sources */,
-				7F51CADE152B3AEF00B97249 /* NewTrainerGuideViewController.m in Sources */,
 				7F51CAE1152B3B0200B97249 /* HelpViewController.m in Sources */,
+				7F51CAE3152B3D3700B97249 /* NewbieGuideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
