@@ -12,6 +12,7 @@
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "TrainerController.h"
+#import "WildPokemonController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "LoginTableViewController.h"
 #import "CustomNavigationController.h"
@@ -273,6 +274,7 @@
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
+  [[WildPokemonController sharedInstance] updateForCurrentRegion];
 }
 
 - (void)viewDidUnload

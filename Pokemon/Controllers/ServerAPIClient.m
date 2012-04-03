@@ -154,7 +154,7 @@ static ServerAPIClient * client_;
 - (void)updateWildPokemonsForCurrentRegionSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                                           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   [self updateHeaderWithRegion:YES];
-  [self postPath:[ServerAPI getWildPokemon] parameters:nil success:success failure:failure];
+  [self getPath:[ServerAPI getWildPokemon] parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Provate Methods
@@ -167,7 +167,7 @@ static ServerAPIClient * client_;
   
   // Include user location info if needed
   if (withRegion) {
-    
+    [self setDefaultHeader:@"region" value:@"1"];
   }
 }
 

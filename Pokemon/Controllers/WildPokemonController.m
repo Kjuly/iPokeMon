@@ -57,7 +57,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 #pragma mark - Public Methods
 
-- (void)updateForCurrentRegion:(NSInteger)regionID {
+- (void)updateForCurrentRegion {
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     // Get JSON Data Array from HTTP Response
@@ -67,7 +67,7 @@ static WildPokemonController * wildPokemonController_ = nil;
       [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+    [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
     // Update the data for |WildPokemon|
@@ -78,7 +78,7 @@ static WildPokemonController * wildPokemonController_ = nil;
       [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [wildPokemonData valueForKey:@"uid"]]];
       if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
         wildPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-      else wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+      else wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                        inManagedObjectContext:managedObjectContext];
       // Update data for current |wildPokemon|
       [self updateWildPokemon:wildPokemon withData:wildPokemonData];
@@ -86,8 +86,8 @@ static WildPokemonController * wildPokemonController_ = nil;
     [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
-      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
-    NSLog(@"...Update |%@| data done...", [self class]);
+      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+    NSLog(@"...Update |%@| data done...", [WildPokemon class]);
   };
   
   // Failure Block Method
