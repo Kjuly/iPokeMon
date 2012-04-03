@@ -180,13 +180,50 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
-                                       animated:YES];
+//  [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
+//                                       animated:YES];
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     // Show Navigation Bar
+                     [self.navigationController setNavigationBarHidden:NO];
+                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+                     if (navigationBarFrame.origin.y < 0) {
+                       navigationBarFrame.origin.y = 0;
+                       [self.navigationController.navigationBar setFrame:navigationBarFrame];
+                     }
+                   }
+                   completion:^(BOOL finished) {
+                     [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
+                                                          animated:YES];
+                   }];
 }
 
 #pragma mark - Private Methods
 
 - (void)hideView:(NSNotification *)notification {
+  /*
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationCurveEaseIn
+                   animations:^{
+                     for (UIButton * button in [self.centerMenu subviews])
+                       [button setFrame:self.buttonOriginFrame];
+                     [self.centerMenu setAlpha:0.f];
+                   }
+                   completion:^(BOOL finished) {
+                     if (self.navigationController)
+                       [self.navigationController.view removeFromSuperview];
+                     //                       [self.navigationController removeFromParentViewController];
+                     else
+                       [self removeFromParentViewController];
+                     
+                     // After closed self, remove Notification Observer
+                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
+                   }];
+  */
+  
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveLinear

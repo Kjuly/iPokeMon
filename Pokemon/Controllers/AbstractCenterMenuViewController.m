@@ -86,7 +86,7 @@
   [centerMenu release];
   [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
   [self.centerMenu setOpaque:NO];
-  [self.centerMenu setAlpha:0.0f];
+  [self.centerMenu setAlpha:0.f];
   [self.view addSubview:self.centerMenu];
   
   // Add buttons to |ballMenu_|, set it's origin frame to center
@@ -144,8 +144,8 @@
 
 // Push View Controller
 - (void)pushViewController:(id)viewController {
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
                      // Slide away buttons in center view & hide them
@@ -241,8 +241,8 @@
 // Close center menu view
 - (void)closeCenterMenuView:(NSNotification *)notification {
   // Hide buttons with animation
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
                      for (UIButton * button in [self.centerMenu subviews])

@@ -324,7 +324,6 @@
       [CustomNavigationController initWithRootViewController:self.loginTableViewController
                                 navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
     [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-    [loginNavigationController_ setNavigationBarHidden:NO];
   }
   [self.view addSubview:loginNavigationController_.view];
 }

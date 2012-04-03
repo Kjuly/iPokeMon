@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSInteger viewCount;
 
 - (void)initNavigationBarWith:(UIImage *)backgroundImage;
+- (void)backToRoot:(id)sender;
 - (void)setBackButtonForRoot;
 - (void)addBackButtonForPreviousView;
 - (void)removeBackButtonForPreviousView;

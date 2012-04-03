@@ -35,7 +35,7 @@
   if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
     navigationController.navigationBarBackgroundImage = navigationBarBackgroundImage;
-    [navigationController pushViewController:rootViewController  animated:NO];
+    [navigationController pushViewController:rootViewController animated:NO];
   }
   return navigationController;
 }

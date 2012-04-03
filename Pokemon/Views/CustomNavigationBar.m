@@ -117,8 +117,9 @@
                      
                      // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
                      // And recover button' layout in center view
-                     [(AbstractCenterMenuViewController *)self.navigationController.topViewController
-                      changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
+                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]])
+                       [(AbstractCenterMenuViewController *)self.navigationController.topViewController
+                          changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
                      
                      // Remove notification observer
 //                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];

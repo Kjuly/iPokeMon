@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GTMOAuth2ViewControllerTouch.h"
+#import "GTMOAuth2ViewControllerTouch+Custom.h"
 
 
 typedef enum {
