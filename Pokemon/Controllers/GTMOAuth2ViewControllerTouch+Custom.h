@@ -10,6 +10,7 @@
 
 @interface GTMOAuth2ViewControllerTouch (Custom)
 
+- (void)viewDidLoad;
 - (void)popView;
 
 @end

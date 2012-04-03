@@ -13,10 +13,20 @@
 
 @implementation GTMOAuth2ViewControllerTouch (Custom)
 
+// Overwrite method:|viewDidLoad|
+- (void)viewDidLoad {
+  // the app may prefer some html other than blank white to be displayed
+  // before the sign-in web page loads
+  NSString * html = self.initialHTMLString;
+  if ([html length] > 0) {
+    [[self webView] loadHTMLString:html baseURL:nil];
+  }
+}
+
 // Overwrite method:|popView|
 - (void)popView {
   if (self.navigationController.topViewController == self) {
-    if (!self.view.isHidden) {
+    if (! self.view.isHidden) {
       // Set the flag to our viewWillDisappear method so it knows
       // this is a disappearance initiated by the sign-in object,
       // not the user cancelling via the navigation controller
