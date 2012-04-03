@@ -24,6 +24,7 @@
   CGRect     textView2Frame_;
   UIButton * confirmButton_;
   
+  NSInteger    guideStep_;
   UITextView * nameInputView_;
 }
 
@@ -36,9 +37,12 @@
 @property (nonatomic, assign) CGRect     textView2Frame;
 @property (nonatomic, retain) UIButton * confirmButton;
 
+@property (nonatomic, assign) NSInteger    guideStep;
 @property (nonatomic, retain) UITextView * nameInputView;
 
 - (void)unloadViewAnimated:(BOOL)animated;
+- (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
+- (void)confirm:(id)sender;
 - (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2;
 
 @end
@@ -55,6 +59,7 @@
 @synthesize textView2Frame = textView2Frame_;
 @synthesize confirmButton  = confirmButton_;
 
+@synthesize guideStep      = guideStep_;
 @synthesize nameInputView  = nameInputView_;
 
 - (void)dealloc
@@ -107,8 +112,6 @@
   // Constants
   textView1Frame_ = CGRectMake(30.f, 60.f, 260.f, 40.f);
   textView2Frame_ = CGRectMake(30.f, 100.f, 260.f, 40.f);
-  CGRect confirmButtonFrame =
-    CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight - 100.f, kCenterMainButtonSize, kCenterMainButtonSize);
   
   textView1_ = [[UILabel alloc] initWithFrame:textView1Frame_];
   [textView1_ setBackgroundColor:[UIColor clearColor]];
@@ -126,9 +129,11 @@
   [textView2_ setNumberOfLines:0];
   [self.view addSubview:textView2_];
   
-  confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
+  confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+  [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
+  [self moveConfirmButtonToBottom:YES animated:NO];
   
   // Layouts for different steps
   // Constants
@@ -149,6 +154,7 @@
   [self setTextViewWithText1:@"PMSNewbiewGuide1Text1" text2:@"PMSNewbiewGuide1Text2"];
   [self.nameInputView setText:[self.trainer name]]; // Default name
   [self.view addSubview:self.nameInputView];
+  self.guideStep = 1;
 }
 
 - (void)viewDidUnload
@@ -194,6 +200,85 @@
                                  animations:animations
                                  completion:completion];
   else {animations(); completion(YES);}
+}
+
+// Move |confirmButton_|
+- (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated {
+  CGRect confirmButtonFrame =
+    CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+               toBottom ? kViewHeight - 100.f : (kViewHeight - kCenterMainButtonSize) / 2,
+               kCenterMainButtonSize,
+               kCenterMainButtonSize);
+  void (^animations)() = ^(){[self.confirmButton setFrame:confirmButtonFrame];};
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:nil];
+  else animations();
+}
+
+// Action for |confirmButton_|
+- (void)confirm:(id)sender {
+  switch (self.guideStep) {
+    case 1: {
+      if (! [self.nameInputView.text isEqualToString:[self.trainer name]])
+        [self.trainer setName:self.nameInputView.text];
+      [UIView animateWithDuration:.3f
+                            delay:0.f
+                          options:UIViewAnimationOptionCurveLinear
+                       animations:^{
+                         [self.nameInputView setAlpha:0.f];
+                         [self.textView1     setAlpha:0.f];
+                         [self.textView2     setAlpha:0.f];
+                       }
+                       completion:^(BOOL finished) {
+                         [self setTextViewWithText1:@"PMSNewbiewGuide2Text1" text2:nil];
+                         [self.nameInputView removeFromSuperview];
+                         [UIView animateWithDuration:.3f
+                                               delay:0.f
+                                             options:UIViewAnimationOptionCurveLinear
+                                          animations:^{
+                                            [self.textView1 setAlpha:1.f];
+                                            [self.textView2 setAlpha:1.f];
+                                          }
+                                          completion:nil];
+                       }];
+      break;
+    }
+      
+    case 2: {
+      [UIView animateWithDuration:.3f
+                            delay:0.f
+                          options:UIViewAnimationOptionCurveLinear
+                       animations:^{
+                         [self.textView1 setAlpha:0.f];
+                         [self.textView2 setAlpha:0.f];
+                         [self moveConfirmButtonToBottom:NO animated:NO];
+                       }
+                       completion:^(BOOL finished) {
+                         [self setTextViewWithText1:@"PMSNewbiewGuide3Text1" text2:nil];
+                         [UIView animateWithDuration:.3f
+                                               delay:0.f
+                                             options:UIViewAnimationOptionCurveLinear
+                                          animations:^{
+                                            [self.textView1 setAlpha:1.f];
+                                            [self.textView2 setAlpha:1.f];
+                                          }
+                                          completion:nil];
+                       }];
+      break;
+    }
+      
+    case 3:
+      [self unloadViewAnimated:YES];
+      break;
+      
+    default:
+      break;
+  }
+  
+  ++guideStep_;
 }
 
 // Set text for |textView1_| & |textView2_|
