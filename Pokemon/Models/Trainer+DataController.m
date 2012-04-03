@@ -40,6 +40,7 @@
     trainer.uid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
     trainer.name              = [JSON valueForKey:@"name"];
     trainer.money             = [NSNumber numberWithInt:[[JSON valueForKey:@"money"] intValue]];
+    trainer.badges            = [JSON valueForKey:@"badges"];
     trainer.pokedex           = [JSON valueForKey:@"pokedex"];
     trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
     trainer.adventureStarted  = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"timeStarted"] intValue]];
@@ -83,7 +84,7 @@
   
   if (flag & kDataModifyTrainerName)        [data setValue:trainer.name          forKey:@"name"];
   if (flag & kDataModifyTrainerMoney)       [data setValue:trainer.money         forKey:@"money"];
-  if (flag & kDataModifyTrainerBadges)      [data setValue:nil                   forKey:@"badges"];
+  if (flag & kDataModifyTrainerBadges)      [data setValue:trainer.badges        forKey:@"badges"];
   if (flag & kDataModifyTrainerPokedex)     [data setValue:trainer.pokedex       forKey:@"pokedex"];
   if (flag & kDataModifyTrainerSixPokemons) [data setValue:trainer.sixPokemonsID forKey:@"sixPokemons"];
   if (flag & kDataModifyTrainerBag) {

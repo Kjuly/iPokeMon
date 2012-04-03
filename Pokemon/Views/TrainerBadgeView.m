@@ -130,9 +130,9 @@
 
 - (void)updateBadges:(NSArray *)badges {
   NSLog(@"--- TrainerBadgeView - |updateBadges:| update badges...");
-  [self.badgeGoldCount   setText:[[badges objectAtIndex:0] stringValue]];
-  [self.badgeSilverCount setText:[[badges objectAtIndex:1] stringValue]];
-  [self.badgeBronzeCount setText:[[badges objectAtIndex:2] stringValue]];
+  [self.badgeGoldCount   setText:[badges objectAtIndex:0]];
+  [self.badgeSilverCount setText:[badges objectAtIndex:1]];
+  [self.badgeBronzeCount setText:[badges objectAtIndex:2]];
 }
 
 @end

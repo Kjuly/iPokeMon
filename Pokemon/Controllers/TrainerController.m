@@ -127,6 +127,7 @@ static TrainerController * trainerController_ = nil;
 - (NSInteger) UID         {return [self.entityTrainer.uid intValue];}
 - (NSString *)name        {return self.entityTrainer.name;}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
+- (NSArray *) badges      {return [self.entityTrainer.badges componentsSeparatedByString:@","];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}

@@ -26,6 +26,7 @@
 - (NSInteger)UID;                                              // UID
 - (NSString *)name;                                            // Name
 - (NSInteger)money;                                            // Money
+- (NSArray *)badges;                                           // Badges
 - (NSDate *)timeStarted;                                       // Adventured Time Started
 - (NSString *)pokedex;                                         // Pokedex
 - (NSArray *)sixPokemons;                                      // Six Pokemons

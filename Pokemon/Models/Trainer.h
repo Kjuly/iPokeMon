@@ -2,7 +2,7 @@
 //  Trainer.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 4/2/12.
+//  Created by Kaijie Yu on 4/3/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface Trainer : NSManagedObject
 
 @property (nonatomic, retain) NSDate * adventureStarted;
+@property (nonatomic, retain) NSString * badges;
 @property (nonatomic, retain) id bagBattleItems;
 @property (nonatomic, retain) id bagBerries;
 @property (nonatomic, retain) id bagItems;
@@ -26,8 +27,8 @@
 @property (nonatomic, retain) NSNumber * money;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * pokedex;
-@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * sixPokemonsID;
+@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSSet *tamedPokemons;
 @end
 
