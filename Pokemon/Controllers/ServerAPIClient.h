@@ -34,6 +34,9 @@ typedef enum {
          forTarget:(DataFetchTarget)target
            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)checkUniquenessForName:(NSString *)name
+                       success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // WildPokemon
 - (void)updateWildPokemonsForCurrentRegionSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

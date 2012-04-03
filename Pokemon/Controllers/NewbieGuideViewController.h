@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewbieGuideViewController : UIViewController
+@interface NewbieGuideViewController : UIViewController <UITextFieldDelegate>
 
 - (void)loadViewAnimated:(BOOL)animated;
 

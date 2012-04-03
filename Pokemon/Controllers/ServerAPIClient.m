@@ -14,17 +14,18 @@
 
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
-NSString * const kServerAPIRoot         = @"http://localhost:8080";
+NSString * const kServerAPIRoot            = @"http://localhost:8080";
 // User
-NSString * const kServerAPIGetUserID    = @"/id";      // /uid:User's Unique ID
-NSString * const kServerAPIGetUser      = @"/u";      // /u:User
-NSString * const kServerAPIUpdateUser   = @"/update";
+NSString * const kServerAPIGetUserID       = @"/id";     // /uid:User's Unique ID
+NSString * const kServerAPIGetUser         = @"/u";      // /u:User
+NSString * const kServerAPIUpdateUser      = @"/update";
+NSString * const kServerAPICheckUniqueness = @"/cu";     // /cu:Check Uniqueness
 // User's Pokemon
-NSString * const kServerAPIGetPokemon   = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
-NSString * const kServerAPIGet6Pokemons = @"/6pm";    // /6pm:SixPokeMons
-NSString * const kServerAPIGetPokedex   = @"/pd";     // /pd:PokeDex
+NSString * const kServerAPIGetPokemon      = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
+NSString * const kServerAPIGet6Pokemons    = @"/6pm";    // /6pm:SixPokeMons
+NSString * const kServerAPIGetPokedex      = @"/pd";     // /pd:PokeDex
 // WildPokemon
-NSString * const kServerAPIGetWildPokemon = @"/wpm";  // /wp:WildPokeMon
+NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
 
 #pragma mark -
 #pragma mark - ServerAPI
@@ -33,6 +34,7 @@ NSString * const kServerAPIGetWildPokemon = @"/wpm";  // /wp:WildPokeMon
 + (NSString *)getUserID;                                    // GET
 + (NSString *)getUser;                                      // GET
 + (NSString *)updateUser;                                   // POST
++ (NSString *)checkUniquenessForName;                       // POST
 // User's Pokemon
 + (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
 + (NSString *)getSixPokemons;                               // GET
@@ -53,6 +55,7 @@ NSString * const kServerAPIGetWildPokemon = @"/wpm";  // /wp:WildPokeMon
 + (NSString *)getUserID  { return kServerAPIGetUserID; }
 + (NSString *)getUser    { return kServerAPIGetUser; }
 + (NSString *)updateUser { return kServerAPIUpdateUser; }
++ (NSString *)checkUniquenessForName { return kServerAPICheckUniqueness; }
 
 // User's Pokemon
 + (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID {
@@ -104,6 +107,7 @@ static ServerAPIClient * client_;
 
 #pragma mark - Public Methods
 #pragma mark - Public Methods: Trainer
+
 // GET
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(AFHTTPRequestOperation *, id))success
@@ -147,6 +151,16 @@ static ServerAPIClient * client_;
   [self updateHeaderWithRegion:NO];
   NSLog(@"Sync Data Request - clientDescription:%@", [self description]);
   [self postPath:path parameters:data success:success failure:failure];
+}
+
+// POST: Check uniqueness for the |name|
+- (void)checkUniquenessForName:(NSString *)name
+                       success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+  [self updateHeaderWithRegion:NO];
+  [self setDefaultHeader:@"name" value:name];
+  NSLog(@"Request URL Description:%@", [self description]);
+  [self postPath:[ServerAPI checkUniquenessForName] parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Public Methods: WildPokemon

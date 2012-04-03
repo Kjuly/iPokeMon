@@ -10,11 +10,13 @@
 
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
+#import "ServerAPIClient.h"
 #import "TrainerController.h"
 
 
 @interface NewbieGuideViewController () {
  @private
+  ServerAPIClient   * serverAPIClient_;
   TrainerController * trainer_;
   
   UIView   * backgroundView_;
@@ -24,10 +26,12 @@
   CGRect     textView2Frame_;
   UIButton * confirmButton_;
   
-  NSInteger    guideStep_;
-  UITextView * nameInputView_;
+  BOOL          isProcessing_;
+  NSInteger     guideStep_;
+  UITextField * nameInputView_;
 }
 
+@property (nonatomic, retain) ServerAPIClient   * serverAPIClient;
 @property (nonatomic, retain) TrainerController * trainer;
 
 @property (nonatomic, retain) UIView   * backgroundView;
@@ -37,8 +41,9 @@
 @property (nonatomic, assign) CGRect     textView2Frame;
 @property (nonatomic, retain) UIButton * confirmButton;
 
-@property (nonatomic, assign) NSInteger    guideStep;
-@property (nonatomic, retain) UITextView * nameInputView;
+@property (nonatomic, assign) BOOL          isProcessing;
+@property (nonatomic, assign) NSInteger     guideStep;
+@property (nonatomic, retain) UITextField * nameInputView;
 
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
@@ -50,27 +55,31 @@
 
 @implementation NewbieGuideViewController
 
-@synthesize trainer        = trainer_;
+@synthesize serverAPIClient = serverAPIClient_;
+@synthesize trainer         = trainer_;
 
-@synthesize backgroundView = backgroundView_;
-@synthesize textView1      = textView1_;
-@synthesize textView2      = textView2_;
-@synthesize textView1Frame = textView1Frame_;
-@synthesize textView2Frame = textView2Frame_;
-@synthesize confirmButton  = confirmButton_;
+@synthesize backgroundView  = backgroundView_;
+@synthesize textView1       = textView1_;
+@synthesize textView2       = textView2_;
+@synthesize textView1Frame  = textView1Frame_;
+@synthesize textView2Frame  = textView2Frame_;
+@synthesize confirmButton   = confirmButton_;
 
-@synthesize guideStep      = guideStep_;
-@synthesize nameInputView  = nameInputView_;
+@synthesize isProcessing    = isProcessing_;
+@synthesize guideStep       = guideStep_;
+@synthesize nameInputView   = nameInputView_;
 
 - (void)dealloc
 {
-  self.trainer = nil;
+  self.serverAPIClient = nil;
+  self.trainer         = nil;
   
   [backgroundView_ release];
   [textView1_      release];
   [textView2_      release];
   [confirmButton_  release];
   
+  nameInputView_.delegate = nil;
   [nameInputView_  release];
   
   [super dealloc];
@@ -80,8 +89,9 @@
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    // Custom initialization
-    self.trainer = [TrainerController sharedInstance];
+    self.serverAPIClient = [ServerAPIClient sharedInstance];
+    self.trainer         = [TrainerController sharedInstance];
+    self.isProcessing    = NO;
   }
   return self;
 }
@@ -139,11 +149,12 @@
   // Constants
   CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f, 260.f, 32.f);
   
-  nameInputView_ = [[UITextView alloc] initWithFrame:nameInputViewFrame];
+  nameInputView_ = [[UITextField alloc] initWithFrame:nameInputViewFrame];
   [nameInputView_ setBackgroundColor:[UIColor whiteColor]];
   [nameInputView_ setTextColor:[UIColor blackColor]];
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
+  nameInputView_.delegate = self;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -220,30 +231,59 @@
 
 // Action for |confirmButton_|
 - (void)confirm:(id)sender {
+  // If is processing, do nothing until processing done
+  if (self.isProcessing) return;
+  
   switch (self.guideStep) {
     case 1: {
-      if (! [self.nameInputView.text isEqualToString:[self.trainer name]])
-        [self.trainer setName:self.nameInputView.text];
-      [UIView animateWithDuration:.3f
-                            delay:0.f
-                          options:UIViewAnimationOptionCurveLinear
-                       animations:^{
-                         [self.nameInputView setAlpha:0.f];
-                         [self.textView1     setAlpha:0.f];
-                         [self.textView2     setAlpha:0.f];
-                       }
-                       completion:^(BOOL finished) {
-                         [self setTextViewWithText1:@"PMSNewbiewGuide2Text1" text2:nil];
-                         [self.nameInputView removeFromSuperview];
-                         [UIView animateWithDuration:.3f
-                                               delay:0.f
-                                             options:UIViewAnimationOptionCurveLinear
-                                          animations:^{
-                                            [self.textView1 setAlpha:1.f];
-                                            [self.textView2 setAlpha:1.f];
-                                          }
-                                          completion:nil];
-                       }];
+      NSString * name = self.nameInputView.text;
+      NSLog(@"New Name:%@", name);
+      if (! [name isEqualToString:[self.trainer name]]) {
+        // Block: |success| & |failure|
+        void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+          // Response:-1:ERROR: 0:Name Exist 1:OK
+          NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
+          NSString * newText;
+          NSLog(@"...|checkUniquenessForName| data success...response value of |uniqueness|:%d", uniqueness);
+          if (uniqueness == 1) {
+            [self.trainer setName:name];
+            newText = @"PMSNewbiewGuide2Text1";
+            ++guideStep_;
+          }
+          else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
+          else newText = @"PMSNewbiewGuide1TextNameERROR";
+          
+          void (^animations)() = ^() {
+            if (uniqueness == 1) [self.nameInputView setAlpha:0.f];
+            [self.textView1 setAlpha:0.f];
+            [self.textView2 setAlpha:0.f];
+          };
+          void (^completion)(BOOL) = ^(BOOL finished) {
+            [self setTextViewWithText1:newText text2:nil];
+            if (uniqueness == 1) [self.nameInputView removeFromSuperview];
+            [UIView animateWithDuration:.3f
+                                  delay:0.f
+                                options:UIViewAnimationOptionCurveLinear
+                             animations:^{
+                               [self.textView1 setAlpha:1.f];
+                               [self.textView2 setAlpha:1.f];
+                             }
+                             completion:nil];
+          };
+          [UIView animateWithDuration:.3f
+                                delay:0.f
+                              options:UIViewAnimationOptionCurveLinear
+                           animations:animations
+                           completion:completion];
+          self.isProcessing = NO;
+        };
+        void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+          NSLog(@"!!! |checkUniquenessForName| data failed ERROR: %@", error);
+        };
+        
+        [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
+        self.isProcessing = YES;
+      }
       break;
     }
       
@@ -267,6 +307,7 @@
                                           }
                                           completion:nil];
                        }];
+      ++guideStep_;
       break;
     }
       
@@ -277,8 +318,6 @@
     default:
       break;
   }
-  
-  ++guideStep_;
 }
 
 // Set text for |textView1_| & |textView2_|
@@ -290,6 +329,13 @@
   [self.textView2 setFrame:self.textView2Frame];
   [self.textView2 setText:NSLocalizedString(text2, nil)];
   [self.textView2 sizeToFit];
+}
+
+#pragma mark - UITextView Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [self.nameInputView resignFirstResponder];
+  return YES;
 }
 
 @end
