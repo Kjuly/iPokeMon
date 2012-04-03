@@ -8,6 +8,7 @@
 
 #import "CustomNavigationBar.h"
 
+#import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "AbstractCenterMenuViewController.h"
 
@@ -19,6 +20,7 @@
  @private
   UINavigationController * navigationController_;
   UIImageView            * navigationBarBackgroundImage_;
+  UILabel                * title_;
   UIButton               * backButtonToRoot_;
   UIButton               * backButton_;
   BOOL                     isButtonHidden_;
@@ -26,6 +28,7 @@
 
 @property (nonatomic, retain) IBOutlet UINavigationController * navigationController;
 @property (nonatomic, retain) UIImageView * navigationBarBackgroundImage;
+@property (nonatomic, retain) UILabel     * title;
 @property (nonatomic, retain) UIButton    * backButtonToRoot;
 @property (nonatomic, retain) UIButton    * backButton;
 @property (nonatomic, assign) BOOL          isButtonHidden;
@@ -37,16 +40,19 @@
 
 @implementation CustomNavigationBar
 
+@synthesize viewCount      = viewCount_;
+
 @synthesize navigationController         = navigationController_;
 @synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
+@synthesize title                        = title_;
 @synthesize backButtonToRoot             = backButtonToRoot_;
 @synthesize backButton                   = backButton_;
-
-@synthesize viewCount      = viewCount_;
-@synthesize isButtonHidden = isButtonHidden_;
+@synthesize isButtonHidden               = isButtonHidden_;
 
 -(void)dealloc
 {
+  self.title = nil;
+  
   [navigationController_         release];
   [navigationBarBackgroundImage_ release];
   [backButtonToRoot_             release];
@@ -91,15 +97,29 @@
 
 // Save the background image to |navigationBarBackgroundImage_|,
 // If not shown, call |[self setNeedsDisplay];| to force a redraw.
-- (void)initNavigationBarWith:(UIImage *)backgroundImage
-{
+- (void)initNavigationBarWith:(UIImage *)backgroundImage {
   CGRect navigationBarBackgroundImageFrame = CGRectMake(0.f, 0.f, backgroundImage.size.width, backgroundImage.size.height);
   navigationBarBackgroundImage_ = [[UIImageView alloc] initWithFrame:navigationBarBackgroundImageFrame];
   navigationBarBackgroundImage_.image = backgroundImage;
   
   // Initialize |viewCount_|
-  viewCount_ = 0;
+  viewCount_      = 0;
   isButtonHidden_ = NO;
+}
+
+// Set title for navigation bar
+- (void)setTitleWithText:(NSString *)text animated:(BOOL)animated {
+  if (self.title == nil) {
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(100.f, 0.f, 120.f, self.frame.size.height - 10.f)];
+    self.title = title;
+    [title release];
+    [self.title setBackgroundColor:[UIColor clearColor]];
+    [self.title setTextColor:[GlobalRender textColorTitleWhite]];
+    [self.title setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+    [self.title setTextAlignment:UITextAlignmentCenter];
+    [self addSubview:self.title];
+  }
+  [self.title setText:text];
 }
 
 // Settings for |backButton|
@@ -122,7 +142,10 @@
                        navigationBarFrame.origin.y = - navigationBarFrame.size.height;
                        [self.navigationController.navigationBar setFrame:navigationBarFrame];
                      }
-                     else [self setBackToRootButtonToHidden:YES animated:YES];
+                     else {
+                       [self setBackToRootButtonToHidden:YES animated:YES];
+                       [self setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:YES];
+                     }
                    }
                    completion:^(BOOL finished) {
                      if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {

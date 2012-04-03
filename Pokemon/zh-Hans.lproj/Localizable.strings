@@ -11,6 +11,7 @@
  * */
 
 // Base
+"PMSLoginChoice"    = "选择登录服务";
 "PMSAuthenticating" = "正在验证中...";
 
 // Pokemon

@@ -13,6 +13,7 @@
  * */
 
 // Base
+"PMSLoginChoice"    = "Login Choice";
 "PMSAuthenticating" = "Authenticating...";
 
 // Pokemon

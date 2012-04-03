@@ -23,6 +23,7 @@
 @property (nonatomic, retain) UIView  * authenticatingView;
 @property (nonatomic, retain) UILabel * authenticatingLabel;
 
+- (NSString *)nameForProvider:(OAuthServiceProviderChoice)provider;
 - (void)showAuthenticatingView:(NSNotification *)notification;
 - (void)hideView:(NSNotification *)notification;
 
@@ -70,7 +71,10 @@
   
   // Show navigation bar, but hide back button
   [self.navigationController setNavigationBarHidden:NO];
-  [(CustomNavigationBar *)self.navigationController.navigationBar setBackToRootButtonToHidden:YES animated:NO];
+  CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
+  [navigationBar setBackToRootButtonToHidden:YES animated:NO];
+  [navigationBar setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:NO];
+  navigationBar = nil;
   
   // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -138,32 +142,7 @@
   }
   
   // Configure the cell...
-  NSString * loginProviderName;
-  switch ([indexPath row]) {
-    case kOAuthServiceProviderChoiceFacebook:
-      loginProviderName = @"Facebook";
-      break;
-      
-    case kOAuthServiceProviderChoiceGithub:
-      loginProviderName = @"Github";
-      break;
-      
-    case kOAuthServiceProviderChoiceGoogle:
-      loginProviderName = @"Google";
-      break;
-      
-    case kOAuthServiceProviderChoiceTwitter:
-      loginProviderName = @"Twitter";
-      break;
-      
-    case kOAuthServiceProviderChoiceWeibo:
-      loginProviderName = @"Weibo";
-      break;
-      
-    default:
-      break;
-  }
-  [cell.textLabel setText:loginProviderName];
+  [cell.textLabel setText:[self nameForProvider:[indexPath row]]];
   return cell;
 }
 
@@ -209,12 +188,45 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [(CustomNavigationBar *)self.navigationController.navigationBar setBackToRootButtonToHidden:NO animated:YES];
+  CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
+  [navigationBar setBackToRootButtonToHidden:NO animated:YES];
+  [navigationBar setTitleWithText:[self nameForProvider:[indexPath row]] animated:YES];
   [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
                                        animated:YES];
+  navigationBar = nil;
 }
 
 #pragma mark - Private Methods
+
+// Name for OAuth Service Provider
+- (NSString *)nameForProvider:(OAuthServiceProviderChoice)provider {
+  NSString * providerName;
+  switch (provider) {
+    case kOAuthServiceProviderChoiceFacebook:
+      providerName = @"Facebook";
+      break;
+      
+    case kOAuthServiceProviderChoiceGithub:
+      providerName = @"Github";
+      break;
+      
+    case kOAuthServiceProviderChoiceGoogle:
+      providerName = @"Google";
+      break;
+      
+    case kOAuthServiceProviderChoiceTwitter:
+      providerName = @"Twitter";
+      break;
+      
+    case kOAuthServiceProviderChoiceWeibo:
+      providerName = @"Weibo";
+      break;
+      
+    default:
+      break;
+  }
+  return providerName;
+}
 
 // Show view for authenticating
 - (void)showAuthenticatingView:(NSNotification *)notification {
