@@ -289,7 +289,7 @@ static OAuthManager * oauthManager_ = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:nil];
     
     // Current authticated User's ID (Trainer's |uid|)
-//    [self syncUserID];
+    [self syncUserID];
   }
 }
 
