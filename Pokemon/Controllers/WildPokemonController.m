@@ -28,7 +28,7 @@
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data;
 - (NSInteger)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
 - (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
-- (NSArray *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
+- (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
 - (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level;
 
 @end
@@ -121,9 +121,9 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.fourMoves = [self calculateFourMovesWithMoves:pokemon.moves level:level];
   
   // |maxStats| & |hp|
-  NSArray * maxStats   = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
+  NSString * maxStats   = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
   wildPokemon.maxStats = maxStats;
-  wildPokemon.hp       = [maxStats objectAtIndex:0];
+  wildPokemon.hp       = [NSNumber numberWithInt:[[[maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
   
   // |exp| & |toNextLevel|
   // Calculate EXP based on Level Formular with value:|level|
@@ -184,7 +184,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Calculate |stats| based on |baseStats|
-- (NSArray *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level {
+- (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level {
   NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
   NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
   NSInteger statDefense   = [[baseStats objectAtIndex:2] intValue];
@@ -200,13 +200,8 @@ static WildPokemonController * wildPokemonController_ = nil;
   statSpDefense += level;
   statSpeed     += level;
   
-  return [NSArray arrayWithObjects:
-          [NSNumber numberWithInt:statHP],
-          [NSNumber numberWithInt:statAttack],
-          [NSNumber numberWithInt:statDefense],
-          [NSNumber numberWithInt:statSpAttack],
-          [NSNumber numberWithInt:statSpDefense],
-          [NSNumber numberWithInt:statSpeed], nil];
+  return [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
+          statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
 }
 
 // Calculate EXP based on |baseEXP| with |level|
