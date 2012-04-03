@@ -10,6 +10,10 @@
  * UI Text
  * */
 
+// Base
+"PMSAuthenticating" = "正在验证中...";
+
+// Pokemon
 "PMSLabelSpecies" = "类型：";
 "PMSLabelType"    = "属性：";
 "PMSLabelHeight"  = "身高：";

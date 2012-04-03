@@ -10,6 +10,7 @@
 
 // PMN: PokeMon Notification
 NSString * const kPMNSessionIsInvalid             = @"PMNSessionIsInvalid";
+NSString * const kPMNAuthenticating               = @"PMNAuthenticating";
 NSString * const kPMNLoginSucceed                 = @"PMNLoginSucceed";
 
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";

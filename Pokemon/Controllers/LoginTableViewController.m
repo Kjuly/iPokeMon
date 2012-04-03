@@ -8,14 +8,21 @@
 
 #import "LoginTableViewController.h"
 
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
+#import "GlobalRender.h"
 
 
 @interface LoginTableViewController () {
  @private
-  
+  UIView  * authenticatingView_;
+  UILabel * authenticatingLabel_;
 }
 
+@property (nonatomic, retain) UIView  * authenticatingView;
+@property (nonatomic, retain) UILabel * authenticatingLabel;
+
+- (void)showAuthenticatingView:(NSNotification *)notification;
 - (void)hideView:(NSNotification *)notification;
 
 @end
@@ -23,12 +30,18 @@
 
 @implementation LoginTableViewController
 
+@synthesize authenticatingView  = authenticatingView_;
+@synthesize authenticatingLabel = authenticatingLabel_;
+
 - (void)dealloc
 {
-  [super dealloc];
+  self.authenticatingView = nil;
+  self.authenticatingView = nil;
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNLoginSucceed object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNAuthenticating object:nil];
+  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -54,13 +67,24 @@
 {
   [super viewDidLoad];
   
+  // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showAuthenticatingView:)
+                                               name:kPMNAuthenticating
+                                             object:nil];
   // Add observer for notification from |ServerAPIClient|
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideView:) name:kPMNLoginSucceed object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(hideView:)
+                                               name:kPMNLoginSucceed
+                                             object:nil];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
+  
+  self.authenticatingView  = nil;
+  self.authenticatingLabel = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,8 +204,6 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//  [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
-//                                       animated:YES];
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
@@ -202,35 +224,52 @@
 
 #pragma mark - Private Methods
 
-- (void)hideView:(NSNotification *)notification {
-  /*
+// Show view for authenticating
+- (void)showAuthenticatingView:(NSNotification *)notification {
+  if (self.authenticatingView == nil) {
+    UIView * authenticatingView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.authenticatingView = authenticatingView;
+    [authenticatingView release];
+    [self.authenticatingView setBackgroundColor:[UIColor blackColor]];
+    [self.authenticatingView setAlpha:0.f];
+  }
+  if (self.authenticatingLabel == nil) {
+    UILabel * authenticatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 180.f, 290.f, 32.f)];
+    self.authenticatingLabel = authenticatingLabel;
+    [authenticatingLabel release];
+    [self.authenticatingLabel setBackgroundColor:[UIColor clearColor]];
+    [self.authenticatingLabel setTextColor:[GlobalRender textColorTitleWhite]];
+    [self.authenticatingLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+    [self.authenticatingLabel setTextAlignment:UITextAlignmentCenter];
+    [self.authenticatingLabel setText:NSLocalizedString(@"PMSAuthenticating", nil)];
+    [self.authenticatingLabel setAlpha:0.f];
+  }
+  
+  [self.view addSubview:self.authenticatingView];
+  [self.view addSubview:self.authenticatingLabel];
   [UIView animateWithDuration:.3f
-                        delay:0.f
+                        delay:.3f
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
-                     for (UIButton * button in [self.centerMenu subviews])
-                       [button setFrame:self.buttonOriginFrame];
-                     [self.centerMenu setAlpha:0.f];
+                     [self.authenticatingView  setAlpha:.85f];
+                     [self.authenticatingLabel setAlpha:1.f];
                    }
-                   completion:^(BOOL finished) {
-                     if (self.navigationController)
-                       [self.navigationController.view removeFromSuperview];
-                     //                       [self.navigationController removeFromParentViewController];
-                     else
-                       [self removeFromParentViewController];
-                     
-                     // After closed self, remove Notification Observer
-                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
-                   }];
-  */
-  
+                   completion:nil];
+}
+
+// Hide self view
+- (void)hideView:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationOptionCurveLinear
-                   animations:^{ [self.view setAlpha:0.f]; }
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
+                   }
                    completion:^(BOOL finished) {
+                     [self.authenticatingView  removeFromSuperview];
+                     [self.authenticatingLabel removeFromSuperview];
                      [self.view removeFromSuperview];
-                     [self.view setAlpha:1.f];
+                     [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
                    }];
 }
 

@@ -8,6 +8,7 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
+#import "GlobalNotificationConstants.h"
 #import "CustomNavigationBar.h"
 
 
@@ -34,6 +35,9 @@
       
       [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
       self.view.hidden = YES;
+      
+      // Post notification to |LoginTableViewController| to show the view for authenticating
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNAuthenticating object:self userInfo:nil];
     }
   }
 }

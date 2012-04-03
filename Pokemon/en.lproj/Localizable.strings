@@ -12,6 +12,9 @@
  * UI Text
  * */
 
+// Base
+"PMSAuthenticating" = "Authenticating...";
+
 // Pokemon
 "PMSLabelSpecies" = "Species: ";
 "PMSLabelType"    = "Type: ";
