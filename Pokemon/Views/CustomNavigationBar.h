@@ -8,24 +8,13 @@
 
 @interface CustomNavigationBar : UINavigationBar
 {
-  UINavigationController * navigationController_;
-  UIImageView            * navigationBarBackgroundImage_;
-  UIButton               * backButtonToRoot_;
-  UIButton               * backButton_;
-  
   NSInteger viewCount_;
 }
-
-@property (nonatomic, retain) IBOutlet UINavigationController * navigationController;
-@property (nonatomic, retain) UIImageView * navigationBarBackgroundImage;
-@property (nonatomic, retain) UIButton    * backButtonToRoot;
-@property (nonatomic, retain) UIButton    * backButton;
 
 @property (nonatomic, assign) NSInteger viewCount;
 
 - (void)initNavigationBarWith:(UIImage *)backgroundImage;
 - (void)backToRoot:(id)sender;
-- (void)setBackButtonForRoot;
 - (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)addBackButtonForPreviousView;
 - (void)removeBackButtonForPreviousView;

@@ -17,11 +17,23 @@
 
 @interface CustomNavigationBar () {
  @private
-  BOOL isButtonHidden_;
+  UINavigationController * navigationController_;
+  UIImageView            * navigationBarBackgroundImage_;
+  UIButton               * backButtonToRoot_;
+  UIButton               * backButton_;
+  BOOL                     isButtonHidden_;
 }
-//- (void)backToRootWithCenterMainButton:(NSNotification *)notification;
+
+@property (nonatomic, retain) IBOutlet UINavigationController * navigationController;
+@property (nonatomic, retain) UIImageView * navigationBarBackgroundImage;
+@property (nonatomic, retain) UIButton    * backButtonToRoot;
+@property (nonatomic, retain) UIButton    * backButton;
+@property (nonatomic, assign) BOOL          isButtonHidden;
+
+- (void)setBackButtonForRoot;
 
 @end
+
 
 @implementation CustomNavigationBar
 
@@ -30,7 +42,8 @@
 @synthesize backButtonToRoot             = backButtonToRoot_;
 @synthesize backButton                   = backButton_;
 
-@synthesize viewCount = viewCount_;
+@synthesize viewCount      = viewCount_;
+@synthesize isButtonHidden = isButtonHidden_;
 
 -(void)dealloc
 {
@@ -38,8 +51,6 @@
   [navigationBarBackgroundImage_ release];
   [backButtonToRoot_             release];
   [backButton_                   release];
-  
-//  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];
   
   [super dealloc];
 }
@@ -60,11 +71,6 @@
   
   // Create custom |backButton_|
   [self setBackButtonForRoot];
-  
-//  [[NSNotificationCenter defaultCenter] addObserver:self
-//                                           selector:@selector(backToRootWithCenterMainButton:)
-//                                               name:kPMNBackToMainView
-//                                             object:nil];
 }
 
 // Reset NavigationBar's size to container |navigationBarBackgroundImage_|
@@ -126,8 +132,6 @@
                        [(AbstractCenterMenuViewController *)self.navigationController.topViewController
                           changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
                      }
-                     // Remove notification observer
-//                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBackToMainView object:nil];
                    }];
 }
 
@@ -142,7 +146,7 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-// Create |backButton| to Root
+// Create |backButton| to Root (Private)
 - (void)setBackButtonForRoot {
   if (self.backButtonToRoot == nil) {
     CGRect buttonFrame = CGRectMake((isButtonHidden_ ? 160.f : 10.f), 0.f, kBackButtonWith, kBackButtonHeight);
@@ -217,28 +221,6 @@
                    }];
 }
 
-/*- (void)setBackButtonWith:(UINavigationItem *)navigationItem
-{
-  NSLog(@"--- CustomNavigationBar setBackButtonWith: ---");
-  
-//  {
-//    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 40.0f)];
-//    [backButton setTitle:@"<<" forState:UIControlStateNormal];
-//    [backButton setBackgroundColor:[UIColor yellowColor]];
-//    [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-//    [backButton setUserInteractionEnabled:YES];
-//    
-//    UIBarButtonItem * backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-//    [backBarButtonItem setEnabled:YES];
-//    [backButton release];
-//    
-//    [navigationItem setLeftBarButtonItem:backBarButtonItem];
-//    [backBarButtonItem release];
-//  }
-  
-  [self setNeedsDisplay];
-}*/
-
 // clear the background image and call setNeedsDisplay to force a redraw
 - (void)clearBackground
 {
@@ -248,12 +230,5 @@
   
   [self setNeedsDisplay];
 }
-
-#pragma mark - Private Methods
-
-// Notification methods for backing to main view
-//- (void)backToRootWithCenterMainButton:(NSNotification *)notification {
-//  [self backToRoot:nil];
-//}
 
 @end
