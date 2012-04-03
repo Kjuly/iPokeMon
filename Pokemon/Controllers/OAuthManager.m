@@ -8,6 +8,7 @@
 
 #import "OAuthManager.h"
 
+#import "GlobalNotificationConstants.h"
 #import "NSString+Algorithm.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
@@ -117,23 +118,18 @@ static OAuthManager * oauthManager_ = nil;
 // Login with a service provider
 - (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider
 {
-  self.selectedServiceProvider = serviceProvider;                             // Set selected service provider
-  NSDictionary * oauthData     = [self oauthDataFor:serviceProvider];         // OAuth data for the service provider
-  NSString * clientID          = [oauthData valueForKey:@"clientID"];         // Client ID
-  NSString * clientSecret      = [oauthData valueForKey:@"clientSecret"];     // Client Secret
-  NSString * keychainItemName  = [oauthData valueForKey:@"keychainItemName"]; // Keychain Item Name
-  NSString * scope             = [oauthData valueForKey:@"scope"];            // Scope
+  self.selectedServiceProvider = serviceProvider;                     // Set selected service provider
+  NSDictionary * oauthData     = [self oauthDataFor:serviceProvider]; // OAuth data for the service provider
   SEL finishedSelector         = @selector(viewController:finishedWithAuth:error:);
-  
   GTMOAuth2ViewControllerTouch * loginViewController;
-  loginViewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:scope
-                                                                   clientID:clientID
-                                                               clientSecret:clientSecret
-                                                           keychainItemName:keychainItemName
+  loginViewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:[oauthData valueForKey:@"scope"]
+                                                                   clientID:[oauthData valueForKey:@"clientID"]
+                                                               clientSecret:[oauthData valueForKey:@"clientSecret"]
+                                                           keychainItemName:[oauthData valueForKey:@"keychainItemName"]
                                                                    delegate:self
                                                            finishedSelector:finishedSelector];
   // Optional: display some html briefly before the sign-in page loads
-  NSString * html = @"<html><body bgcolor=silver><div align=center>Loading sign-in page...</div></body></html>";
+  NSString * html = @"<html><body bgcolor=white><div align=center>Loading sign-in page...</div></body></html>";
   loginViewController.initialHTMLString = html;
   
   return [loginViewController autorelease];
@@ -288,6 +284,9 @@ static OAuthManager * oauthManager_ = nil;
     [userDefaults setInteger:self.selectedServiceProvider forKey:kUserDefaultsLastUsedServiceProvider];
     [userDefaults synchronize];
     userDefaults = nil;
+    
+    // Post notification to |LoginTableViewController| to hide login view
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:nil];
     
     // Current authticated User's ID (Trainer's |uid|)
 //    [self syncUserID];

@@ -8,12 +8,27 @@
 
 #import "LoginTableViewController.h"
 
+#import "GlobalNotificationConstants.h"
+
+
+@interface LoginTableViewController () {
+ @private
+  
+}
+
+- (void)hideView:(NSNotification *)notification;
+
+@end
+
 
 @implementation LoginTableViewController
 
 - (void)dealloc
 {
   [super dealloc];
+  
+  // Remove observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNLoginSucceed object:nil];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -38,6 +53,9 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Add observer for notification from |ServerAPIClient|
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideView:) name:kPMNLoginSucceed object:nil];
 }
 
 - (void)viewDidUnload
@@ -167,5 +185,16 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)hideView:(NSNotification *)notification {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:^{ [self.view setAlpha:0.f]; }
+                   completion:^(BOOL finished) {
+                     [self.view removeFromSuperview];
+                     [self.view setAlpha:1.f];
+                   }];
+}
 
 @end
