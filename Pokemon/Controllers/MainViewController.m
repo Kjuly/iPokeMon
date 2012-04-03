@@ -78,6 +78,8 @@
 @property (nonatomic, assign) NSInteger              timeCounter;
 
 - (void)showLoginTableView:(NSNotification *)notification;
+- (void)showNewbieGuideView:(NSNotification *)notification;
+- (void)showHelpView:(id)sender;
 - (void)changeCenterMainButtonStatus:(NSNotification *)notification;
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender;
 - (void)openCenterMenuView;
@@ -147,6 +149,9 @@
                                                   name:kPMNSessionIsInvalid
                                                 object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNShowNewbiewGuide
+                                                object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:kPMNChangeCenterMainButtonStatus
                                                 object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -205,6 +210,10 @@
                                            selector:@selector(showLoginTableView:)
                                                name:kPMNSessionIsInvalid
                                              object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showNewbieGuideView:)
+                                               name:kPMNShowNewbiewGuide
+                                             object:nil]; // From |TrainerController|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNChangeCenterMainButtonStatus
@@ -338,6 +347,22 @@
     [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   }
   [self.view addSubview:loginNavigationController_.view];
+}
+
+// Show guide view for newbie (new trainer)
+- (void)showNewbieGuideView:(NSNotification *)notification {
+  if (self.newbieGuideViewController == nil) {
+    NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
+    self.newbieGuideViewController = newbieGuideViewController;
+    [newbieGuideViewController release];
+  }
+  [self.view addSubview:self.newbieGuideViewController.view];
+  [self.newbieGuideViewController loadViewAnimated:YES];
+}
+
+// Show Help view
+- (void)showHelpView:(id)sender {
+  
 }
 
 // Slide |centerMainButton_| to view bottom when button in center menu is clicked

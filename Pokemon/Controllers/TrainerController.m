@@ -101,6 +101,11 @@ static TrainerController * trainerController_ = nil;
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
+    // If user has no Pokemon brought (newbie),
+    //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+    if ([self.entitySixPokemons count] == 0)
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbiewGuide object:self userInfo:nil];
+    
     NSLog(@"Init......");
     [Trainer             initWithUserID:self.userID];
     [TrainerTamedPokemon initWithUserID:self.userID];
@@ -124,7 +129,7 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Trainer's basic data
-- (NSInteger) UID         {return [self.entityTrainer.uid intValue];}
+- (NSInteger) UID         {return self.userID;}
 - (NSString *)name        {return self.entityTrainer.name;}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
 - (NSArray *) badges      {return [self.entityTrainer.badges componentsSeparatedByString:@","];}

@@ -15,6 +15,10 @@
 // Base
 "PMSLoginChoice"    = "Login Choice";
 "PMSAuthenticating" = "Authenticating...";
+"PMSNewbiewGuide1Text1" = "Welcome to Pokemon world!";
+"PMSNewbiewGuide1Text2" = "What's your name?";
+"PMSNewbiewGuide2Text1" = "Choose a Pokemon you would like...";
+"PMSNewbiewGuide3Text1" = "Are you ready?";
 
 // Pokemon
 "PMSLabelSpecies" = "Species: ";

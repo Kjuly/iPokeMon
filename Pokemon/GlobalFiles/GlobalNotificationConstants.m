@@ -12,6 +12,7 @@
 NSString * const kPMNSessionIsInvalid             = @"PMNSessionIsInvalid";
 NSString * const kPMNAuthenticating               = @"PMNAuthenticating";
 NSString * const kPMNLoginSucceed                 = @"PMNLoginSucceed";
+NSString * const kPMNShowNewbiewGuide             = @"PMNShowNewbiewGuide";
 
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";

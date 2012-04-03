@@ -10,4 +10,6 @@
 
 @interface NewbieGuideViewController : UIViewController
 
+- (void)loadViewAnimated:(BOOL)animated;
+
 @end

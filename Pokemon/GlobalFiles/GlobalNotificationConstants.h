@@ -11,6 +11,7 @@
 extern NSString * const kPMNSessionIsInvalid;
 extern NSString * const kPMNAuthenticating;
 extern NSString * const kPMNLoginSucceed;
+extern NSString * const kPMNShowNewbiewGuide;
 
 extern NSString * const kPMNCloseCenterMenu;
 extern NSString * const kPMNChangeCenterMainButtonStatus;
