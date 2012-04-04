@@ -73,8 +73,10 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
 #pragma mark -
 #pragma mark - ServerAPIClient
 
+// HTTP headers for request to web server
+// Default: |key|, |provider|, |identity|
 typedef enum {
-  kHTTPHeaderWithAuth   = 1 << 0, // provider & identity
+  kHTTPHeaderDefault    = 1 << 0,
   kHTTPHeaderWithRegion = 1 << 1  // region
 }HTTPHeaderFlag;
 
@@ -83,7 +85,7 @@ typedef enum {
   
 }
 
-- (void)updateHeaderWithRegion:(BOOL)withRegion;
+- (void)updateHeaderWithFlog:(HTTPHeaderFlag)flag;
 //- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 
 @end
@@ -125,7 +127,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI getPokedex];
   else return;
   
-  [self updateHeaderWithRegion:NO];
+  [self updateHeaderWithFlog:kHTTPHeaderDefault];
   NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:path parameters:nil success:success failure:failure];
   
@@ -154,7 +156,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI updateUser];
   else return;
   
-  [self updateHeaderWithRegion:NO];
+  [self updateHeaderWithFlog:kHTTPHeaderDefault];
   NSLog(@"Sync Data Request - clientDescription:%@", [self description]);
   [self postPath:path parameters:data success:success failure:failure];
 }
@@ -163,7 +165,7 @@ static ServerAPIClient * client_;
 - (void)checkUniquenessForName:(NSString *)name
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-  [self updateHeaderWithRegion:NO];
+  [self updateHeaderWithFlog:kHTTPHeaderDefault];
   NSLog(@"Request URL Description:%@", [self description]);
   [self postPath:[ServerAPI checkUniquenessForName]
       parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
@@ -175,21 +177,28 @@ static ServerAPIClient * client_;
 
 - (void)updateWildPokemonsForCurrentRegionSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                                           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  [self updateHeaderWithRegion:YES];
+  [self updateHeaderWithFlog:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
   [self getPath:[ServerAPI getWildPokemon] parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Provate Methods
 
-- (void)updateHeaderWithRegion:(BOOL)withRegion {
-  [self setDefaultHeader:@"provider" value:
-    [NSString stringWithFormat:@"%d",
-      [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]]];
-  [self setDefaultHeader:@"identity" value:[[OAuthManager sharedInstance] userEmailInMD5]];
+- (void)updateHeaderWithFlog:(HTTPHeaderFlag)flag {
+  // Reset headers to empty
+  [self setDefaultHeader:@"provider" value:nil];
+  [self setDefaultHeader:@"identity" value:nil];
+  [self setDefaultHeader:@"region"   value:nil];
+  
+  // Default headers
+  if (flag & kHTTPHeaderDefault) {
+    [self setDefaultHeader:@"provider" value:
+      [NSString stringWithFormat:@"%d",
+        [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]]];
+    [self setDefaultHeader:@"identity" value:[[OAuthManager sharedInstance] userEmailInMD5]];
+  }
   
   // Include user location info if needed
-  if (withRegion) [self setDefaultHeader:@"region" value:@"1"];
-  else            [self setDefaultHeader:@"region" value:nil];
+  if (flag & kHTTPHeaderWithRegion) [self setDefaultHeader:@"region" value:@"1"];                      
 }
 
 // Set HTTP Header for URL request
