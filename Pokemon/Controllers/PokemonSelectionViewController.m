@@ -113,6 +113,7 @@
   
   // Button to show Pokemon choosing view
   pokemonSelectionButton_ = [[UIButton alloc] initWithFrame:pokemonSelectionButtonFrame];
+  [pokemonSelectionButton_ setAlpha:1.f];
   [pokemonSelectionButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                                      forState:UIControlStateNormal];
   [pokemonSelectionButton_ setImage:[UIImage imageNamed:@"ButtonIconUnknow.png"] forState:UIControlStateNormal];
@@ -190,6 +191,7 @@
 - (void)confirm:(id)sender {
   [self unloadPokemonSelectionViewAnimated:YES];
   
+  [self.pokemonSelectionButton setAlpha:1.f];
   self.currSelectedPokemon = ((UIButton *)sender).tag;
   WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
   self.selectedPokemonUID = [pokemon.uid intValue];
@@ -334,11 +336,12 @@
     }
   };
   
+  [self.pokemonSelectionButton setAlpha:0.f];
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{ [self.backgroundView setAlpha:.85f]; }
-                   completion:^(BOOL finished) { animationsToShowPokemons(); }];
+                   completion:^(BOOL finished) { if (finished) animationsToShowPokemons(); }];
 }
 
 // Unload selected Pokemon's info view
