@@ -350,14 +350,21 @@
     }
       
     case 2: {
+      // If Pokemon datail info view is opening, unload it
       if (self.pokemonSelectionViewController.isSelectedPokemonInfoViewOpening) {
         [self.pokemonSelectionViewController unloadSelcetedPokemonInfoView];
         return;
       }
+      // If |PokemonSelectionViewController|'s view showing (|confirmButton_| in bottom), unload view
       if (self.confirmButton.frame.origin.y == kViewHeight - kCenterMainButtonSize / 2) {
         [self.pokemonSelectionViewController unloadPokemonSelectionViewAnimated:YES];
         return;
       }
+      // If no Pokemon selected, do nothing
+      if (self.pokemonSelectionViewController.selectedPokemonUID == 0)
+        return;
+      
+      // Go next step & save Pokemon 
       [UIView animateWithDuration:.3f
                             delay:0.f
                           options:UIViewAnimationOptionCurveLinear
