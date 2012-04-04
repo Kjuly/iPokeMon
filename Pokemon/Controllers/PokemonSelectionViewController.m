@@ -20,6 +20,7 @@
 
 @interface PokemonSelectionViewController () {
  @private
+  BOOL        isSelectedPokemonInfoViewOpening_;
   UIButton  * pokemonSelectionButton_; // Button to show Pokemon Selection View
   NSInteger   currOpeningUnitViewTag_;
   NSInteger   currSelectedPokemon_;
@@ -30,6 +31,7 @@
   UIButton                           * cancelButton_;
 }
 
+@property (nonatomic, assign) BOOL        isSelectedPokemonInfoViewOpening;
 @property (nonatomic, retain) UIButton  * pokemonSelectionButton;
 @property (nonatomic, assign) NSInteger   currOpeningUnitViewTag;
 @property (nonatomic, assign) NSInteger   currSelectedPokemon;
@@ -50,8 +52,9 @@
 
 @implementation PokemonSelectionViewController
 
-@synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
+@synthesize selectedPokemonUID = selectedPokemonUID_;
 
+@synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
 @synthesize pokemonSelectionButton = pokemonSelectionButton_;
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize currSelectedPokemon    = currSelectedPokemon_;
@@ -144,6 +147,7 @@
   [super viewDidLoad];
   
   // Basic Setting
+  selectedPokemonUID_     = 0;
   currOpeningUnitViewTag_ = 0;
   currSelectedPokemon_    = 0;
 }
@@ -190,6 +194,7 @@
   
   self.currSelectedPokemon = ((UIButton *)sender).tag;
   WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
+  self.selectedPokemonUID = [pokemon.uid intValue];
   [self.pokemonSelectionButton setImage:pokemon.pokemon.image forState:UIControlStateNormal];
   
   /*NSInteger tag = ((UIButton *)sender).tag;
