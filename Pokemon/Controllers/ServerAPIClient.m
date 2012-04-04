@@ -72,6 +72,12 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
 
 #pragma mark -
 #pragma mark - ServerAPIClient
+
+typedef enum {
+  kHTTPHeaderWithAuth   = 1 << 0, // provider & identity
+  kHTTPHeaderWithRegion = 1 << 1  // region
+}HTTPHeaderFlag;
+
 @interface ServerAPIClient () {
  @private
   
@@ -158,9 +164,11 @@ static ServerAPIClient * client_;
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
   [self updateHeaderWithRegion:NO];
-  [self setDefaultHeader:@"name" value:name];
   NSLog(@"Request URL Description:%@", [self description]);
-  [self postPath:[ServerAPI checkUniquenessForName] parameters:nil success:success failure:failure];
+  [self postPath:[ServerAPI checkUniquenessForName]
+      parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
+         success:success
+         failure:failure];
 }
 
 #pragma mark - Public Methods: WildPokemon
@@ -180,9 +188,8 @@ static ServerAPIClient * client_;
   [self setDefaultHeader:@"identity" value:[[OAuthManager sharedInstance] userEmailInMD5]];
   
   // Include user location info if needed
-  if (withRegion) {
-    [self setDefaultHeader:@"region" value:@"1"];
-  }
+  if (withRegion) [self setDefaultHeader:@"region" value:@"1"];
+  else            [self setDefaultHeader:@"region" value:nil];
 }
 
 // Set HTTP Header for URL request
