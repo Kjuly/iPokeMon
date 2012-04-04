@@ -20,7 +20,7 @@
 + (WildPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
 {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
@@ -35,6 +35,25 @@
   [fetchRequest release];
   
   return pokemon;
+}
+
+// Get Pokemons that in |pokemonsID| array (for PokemonSelcetion)
++ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit
+{
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsID]];
+  [fetchRequest setFetchLimit:fetchLimit];
+  
+  NSError * error;
+  NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return pokemons;
 }
 
 #pragma mark - Base data dispatch

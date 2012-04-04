@@ -26,8 +26,7 @@
   [pokemonDataDict_ release];
 }
 
-- (id)initWithPokemonID:(NSInteger)pokemonID
-{
+- (id)initWithPokemonID:(NSInteger)pokemonID withTopbar:(BOOL)withTopbar {
   self = [super init];
   if (self) {
     // Set View Frame
@@ -43,7 +42,8 @@
                                                              initWithPokemonDataDict:self.pokemonDataDict];
     
     // Set child views' Frame
-    CGRect childViewFrame = CGRectMake(0.f, kTopBarHeight, kViewWidth, kViewHeight - kTopBarHeight);
+    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
+    CGRect childViewFrame = CGRectMake(0.f, marginTop, kViewWidth, kViewHeight - marginTop);
     [pokemonInfoViewController.view setFrame:childViewFrame];
     [pokemonAreaViewController.view setFrame:childViewFrame];
     [pokemonSizeViewController.view setFrame:childViewFrame];

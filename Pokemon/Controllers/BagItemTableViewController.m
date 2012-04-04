@@ -428,8 +428,8 @@
   // (e.g. HP, PP restore, etc)
   else {
     if (self.gameMenuSixPokemonsViewController == nil) {
-      GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
-      = [[GameMenuSixPokemonsViewController alloc] init];
+      GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController;
+      gameMenuSixPokemonViewController = [[GameMenuSixPokemonsViewController alloc] init];
       self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
       [gameMenuSixPokemonViewController release];
     }

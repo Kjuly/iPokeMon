@@ -17,6 +17,6 @@
 
 @property (nonatomic, retain) Pokemon * pokemonDataDict;
 
-- (id)initWithPokemonID:(NSInteger)pokemonID;
+- (id)initWithPokemonID:(NSInteger)pokemonID withTopbar:(BOOL)withTopbar;
 
 @end

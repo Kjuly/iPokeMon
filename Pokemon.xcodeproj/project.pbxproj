@@ -73,6 +73,9 @@
 		7F27D088152749A60092DD68 /* PokemonServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D084152749A60092DD68 /* PokemonServerAPI.m */; };
 		7F27D08E152749F30092DD68 /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D08D152749F30092DD68 /* PokemonConstants.m */; };
 		7F27D09515274FAC0092DD68 /* NSString+Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D09415274FAC0092DD68 /* NSString+Algorithm.m */; };
+		7F2B589C152C27FC0071AAD5 /* ButtonIconUnknow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B589A152C27FB0071AAD5 /* ButtonIconUnknow.png */; };
+		7F2B589D152C27FC0071AAD5 /* ButtonIconUnknow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B589B152C27FC0071AAD5 /* ButtonIconUnknow@2x.png */; };
+		7F2B58A4152C2B710071AAD5 /* PokemonSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B58A3152C2B700071AAD5 /* PokemonSelectionViewController.m */; };
 		7F2B7CE21515B3210091E739 /* GameMessageViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */; };
 		7F2B7CE31515B3210091E739 /* GameMessageViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */; };
 		7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2EFB7514DE78250068F681 /* GenerationOne.png */; };
@@ -911,6 +914,10 @@
 		7F27D08D152749F30092DD68 /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F27D09315274FAC0092DD68 /* NSString+Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Algorithm.h"; sourceTree = "<group>"; };
 		7F27D09415274FAC0092DD68 /* NSString+Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Algorithm.m"; sourceTree = "<group>"; };
+		7F2B589A152C27FB0071AAD5 /* ButtonIconUnknow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonIconUnknow.png; sourceTree = "<group>"; };
+		7F2B589B152C27FC0071AAD5 /* ButtonIconUnknow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonIconUnknow@2x.png"; sourceTree = "<group>"; };
+		7F2B58A2152C2B6F0071AAD5 /* PokemonSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonSelectionViewController.h; sourceTree = "<group>"; };
+		7F2B58A3152C2B700071AAD5 /* PokemonSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonSelectionViewController.m; sourceTree = "<group>"; };
 		7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameMessageViewBackground.png; sourceTree = "<group>"; };
 		7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameMessageViewBackground@2x.png"; sourceTree = "<group>"; };
 		7F2EFB7514DE78250068F681 /* GenerationOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenerationOne.png; sourceTree = "<group>"; };
@@ -2462,6 +2469,8 @@
 				7FCEDEF5152ACC9600CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m */,
 				7F51CADC152B3AEF00B97249 /* NewbieGuideViewController.h */,
 				7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */,
+				7F2B58A2152C2B6F0071AAD5 /* PokemonSelectionViewController.h */,
+				7F2B58A3152C2B700071AAD5 /* PokemonSelectionViewController.m */,
 				7F51CADF152B3B0200B97249 /* HelpViewController.h */,
 				7F51CAE0152B3B0200B97249 /* HelpViewController.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
@@ -3285,6 +3294,8 @@
 				7FB764591509FCA6008A9AA1 /* ButtonIconConfirm@2x.png */,
 				7FB7645A1509FCA7008A9AA1 /* ButtonIconInfo.png */,
 				7FB7645B1509FCA7008A9AA1 /* ButtonIconInfo@2x.png */,
+				7F2B589A152C27FB0071AAD5 /* ButtonIconUnknow.png */,
+				7F2B589B152C27FC0071AAD5 /* ButtonIconUnknow@2x.png */,
 				7F0D18CD15073227009CFDBA /* GameBattleViewTopBarAvatarBottom.png */,
 				7F0D18CE15073227009CFDBA /* GameBattleViewTopBarAvatarBottom@2x.png */,
 				7F0D18CF15073227009CFDBA /* GameBattleViewTopBarAvatarTop.png */,
@@ -3984,6 +3995,8 @@
 				7FB412AF152A02F0003F41F0 /* IconBadgeGold@2x.png in Resources */,
 				7FB412B0152A02F0003F41F0 /* IconBadgeSilver.png in Resources */,
 				7FB412B1152A02F0003F41F0 /* IconBadgeSilver@2x.png in Resources */,
+				7F2B589C152C27FC0071AAD5 /* ButtonIconUnknow.png in Resources */,
+				7F2B589D152C27FC0071AAD5 /* ButtonIconUnknow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4247,6 +4260,7 @@
 				7FCEDEF6152ACC9700CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m in Sources */,
 				7F51CAE1152B3B0200B97249 /* HelpViewController.m in Sources */,
 				7F51CAE3152B3D3700B97249 /* NewbieGuideViewController.m in Sources */,
+				7F2B58A4152C2B710071AAD5 /* PokemonSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

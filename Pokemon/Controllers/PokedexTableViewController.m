@@ -199,8 +199,8 @@
 {
   NSInteger rowID = [indexPath row];
 //  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
-    PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
-                                                                       initWithPokemonID:++rowID];
+    PokemonDetailTabViewController * pokemonDetailTabViewController =
+      [[PokemonDetailTabViewController alloc] initWithPokemonID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
     [pokemonDetailTabViewController release];
 //  }
