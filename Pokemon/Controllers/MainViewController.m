@@ -149,7 +149,7 @@
                                                   name:kPMNSessionIsInvalid
                                                 object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNShowNewbiewGuide
+                                                  name:kPMNShowNewbieGuide
                                                 object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:kPMNChangeCenterMainButtonStatus
@@ -212,7 +212,7 @@
                                              object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(showNewbieGuideView:)
-                                               name:kPMNShowNewbiewGuide
+                                               name:kPMNShowNewbieGuide
                                              object:nil]; // From |TrainerController|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)

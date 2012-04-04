@@ -18,8 +18,5 @@
 @property (nonatomic, assign) BOOL isSelectedPokemonInfoViewOpening;
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID;
-- (void)loadViewAnimated:(BOOL)animated;
-- (void)unloadViewAnimated:(BOOL)animated;
-- (void)unloadSelcetedPokemonInfoView;
 
 @end

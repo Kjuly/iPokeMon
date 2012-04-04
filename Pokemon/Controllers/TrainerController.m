@@ -104,7 +104,7 @@ static TrainerController * trainerController_ = nil;
     // If user has no Pokemon brought (newbie),
     //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
     if ([self.entitySixPokemons count] == 0)
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbiewGuide object:self userInfo:nil];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
     
     NSLog(@"Init......");
     [Trainer             initWithUserID:self.userID];

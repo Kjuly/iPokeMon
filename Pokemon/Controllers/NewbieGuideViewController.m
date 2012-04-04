@@ -10,6 +10,7 @@
 
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
+#import "GlobalNotificationConstants.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
 #import "PokemonSelectionViewController.h"
@@ -50,6 +51,8 @@
 
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
+- (void)showConfirmButton:(NSNotification *)notification;
+- (void)hideConfirmButton:(NSNotification *)notification;
 - (void)confirm:(id)sender;
 - (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2;
 
@@ -87,6 +90,13 @@
   [nameInputView_                  release];
   [pokemonSelectionViewController_ release];
   
+  // Remove notification observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNShowConfirmButtonInNebbieGuide
+                                                object:self.pokemonSelectionViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNHideConfirmButtonInNebbieGuide
+                                                object:self.pokemonSelectionViewController];
   [super dealloc];
 }
 
@@ -177,6 +187,16 @@
   [self.nameInputView setText:[self.trainer name]]; // Default name
   [self.view addSubview:self.nameInputView];
   self.guideStep = 1;
+  
+  // Add observer for notification from |PokemonSelectionViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showConfirmButton:)
+                                               name:kPMNShowConfirmButtonInNebbieGuide
+                                             object:self.pokemonSelectionViewController];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(hideConfirmButton:)
+                                               name:kPMNHideConfirmButtonInNebbieGuide
+                                             object:self.pokemonSelectionViewController];
 }
 
 - (void)viewDidUnload
@@ -241,6 +261,24 @@
   else animations();
 }
 
+// Show |confirmButton_|
+- (void)showConfirmButton:(NSNotification *)notification {
+  [self moveConfirmButtonToBottom:YES animated:YES];
+}
+
+// Hide |confirmButton_|
+- (void)hideConfirmButton:(NSNotification *)notification {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseOut
+                   animations:^{
+                     CGRect confirmButtonFrame = self.confirmButton.frame;
+                     confirmButtonFrame.origin.y = kViewHeight;
+                     [self.confirmButton setFrame:confirmButtonFrame];
+                   }
+                   completion:nil];
+}
+
 // Action for |confirmButton_|
 - (void)confirm:(id)sender {
   // If is processing, do nothing until processing done
@@ -261,7 +299,7 @@
             [self.trainer setName:name];
             newText = @"PMSNewbiewGuide2Text1";
             ++guideStep_;
-            [self.view addSubview:self.pokemonSelectionViewController.view];
+            [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
             [self.pokemonSelectionViewController.view setAlpha:0.f];
           }
           else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";

@@ -9,10 +9,12 @@
 #import "GlobalNotificationConstants.h"
 
 // PMN: PokeMon Notification
-NSString * const kPMNSessionIsInvalid             = @"PMNSessionIsInvalid";
-NSString * const kPMNAuthenticating               = @"PMNAuthenticating";
-NSString * const kPMNLoginSucceed                 = @"PMNLoginSucceed";
-NSString * const kPMNShowNewbiewGuide             = @"PMNShowNewbiewGuide";
+NSString * const kPMNSessionIsInvalid               = @"PMNSessionIsInvalid";
+NSString * const kPMNAuthenticating                 = @"PMNAuthenticating";
+NSString * const kPMNLoginSucceed                   = @"PMNLoginSucceed";
+NSString * const kPMNShowNewbieGuide                = @"PMNShowNewbiewGuide";
+NSString * const kPMNShowConfirmButtonInNebbieGuide = @"PMNShowConfirmButtonInNebbieGuide";
+NSString * const kPMNHideConfirmButtonInNebbieGuide = @"PMNHideConfirmButtonInNebbieGuide";
 
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
