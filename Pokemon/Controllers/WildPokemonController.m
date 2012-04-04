@@ -106,7 +106,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   // Update basic data fetched from server
   wildPokemon.uid         = [data valueForKey:@"uid"];
   wildPokemon.sid         = [data valueForKey:@"sid"];
-  wildPokemon.status      = kPokemonStatusNormal;
+  wildPokemon.status      = [NSNumber numberWithInt:kPokemonStatusNormal];
   wildPokemon.level       = [data valueForKey:@"level"];
   NSInteger level = [wildPokemon.level intValue];
   
