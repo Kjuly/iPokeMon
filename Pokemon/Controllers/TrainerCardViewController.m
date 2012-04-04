@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 #import "TrainerBadgeView.h"
+#import "ServerAPIClient.h"
 #import "TrainerController.h"
 
 #import "UIImageView+AFNetworking.h"
@@ -43,7 +44,8 @@ typedef enum {
   UIButton               * avatarSetttingButton_;
   UIButton               * nameSettingButton_;
   UIView                 * settingView_;
-  UITextField            * nameSettingField_;
+  UITextField            * nameSettingField_;   // Name setting input field
+  UILabel                * nameSettingMessage_; // Message for name setting problem
   UIView                 * transparentView_;
 }
 
@@ -68,6 +70,7 @@ typedef enum {
 @property (nonatomic, retain) UIButton               * nameSettingButton;
 @property (nonatomic, retain) UIView                 * settingView;
 @property (nonatomic, retain) UITextField            * nameSettingField;
+@property (nonatomic, retain) UILabel                * nameSettingMessage;
 @property (nonatomic, retain) UIView                 * transparentView;
 
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
@@ -101,6 +104,7 @@ typedef enum {
 @synthesize nameSettingButton                  = nameSettingButton_;
 @synthesize settingView                        = settingView_;
 @synthesize nameSettingField                   = nameSettingField_;
+@synthesize nameSettingMessage                 = nameSettingMessage_;
 @synthesize transparentView                    = transparentView_;
 
 - (void)dealloc
@@ -127,6 +131,7 @@ typedef enum {
   self.nameSettingButton    = nil;
   self.settingView          = nil;
   self.nameSettingField     = nil;
+  self.nameSettingMessage   = nil;
   self.transparentView      = nil;
 }
 
@@ -342,6 +347,7 @@ typedef enum {
   self.avatarSetttingButton               = nil;
   self.nameSettingButton                  = nil;
   self.settingView                        = nil;
+  self.nameSettingMessage                 = nil;
   self.transparentView                    = nil;
 }
 
@@ -460,17 +466,29 @@ typedef enum {
     case kTrainerInfoSettingButtonTypeName: {
       NSLog(@"Commit Setting -> Name");
       if (self.nameSettingField == nil) {
-        CGRect nameSettingFieldFrame = CGRectMake(10.f, 15.f, 300.f, 32.f);
+        CGRect nameSettingFieldFrame   = CGRectMake(10.f, 15.f, 300.f, 32.f);
+        CGRect nameSettingMessageFrame = CGRectMake(10.f, 47.f, 300.f, 32.f);
+        
         UITextField * nameSettingField = [[UITextField alloc] initWithFrame:nameSettingFieldFrame];
         self.nameSettingField = nameSettingField;
-        [self.nameSettingField release];
+        [nameSettingField release];
         [self.nameSettingField setBackgroundColor:[UIColor whiteColor]];
         [self.nameSettingField setKeyboardType:UIKeyboardTypeDefault];
+        
+        UILabel * nameSettingMessage = [[UILabel alloc] initWithFrame:nameSettingMessageFrame];
+        self.nameSettingMessage = nameSettingMessage;
+        [nameSettingMessage release];
+        [self.nameSettingMessage setBackgroundColor:[UIColor clearColor]];
+        [self.nameSettingMessage setTextColor:[GlobalRender textColorTitleWhite]];
+        [self.nameSettingMessage setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
+        [self.nameSettingMessage setTextAlignment:UITextAlignmentLeft];
       }
       [self.settingView addSubview:self.nameSettingField];
+      [self.settingView addSubview:self.nameSettingMessage];
       // Set |nameLabel_.text| as the default text for |nameSettingField_|,
       //   and show Keyboard
-      self.nameSettingField.text = self.nameLabel.text;
+      [self.nameSettingField   setText:self.nameLabel.text];
+      [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage1", nil)];
       [self.nameSettingField becomeFirstResponder];
       break;
     }
@@ -499,18 +517,46 @@ typedef enum {
 - (void)commitSetting {
   NSLog(@"|commitSetting| - InputText:%@", self.nameSettingField.text);
   // If user changed name, reset |trainer_.name| & |nameLabel_.text|
-  if (! [self.nameSettingField.text isEqualToString:self.nameLabel.text]) {
-    NSLog(@"|commitSetting| - User name changed, do sync work...");
-    [self.trainer setName:self.nameSettingField.text];
+  NSString * name = self.nameSettingField.text;
+  if (! [name isEqualToString:self.nameLabel.text]) {
+    NSLog(@"|commitSetting| - User name changed, checking uniqueness...");
+    // Block: |success| & |failure|
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+      // Response:-1:ERROR: 0:Name Exist 1:OK
+      NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
+      NSLog(@"|commitSetting| - web server response value of |uniqueness|:%d", uniqueness);
+      // Name is uniqueness, do sync work
+      if (uniqueness == 1) {
+        NSLog(@"|commitSetting| - Name is uniqueness, do sync work...");
+        [self.trainer setName:name];
+        
+        CGFloat const imageSize       = 100.f;
+        CGFloat const labelHeight     = 30.f;
+        CGFloat const nameLabelWidth  = 290.f - imageSize;
+        CGFloat const nameLabelHeight = imageSize / 2 - labelHeight;
+        CGRect  const nameLabelFrame  = CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight);
+        [self.nameLabel setFrame:nameLabelFrame];
+        [self.nameLabel setText:[self.trainer name]];
+        [self.nameLabel sizeToFit];
+      }
+      // Name already exists
+      else if (uniqueness == 0) {
+        NSLog(@"!!! |commitSetting| - Name is already exists...");
+        [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage2", nil)];
+        return;
+      }
+      else {
+        [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage3", nil)];
+        return;
+      }
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+      NSLog(@"!!! |commitSetting| data fetching failed ERROR: %@", error);
+      [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage3", nil)];
+      return;
+    };
     
-    CGFloat const imageSize       = 100.f;
-    CGFloat const labelHeight     = 30.f;
-    CGFloat const nameLabelWidth  = 290.f - imageSize;
-    CGFloat const nameLabelHeight = imageSize / 2 - labelHeight;
-    CGRect  const nameLabelFrame  = CGRectMake(0.0f, labelHeight, nameLabelWidth, nameLabelHeight);
-    [self.nameLabel setFrame:nameLabelFrame];
-    [self.nameLabel setText:[self.trainer name]];
-    [self.nameLabel sizeToFit];
+    [[ServerAPIClient sharedInstance] checkUniquenessForName:name success:success failure:failure];
   }
   [self cancelSettingViewAnimated:YES];
 }

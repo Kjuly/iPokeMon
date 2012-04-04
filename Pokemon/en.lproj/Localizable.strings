@@ -50,6 +50,9 @@
 "PMSLabelBadges"           = "Badges: ";
 "PMSLabelAdventureStarted" = "Adventure Started: ";
 "PMSLabelSteps"            = "Steps: ";
+"PMSLabelNameSettingMessage1" = "Set your name here.";
+"PMSLabelNameSettingMessage2" = "Sorry, the name is already exists, please enter another one.";
+"PMSLabelNameSettingMessage3" = "Sorry, name checking faild, please try again.";
 
 // Game
 "PMSGameMenuBagItem1" = "Status Healers";

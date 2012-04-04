@@ -49,6 +49,9 @@
 "PMSLabelBadges"           = "徽章：";
 "PMSLabelAdventureStarted" = "冒险开始时间：";
 "PMSLabelSteps"            = "步长：";
+"PMSLabelNameSettingMessage1" = "请在此输入您希望的用户名。";
+"PMSLabelNameSettingMessage2" = "对不起，用户名已存在，请输入另一个用户名。";
+"PMSLabelNameSettingMessage3" = "对不起，网络异常，请重试。";
 
 // Game
 "PMSGameMenuBagItem1" = "状态回复";
