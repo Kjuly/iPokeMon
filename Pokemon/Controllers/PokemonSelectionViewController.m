@@ -170,8 +170,8 @@
 - (void)checkUnit:(id)sender
 {
   if (self.currOpeningUnitViewTag) {
-    GameMenuSixPokemonsUnitView * unitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+    GameMenuSixPokemonsUnitView * unitView =
+      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
     [unitView cancelUnitAnimated:YES];
     unitView = nil;
   }
@@ -187,6 +187,10 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
   
   [self unloadPokemonSelectionViewAnimated:YES];
+  
+  self.currSelectedPokemon = ((UIButton *)sender).tag;
+  WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
+  [self.pokemonSelectionButton setImage:pokemon.pokemon.image forState:UIControlStateNormal];
   
   /*NSInteger tag = ((UIButton *)sender).tag;
   if (self.isForReplacing) {
@@ -322,8 +326,10 @@
     
     for (int i = [self.pokemons count]; i > 0; --i) {
       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+      if (self.currSelectedPokemon == i) [unitView setAsCurrentBattleOne:YES];
+      else                               [unitView setAsCurrentBattleOne:NO];
       [unitView setAlpha:1.f];
-      [unitView.layer addAnimation:self.animationGroupForNotReplacing forKey:@"animationToShowForNotReplacing"];
+      [unitView.layer addAnimation:self.animationGroupForNotReplacing forKey:@"animationToShow"];
       unitView = nil;
     }
   };
@@ -331,18 +337,15 @@
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
-                   animations:^{ [self.backgroundView setAlpha:.75f]; }
+                   animations:^{ [self.backgroundView setAlpha:.85f]; }
                    completion:^(BOOL finished) { animationsToShowPokemons(); }];
 }
 
 // Unload view
 - (void)unloadPokemonSelectionViewAnimated:(BOOL)animated {
   void (^animation)() = ^(){
-    CGFloat buttonSize = 60.f;
-    CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
     for (int i = [self.pokemons count]; i > 0; --i) {
       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
-      [unitView setFrame:originFrame];
       [unitView setAlpha:0.f];
       unitView = nil;
     }
@@ -391,6 +394,7 @@
   NSLog(@"|%@| - |showPokemonSelectionView:|", [self class]);
   // Post notification to |NewbieGuideViewController| to hide |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNHideConfirmButtonInNebbieGuide object:self userInfo:nil];
+  
   [self.view insertSubview:self.backgroundView atIndex:1];
   [self.view addSubview:self.cancelButton];
   [self loadPokemonSelectionViewAnimated:YES];
