@@ -125,6 +125,7 @@
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
+  [self.view addSubview:backgroundView_];
   
   // Create a fake |mapButton_| as the cancel button
   self.cancelButton = cancelButton;
@@ -137,6 +138,7 @@
   [self.cancelButton addTarget:self
                         action:@selector(unloadSelcetedPokemonInfoView)
               forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:self.cancelButton];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -186,9 +188,6 @@
 
 // Button action to confirm selected Pokemon
 - (void)confirm:(id)sender {
-  // Post notification to |NewbieGuideViewController| to show |confirmButton_|
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
-  
   [self unloadPokemonSelectionViewAnimated:YES];
   
   self.currSelectedPokemon = ((UIButton *)sender).tag;
@@ -262,6 +261,9 @@
 
 // Unload view
 - (void)unloadPokemonSelectionViewAnimated:(BOOL)animated {
+  // Post notification to |NewbieGuideViewController| to show |confirmButton_|
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
+  
   void (^animation)() = ^(){
     for (int i = [self.pokemons count]; i > 0; --i) {
       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
@@ -364,9 +366,6 @@
   NSLog(@"|%@| - |showPokemonSelectionView:|", [self class]);
   // Post notification to |NewbieGuideViewController| to hide |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNHideConfirmButtonInNebbieGuide object:self userInfo:nil];
-  
-  [self.view insertSubview:self.backgroundView atIndex:1];
-  [self.view addSubview:self.cancelButton];
   [self loadPokemonSelectionViewAnimated:YES];
 }
 
