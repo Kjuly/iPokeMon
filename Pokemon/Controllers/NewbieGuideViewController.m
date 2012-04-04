@@ -347,7 +347,6 @@
         [self.pokemonSelectionViewController unloadPokemonSelectionViewAnimated:YES];
         return;
       }
-      
       [UIView animateWithDuration:.3f
                             delay:0.f
                           options:UIViewAnimationOptionCurveLinear
@@ -369,6 +368,9 @@
                                           }
                                           completion:nil];
                        }];
+      // Add Selected Pokemon as one of Tamed Pokemon
+      
+      
       ++guideStep_;
       break;
     }

@@ -173,10 +173,21 @@ static TrainerController * trainerController_ = nil;
 
 #pragma mark - Settings
 
+// Set |name| for Trainer
 - (void)setName:(NSString *)name {
   self.entityTrainer.name = name;
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
   [self sync];
+}
+
+// Transfer WildPokemon to TamedPokemon
+- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon {
+  
+}
+
+// Add new TamedPokemon, if SixPokemons is not full, add it there
+- (void)addTamedPokemon:(TrainerTamedPokemon *)tamedPokemon {
+  
 }
 
 @end

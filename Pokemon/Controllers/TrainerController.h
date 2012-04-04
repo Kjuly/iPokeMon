@@ -38,5 +38,7 @@
 
 // Setting
 - (void)setName:(NSString *)name; // Set trainer name
+- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon;     // Transfer WildPokemon to TamedPokemon
+- (void)addTamedPokemon:(TrainerTamedPokemon *)tamedPokemon; // Add new TamedPokemon, if SixPokemons is not full, add it there
 
 @end
