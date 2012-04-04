@@ -182,12 +182,12 @@ static TrainerController * trainerController_ = nil;
 
 // Transfer WildPokemon to TamedPokemon
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon {
-  
+  NSLog(@"|%@| - |caughtNewWildPokemon:| :: %@", [self class], wildPokemon);
 }
 
 // Add new TamedPokemon, if SixPokemons is not full, add it there
 - (void)addTamedPokemon:(TrainerTamedPokemon *)tamedPokemon {
-  
+  NSLog(@"|%@| - |addTamedPokemon:| :: %@", [self class], tamedPokemon);
 }
 
 @end

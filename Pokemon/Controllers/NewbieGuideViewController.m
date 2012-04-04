@@ -386,8 +386,10 @@
                                           }
                                           completion:nil];
                        }];
-      // Add Selected Pokemon as one of Tamed Pokemon
-      
+      // Add Selected Wild Pokemon as one of Tamed Pokemon
+      WildPokemon * wildPokemon = [WildPokemon queryPokemonDataWithID:self.pokemonSelectionViewController.selectedPokemonUID];
+      [self.trainer caughtNewWildPokemon:wildPokemon];
+      wildPokemon = nil;
       
       ++guideStep_;
       break;
