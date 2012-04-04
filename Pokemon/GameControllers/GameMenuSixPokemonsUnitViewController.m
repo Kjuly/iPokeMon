@@ -172,11 +172,12 @@
                      [self.infoButton setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
-                     [UIView transitionFromView:self.cancelButton
-                                         toView:self.mainButton
-                                       duration:.3f
-                                        options:UIViewAnimationOptionTransitionFlipFromLeft
-                                     completion:nil];
+                     if (finished)
+                       [UIView transitionFromView:self.cancelButton
+                                           toView:self.mainButton
+                                         duration:.3f
+                                          options:UIViewAnimationOptionTransitionFlipFromLeft
+                                       completion:nil];
                    }];
 }
 
