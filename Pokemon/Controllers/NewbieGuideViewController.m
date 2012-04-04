@@ -273,7 +273,7 @@
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      CGRect confirmButtonFrame = self.confirmButton.frame;
-                     confirmButtonFrame.origin.y = kViewHeight;
+                     confirmButtonFrame.origin.y = kViewHeight - kCenterMainButtonSize / 2;
                      [self.confirmButton setFrame:confirmButtonFrame];
                    }
                    completion:nil];
@@ -343,6 +343,11 @@
     }
       
     case 2: {
+      if (self.confirmButton.frame.origin.y == kViewHeight - kCenterMainButtonSize / 2) {
+        [self.pokemonSelectionViewController unloadPokemonSelectionViewAnimated:YES];
+        return;
+      }
+      
       [UIView animateWithDuration:.3f
                             delay:0.f
                           options:UIViewAnimationOptionCurveLinear

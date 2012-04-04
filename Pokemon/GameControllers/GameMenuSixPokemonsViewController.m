@@ -38,7 +38,6 @@
 @property (nonatomic, retain) UIButton                           * cancelButton;
 
 - (void)unloadSelcetedPokemonInfoView;
-- (void)resetUnit;
 
 @end
 

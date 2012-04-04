@@ -18,5 +18,6 @@
 @property (nonatomic, assign) NSInteger selectedPokemonUID;
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID;
+- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated;
 
 @end

@@ -42,9 +42,7 @@
 @property (nonatomic, retain) UIButton                       * cancelButton;
 
 - (void)loadPokemonSelectionViewAnimated:(BOOL)animated;
-- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated;
 - (void)unloadSelcetedPokemonInfoView;
-- (void)resetUnit;
 - (void)showPokemonSelectionView:(id)sender;
 
 @end
@@ -186,6 +184,7 @@
   self.currOpeningUnitViewTag = 0;
 }
 
+// Button action to confirm selected Pokemon
 - (void)confirm:(id)sender {
   // Post notification to |NewbieGuideViewController| to show |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
@@ -196,45 +195,9 @@
   WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
   self.selectedPokemonUID = [pokemon.uid intValue];
   [self.pokemonSelectionButton setImage:pokemon.pokemon.image forState:UIControlStateNormal];
-  
-  /*NSInteger tag = ((UIButton *)sender).tag;
-  if (self.isForReplacing) {
-    // Replace the current pokemon
-    GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-    [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
-    previousBattlePokemonUnitView = nil;
-    
-    self.currBattlePokemon = tag;
-    
-    GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-    [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
-    currentBattlePokemonUnitView = nil;
-    
-    // Post notification to |GameMenuViewController| to replace the pokemon
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNReplacePokemon object:self userInfo:nil];
-    
-    // Cancel Six Pokemons view
-    [self unloadViewAnimated:YES];
-  }
-  // Post noficaiton with selected pokemon index number to |BagItemTableViewController|
-  else {
-    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [NSNumber numberWithInt:tag], @"selectedPokemonIndex", nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseItemForSelectedPokemon object:self userInfo:userInfo];
-    [userInfo release];
-    [UIView animateWithDuration:.3f
-                          delay:0.f
-                        options:UIViewAnimationCurveLinear
-                     animations:^{ [self.view setAlpha:0.f]; }
-                     completion:^(BOOL finished) {
-                       [self unloadViewAnimated:NO];
-                       [self.view setAlpha:1.f];
-                     }];
-  }*/
 }
 
+// Button action to open |pokemonDetailTabViewController|'s view
 - (void)openInfoView:(id)sender
 {
   WildPokemon * pokemon = [self.pokemons objectAtIndex:((UIButton *)sender).tag - 1];
@@ -263,7 +226,7 @@
   self.isSelectedPokemonInfoViewOpening = YES;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Public Methods
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID {
   self.pokemons = [WildPokemon queryPokemonsWithID:pokemonsUID fetchLimit:3];
@@ -296,6 +259,36 @@
   // Basic Setting
   self.isSelectedPokemonInfoViewOpening = NO;
 }
+
+// Unload view
+- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated {
+  void (^animation)() = ^(){
+    for (int i = [self.pokemons count]; i > 0; --i) {
+      GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+      [unitView setAlpha:0.f];
+      unitView = nil;
+    }
+    [self.backgroundView setAlpha:0.f];
+  };
+  
+  // If there's a unit view opening, close it first
+  if (self.currOpeningUnitViewTag != 0) {
+    GameMenuSixPokemonsUnitView * unitView
+    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+    [unitView cancelUnitAnimated:animated];
+    unitView = nil;
+    self.currOpeningUnitViewTag = 0;
+  }
+  
+  if (! animated) { animation(); }
+  else [UIView animateWithDuration:.3f
+                             delay:(self.currOpeningUnitViewTag != 0 ? .6f : 0.f)
+                           options:UIViewAnimationCurveEaseInOut
+                        animations:animation
+                        completion:nil];
+}
+
+#pragma mark - Private Methods
 
 // Load view
 - (void)loadPokemonSelectionViewAnimated:(BOOL)animated {
@@ -344,34 +337,6 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{ [self.backgroundView setAlpha:.85f]; }
                    completion:^(BOOL finished) { animationsToShowPokemons(); }];
-}
-
-// Unload view
-- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated {
-  void (^animation)() = ^(){
-    for (int i = [self.pokemons count]; i > 0; --i) {
-      GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
-      [unitView setAlpha:0.f];
-      unitView = nil;
-    }
-    [self.backgroundView setAlpha:0.f];
-  };
-  
-  // If there's a unit view opening, close it first
-  if (self.currOpeningUnitViewTag != 0) {
-    GameMenuSixPokemonsUnitView * unitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
-    [unitView cancelUnitAnimated:animated];
-    unitView = nil;
-    self.currOpeningUnitViewTag = 0;
-  }
-  
-  if (! animated) { animation(); }
-  else [UIView animateWithDuration:.3f
-                             delay:(self.currOpeningUnitViewTag != 0 ? .6f : 0.f)
-                           options:UIViewAnimationCurveEaseInOut
-                        animations:animation
-                        completion:nil];
 }
 
 // Unload selected Pokemon's info view
