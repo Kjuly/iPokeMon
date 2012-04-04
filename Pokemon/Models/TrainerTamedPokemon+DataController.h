@@ -12,6 +12,8 @@
 #import "Move+DataController.h"
 #import "Pokemon+DataController.h"
 
+@class WildPokemon;
+
 @interface TrainerTamedPokemon (DataController)
 
 + (void)initWithUserID:(NSInteger)userID;
@@ -20,14 +22,20 @@
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
 + (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit;
 + (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
++ (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
+                            toBox:(NSInteger)box
+                       withUserID:(NSInteger)userID
+                             memo:(NSString *)memo;
 
-// Base data dispatch
+// GET Base data
 - (Move *)moveWithIndex:(NSInteger)index;
 - (Move *)move1;
 - (Move *)move2;
 - (Move *)move3;
 - (Move *)move4;
 - (NSArray *)fourMovesPP;
+
+// SET Base data
 - (void)setFourMovesPPWith:(NSArray *)newPPArray;
 
 @end

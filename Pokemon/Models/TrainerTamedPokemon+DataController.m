@@ -135,6 +135,9 @@
   [data release];
 }
 
+#pragma mark -
+#pragma mark - GET Data
+
 // Get Six Pokemons that trainer brought
 // State: 0 - Unknown; 1 - Seen; 2 - Caught; 3 - Brought; 4 - Foster Care.
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID
@@ -197,7 +200,43 @@
   return pokemon;
 }
 
-#pragma mark - Base data dispatch
+// Add new Tamed Pokemon with a Wild Pokemon
++ (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
+                            toBox:(NSInteger)box
+                       withUserID:(NSInteger)userID
+                             memo:(NSString *)memo {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  TrainerTamedPokemon * tamedPokemon;
+  tamedPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                               inManagedObjectContext:managedObjectContext];
+  
+  // Set data
+  tamedPokemon.uid         = wildPokemon.uid;
+  tamedPokemon.sid         = wildPokemon.sid;
+  tamedPokemon.box         = [NSNumber numberWithInt:box];
+  tamedPokemon.status      = wildPokemon.status;
+  tamedPokemon.gender      = wildPokemon.gender;
+  tamedPokemon.happiness   = wildPokemon.pokemon.happiness;
+  tamedPokemon.level       = wildPokemon.level;
+  tamedPokemon.fourMoves   = wildPokemon.fourMoves;
+  tamedPokemon.maxStats    = wildPokemon.maxStats;
+  tamedPokemon.hp          = wildPokemon.hp;
+  tamedPokemon.exp         = wildPokemon.exp;
+  tamedPokemon.toNextLevel = wildPokemon.toNextLevel;
+  tamedPokemon.memo        = memo;
+  
+  // Set relationships
+  tamedPokemon.owner   = [Trainer queryTrainerWithUserID:userID];
+  tamedPokemon.pokemon = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
+  
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"!!! Couldn't save data to |%@| :: %@", [self class], error);
+  tamedPokemon = nil;
+}
+
+#pragma mark - GET Base data
 //
 // |self.fourMoves|:
 //    move1ID,move1currPP,move1maxPP, move2ID,move2currPP,move2maxPP,
@@ -229,6 +268,8 @@
   fourMoves = nil;
   return fourMovesPP;
 }
+
+#pragma mark - SET Base data
 
 - (void)setFourMovesPPWith:(NSArray *)newPPArray
 {
