@@ -20,15 +20,17 @@
 
 @interface PokemonSelectionViewController () {
  @private
-  NSInteger currOpeningUnitViewTag_;
-  NSInteger currSelectedPokemon_;
-  UIView  * backgroundView_;
-  NSArray * pokemons_;
+  UIButton  * pokemonSelectionButton_; // Button to show Pokemon Selection View
+  NSInteger   currOpeningUnitViewTag_;
+  NSInteger   currSelectedPokemon_;
+  UIView    * backgroundView_;
+  NSArray   * pokemons_;
   PokemonDetailTabViewController     * pokemonDetailTabViewController_;
   CAAnimationGroup                   * animationGroupForNotReplacing_;
   UIButton                           * cancelButton_;
 }
 
+@property (nonatomic, retain) UIButton  * pokemonSelectionButton;
 @property (nonatomic, assign) NSInteger   currOpeningUnitViewTag;
 @property (nonatomic, assign) NSInteger   currSelectedPokemon;
 @property (nonatomic, retain) UIView    * backgroundView;
@@ -39,6 +41,7 @@
 
 - (void)unloadSelcetedPokemonInfoView;
 - (void)resetUnit;
+- (void)showPokemonSelectionView:(id)sender;
 
 @end
 
@@ -47,6 +50,7 @@
 
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
 
+@synthesize pokemonSelectionButton = pokemonSelectionButton_;
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize currSelectedPokemon    = currSelectedPokemon_;
 @synthesize backgroundView         = backgroundView_;
@@ -57,10 +61,11 @@
 
 - (void)dealloc
 {
-  [backgroundView_ release];
-  [pokemons_       release];
+  [pokemonSelectionButton_         release];
+  [backgroundView_                 release];
+  [pokemons_                       release];
   [pokemonDetailTabViewController_ release];
-  [cancelButton_                       release];
+  [cancelButton_                   release];
   
   self.pokemonDetailTabViewController = nil;
   self.animationGroupForNotReplacing  = nil;
@@ -93,16 +98,32 @@
   self.view = view;
   [view release];
   
-  backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
-  [backgroundView_ setBackgroundColor:[UIColor blackColor]];
-  [backgroundView_ setAlpha:0.f];
-  [self.view addSubview:backgroundView_];
-  
-  // Create a fake |mapButton_| as the cancel button
+  // Constants
   UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                                        - kMapButtonSize,
                                                                        kMapButtonSize,
                                                                        kMapButtonSize)];
+  CGRect pokemonSelectionButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                                  (kViewHeight - kCenterMainButtonSize) / 2,
+                                                  kCenterMainButtonSize,
+                                                  kCenterMainButtonSize);
+  
+  // Button to show Pokemon choosing view
+  pokemonSelectionButton_ = [[UIButton alloc] initWithFrame:pokemonSelectionButtonFrame];
+  [pokemonSelectionButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+                                     forState:UIControlStateNormal];
+  [pokemonSelectionButton_ setImage:[UIImage imageNamed:@"ButtonIconUnknow.png"] forState:UIControlStateNormal];
+  [pokemonSelectionButton_ addTarget:self
+                              action:@selector(showPokemonSelectionView:)
+                    forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:pokemonSelectionButton_];
+  
+  // Background view
+  backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
+  [backgroundView_ setBackgroundColor:[UIColor blackColor]];
+  [backgroundView_ setAlpha:0.f];
+  
+  // Create a fake |mapButton_| as the cancel button
   self.cancelButton = cancelButton;
   [cancelButton release];
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
@@ -113,7 +134,6 @@
   [self.cancelButton addTarget:self
                         action:@selector(unloadSelcetedPokemonInfoView)
               forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:self.cancelButton];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -130,8 +150,9 @@
 {
   [super viewDidUnload];
   
-  self.backgroundView = nil;
-  self.pokemons       = nil;
+  self.pokemonSelectionButton         = nil;
+  self.backgroundView                 = nil;
+  self.pokemons                       = nil;
   self.pokemonDetailTabViewController = nil;
   self.cancelButton                   = nil;
 }
@@ -358,6 +379,14 @@
                      self.pokemonDetailTabViewController = nil;
                      self.isSelectedPokemonInfoViewOpening = NO;
                    }];
+}
+
+// Show Pokemon Selection view
+- (void)showPokemonSelectionView:(id)sender {
+  NSLog(@"|%@| - |showPokemonSelectionView:|", [self class]);
+  [self.view insertSubview:self.backgroundView atIndex:1];
+  [self.view addSubview:self.cancelButton];
+  [self loadViewAnimated:YES];
 }
 
 @end

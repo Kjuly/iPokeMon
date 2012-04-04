@@ -30,7 +30,6 @@
   BOOL          isProcessing_;
   NSInteger     guideStep_;
   UITextField * nameInputView_;
-  UIButton    * pokemonSelectionButton_; // Button to show Pokemon Selection View
   PokemonSelectionViewController * pokemonSelectionViewController_;
 }
 
@@ -47,14 +46,12 @@
 @property (nonatomic, assign) BOOL          isProcessing;
 @property (nonatomic, assign) NSInteger     guideStep;
 @property (nonatomic, retain) UITextField * nameInputView;
-@property (nonatomic, retain) UIButton    * pokemonSelectionButton;
 @property (nonatomic, retain) PokemonSelectionViewController * pokemonSelectionViewController;
 
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
 - (void)confirm:(id)sender;
 - (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2;
-- (void)showPokemonSelectionView:(id)sender;
 
 @end
 
@@ -74,7 +71,6 @@
 @synthesize isProcessing           = isProcessing_;
 @synthesize guideStep              = guideStep_;
 @synthesize nameInputView          = nameInputView_;
-@synthesize pokemonSelectionButton = pokemonSelectionButton_;
 @synthesize pokemonSelectionViewController = pokemonSelectionViewController_;
 
 - (void)dealloc
@@ -88,8 +84,7 @@
   [confirmButton_  release];
   
   nameInputView_.delegate = nil;
-  [nameInputView_          release];
-  [pokemonSelectionButton_ release];
+  [nameInputView_                  release];
   [pokemonSelectionViewController_ release];
   
   [super dealloc];
@@ -158,10 +153,6 @@
   // Layouts for different steps
   // Constants
   CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f, 260.f, 32.f);
-  CGRect pokemonSelectionButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-                                                  (kViewHeight - kCenterMainButtonSize) / 2,
-                                                  kCenterMainButtonSize,
-                                                  kCenterMainButtonSize);
   
   // Name setting input view
   nameInputView_ = [[UITextField alloc] initWithFrame:nameInputViewFrame];
@@ -170,16 +161,6 @@
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
   nameInputView_.delegate = self;
-  
-  // Butto to show Pokemon choosing view
-  pokemonSelectionButton_ = [[UIButton alloc] initWithFrame:pokemonSelectionButtonFrame];
-  [pokemonSelectionButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
-                                  forState:UIControlStateNormal];
-  [pokemonSelectionButton_ setImage:[UIImage imageNamed:@"ButtonIconUnknow.png"] forState:UIControlStateNormal];
-  [pokemonSelectionButton_ setAlpha:0.f];
-  [pokemonSelectionButton_ addTarget:self
-                              action:@selector(showPokemonSelectionView:)
-                    forControlEvents:UIControlEventTouchUpInside];
   
   // Pokemon Selection view
   pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
@@ -207,8 +188,7 @@
   self.textView2      = nil;
   self.confirmButton  = nil;
   
-  self.nameInputView          = nil;
-  self.pokemonSelectionButton = nil;
+  self.nameInputView                  = nil;
   self.pokemonSelectionViewController = nil;
 }
 
@@ -281,15 +261,16 @@
             [self.trainer setName:name];
             newText = @"PMSNewbiewGuide2Text1";
             ++guideStep_;
-            [self.view addSubview:self.pokemonSelectionButton];
+            [self.view addSubview:self.pokemonSelectionViewController.view];
+            [self.pokemonSelectionViewController.view setAlpha:0.f];
           }
           else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
           else newText = @"PMSNewbiewGuide1TextNameERROR";
           
           void (^animations)() = ^() {
             if (uniqueness == 1) {
-              [self.nameInputView          setAlpha:0.f];
-              [self.pokemonSelectionButton setAlpha:1.f];
+              [self.nameInputView                       setAlpha:0.f];
+              [self.pokemonSelectionViewController.view setAlpha:1.f];
             }
             [self.textView1 setAlpha:0.f];
             [self.textView2 setAlpha:0.f];
@@ -330,11 +311,11 @@
                        animations:^{
                          [self.textView1 setAlpha:0.f];
                          [self.textView2 setAlpha:0.f];
-                         [self.pokemonSelectionButton setAlpha:0.f];
+                         [self.pokemonSelectionViewController.view setAlpha:0.f];
                          [self moveConfirmButtonToBottom:NO animated:NO];
                        }
                        completion:^(BOOL finished) {
-                         [self.pokemonSelectionButton removeFromSuperview];
+                         [self.pokemonSelectionViewController.view removeFromSuperview];
                          [self setTextViewWithText1:@"PMSNewbiewGuide3Text1" text2:nil];
                          [UIView animateWithDuration:.3f
                                                delay:0.f
@@ -367,13 +348,6 @@
   [self.textView2 setFrame:self.textView2Frame];
   [self.textView2 setText:NSLocalizedString(text2, nil)];
   [self.textView2 sizeToFit];
-}
-
-// Show Pokemon Selection view
-- (void)showPokemonSelectionView:(id)sender {
-  NSLog(@"|%@| - |showPokemonSelectionView:|", [self class]);
-  [self.view addSubview:pokemonSelectionViewController_.view];
-  [self.pokemonSelectionViewController loadViewAnimated:YES];
 }
 
 #pragma mark - UITextView Delegate
