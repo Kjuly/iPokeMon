@@ -27,7 +27,6 @@
   NSArray   * pokemons_;
   PokemonDetailTabViewController     * pokemonDetailTabViewController_;
   CAAnimationGroup                   * animationGroupForNotReplacing_;
-  UIButton                           * cancelButton_;
 }
 
 @property (nonatomic, retain) UIButton  * pokemonSelectionButton;
@@ -37,10 +36,8 @@
 @property (nonatomic, copy)   NSArray   * pokemons;
 @property (nonatomic, retain) PokemonDetailTabViewController * pokemonDetailTabViewController;
 @property (nonatomic, retain) CAAnimationGroup               * animationGroupForNotReplacing;
-@property (nonatomic, retain) UIButton                       * cancelButton;
 
 - (void)loadPokemonSelectionViewAnimated:(BOOL)animated;
-- (void)unloadSelcetedPokemonInfoView;
 - (void)showPokemonSelectionView:(id)sender;
 
 @end
@@ -58,7 +55,6 @@
 @synthesize pokemons               = pokemons_;
 @synthesize pokemonDetailTabViewController = pokemonDetailTabViewController_;
 @synthesize animationGroupForNotReplacing  = animationGroupForNotReplacing_;
-@synthesize cancelButton                   = cancelButton_;
 
 - (void)dealloc
 {
@@ -66,7 +62,6 @@
   [backgroundView_                 release];
   [pokemons_                       release];
   [pokemonDetailTabViewController_ release];
-  [cancelButton_                   release];
   
   self.pokemonDetailTabViewController = nil;
   self.animationGroupForNotReplacing  = nil;
@@ -100,10 +95,6 @@
   [view release];
   
   // Constants
-  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                                       - kMapButtonSize,
-                                                                       kMapButtonSize,
-                                                                       kMapButtonSize)];
   CGRect pokemonSelectionButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                                                   (kViewHeight - kCenterMainButtonSize) / 2,
                                                   kCenterMainButtonSize,
@@ -125,19 +116,6 @@
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
   [self.view addSubview:backgroundView_];
-  
-  // Create a fake |mapButton_| as the cancel button
-  self.cancelButton = cancelButton;
-  [cancelButton release];
-  [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
-                               forState:UIControlStateNormal];
-  [self.cancelButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
-  [self.cancelButton setOpaque:NO];
-  [self.cancelButton addTarget:self
-                        action:@selector(unloadSelcetedPokemonInfoView)
-              forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:self.cancelButton];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -159,7 +137,6 @@
   self.backgroundView                 = nil;
   self.pokemons                       = nil;
   self.pokemonDetailTabViewController = nil;
-  self.cancelButton                   = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -189,7 +166,6 @@
 - (void)confirm:(id)sender {
   [self unloadPokemonSelectionViewAnimated:YES];
   
-  [self.pokemonSelectionButton setAlpha:1.f];
   self.currSelectedPokemon = ((UIButton *)sender).tag;
   WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
   self.selectedPokemonUID = [pokemon.uid intValue];
@@ -207,7 +183,7 @@
   self.pokemonDetailTabViewController = pokemonDetailTabViewController;
   [pokemonDetailTabViewController release];
   
-  [self.view insertSubview:self.pokemonDetailTabViewController.view belowSubview:self.cancelButton];
+  [self.view addSubview:self.pokemonDetailTabViewController.view];
   __block CGRect viewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
   [self.pokemonDetailTabViewController.view setFrame:viewFrame];
   [UIView animateWithDuration:.3f
@@ -216,10 +192,6 @@
                    animations:^{
                      viewFrame.origin.y = 0.f;
                      [self.pokemonDetailTabViewController.view setFrame:viewFrame];
-                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                            - (kMapButtonSize / 2),
-                                                            kMapButtonSize,
-                                                            kMapButtonSize)];
                    }
                    completion:nil];
   self.isSelectedPokemonInfoViewOpening = YES;
@@ -250,7 +222,7 @@
     [gameMenuSixPokemonsUnitView setAlpha:0.f];
     if (self.currSelectedPokemon == i)
       [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
-    [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
+    [self.view addSubview:gameMenuSixPokemonsUnitView];
     [gameMenuSixPokemonsUnitView release];
     pokemon = nil;
   }
@@ -264,6 +236,7 @@
   // Post notification to |NewbieGuideViewController| to show |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
   
+  [self.pokemonSelectionButton setAlpha:1.f];
   void (^animation)() = ^(){
     for (int i = [self.pokemons count]; i > 0; --i) {
       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
@@ -288,6 +261,23 @@
                            options:UIViewAnimationCurveEaseInOut
                         animations:animation
                         completion:nil];
+}
+
+// Unload selected Pokemon's info view
+- (void)unloadSelcetedPokemonInfoView {
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     CGRect viewFrame = self.pokemonDetailTabViewController.view.frame;
+                     viewFrame.origin.y = kViewHeight;
+                     [self.pokemonDetailTabViewController.view setFrame:viewFrame];
+                   }
+                   completion:^(BOOL finished) {
+                     [self.pokemonDetailTabViewController.view removeFromSuperview];
+                     self.pokemonDetailTabViewController = nil;
+                     self.isSelectedPokemonInfoViewOpening = NO;
+                   }];
 }
 
 #pragma mark - Private Methods
@@ -340,26 +330,6 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{ [self.backgroundView setAlpha:.85f]; }
                    completion:^(BOOL finished) { if (finished) animationsToShowPokemons(); }];
-}
-
-// Unload selected Pokemon's info view
-- (void)unloadSelcetedPokemonInfoView {
-  [UIView animateWithDuration:.3f
-                        delay:0.f
-                      options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     CGRect viewFrame = self.pokemonDetailTabViewController.view.frame;
-                     viewFrame.origin.y = kViewHeight;
-                     [self.pokemonDetailTabViewController.view setFrame:viewFrame];
-                     CGRect buttonFrame = self.cancelButton.frame;
-                     buttonFrame.origin.y = - kMapButtonSize;
-                     [self.cancelButton setFrame:buttonFrame];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.pokemonDetailTabViewController.view removeFromSuperview];
-                     self.pokemonDetailTabViewController = nil;
-                     self.isSelectedPokemonInfoViewOpening = NO;
-                   }];
 }
 
 // Show Pokemon Selection view

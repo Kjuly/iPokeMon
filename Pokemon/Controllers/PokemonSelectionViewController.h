@@ -21,5 +21,6 @@
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID;
 - (void)unloadPokemonSelectionViewAnimated:(BOOL)animated;
+- (void)unloadSelcetedPokemonInfoView;
 
 @end

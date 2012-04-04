@@ -265,6 +265,8 @@
 
 // Show |confirmButton_|
 - (void)showConfirmButton:(NSNotification *)notification {
+  [self.confirmButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"]
+                      forState:UIControlStateNormal];
   [self moveConfirmButtonToBottom:YES animated:YES];
 }
 
@@ -278,7 +280,10 @@
                      confirmButtonFrame.origin.y = kViewHeight - kCenterMainButtonSize / 2;
                      [self.confirmButton setFrame:confirmButtonFrame];
                    }
-                   completion:nil];
+                   completion:^(BOOL finished) {
+                     [self.confirmButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageHalfCancel.png"]
+                                         forState:UIControlStateNormal];
+                   }];
 }
 
 // Action for |confirmButton_|
@@ -345,8 +350,10 @@
     }
       
     case 2: {
-      if (self.pokemonSelectionViewController.isSelectedPokemonInfoViewOpening)
+      if (self.pokemonSelectionViewController.isSelectedPokemonInfoViewOpening) {
+        [self.pokemonSelectionViewController unloadSelcetedPokemonInfoView];
         return;
+      }
       if (self.confirmButton.frame.origin.y == kViewHeight - kCenterMainButtonSize / 2) {
         [self.pokemonSelectionViewController unloadPokemonSelectionViewAnimated:YES];
         return;
