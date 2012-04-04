@@ -158,7 +158,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   NSInteger lastLearnedMoveIndex = 0;
   NSMutableArray * fourMovesID = [[NSMutableArray alloc] init];
   for (int i = 0; i < moveCount - 1; i += 2) {
-    if ([[moves objectAtIndex:i] intValue] < level)
+    if ([[moves objectAtIndex:i] intValue] > level)
       break;
     // Remove the first Move when there're foru Moves learned
     if ([fourMovesID count] == 4)
