@@ -155,6 +155,8 @@
   [self.view addSubview:textView2_];
   
   confirmButton_ = [[UIButton alloc] init];
+  [confirmButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterButtonBackground.png"]
+                            forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
@@ -343,6 +345,8 @@
     }
       
     case 2: {
+      if (self.pokemonSelectionViewController.isSelectedPokemonInfoViewOpening)
+        return;
       if (self.confirmButton.frame.origin.y == kViewHeight - kCenterMainButtonSize / 2) {
         [self.pokemonSelectionViewController unloadPokemonSelectionViewAnimated:YES];
         return;

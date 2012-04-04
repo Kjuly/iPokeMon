@@ -13,9 +13,11 @@
 @interface PokemonSelectionViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate>
 {
   NSInteger selectedPokemonUID_;
+  BOOL      isSelectedPokemonInfoViewOpening_;
 }
 
 @property (nonatomic, assign) NSInteger selectedPokemonUID;
+@property (nonatomic, assign) BOOL      isSelectedPokemonInfoViewOpening;
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID;
 - (void)unloadPokemonSelectionViewAnimated:(BOOL)animated;

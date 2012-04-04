@@ -20,7 +20,6 @@
 
 @interface PokemonSelectionViewController () {
  @private
-  BOOL        isSelectedPokemonInfoViewOpening_;
   UIButton  * pokemonSelectionButton_; // Button to show Pokemon Selection View
   NSInteger   currOpeningUnitViewTag_;
   NSInteger   currSelectedPokemon_;
@@ -31,7 +30,6 @@
   UIButton                           * cancelButton_;
 }
 
-@property (nonatomic, assign) BOOL        isSelectedPokemonInfoViewOpening;
 @property (nonatomic, retain) UIButton  * pokemonSelectionButton;
 @property (nonatomic, assign) NSInteger   currOpeningUnitViewTag;
 @property (nonatomic, assign) NSInteger   currSelectedPokemon;
@@ -50,9 +48,9 @@
 
 @implementation PokemonSelectionViewController
 
-@synthesize selectedPokemonUID = selectedPokemonUID_;
-
+@synthesize selectedPokemonUID               = selectedPokemonUID_;
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
+
 @synthesize pokemonSelectionButton = pokemonSelectionButton_;
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize currSelectedPokemon    = currSelectedPokemon_;
