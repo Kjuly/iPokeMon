@@ -46,15 +46,19 @@
 }
 
 - (id)transformedValue:(id)value {
-  // If the |value| class is |NSString| type,
-  // Transform |NSString| to |NSArray| first, then to |NSData|.
-  // Intermediate Transform: | NSArray * array = [value componentsSeparatedByString:@","]; |
-//  return [value dataUsingEncoding:NSUTF8StringEncoding];
-  return [NSKeyedArchiver archivedDataWithRootObject:value];
+  if (! [value isKindOfClass:[NSArray class]])
+    return [NSKeyedArchiver archivedDataWithRootObject:value];
   
-//  if ([value isKindOfClass:[NSString class]])
-//    return [NSKeyedArchiver archivedDataWithRootObject:[value componentsSeparatedByString:@","]];
-//  return [NSKeyedArchiver archivedDataWithRootObject:value];
+  // If the |value| class is |NSArray| type,
+  // Transform |NSArray| to |NSString| first, then to |NSData|.
+  NSInteger arrayCount = [value count];
+  if (arrayCount == 0)
+    return [NSKeyedArchiver archivedDataWithRootObject:@""];
+  NSMutableString * valueInString =
+    [NSMutableString stringWithString:[NSString stringWithFormat:@"%d", [[value objectAtIndex:0] intValue]]];
+  for (NSInteger i = 1; i < arrayCount; ++i)
+    [valueInString appendString:[NSString stringWithFormat:@",%d", [[value objectAtIndex:i] intValue]]];
+  return [NSKeyedArchiver archivedDataWithRootObject:valueInString];
 }
 
 - (id)reverseTransformedValue:(id)value {

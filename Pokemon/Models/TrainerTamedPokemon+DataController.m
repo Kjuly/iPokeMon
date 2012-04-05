@@ -244,6 +244,8 @@
 //
 - (Move *)moveWithIndex:(NSInteger)index {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
+  if (index > [fourMoves count] / 3 || index <= 0)
+    return nil;
   Move * move = [Move queryMoveDataWithID:[[fourMoves objectAtIndex:(--index * 3)] intValue]];
   fourMoves = nil;
   return move;
@@ -256,15 +258,14 @@
 
 - (NSArray *)fourMovesPP {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
-  NSArray * fourMovesPP = [NSArray arrayWithObjects:
-                           [fourMoves objectAtIndex:1],
-                           [fourMoves objectAtIndex:2],
-                           [fourMoves objectAtIndex:4],
-                           [fourMoves objectAtIndex:5],
-                           [fourMoves objectAtIndex:7],
-                           [fourMoves objectAtIndex:8],
-                           [fourMoves objectAtIndex:10],
-                           [fourMoves objectAtIndex:11], nil];
+  NSInteger fourMovesCount = [fourMoves count] / 3;
+  if (fourMovesCount <= 0)
+    return nil;
+  NSMutableArray * fourMovesPP = [NSMutableArray arrayWithCapacity:(fourMovesCount * 2)];
+  for (NSInteger i = 0; i < fourMovesCount; ++i) {
+    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 1)]];
+    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 2)]];
+  }
   fourMoves = nil;
   return fourMovesPP;
 }
