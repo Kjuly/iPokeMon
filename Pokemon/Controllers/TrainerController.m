@@ -82,6 +82,11 @@ static TrainerController * trainerController_ = nil;
   self.userID            = userID;
   self.entityTrainer     = [Trainer queryTrainerWithUserID:userID];
   self.entitySixPokemons = [self.entityTrainer sixPokemons];
+  
+  // If user has no Pokemon brought (newbie),
+  //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+  if ([self.entitySixPokemons count] == 0)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
 }
 
 #pragma mark - Data Related Methods
@@ -93,7 +98,6 @@ static TrainerController * trainerController_ = nil;
   // C->S: If Client data has initialzied, just do sync Client to Server
   if (self.isInitialized) {
     NSLog(@"Sync.......");
-//    [Trainer             syncWithUserID:self.userID flag:(1111 << 0)];
     if (self.flag & kDataModifyTrainer)
       [Trainer             syncWithUserID:self.userID flag:self.flag];
     if (self.flag & kDataModifyTamedPokemon)
@@ -101,11 +105,6 @@ static TrainerController * trainerController_ = nil;
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
-    // If user has no Pokemon brought (newbie),
-    //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-    if ([self.entitySixPokemons count] == 0)
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
-    
     NSLog(@"Init......");
     [Trainer             initWithUserID:self.userID];
     [TrainerTamedPokemon initWithUserID:self.userID];
