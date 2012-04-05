@@ -17,6 +17,7 @@
 
 + (TrainerController *)sharedInstance;
 - (void)initTrainerWithUserID:(NSInteger)userID;
+- (void)save;
 
 // Sync data between Client & Server
 - (void)sync;

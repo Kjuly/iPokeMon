@@ -19,14 +19,14 @@
   DataModifyFlag   flag_;              // Data modify flag
   NSInteger        userID_;            // User ID, same as Trainer UID
   Trainer        * entityTrainer_;     // Trainer
-  NSArray        * entitySixPokemons_; // SixPokemons
+  NSMutableArray * entitySixPokemons_; // SixPokemons
 }
 
 @property (nonatomic, assign) BOOL             isInitialized;
 @property (nonatomic, assign) DataModifyFlag   flag;
 @property (nonatomic, assign) NSInteger        userID;
 @property (nonatomic, retain) Trainer        * entityTrainer;
-@property (nonatomic, retain) NSArray        * entitySixPokemons;
+@property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
 @end
 
@@ -79,14 +79,29 @@ static TrainerController * trainerController_ = nil;
 
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
-  self.userID            = userID;
-  self.entityTrainer     = [Trainer queryTrainerWithUserID:userID];
-  self.entitySixPokemons = [self.entityTrainer sixPokemons];
+  NSLog(@"Init......");
+  NSLog(@"|%@| - |initTrainerWithUserID:|...", [self class]);
+  self.userID = userID;
+  
+  [Trainer             initWithUserID:self.userID];
+  [TrainerTamedPokemon initWithUserID:self.userID];
+  self.isInitialized = YES;
+  
+  self.entityTrainer     = [Trainer queryTrainerWithUserID:self.userID];
+  self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
+  if (self.entitySixPokemons == nil)
+    self.entitySixPokemons = [NSMutableArray array];
   
   // If user has no Pokemon brought (newbie),
   //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
   if ([self.entitySixPokemons count] == 0)
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
+}
+
+// Save Client data to CoreData
+-(void)save {
+  NSLog(@"......SVEING DATA......");
+  [Trainer save];
 }
 
 #pragma mark - Data Related Methods
@@ -106,10 +121,8 @@ static TrainerController * trainerController_ = nil;
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
-    NSLog(@"Init......");
-    [Trainer             initWithUserID:self.userID];
-    [TrainerTamedPokemon initWithUserID:self.userID];
-    self.isInitialized = YES;
+    
+    
   }
 }
 
@@ -177,6 +190,7 @@ static TrainerController * trainerController_ = nil;
 - (void)setName:(NSString *)name {
   self.entityTrainer.name = name;
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
+  [self save];
   [self sync];
 }
 
@@ -188,7 +202,6 @@ static TrainerController * trainerController_ = nil;
   // If count of |sixPokemons| is not |6|, add it there instead of |box|
   if ([self numberOfSixPokemons] < 6) {
     box = 0;
-    [self addPokemonToSixPokemonsWithPokemonUID:[wildPokemon.uid intValue]];
   }
   // Else, find a box to put new Pokemon
   //
@@ -198,15 +211,20 @@ static TrainerController * trainerController_ = nil;
   else {
     box = 1;
   }
+  
   [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon toBox:box withUserID:self.userID memo:memo];
+  // If |box == 0|, add new Pokemon to |sixPokemons|
+  if (box == 0) [self addPokemonToSixPokemonsWithPokemonUID:[wildPokemon.uid intValue]];
 }
 
 // Add Pokemon to |sixPokemons|
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
   // Add new |pokemonUID| to |sixPokemons|
   [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
+  
   // Refetch Pokemons for |sixPokemons|
-  self.entitySixPokemons = [self.entityTrainer sixPokemons];
+  [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID]];
+  [self save];
 }
 
 @end

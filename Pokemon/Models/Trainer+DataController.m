@@ -17,25 +17,41 @@
 
 @implementation Trainer (DataController)
 
+// Save Data
++ (void)save {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
+}
+
 // Update Data
 + (void)initWithUserID:(NSInteger)userID {
   if (userID <= 0) return;
   
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  // Get |trainer| entity with |userID|
+  // If failed (i.e. No data for current user), insert new one for user
+  __block Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
+  if (! trainer) {
+    NSLog(@"!!! No data for Trainer, insert new one");
+    trainer = nil;
+    trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                            inManagedObjectContext:managedObjectContext];
+    trainer.uid  = [NSNumber numberWithInt:userID];
+    trainer.name = [NSString stringWithFormat:@"Trainer%d", userID];
+    
+    NSError * error;
+    if (! [managedObjectContext save:&error])
+      NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
+  }
+  
   ///Fetch Data from server & update the date for |trainer|
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
-    NSManagedObjectContext * managedObjectContext =
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    // Get |trainer| entity with |userID|
-    // If failed (i.e. No data for current user), insert new one for user
-    Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
-    if (! trainer) {
-      NSLog(@"!!! No data for Trainer, insert new one");
-      trainer = nil;
-      trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                              inManagedObjectContext:managedObjectContext];
-    }
-    
     // Set data for |Trainer|
     trainer.uid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
     trainer.name              = [JSON valueForKey:@"name"];
