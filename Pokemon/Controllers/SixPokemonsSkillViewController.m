@@ -116,7 +116,7 @@
   // Ability
   abilityLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:abilityLabelViewFrame hasValueLabel:YES];
   [abilityLabelView_.name setText:NSLocalizedString(@"PMSLabelAbility", nil)];
-  [dataView addSubview:abilityLabelView_];
+//  [dataView addSubview:abilityLabelView_];
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
