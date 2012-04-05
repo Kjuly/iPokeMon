@@ -202,6 +202,7 @@
 
 #pragma mark - Instance Methods
 
+// Fetch Pokemons for |sixPokemons|
 - (NSArray *)sixPokemons
 {
   NSArray * sixPokemonsID = [self.sixPokemonsID componentsSeparatedByString:@","];
@@ -220,6 +221,17 @@
   sixPokemonsID = nil;
   sixPokemons   = nil;
   return sixPokemonsInOrder;
+}
+
+// Add Pokemon to |sixPokemons|
+- (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
+  if ([self.sixPokemonsID length] == 0)
+    self.sixPokemonsID = [NSString stringWithFormat:@"%d", pokemonUID];
+  else {
+    NSMutableString * newSixPokemonsID = [NSMutableString stringWithString:self.sixPokemonsID];
+    self.sixPokemonsID = [newSixPokemonsID stringByAppendingString:[NSString stringWithFormat:@",%d", pokemonUID]];
+  }
+  
 }
 
 @end

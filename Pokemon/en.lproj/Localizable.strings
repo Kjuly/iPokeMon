@@ -73,6 +73,11 @@
 "PMSMessageWhatWillXXXDoPart1" = "What will";
 "PMSMessageWhatWillXXXDoPart3" = "do?";
 
+/*
+ * Memo for Pokemon
+ */
+"PMSMemo001" = "Undefined.";
+
 
 /*
  * Pokedex

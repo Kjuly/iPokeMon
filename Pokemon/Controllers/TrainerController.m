@@ -81,7 +81,7 @@ static TrainerController * trainerController_ = nil;
 - (void)initTrainerWithUserID:(NSInteger)userID {
   self.userID            = userID;
   self.entityTrainer     = [Trainer queryTrainerWithUserID:userID];
-  self.entitySixPokemons = self.entityTrainer.sixPokemons;
+  self.entitySixPokemons = [self.entityTrainer sixPokemons];
 }
 
 #pragma mark - Data Related Methods
@@ -181,14 +181,32 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Transfer WildPokemon to TamedPokemon
-- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon {
+// Add new TamedPokemon, 
+- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo {
   NSLog(@"|%@| - |caughtNewWildPokemon:| :: %@", [self class], wildPokemon);
-  
+  NSInteger box;
+  // If count of |sixPokemons| is not |6|, add it there instead of |box|
+  if ([self numberOfSixPokemons] < 6) {
+    box = 0;
+    [self addPokemonToSixPokemonsWithPokemonUID:[wildPokemon.uid intValue]];
+  }
+  // Else, find a box to put new Pokemon
+  //
+  // !!!TODO:
+  //   Need a model to store Pokemons in Boxes.
+  //
+  else {
+    box = 1;
+  }
+  [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon toBox:box withUserID:self.userID memo:memo];
 }
 
-// Add new TamedPokemon, if SixPokemons is not full, add it there
-- (void)addTamedPokemon:(TrainerTamedPokemon *)tamedPokemon {
-  NSLog(@"|%@| - |addTamedPokemon:| :: %@", [self class], tamedPokemon);
+// Add Pokemon to |sixPokemons|
+- (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
+  // Add new |pokemonUID| to |sixPokemons|
+  [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
+  // Refetch Pokemons for |sixPokemons|
+  self.entitySixPokemons = [self.entityTrainer sixPokemons];
 }
 
 @end

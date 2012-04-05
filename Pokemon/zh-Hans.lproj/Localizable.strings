@@ -72,6 +72,11 @@
 "PMSMessageWhatWillXXXDoPart1" = "";
 "PMSMessageWhatWillXXXDoPart3" = "要做什么？";
 
+/*
+ * Memo for Pokemon
+ */
+"PMSMemo001" = "为定义.";
+
 
 /*
  * Pokedex

@@ -20,5 +20,6 @@
 + (void)setTrainerWith:(NSInteger)id Name:(NSString *)name;
 
 - (NSArray *)sixPokemons;
+- (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
 
 @end
