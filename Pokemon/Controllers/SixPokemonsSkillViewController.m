@@ -128,12 +128,7 @@
 {
   [super viewDidLoad];
   
-  NSArray * statsMax;
-  if ([self.pokemon.maxStats isKindOfClass:[NSString class]])
-    statsMax  = [self.pokemon.maxStats  componentsSeparatedByString:@","];
-  else
-    statsMax  = self.pokemon.maxStats;
-  
+  NSArray * statsMax = self.pokemon.maxStats;
   NSInteger hpLeft = [self.pokemon.hp intValue];
   NSInteger hpTotal = [[statsMax objectAtIndex:0] intValue];
   [self.hpLabelView.value setText:[NSString stringWithFormat:@"%d / %d", hpLeft, hpTotal]];
