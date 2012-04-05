@@ -55,7 +55,7 @@
 @implementation BagItemTableViewController
 
 @synthesize items                = items_;
-@synthesize itemNumberSequence   = itemNumberSequence;
+@synthesize itemNumberSequence   = itemNumberSequence_;
 @synthesize targetType           = targetType_;
 @synthesize selectedPokemonIndex = selectedPokemonIndex_;
 @synthesize isDuringBattle       = isDuringBattle_;

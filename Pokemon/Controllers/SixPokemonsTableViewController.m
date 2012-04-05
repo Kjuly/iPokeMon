@@ -201,7 +201,7 @@
 //  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
 //                                                                     initWithPokemonID:pokemonID];
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
-  [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]];
+    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]];
   [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
   [sixPokemonsDetailTabViewController release];
 }

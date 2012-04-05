@@ -174,20 +174,28 @@ static TrainerController * trainerController_ = nil;
 
 // Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
-  if      (targetType & kBagQueryTargetTypeItem)       return self.entityTrainer.bagItems;
+  id bagItems = nil;
+  if      (targetType & kBagQueryTargetTypeItem)       bagItems = self.entityTrainer.bagItems;
   else if (targetType & kBagQueryTargetTypeMedicine) {
-    if (targetType & kBagQueryTargetTypeMedicineStatus)  return self.entityTrainer.bagMedicineStatus;
-    else if (targetType & kBagQueryTargetTypeMedicineHP) return self.entityTrainer.bagMedicineHP;
-    else if (targetType & kBagQueryTargetTypeMedicinePP) return self.entityTrainer.bagMedicinePP;
+    if (targetType & kBagQueryTargetTypeMedicineStatus)  bagItems = self.entityTrainer.bagMedicineStatus;
+    else if (targetType & kBagQueryTargetTypeMedicineHP) bagItems = self.entityTrainer.bagMedicineHP;
+    else if (targetType & kBagQueryTargetTypeMedicinePP) bagItems = self.entityTrainer.bagMedicinePP;
     else return nil;
   }
-  else if (targetType & kBagQueryTargetTypePokeball)   return self.entityTrainer.bagPokeballs;
-  else if (targetType & kBagQueryTargetTypeTMHM)       return self.entityTrainer.bagTMsHMs;
-  else if (targetType & kBagQueryTargetTypeBerry)      return self.entityTrainer.bagBerries;
+  else if (targetType & kBagQueryTargetTypePokeball)   bagItems = self.entityTrainer.bagPokeballs;
+  else if (targetType & kBagQueryTargetTypeTMHM)       bagItems = self.entityTrainer.bagTMsHMs;
+  else if (targetType & kBagQueryTargetTypeBerry)      bagItems = self.entityTrainer.bagBerries;
   else if (targetType & kBagQueryTargetTypeMail)       return nil;
-  else if (targetType & kBagQueryTargetTypeBattleItem) return self.entityTrainer.bagBattleItems;
-  else if (targetType & kBagQueryTargetTypeKeyItem)    return self.entityTrainer.bagKeyItems;
+  else if (targetType & kBagQueryTargetTypeBattleItem) bagItems = self.entityTrainer.bagBattleItems;
+  else if (targetType & kBagQueryTargetTypeKeyItem)    bagItems = self.entityTrainer.bagKeyItems;
   else return nil;
+  
+  // TODO:
+  //   |DataTransformer| should deal with NSString to NSArray transformation work
+  //     It sometimes (like this case) not work!!
+  if ([bagItems isKindOfClass:[NSString class]])
+    return [bagItems componentsSeparatedByString:@","];
+  return bagItems;
 }
 
 #pragma mark - Settings
