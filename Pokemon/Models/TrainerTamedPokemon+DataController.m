@@ -98,11 +98,19 @@
 }
 
 // Sync data between Client & Server
-+ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag {
-  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithID:1];
++ (void)syncWithUserID:(NSInteger)userID
+            pokemonUID:(NSInteger)pokemonUID
+                  flag:(DataModifyFlag)flag {
+  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID];
   NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   if (! (flag & kDataModifyTamedPokemon))
     return;
+  
+  if (flag & kDataModifyTamedPokemonNew) {
+    [data setValue:pokemon.uid         forKey:@"uid"];
+    [data setValue:pokemon.sid         forKey:@"sid"];
+    [data setValue:pokemon.gender      forKey:@"gender"];
+  }
   
   if (flag & kDataModifyTamedPokemonBasic) {
     [data setValue:pokemon.status      forKey:@"status"];
@@ -115,8 +123,8 @@
     [data setValue:pokemon.toNextLevel forKey:@"toNextLevel"];
   }
   if (flag & kDataModifyTamedPokemonExtra) {
-    [data setValue:pokemon.box  forKey:@"box"];
-    [data setValue:pokemon.memo forKey:@"memo"];
+    [data setValue:pokemon.box         forKey:@"box"];
+    [data setValue:pokemon.memo        forKey:@"memo"];
   }
   
   // Block: |success| & |failure|
@@ -161,7 +169,7 @@
 }
 
 // Get pokemons that in pokemons ID array
-+ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit
++ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit
 {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -169,7 +177,7 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsID]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsUID]];
   [fetchRequest setFetchLimit:fetchLimit];
   
   NSError * error;
@@ -180,7 +188,7 @@
 }
 
 // Get one Pokemon that trainer brought
-+ (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
++(TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
 {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -188,7 +196,7 @@
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"status == %d AND sid == %d", 3, pokemonID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"uid == %d", pokemonUID];
   [fetchRequest setPredicate:predicate];
   //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];
@@ -234,6 +242,14 @@
   if (! [managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to |%@| :: %@", [self class], error);
   tamedPokemon = nil;
+  
+  // Sync new Pokemon data to Server
+  [self syncWithUserID:userID
+            pokemonUID:[wildPokemon.uid intValue]
+                  flag:kDataModifyTamedPokemon
+                      |kDataModifyTamedPokemonNew
+                      |kDataModifyTamedPokemonBasic
+                      |kDataModifyTamedPokemonExtra];
 }
 
 #pragma mark - GET Base data

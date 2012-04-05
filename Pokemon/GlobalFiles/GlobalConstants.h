@@ -46,18 +46,19 @@ typedef enum {
   kDataModifyTrainerSixPokemons      = 1 << 5,
   kDataModifyTrainerBag              = 1 << 6,
   kDataModifyTamedPokemon            = 1 << 8,  // Tamed Pokemon
-  kDataModifyTamedPokemonBasic       = 1 << 9,  // For all except |box|, |memo|
-  kDataModifyTamedPokemonExtra       = 1 << 10, // For |box|, |memo|
-  kDataModifyTamedPokemonStatus      = 1 << 11,
-  kDataModifyTamedPokemonhappiness   = 1 << 12,
-  kDataModifyTamedPokemonLevel       = 1 << 13,
-  kDataModifyTamedPokemonFourMoves   = 1 << 14,
-  kDataModifyTamedPokemonMaxStats    = 1 << 15,
-  kDataModifyTamedPokemonCurrHP      = 1 << 16,
-  kDataModifyTamedPokemonCurrEXP     = 1 << 17,
-  kDataModifyTamedPokemonToNextLevel = 1 << 18,
-  kDataModifyTamedPokemonBox         = 1 << 19,
-  kDataModifyTamedPokemonMemo        = 1 << 20
+  kDataModifyTamedPokemonNew         = 1 << 9,  // Flag for new Tamed Pokemon
+  kDataModifyTamedPokemonBasic       = 1 << 10, // For all except |box|, |memo|
+  kDataModifyTamedPokemonExtra       = 1 << 11, // For |box|, |memo|
+  kDataModifyTamedPokemonStatus      = 1 << 12,
+  kDataModifyTamedPokemonhappiness   = 1 << 13,
+  kDataModifyTamedPokemonLevel       = 1 << 14,
+  kDataModifyTamedPokemonFourMoves   = 1 << 15,
+  kDataModifyTamedPokemonMaxStats    = 1 << 16,
+  kDataModifyTamedPokemonCurrHP      = 1 << 17,
+  kDataModifyTamedPokemonCurrEXP     = 1 << 18,
+  kDataModifyTamedPokemonToNextLevel = 1 << 19,
+  kDataModifyTamedPokemonBox         = 1 << 20,
+  kDataModifyTamedPokemonMemo        = 1 << 21
 }DataModifyFlag;
 
 // For |centerMainButton_| status

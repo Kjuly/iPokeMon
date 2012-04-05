@@ -100,8 +100,9 @@ static TrainerController * trainerController_ = nil;
     NSLog(@"Sync.......");
     if (self.flag & kDataModifyTrainer)
       [Trainer             syncWithUserID:self.userID flag:self.flag];
-    if (self.flag & kDataModifyTamedPokemon)
-      [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
+//    if (self.flag & kDataModifyTamedPokemon)
+//      [TrainerTamedPokemon syncWithUserID:self.userID pokemonUID:0 flag:self.flag];
+//      [TrainerTamedPokemon syncWithUserID:self.userID flag:self.flag];
   }
   // S->C: Client data has not initialzied, so initialize it from Server to Client
   else {
@@ -123,7 +124,7 @@ static TrainerController * trainerController_ = nil;
   }
   // If sync data for Tamed Pokemon done, set all related flags to 0
   if (flag & kDataModifyTamedPokemon) {
-    self.flag &= (000 << 8);
+    self.flag &= (0000 << 8);
   }
 }
 

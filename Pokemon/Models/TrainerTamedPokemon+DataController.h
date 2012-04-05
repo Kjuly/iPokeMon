@@ -17,11 +17,13 @@
 @interface TrainerTamedPokemon (DataController)
 
 + (void)initWithUserID:(NSInteger)userID;
-+ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag; // Sync data between Client & Server
++ (void)syncWithUserID:(NSInteger)userID
+            pokemonUID:(NSInteger)pokemonUID
+                  flag:(DataModifyFlag)flag; // Sync data between Client & Server
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
-+ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit;
-+ (TrainerTamedPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
++ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit;
++ (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID;
 + (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
                             toBox:(NSInteger)box
                        withUserID:(NSInteger)userID

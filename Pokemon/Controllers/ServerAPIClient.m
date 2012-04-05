@@ -18,14 +18,15 @@ NSString * const kServerAPIRoot            = @"http://localhost:8080";
 // User
 NSString * const kServerAPIGetUserID       = @"/id";     // /uid:User's Unique ID
 NSString * const kServerAPIGetUser         = @"/u";      // /u:User
-NSString * const kServerAPIUpdateUser      = @"/update";
+NSString * const kServerAPIUpdateUser      = @"/uu";     // /uu:Update User
 NSString * const kServerAPICheckUniqueness = @"/cu";     // /cu:Check Uniqueness
 // User's Pokemon
 NSString * const kServerAPIGetPokemon      = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
 NSString * const kServerAPIGet6Pokemons    = @"/6pm";    // /6pm:SixPokeMons
 NSString * const kServerAPIGetPokedex      = @"/pd";     // /pd:PokeDex
+NSString * const kServerAPIUpdatePokemon   = @"/upm";    // /upm:Update PokeMon
 // WildPokemon
-NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
+NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 
 #pragma mark -
 #pragma mark - ServerAPI
@@ -39,6 +40,7 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
 + (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
 + (NSString *)getSixPokemons;                               // GET
 + (NSString *)getPokedex;                                   // GET
++ (NSString *)updatePokemon;                                // POST
 // WildPokemon
 + (NSString *)getWildPokemon;
 @end
@@ -64,6 +66,7 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";  // /wp:WildPokeMon
 
 + (NSString *)getSixPokemons { return kServerAPIGet6Pokemons; }
 + (NSString *)getPokedex     { return kServerAPIGetPokedex; }
++ (NSString *)updatePokemon  { return kServerAPIUpdatePokemon; }
 
 // WildPokemon
 + (NSString *)getWildPokemon { return kServerAPIGetWildPokemon; }
@@ -154,6 +157,8 @@ static ServerAPIClient * client_;
   NSString * path;
   if (target & kDataFetchTargetTrainer)
     path = [ServerAPI updateUser];
+  else if (target & kDataFetchTargetTamedPokemon)
+    path = [ServerAPI updatePokemon];
   else return;
   
   [self updateHeaderWithFlog:kHTTPHeaderDefault];

@@ -205,12 +205,12 @@
 // Fetch Pokemons for |sixPokemons|
 - (NSArray *)sixPokemons
 {
-  NSArray * sixPokemonsID = [self.sixPokemonsID componentsSeparatedByString:@","];
-  NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithID:sixPokemonsID fetchLimit:6];
+  NSArray * sixPokemonsUID = [self.sixPokemonsID componentsSeparatedByString:@","];
+  NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithUID:sixPokemonsUID fetchLimit:6];
   
   // Sort six pokemons in order
-  NSMutableArray * sixPokemonsInOrder = [NSMutableArray arrayWithCapacity:[sixPokemonsID count]];
-  for (id pokemonID in sixPokemonsID)
+  NSMutableArray * sixPokemonsInOrder = [NSMutableArray arrayWithCapacity:[sixPokemonsUID count]];
+  for (id pokemonID in sixPokemonsUID)
     for (TrainerTamedPokemon * pokemon in sixPokemons) {
       NSNumber * pokemonIDInNumber = [NSNumber numberWithInt:[pokemonID intValue]];
       if ([pokemon.uid isEqualToNumber:pokemonIDInNumber]) {
@@ -218,8 +218,8 @@
         break;
       }
     }
-  sixPokemonsID = nil;
-  sixPokemons   = nil;
+  sixPokemonsUID = nil;
+  sixPokemons    = nil;
   return sixPokemonsInOrder;
 }
 
