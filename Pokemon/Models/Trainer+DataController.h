@@ -12,7 +12,6 @@
 
 @interface Trainer (DataController)
 
-+ (void)save;
 + (void)initWithUserID:(NSInteger)userID;
 + (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag; // Sync data between Client & Server
 + (void)addData;

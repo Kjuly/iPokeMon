@@ -17,15 +17,6 @@
 
 @implementation Trainer (DataController)
 
-// Save Data
-+ (void)save {
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  NSError * error;
-  if (! [managedObjectContext save:&error])
-    NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
-}
-
 // Update Data
 + (void)initWithUserID:(NSInteger)userID {
   if (userID <= 0) return;
@@ -247,7 +238,6 @@
     NSMutableString * newSixPokemonsID = [NSMutableString stringWithString:self.sixPokemonsID];
     self.sixPokemonsID = [newSixPokemonsID stringByAppendingString:[NSString stringWithFormat:@",%d", pokemonUID]];
   }
-  
 }
 
 @end

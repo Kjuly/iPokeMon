@@ -8,6 +8,7 @@
 
 #import "TrainerController.h"
 
+#import "AppDelegate.h"
 #import "GlobalNotificationConstants.h"
 #import "OAuthManager.h"
 #import "Trainer+DataController.h"
@@ -85,23 +86,35 @@ static TrainerController * trainerController_ = nil;
   
   [Trainer             initWithUserID:self.userID];
   [TrainerTamedPokemon initWithUserID:self.userID];
-  self.isInitialized = YES;
   
   self.entityTrainer     = [Trainer queryTrainerWithUserID:self.userID];
   self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
-  if (self.entitySixPokemons == nil)
+  if (self.entitySixPokemons == nil) {
+    NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
     self.entitySixPokemons = [NSMutableArray array];
+  }
   
   // If user has no Pokemon brought (newbie),
   //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-  if ([self.entitySixPokemons count] == 0)
+  if ([self.entitySixPokemons count] == 0) {
+    NSLog(@"!!!|%@| - |initTrainerWithUserID:| - [self.entitySixPokemons count] == 0...", [self class]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
+  }
+  
+  self.isInitialized = YES;
 }
 
 // Save Client data to CoreData
 -(void)save {
   NSLog(@"......SVEING DATA......");
-  [Trainer save];
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
+  
+  // Sync data to Server
+  [self sync];
 }
 
 #pragma mark - Data Related Methods
@@ -191,7 +204,6 @@ static TrainerController * trainerController_ = nil;
   self.entityTrainer.name = name;
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
   [self save];
-  [self sync];
 }
 
 // Transfer WildPokemon to TamedPokemon
@@ -221,9 +233,17 @@ static TrainerController * trainerController_ = nil;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
   // Add new |pokemonUID| to |sixPokemons|
   [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
+//  if ([self.entityTrainer.sixPokemonsID length] == 0)
+//    self.entityTrainer.sixPokemonsID = [NSString stringWithFormat:@"%d", pokemonUID];
+//  else {
+//    NSMutableString * newSixPokemonsID = [NSMutableString stringWithString:self.entityTrainer.sixPokemonsID];
+//    self.entityTrainer.sixPokemonsID =
+//      [newSixPokemonsID stringByAppendingString:[NSString stringWithFormat:@",%d", pokemonUID]];
+//  }
   
   // Refetch Pokemons for |sixPokemons|
   [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID]];
+  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
   [self save];
 }
 
