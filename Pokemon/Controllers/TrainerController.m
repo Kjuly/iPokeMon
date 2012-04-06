@@ -158,6 +158,7 @@ static TrainerController * trainerController_ = nil;
 - (NSArray *) badges      {return [self.entityTrainer.badges componentsSeparatedByString:@","];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
+- (NSInteger)numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
 - (NSInteger) numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
 // Avatar URL, asynchronously downloads the image with the specified url request object

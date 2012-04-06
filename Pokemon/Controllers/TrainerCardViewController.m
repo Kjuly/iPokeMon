@@ -318,12 +318,8 @@ typedef enum {
   // Set new data
   [self.nameLabel setText:[self.trainer name]];
   [self.nameLabel sizeToFit];
-  [self.moneyValue setText:[NSString stringWithFormat:@"$ %d", [self.trainer money]]];
-  
-  NSArray * tamedPokemonSeq = [[self.trainer pokedex] componentsSeparatedByString:@"1"];
-  NSInteger pokedexValue = [tamedPokemonSeq count] >= 1 ? [tamedPokemonSeq count] - 1 : 0;
-  [self.pokedexValue setText:[NSString stringWithFormat:@"%d", pokedexValue]];
-  tamedPokemonSeq = nil;
+  [self.moneyValue   setText:[NSString stringWithFormat:@"$ %d", [self.trainer money]]];
+  [self.pokedexValue setText:[NSString stringWithFormat:@"%d",   [self.trainer numberOfPokemonsForPokedex]]];
 }
 
 - (void)viewDidUnload

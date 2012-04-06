@@ -80,6 +80,23 @@
                                        withString:[NSString stringWithFormat:@"%x", result]];
 }
 
+// Number of 1s in Binary
+- (NSInteger)numberOfBinary1 {
+  NSInteger counter = 0;
+  unsigned hex;
+  for (int x = 0; x <= [self length] - 1; ++x) {
+    NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:NSMakeRange(x, 1)]];
+    [scanner scanHexInt:&hex];
+    [scanner release];
+    
+    // Count 1s
+    for (NSInteger i = 0; i < 4; ++i)
+      if (hex & (1 << i)) ++counter;
+  }
+  
+  return counter;
+}
+
 /*
 // SHA1
 - (NSString*) sha1:(NSString*)input {

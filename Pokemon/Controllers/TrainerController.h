@@ -30,6 +30,7 @@
 - (NSArray *)badges;                                           // Badges
 - (NSDate *)timeStarted;                                       // Adventured Time Started
 - (NSString *)pokedex;                                         // Pokedex
+- (NSInteger)numberOfPokemonsForPokedex;                       // Number of Pokemons for Pokedex
 - (NSArray *)sixPokemons;                                      // Six Pokemons
 - (NSInteger)numberOfSixPokemons;                              // Number of Six Pokemons
 - (NSURL *)avatarURL;                                          // Avatar URL (Gravatar)

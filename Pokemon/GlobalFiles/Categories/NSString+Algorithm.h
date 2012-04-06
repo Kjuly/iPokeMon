@@ -14,5 +14,6 @@
 - (NSString *)toMD5;
 - (BOOL)isBinary1AtIndex:(NSInteger)index;
 - (NSString *)generateHexBySettingBainaryTo1:(BOOL)settingBinaryTo1 atIndex:(NSInteger)index;
+- (NSInteger)numberOfBinary1;
 
 @end
