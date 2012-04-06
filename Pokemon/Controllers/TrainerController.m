@@ -248,9 +248,13 @@ static TrainerController * trainerController_ = nil;
   NSMutableArray * bagItems = [[self bagItemsFor:targetType] mutableCopy];
   NSLog(@"~~~~~~~~~ORIGINAL:::%@", bagItems);
   NSInteger targetIndex = [bagItems indexOfObject:[NSString stringWithFormat:@"%d", itemID]] + 1;
-  NSInteger quantity = [[bagItems objectAtIndex:targetIndex] intValue];
-  quantity = --quantity < 0 ? 0 : quantity;
-  [bagItems replaceObjectAtIndex:++itemID withObject:[NSString stringWithFormat:@"%d", quantity]];
+  NSInteger quantity = [[bagItems objectAtIndex:targetIndex] intValue] - 1;
+  if (quantity > 0)
+    [bagItems replaceObjectAtIndex:targetIndex withObject:[NSString stringWithFormat:@"%d", quantity]];
+  else {
+    [bagItems removeObjectAtIndex:itemID];
+    [bagItems removeObjectAtIndex:targetType];
+  }
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"~~~~~~~~~RESULT:::%@", bagItemsInString);
   [self saveBagItemsFor:targetType withData:bagItemsInString];
