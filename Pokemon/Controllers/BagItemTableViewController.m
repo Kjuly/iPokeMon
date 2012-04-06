@@ -385,9 +385,9 @@
 - (void)useItemForSelectedPokemon:(NSNotification *)notification
 {
   self.selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
-  NSInteger selectedItemID       = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
-  TrainerTamedPokemon * targetPokemon
-  = [[TrainerController sharedInstance] pokemonOfSixAtIndex:self.selectedPokemonIndex];
+  NSInteger selectedItemID  = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
+  TrainerTamedPokemon * targetPokemon =
+    [[TrainerController sharedInstance] pokemonOfSixAtIndex:self.selectedPokemonIndex];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType withID:selectedItemID];
   
   if (self.targetType & kBagQueryTargetTypeItem)              {}

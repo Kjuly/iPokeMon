@@ -131,8 +131,8 @@
   currOpeningUnitViewTag_ = 0;
   
   // Tap Gesture Recoginzer
-  UISwipeGestureRecognizer * swipeGestureRecognizer
-  = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(unloadSixPokemons)];
+  UISwipeGestureRecognizer * swipeGestureRecognizer =
+    [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(unloadSixPokemonsAnimated:)];
   self.swipeGestureRecognizer = swipeGestureRecognizer;
   [swipeGestureRecognizer release];
   [self.swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
