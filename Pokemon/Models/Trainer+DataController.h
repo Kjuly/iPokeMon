@@ -12,13 +12,15 @@
 
 @interface Trainer (DataController)
 
+// Class Methods
 + (void)initWithUserID:(NSInteger)userID;
-+ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag; // Sync data between Client & Server
 + (void)addData;
 + (NSArray *)queryAllData;
 + (Trainer *)queryTrainerWithUserID:(NSInteger)userID;
 + (void)setTrainerWith:(NSInteger)id Name:(NSString *)name;
 
+// Instance Methods
+- (void)syncWithFlag:(DataModifyFlag)flag; // Sync data between Client & Server
 - (NSArray *)sixPokemons;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
 

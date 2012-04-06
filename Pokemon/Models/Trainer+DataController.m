@@ -91,36 +91,6 @@
   [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
 }
 
-// Sync data between Client & Server
-+ (void)syncWithUserID:(NSInteger)userID flag:(DataModifyFlag)flag {
-  Trainer * trainer = [self queryTrainerWithUserID:userID];
-  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-  if (! (flag & kDataModifyTrainer))
-    return;
-  
-  if (flag & kDataModifyTrainerName)        [data setValue:trainer.name          forKey:@"name"];
-  if (flag & kDataModifyTrainerMoney)       [data setValue:trainer.money         forKey:@"money"];
-  if (flag & kDataModifyTrainerBadges)      [data setValue:trainer.badges        forKey:@"badges"];
-  if (flag & kDataModifyTrainerPokedex)     [data setValue:trainer.pokedex       forKey:@"pokedex"];
-  if (flag & kDataModifyTrainerSixPokemons) [data setValue:trainer.sixPokemonsID forKey:@"sixPokemons"];
-  if (flag & kDataModifyTrainerBag)         [data setValue:[trainer allBagItemsInString] forKey:@"bag"];
-  
-  // Block: |success| & |failure|
-  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"...Sync |%@| data done...Reset FLAG", [self class]);
-    // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
-    if ([[responseObject valueForKey:@"v"] intValue])
-      [[TrainerController sharedInstance] syncDoneWithFlag:kDataModifyTrainer];
-  };
-  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
-  };
-  
-  NSLog(@"Sync Data:%@", data);
-  [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
-  [data release];
-}
-
 // Add new Entity Data
 + (void)addData
 {
@@ -205,6 +175,36 @@
 }
 
 #pragma mark - Instance Methods
+
+// Sync data between Client & Server
+- (void)syncWithFlag:(DataModifyFlag)flag {
+  //  Trainer * trainer = [self queryTrainerWithUserID:userID];
+  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+  if (! (flag & kDataModifyTrainer))
+    return;
+  
+  if (flag & kDataModifyTrainerName)        [data setValue:self.name          forKey:@"name"];
+  if (flag & kDataModifyTrainerMoney)       [data setValue:self.money         forKey:@"money"];
+  if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges        forKey:@"badges"];
+  if (flag & kDataModifyTrainerPokedex)     [data setValue:self.pokedex       forKey:@"pokedex"];
+  if (flag & kDataModifyTrainerSixPokemons) [data setValue:self.sixPokemonsID forKey:@"sixPokemons"];
+  if (flag & kDataModifyTrainerBag)         [data setValue:[self allBagItemsInString] forKey:@"bag"];
+  
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Sync |%@| data done...Reset FLAG", [self class]);
+    // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
+    if ([[responseObject valueForKey:@"v"] intValue])
+      [[TrainerController sharedInstance] syncDoneWithFlag:kDataModifyTrainer];
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+  };
+  
+  NSLog(@"Sync Data:%@", data);
+  [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
+  [data release];
+}
 
 // Fetch Pokemons for |sixPokemons|
 - (NSArray *)sixPokemons

@@ -130,7 +130,7 @@ static TrainerController * trainerController_ = nil;
   if (self.isInitialized) {
     NSLog(@"......|%@| - SYNC.......", [self class]);
     if (self.flag & kDataModifyTrainer)
-      [Trainer syncWithUserID:self.userID flag:self.flag];
+      [self.entityTrainer syncWithFlag:self.flag];
   }
 }
 
