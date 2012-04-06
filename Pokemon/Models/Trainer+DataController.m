@@ -15,6 +15,14 @@
 #import "AFJSONRequestOperation.h"
 
 
+@interface Trainer ()
+
+- (NSString *)bagItemsInStringFor:(BagQueryTargetType)targetType;
+- (NSString *)allBagItemsInString;
+
+@end
+
+
 @implementation Trainer (DataController)
 
 // Update Data
@@ -56,6 +64,7 @@
     //        <bagPokeballs>_<bagTMsHMs>_<bagBerries>_<bagBattleItems>_<bagKeyItems>
     // "0_0_0_0_0_0_0_0_0"
     NSArray * bagItems = [[JSON valueForKey:@"bag"] componentsSeparatedByString:@"_"];
+    NSLog(@"BagItems:%@", bagItems);
     trainer.bagItems          = [bagItems objectAtIndex:0];
     trainer.bagMedicineStatus = [bagItems objectAtIndex:1];
     trainer.bagMedicineHP     = [bagItems objectAtIndex:2];
@@ -94,19 +103,7 @@
   if (flag & kDataModifyTrainerBadges)      [data setValue:trainer.badges        forKey:@"badges"];
   if (flag & kDataModifyTrainerPokedex)     [data setValue:trainer.pokedex       forKey:@"pokedex"];
   if (flag & kDataModifyTrainerSixPokemons) [data setValue:trainer.sixPokemonsID forKey:@"sixPokemons"];
-  if (flag & kDataModifyTrainerBag) {
-    NSMutableString * bag = [NSMutableString string];
-    [bag stringByAppendingString:trainer.bagItems];
-    [bag stringByAppendingString:trainer.bagMedicineStatus];
-    [bag stringByAppendingString:trainer.bagMedicineHP];
-    [bag stringByAppendingString:trainer.bagMedicinePP];
-    [bag stringByAppendingString:trainer.bagPokeballs];
-    [bag stringByAppendingString:trainer.bagTMsHMs];
-    [bag stringByAppendingString:trainer.bagBerries];
-    [bag stringByAppendingString:trainer.bagBattleItems];
-    [bag stringByAppendingString:trainer.bagKeyItems];
-    [data setValue:bag forKey:@"bag"];
-  }
+  if (flag & kDataModifyTrainerBag)         [data setValue:[trainer allBagItemsInString] forKey:@"bag"];
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -238,6 +235,48 @@
     NSMutableString * newSixPokemonsID = [NSMutableString stringWithString:self.sixPokemonsID];
     self.sixPokemonsID = [newSixPokemonsID stringByAppendingString:[NSString stringWithFormat:@",%d", pokemonUID]];
   }
+}
+
+#pragma mark - Private Methods
+
+// Bag Items in String
+- (NSString *)bagItemsInStringFor:(BagQueryTargetType)targetType {
+  id bagItems = nil;
+  if      (targetType & kBagQueryTargetTypeItem)       bagItems = self.bagItems;
+  else if (targetType & kBagQueryTargetTypeMedicine) {
+    if (targetType & kBagQueryTargetTypeMedicineStatus)  bagItems = self.bagMedicineStatus;
+    else if (targetType & kBagQueryTargetTypeMedicineHP) bagItems = self.bagMedicineHP;
+    else if (targetType & kBagQueryTargetTypeMedicinePP) bagItems = self.bagMedicinePP;
+    else return nil;
+  }
+  else if (targetType & kBagQueryTargetTypePokeball)   bagItems = self.bagPokeballs;
+  else if (targetType & kBagQueryTargetTypeTMHM)       bagItems = self.bagTMsHMs;
+  else if (targetType & kBagQueryTargetTypeBerry)      bagItems = self.bagBerries;
+  else if (targetType & kBagQueryTargetTypeMail)       return nil;
+  else if (targetType & kBagQueryTargetTypeBattleItem) bagItems = self.bagBattleItems;
+  else if (targetType & kBagQueryTargetTypeKeyItem)    bagItems = self.bagKeyItems;
+  else return nil;
+  
+  // TODO:
+  //   |DataTransformer| should deal with NSString to NSArray transformation work
+  //     It sometimes (like this case) not work!!
+  if ([bagItems isKindOfClass:[NSArray class]])
+    return [bagItems componentsJoinedByString:@","];
+  return bagItems;
+}
+
+// All bag items in one String
+- (NSString *)allBagItemsInString {
+  return [NSString stringWithFormat:@"%@_%@_%@_%@_%@_%@_%@_%@_%@",
+          [self bagItemsInStringFor:kBagQueryTargetTypeItem],
+          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus],
+          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP],
+          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP],
+          [self bagItemsInStringFor:kBagQueryTargetTypePokeball],
+          [self bagItemsInStringFor:kBagQueryTargetTypeTMHM],
+          [self bagItemsInStringFor:kBagQueryTargetTypeBerry],
+          [self bagItemsInStringFor:kBagQueryTargetTypeBattleItem],
+          [self bagItemsInStringFor:kBagQueryTargetTypeKeyItem]];
 }
 
 @end

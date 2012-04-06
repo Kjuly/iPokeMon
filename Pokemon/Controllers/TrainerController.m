@@ -29,6 +29,8 @@
 @property (nonatomic, retain) Trainer        * entityTrainer;
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
+- (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
+
 @end
 
 @implementation TrainerController
@@ -237,6 +239,57 @@ static TrainerController * trainerController_ = nil;
   // Refetch Pokemons for |sixPokemons|
   [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID]];
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
+  [self save];
+}
+
+// BagItem - Use
+- (void)useBagItemForType:(BagQueryTargetType)targetType
+               withItemID:(NSInteger)itemID {
+  NSMutableArray * bagItems = [[self bagItemsFor:targetType] mutableCopy];
+  NSLog(@"~~~~~~~~~ORIGINAL:::%@", bagItems);
+  NSInteger targetIndex = [bagItems indexOfObject:[NSString stringWithFormat:@"%d", itemID]] + 1;
+  NSInteger quantity = [[bagItems objectAtIndex:targetIndex] intValue];
+  quantity = --quantity < 0 ? 0 : quantity;
+  [bagItems replaceObjectAtIndex:++itemID withObject:[NSString stringWithFormat:@"%d", quantity]];
+  NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
+  NSLog(@"~~~~~~~~~RESULT:::%@", bagItemsInString);
+  [self saveBagItemsFor:targetType withData:bagItemsInString];
+}
+
+// BagItem - Add new
+- (void)addBagItemsForType:(BagQueryTargetType)targetType
+                withItemID:(NSInteger)itemID
+                  quantity:(NSInteger)quantity {
+  
+}
+
+// BagItem - Toss
+- (void)tossBagItemsForType:(BagQueryTargetType)targetType
+                 withItemID:(NSInteger)itemID
+                   quantity:(NSInteger)quantity {
+  
+}
+
+#pragma mark - Private Methods
+
+// Save data for bag items
+- (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data {
+  if      (targetType & kBagQueryTargetTypeItem)       self.entityTrainer.bagItems = data;
+  else if (targetType & kBagQueryTargetTypeMedicine) {
+    if (targetType & kBagQueryTargetTypeMedicineStatus)  self.entityTrainer.bagMedicineStatus = data;
+    else if (targetType & kBagQueryTargetTypeMedicineHP) self.entityTrainer.bagMedicineHP = data;
+    else if (targetType & kBagQueryTargetTypeMedicinePP) self.entityTrainer.bagMedicinePP = data;
+    else return;
+  }
+  else if (targetType & kBagQueryTargetTypePokeball)   self.entityTrainer.bagPokeballs = data;
+  else if (targetType & kBagQueryTargetTypeTMHM)       self.entityTrainer.bagTMsHMs = data;
+  else if (targetType & kBagQueryTargetTypeBerry)      self.entityTrainer.bagBerries = data;
+  else if (targetType & kBagQueryTargetTypeMail)       return;
+  else if (targetType & kBagQueryTargetTypeBattleItem) self.entityTrainer.bagBattleItems = data;
+  else if (targetType & kBagQueryTargetTypeKeyItem)    self.entityTrainer.bagKeyItems = data;
+  else return;
+  
+  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerBag;
   [self save];
 }
 

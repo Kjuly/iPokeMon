@@ -412,6 +412,8 @@
   else if (self.targetType & kBagQueryTargetTypeKeyItem)      {}
   else { anonymousEntity = nil; return; }
   
+  // Update data for Bag
+  [[TrainerController sharedInstance] useBagItemForType:self.targetType withItemID:selectedItemID];
   // Cancel self view after Use Bag Item done
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
 }
