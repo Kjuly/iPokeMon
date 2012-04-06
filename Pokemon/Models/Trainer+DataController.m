@@ -231,10 +231,8 @@
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
   if ([self.sixPokemonsID length] == 0)
     self.sixPokemonsID = [NSString stringWithFormat:@"%d", pokemonUID];
-  else {
-    NSMutableString * newSixPokemonsID = [NSMutableString stringWithString:self.sixPokemonsID];
-    self.sixPokemonsID = [newSixPokemonsID stringByAppendingString:[NSString stringWithFormat:@",%d", pokemonUID]];
-  }
+  else
+    self.sixPokemonsID = [NSString stringWithFormat:@"%@,%d", self.sixPokemonsID, pokemonUID];
 }
 
 #pragma mark - Private Methods
