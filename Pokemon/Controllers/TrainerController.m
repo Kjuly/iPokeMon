@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "GlobalNotificationConstants.h"
+#import "NSString+Algorithm.h"
 #import "OAuthManager.h"
 #import "Trainer+DataController.h"
 
@@ -228,8 +229,13 @@ static TrainerController * trainerController_ = nil;
   }
   
   [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon toBox:box withUserID:self.userID memo:memo];
+  // Update Pokedex
+  [self updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|
   if (box == 0) [self addPokemonToSixPokemonsWithPokemonUID:[wildPokemon.uid intValue]];
+  
+  // Save & sync data
+  [self save];
 }
 
 // Add Pokemon to |sixPokemons|
@@ -240,7 +246,6 @@ static TrainerController * trainerController_ = nil;
   // Refetch Pokemons for |sixPokemons|
   [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID]];
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
-  [self save];
 }
 
 // BagItem - Use
@@ -278,6 +283,10 @@ static TrainerController * trainerController_ = nil;
 
 // Update Pokedex with Pokemon ID
 - (void)updatePokedexWithPokemonID:(NSInteger)pokemonID {
+  // If Pokemon already caught, do nothing
+  if ([self.pokedex isBinary1AtIndex:pokemonID])
+    return;
+  self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBainaryTo1:YES atIndex:pokemonID];
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerPokedex;
 }
 
