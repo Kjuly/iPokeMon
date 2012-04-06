@@ -36,6 +36,38 @@
   return output;
 }
 
+// For Pokedex
+//     HEX: @"AFF"
+//     BIN: 1  0  1  0 1 1 1 1 1 1 1 1 : 1:Caught 0:Not
+// PokeDEX: 12 11 10 9 8 7 6 5 4 3 2 1
+- (BOOL)isBinary1AtIndex:(NSInteger)index {
+  NSRange   scanRange = NSMakeRange([self length] - round(index / 4) - 1, 1);
+  unsigned  result    = 0;
+  NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
+  [scanner scanHexInt:&result];
+  [scanner release];
+  return (result & (1 << ((index - 1) % 4)));
+}
+
+// Generate a new Hex by modifying binary value at |index|
+- (NSString *)generateHexBySettingBainaryTo1:(BOOL)settingBinaryTo1
+                                     atIndex:(NSInteger)index {
+  // Get the single Hex to be modified
+  NSRange   scanRange = NSMakeRange([self length] - round(index / 4) - 1, 1);
+  unsigned  result    = 0;
+  NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
+  [scanner scanHexInt:&result];
+  [scanner release];
+  
+  // New single Hex value by adding |mask|
+  unsigned mask = 1 << ((index - 1) % 4);
+  if (settingBinaryTo1) result = result |  mask;
+  else                  result = result & ~mask;
+  
+  return [self stringByReplacingCharactersInRange:scanRange
+                                       withString:[NSString stringWithFormat:@"%x", result]];
+}
+
 /*
 // SHA1
 - (NSString*) sha1:(NSString*)input {

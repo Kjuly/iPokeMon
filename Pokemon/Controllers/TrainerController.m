@@ -29,6 +29,7 @@
 @property (nonatomic, retain) Trainer        * entityTrainer;
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
+- (void)updatePokedexWithPokemonID:(NSInteger)pokemonID;
 - (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
 @end
@@ -274,6 +275,11 @@ static TrainerController * trainerController_ = nil;
 }
 
 #pragma mark - Private Methods
+
+// Update Pokedex with Pokemon ID
+- (void)updatePokedexWithPokemonID:(NSInteger)pokemonID {
+  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerPokedex;
+}
 
 // Save data for bag items
 - (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data {
