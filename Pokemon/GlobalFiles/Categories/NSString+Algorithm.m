@@ -41,7 +41,7 @@
 //     BIN: 1  0  1  0 1 1 1 1 1 1 1 1 : 1:Caught 0:Not
 // PokeDEX: 12 11 10 9 8 7 6 5 4 3 2 1
 - (BOOL)isBinary1AtIndex:(NSInteger)index {
-  NSRange   scanRange = NSMakeRange([self length] - round(index / 4) - 1, 1);
+  NSRange   scanRange = NSMakeRange([self length] - round((index - 1) / 4) - 1, 1);
   unsigned  result    = 0;
   NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
   [scanner scanHexInt:&result];
@@ -52,8 +52,19 @@
 // Generate a new Hex by modifying binary value at |index|
 - (NSString *)generateHexBySettingBainaryTo1:(BOOL)settingBinaryTo1
                                      atIndex:(NSInteger)index {
+  NSInteger rangeStart = [self length] - round((index - 1) / 4) - 1;
+  if (rangeStart < 0) {
+    NSMutableString * appendedString = [NSMutableString string];
+    for (NSInteger i = rangeStart; i < 0; ++i)
+      [appendedString appendString:@"0"];
+    self = [appendedString stringByAppendingString:self];
+    rangeStart = 0;
+//    NSString * s;
+//    [s characterAtIndex:0];
+  }
+  
   // Get the single Hex to be modified
-  NSRange   scanRange = NSMakeRange([self length] - round(index / 4) - 1, 1);
+  NSRange   scanRange = NSMakeRange(rangeStart, 1);
   unsigned  result    = 0;
   NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
   [scanner scanHexInt:&result];
