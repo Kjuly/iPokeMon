@@ -24,7 +24,6 @@
   NSArray * sixPokemons_;
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
   CAAnimationGroup                   * animationGroupForNotReplacing_;
-  UISwipeGestureRecognizer           * swipeGestureRecognizer_;
   UIButton                           * cancelButton_;
 }
 
@@ -34,10 +33,9 @@
 @property (nonatomic, copy) NSArray   * sixPokemons;
 @property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
 @property (nonatomic, retain) CAAnimationGroup                   * animationGroupForNotReplacing;
-@property (nonatomic, retain) UISwipeGestureRecognizer           * swipeGestureRecognizer;
 @property (nonatomic, retain) UIButton                           * cancelButton;
 
-- (void)unloadSelcetedPokemonInfoView;
+- (void)cancel:(id)sender;
 
 @end
 
@@ -53,7 +51,6 @@
 @synthesize sixPokemons            = sixPokemons_;
 @synthesize sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController_;
 @synthesize animationGroupForNotReplacing      = animationGroupForNotReplacing_;
-@synthesize swipeGestureRecognizer             = swipeGestureRecognizer_;
 @synthesize cancelButton                       = cancelButton_;
 
 - (void)dealloc
@@ -61,7 +58,6 @@
   [backgroundView_ release];
   [sixPokemons_    release];
   [sixPokemonsDetailTabViewController_ release];
-  [swipeGestureRecognizer_             release];
   [cancelButton_                       release];
   
   self.sixPokemonsDetailTabViewController = nil;
@@ -101,20 +97,17 @@
   [self.view addSubview:backgroundView_];
   
   // Create a fake |mapButton_| as the cancel button
-  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                                       - kMapButtonSize,
-                                                                       kMapButtonSize,
-                                                                       kMapButtonSize)];
+  CGRect cancelButtonFrame =
+    CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, kCenterMainButtonSize, kCenterMainButtonSize);
+  UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
   self.cancelButton = cancelButton;
   [cancelButton release];
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
                                forState:UIControlStateNormal];
-  [self.cancelButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
+  [self.cancelButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageHalfCancel.png"] forState:UIControlStateNormal];
   [self.cancelButton setOpaque:NO];
-  [self.cancelButton addTarget:self
-                        action:@selector(unloadSelcetedPokemonInfoView)
-              forControlEvents:UIControlEventTouchUpInside];
+  [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
   
   // Basic Setting
@@ -129,14 +122,6 @@
   
   // Basic Setting
   currOpeningUnitViewTag_ = 0;
-  
-  // Tap Gesture Recoginzer
-  UISwipeGestureRecognizer * swipeGestureRecognizer =
-    [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(unloadSixPokemonsAnimated:)];
-  self.swipeGestureRecognizer = swipeGestureRecognizer;
-  [swipeGestureRecognizer release];
-  [self.swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
-  [self.view addGestureRecognizer:self.swipeGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -146,7 +131,6 @@
   self.backgroundView = nil;
   self.sixPokemons    = nil;
   self.sixPokemonsDetailTabViewController = nil;
-  self.swipeGestureRecognizer             = nil;
   self.cancelButton                       = nil;
 }
 
@@ -228,10 +212,6 @@
                    animations:^{
                      viewFrame.origin.y = 0.f;
                      [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
-                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                            - (kMapButtonSize / 2),
-                                                            kMapButtonSize,
-                                                            kMapButtonSize)];
                    }
                    completion:nil];
   self.isSelectedPokemonInfoViewOpening = YES;
@@ -325,6 +305,10 @@
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.backgroundView setAlpha:.75f];
+                     [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                            kViewHeight - (kMapButtonSize / 2),
+                                                            kMapButtonSize,
+                                                            kMapButtonSize)];
                      if (self.isForReplacing) setPositionForSixPokemonsUnit();
                    }
                    completion:^(BOOL finished) {
@@ -347,6 +331,9 @@
       unitView = nil;
     }
     [self.backgroundView setAlpha:0.f];
+    CGRect buttonFrame = self.cancelButton.frame;
+    buttonFrame.origin.y = kViewHeight;
+    [self.cancelButton setFrame:buttonFrame];
   };
   
   void (^completion)(BOOL finished) = ^(BOOL finished) { [self.view removeFromSuperview]; };
@@ -376,9 +363,6 @@
                      CGRect viewFrame = self.sixPokemonsDetailTabViewController.view.frame;
                      viewFrame.origin.y = kViewHeight;
                      [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
-                     CGRect buttonFrame = self.cancelButton.frame;
-                     buttonFrame.origin.y = - kMapButtonSize;
-                     [self.cancelButton setFrame:buttonFrame];
                    }
                    completion:^(BOOL finished) {
                      [self.sixPokemonsDetailTabViewController.view removeFromSuperview];
@@ -406,6 +390,16 @@
     [firstPokemonUnitView setAsCurrentBattleOne:YES];
     firstPokemonUnitView = nil;
   }
+}
+
+#pragma mark - Private Methods
+
+- (void)cancel:(id)sender {
+  NSLog(@"~~~~~~~");
+  if (self.isSelectedPokemonInfoViewOpening)
+    [self unloadSelcetedPokemonInfoView];
+  else
+    [self unloadSixPokemonsAnimated:YES];
 }
 
 @end
