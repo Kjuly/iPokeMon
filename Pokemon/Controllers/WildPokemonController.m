@@ -26,7 +26,7 @@
 }
 
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data;
-- (NSInteger)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
+- (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
 - (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
 - (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
 - (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level;
@@ -115,15 +115,16 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
   
   // |gender|
-  wildPokemon.gender = [NSNumber numberWithInt:[self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]]];
+  wildPokemon.gender = [self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]];
   
   // |fourMoves|
   wildPokemon.fourMoves = [self calculateFourMovesWithMoves:pokemon.moves level:level];
   
   // |maxStats| & |hp|
-  NSString * maxStats   = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
+  NSString * maxStats  = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
   wildPokemon.maxStats = maxStats;
   wildPokemon.hp       = [NSNumber numberWithInt:[[[maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
+  maxStats = nil;
   
   // |exp| & |toNextLevel|
   // Calculate EXP based on Level Formular with value:|level|
@@ -138,7 +139,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Calculate |gender| based on |pokemonGenderRate|
 // 0:Female 1:Male 2:Genderless
-- (NSInteger)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate {
+- (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate {
   NSInteger gender;
   if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
   else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
@@ -148,7 +149,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
     gender = randomValue < genderRate ? 0 : 1;
   }
-  return gender;
+  return [NSNumber numberWithInt:gender];
 }
 
 // Calculate |fourMoves| based on |moves| & |leve|
@@ -160,7 +161,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   for (int i = 0; i < moveCount - 1; i += 2) {
     if ([[moves objectAtIndex:i] intValue] > level)
       break;
-    // Remove the first Move when there're foru Moves learned
+    // Remove the first Move when there're four Moves learned
     if ([fourMovesID count] == 4)
       [fourMovesID removeObjectAtIndex:0];
     // Push new Move ID

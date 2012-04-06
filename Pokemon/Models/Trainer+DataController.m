@@ -60,10 +60,10 @@
     trainer.sixPokemonsID     = [JSON valueForKey:@"sixPokemons"];
     trainer.adventureStarted  = [NSDate dateWithTimeIntervalSince1970:[[JSON valueForKey:@"timeStarted"] intValue]];
     
-    // <bag>: <bagItems>_<bagMedicineStatus>_<bagMedicineHP>_<bagMedicinePP>
-    //        <bagPokeballs>_<bagTMsHMs>_<bagBerries>_<bagBattleItems>_<bagKeyItems>
-    // "0_0_0_0_0_0_0_0_0"
-    NSArray * bagItems = [[JSON valueForKey:@"bag"] componentsSeparatedByString:@"_"];
+    // <bag>: <bagItems>:<bagMedicineStatus>:<bagMedicineHP>:<bagMedicinePP>
+    //        :<bagPokeballs>:<bagTMsHMs>:<bagBerries>:<bagBattleItems>:<bagKeyItems>
+    // "0:0:0:0:0:0:0:0:0"
+    NSArray * bagItems = [[JSON valueForKey:@"bag"] componentsSeparatedByString:@":"];
     NSLog(@"BagItems:%@", bagItems);
     trainer.bagItems          = [bagItems objectAtIndex:0];
     trainer.bagMedicineStatus = [bagItems objectAtIndex:1];
@@ -267,7 +267,7 @@
 
 // All bag items in one String
 - (NSString *)allBagItemsInString {
-  return [NSString stringWithFormat:@"%@_%@_%@_%@_%@_%@_%@_%@_%@",
+  return [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@:%@:%@:%@",
           [self bagItemsInStringFor:kBagQueryTargetTypeItem],
           [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus],
           [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP],
