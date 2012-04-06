@@ -93,8 +93,8 @@
   
   // Load Pokemon's detail information view
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
-    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:
-      [self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]];
+    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
+                                                     withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
   [sixPokemonsDetailTabViewController release];
   

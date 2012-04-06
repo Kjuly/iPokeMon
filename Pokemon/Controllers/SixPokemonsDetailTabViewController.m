@@ -18,6 +18,16 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+
+@interface SixPokemonsDetailTabViewController () {
+ @private
+  BOOL isWithTopBar_;
+}
+
+@property (nonatomic, assign) BOOL isWithTopBar;
+
+@end
+
 @implementation SixPokemonsDetailTabViewController
 
 @synthesize pokemon = pokemon_;
@@ -25,6 +35,8 @@
 @synthesize sixPokemonsMemoViewController  = sixPokemonsMemoViewController_;
 @synthesize sixPokemonsSkillViewController = sixPokemonsSkillViewController_;
 @synthesize sixPokemonsMoveViewController  = sixPokemonsMoveViewController_;
+
+@synthesize isWithTopBar = isWithTopBar_;
 
 -(void)dealloc
 {
@@ -36,7 +48,7 @@
   [super dealloc];
 }
 
-- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
+- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon withTopbar:(BOOL)withTopbar
 {
   self = [super init];
   if (self) {
@@ -49,6 +61,16 @@
     sixPokemonsMemoViewController_  = [[SixPokemonsMemoViewController alloc]  initWithPokemon:self.pokemon];
     sixPokemonsSkillViewController_ = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
     sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
+    
+    // Set child views' Frame
+    isWithTopBar_ = withTopbar;
+    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
+    CGRect childViewFrame =
+      CGRectMake(0.f, marginTop + kTopIDViewHeight, kViewWidth, kViewHeight - marginTop - kTopIDViewHeight);
+    [sixPokemonsInfoViewController_.view setFrame:childViewFrame];
+    [sixPokemonsMemoViewController_.view setFrame:childViewFrame];
+    [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
+    [sixPokemonsMoveViewController_.view setFrame:childViewFrame];
     
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
@@ -87,8 +109,9 @@
   CGFloat const nameLabelWidth    = 300.f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
-  CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f + kTopBarHeight, imageWidth, imageHeight);
-  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f + kTopBarHeight, 300.f - imageWidth, imageHeight - 50.f);
+  CGFloat marginTop = self.isWithTopBar ? kTopBarHeight : 0.f;
+  CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f + marginTop, imageWidth, imageHeight);
+  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f + marginTop, 300.f - imageWidth, imageHeight - 50.f);
   
   // Base information for Pokemon
   Pokemon * pokemonBaseInfo = self.pokemon.pokemon;

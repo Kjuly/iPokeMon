@@ -198,9 +198,9 @@
 
 - (void)openInfoView:(id)sender
 {
-  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
-  sixPokemonsDetailTabViewController = [[SixPokemonsDetailTabViewController alloc] initWithPokemon:
-  [self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]];
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
+    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
+                                                     withTopbar:NO];
   self.sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController;
   [sixPokemonsDetailTabViewController release];
   [self.view insertSubview:self.sixPokemonsDetailTabViewController.view belowSubview:self.cancelButton];

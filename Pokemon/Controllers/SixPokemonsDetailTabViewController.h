@@ -29,6 +29,6 @@
 @property (nonatomic, retain) SixPokemonsSkillViewController * sixPokemonsSkillViewController;
 @property (nonatomic, retain) SixPokemonsMoveViewController  * sixPokemonsMoveViewController;
 
-- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon;
+- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon withTopbar:(BOOL)withTopbar;
 
 @end
