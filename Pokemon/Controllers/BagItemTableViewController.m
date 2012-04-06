@@ -413,9 +413,14 @@
   else { anonymousEntity = nil; return; }
   
   // Update data for Bag
-  [[TrainerController sharedInstance] useBagItemForType:self.targetType withItemID:selectedItemID];
-  // Cancel self view after Use Bag Item done
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    [[TrainerController sharedInstance] useBagItemForType:self.targetType withItemIndex:self.selectedCellIndex];
+    // Cancel self view after Use Bag Item done
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
+    [self setBagItem:self.targetType];
+    [self.tableView reloadData];
+  };
+  [self cancelHiddenCellWithCompletionBlock:completion];
 }
 
 #pragma mark - BagItemTableViewHiddenCell Delegate

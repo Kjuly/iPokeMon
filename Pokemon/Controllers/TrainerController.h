@@ -41,8 +41,8 @@
 - (void)setName:(NSString *)name; // Set trainer name
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
-- (void)useBagItemForType:(BagQueryTargetType)targetType withItemID:(NSInteger)itemID; // Used a bag item (with type)
-- (void)addBagItemsForType:(BagQueryTargetType)targetType withItemID:(NSInteger)itemID quantity:(NSInteger)quantity;
-- (void)tossBagItemsForType:(BagQueryTargetType)targetType withItemID:(NSInteger)itemID quantity:(NSInteger)quantity;
+- (void)useBagItemForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex; // Used a bag item (with type)
+- (void)addBagItemsForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex quantity:(NSInteger)quantity;
+- (void)tossBagItemsForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex quantity:(NSInteger)quantity;
 
 @end

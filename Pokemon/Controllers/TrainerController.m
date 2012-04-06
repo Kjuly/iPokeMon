@@ -244,18 +244,16 @@ static TrainerController * trainerController_ = nil;
 
 // BagItem - Use
 - (void)useBagItemForType:(BagQueryTargetType)targetType
-               withItemID:(NSInteger)itemID {
+            withItemIndex:(NSInteger)itemIndex {
   NSMutableArray * bagItems = [[self bagItemsFor:targetType] mutableCopy];
   NSLog(@"BagItem: ORIGINAL:::%@", bagItems);
-  NSInteger targetIndex = [bagItems indexOfObject:[NSString stringWithFormat:@"%d", itemID]] + 1;
+  NSInteger targetIndex = itemIndex * 2 + 1;
   NSLog(@"BagItem: targetIndex:%d", targetIndex);
   NSInteger quantity = [[bagItems objectAtIndex:targetIndex] intValue] - 1;
   if (quantity > 0)
     [bagItems replaceObjectAtIndex:targetIndex withObject:[NSString stringWithFormat:@"%d", quantity]];
-  else {
-    [bagItems removeObjectAtIndex:(targetType - 1)];
-    [bagItems removeObjectAtIndex:targetType];
-  }
+  else
+    [bagItems removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(targetIndex - 1, 2)]];
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
   [self saveBagItemsFor:targetType withData:bagItemsInString];
@@ -263,14 +261,14 @@ static TrainerController * trainerController_ = nil;
 
 // BagItem - Add new
 - (void)addBagItemsForType:(BagQueryTargetType)targetType
-                withItemID:(NSInteger)itemID
+             withItemIndex:(NSInteger)itemIndex
                   quantity:(NSInteger)quantity {
   
 }
 
 // BagItem - Toss
 - (void)tossBagItemsForType:(BagQueryTargetType)targetType
-                 withItemID:(NSInteger)itemID
+              withItemIndex:(NSInteger)itemIndex
                    quantity:(NSInteger)quantity {
   
 }
