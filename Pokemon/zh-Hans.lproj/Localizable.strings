@@ -69,6 +69,7 @@
 "PMSMessage_Go"   = "看你了";
 "PMSMessageYouUsedXXXToXXX_1"  = "你对";
 "PMSMessageYouUsedXXXToXXX_3"  = "使用了";
+"PMSMessageYouThrowedXXX"      = "你丢出了";
 "PMSMessageWhatWillXXXDoPart1" = "";
 "PMSMessageWhatWillXXXDoPart3" = "要做什么？";
 

@@ -70,6 +70,7 @@
 "PMSMessage_Go"   = "Go";
 "PMSMessageYouUsedXXXToXXX_1"  = "You used";
 "PMSMessageYouUsedXXXToXXX_3"  = "to";
+"PMSMessageYouThrowedXXX"     = "You throwed";
 "PMSMessageWhatWillXXXDoPart1" = "What will";
 "PMSMessageWhatWillXXXDoPart3" = "do?";
 

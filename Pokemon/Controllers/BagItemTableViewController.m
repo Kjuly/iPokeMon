@@ -402,7 +402,7 @@
                     withBagMedicine:(BagMedicine *)anonymousEntity];
     } else return;
   }
-  else if (self.targetType & kBagQueryTargetTypePokeball)     {}
+//  else if (self.targetType & kBagQueryTargetTypePokeball)     {}
   else if (self.targetType & kBagQueryTargetTypeTMHM)         {}
   else if (self.targetType & kBagQueryTargetTypeBerry)
     [self useBerryForPokemon:targetPokemon withBagBerry:(BagBerry *)anonymousEntity];
@@ -415,7 +415,7 @@
   // Update data for Bag
   void (^completion)(BOOL) = ^(BOOL finished) {
     [[TrainerController sharedInstance] useBagItemForType:self.targetType withItemIndex:self.selectedCellIndex];
-    // Cancel self view after Use Bag Item done
+    // Cancel self view after Use Bag Item done, post to |GameMenuBagViewController|
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
     [self setBagItem:self.targetType];
     [self.tableView reloadData];
@@ -428,11 +428,26 @@
 // Hidden Cell Button Action: Use Item
 - (void)useItem:(id)sender {
   // Throw pokeball to catch wild Pokemon
+  // Directly use, no need to select Pokemon
   if (self.targetType & kBagQueryTargetTypePokeball) {
-    
+    void (^completion)(BOOL) = ^(BOOL finished) {
+      // Update data for Bag
+      [[TrainerController sharedInstance] useBagItemForType:self.targetType withItemIndex:self.selectedCellIndex];
+      // Cancel self view after Use Bag Item done, post to |GameMenuBagViewController|
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseBagItemDone object:self userInfo:nil];
+      [self setBagItem:self.targetType];
+      [self.tableView reloadData];
+      
+      // Post notification to |GameMenuViewController| to run Throwing Pokeball animation
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCatchWildPokemon object:self userInfo:nil];
+    };
+    [self cancelHiddenCellWithCompletionBlock:completion];
   }
-  // Only open |gameMenuSixPokemonsViewController|'s view when the item is used for pokemon
+  // Only open |gameMenuSixPokemonsViewController|'s view when the item is used for Pokemon
   // (e.g. HP, PP restore, etc)
+  // Not directly.
+  // |self| => |GameMenuSixPokemonsViewController| to choose Pokemon
+  //        => notification back to |self| - |useItemForSelectedPokemon:|
   else {
     if (self.gameMenuSixPokemonsViewController == nil) {
       GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController;

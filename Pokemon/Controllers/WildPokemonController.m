@@ -145,7 +145,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
   else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
   else {
-    float randomValue = arc4random() % 100 / 10; // Random value for calculating
+    float randomValue = arc4random() % 1000 / 10; // Random value for calculating
     float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
     gender = randomValue < genderRate ? 0 : 1;
   }

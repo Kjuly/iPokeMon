@@ -87,7 +87,9 @@ typedef enum {
 - (void)updateGameMenuKeyView:(NSNotification *)notification;
 - (void)toggleSixPokemonView;
 - (void)replacePokemon:(NSNotification *)notification;
-- (void)throwPokeball;
+- (void)catchWildPokemon:(NSNotification *)notification;
+- (void)throwPokeballToReplacePokemon;
+- (void)throwPokeballToCatchPokemon;
 - (void)getPokemonBack;
 - (void)openMoveView;
 - (void)openBagView;
@@ -164,6 +166,7 @@ typedef enum {
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameMenuKeyView object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleSixPokemons object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCatchWildPokemon object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdatePokemonStatus object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePokemon object:self.gameMenuSixPokemonsViewController];
@@ -322,10 +325,15 @@ typedef enum {
                                            selector:@selector(updateGameMenuKeyView:)
                                                name:kPMNUpdateGameMenuKeyView
                                              object:nil];
-  // Add observer for notfication from |centerMainButton_|
+  // Add observer for notification from |centerMainButton_|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(toggleSixPokemonsView:)
                                                name:kPMNToggleSixPokemons
+                                             object:nil];
+  // Add observer for notification from |BagItemTableViewController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(catchWildPokemon:)
+                                               name:kPMNCatchWildPokemon
                                              object:nil];
   // Add observer for notification from |GameSystemProcess|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -411,15 +419,22 @@ typedef enum {
 }
 
 // Replace the battle pokemon
-- (void)replacePokemon:(NSNotification *)notification
-{
+- (void)replacePokemon:(NSNotification *)notification {
   self.gameMenuKeyView = kGameMenuKeyViewNone;
   
   // Get current battling pokemon back from scene
   [self performSelector:@selector(getPokemonBack) withObject:nil afterDelay:1.f];
   // Send new pokemon to scene
-  [self performSelector:@selector(throwPokeball) withObject:nil afterDelay:1.8f];
+  [self performSelector:@selector(throwPokeballToReplacePokemon) withObject:nil afterDelay:1.8f];
   
+}
+
+// Try to catch Wild Pokemon
+- (void)catchWildPokemon:(NSNotification *)notification {
+  self.gameMenuKeyView = kGameMenuKeyViewNone;
+  
+  // Throw Pokeball to WildPokemon
+  [self performSelector:@selector(throwPokeballToCatchPokemon) withObject:nil afterDelay:1.f];
 }
 
 // Get current battling pokemon back from scene
@@ -507,8 +522,8 @@ typedef enum {
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
-// Send new pokemon to scene
-- (void)throwPokeball {
+// Throw Pokeball to send new pokemon to scene, replace the old one
+- (void)throwPokeballToReplacePokemon {
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];
   [path addCurveToPoint:CGPointMake(100.f, 250.f)
@@ -581,6 +596,11 @@ typedef enum {
   
   // Update player's pokemon status
   [self.playerPokemonStatusViewController prepareForNewScene];
+}
+
+// Try to throw a Pokeball to cathch WildPokemon
+- (void)throwPokeballToCatchPokemon {
+  NSLog(@"~~~~~~~~~~~~~~|%@| - |throwPokeballToCatchPokemon|", [self class]);
 }
 
 // Action for |buttonFight_|

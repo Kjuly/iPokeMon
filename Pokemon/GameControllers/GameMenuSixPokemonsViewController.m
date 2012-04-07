@@ -161,15 +161,15 @@
   NSInteger tag = ((UIButton *)sender).tag;
   if (self.isForReplacing) {
     // Replace the current pokemon
-    GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView =
+      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
     [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
     previousBattlePokemonUnitView = nil;
     
     self.currBattlePokemon = tag;
     
-    GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    GameMenuSixPokemonsUnitView * currentBattlePokemonUnitView =
+      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
     [currentBattlePokemonUnitView setAsCurrentBattleOne:YES];
     currentBattlePokemonUnitView = nil;
     

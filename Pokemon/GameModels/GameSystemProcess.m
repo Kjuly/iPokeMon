@@ -17,11 +17,13 @@
 
 // System Process Type
 typedef enum {
-  kGameSystemProcessTypeNone           = 0,
-  kGameSystemProcessTypeFight          = 1,
-  kGameSystemProcessTypeUseBagItem     = 2,
-  kGameSystemProcessTypeReplacePokemon = 3,
-  kGameSystemProcessTypeRun            = 4
+  kGameSystemProcessTypeNone = 0,           // None
+  kGameSystemProcessTypeFight,              // Fight
+  kGameSystemProcessTypeUseBagItem,         // Use Bag Item
+  kGameSystemProcessTypeReplacePokemon,     // Replace Pokemon
+  kGameSystemProcessTypeCathingWildPokemon, // Cathing WildPokemon
+  kGameSystemProcessTypeRun,                // Run
+  kGameSystemProcessTypeBattleEnd           // Battle END
 }GameSystemProcessType;
 
 // Move Target
@@ -67,9 +69,10 @@ typedef enum {
   BagQueryTargetType    targetType_;           // For bag item's 8 different types
   NSInteger             selectedPokemonIndex_; // The Pokemon bag item used for
   NSInteger             itemIndex_;            // Bag item index
+  NSInteger catchingWildPokemonTimeCounter_;   // Time counter for catching Wild Pokemon
   
-  BOOL      complete_;  // Mark for system turn end
-  NSInteger delayTime_; // Delay time for every turn
+  BOOL      complete_;                         // Mark for system turn end
+  NSInteger delayTime_;                        // Delay time for every turn
 }
 
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
@@ -90,6 +93,9 @@ typedef enum {
 //- (void)MoveTargetSinglePokemonOnOpponentSide;
 - (void)useBagItem;
 - (void)replacePokemon;
+- (void)catchingWildPokemon;
+- (BOOL)hasDoneForCatchingWildPokemonResult;
+- (void)caughtWildPokemonSucceed:(BOOL)succeed;
 - (void)run;
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
@@ -128,6 +134,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     moveIndex_            = 0;
     selectedPokemonIndex_ = 0;
     itemIndex_            = 0;
+    catchingWildPokemonTimeCounter_ = 0;
   }
   return self;
 }
@@ -154,15 +161,27 @@ static GameSystemProcess * gameSystemProcess = nil;
       case kGameSystemProcessTypeFight:
         [self fight];
         break;
+        
       case kGameSystemProcessTypeUseBagItem:
         [self useBagItem];
         break;
+        
       case kGameSystemProcessTypeReplacePokemon:
         [self replacePokemon];
         break;
+        
+      case kGameSystemProcessTypeCathingWildPokemon:
+        if (delayTime_ < 200) return;
+        [self catchingWildPokemon];
+        break;
+        
       case kGameSystemProcessTypeRun:
         [self run];
         break;
+        
+      case kGameSystemProcessTypeBattleEnd:
+        break;
+        
       default:
         break;
     }
@@ -1163,32 +1182,44 @@ static GameSystemProcess * gameSystemProcess = nil;
 //  }
 //  else { NSLog(@"!!! Exception: The Bag Item has no user"); return; }
   
-  // Post to |GameMenuViewController| to update pokemon status view
-  NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
-                                  self.playerPokemon.status,                      @"playerPokemonStatus",
-                                  self.playerPokemon.hp,                          @"playerPokemonHP",
-                                  self.enemyPokemon.status,                       @"enemyPokemonStatus",
-                                  self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
-  [pokemonStatus release];
-  
-  
-  // Post Message to update |messageView_| in |GameMenuViewController|
-  TrainerTamedPokemon * pokemon = [[TrainerController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
-  NSInteger pokemonID = [pokemon.sid intValue];
-  pokemon = nil;
-  NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
-  [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
-  [messageInfo release];
-  
-  [self endTurn];
+  // Throw Pokeball
+  if (targetType_ == kBagQueryTargetTypePokeball) {
+    // Post Message to update |messageView_| in |GameMenuViewController|
+    [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:nil];
+    
+    // Turn to Catching Wild Pokemon
+    processType_ = kGameSystemProcessTypeCathingWildPokemon;
+    delayTime_ = 0;
+//    [self endTurn];
+  }
+  // Use Status Healers, HP/PP Restores, etc. for Pokemons
+  else {
+    // Post to |GameMenuViewController| to update pokemon status view
+    NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                    [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
+                                    self.playerPokemon.status,                      @"playerPokemonStatus",
+                                    self.playerPokemon.hp,                          @"playerPokemonHP",
+                                    self.enemyPokemon.status,                       @"enemyPokemonStatus",
+                                    self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
+    [pokemonStatus release];
+    
+    
+    // Post Message to update |messageView_| in |GameMenuViewController|
+    TrainerTamedPokemon * pokemon = [[TrainerController sharedInstance] pokemonOfSixAtIndex:selectedPokemonIndex_];
+    NSInteger pokemonID = [pokemon.sid intValue];
+    pokemon = nil;
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
+    [messageInfo release];
+    
+    [self endTurn];
+  }
 }
 
 // Replace pokemon
-- (void)replacePokemon
-{
+- (void)replacePokemon {
   // Post to |GameMenuViewController| to update pokemon status view
   NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
@@ -1212,9 +1243,57 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self endTurn];
 }
 
+// Catching Wild Pokemon
+- (void)catchingWildPokemon {
+  NSLog(@"~~~~~~~~~|%@| - |catchingWildPokemon|", [self class]);
+  // Only 3 times for checking catching succeed or not
+  if (++catchingWildPokemonTimeCounter_ > 3) {
+    [self caughtWildPokemonSucceed:NO];
+    return;
+  }
+  
+  // No mater caught Wild Pokemon succeed or not,
+  //   if result come out, end checking turn.
+  if ([self hasDoneForCatchingWildPokemonResult])
+    return;
+  
+  delayTime_ = 0;
+}
+
+// Return YES if caught Wild Pokemon succeed or failed.
+- (BOOL)hasDoneForCatchingWildPokemonResult {
+  NSLog(@"~~~~~~~~~|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
+  // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
+  //   (0 means it cannot be caught by anything except a Master Ball).
+  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
+    return NO;
+  
+  // Calculation for catching WildPokemon result,
+  //   based on Pokemon |status|, |hp|, etc.
+  BOOL succeed = NO;
+  if (arc4random() % 2 == 1) {
+    succeed = YES;
+  }
+  [self caughtWildPokemonSucceed:succeed];
+  
+  return YES;
+}
+
+// Caught Wild Pokemon succeed or not
+- (void)caughtWildPokemonSucceed:(BOOL)succeed {
+  NSLog(@"~~~~~~~~~|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
+  
+  // If caught Wild Pokemon succeed, end the battle
+  if (succeed) {
+    processType_ = kGameSystemProcessTypeBattleEnd;
+  }
+  catchingWildPokemonTimeCounter_ = 0;
+  delayTime_ = 300;
+  [self endTurn];
+}
+
 // Run
-- (void)run
-{
+- (void)run {
 }
 
 // Post Message to |GameMenuViewController| to set message for game
@@ -1237,8 +1316,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     }
       
     case kGameSystemProcessTypeUseBagItem: {
-      NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
-      
       NSString * localizedNameHeader;
       if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
       else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
@@ -1249,12 +1326,22 @@ static GameSystemProcess * gameSystemProcess = nil;
       else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
       else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
       
-      // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
-      NSString * message = [NSString stringWithFormat:@"%@ %@ %@ %@",
-                            NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
-                            NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
-                            NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
-                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+      NSString * message;
+      if (targetType_ & kBagQueryTargetTypePokeball) {
+        // Post message: (You throwed a <ItemName>!) to |messageView_| in |GameMenuViewController|
+        message = [NSString stringWithFormat:@"%@ %@!",
+                   NSLocalizedString(@"PMSMessageYouThrowedXXX", nil),
+                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil), nil];
+      }
+      else {
+        NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
+        // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
+        message = [NSString stringWithFormat:@"%@ %@ %@ %@",
+                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
+                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
+                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
+                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+      }
       NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                           object:self

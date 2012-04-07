@@ -29,6 +29,7 @@ NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
 NSString * const kPMNUpdateGameMenuKeyView     = @"PMNUpdateGameMenuKeyView";
 NSString * const kPMNReplacePokemon            = @"PMNReplacePokemon";
 NSString * const kPMNReplacePlayerPokemon      = @"PMNReplacePlayerPokemon";
+NSString * const kPMNCatchWildPokemon          = @"PMNCatchWildPokemon"; // Try to throw Pokeball to catch WildPokemon
 NSString * const kPMNUseItemForSelectedPokemon = @"PMNUseItemForSelectedPokemon";
 NSString * const kPMNUseBagItemDone            = @"PMNUseBagItemDone";
 //NSString * const kPMNMoveEffect = @"PMNMoveEffect";
