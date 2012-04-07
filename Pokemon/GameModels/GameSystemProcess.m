@@ -17,13 +17,15 @@
 
 // System Process Type
 typedef enum {
-  kGameSystemProcessTypeNone = 0,           // None
-  kGameSystemProcessTypeFight,              // Fight
-  kGameSystemProcessTypeUseBagItem,         // Use Bag Item
-  kGameSystemProcessTypeReplacePokemon,     // Replace Pokemon
-  kGameSystemProcessTypeCathingWildPokemon, // Cathing WildPokemon
-  kGameSystemProcessTypeRun,                // Run
-  kGameSystemProcessTypeBattleEnd           // Battle END
+  kGameSystemProcessTypeNone = 0,                  // None
+  kGameSystemProcessTypeFight,                     // Fight
+  kGameSystemProcessTypeUseBagItem,                // Use Bag Item
+  kGameSystemProcessTypeReplacePokemon,            // Replace Pokemon
+  kGameSystemProcessTypeCathingWildPokemon,        // Cathing WildPokemon
+  kGameSystemProcessTypeCathingWildPokemonSucceed, // Cathing WildPokemon Succeed
+  kGameSystemProcessTypeCathingWildPokemonFailed,  // Cathing WildPokemon Failed
+  kGameSystemProcessTypeRun,                       // Run
+  kGameSystemProcessTypeBattleEnd                  // Battle END
 }GameSystemProcessType;
 
 // Move Target
@@ -1289,10 +1291,16 @@ static GameSystemProcess * gameSystemProcess = nil;
   // If caught Wild Pokemon succeed, end the battle
   if (succeed) {
     processType_ = kGameSystemProcessTypeBattleEnd;
+    // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
+    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+    return;
   }
   else {
     // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballLossWildPokemon object:self userInfo:nil];
+    
+    // Update message in |GameMenuViewController| to show Catching WildPokemon Failed
+    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonFailed withMessageInfo:nil];
   }
   catchingWildPokemonTimeCounter_ = 0;
   delayTime_ = 300;
@@ -1306,19 +1314,17 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Post Message to |GameMenuViewController| to set message for game
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo
 {
+  NSString * message = nil;
+  
   switch (processType) {
     case kGameSystemProcessTypeFight: {
       NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
       NSInteger moveID    = [[messageInfo valueForKey:@"moveID"] intValue];
-      // Post message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
-      NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
-                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
-                            NSLocalizedString(@"PMSMessage_used", nil),
-                            NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
-      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
-                                                          object:self
-                                                        userInfo:messageInfo];
+      // Message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
+      message = [NSString stringWithFormat:@"%@ %@ %@",
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                 NSLocalizedString(@"PMSMessage_used", nil),
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
       break;
     }
       
@@ -1333,39 +1339,48 @@ static GameSystemProcess * gameSystemProcess = nil;
       else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
       else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
       
-      NSString * message;
       if (targetType_ & kBagQueryTargetTypePokeball) {
-        // Post message: (You throwed a <ItemName>!) to |messageView_| in |GameMenuViewController|
+        // Message: (You throwed a <ItemName>!)
         message = [NSString stringWithFormat:@"%@ %@!",
                    NSLocalizedString(@"PMSMessageYouThrowedXXX", nil),
                    NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil), nil];
       }
       else {
         NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
-        // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
+        // Message: (You used <ItemName> to <PokemonName>)
         message = [NSString stringWithFormat:@"%@ %@ %@ %@",
                    NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
                    NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
                    NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
                    NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
       }
-      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
-                                                          object:self
-                                                        userInfo:messageInfo];
       break;
     }
       
     case kGameSystemProcessTypeReplacePokemon: {
       NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
-      // Post message: (You used <ItemName> to <PokemonName>) to |messageView_| in |GameMenuViewController|
-      NSString * message = [NSString stringWithFormat:@"%@, %@!",
-                            NSLocalizedString(@"PMSMessage_Go", nil),
-                            NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
-      NSDictionary * messageInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
-                                                          object:self
-                                                        userInfo:messageInfo];
+      // Message: (You used <ItemName> to <PokemonName>)
+      message = [NSString stringWithFormat:@"%@, %@!",
+                 NSLocalizedString(@"PMSMessage_Go", nil),
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+      break;
+    }
+      
+    case kGameSystemProcessTypeCathingWildPokemonSucceed: {
+      // Message: (Oh, you caught <WildPokemonName>)
+      message = [NSString stringWithFormat:@"%@ %@!",
+                 NSLocalizedString(@"PMSMessageCatchPokemonXXXSucceed", nil),
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                     [self.enemyPokemon.sid intValue]]), nil), nil];
+      break;
+    }
+      
+    case kGameSystemProcessTypeCathingWildPokemonFailed: {
+      // Message: (Oh, no! The <WildPokemonName> broke free!)
+      message = [NSString stringWithFormat:@"%@ %@ %@!",
+                 NSLocalizedString(@"PMSMessageCatchPokemonXXXFailed1", nil),
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
+                 NSLocalizedString(@"PMSMessageCatchPokemonXXXFailed3", nil), nil];
       break;
     }
       
@@ -1378,6 +1393,15 @@ static GameSystemProcess * gameSystemProcess = nil;
     default:
       break;
   }
+  
+  if (message == nil)
+    return;
+  
+  // Post |message| to |messageView_| in |GameMenuViewController|
+  NSDictionary * userInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
+                                                      object:self
+                                                    userInfo:userInfo];
 }
 
 #pragma mark - Setting Methods

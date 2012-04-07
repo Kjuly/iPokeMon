@@ -68,11 +68,14 @@
 // Text Message
 "PMSMessage_used" = "used";
 "PMSMessage_Go"   = "Go";
-"PMSMessageYouUsedXXXToXXX_1"  = "You used";
-"PMSMessageYouUsedXXXToXXX_3"  = "to";
-"PMSMessageYouThrowedXXX"     = "You throwed";
-"PMSMessageWhatWillXXXDoPart1" = "What will";
-"PMSMessageWhatWillXXXDoPart3" = "do?";
+"PMSMessageYouUsedXXXToXXX_1"   = "You used";
+"PMSMessageYouUsedXXXToXXX_3"   = "to";
+"PMSMessageYouThrowedXXX"       = "You throwed";
+"PMSMessageCatchPokemonXXXFailed1"  = "Oh, no! The";
+"PMSMessageCatchPokemonXXXFailed3"  = "broke free!";
+"PMSMessageCatchPokemonXXXSucceed" = "Oh, you caught the";
+"PMSMessageWhatWillXXXDoPart1"  = "What will";
+"PMSMessageWhatWillXXXDoPart3"  = "do?";
 
 /*
  * Memo for Pokemon

@@ -70,6 +70,9 @@
 "PMSMessageYouUsedXXXToXXX_1"  = "你对";
 "PMSMessageYouUsedXXXToXXX_3"  = "使用了";
 "PMSMessageYouThrowedXXX"      = "你丢出了";
+"PMSMessageCatchPokemonXXXFailed1"  = "";
+"PMSMessageCatchPokemonXXXFailed3"  = "挣脱了精灵球";
+"PMSMessageCatchPokemonXXXSucceed" = "你成功抓到了";
 "PMSMessageWhatWillXXXDoPart1" = "";
 "PMSMessageWhatWillXXXDoPart3" = "要做什么？";
 
