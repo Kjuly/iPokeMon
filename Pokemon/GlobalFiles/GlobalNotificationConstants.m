@@ -32,6 +32,7 @@ NSString * const kPMNReplacePlayerPokemon      = @"PMNReplacePlayerPokemon";
 NSString * const kPMNCatchWildPokemon          = @"PMNCatchWildPokemon";        // Try to throw Pokeball to catch WildPokemon
 NSString * const kPMNPokeballGetWildPokemon    = @"PMNPokeballGetWildPokemon";  // Pokeball get WildPokemon
 NSString * const kPMNPokeballLossWildPokemon   = @"PMNPokeballLossWildPokemon"; // Pokeball loss WildPokemon
+NSString * const kPMNPokeballChecking          = @"kPMNPokeballChecking";       // Pokeball checking for WildPokemon
 NSString * const kPMNUseItemForSelectedPokemon = @"PMNUseItemForSelectedPokemon";
 NSString * const kPMNUseBagItemDone            = @"PMNUseBagItemDone";
 //NSString * const kPMNMoveEffect = @"PMNMoveEffect";

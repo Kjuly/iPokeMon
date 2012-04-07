@@ -1252,6 +1252,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     return;
   }
   
+  // Post notification to |GameMenuViewController| to run animation for checking Pokeball
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballChecking object:self userInfo:nil];
+  
   // No mater caught Wild Pokemon succeed or not,
   //   if result come out, end checking turn.
   if ([self hasDoneForCatchingWildPokemonResult])

@@ -90,6 +90,7 @@ typedef enum {
 - (void)catchWildPokemon:(NSNotification *)notification;
 - (void)throwPokeballToReplacePokemon;
 - (void)throwPokeballToCatchPokemon;
+- (void)checkPokeball:(NSNotification *)notification;
 - (void)resetPokeball:(NSNotification *)notification;
 - (void)getPokemonBack;
 - (void)openMoveView;
@@ -171,6 +172,7 @@ typedef enum {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdatePokemonStatus object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePokemon object:self.gameMenuSixPokemonsViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballChecking object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
   [super dealloc];
 }
@@ -352,6 +354,11 @@ typedef enum {
                                            selector:@selector(replacePokemon:)
                                                name:kPMNReplacePokemon
                                              object:self.gameMenuSixPokemonsViewController];
+  // Noficication from |GameSystemProcess| - |catchingWildPokemon|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(checkPokeball:)
+                                               name:kPMNPokeballChecking
+                                             object:nil];
   // Notification from |GameSystemProcess| - |caughtWildPokemonSucceed:| if |succeed == NO|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(resetPokeball:)
@@ -683,6 +690,61 @@ typedef enum {
   throwPokeballAnimation.removedOnCompletion = NO;
   [animations release];
   [self.pokeball.layer addAnimation:throwPokeballAnimation forKey:@"throwPokeballToCatchWildPokemon"];
+}
+
+// Check Pokeball whether the Wild Pokemon caught with animations
+- (void)checkPokeball:(NSNotification *)notification {
+  NSLog(@"|%@| - |checkPokeball|......", [self class]);
+  
+  // Basic Settings
+  CGFloat duration = .3f;
+  NSArray * keyTimes = [NSArray arrayWithObjects:
+                        [NSNumber numberWithFloat:0.f],
+                        [NSNumber numberWithFloat:.1f],
+                        [NSNumber numberWithFloat:.25f],
+                        [NSNumber numberWithFloat:duration], nil];
+  NSArray * timingFunctions = [NSArray arrayWithObjects:
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], nil];
+  
+  // Move animation
+  CAKeyframeAnimation * moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
+  CGFloat originalPositionX = 250.f;
+  moveAnimation.values   = [NSArray arrayWithObjects:
+                            [NSNumber numberWithFloat:originalPositionX],
+                            [NSNumber numberWithFloat:originalPositionX - 5],
+                            [NSNumber numberWithFloat:originalPositionX + 5],
+                            [NSNumber numberWithFloat:originalPositionX], nil];
+  moveAnimation.keyTimes = keyTimes;
+  moveAnimation.duration = duration;
+  moveAnimation.timingFunctions = timingFunctions;
+  
+  // Rotate animation
+  CAKeyframeAnimation * scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+  CATransform3D tTrans  = CATransform3DIdentity;
+  tTrans.m34            = -1.f / 900.f;
+  scaleAnimation.values = [NSArray arrayWithObjects:
+                           [NSValue valueWithCATransform3D:CATransform3DRotate(tTrans,0,0,0,1)],
+                           [NSValue valueWithCATransform3D:CATransform3DRotate(tTrans,-30 * M_PI / 180.f,0,0,1)],
+                           [NSValue valueWithCATransform3D:CATransform3DRotate(tTrans,30 * M_PI / 180.f,0,0,1)],
+                           [NSValue valueWithCATransform3D:CATransform3DRotate(tTrans,0,0,0,1)], nil];
+  
+  scaleAnimation.keyTimes = keyTimes;
+  scaleAnimation.duration = duration;
+  scaleAnimation.timingFunctions = timingFunctions;
+  
+  // Checking Pokeball animation
+  CAAnimationGroup * checkPokeballAnimation = [CAAnimationGroup animation];
+  [checkPokeballAnimation setValue:@"checkPokeball" forKey:@"animationType"];
+  checkPokeballAnimation.delegate = self;
+  checkPokeballAnimation.duration = duration;
+  NSArray * animations = [[NSArray alloc] initWithObjects:moveAnimation, scaleAnimation, nil];
+  checkPokeballAnimation.animations = animations;
+  checkPokeballAnimation.removedOnCompletion = NO;
+  [animations release];
+  
+  [self.pokeball.layer addAnimation:checkPokeballAnimation forKey:@"checkPokeball"];
 }
 
 // Reset Pokeball

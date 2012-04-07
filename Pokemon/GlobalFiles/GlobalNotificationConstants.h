@@ -31,6 +31,7 @@ extern NSString * const kPMNReplacePlayerPokemon;
 extern NSString * const kPMNCatchWildPokemon;
 extern NSString * const kPMNPokeballGetWildPokemon;
 extern NSString * const kPMNPokeballLossWildPokemon;
+extern NSString * const kPMNPokeballChecking;
 extern NSString * const kPMNUseItemForSelectedPokemon;
 extern NSString * const kPMNUseBagItemDone;
 //extern NSString * const kPMNMoveEffect;
