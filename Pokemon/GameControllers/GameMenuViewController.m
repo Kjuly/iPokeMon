@@ -48,7 +48,7 @@ typedef enum {
   
   NSInteger                           currPokemon_;
   UIImageView                       * pokemonImageView_;
-  UIView                            * pokeball_;
+  UIImageView                       * pokeball_;
   
   // Gestures
   UISwipeGestureRecognizer * swipeRightGestureRecognizer_;        // Open Move view for Fight
@@ -74,7 +74,7 @@ typedef enum {
 
 @property (nonatomic, assign) NSInteger                           currPokemon;
 @property (nonatomic, retain) UIImageView                       * pokemonImageView;
-@property (nonatomic, retain) UIView                            * pokeball;
+@property (nonatomic, retain) UIImageView                       * pokeball;
 
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
@@ -90,6 +90,7 @@ typedef enum {
 - (void)catchWildPokemon:(NSNotification *)notification;
 - (void)throwPokeballToReplacePokemon;
 - (void)throwPokeballToCatchPokemon;
+- (void)resetPokeball:(NSNotification *)notification;
 - (void)getPokemonBack;
 - (void)openMoveView;
 - (void)openBagView;
@@ -170,6 +171,7 @@ typedef enum {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameBattleMessage object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdatePokemonStatus object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePokemon object:self.gameMenuSixPokemonsViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
   [super dealloc];
 }
 
@@ -246,12 +248,12 @@ typedef enum {
   [self.view addSubview:self.pokemonImageView];
   
   // Pokeball
-  UIView * pokeball = [[UIView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
+  UIImageView * pokeball = [[UIImageView alloc] initWithFrame:
+                            CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
   self.pokeball = pokeball;
   [pokeball release];
-  [self.pokeball setBackgroundColor:[UIColor colorWithPatternImage:
-                                     [UIImage imageNamed:@"GamePokeball.png"]]];
-  [self.pokeball setOpaque:NO];
+  [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
+  [self.pokeball setImage:[UIImage imageNamed:@"GamePokeball.png"]];
   [self.view addSubview:self.pokeball];
 }
 
@@ -350,6 +352,11 @@ typedef enum {
                                            selector:@selector(replacePokemon:)
                                                name:kPMNReplacePokemon
                                              object:self.gameMenuSixPokemonsViewController];
+  // Notification from |GameSystemProcess| - |caughtWildPokemonSucceed:| if |succeed == NO|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(resetPokeball:)
+                                               name:kPMNPokeballLossWildPokemon
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -545,7 +552,7 @@ typedef enum {
   // Basic Settings
   CGFloat duration = .65f;
   NSArray * keyTimes = [NSArray arrayWithObjects:
-                        [NSNumber numberWithFloat:.0f],
+                        [NSNumber numberWithFloat:0.f],
                         [NSNumber numberWithFloat:.3f],
                         [NSNumber numberWithFloat:duration], nil];
   NSArray * timingFunctions = [NSArray arrayWithObjects:
@@ -581,6 +588,7 @@ typedef enum {
   
   // Throw pokeball group animation
   CAAnimationGroup * throwPokeballAnimation = [CAAnimationGroup animation];
+  [throwPokeballAnimation setValue:@"throwPokeballToReplacePokemon" forKey:@"animationType"];
   throwPokeballAnimation.delegate = self;
   throwPokeballAnimation.duration = duration;
   NSArray * animations = [[NSArray alloc] initWithObjects:moveAnimation, scaleAnimation, fadeAnimation, nil];
@@ -601,6 +609,85 @@ typedef enum {
 // Try to throw a Pokeball to cathch WildPokemon
 - (void)throwPokeballToCatchPokemon {
   NSLog(@"~~~~~~~~~~~~~~|%@| - |throwPokeballToCatchPokemon|", [self class]);
+  
+  UIBezierPath * path = [UIBezierPath bezierPath];
+  [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];
+  [path addCurveToPoint:CGPointMake(220.f, 140.f)
+          controlPoint1:CGPointMake(160.f, 290.f)
+          controlPoint2:CGPointMake(160.f, 240.f)];
+  [path addCurveToPoint:CGPointMake(250.f, 110.f)
+          controlPoint1:CGPointMake(240.f, 110.f)
+          controlPoint2:CGPointMake(245.f, 110.f)];
+  /*
+   [path addCurveToPoint:CGPointMake(100.f, 250.f)
+   controlPoint1:CGPointMake(160.f, 330.f)
+   controlPoint2:CGPointMake(130.f, 270.f)];
+   [path addCurveToPoint:CGPointMake(70.f, 230.f)
+   controlPoint1:CGPointMake(90.f, 245.f)
+   controlPoint2:CGPointMake(80.f, 230.f)];
+   */
+  
+//  #ifdef DEBUG
+//    CAShapeLayer * pathTrack = [CAShapeLayer layer];
+//  	pathTrack.path = path.CGPath;
+//  	pathTrack.strokeColor = [UIColor whiteColor].CGColor;
+//  	pathTrack.fillColor = [UIColor clearColor].CGColor;
+//  	pathTrack.lineWidth = 10.0;
+//  	[self.view.layer addSublayer:pathTrack];
+//  #endif
+  
+  // Basic Settings
+  CGFloat duration = .75f;
+  NSArray * keyTimes = [NSArray arrayWithObjects:
+                        [NSNumber numberWithFloat:0.f],
+                        [NSNumber numberWithFloat:.35f],
+                        [NSNumber numberWithFloat:duration], nil];
+  NSArray * timingFunctions = [NSArray arrayWithObjects:
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn], nil];
+  
+  // Move animation
+  CAKeyframeAnimation * moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+  moveAnimation.path = path.CGPath;
+  moveAnimation.keyTimes = keyTimes;
+  moveAnimation.duration = duration;
+  moveAnimation.timingFunctions = timingFunctions;
+  
+  // Scale animation
+  CAKeyframeAnimation * scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+  scaleAnimation.values = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:1.f],
+                           [NSNumber numberWithFloat:1.6f],
+                           [NSNumber numberWithFloat:.5f], nil];
+  scaleAnimation.keyTimes = keyTimes;
+  scaleAnimation.duration = duration;
+  scaleAnimation.timingFunctions = timingFunctions;
+  
+  // Fade animation
+  CAKeyframeAnimation * fadeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+  fadeAnimation.values = [NSArray arrayWithObjects:
+                          [NSNumber numberWithFloat:.3f],
+                          [NSNumber numberWithFloat:1.f],
+                          [NSNumber numberWithFloat:1.f], nil];
+  fadeAnimation.keyTimes = keyTimes;
+  fadeAnimation.duration = duration;
+  fadeAnimation.timingFunctions = timingFunctions;
+  
+  // Throw pokeball group animation
+  CAAnimationGroup * throwPokeballAnimation = [CAAnimationGroup animation];
+  [throwPokeballAnimation setValue:@"throwPokeballToCatchWildPokemon" forKey:@"animationType"];
+  throwPokeballAnimation.delegate = self;
+  throwPokeballAnimation.duration = duration;
+  NSArray * animations = [[NSArray alloc] initWithObjects:moveAnimation, scaleAnimation, fadeAnimation, nil];
+  throwPokeballAnimation.animations = animations;
+  throwPokeballAnimation.removedOnCompletion = NO;
+  [animations release];
+  [self.pokeball.layer addAnimation:throwPokeballAnimation forKey:@"throwPokeballToCatchWildPokemon"];
+}
+
+// Reset Pokeball
+- (void)resetPokeball:(NSNotification *)notification {
+  [self.pokeball setFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
 }
 
 // Action for |buttonFight_|
@@ -811,6 +898,17 @@ typedef enum {
 - (void)reset {
   [self.playerPokemonStatusViewController reset];
   [self.enemyPokemonStatusViewController  reset];
+}
+
+#pragma mark - Animation delegate
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+  if ([[anim valueForKey:@"animationType"] isEqualToString:@"throwPokeballToCatchWildPokemon"]) {
+    CGFloat scale = .5f;
+    [self.pokeball setFrame:CGRectMake(250.f - 30.f * scale, 110.f - 30.f * scale, 60.f * scale, 60.f * scale)];
+    // Post notification to |GameBattleLayer| to get WildPokemon into Pokeball
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballGetWildPokemon object:self userInfo:nil];
+  }
 }
 
 #pragma mark - UIAlertView Delegate

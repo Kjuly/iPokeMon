@@ -171,7 +171,7 @@ static GameSystemProcess * gameSystemProcess = nil;
         break;
         
       case kGameSystemProcessTypeCathingWildPokemon:
-        if (delayTime_ < 200) return;
+        if (delayTime_ < 150) return;
         [self catchingWildPokemon];
         break;
         
@@ -1286,6 +1286,10 @@ static GameSystemProcess * gameSystemProcess = nil;
   // If caught Wild Pokemon succeed, end the battle
   if (succeed) {
     processType_ = kGameSystemProcessTypeBattleEnd;
+  }
+  else {
+    // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballLossWildPokemon object:self userInfo:nil];
   }
   catchingWildPokemonTimeCounter_ = 0;
   delayTime_ = 300;

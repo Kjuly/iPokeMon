@@ -39,6 +39,8 @@
 - (void)startGameLoop;
 - (void)runBattleBeginAnimation;
 - (void)replacePlayerPokemon:(NSNotification *)notification;
+- (void)getWildPokemonIntoPokeball:(NSNotification *)notification;
+- (void)getWildPokemonOutOfPokeball:(NSNotification *)notification;
 - (void)loadNewPokemon;
 
 @end
@@ -80,6 +82,8 @@
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePlayerPokemon object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballGetWildPokemon object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
   [super dealloc];
 }
 
@@ -99,6 +103,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(replacePlayerPokemon:)
                                                  name:kPMNReplacePlayerPokemon
+                                               object:nil];
+    // Notification from |GameMenuViewController| - |animationDidStop:finished:|
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getWildPokemonIntoPokeball:)
+                                                 name:kPMNPokeballGetWildPokemon
+                                               object:nil];
+    // Notification from |GameSystemProcess| - |caughtWildPokemonSucceed:| if |succeed == NO|
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getWildPokemonOutOfPokeball:)
+                                                 name:kPMNPokeballLossWildPokemon
                                                object:nil];
     
     // check whether a selector is scheduled. schedules the "update" method.
@@ -235,14 +249,14 @@
   self.playerPokemonSprite = nil;
   
   NSInteger newPokemon = [[notification.userInfo objectForKey:@"newPokemon"] intValue];
-  TrainerTamedPokemon * playerPokemon
-  = [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
+  TrainerTamedPokemon * playerPokemon =
+    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
   [GameSystemProcess sharedInstance].playerPokemon = playerPokemon;
   
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
                                        [playerPokemon.sid intValue]];
-  GamePokemonSprite * playerPokemonSprite
-  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
+  GamePokemonSprite * playerPokemonSprite =
+    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
                                            key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
@@ -253,6 +267,18 @@
   
   [self.playerPokemonSprite setOpacity:0];
   [self performSelector:@selector(loadNewPokemon) withObject:nil afterDelay:1.2f];
+}
+
+// Get WildPokemon into Pokeball
+- (void)getWildPokemonIntoPokeball:(NSNotification *)notification {
+  NSLog(@"|%@| - |getWildPokemonIntoPokeball:|", [self class]);
+  [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
+}
+
+// Get WildPokemon out of Pokeball
+- (void)getWildPokemonOutOfPokeball:(NSNotification *)notification {
+  NSLog(@"|%@| - |getWildPokemonOutOfPokeball:|", [self class]);
+  [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
 }
 
 // Load new pokemon
