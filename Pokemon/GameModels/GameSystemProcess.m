@@ -1287,6 +1287,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Caught Wild Pokemon succeed or not
 - (void)caughtWildPokemonSucceed:(BOOL)succeed {
   NSLog(@"~~~~~~~~~|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
+  catchingWildPokemonTimeCounter_ = 0;
   
   // If caught Wild Pokemon succeed, end the battle
   if (succeed) {
@@ -1302,8 +1303,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Update message in |GameMenuViewController| to show Catching WildPokemon Failed
     [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonFailed withMessageInfo:nil];
   }
-  catchingWildPokemonTimeCounter_ = 0;
-  delayTime_ = 300;
+  delayTime_ = 0;
   [self endTurn];
 }
 
