@@ -159,7 +159,7 @@
                                       inManagedObjectContext:managedObjectContext]];
 //  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %@ AND owner.sid == %@",
 //                              [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %d AND owner.sid == %d", 3, trainerID]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"owner.uid == %d", trainerID]];
   [fetchRequest setFetchLimit:6];
   
   NSError * error;
@@ -173,7 +173,7 @@
 + (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit
 {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
@@ -186,6 +186,22 @@
   [fetchRequest release];
   
   return pokemons;
+}
+
+// Number of Tamed Pokemons owned by trainer
++ (NSInteger)numberOfTamedPokemonsWithTraienrUID:(NSInteger)trainerUID {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"owner.uid == %d", trainerUID]];
+    
+  NSError *error;
+  NSInteger result = [managedObjectContext countForFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  return result;
 }
 
 // Get one Pokemon that trainer brought
@@ -221,7 +237,7 @@
                                                inManagedObjectContext:managedObjectContext];
   
   // Set data
-  tamedPokemon.uid         = wildPokemon.uid;
+  tamedPokemon.uid         = [NSNumber numberWithInt:[self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]]];
   tamedPokemon.sid         = wildPokemon.sid;
   tamedPokemon.box         = [NSNumber numberWithInt:box];
   tamedPokemon.status      = wildPokemon.status;

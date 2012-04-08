@@ -23,6 +23,7 @@
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
 + (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit;
++ (NSInteger)numberOfTamedPokemonsWithTraienrUID:(NSInteger)trainerUID;
 + (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID;
 + (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
                          withMemo:(NSString *)memo
