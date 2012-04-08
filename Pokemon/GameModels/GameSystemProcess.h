@@ -38,6 +38,8 @@ typedef enum {
 - (void)update:(ccTime)dt;
 - (void)endTurn;
 
+- (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user;
+
 // Setting Methods
 - (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex;
 - (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user

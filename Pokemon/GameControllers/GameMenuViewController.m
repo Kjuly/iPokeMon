@@ -976,8 +976,10 @@ typedef enum {
 #pragma mark - UIAlertView Delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if (buttonIndex == 0)
+  if (buttonIndex == 0) {
+    [[GameSystemProcess sharedInstance] endBattleWithEventType:kGameBattleEndEventTypePlayerRun];
     [delegate_ unloadBattleScene];
+  }
 }
 
 @end

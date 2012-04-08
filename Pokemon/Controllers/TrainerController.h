@@ -43,6 +43,8 @@
 
 // Setting
 - (void)setName:(NSString *)name; // Set trainer name
+//- (void)earnMoney:(NSInteger)money; // Earn money when WIN from another trainer
+//- (void)loseMoney:(NSInteger)money; // Lose money when LOSE
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
 - (void)useBagItemForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex; // Used a bag item (with type)

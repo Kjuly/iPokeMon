@@ -218,6 +218,18 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
 }
 
+
+// Replace Pokemon
+- (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user {
+  if (user == kGameSystemProcessUserPlayer) {
+    [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
+    self.playerPokemon = pokemon;
+  }
+  else {
+    self.enemyPokemon = pokemon;
+  }
+}
+
 #pragma mark - Private Methods
 
 // Set transient status for pokemons
@@ -232,8 +244,12 @@ static GameSystemProcess * gameSystemProcess = nil;
 // 
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
   NSArray * stats;
-  if (user == kGameSystemProcessUserPlayer)     stats = self.playerPokemon.maxStats;
-  else if (user == kGameSystemProcessUserEnemy) stats = self.enemyPokemon.maxStats;
+  if (user == kGameSystemProcessUserPlayer)
+    stats = [self.playerPokemon.maxStats isKindOfClass:[NSArray class]] ?
+      self.playerPokemon.maxStats : [self.playerPokemon.maxStats componentsSeparatedByString:@","];
+  else if (user == kGameSystemProcessUserEnemy)
+    stats = [self.enemyPokemon.maxStats isKindOfClass:[NSArray class]] ?
+      self.enemyPokemon.maxStats : [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
   else return;
   enemyPokemonStatus_               = kPokemonStatusNormal;
   playerPokemonTransientAttack_     = [[stats objectAtIndex:1] intValue];
@@ -1338,15 +1354,15 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
   // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
   //   (0 means it cannot be caught by anything except a Master Ball).
-  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
-    return NO;
+//  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
+//    return NO;
   
   // Calculation for catching WildPokemon result,
   //   based on Pokemon |status|, |hp|, etc.
   BOOL succeed = NO;
-  if (arc4random() % 2 == 1) {
+//  if (arc4random() % 2 == 1) {
     succeed = YES;
-  }
+//  }
   [self caughtWildPokemonSucceed:succeed];
   
   return YES;
@@ -1555,6 +1571,9 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case kGameBattleEndEventTypePlayerRun:
+      notificationName = nil;
+//      // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
+//      [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
       break;
       
     case kGameBattleEndEventTypeWildPokemonRun:
@@ -1569,6 +1588,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
                                                       object:self
                                                     userInfo:nil];
+  
+  // Save data for current battle Pokemon to Server
+  [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
 }
 
 - (void)chooseNewPokemonToBattle {

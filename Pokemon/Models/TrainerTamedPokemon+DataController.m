@@ -66,18 +66,19 @@
       }
       
       // Set data
-      tamedPokemon.uid         = [tamedPokemonData valueForKey:@"uid"];
-      tamedPokemon.sid         = [tamedPokemonData valueForKey:@"sid"];
-      tamedPokemon.box         = [tamedPokemonData valueForKey:@"box"];
-      tamedPokemon.status      = [tamedPokemonData valueForKey:@"status"];
-      tamedPokemon.gender      = [tamedPokemonData valueForKey:@"gender"];
-      tamedPokemon.happiness   = [tamedPokemonData valueForKey:@"happiness"];
-      tamedPokemon.level       = [tamedPokemonData valueForKey:@"level"];
+      tamedPokemon.uid         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"uid"] intValue]];
+      tamedPokemon.sid         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"sid"] intValue]];
+      tamedPokemon.box         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"box"] intValue]];
+      tamedPokemon.status      = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"status"] intValue]];
+      tamedPokemon.gender      = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"gender"] intValue]];
+      tamedPokemon.happiness   = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"happiness"] intValue]];
+      tamedPokemon.level       = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"level"] intValue]];
       tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
       tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
-      tamedPokemon.hp          = [tamedPokemonData valueForKey:@"hp"];
-      tamedPokemon.exp         = [tamedPokemonData valueForKey:@"exp"];
-      tamedPokemon.toNextLevel = [tamedPokemonData valueForKey:@"toNextLevel"];
+      NSLog(@"~~~~~~~~~~~~~[tamedPokemonData valueForKey:@'masStats':%@", [tamedPokemonData valueForKey:@"maxStats"]);
+      tamedPokemon.hp          = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"hp"] intValue]];
+      tamedPokemon.exp         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"exp"] intValue]];
+      tamedPokemon.toNextLevel = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"toNextLevel"] intValue]];
       tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
     }
     
@@ -104,6 +105,13 @@
   if (! (flag & kDataModifyTamedPokemon))
     return;
   
+  NSLog(@"......|%@| - SVEING DATA......", [self class]);
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
+  
   TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID trainerUID:userID];
   [pokemon syncWithFlag:flag];
 }
@@ -128,7 +136,9 @@
     [data setValue:self.happiness   forKey:@"happiness"];
     [data setValue:self.level       forKey:@"level"];
     [data setValue:self.fourMoves   forKey:@"fourMoves"];
-    [data setValue:self.maxStats    forKey:@"maxStats"];
+    [data setValue:[self.maxStats isKindOfClass:[NSString class]] ?
+      self.maxStats : [[self.maxStats valueForKey:@"description"] componentsJoinedByString:@","]
+            forKey:@"maxStats"];
     [data setValue:self.hp          forKey:@"hp"];
     [data setValue:self.exp         forKey:@"exp"];
     [data setValue:self.toNextLevel forKey:@"toNextLevel"];
@@ -215,8 +225,8 @@
 }
 
 // Get one Pokemon that trainer brought
-+(TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
-                                     trainerUID:(NSInteger)trainerUID {
++ (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
+                                      trainerUID:(NSInteger)trainerUID {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
@@ -247,6 +257,7 @@
                                                inManagedObjectContext:managedObjectContext];
   
   // Set data
+  NSLog(@"New TamedPokemon UID:%d", [self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1);
   tamedPokemon.uid         = [NSNumber numberWithInt:([self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1)];
   tamedPokemon.sid         = wildPokemon.sid;
   tamedPokemon.box         = [NSNumber numberWithInt:box];
@@ -255,7 +266,8 @@
   tamedPokemon.happiness   = wildPokemon.pokemon.happiness;
   tamedPokemon.level       = wildPokemon.level;
   tamedPokemon.fourMoves   = wildPokemon.fourMoves;
-  tamedPokemon.maxStats    = wildPokemon.maxStats;
+  tamedPokemon.maxStats    = [wildPokemon.maxStats isKindOfClass:[NSString class]] ?
+    wildPokemon.maxStats : [[wildPokemon.maxStats valueForKey:@"description"] componentsJoinedByString:@","];
   tamedPokemon.hp          = wildPokemon.hp;
   tamedPokemon.exp         = wildPokemon.exp;
   tamedPokemon.toNextLevel = wildPokemon.toNextLevel;

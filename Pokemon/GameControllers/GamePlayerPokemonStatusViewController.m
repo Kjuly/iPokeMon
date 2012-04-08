@@ -135,7 +135,7 @@
                                 ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];
   NSInteger hp    = [playerPokemon.hp intValue];
-  NSInteger hpMax = [[playerPokemon.maxStats objectAtIndex:0] intValue];
+  NSInteger hpMax = [[[playerPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
   [self.pokemonHPBar updateHPBarWithHP:hp HPMax:hpMax];
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", hp, hpMax]];
   //

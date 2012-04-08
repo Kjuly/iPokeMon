@@ -378,15 +378,15 @@
   //
   if (self.currBattlePokemon != 1) {
     if (self.currBattlePokemon != 0) {
-      GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView
-      = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+      GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView =
+        (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
       [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
       previousBattlePokemonUnitView = nil;
     }
     
     self.currBattlePokemon = 1;
-    GameMenuSixPokemonsUnitView * firstPokemonUnitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
+    GameMenuSixPokemonsUnitView * firstPokemonUnitView =
+      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
     [firstPokemonUnitView setAsCurrentBattleOne:YES];
     firstPokemonUnitView = nil;
   }
@@ -395,7 +395,6 @@
 #pragma mark - Private Methods
 
 - (void)cancel:(id)sender {
-  NSLog(@"~~~~~~~");
   if (self.isSelectedPokemonInfoViewOpening)
     [self unloadSelcetedPokemonInfoView];
   else
