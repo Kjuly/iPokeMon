@@ -615,7 +615,7 @@ typedef enum {
 
 // Try to throw a Pokeball to cathch WildPokemon
 - (void)throwPokeballToCatchPokemon {
-  NSLog(@"~~~~~~~~~~~~~~|%@| - |throwPokeballToCatchPokemon|", [self class]);
+  NSLog(@"|%@| - |throwPokeballToCatchPokemon|", [self class]);
   
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];

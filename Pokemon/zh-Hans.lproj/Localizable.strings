@@ -75,6 +75,10 @@
 "PMSMessageCatchPokemonXXXSucceed" = "你成功抓到了";
 "PMSMessageWhatWillXXXDoPart1" = "";
 "PMSMessageWhatWillXXXDoPart3" = "要做什么？";
+"PMSMessagePokemonFaint"       = "失去战斗力了";
+"PMSMessageChooseNewPokemon"   = "选择口袋妖怪...";
+"PMSMessagePlayerWin"          = "你赢了!";
+"PMSMessagePlayerLose"         = "你输了...";
 
 /*
  * Memo for Pokemon

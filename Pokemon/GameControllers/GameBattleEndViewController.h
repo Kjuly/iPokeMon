@@ -16,6 +16,6 @@ typedef enum {
 
 @interface GameBattleEndViewController : UIViewController
 
-- (void)loadViewWithEventType:(GameBattleEndEventType)eventType animated:(BOOL)animated;
+- (void)loadViewWithEventType:(GameBattleEndEventType)eventType animated:(BOOL)animated afterDelay:(NSTimeInterval)delay;
 
 @end

@@ -189,7 +189,7 @@
   // Replace the previous scene before show the battle scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
   // Prepare data for new scene
-  [[GameSystemProcess sharedInstance] prepareForNewScene];
+  [[GameSystemProcess sharedInstance] prepareForNewSceneBattleBetweenTrainers:NO];
   [self.gameMenuViewController        prepareForNewScene];
   
   [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
@@ -206,12 +206,32 @@
 
 // End game battle with Player Win Event
 - (void)endGameBattleWithPlayerWin:(NSNotification *)notification {
-  
+  if (self.gameBattleEndViewController == nil) {
+    GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
+    self.gameBattleEndViewController = gameBattleEndViewController;
+    [gameBattleEndViewController release];
+  }
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+  NSTimeInterval delay = 1.5f;
+  [self.gameBattleEndViewController loadViewWithEventType:kGameBattleEndEventTypePlayerWin
+                                                 animated:YES
+                                               afterDelay:delay];
+  [self performSelector:@selector(unloadBattleScene) withObject:nil afterDelay:delay];
 }
 
 // End game battle with Player Lose Event
 - (void)endGameBattleWithPlayerLose:(NSNotification *)notification {
-  
+  if (self.gameBattleEndViewController == nil) {
+    GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
+    self.gameBattleEndViewController = gameBattleEndViewController;
+    [gameBattleEndViewController release];
+  }
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+  NSTimeInterval delay = 1.5f;
+  [self.gameBattleEndViewController loadViewWithEventType:kGameBattleEndEventTypePlayerLose
+                                                 animated:YES
+                                               afterDelay:delay];
+  [self performSelector:@selector(unloadBattleScene) withObject:nil afterDelay:delay];
 }
 
 // End game battle with Caught WildPokemon Event
@@ -222,8 +242,11 @@
     [gameBattleEndViewController release];
   }
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
-  [self.gameBattleEndViewController loadViewWithEventType:kGameBattleEndEventTypeCaughtWildPokemon animated:YES];
-  [self unloadBattleScene];
+  NSTimeInterval delay = 1.5f;
+  [self.gameBattleEndViewController loadViewWithEventType:kGameBattleEndEventTypeCaughtWildPokemon
+                                                 animated:YES
+                                               afterDelay:delay];
+  [self performSelector:@selector(unloadBattleScene) withObject:nil afterDelay:delay];
 }
 
 @end

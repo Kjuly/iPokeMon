@@ -24,6 +24,10 @@ typedef enum {
   kGameSystemProcessTypeCathingWildPokemon,        // Cathing WildPokemon
   kGameSystemProcessTypeCathingWildPokemonSucceed, // Cathing WildPokemon Succeed
   kGameSystemProcessTypeCathingWildPokemonFailed,  // Cathing WildPokemon Failed
+  kGameSystemProcessTypePlayerPokemonFaint,        // Player Pokemon FAINT
+  kGameSystemProcessTypeEnemyPokemonFaint,         // Enemy Pokemon FAINT
+  kGameSystemProcessTypePlayerWin,                 // Player WIN
+  kGameSystemProcessTypePlayerLose,                // Player LOSE
   kGameSystemProcessTypeRun,                       // Run
   kGameSystemProcessTypeBattleEnd                  // Battle END
 }GameSystemProcessType;
@@ -65,9 +69,11 @@ typedef enum {
   NSInteger     enemyPokemonTransientAccuracy_;
   NSInteger     enemyPokemonTransientEvasion_;
   
+  BOOL                  isBattleBetweenTrainers_;
   GameSystemProcessType processType_;          // What action process the system to deal with
   GameSystemProcessUser user_;                 // Action (use move, bag item, etc) user
   NSInteger             moveIndex_;            // If the action is using move, it's used
+  MoveRealTarget        moveRealTarget_;       // Move real target
   BagQueryTargetType    targetType_;           // For bag item's 8 different types
   NSInteger             selectedPokemonIndex_; // The Pokemon bag item used for
   NSInteger             itemIndex_;            // Bag item index
@@ -93,6 +99,7 @@ typedef enum {
 //- (void)MoveTargetUserPartner;
 //- (void)MoveTargetPlayerChoiceOfUserOrUserPartner;
 //- (void)MoveTargetSinglePokemonOnOpponentSide;
+- (void)checkPokemonFaintOrNot;
 - (void)useBagItem;
 - (void)replacePokemon;
 - (void)catchingWildPokemon;
@@ -100,6 +107,10 @@ typedef enum {
 - (void)caughtWildPokemonSucceed:(BOOL)succeed;
 - (void)run;
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
+
+- (void)chooseNewPokemonToBattle;
+- (void)playerWin;
+- (void)playerLose;
 
 @end
 
@@ -141,8 +152,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   return self;
 }
 
-- (void)prepareForNewScene
+- (void)prepareForNewSceneBattleBetweenTrainers:(BOOL)battleBetweenTrainers
 {
+  isBattleBetweenTrainers_ = battleBetweenTrainers;
   // Reset HP for enemy pokemon
   NSArray * stats = self.enemyPokemon.maxStats;
   NSInteger currHP = [[stats objectAtIndex:0] intValue];
@@ -184,6 +196,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       case kGameSystemProcessTypeBattleEnd:
         break;
         
+      case kGameSystemProcessTypeNone:
       default:
         break;
     }
@@ -191,7 +204,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 - (void)endTurn {
-  complete_ = YES;
+  if (processType_ != kGameSystemProcessTypeBattleEnd)
+    complete_ = YES;
 }
 
 - (void)reset {
@@ -264,7 +278,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   [messageInfo release];
   
   move = nil;
-  [self endTurn];
+//  [self endTurn];
+  processType_ = kGameSystemProcessTypeNone;
 }
 
 /*
@@ -391,51 +406,51 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Real move target
   //  1vs1: 00-无, 01-对方, 10-自身, 11-双方
   //  2vs2: ...
-  MoveRealTarget moveRealTarget; // Real move target
+  moveRealTarget_ = kMoveRealTargetNone; // Real move target
   
   switch ([move.target intValue]) {
     case kMoveTargetSinglePokemonOtherThanTheUser:
       // 0 - 选择: Single Pokemon other than the user
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetNone:
       // 1 - 最近: No target
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetOneOpposingPokemonSelectedAtRandom:
       // 2 - 随机: One opposing Pokemon selected at random
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetAllOpposingPokemon:
       // 4 - 二体: All opposing Pokemon
       // Only apply move to different gender pokemon
       if ([self.playerPokemon.gender intValue] ^ [self.enemyPokemon.gender intValue])
-        moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
+        moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       else
-        moveRealTarget = kMoveRealTargetNone;
+        moveRealTarget_ = kMoveRealTargetNone;
       break;
       
     case kMoveTargetAllPokemonOtherThanTheUser:
       // 8 - 全体: All Pokemon other than the user (All non-users)
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetUser:
       // 10 - 自身: User
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
       break;
       
     case kMoveTargetBothSides:
       // 20 - 全场: Both sides (e.g. Light Screen, Reflect, Heal Bell)
-      moveRealTarget = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
+      moveRealTarget_ = kMoveRealTargetEnemy | kMoveRealTargetPlayer;
       break;
       
     case kMoveTargetUserSide:
       // 40 - 己方: User's side
-      moveRealTarget = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
+      moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetPlayer : kMoveRealTargetEnemy;
       break;
       
     /*
@@ -457,7 +472,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;*/
     
     default:
-      moveRealTarget = kMoveRealTargetEnemy;
+      moveRealTarget_ = kMoveRealTargetEnemy;
       break;
   }
   
@@ -496,7 +511,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   float          randomValue        = arc4random() % 1000 / 10; // Random value for calculating % chance
   NSInteger      stage              = 1;                        // Used in "Raises Attack UP 1 Stage"
-  MoveRealTarget statusUpdateTarget = moveRealTarget;           // Target for updating pokemon status
+  MoveRealTarget statusUpdateTarget = moveRealTarget_;          // Target for updating pokemon status
   
   // Calculation based on the move effect code
   switch ([move.effectCode intValue]) {
@@ -537,7 +552,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x07: // Opponent's defense is halved during attack, user faints (e.g. Explosion)
-      if (moveRealTarget == kMoveRealTargetEnemy) {
+      if (moveRealTarget_ == kMoveRealTargetEnemy) {
         enemyPokemonTransientDefense_ /= 2;
         playerPokemonHP = 0;
       }
@@ -550,7 +565,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x08: // Absorbs half of damage inflicted, only works if opponent is sleeping (e.g. Dream Eater)
-      if (moveRealTarget == kMoveRealTargetEnemy) {
+      if (moveRealTarget_ == kMoveRealTargetEnemy) {
         if (enemyPokemonStatus_ & kPokemonStatusSleep) {
           enemyPokemonHP  -= moveDamage;
           playerPokemonHP += moveDamage / 2;
@@ -732,7 +747,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x26: // OHKO (One Hit Knock Out) (e.g. Fissure)
-      if (moveRealTarget == kMoveRealTargetEnemy) enemyPokemonHP  = 0;
+      if (moveRealTarget_ == kMoveRealTargetEnemy) enemyPokemonHP  = 0;
       else                                        playerPokemonHP = 0;
       // Values have been calculated
       valuesHaveBeenCalculated = YES;
@@ -747,7 +762,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case 0x28: // Deals set damage, leaves 1HP (e.g. Super Fang)
                // 敌HP减半，但不会减为0
-      if (moveRealTarget == kMoveRealTargetEnemy) {
+      if (moveRealTarget_ == kMoveRealTargetEnemy) {
         enemyPokemonHP /= 2;
         if (enemyPokemonHP <= 0) enemyPokemonHP = 1;
       }
@@ -852,7 +867,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       
     case 0x38: // User Recovers HP (Excluding rest HP = Max HP/2) (Examples: Recover, Rest)
                // 自身回复最大HP的1/2 (自我再生)
-      if (moveRealTarget == kMoveRealTargetEnemy) {
+      if (moveRealTarget_ == kMoveRealTargetEnemy) {
         NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
         enemyPokemonHP += enemyPokemonHPMax / 2;
         if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
@@ -1127,12 +1142,12 @@ static GameSystemProcess * gameSystemProcess = nil;
   // If |valueHasBeenCalculated == NO|, i.e. value need to be calculated next
   if (! valuesHaveBeenCalculated) {
     // Update values for player & enemy pokemon
-    if (moveRealTarget & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
+    if (moveRealTarget_ & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
       if (user_ == kGameSystemProcessUserPlayer)     updateValues(kMoveRealTargetEnemy);
       else                                           updateValues(kMoveRealTargetPlayer);
     }
-    else if (moveRealTarget & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
-    else if (moveRealTarget & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
+    else if (moveRealTarget_ & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
+    else if (moveRealTarget_ & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
   }
   
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
@@ -1148,6 +1163,9 @@ static GameSystemProcess * gameSystemProcess = nil;
                                 self.enemyPokemon.hp,                          @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
+  
+  // Checking Pokemon FAINT or not
+  [self performSelector:@selector(checkPokemonFaintOrNot) withObject:nil afterDelay:1.5f];
 }
 
 // Calculate the move damage
@@ -1167,6 +1185,54 @@ static GameSystemProcess * gameSystemProcess = nil;
           );
   
   return damage;
+}
+
+// Check Pokemon Faint or not
+- (void)checkPokemonFaintOrNot {
+  // Enemy Pokemon FAINT
+  if (moveRealTarget_ == kMoveRealTargetEnemy && [self.enemyPokemon.hp intValue] == 0) {
+    NSLog(@"// Enemy Pokemon FAINT......");
+    [self postMessageForProcessType:kGameSystemProcessTypeEnemyPokemonFaint withMessageInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnemyPokemonFaint
+                                                        object:self
+                                                      userInfo:nil];
+    // If the battle is between trainers
+    // !!!TODO:
+    //  Let enemy Trainer to choose new Pokemon
+    if (isBattleBetweenTrainers_) {
+    }
+    // Else, is Wild Pokemon, END Game Battle with Player WIN event
+    // Post notification to |GameMainViewController|
+    else {
+      NSLog(@"WildPokemon FAINT, END Game...");
+      processType_ = kGameSystemProcessTypeBattleEnd;
+      [self performSelector:@selector(playerWin) withObject:nil afterDelay:2.f];
+    }
+  }
+  // Player Pokemon FAINT
+  else if (moveRealTarget_ == kMoveRealTargetPlayer && [self.playerPokemon.hp intValue] == 0) {
+    NSLog(@"// Player Pokemon FAINT......");
+    [self postMessageForProcessType:kGameSystemProcessTypePlayerPokemonFaint withMessageInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPlayerPokemonFaint
+                                                        object:self
+                                                      userInfo:nil];
+    // If there're still some Pokemons battle available,
+    //   show view of |GameMenuSixPokemonsViewController| to choose Pokemon
+    if ([[TrainerController sharedInstance] sixPokemonsBattleAvailable]) {
+      NSLog(@"sixPokemonsBattleAvailable... show view to choose new Pokemon");
+      [self performSelector:@selector(chooseNewPokemonToBattle) withObject:nil afterDelay:3.f];
+    }
+    // Else, END Game Battle with Player LOSE event
+    // Post notification to |GameMainViewController|
+    else {
+      NSLog(@"All Pokemons owned by Player FAINT, END Game...");
+      processType_ = kGameSystemProcessTypeBattleEnd;
+      [self performSelector:@selector(playerLose) withObject:nil afterDelay:2.f];
+    }
+  }
+  
+  // END Turn
+  [self endTurn];
 }
 
 // Use bag item
@@ -1270,15 +1336,15 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
   // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
   //   (0 means it cannot be caught by anything except a Master Ball).
-//  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
-//    return NO;
+  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
+    return NO;
   
   // Calculation for catching WildPokemon result,
   //   based on Pokemon |status|, |hp|, etc.
   BOOL succeed = NO;
-//  if (arc4random() % 2 == 1) {
+  if (arc4random() % 2 == 1) {
     succeed = YES;
-//  }
+  }
   [self caughtWildPokemonSucceed:succeed];
   
   return YES;
@@ -1291,14 +1357,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // If caught Wild Pokemon succeed, end the battle
   if (succeed) {
-    processType_ = kGameSystemProcessTypeBattleEnd;
-    // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
-    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
-    
-    // Post notification to |GameMainViewController| to show WildPokemon Info View
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithCaughtWildPokemon
-                                                        object:self
-                                                      userInfo:nil];
+    // End Game Battle with Caught WildPokemon event
+    [self endBattleWithEventType:kGameBattleEndEventTypeCaughtWildPokemon];
     return;
   }
   else {
@@ -1389,6 +1449,31 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
     }
       
+    case kGameSystemProcessTypeEnemyPokemonFaint:
+      // Message: (<WildPokemonName> faint!)
+      message = [NSString stringWithFormat:@"%@ %@!",
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
+                 NSLocalizedString(@"PMSMessagePokemonFaint", nil), nil];
+      break;
+      
+    case kGameSystemProcessTypePlayerPokemonFaint:
+      // Message: (<PokemonName> faint!)
+      message = [NSString stringWithFormat:@"%@ %@!",
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
+                 NSLocalizedString(@"PMSMessagePokemonFaint", nil), nil];
+      
+      break;
+      
+    case kGameSystemProcessTypePlayerWin:
+      // Message: (You win!)
+      message = NSLocalizedString(@"PMSMessagePlayerWin", nil);
+      break;
+      
+    case kGameSystemProcessTypePlayerLose:
+      // Message: (You Lose...)
+      message = NSLocalizedString(@"PMSMessagePlayerLose", nil);
+      break;
+      
     case kGameSystemProcessTypeRun:
       break;
       
@@ -1442,6 +1527,54 @@ static GameSystemProcess * gameSystemProcess = nil;
 {
   processType_ = kGameSystemProcessTypeRun;
   user_        = user;
+}
+
+#pragma mark - END Game Battle
+
+- (void)endBattleWithEventType:(GameBattleEndEventType)eventType {
+  NSString * notificationName;
+  switch (eventType) {
+    case kGameBattleEndEventTypePlayerWin:
+      notificationName = kPMNGameBattleEndWithPlayerWin;
+      // Update message in |GameMenuViewController| to show Player WIN
+      [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
+      break;
+      
+    case kGameBattleEndEventTypePlayerLose:
+      notificationName = kPMNGameBattleEndWithPlayerLose;
+      // Update message in |GameMenuViewController| to show Player LOSE
+      [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
+      break;
+      
+    case kGameBattleEndEventTypeCaughtWildPokemon:
+      notificationName = kPMNGameBattleEndWithCaughtWildPokemon;
+      // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
+      [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+      break;
+      
+    default:
+      return;
+      break;
+  }
+  processType_ = kGameSystemProcessTypeBattleEnd;
+  // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
+  [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)chooseNewPokemonToBattle {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)playerWin {
+  [self endBattleWithEventType:kGameBattleEndEventTypePlayerWin];
+}
+
+- (void)playerLose {
+  [self endBattleWithEventType:kGameBattleEndEventTypePlayerLose];
 }
 
 @end

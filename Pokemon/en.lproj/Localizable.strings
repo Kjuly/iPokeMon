@@ -73,9 +73,13 @@
 "PMSMessageYouThrowedXXX"       = "You throwed";
 "PMSMessageCatchPokemonXXXFailed1"  = "Oh, no! The";
 "PMSMessageCatchPokemonXXXFailed3"  = "broke free!";
-"PMSMessageCatchPokemonXXXSucceed" = "Oh, you caught the";
+"PMSMessageCatchPokemonXXXSucceed"  = "Oh, you caught the";
 "PMSMessageWhatWillXXXDoPart1"  = "What will";
 "PMSMessageWhatWillXXXDoPart3"  = "do?";
+"PMSMessagePokemonFaint"        = "faint";
+"PMSMessageChooseNewPokemon"    = "Choose a Pokemon to battle.";
+"PMSMessagePlayerWin"           = "You win!";
+"PMSMessagePlayerLose"          = "You lose...";
 
 /*
  * Memo for Pokemon

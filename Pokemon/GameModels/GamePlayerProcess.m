@@ -62,11 +62,16 @@
 - (void)sendMessageToPlayer
 {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
-  NSString * message = [NSString stringWithFormat:@"%@ %@ %@",
-                        NSLocalizedString(@"PMSMessageWhatWillXXXDoPart1", nil),
-                        NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                            [playerPokemon.sid intValue]]), nil),
-                        NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
+  
+  NSString * message;
+  if ([playerPokemon.hp intValue] > 0)
+    message = [NSString stringWithFormat:@"%@ %@ %@",
+               NSLocalizedString(@"PMSMessageWhatWillXXXDoPart1", nil),
+               NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                   [playerPokemon.sid intValue]]), nil),
+               NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
+  else message = NSLocalizedString(@"PMSMessageChooseNewPokemon", nil);
+  
   
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self

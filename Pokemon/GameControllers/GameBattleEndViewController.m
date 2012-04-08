@@ -9,6 +9,7 @@
 #import "GameBattleEndViewController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalRender.h"
 #import "GameSystemProcess.h"
 #import "PokemonInfoViewController.h"
 #import "TrainerController.h"
@@ -20,12 +21,14 @@
   TrainerController      * trainer_;
   UIView                 * backgroundView_;
   UITapGestureRecognizer * tapGestureRecognizer_;
+  UILabel                * message_;
 }
 
 @property (nonatomic, assign) GameBattleEndEventType   eventType;
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UIView                 * backgroundView;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+@property (nonatomic, retain) UILabel                * message;
 
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
@@ -39,12 +42,15 @@
 @synthesize trainer              = trainer_;
 @synthesize backgroundView       = backgroundView_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
+@synthesize message              = message_;
 
 - (void)dealloc
 {
   [trainer_              release];
   [backgroundView_       release];
   [tapGestureRecognizer_ release];
+  
+  self.message = nil;
   
   [super dealloc];
 }
@@ -103,6 +109,7 @@
   
   self.backgroundView       = nil;
   self.tapGestureRecognizer = nil;
+  self.message              = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -114,17 +121,58 @@
 #pragma mark - Public Methods
 
 // Load view with Battle End Event Type
--(void)loadViewWithEventType:(GameBattleEndEventType)eventType animated:(BOOL)animated {
+-(void)loadViewWithEventType:(GameBattleEndEventType)eventType
+                    animated:(BOOL)animated
+                  afterDelay:(NSTimeInterval)delay{
   self.eventType = eventType;
   
   void (^animations)();
  
+  // Player WIN
   if (eventType == kGameBattleEndEventTypePlayerWin) {
+    if (self.message == nil) {
+      UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
+      self.message = message;
+      [message release];
+      [self.message setBackgroundColor:[UIColor clearColor]];
+      [self.message setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.message setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
+      [self.message setAlpha:0.f];
+    }
+    [self.message setText:NSLocalizedString(@"PMSMessagePlayerWin", nil)];
+    [self.backgroundView addSubview:self.message];
     
+    animations = ^(){
+      [self.backgroundView setAlpha:1.f];
+      [self.message setAlpha:1.f];
+      CGRect messageFrame = self.message.frame;
+      messageFrame.origin.y = 100.f;
+      [self.message setFrame:messageFrame];
+    };
   }
+  // Player LOSE
   else if (eventType == kGameBattleEndEventTypePlayerLose) {
+    if (self.message == nil) {
+      UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
+      self.message = message;
+      [message release];
+      [self.message setBackgroundColor:[UIColor clearColor]];
+      [self.message setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.message setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
+      [self.message setAlpha:0.f];
+    }
+    [self.message setText:NSLocalizedString(@"PMSMessagePlayerLose", nil)];
+    [self.backgroundView addSubview:self.message];
     
+    animations = ^(){
+      [self.backgroundView setAlpha:1.f];
+      [self.message setAlpha:1.f];
+      CGRect messageFrame = self.message.frame;
+      messageFrame.origin.y = 100.f;
+      [self.message setFrame:messageFrame];
+    };
   }
+  // Caught a Wild Pokemon
   else if (eventType == kGameBattleEndEventTypeCaughtWildPokemon) {
     WildPokemon * wildPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
     
@@ -140,15 +188,15 @@
     [pokemonInfoViewController release];
     pokemonData = nil;
     wildPokemon = nil;
+    
+    animations = ^(){
+      [self.backgroundView setAlpha:1.f];
+    };
   }
   else return;
   
-  
-  animations = ^(){
-    [self.backgroundView setAlpha:1.f];
-  };
   if (animated) [UIView animateWithDuration:.3f
-                                      delay:0.f
+                                      delay:delay
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:animations
                                  completion:nil];
@@ -161,6 +209,14 @@
 - (void)unloadViewAnimated:(BOOL)animated {
   void (^animations)() = ^(){
     [self.backgroundView setAlpha:0.f];
+    
+    // If |message_| is showing, unload it
+    if (self.message != nil && self.message.alpha == 1.f) {
+      [self.message setAlpha:0.f];
+      CGRect messageFrame = self.message.frame;
+      messageFrame.origin.y = 100.f;
+      [self.message setFrame:messageFrame];
+    }
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
     [self.view removeFromSuperview];
@@ -179,10 +235,10 @@
 // Tap gesture action
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
   if (self.eventType == kGameBattleEndEventTypePlayerWin) {
-    
+    [self unloadViewAnimated:YES];
   }
   else if (self.eventType == kGameBattleEndEventTypePlayerLose) {
-    
+    [self unloadViewAnimated:YES];
   }
   else if (self.eventType == kGameBattleEndEventTypeCaughtWildPokemon) {
     [self unloadViewAnimated:YES];

@@ -177,6 +177,17 @@ static TrainerController * trainerController_ = nil;
   return [self.entitySixPokemons objectAtIndex:--index];
 }
 
+// Check whether Pokemons in Six can battle
+- (BOOL)sixPokemonsBattleAvailable {
+  BOOL available = NO;
+  for (TrainerTamedPokemon *pokemon in self.entitySixPokemons)
+    if ([pokemon.hp intValue] > 0) {
+      available = YES;
+      break;
+    }
+  return available;
+}
+
 // Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
   id bagItems = nil;

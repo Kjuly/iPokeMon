@@ -41,6 +41,8 @@
 - (void)replacePlayerPokemon:(NSNotification *)notification;
 - (void)getWildPokemonIntoPokeball:(NSNotification *)notification;
 - (void)getWildPokemonOutOfPokeball:(NSNotification *)notification;
+- (void)playerPokemonFaint:(NSNotification *)notification;
+- (void)enemyPokemonFaint:(NSNotification *)notification;
 - (void)loadNewPokemon;
 
 @end
@@ -84,6 +86,8 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNReplacePlayerPokemon object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballGetWildPokemon object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPlayerPokemonFaint object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnemyPokemonFaint object:nil];
   [super dealloc];
 }
 
@@ -113,6 +117,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(getWildPokemonOutOfPokeball:)
                                                  name:kPMNPokeballLossWildPokemon
+                                               object:nil];
+    // Notifications from |GameSystemProcess| - |calculateEffectForMove|
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerPokemonFaint:)
+                                                 name:kPMNPlayerPokemonFaint
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(enemyPokemonFaint:)
+                                                 name:kPMNEnemyPokemonFaint
                                                object:nil];
     
     // check whether a selector is scheduled. schedules the "update" method.
@@ -279,6 +292,18 @@
 - (void)getWildPokemonOutOfPokeball:(NSNotification *)notification {
   NSLog(@"|%@| - |getWildPokemonOutOfPokeball:|", [self class]);
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
+}
+
+// Player's Pokemon FAINT
+- (void)playerPokemonFaint:(NSNotification *)notification {
+  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:.3f position:ccp(70, 200)]];
+  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
+}
+
+// Enemy's Pokemon (or WildPokemon) FAINT
+- (void)enemyPokemonFaint:(NSNotification *)notification {
+  [self.enemyPokemonSprite runAction:[CCMoveTo actionWithDuration:.3f position:ccp(250, 300)]];
+  [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
 }
 
 // Load new pokemon

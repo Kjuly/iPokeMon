@@ -41,6 +41,8 @@ NSString * const kPMNUpdateGameBattleMessage   = @"PMNUpdateGameBattleMessage";
 NSString * const kPMNUpdatePokemonStatus       = @"PMNUpdatePokemonStatus";
 NSString * const kPMNShowPokemonStatus         = @"PMNShowPokemonStatus";
 NSString * const kPMNToggleTopCancelButton     = @"PMNToggleTopCancelButton";
+NSString * const kPMNPlayerPokemonFaint        = @"PMNPlayerPokemonFaint"; // Player Pokemon FAINT
+NSString * const kPMNEnemyPokemonFaint         = @"PMNEnemyPokemonFaint";  // Enemy Pokemon FAINT
 
 // Game Battle END
 NSString * const kPMNGameBattleEndWithPlayerWin         = @"PMNGameBattleEndWithPlayerWin";         // Player WIN
