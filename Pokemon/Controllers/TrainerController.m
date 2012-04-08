@@ -246,7 +246,8 @@ static TrainerController * trainerController_ = nil;
   [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
   
   // Refetch Pokemons for |sixPokemons|
-  [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID]];
+  [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID
+                                                                      trainerUID:self.userID]];
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
 }
 

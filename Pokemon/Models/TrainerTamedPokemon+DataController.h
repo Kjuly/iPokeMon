@@ -22,9 +22,9 @@
                   flag:(DataModifyFlag)flag; // Sync data between Client & Server
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
-+ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit;
++ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID trainerUID:(NSInteger)trainerUID fetchLimit:(NSInteger)fetchLimit;
 + (NSInteger)numberOfTamedPokemonsWithTraienrUID:(NSInteger)trainerUID;
-+ (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID;
++ (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID trainerUID:(NSInteger)trainerUID;
 + (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
                          withMemo:(NSString *)memo
                             toBox:(NSInteger)box

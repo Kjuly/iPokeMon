@@ -210,7 +210,9 @@
 - (NSArray *)sixPokemons
 {
   NSArray * sixPokemonsUID = [self.sixPokemonsID componentsSeparatedByString:@","];
-  NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithUID:sixPokemonsUID fetchLimit:6];
+  NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithUID:sixPokemonsUID
+                                                         trainerUID:[self.uid intValue]
+                                                         fetchLimit:6];
   
   // Sort six pokemons in order
   NSMutableArray * sixPokemonsInOrder = [NSMutableArray arrayWithCapacity:[sixPokemonsUID count]];

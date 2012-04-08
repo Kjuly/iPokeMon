@@ -104,7 +104,7 @@
   if (! (flag & kDataModifyTamedPokemon))
     return;
   
-  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID];
+  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID trainerUID:userID];
   NSMutableDictionary * data    = [[NSMutableDictionary alloc] init];
   
   if (flag & kDataModifyTamedPokemonNew) {
@@ -170,7 +170,9 @@
 }
 
 // Get pokemons that in pokemons ID array
-+ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit
++ (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID
+                       trainerUID:(NSInteger)trainerUID
+                       fetchLimit:(NSInteger)fetchLimit
 {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -178,7 +180,7 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsUID]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"owner.uid == %d AND uid IN %@", trainerUID, pokemonsUID]];
   [fetchRequest setFetchLimit:fetchLimit];
   
   NSError * error;
@@ -206,14 +208,14 @@
 
 // Get one Pokemon that trainer brought
 +(TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
-{
+                                     trainerUID:(NSInteger)trainerUID {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"uid == %d", pokemonUID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"owner.uid == %d AND uid == %d", trainerUID, pokemonUID];
   [fetchRequest setPredicate:predicate];
   //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];
