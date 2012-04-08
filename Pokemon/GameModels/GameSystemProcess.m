@@ -1247,7 +1247,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Catching Wild Pokemon
 - (void)catchingWildPokemon {
-  NSLog(@"~~~~~~~~~|%@| - |catchingWildPokemon|", [self class]);
+  NSLog(@"|%@| - |catchingWildPokemon|", [self class]);
   // Only 3 times for checking catching succeed or not
   if (++catchingWildPokemonTimeCounter_ > 3) {
     [self caughtWildPokemonSucceed:NO];
@@ -1267,18 +1267,18 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Return YES if caught Wild Pokemon succeed or failed.
 - (BOOL)hasDoneForCatchingWildPokemonResult {
-  NSLog(@"~~~~~~~~~|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
+  NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
   // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
   //   (0 means it cannot be caught by anything except a Master Ball).
-  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
-    return NO;
+//  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
+//    return NO;
   
   // Calculation for catching WildPokemon result,
   //   based on Pokemon |status|, |hp|, etc.
   BOOL succeed = NO;
-  if (arc4random() % 2 == 1) {
+//  if (arc4random() % 2 == 1) {
     succeed = YES;
-  }
+//  }
   [self caughtWildPokemonSucceed:succeed];
   
   return YES;
@@ -1286,7 +1286,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Caught Wild Pokemon succeed or not
 - (void)caughtWildPokemonSucceed:(BOOL)succeed {
-  NSLog(@"~~~~~~~~~|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
+  NSLog(@"|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
   catchingWildPokemonTimeCounter_ = 0;
   
   // If caught Wild Pokemon succeed, end the battle
@@ -1294,6 +1294,11 @@ static GameSystemProcess * gameSystemProcess = nil;
     processType_ = kGameSystemProcessTypeBattleEnd;
     // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
     [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+    
+    // Post notification to |GameMainViewController| to show WildPokemon Info View
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithCaughtWildPokemon
+                                                        object:self
+                                                      userInfo:nil];
     return;
   }
   else {

@@ -42,6 +42,11 @@ NSString * const kPMNUpdatePokemonStatus       = @"PMNUpdatePokemonStatus";
 NSString * const kPMNShowPokemonStatus         = @"PMNShowPokemonStatus";
 NSString * const kPMNToggleTopCancelButton     = @"PMNToggleTopCancelButton";
 
+// Game Battle END
+NSString * const kPMNGameBattleEndWithPlayerWin         = @"PMNGameBattleEndWithPlayerWin";         // Player WIN
+NSString * const kPMNGameBattleEndWithPlayerLose        = @"PMNGameBattleEndWithPlayerLose";        // Player LOSE
+NSString * const kPMNGameBattleEndWithCaughtWildPokemon = @"PMNGameBattleEndWithCaughtWildPokemon"; // Caught WildPokemon
+
 @implementation GlobalNotificationConstants
 
 @end

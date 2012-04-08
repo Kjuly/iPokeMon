@@ -41,6 +41,10 @@ extern NSString * const kPMNUpdatePokemonStatus;
 extern NSString * const kPMNShowPokemonStatus;
 extern NSString * const kPMNToggleTopCancelButton;
 
+extern NSString * const kPMNGameBattleEndWithPlayerWin;
+extern NSString * const kPMNGameBattleEndWithPlayerLose;
+extern NSString * const kPMNGameBattleEndWithCaughtWildPokemon;
+
 @interface GlobalNotificationConstants : NSObject
 
 @end

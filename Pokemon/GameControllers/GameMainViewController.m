@@ -15,6 +15,7 @@
 #import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
+#import "GameBattleEndViewController.h"
 
 #import "cocos2d.h"
 
@@ -22,23 +23,31 @@
 @interface GameMainViewController () {
  @private
   CenterMainButtonStatus previousCenterMainButtonStatus_;
+  GameBattleEndViewController * gameBattleEndViewController_;
 }
 
 @property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
+@property (nonatomic, retain) GameBattleEndViewController * gameBattleEndViewController;
 
 - (void)loadBattleScene:(NSNotification *)notification;
+- (void)endGameBattleWithPlayerWin:(NSNotification *)notification;
+- (void)endGameBattleWithPlayerLose:(NSNotification *)notification;
+- (void)endGameBattleWithCaughtWildPokemon:(NSNotification *)notification;
 
 @end
+
 
 @implementation GameMainViewController
 
 @synthesize gameMenuViewController         = gameMenuViewController_;
 
 @synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
+@synthesize gameBattleEndViewController    = gameBattleEndViewController_;
 
 - (void)dealloc
 {
   [gameMenuViewController_ release];
+  [gameBattleEndViewController_ release];
   
   [super dealloc];
 }
@@ -83,6 +92,21 @@
                                            selector:@selector(loadBattleScene:)
                                                name:kPMNBattleStart
                                              object:nil];
+  // Notification from ||
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(endGameBattleWithPlayerWin:)
+                                               name:kPMNGameBattleEndWithPlayerWin
+                                             object:nil];
+  // Notification from ||
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(endGameBattleWithPlayerLose:)
+                                               name:kPMNGameBattleEndWithPlayerLose
+                                             object:nil];
+  // Notification from |GameSystemProcess| when caught a Wild Pokemon
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(endGameBattleWithCaughtWildPokemon:)
+                                               name:kPMNGameBattleEndWithCaughtWildPokemon
+                                             object:nil];
   
   // Cocos2D Part
   EAGLView * glView = [EAGLView viewWithFrame:self.view.bounds
@@ -111,6 +135,7 @@
   [super viewDidUnload];
   
   self.gameMenuViewController = nil;
+  self.gameBattleEndViewController = nil;
 
   // Remove Notification Observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];
@@ -177,6 +202,28 @@
                    completion:^(BOOL finished) {
                      [[CCDirector sharedDirector] resume];
                    }];
+}
+
+// End game battle with Player Win Event
+- (void)endGameBattleWithPlayerWin:(NSNotification *)notification {
+  
+}
+
+// End game battle with Player Lose Event
+- (void)endGameBattleWithPlayerLose:(NSNotification *)notification {
+  
+}
+
+// End game battle with Caught WildPokemon Event
+- (void)endGameBattleWithCaughtWildPokemon:(NSNotification *)notification {
+  if (self.gameBattleEndViewController == nil) {
+    GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
+    self.gameBattleEndViewController = gameBattleEndViewController;
+    [gameBattleEndViewController release];
+  }
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+  [self.gameBattleEndViewController loadViewWithEventType:kGameBattleEndEventTypeCaughtWildPokemon animated:YES];
+  [self unloadBattleScene];
 }
 
 @end
