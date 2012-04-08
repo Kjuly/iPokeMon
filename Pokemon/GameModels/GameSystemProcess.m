@@ -69,6 +69,7 @@ typedef enum {
   NSInteger     enemyPokemonTransientAccuracy_;
   NSInteger     enemyPokemonTransientEvasion_;
   
+  TrainerController   * trainer_;
   BOOL                  isBattleBetweenTrainers_;
   GameSystemProcessType processType_;          // What action process the system to deal with
   GameSystemProcessUser user_;                 // Action (use move, bag item, etc) user
@@ -142,6 +143,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (self = [super init]) {
     [self reset];
     
+    trainer_              = [TrainerController sharedInstance];
     processType_          = kGameSystemProcessTypeNone;
     user_                 = kGameSystemProcessUserNone;
     moveIndex_            = 0;
@@ -1550,6 +1552,12 @@ static GameSystemProcess * gameSystemProcess = nil;
       notificationName = kPMNGameBattleEndWithCaughtWildPokemon;
       // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
       [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+      break;
+      
+    case kGameBattleEndEventTypePlayerRun:
+      break;
+      
+    case kGameBattleEndEventTypeWildPokemonRun:
       break;
       
     default:

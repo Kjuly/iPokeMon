@@ -97,7 +97,7 @@
   [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:success failure:failure];
 }
 
-// Sync data between Client & Server
+// CM: Sync data between Client & Server
 + (void)syncWithUserID:(NSInteger)userID
             pokemonUID:(NSInteger)pokemonUID
                   flag:(DataModifyFlag)flag {
@@ -105,27 +105,37 @@
     return;
   
   TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID trainerUID:userID];
-  NSMutableDictionary * data    = [[NSMutableDictionary alloc] init];
+  [pokemon syncWithFlag:flag];
+}
+
+// IM: Sync data between Client & Server
+- (void)syncWithFlag:(DataModifyFlag)flag {
+  if (! (flag & kDataModifyTamedPokemon))
+    return;
+  
+  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+  
+  // UID
+  [data setValue:self.uid           forKey:@"uid"];
   
   if (flag & kDataModifyTamedPokemonNew) {
-    [data setValue:pokemon.uid         forKey:@"uid"];
-    [data setValue:pokemon.sid         forKey:@"sid"];
-    [data setValue:pokemon.gender      forKey:@"gender"];
+    [data setValue:self.sid         forKey:@"sid"];
+    [data setValue:self.gender      forKey:@"gender"];
   }
   
   if (flag & kDataModifyTamedPokemonBasic) {
-    [data setValue:pokemon.status      forKey:@"status"];
-    [data setValue:pokemon.happiness   forKey:@"happiness"];
-    [data setValue:pokemon.level       forKey:@"level"];
-    [data setValue:pokemon.fourMoves   forKey:@"fourMoves"];
-    [data setValue:pokemon.maxStats    forKey:@"maxStats"];
-    [data setValue:pokemon.hp          forKey:@"hp"];
-    [data setValue:pokemon.exp         forKey:@"exp"];
-    [data setValue:pokemon.toNextLevel forKey:@"toNextLevel"];
+    [data setValue:self.status      forKey:@"status"];
+    [data setValue:self.happiness   forKey:@"happiness"];
+    [data setValue:self.level       forKey:@"level"];
+    [data setValue:self.fourMoves   forKey:@"fourMoves"];
+    [data setValue:self.maxStats    forKey:@"maxStats"];
+    [data setValue:self.hp          forKey:@"hp"];
+    [data setValue:self.exp         forKey:@"exp"];
+    [data setValue:self.toNextLevel forKey:@"toNextLevel"];
   }
   if (flag & kDataModifyTamedPokemonExtra) {
-    [data setValue:pokemon.box         forKey:@"box"];
-    [data setValue:pokemon.memo        forKey:@"memo"];
+    [data setValue:self.box         forKey:@"box"];
+    [data setValue:self.memo        forKey:@"memo"];
   }
   
   // Block: |success| & |failure|
@@ -157,8 +167,6 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-//  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"status == %@ AND owner.sid == %@",
-//                              [NSNumber numberWithInt:3], [NSNumber numberWithInt:trainerID]]];
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"owner.uid == %d", trainerID]];
   [fetchRequest setFetchLimit:6];
   
@@ -239,7 +247,7 @@
                                                inManagedObjectContext:managedObjectContext];
   
   // Set data
-  tamedPokemon.uid         = [NSNumber numberWithInt:[self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]]];
+  tamedPokemon.uid         = [NSNumber numberWithInt:([self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1)];
   tamedPokemon.sid         = wildPokemon.sid;
   tamedPokemon.box         = [NSNumber numberWithInt:box];
   tamedPokemon.status      = wildPokemon.status;
@@ -263,12 +271,10 @@
   tamedPokemon = nil;
   
   // Sync new Pokemon data to Server
-  [self syncWithUserID:[trainer.uid intValue]
-            pokemonUID:[wildPokemon.uid intValue]
-                  flag:kDataModifyTamedPokemon
-                      |kDataModifyTamedPokemonNew
-                      |kDataModifyTamedPokemonBasic
-                      |kDataModifyTamedPokemonExtra];
+  [tamedPokemon syncWithFlag:kDataModifyTamedPokemon
+                            |kDataModifyTamedPokemonNew
+                            |kDataModifyTamedPokemonBasic
+                            |kDataModifyTamedPokemonExtra];
 }
 
 #pragma mark - GET Base data

@@ -75,7 +75,7 @@
   if (settingBinaryTo1) result = result |  mask;
   else                  result = result & ~mask;
   
-  NSLog(@"~~~~~~~~~%@", [NSValue valueWithRange:scanRange]);
+  NSLog(@"|generateHexBySettingBainaryTo1:| - range:%@", [NSValue valueWithRange:scanRange]);
   return [self stringByReplacingCharactersInRange:scanRange
                                        withString:[NSString stringWithFormat:@"%x", result]];
 }

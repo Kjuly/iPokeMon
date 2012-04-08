@@ -19,7 +19,8 @@
 + (void)initWithUserID:(NSInteger)userID;
 + (void)syncWithUserID:(NSInteger)userID
             pokemonUID:(NSInteger)pokemonUID
-                  flag:(DataModifyFlag)flag; // Sync data between Client & Server
+                  flag:(DataModifyFlag)flag; // CM: Sync data between Client & Server
+- (void)syncWithFlag:(DataModifyFlag)flag;   // IM: ...
 
 + (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID;
 + (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID trainerUID:(NSInteger)trainerUID fetchLimit:(NSInteger)fetchLimit;

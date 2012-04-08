@@ -21,6 +21,7 @@
 
 // Sync data between Client & Server
 - (void)sync;
+- (void)addModifyFlag:(DataModifyFlag)flag;
 - (void)syncDoneWithFlag:(DataModifyFlag)flag;
 
 // Trainer's Data
@@ -31,6 +32,7 @@
 - (NSDate *)timeStarted;                                       // Adventured Time Started
 - (NSString *)pokedex;                                         // Pokedex
 - (NSInteger)numberOfPokemonsForPokedex;                       // Number of Pokemons for Pokedex
+- (NSInteger)numberOfTamedPokemons;                            // Number of tamed Pokemons (total) (include duplicate)
 - (NSArray *)sixPokemons;                                      // Six Pokemons
 - (NSInteger)numberOfSixPokemons;                              // Number of Six Pokemons
 - (NSURL *)avatarURL;                                          // Avatar URL (Gravatar)

@@ -11,7 +11,9 @@
 typedef enum {
   kGameBattleEndEventTypePlayerWin = 0,
   kGameBattleEndEventTypePlayerLose,
-  kGameBattleEndEventTypeCaughtWildPokemon
+  kGameBattleEndEventTypeCaughtWildPokemon,
+  kGameBattleEndEventTypePlayerRun,
+  kGameBattleEndEventTypeWildPokemonRun
 }GameBattleEndEventType;
 
 @interface GameBattleEndViewController : UIViewController

@@ -136,6 +136,11 @@ static TrainerController * trainerController_ = nil;
   }
 }
 
+// Add modify flag for |flag_|
+- (void)addModifyFlag:(DataModifyFlag)flag {
+  self.flag |= flag;
+}
+
 // Dispatch this method after Sync done
 // It can be dispatched in URL Request Callback method
 - (void)syncDoneWithFlag:(DataModifyFlag)flag {
@@ -159,6 +164,7 @@ static TrainerController * trainerController_ = nil;
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
 - (NSInteger)numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
+- (NSInteger)numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
 - (NSInteger) numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
 // Avatar URL, asynchronously downloads the image with the specified url request object
@@ -245,7 +251,8 @@ static TrainerController * trainerController_ = nil;
   // Update Pokedex
   [self updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|
-  if (box == 0) [self addPokemonToSixPokemonsWithPokemonUID:[wildPokemon.uid intValue]];
+  if (box == 0)
+    [self addPokemonToSixPokemonsWithPokemonUID:[self numberOfTamedPokemons]];
   
   // Save & sync data
   [self save];
