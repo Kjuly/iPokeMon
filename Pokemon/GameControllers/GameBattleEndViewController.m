@@ -11,18 +11,19 @@
 #import "GlobalConstants.h"
 #import "GameSystemProcess.h"
 #import "PokemonInfoViewController.h"
-#import "Pokemon+DataController.h"
-#import "WildPokemon.h"
+#import "TrainerController.h"
 
 
 @interface GameBattleEndViewController () {
  @private
   GameBattleEndEventType   eventType_;
+  TrainerController      * trainer_;
   UIView                 * backgroundView_;
   UITapGestureRecognizer * tapGestureRecognizer_;
 }
 
 @property (nonatomic, assign) GameBattleEndEventType   eventType;
+@property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UIView                 * backgroundView;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
@@ -35,11 +36,13 @@
 @implementation GameBattleEndViewController
 
 @synthesize eventType            = eventType_;
+@synthesize trainer              = trainer_;
 @synthesize backgroundView       = backgroundView_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc
 {
+  [trainer_              release];
   [backgroundView_       release];
   [tapGestureRecognizer_ release];
   
@@ -51,6 +54,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    self.trainer = [TrainerController sharedInstance];
   }
   return self;
 }
@@ -114,17 +118,30 @@
   self.eventType = eventType;
   
   void (^animations)();
-  
-  if (eventType == kGameBattleEndEventTypeCaughtWildPokemon) {
+ 
+  if (eventType == kGameBattleEndEventTypePlayerWin) {
+    
+  }
+  else if (eventType == kGameBattleEndEventTypePlayerLose) {
+    
+  }
+  else if (eventType == kGameBattleEndEventTypeCaughtWildPokemon) {
     WildPokemon * wildPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
+    
+    // Save WildPokemon to TraienrTamedPokemon groupd
+    [self.trainer caughtNewWildPokemon:wildPokemon memo:@""];
+    
+    // Load Pokemon info view
     Pokemon * pokemonData = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
     PokemonInfoViewController * pokemonInfoViewController =
       [[PokemonInfoViewController alloc] initWithPokemonDataDict:pokemonData];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     [self.backgroundView addSubview:pokemonInfoViewController.view];
     [pokemonInfoViewController release];
+    pokemonData = nil;
     wildPokemon = nil;
   }
+  else return;
   
   
   animations = ^(){
