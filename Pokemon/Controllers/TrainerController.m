@@ -229,7 +229,8 @@ static TrainerController * trainerController_ = nil;
     box = 1;
   }
   
-  [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon toBox:box withUserID:self.userID memo:memo];
+  // Add WildPokemon to TrainerTamedPokemon Group
+  [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon withMemo:memo toBox:box forTrainer:self.entityTrainer];
   // Update Pokedex
   [self updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|

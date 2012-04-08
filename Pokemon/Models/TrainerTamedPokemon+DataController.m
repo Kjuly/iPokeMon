@@ -101,10 +101,11 @@
 + (void)syncWithUserID:(NSInteger)userID
             pokemonUID:(NSInteger)pokemonUID
                   flag:(DataModifyFlag)flag {
-  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID];
-  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   if (! (flag & kDataModifyTamedPokemon))
     return;
+  
+  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID];
+  NSMutableDictionary * data    = [[NSMutableDictionary alloc] init];
   
   if (flag & kDataModifyTamedPokemonNew) {
     [data setValue:pokemon.uid         forKey:@"uid"];
@@ -210,9 +211,9 @@
 
 // Add new Tamed Pokemon with a Wild Pokemon
 + (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
+                         withMemo:(NSString *)memo
                             toBox:(NSInteger)box
-                       withUserID:(NSInteger)userID
-                             memo:(NSString *)memo {
+                       forTrainer:(Trainer *)trainer {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   TrainerTamedPokemon * tamedPokemon;
@@ -235,7 +236,7 @@
   tamedPokemon.memo        = memo;
   
   // Set relationships
-  tamedPokemon.owner   = [Trainer queryTrainerWithUserID:userID];
+  tamedPokemon.owner   = trainer;
   tamedPokemon.pokemon = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
   
   NSError * error;
@@ -244,7 +245,7 @@
   tamedPokemon = nil;
   
   // Sync new Pokemon data to Server
-  [self syncWithUserID:userID
+  [self syncWithUserID:[trainer.uid intValue]
             pokemonUID:[wildPokemon.uid intValue]
                   flag:kDataModifyTamedPokemon
                       |kDataModifyTamedPokemonNew

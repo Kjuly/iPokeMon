@@ -25,9 +25,9 @@
 + (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID fetchLimit:(NSInteger)fetchLimit;
 + (TrainerTamedPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID;
 + (void)addPokemonWithWildPokemon:(WildPokemon *)wildPokemon
+                         withMemo:(NSString *)memo
                             toBox:(NSInteger)box
-                       withUserID:(NSInteger)userID
-                             memo:(NSString *)memo;
+                       forTrainer:(Trainer *)trainer;
 
 // GET Base data
 - (Move *)moveWithIndex:(NSInteger)index;
