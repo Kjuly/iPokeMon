@@ -64,7 +64,6 @@
                     [NSNumber numberWithInt:0x0051],
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
-  self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
 }
 
 - (void)viewDidUnload
@@ -77,6 +76,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
+  [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
