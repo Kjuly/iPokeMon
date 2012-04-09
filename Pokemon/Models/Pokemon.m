@@ -2,12 +2,13 @@
 //  Pokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/27/12.
+//  Created by Kaijie Yu on 4/9/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import "Pokemon.h"
 #import "TrainerTamedPokemon.h"
+#import "WildPokemon.h"
 
 
 @implementation Pokemon

@@ -142,11 +142,7 @@
   [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
   
   // Stats data array
-  NSArray * maxStatsArray;
-  if ([pokemonData.maxStats isKindOfClass:[NSString class]])
-    maxStatsArray  = [pokemonData.maxStats  componentsSeparatedByString:@","];
-  else
-    maxStatsArray  = pokemonData.maxStats;
+  NSArray * maxStatsArray = [pokemonData.maxStats  componentsSeparatedByString:@","];
   NSInteger HPLeft  = [pokemonData.hp intValue];
   NSInteger HPTotal = [[maxStatsArray objectAtIndex:0] intValue];
   [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];

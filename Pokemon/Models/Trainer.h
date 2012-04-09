@@ -2,7 +2,7 @@
 //  Trainer.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 4/3/12.
+//  Created by Kaijie Yu on 4/9/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -15,15 +15,15 @@
 
 @property (nonatomic, retain) NSDate * adventureStarted;
 @property (nonatomic, retain) NSString * badges;
-@property (nonatomic, retain) id bagBattleItems;
-@property (nonatomic, retain) id bagBerries;
-@property (nonatomic, retain) id bagItems;
-@property (nonatomic, retain) id bagKeyItems;
-@property (nonatomic, retain) id bagMedicineHP;
-@property (nonatomic, retain) id bagMedicinePP;
-@property (nonatomic, retain) id bagMedicineStatus;
-@property (nonatomic, retain) id bagPokeballs;
-@property (nonatomic, retain) id bagTMsHMs;
+@property (nonatomic, retain) NSString * bagBattleItems;
+@property (nonatomic, retain) NSString * bagBerries;
+@property (nonatomic, retain) NSString * bagItems;
+@property (nonatomic, retain) NSString * bagKeyItems;
+@property (nonatomic, retain) NSString * bagMedicineHP;
+@property (nonatomic, retain) NSString * bagMedicinePP;
+@property (nonatomic, retain) NSString * bagMedicineStatus;
+@property (nonatomic, retain) NSString * bagPokeballs;
+@property (nonatomic, retain) NSString * bagTMsHMs;
 @property (nonatomic, retain) NSNumber * money;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * pokedex;

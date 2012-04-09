@@ -71,7 +71,7 @@
                             [enemyPokemon.gender intValue] ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [pokemonLevel_ setText:[NSString stringWithFormat:@"Lv.%d", [enemyPokemon.level intValue]]];
   [self.pokemonHPBar updateHPBarWithHP:[enemyPokemon.hp intValue]
-                                 HPMax:[[enemyPokemon.maxStats objectAtIndex:0] intValue]];
+                                 HPMax:[[[enemyPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
 }
 
 @end

@@ -11,5 +11,8 @@
 @interface ImageToDataTransformer : NSValueTransformer
 @end
 
+@interface StringToDataTransformer : NSValueTransformer
+@end
+
 @interface ArrayToStringTransformer : NSValueTransformer
 @end

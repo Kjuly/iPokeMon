@@ -158,7 +158,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 {
   isBattleBetweenTrainers_ = battleBetweenTrainers;
   // Reset HP for enemy pokemon
-  NSArray * stats = self.enemyPokemon.maxStats;
+  NSArray * stats = [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
   NSInteger currHP = [[stats objectAtIndex:0] intValue];
   self.enemyPokemon.hp = [NSNumber numberWithInt:currHP];
   stats = nil;
@@ -245,11 +245,9 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
   NSArray * stats;
   if (user == kGameSystemProcessUserPlayer)
-    stats = [self.playerPokemon.maxStats isKindOfClass:[NSArray class]] ?
-      self.playerPokemon.maxStats : [self.playerPokemon.maxStats componentsSeparatedByString:@","];
+    stats = [self.playerPokemon.maxStats componentsSeparatedByString:@","];
   else if (user == kGameSystemProcessUserEnemy)
-    stats = [self.enemyPokemon.maxStats isKindOfClass:[NSArray class]] ?
-      self.enemyPokemon.maxStats : [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
+    stats = [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
   else return;
   enemyPokemonStatus_               = kPokemonStatusNormal;
   playerPokemonTransientAttack_     = [[stats objectAtIndex:1] intValue];
@@ -886,12 +884,12 @@ static GameSystemProcess * gameSystemProcess = nil;
     case 0x38: // User Recovers HP (Excluding rest HP = Max HP/2) (Examples: Recover, Rest)
                // 自身回复最大HP的1/2 (自我再生)
       if (moveRealTarget_ == kMoveRealTargetEnemy) {
-        NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
+        NSInteger enemyPokemonHPMax = [[[self.enemyPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
         enemyPokemonHP += enemyPokemonHPMax / 2;
         if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
       }
       else {
-        NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
+        NSInteger playerPokemonHPMax = [[[self.playerPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
         playerPokemonHP += playerPokemonHPMax / 2;
         if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
       }
@@ -1151,9 +1149,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Fix HP value to make sure it is in range of [0, max]
     if (playerPokemonHP < 0) playerPokemonHP = 0;
     if (enemyPokemonHP  < 0) enemyPokemonHP  = 0;
-    NSInteger playerPokemonHPMax = [[self.playerPokemon.maxStats objectAtIndex:0] intValue];
+    NSInteger playerPokemonHPMax = [[[self.playerPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
     if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
-    NSInteger enemyPokemonHPMax = [[self.enemyPokemon.maxStats objectAtIndex:0] intValue];
+    NSInteger enemyPokemonHPMax = [[[self.enemyPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
     if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
   };
   

@@ -660,7 +660,7 @@
 {
   NSInteger effectCode   = [bagMedicine.code intValue];
   NSInteger pokemonHP    = [pokemon.hp intValue];
-  NSInteger pokemonHPMax = [[pokemon.maxStats objectAtIndex:0] intValue];
+  NSInteger pokemonHPMax = [[[pokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
   
   // 0x80~0x8F: Status Healer & HP Restoree
   if (effectCode & 0x80) [self healStatusAndRestoreHPForPokemon:pokemon withBagMedicine:bagMedicine];

@@ -80,14 +80,14 @@
     <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
         <attribute name="ability1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="ability2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="area" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="area" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="baseEXP" optional="YES" attributeType="Integer 16" maxValueString="9999" defaultValueString="0" syncable="YES"/>
-        <attribute name="baseStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
+        <attribute name="baseStats" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 16" maxValueString="10" defaultValueString="0" syncable="YES"/>
         <attribute name="compatibility" optional="YES" attributeType="Integer 16" maxValueString="15" defaultValueString="0" syncable="YES"/>
-        <attribute name="effortPoints" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="eggMoves" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="evolutions" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="effortPoints" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="eggMoves" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="evolutions" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="genderRate" optional="YES" attributeType="Integer 16" maxValueString="7" defaultValueString="0" syncable="YES"/>
         <attribute name="growthRate" optional="YES" attributeType="Integer 16" maxValueString="6" defaultValueString="0" syncable="YES"/>
         <attribute name="habitat" optional="YES" attributeType="Integer 16" maxValueString="9" defaultValueString="0" syncable="YES"/>
@@ -97,7 +97,7 @@
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="imageIcon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
-        <attribute name="moves" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="moves" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="rareness" optional="YES" attributeType="Integer 16" maxValueString="255" defaultValueString="0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
@@ -112,15 +112,15 @@
     <entity name="Trainer" representedClassName="Trainer" syncable="YES">
         <attribute name="adventureStarted" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="badges" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagBattleItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagBerries" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagKeyItems" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagMedicineHP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagMedicinePP" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagMedicineStatus" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagPokeballs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
-        <attribute name="bagTMsHMs" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagBattleItems" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagBerries" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagItems" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagKeyItems" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicineHP" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicinePP" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagMedicineStatus" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagPokeballs" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="bagTMsHMs" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
         <attribute name="money" optional="YES" attributeType="Integer 32" maxValueString="999999" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="20" defaultValueString="Anonymous" syncable="YES"/>
         <attribute name="pokedex" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" maxValueString="100" defaultValueString="0" syncable="YES"/>
@@ -136,7 +136,7 @@
         <attribute name="happiness" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="hp" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="maxStats" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
         <attribute name="memo" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -151,7 +151,7 @@
         <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="hp" optional="YES" attributeType="Integer 16" valueTransformerName="ArrayToStringTransformer" defaultValueString="0" syncable="YES"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="maxStats" optional="YES" attributeType="Transformable" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>
+        <attribute name="maxStats" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" defaultValueString="0,0,0,0,0,0" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" maxValueString="649" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toNextLevel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

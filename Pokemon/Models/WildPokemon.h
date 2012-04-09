@@ -2,7 +2,7 @@
 //  WildPokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 4/2/12.
+//  Created by Kaijie Yu on 4/9/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -14,11 +14,11 @@
 @interface WildPokemon : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * exp;
-@property (nonatomic, retain) NSNumber * hp;
 @property (nonatomic, retain) NSString * fourMoves;
 @property (nonatomic, retain) NSNumber * gender;
+@property (nonatomic, retain) NSNumber * hp;
 @property (nonatomic, retain) NSNumber * level;
-@property (nonatomic, retain) id maxStats;
+@property (nonatomic, retain) NSString * maxStats;
 @property (nonatomic, retain) NSNumber * sid;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSNumber * toNextLevel;

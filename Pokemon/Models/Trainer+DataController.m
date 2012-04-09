@@ -183,11 +183,11 @@
   if (! (flag & kDataModifyTrainer))
     return;
   
-  if (flag & kDataModifyTrainerName)        [data setValue:self.name          forKey:@"name"];
-  if (flag & kDataModifyTrainerMoney)       [data setValue:self.money         forKey:@"money"];
-  if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges        forKey:@"badges"];
-  if (flag & kDataModifyTrainerPokedex)     [data setValue:self.pokedex       forKey:@"pokedex"];
-  if (flag & kDataModifyTrainerSixPokemons) [data setValue:self.sixPokemonsID forKey:@"sixPokemons"];
+  if (flag & kDataModifyTrainerName)        [data setValue:self.name                  forKey:@"name"];
+  if (flag & kDataModifyTrainerMoney)       [data setValue:self.money                 forKey:@"money"];
+  if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges                forKey:@"badges"];
+  if (flag & kDataModifyTrainerPokedex)     [data setValue:self.pokedex               forKey:@"pokedex"];
+  if (flag & kDataModifyTrainerSixPokemons) [data setValue:self.sixPokemonsID         forKey:@"sixPokemons"];
   if (flag & kDataModifyTrainerBag)         [data setValue:[self allBagItemsInString] forKey:@"bag"];
   
   // Block: |success| & |failure|
@@ -260,8 +260,8 @@
   // TODO:
   //   |DataTransformer| should deal with NSString to NSArray transformation work
   //     It sometimes (like this case) not work!!
-  if ([bagItems isKindOfClass:[NSArray class]])
-    return [bagItems componentsJoinedByString:@","];
+//  if ([bagItems isKindOfClass:[NSArray class]])
+//    return [bagItems componentsJoinedByString:@","];
   return bagItems;
 }
 

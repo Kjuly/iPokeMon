@@ -136,9 +136,7 @@
     [data setValue:self.happiness   forKey:@"happiness"];
     [data setValue:self.level       forKey:@"level"];
     [data setValue:self.fourMoves   forKey:@"fourMoves"];
-    [data setValue:[self.maxStats isKindOfClass:[NSString class]] ?
-      self.maxStats : [[self.maxStats valueForKey:@"description"] componentsJoinedByString:@","]
-            forKey:@"maxStats"];
+    [data setValue:self.maxStats    forKey:@"maxStats"];
     [data setValue:self.hp          forKey:@"hp"];
     [data setValue:self.exp         forKey:@"exp"];
     [data setValue:self.toNextLevel forKey:@"toNextLevel"];
@@ -266,8 +264,7 @@
   tamedPokemon.happiness   = wildPokemon.pokemon.happiness;
   tamedPokemon.level       = wildPokemon.level;
   tamedPokemon.fourMoves   = wildPokemon.fourMoves;
-  tamedPokemon.maxStats    = [wildPokemon.maxStats isKindOfClass:[NSString class]] ?
-    wildPokemon.maxStats : [[wildPokemon.maxStats valueForKey:@"description"] componentsJoinedByString:@","];
+  tamedPokemon.maxStats    = wildPokemon.maxStats;
   tamedPokemon.hp          = wildPokemon.hp;
   tamedPokemon.exp         = wildPokemon.exp;
   tamedPokemon.toNextLevel = wildPokemon.toNextLevel;

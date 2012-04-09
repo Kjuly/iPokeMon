@@ -118,10 +118,10 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.gender = [self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]];
   
   // |fourMoves|
-  wildPokemon.fourMoves = [self calculateFourMovesWithMoves:pokemon.moves level:level];
+  wildPokemon.fourMoves = [self calculateFourMovesWithMoves:[pokemon.moves componentsSeparatedByString:@","] level:level];
   
   // |maxStats| & |hp|
-  NSString * maxStats  = [self calculateStatsWithBaseStats:pokemon.baseStats level:level];
+  NSString * maxStats  = [self calculateStatsWithBaseStats:[pokemon.baseStats componentsSeparatedByString:@","] level:level];
   wildPokemon.maxStats = maxStats;
   wildPokemon.hp       = [NSNumber numberWithInt:[[[maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
   maxStats = nil;

@@ -2,27 +2,27 @@
 //  Pokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 2/27/12.
+//  Created by Kaijie Yu on 4/9/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TrainerTamedPokemon;
+@class TrainerTamedPokemon, WildPokemon;
 
 @interface Pokemon : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * ability1;
 @property (nonatomic, retain) NSNumber * ability2;
-@property (nonatomic, retain) id area;
+@property (nonatomic, retain) NSString * area;
 @property (nonatomic, retain) NSNumber * baseEXP;
-@property (nonatomic, retain) id baseStats;
+@property (nonatomic, retain) NSString * baseStats;
 @property (nonatomic, retain) NSNumber * color;
 @property (nonatomic, retain) NSNumber * compatibility;
-@property (nonatomic, retain) id effortPoints;
-@property (nonatomic, retain) id eggMoves;
-@property (nonatomic, retain) id evolutions;
+@property (nonatomic, retain) NSString * effortPoints;
+@property (nonatomic, retain) NSString * eggMoves;
+@property (nonatomic, retain) NSString * evolutions;
 @property (nonatomic, retain) NSNumber * genderRate;
 @property (nonatomic, retain) NSNumber * growthRate;
 @property (nonatomic, retain) NSNumber * habitat;
@@ -32,7 +32,7 @@
 @property (nonatomic, retain) id image;
 @property (nonatomic, retain) id imageIcon;
 @property (nonatomic, retain) NSString * info;
-@property (nonatomic, retain) id moves;
+@property (nonatomic, retain) NSString * moves;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * rareness;
 @property (nonatomic, retain) NSNumber * sid;
@@ -51,8 +51,8 @@
 - (void)removeTamedGroupObject:(TrainerTamedPokemon *)value;
 - (void)addTamedGroup:(NSSet *)values;
 - (void)removeTamedGroup:(NSSet *)values;
-- (void)addWildGroupObject:(TrainerTamedPokemon *)value;
-- (void)removeWildGroupObject:(TrainerTamedPokemon *)value;
+- (void)addWildGroupObject:(WildPokemon *)value;
+- (void)removeWildGroupObject:(WildPokemon *)value;
 - (void)addWildGroup:(NSSet *)values;
 - (void)removeWildGroup:(NSSet *)values;
 @end

@@ -2,7 +2,7 @@
 //  TrainerTamedPokemon.m
 //  Pokemon
 //
-//  Created by Kaijie Yu on 4/2/12.
+//  Created by Kaijie Yu on 4/9/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -15,10 +15,10 @@
 
 @dynamic box;
 @dynamic exp;
-@dynamic hp;
 @dynamic fourMoves;
 @dynamic gender;
 @dynamic happiness;
+@dynamic hp;
 @dynamic level;
 @dynamic maxStats;
 @dynamic memo;
