@@ -306,7 +306,7 @@
 - (Move *)move3 { return [self moveWithIndex:3]; }
 - (Move *)move4 { return [self moveWithIndex:4]; }
 
-- (NSArray *)fourMovesPP {
+- (NSArray *)fourMovesPPInArray {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
   NSInteger fourMovesCount = [fourMoves count] / 3;
   if (fourMovesCount <= 0)
@@ -318,6 +318,10 @@
   }
   fourMoves = nil;
   return fourMovesPP;
+}
+
+- (NSArray *)maxStatsInArray {
+  return [self.maxStats componentsSeparatedByString:@","];
 }
 
 #pragma mark - SET Base data

@@ -167,7 +167,7 @@
 - (void)updateFourMoves
 {
   self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
-  self.fourMovesPP = self.playerPokemon.fourMovesPP;
+  self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
   
   // Four moves
   Move * move1 = self.playerPokemon.move1;

@@ -37,7 +37,8 @@
 - (Move *)move2;
 - (Move *)move3;
 - (Move *)move4;
-- (NSArray *)fourMovesPP;
+- (NSArray *)fourMovesPPInArray;
+- (NSArray *)maxStatsInArray;
 
 // SET Base data
 - (void)setFourMovesPPWith:(NSArray *)newPPArray;

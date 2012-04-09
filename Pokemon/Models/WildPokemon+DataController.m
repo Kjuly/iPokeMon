@@ -56,7 +56,7 @@
   return pokemons;
 }
 
-#pragma mark - Base data dispatch
+#pragma mark - GET Base data dispatch
 //
 // |self.fourMoves|:
 //    move1ID,move1currPP,move1maxPP, move2ID,move2currPP,move2maxPP,
@@ -74,7 +74,7 @@
 - (Move *)move3 { return [self moveWithIndex:3]; }
 - (Move *)move4 { return [self moveWithIndex:4]; }
 
-- (NSArray *)fourMovesPP {
+- (NSArray *)fourMovesPPInArray {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
   NSArray * fourMovesPP = [NSArray arrayWithObjects:
                            [fourMoves objectAtIndex:1],
@@ -88,6 +88,12 @@
   fourMoves = nil;
   return fourMovesPP;
 }
+
+- (NSArray *)maxStatsInArray {
+  return [self.maxStats componentsSeparatedByString:@","];
+}
+
+#pragma mark - SET Base data
 
 - (void)setFourMovesPPWith:(NSArray *)newPPArray
 {

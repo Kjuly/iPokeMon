@@ -112,7 +112,7 @@
   [super viewDidLoad];
   
   // PP for four moves
-  self.fourMovesPP = self.pokemon.fourMovesPP;
+  self.fourMovesPP = [self.pokemon fourMovesPPInArray];
   
   // Four moves
   Move * move1 = self.pokemon.move1;

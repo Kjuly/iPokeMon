@@ -10,7 +10,7 @@
 
 #import "GlobalRender.h"
 #import "Pokemon.h"
-#import "TrainerTamedPokemon.h"
+#import "TrainerTamedPokemon+DataController.h"
 #import "PokemonInfoLabelView.h"
 
 @class TrainerTamedPokemon;
