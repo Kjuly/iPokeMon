@@ -94,5 +94,26 @@
   return pokemon;
 }
 
+#pragma mark - Basic Data
+
+// Calculate EXP based on |baseEXP| with |level|
+// y:return value:|result|
+// x:|level|
+//
+// TODO:
+//   The formular is not suit now!!
+//
+- (NSInteger)expAtLevel:(NSInteger)level {
+  NSInteger result;
+  result = (10000000 - 100) / (100 - 1) * level + [self.baseEXP intValue];
+  return result;
+}
+
+// EXP to next level
+- (NSInteger)expToNextLevel:(NSInteger)nextLevel {
+  NSInteger result;
+  result = [self expAtLevel:nextLevel] - [self expAtLevel:(nextLevel - 1)];
+  return result;
+}
 
 @end

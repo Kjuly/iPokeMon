@@ -15,6 +15,8 @@
 + (NSArray *)queryAllData;
 + (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
 
-// Six Pokemons
+// Basic Data
+- (NSInteger)expAtLevel:(NSInteger)level;
+- (NSInteger)expToNextLevel:(NSInteger)nextLevel;
 
 @end

@@ -119,7 +119,6 @@
   
   if ([statusInfo objectForKey:@"playerPokemonHP"])
     [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"playerPokemonHP"] intValue]];
-  NSLog(@"~~~~~~~~~~~HP:%d", [self.pokemonHPBar hp]);
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", [self.pokemonHPBar hp], [self.pokemonHPBar hpMax]]];
   
   if ([statusInfo objectForKey:@"Exp"])
@@ -138,11 +137,11 @@
   NSInteger hpMax = [[[playerPokemon maxStatsInArray] objectAtIndex:0] intValue];
   [self.pokemonHPBar updateHPBarWithHP:hp HPMax:hpMax];
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", hp, hpMax]];
-  //
-  // TODO:
-  //   Max Exp Value not got here!!
-  //
-  [self.pokemonEXPBar updateExpBarWithExp:[playerPokemon.hp intValue] ExpMax:20000];
+  
+  // EXP
+  NSInteger expMax = [playerPokemon.pokemon expToNextLevel:([playerPokemon.level intValue] + 1)];
+  [self.pokemonEXPBar updateExpBarWithExp:(expMax - [playerPokemon.toNextLevel intValue])
+                                   ExpMax:expMax];
 }
 
 - (void)reset {

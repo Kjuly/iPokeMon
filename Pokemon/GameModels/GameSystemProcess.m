@@ -88,6 +88,7 @@ typedef enum {
 - (void)fight;
 - (void)calculateEffectForMove:(Move *)move;
 - (NSInteger)calculateDamageForMove:(Move *)move;
+- (NSInteger)calculateExpGained;
 //- (void)MoveTargetSinglePokemonOtherThanTheUser;
 //- (void)MoveTargetNone;
 //- (void)MoveTargetOneOpposingPokemonSelectedAtRandom;
@@ -1208,6 +1209,19 @@ static GameSystemProcess * gameSystemProcess = nil;
   return damage;
 }
 
+// Calculate the EXP. points gained
+- (NSInteger)calculateExpGained {
+  NSInteger expGained;
+  
+  // Basic parameters
+  NSInteger enemyPokemonLevel = [self.enemyPokemon.level intValue];
+  
+  // Caclute the result of EXP
+  expGained = 10 * enemyPokemonLevel;
+  
+  return expGained;
+}
+
 // Check Pokemon Faint or not
 - (void)checkPokemonFaintOrNot {
   // Enemy Pokemon FAINT
@@ -1314,6 +1328,7 @@ static GameSystemProcess * gameSystemProcess = nil;
                                   [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
                                   self.playerPokemon.status,                      @"playerPokemonStatus",
                                   self.playerPokemon.hp,                          @"playerPokemonHP",
+                                  self.playerPokemon.exp,                         @"Exp",
                                   self.enemyPokemon.status,                       @"enemyPokemonStatus",
                                   self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
@@ -1485,15 +1500,30 @@ static GameSystemProcess * gameSystemProcess = nil;
       
       break;
       
-    case kGameSystemProcessTypePlayerWin:
+    case kGameSystemProcessTypePlayerWin: {
+      NSInteger expGained = [self calculateExpGained];
+      // Add gained EXP to Pokemon
+      //   and post to |GameMenuViewController| to update EXP bar in Pokemon status view
+      [self.playerPokemon addGainedExp:expGained];
+      NSInteger expMaxInBar = [self.playerPokemon.pokemon expToNextLevel:[self.playerPokemon.level intValue]];
+      NSInteger expInBar    = expMaxInBar - [self.playerPokemon.toNextLevel intValue];
+      NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                    [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
+                                    [NSNumber numberWithInt:expInBar],              @"EXP", nil];
+      NSLog(@"|%@| - |postMessageForProcessType:withMessageInfo:| - update Pokemon EXP - Notification Info:%@",
+            [self class], newUserInfo);
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
+      [newUserInfo release];
+      
       // Message: (You win! <PokemonName> gained <ExpValue> EXP. points.)
       message = [NSString stringWithFormat:@"%@  %@ %@ %d %@.",
                  NSLocalizedString(@"PMSMessagePlayerWin", nil),
                  NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP1", nil),
-                 3,
+                 expGained,
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP3", nil), nil];
       break;
+    }
       
     case kGameSystemProcessTypePlayerLose:
       // Message: (You Lose...)

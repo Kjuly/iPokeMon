@@ -333,4 +333,23 @@
   
 }
 
+// Add gained EXP
+- (void)addGainedExp:(NSInteger)gainedExp {
+  NSInteger exp            = [self.exp intValue];
+  NSInteger expToNextLevel = [self.toNextLevel intValue];
+  exp            += gainedExp;
+  expToNextLevel -= gainedExp;
+  
+  // Level Up when |expToNextLevel <= 0|
+  if (expToNextLevel <= 0) {
+    //
+    // !!!TODO
+    //
+  }
+  
+  // Save new data
+  self.exp         = [NSNumber numberWithInt:exp];
+  self.toNextLevel = [NSNumber numberWithInt:expToNextLevel];
+}
+
 @end

@@ -128,11 +128,13 @@ static WildPokemonController * wildPokemonController_ = nil;
   
   // |exp| & |toNextLevel|
   // Calculate EXP based on Level Formular with value:|level|
-  NSInteger baseEXP       = [pokemon.baseEXP intValue];
-  NSInteger currEXP       = [self calculateEXPWithBaseEXP:baseEXP level:level];
-  NSInteger nextLevelEXP  = [self calculateEXPWithBaseEXP:baseEXP level:(level + 1)];
-  wildPokemon.exp         = [NSNumber numberWithInt:currEXP];
-  wildPokemon.toNextLevel = [NSNumber numberWithInt:(nextLevelEXP - currEXP)];
+//  NSInteger baseEXP       = [pokemon.baseEXP intValue];
+//  NSInteger currEXP       = [self calculateEXPWithBaseEXP:baseEXP level:level];
+//  NSInteger nextLevelEXP  = [self calculateEXPWithBaseEXP:baseEXP level:(level + 1)];
+//  wildPokemon.exp         = [NSNumber numberWithInt:currEXP];
+//  wildPokemon.toNextLevel = [NSNumber numberWithInt:(nextLevelEXP - currEXP)];
+  wildPokemon.exp         = [NSNumber numberWithInt:[pokemon expAtLevel:level]];
+  wildPokemon.toNextLevel = [NSNumber numberWithInt:[pokemon expToNextLevel:(level + 1)]];
   
   pokemon = nil;
 }

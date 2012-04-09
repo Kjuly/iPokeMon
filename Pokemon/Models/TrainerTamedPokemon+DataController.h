@@ -42,5 +42,6 @@
 
 // SET Base data
 - (void)setFourMovesPPWith:(NSArray *)newPPArray;
+- (void)addGainedExp:(NSInteger)gainedExp;
 
 @end
