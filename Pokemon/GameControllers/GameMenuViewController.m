@@ -954,7 +954,10 @@ typedef enum {
   [self.playerPokemonStatusViewController prepareForNewScene];
   [self.enemyPokemonStatusViewController  prepareForNewScene];
   [self.gameMenuSixPokemonsViewController prepareForNewScene];
-  self.currPokemon = 0;
+  if (self.gameMenuMoveViewController != nil)
+    [self.gameMenuMoveViewController updateFourMoves];         // Update data in Move View
+  self.currPokemon = 0;                                        // Set current Battle Pokemon
+                                                               //   !!!TODO, if first one is not available!
 }
 
 - (void)reset {
