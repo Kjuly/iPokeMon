@@ -87,12 +87,13 @@ static TrainerController * trainerController_ = nil;
   NSLog(@"......|%@| - INIT......", [self class]);
   self.userID = userID;
   
-  // S->C: Initialize data from Server to Client
-  [Trainer             initWithUserID:self.userID];
-  [TrainerTamedPokemon initWithUserID:self.userID];
-  
-  // Fetch data from Client (CoreData)
-  self.entityTrainer     = [Trainer queryTrainerWithUserID:self.userID];
+  // S->C: Initialize Trainer data from Server to Client
+  [Trainer initWithUserID:userID];
+  // Fetch Trainer data from Client (CoreData)
+  self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
+  // S->C: Initialize TrainerTamedPokemon data from Server to Client
+  [TrainerTamedPokemon initWithTrainer:self.entityTrainer];
+  // Fetch Trainer's Six Pokemons data from Client (CoreData)
   self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
   if (self.entitySixPokemons == nil) {
     NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);

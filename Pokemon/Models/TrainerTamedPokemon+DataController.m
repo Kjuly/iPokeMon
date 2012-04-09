@@ -17,8 +17,9 @@
 @implementation TrainerTamedPokemon (DataController)
 
 // Update |TrainerTamedPokemon|
-+ (void)initWithUserID:(NSInteger)userID {
-  if (userID <= 0) return;
++ (void)initWithTrainer:(Trainer *)trainer {
+  if (trainer == nil)
+    return;
   
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
@@ -30,9 +31,10 @@
       NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
       return;
     }
-    NSArray * tamedPokemonGroup = [JSON valueForKey:@"pokedex"];
     
-    Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
+    // Parse data from JSON
+    NSArray * tamedPokemonGroup = [JSON valueForKey:@"pd"]; // {'pd':[...]} // pd:PokeDex
+    NSLog(@"|%@| - |tamedPokemonGroup| - Server=>Client::%@", [self class], tamedPokemonGroup);
     
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
@@ -42,46 +44,43 @@
     
     // Update the data for |tamedPokemmon|
     for (NSDictionary * tamedPokemonData in tamedPokemonGroup) {
-      // Check the existence of the object
-      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [tamedPokemonData valueForKey:@"uid"]]];
-      
-      // If exist, execute fetching request, otherwise, insert new object
       TrainerTamedPokemon * tamedPokemon;
+      
+      // UID for Pokemon
+      NSInteger uid = [[tamedPokemonData valueForKey:@"uid"] intValue];
+      
+      // Check the existence of the object
+      // If exist, execute fetching request, otherwise, insert new object
+      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %d", uid]];
       if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
         tamedPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
       else {
         tamedPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                                      inManagedObjectContext:managedObjectContext];
-        // Set relationships
-        tamedPokemon.owner = trainer;
-        Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[tamedPokemonData valueForKey:@"sid"] intValue]];
-        tamedPokemon.pokemon = pokemon;
-        pokemon = nil;
+        NSInteger sid = [[tamedPokemonData valueForKey:@"sid"] intValue];
         
-//        NSArray * moveIDs = [[tamedPokemonData valueForKey:@"fourMovesID"] componentsSeparatedByString:@","];
-//        NSArray * moves = [Move queryFourMovesDataWithIDs:moveIDs];
-//        [tamedPokemon addFourMoves:[NSSet setWithArray:moves]];
-//        moves = nil;
-//        moveIDs = nil;
+        // Set fixed base data for new one
+        tamedPokemon.uid     = [NSNumber numberWithInt:uid];
+        tamedPokemon.sid     = [NSNumber numberWithInt:sid];
+        tamedPokemon.gender  = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"gender"] intValue]];
+        
+        // Set relationships
+        tamedPokemon.owner   = trainer;
+        tamedPokemon.pokemon = [Pokemon queryPokemonDataWithID:sid];
       }
       
-      // Set data
-      tamedPokemon.uid         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"uid"] intValue]];
-      tamedPokemon.sid         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"sid"] intValue]];
+      // Update base data
       tamedPokemon.box         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"box"] intValue]];
       tamedPokemon.status      = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"status"] intValue]];
-      tamedPokemon.gender      = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"gender"] intValue]];
       tamedPokemon.happiness   = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"happiness"] intValue]];
       tamedPokemon.level       = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"level"] intValue]];
       tamedPokemon.fourMoves   = [tamedPokemonData valueForKey:@"fourMoves"];
       tamedPokemon.maxStats    = [tamedPokemonData valueForKey:@"maxStats"];
-      NSLog(@"~~~~~~~~~~~~~[tamedPokemonData valueForKey:@'masStats':%@", [tamedPokemonData valueForKey:@"maxStats"]);
       tamedPokemon.hp          = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"hp"] intValue]];
       tamedPokemon.exp         = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"exp"] intValue]];
       tamedPokemon.toNextLevel = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"toNextLevel"] intValue]];
       tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
     }
-    
     [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
@@ -126,12 +125,12 @@
   // UID
   [data setValue:self.uid           forKey:@"uid"];
   
-  if (flag & kDataModifyTamedPokemonNew) {
+//  if (flag & kDataModifyTamedPokemonNew) {
     [data setValue:self.sid         forKey:@"sid"];
     [data setValue:self.gender      forKey:@"gender"];
-  }
+//  }
   
-  if (flag & kDataModifyTamedPokemonBasic) {
+//  if (flag & kDataModifyTamedPokemonBasic) {
     [data setValue:self.status      forKey:@"status"];
     [data setValue:self.happiness   forKey:@"happiness"];
     [data setValue:self.level       forKey:@"level"];
@@ -140,11 +139,11 @@
     [data setValue:self.hp          forKey:@"hp"];
     [data setValue:self.exp         forKey:@"exp"];
     [data setValue:self.toNextLevel forKey:@"toNextLevel"];
-  }
-  if (flag & kDataModifyTamedPokemonExtra) {
+//  }
+//  if (flag & kDataModifyTamedPokemonExtra) {
     [data setValue:self.box         forKey:@"box"];
     [data setValue:self.memo        forKey:@"memo"];
-  }
+//  }
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {

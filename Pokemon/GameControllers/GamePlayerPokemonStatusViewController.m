@@ -10,7 +10,7 @@
 
 #import "GlobalRender.h"
 #import "GameSystemProcess.h"
-#import "TrainerTamedPokemon.h"
+#import "TrainerTamedPokemon+DataController.h"
 #import "PokemonHPBar.h"
 #import "PokemonEXPBar.h"
 
@@ -119,8 +119,8 @@
   
   if ([statusInfo objectForKey:@"playerPokemonHP"])
     [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"playerPokemonHP"] intValue]];
-  
-  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", self.pokemonHPBar.hp, self.pokemonHPBar.hpMax]];
+  NSLog(@"~~~~~~~~~~~HP:%d", [self.pokemonHPBar hp]);
+  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", [self.pokemonHPBar hp], [self.pokemonHPBar hpMax]]];
   
   if ([statusInfo objectForKey:@"Exp"])
     [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
@@ -135,7 +135,7 @@
                                 ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];
   NSInteger hp    = [playerPokemon.hp intValue];
-  NSInteger hpMax = [[[playerPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
+  NSInteger hpMax = [[[playerPokemon maxStatsInArray] objectAtIndex:0] intValue];
   [self.pokemonHPBar updateHPBarWithHP:hp HPMax:hpMax];
   [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", hp, hpMax]];
   //
