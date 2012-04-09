@@ -1486,8 +1486,13 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case kGameSystemProcessTypePlayerWin:
-      // Message: (You win!)
-      message = NSLocalizedString(@"PMSMessagePlayerWin", nil);
+      // Message: (You win! <PokemonName> gained <ExpValue> EXP. points.)
+      message = [NSString stringWithFormat:@"%@  %@ %@ %d %@.",
+                 NSLocalizedString(@"PMSMessagePlayerWin", nil),
+                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
+                 NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP1", nil),
+                 3,
+                 NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP3", nil), nil];
       break;
       
     case kGameSystemProcessTypePlayerLose:
