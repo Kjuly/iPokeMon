@@ -44,6 +44,7 @@
 - (void)playerPokemonFaint:(NSNotification *)notification;
 - (void)enemyPokemonFaint:(NSNotification *)notification;
 - (void)loadNewPokemon;
+- (void)endGameBattle:(NSNotification *)notification;
 
 @end
 
@@ -88,6 +89,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPlayerPokemonFaint object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnemyPokemonFaint object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleEnd object:nil];
   [super dealloc];
 }
 
@@ -127,6 +129,11 @@
                                              selector:@selector(enemyPokemonFaint:)
                                                  name:kPMNEnemyPokemonFaint
                                                object:nil];
+    // Notification from |GameBattleEndViewController| when it's view did load
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(endGameBattle:)
+                                                 name:kPMNGameBattleEnd
+                                               object:nil];
     
     // check whether a selector is scheduled. schedules the "update" method.
     // It will use the order number 0.
@@ -143,7 +150,7 @@
 {
   NSLog(@"Generating a new scene......");
   TrainerTamedPokemon * playerPokemon = [[TrainerController sharedInstance] firstPokemonOfSix];
-  WildPokemon * enemyPokemon  = [WildPokemon queryPokemonDataWithID:wildPokemonID];
+  WildPokemon * enemyPokemon          = [WildPokemon queryPokemonDataWithID:wildPokemonID];
   
   // Set pokemon for |gameSystemProcess_|
   self.gameSystemProcess.playerPokemon = playerPokemon;
@@ -159,10 +166,9 @@
   [enemyProcess release];
   
   // Player pokemon sprite setting
-  NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
-                                      [playerPokemon.sid intValue]];
-  GamePokemonSprite * playerPokemonSprite
-  = [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
+  NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d", [playerPokemon.sid intValue]];
+  GamePokemonSprite * playerPokemonSprite =
+    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
                                            key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
@@ -171,11 +177,10 @@
   [self addChild:self.playerPokemonSprite];
   
   // Enemy pokemon sprite setting
-  NSString * spriteKeyEnemyPokemon = [NSString stringWithFormat:@"SpriteKeyEnemyPokemon%.3d",
-                                      [enemyPokemon.sid intValue]];
+  NSString * spriteKeyEnemyPokemon = [NSString stringWithFormat:@"SpriteKeyEnemyPokemon%.3d", [enemyPokemon.sid intValue]];
   GamePokemonSprite * enemyPokemonSprite =
-  [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)enemyPokemon.pokemon.image).CGImage
-                                         key:spriteKeyEnemyPokemon];
+    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)enemyPokemon.pokemon.image).CGImage
+                                           key:spriteKeyEnemyPokemon];
   self.enemyPokemonSprite = enemyPokemonSprite;
   [enemyPokemonSprite release];
   [self.enemyPokemonSprite setPosition:ccp(-90, 350)];
@@ -238,7 +243,7 @@
 // Start game loop
 - (void)startGameLoop
 {
-  // Post notification to show pokemon status view
+  // Post notification to |GamePokemonStatusViewController| to show pokemon status view
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowPokemonStatus object:self userInfo:nil];
   // Set game play to ready
   [self.gameStatusMachine startNewTurn];
@@ -309,6 +314,12 @@
 // Load new pokemon
 - (void)loadNewPokemon {
   [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
+}
+
+// END Game Battle
+- (void)endGameBattle:(NSNotification *)notification {
+  [self.playerPokemonSprite setPosition:ccp(410, 250)];
+  [self.enemyPokemonSprite  setPosition:ccp(-90, 350)];
 }
 
 @end

@@ -45,6 +45,7 @@ NSString * const kPMNPlayerPokemonFaint        = @"PMNPlayerPokemonFaint"; // Pl
 NSString * const kPMNEnemyPokemonFaint         = @"PMNEnemyPokemonFaint";  // Enemy Pokemon FAINT
 
 // Game Battle END
+NSString * const kPMNGameBattleEnd                      = @"PMNGameBattleEnd"; // END Game Battle
 NSString * const kPMNGameBattleEndWithPlayerWin         = @"PMNGameBattleEndWithPlayerWin";         // Player WIN
 NSString * const kPMNGameBattleEndWithPlayerLose        = @"PMNGameBattleEndWithPlayerLose";        // Player LOSE
 NSString * const kPMNGameBattleEndWithCaughtWildPokemon = @"PMNGameBattleEndWithCaughtWildPokemon"; // Caught WildPokemon

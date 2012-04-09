@@ -8,6 +8,7 @@
 
 #import "GamePokemonStatusViewController.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 
@@ -60,11 +61,11 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 64.f)];
+  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 64.f)];
   self.view = view;
   [view release];
   [self.view setBackgroundColor:[UIColor whiteColor]];
-  [self.view setAlpha:1.f];
+  [self.view setAlpha:0.f];
   
   // Constants
   CGRect pokemonGenderFrame = CGRectMake(10.f, 22.f, 20.f, 20.f);
@@ -150,14 +151,12 @@
 
 #pragma mark - Private Methods
 
-- (void)showStatus:(NSNotification *)notification
-{
+// Show Status view
+- (void)showStatus:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseInOut
-                   animations:^{
-                     [self.view setAlpha:1.f];
-                   }
+                   animations:^{ [self.view setAlpha:1.f]; }
                    completion:nil];
 }
 

@@ -960,6 +960,8 @@ typedef enum {
 - (void)reset {
   [self.playerPokemonStatusViewController reset];
   [self.enemyPokemonStatusViewController  reset];
+  [self resetPokeball:nil];
+  [self.messageView setText:@""];
 }
 
 #pragma mark - Animation delegate

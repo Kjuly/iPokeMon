@@ -10,6 +10,7 @@
 
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
+#import "GlobalNotificationConstants.h"
 #import "GameSystemProcess.h"
 #import "PokemonInfoViewController.h"
 #import "TrainerController.h"
@@ -195,12 +196,19 @@
   }
   else return;
   
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    // Notification to |GameBattleLayer| to deal with ending battle
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEnd
+                                                        object:self
+                                                      userInfo:nil];
+  };
+  
   if (animated) [UIView animateWithDuration:.3f
                                       delay:delay
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:animations
-                                 completion:nil];
-  else animations();
+                                 completion:completion];
+  else { animations(); completion(YES); }
 }
 
 #pragma mark - Private Methods

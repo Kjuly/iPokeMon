@@ -43,6 +43,7 @@ extern NSString * const kPMNToggleTopCancelButton;
 extern NSString * const kPMNPlayerPokemonFaint;
 extern NSString * const kPMNEnemyPokemonFaint;
 
+extern NSString * const kPMNGameBattleEnd;
 extern NSString * const kPMNGameBattleEndWithPlayerWin;
 extern NSString * const kPMNGameBattleEndWithPlayerLose;
 extern NSString * const kPMNGameBattleEndWithCaughtWildPokemon;
