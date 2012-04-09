@@ -443,10 +443,10 @@ static GameSystemProcess * gameSystemProcess = nil;
     case kMoveTargetAllOpposingPokemon:
       // 4 - 二体: All opposing Pokemon
       // Only apply move to different gender pokemon
-      if ([self.playerPokemon.gender intValue] ^ [self.enemyPokemon.gender intValue])
+//      if ([self.playerPokemon.gender intValue] ^ [self.enemyPokemon.gender intValue])
         moveRealTarget_ = (user_ == kGameSystemProcessUserPlayer) ? kMoveRealTargetEnemy : kMoveRealTargetPlayer;
-      else
-        moveRealTarget_ = kMoveRealTargetNone;
+//      else
+//        moveRealTarget_ = kMoveRealTargetNone;
       break;
       
     case kMoveTargetAllPokemonOtherThanTheUser:
@@ -1076,7 +1076,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // Block to set values
   void (^updateValues)(MoveRealTarget) = ^(MoveRealTarget target) {
-    if (target == kMoveRealTargetEnemy) {
+    if (target & kMoveRealTargetEnemy) {
       if (opposingPokemonStatusDelta != 0) enemyPokemonStatus_ |= opposingPokemonStatusDelta;
       if (opposingPokemonHPDelta != 0)     enemyPokemonHP      += opposingPokemonHPDelta;
       if (opposingPokemonTransientAttackDelta != 0)
@@ -1149,9 +1149,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Fix HP value to make sure it is in range of [0, max]
     if (playerPokemonHP < 0) playerPokemonHP = 0;
     if (enemyPokemonHP  < 0) enemyPokemonHP  = 0;
-    NSInteger playerPokemonHPMax = [[[self.playerPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
+    NSInteger playerPokemonHPMax = [[[self.playerPokemon maxStatsInArray] objectAtIndex:0] intValue];
     if (playerPokemonHP > playerPokemonHPMax) playerPokemonHP = playerPokemonHPMax;
-    NSInteger enemyPokemonHPMax = [[[self.enemyPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
+    NSInteger enemyPokemonHPMax  = [[[self.enemyPokemon maxStatsInArray]  objectAtIndex:0] intValue];
     if (enemyPokemonHP > enemyPokemonHPMax) enemyPokemonHP = enemyPokemonHPMax;
   };
   
@@ -1159,11 +1159,13 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (! valuesHaveBeenCalculated) {
     // Update values for player & enemy pokemon
     if (moveRealTarget_ & (kMoveRealTargetEnemy | kMoveRealTargetPlayer)) {
-      if (user_ == kGameSystemProcessUserPlayer)     updateValues(kMoveRealTargetEnemy);
-      else                                           updateValues(kMoveRealTargetPlayer);
+      NSLog(@"moveRealTarget_ & (kMoveRealTargetEnemy | kMoveRealTargetPlayer");
+      if (user_ == kGameSystemProcessUserPlayer)      updateValues(kMoveRealTargetEnemy);
+      else                                            updateValues(kMoveRealTargetPlayer);
     }
     else if (moveRealTarget_ & kMoveRealTargetEnemy)  updateValues(kMoveRealTargetEnemy);
     else if (moveRealTarget_ & kMoveRealTargetPlayer) updateValues(kMoveRealTargetPlayer);
+    else NSLog(@"!!!moveRealTarget_ == kMoveRealTargetNone");
   }
   
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
@@ -1177,6 +1179,8 @@ static GameSystemProcess * gameSystemProcess = nil;
                                 self.playerPokemon.hp,                         @"playerPokemonHP",
                                 [NSNumber numberWithInt:enemyPokemonStatus_],  @"enemyPokemonStatus",
                                 self.enemyPokemon.hp,                          @"enemyPokemonHP", nil];
+  NSLog(@"|%@| - |calculateEffectForMove:| - MoveRealTarget:%@ - Notification Info:%@",
+        [self class], moveRealTarget_ == kMoveRealTargetEnemy ? @"Enemy" : @"Player", newUserInfo);
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
   
@@ -1200,6 +1204,7 @@ static GameSystemProcess * gameSystemProcess = nil;
           * (abs([self.playerPokemon.level intValue] - [self.enemyPokemon.level intValue]) + 1) // Delta level + 1
           );
   
+  NSLog(@"|%@| - |calculateDamageForMove:| - damage:%d", [self class], damage);
   return damage;
 }
 
