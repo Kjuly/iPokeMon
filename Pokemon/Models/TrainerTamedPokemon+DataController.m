@@ -27,13 +27,14 @@
       [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
     // Get JSON Data Array from HTTP Response
-    if ([[JSON valueForKey:@"pokedex"] isKindOfClass:[NSNull class]]) {
+    // {'pd':[...]} // pd:PokeDex
+    if ([[JSON valueForKey:@"pd"] isKindOfClass:[NSNull class]]) {
       NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
       return;
     }
     
     // Parse data from JSON
-    NSArray * tamedPokemonGroup = [JSON valueForKey:@"pd"]; // {'pd':[...]} // pd:PokeDex
+    NSArray * tamedPokemonGroup = [JSON valueForKey:@"pd"];
     NSLog(@"|%@| - |tamedPokemonGroup| - Server=>Client::%@", [self class], tamedPokemonGroup);
     
     NSError * error;
@@ -103,6 +104,13 @@
                   flag:(DataModifyFlag)flag {
   if (! (flag & kDataModifyTamedPokemon))
     return;
+  [[self queryPokemonDataWithUID:pokemonUID trainerUID:userID] syncWithFlag:flag];
+}
+
+// IM: Sync data between Client & Server
+- (void)syncWithFlag:(DataModifyFlag)flag {
+  if (! (flag & kDataModifyTamedPokemon))
+    return;
   
   NSLog(@"......|%@| - SVEING DATA......", [self class]);
   NSManagedObjectContext * managedObjectContext =
@@ -111,26 +119,19 @@
   if (! [managedObjectContext save:&error])
     NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
   
-  TrainerTamedPokemon * pokemon = [self queryPokemonDataWithUID:pokemonUID trainerUID:userID];
-  [pokemon syncWithFlag:flag];
-}
-
-// IM: Sync data between Client & Server
-- (void)syncWithFlag:(DataModifyFlag)flag {
-  if (! (flag & kDataModifyTamedPokemon))
-    return;
   
+  NSLog(@"......|%@| - |syncWithFlag:| - SYNC......", [self class]);
   NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   
   // UID
   [data setValue:self.uid           forKey:@"uid"];
   
-//  if (flag & kDataModifyTamedPokemonNew) {
+  if (flag & kDataModifyTamedPokemonNew) {
     [data setValue:self.sid         forKey:@"sid"];
     [data setValue:self.gender      forKey:@"gender"];
-//  }
+  }
   
-//  if (flag & kDataModifyTamedPokemonBasic) {
+  if (flag & kDataModifyTamedPokemonBasic) {
     [data setValue:self.status      forKey:@"status"];
     [data setValue:self.happiness   forKey:@"happiness"];
     [data setValue:self.level       forKey:@"level"];
@@ -139,11 +140,11 @@
     [data setValue:self.hp          forKey:@"hp"];
     [data setValue:self.exp         forKey:@"exp"];
     [data setValue:self.toNextLevel forKey:@"toNextLevel"];
-//  }
-//  if (flag & kDataModifyTamedPokemonExtra) {
+  }
+  if (flag & kDataModifyTamedPokemonExtra) {
     [data setValue:self.box         forKey:@"box"];
     [data setValue:self.memo        forKey:@"memo"];
-//  }
+  }
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -247,6 +248,7 @@
                          withMemo:(NSString *)memo
                             toBox:(NSInteger)box
                        forTrainer:(Trainer *)trainer {
+  NSLog(@"|%@| - |addPokemonWithWildPokemon:withMemo:toBox:forTrainer:|", [self class]);
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   TrainerTamedPokemon * tamedPokemon;
@@ -254,8 +256,9 @@
                                                inManagedObjectContext:managedObjectContext];
   
   // Set data
-  NSLog(@"New TamedPokemon UID:%d", [self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1);
-  tamedPokemon.uid         = [NSNumber numberWithInt:([self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1)];
+  NSInteger UID = [self numberOfTamedPokemonsWithTraienrUID:[trainer.uid intValue]] + 1;
+  NSLog(@"New TamedPokemon UID:%d", UID);
+  tamedPokemon.uid         = [NSNumber numberWithInt:UID];
   tamedPokemon.sid         = wildPokemon.sid;
   tamedPokemon.box         = [NSNumber numberWithInt:box];
   tamedPokemon.status      = wildPokemon.status;
@@ -276,13 +279,13 @@
   NSError * error;
   if (! [managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to |%@| :: %@", [self class], error);
-  tamedPokemon = nil;
   
   // Sync new Pokemon data to Server
   [tamedPokemon syncWithFlag:kDataModifyTamedPokemon
                             |kDataModifyTamedPokemonNew
                             |kDataModifyTamedPokemonBasic
                             |kDataModifyTamedPokemonExtra];
+  tamedPokemon = nil;
 }
 
 #pragma mark - GET Base data
