@@ -121,8 +121,9 @@
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
     [self.moveOneView.name setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move1.sid intValue]]), nil)];
-    [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:1] intValue],
-                                  [[fourMovesPP_ objectAtIndex:0] intValue]]];
+    [self.moveOneView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                  [[fourMovesPP_ objectAtIndex:0] intValue],
+                                  [[fourMovesPP_ objectAtIndex:1] intValue]]];
     move1 = nil;
   }
   
@@ -132,8 +133,9 @@
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
     [self.moveTwoView.name setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move2.sid intValue]]), nil)];
-    [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:3] intValue],
-                                  [[fourMovesPP_ objectAtIndex:2] intValue]]];
+    [self.moveTwoView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                  [[fourMovesPP_ objectAtIndex:2] intValue],
+                                  [[fourMovesPP_ objectAtIndex:3] intValue]]];
     move2 = nil;
   }
   
@@ -143,8 +145,9 @@
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
     [self.moveThreeView.name setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move3.sid intValue]]), nil)];
-    [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:5] intValue],
-                                    [[fourMovesPP_ objectAtIndex:4] intValue]]];
+    [self.moveThreeView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                    [[fourMovesPP_ objectAtIndex:4] intValue],
+                                    [[fourMovesPP_ objectAtIndex:5] intValue]]];
     move3 = nil;
   }
   
@@ -154,8 +157,9 @@
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
     [self.moveFourView.name setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move4.sid intValue]]), nil)];
-    [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:7] intValue],
-                                   [[fourMovesPP_ objectAtIndex:6] intValue]]];
+    [self.moveFourView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                                   [[fourMovesPP_ objectAtIndex:6] intValue],
+                                   [[fourMovesPP_ objectAtIndex:7] intValue]]];
     move4 = nil;
   }
 }

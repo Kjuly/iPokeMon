@@ -308,6 +308,7 @@
 - (Move *)move3 { return [self moveWithIndex:3]; }
 - (Move *)move4 { return [self moveWithIndex:4]; }
 
+// Current PPs & Max PPs
 - (NSArray *)fourMovesPPInArray {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
   NSInteger fourMovesCount = [fourMoves count] / 3;
@@ -322,15 +323,66 @@
   return fourMovesPP;
 }
 
+// Current PPs in One NSInteger
+//
+//   |PPInOne|: 000 000 000 000
+//  Move Index:   4   3   2   1
+//
+- (NSInteger)fourMovesPPInOne {
+  NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
+  NSInteger fourMovesCount = [fourMoves count] / 3;
+  if (fourMovesCount <= 0)
+    return 0;
+  NSInteger ppInOne = 0;
+  for (NSInteger i = 0; i < fourMovesCount; ++i)
+    ppInOne += [[fourMoves objectAtIndex:(i * 3 + 1)] intValue] * pow(1000, i);
+  NSLog(@"|%@| - |fourMovesPPInOne| - ppInOne:%d", [self class], ppInOne);
+  return ppInOne;
+}
+
 - (NSArray *)maxStatsInArray {
   return [self.maxStats componentsSeparatedByString:@","];
 }
 
 #pragma mark - SET Base data
 
-- (void)setFourMovesPPWith:(NSArray *)newPPArray
-{
-  
+// Add Move
+- (void)addMoveWithNewMoveID:(NSInteger)newMoveID {
+}
+
+// Replace move
+- (void)replaceMoveAtIndex:(NSInteger)index
+             withNewMoveID:(NSInteger)newMoveID {
+}
+
+// Update PP for moves (NSArray)
+//
+// |self.fourMoves|:
+//    move1ID,move1currPP,move1maxPP, move2ID,move2currPP,move2maxPP,
+//    move3ID,move3currPP,move3maxPP, move4ID,move4currPP,move4maxPP
+//
+//  0,1,2, 3,4,5, 6,7,8, 9,10,11
+//
+- (void)updateFourMovesWithPPArray:(NSArray *)ppArray {
+  NSMutableArray * fourMoves = [[self.fourMoves componentsSeparatedByString:@","] mutableCopy];
+  for (NSInteger i = 0; i < [fourMoves count] / 3; ++i)
+    [fourMoves replaceObjectAtIndex:(i * 3 + 1) withObject:[ppArray objectAtIndex:i]];
+  self.fourMoves = [fourMoves componentsJoinedByString:@","];
+}
+
+// Update PP for moves (NSInteger)
+//
+//   |PPInOne|: 000 000 000 000
+//  Move Index:   4   3   2   1
+//
+- (void)updateFourMovesWithPPInOne:(NSInteger)PPInOne {
+  NSArray * ppArray = [[NSArray alloc] initWithObjects:
+                       [NSNumber numberWithInt:(PPInOne % 1000)],
+                       [NSNumber numberWithInt:(PPInOne % 1000000    / 1000)], 
+                       [NSNumber numberWithInt:(PPInOne % 1000000000 / 1000000)],
+                       [NSNumber numberWithInt:(PPInOne / 1000000000)], nil];
+  [self updateFourMovesWithPPArray:ppArray];
+  [ppArray release];
 }
 
 // Add gained EXP

@@ -37,11 +37,15 @@
 - (Move *)move2;
 - (Move *)move3;
 - (Move *)move4;
-- (NSArray *)fourMovesPPInArray;
+- (NSArray *)fourMovesPPInArray; // Current PPs & Max PPs
+- (NSInteger)fourMovesPPInOne;   // Current PPs
 - (NSArray *)maxStatsInArray;
 
 // SET Base data
-- (void)setFourMovesPPWith:(NSArray *)newPPArray;
+- (void)addMoveWithNewMoveID:(NSInteger)newMoveID;                              // Add Move
+- (void)replaceMoveAtIndex:(NSInteger)index withNewMoveID:(NSInteger)newMoveID; // Replace move
+- (void)updateFourMovesWithPPArray:(NSArray *)ppArray;                          // Update PP for moves (NSArray)
+- (void)updateFourMovesWithPPInOne:(NSInteger)PPInOne;                          // Update PP for moves (NSInteger)
 - (void)addGainedExp:(NSInteger)gainedExp;
 
 @end

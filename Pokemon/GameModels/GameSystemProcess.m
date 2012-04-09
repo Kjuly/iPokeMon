@@ -52,6 +52,7 @@ typedef enum {
 @interface GameSystemProcess () {
 @private
   // Pokemon transient status
+  NSInteger     playerPokemonPPInOne_;            // Store four Moves' PP data
   PokemonStatus playerPokemonStatus_;
   NSInteger     playerPokemonTransientAttack_;
   NSInteger     playerPokemonTransientDefense_;
@@ -88,6 +89,7 @@ typedef enum {
 - (void)fight;
 - (void)calculateEffectForMove:(Move *)move;
 - (NSInteger)calculateDamageForMove:(Move *)move;
+- (void)decreasePPValue;                       // Decrease PP value (playerPokemonPPInOne_) with |moveIndex_|
 - (NSInteger)calculateExpGained;
 //- (void)MoveTargetSinglePokemonOtherThanTheUser;
 //- (void)MoveTargetNone;
@@ -158,11 +160,14 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)prepareForNewSceneBattleBetweenTrainers:(BOOL)battleBetweenTrainers
 {
   isBattleBetweenTrainers_ = battleBetweenTrainers;
-  // Reset HP for enemy pokemon
+  // Reset HP for enemy Pokemon
   NSArray * stats = [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
   NSInteger currHP = [[stats objectAtIndex:0] intValue];
   self.enemyPokemon.hp = [NSNumber numberWithInt:currHP];
   stats = nil;
+  
+  // Reset data for player Pokemon
+  playerPokemonPPInOne_ = [self.playerPokemon fourMovesPPInOne];
 }
 
 - (void)update:(ccTime)dt
@@ -1185,6 +1190,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
   
+  // Decrease PP value (only for Player, not include WildPokemon(enemy) now)
+  [self decreasePPValue];
+  
   // Checking Pokemon FAINT or not
   [self performSelector:@selector(checkPokemonFaintOrNot) withObject:nil afterDelay:1.5f];
 }
@@ -1207,6 +1215,28 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   NSLog(@"|%@| - |calculateDamageForMove:| - damage:%d", [self class], damage);
   return damage;
+}
+
+// Decrease PP value (|playerPokemonPPInOne_|) with |moveIndex_|
+//
+//   |PPInOne|: 000 000 000 000
+//  Move Index:   4   3   2   1
+//
+// TODO:
+//   WildPokemon's Move PP not included
+//
+- (void)decreasePPValue {
+  // Only for Player now (not include WildPokemon (enemy))
+  if (user_ != kGameSystemProcessUserPlayer || moveIndex_ == 0)
+    return;
+  playerPokemonPPInOne_ -= pow(1000, (moveIndex_ - 1));
+  NSLog(@"Used Move_%d, New value of ppInOne:%d", moveIndex_, playerPokemonPPInOne_);
+  
+  //
+  // !!!TODO:
+  //   No need to save PP every time
+  //
+  [self.playerPokemon updateFourMovesWithPPInOne:playerPokemonPPInOne_];
 }
 
 // Calculate the EXP. points gained
