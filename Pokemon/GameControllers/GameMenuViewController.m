@@ -761,6 +761,8 @@ typedef enum {
       [gameMenuMoveViewController release];
     }
     [self.view addSubview:self.gameMenuMoveViewController.view];
+    // Update Moves' data & load view with animations
+    [self.gameMenuMoveViewController updateFourMoves];
     [self.gameMenuMoveViewController loadViewWithAnimationFromLeft:YES animated:YES];
     self.gameMenuKeyView = kGameMenuKeyViewMoveView;
   }
