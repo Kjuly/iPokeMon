@@ -219,6 +219,8 @@
     }
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
+    for (UIView *view in [self.backgroundView subviews])
+      [view removeFromSuperview];
     [self.view removeFromSuperview];
   };
   if (animated) [UIView animateWithDuration:.3f
