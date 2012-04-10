@@ -25,6 +25,7 @@
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag;
 - (void)cancelUnitAnimated:(BOOL)animated;
+- (void)setAsNormal;
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne;
 - (void)setAsFainted:(BOOL)isFainted;
 

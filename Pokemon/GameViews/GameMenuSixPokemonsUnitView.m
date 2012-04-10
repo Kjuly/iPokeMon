@@ -26,6 +26,7 @@
 @property (nonatomic, assign) BOOL       isFainted;
 
 - (void)openUnit:(id)sender;
+- (void)setBackgroundForButtonsWithImageName:(NSString *)imageName;
 
 @end
 
@@ -173,6 +174,13 @@
   [self.delegate resetUnit];
 }
 
+// Set the Pokemon as Normal
+- (void)setAsNormal {
+  self.isCurrBattlePokemon = NO;
+  self.isFainted           = NO;
+  [self setBackgroundForButtonsWithImageName:@"MainViewCenterMenuButtonBackground.png"];
+}
+
 // Set the Pokemon as current battle one
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
 {
@@ -180,10 +188,7 @@
   NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
   if (isCurrentBattleOne)
     buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";
-  [self.mainButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
-                             forState:UIControlStateNormal];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
-                               forState:UIControlStateNormal];
+  [self setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
 }
 
 // Set the Pokemon as Fainted
@@ -192,9 +197,16 @@
   NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
   if (isFainted)
     buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png";
-  [self.mainButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+  [self setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
+}
+
+#pragma mark - Private Methods
+
+// Set background image for buttons
+- (void)setBackgroundForButtonsWithImageName:(NSString *)imageName {
+  [self.mainButton setBackgroundImage:[UIImage imageNamed:imageName]
                              forState:UIControlStateNormal];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+  [self.cancelButton setBackgroundImage:[UIImage imageNamed:imageName]
                                forState:UIControlStateNormal];
 }
 

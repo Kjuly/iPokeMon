@@ -241,6 +241,9 @@
       [self.view insertSubview:unitView belowSubview:self.cancelButton];
     }
     
+    // Set as normal for |unitView|
+    [unitView setAsNormal];
+    
     // Set as current battle one
     if (self.currBattlePokemon == i)
       [unitView setAsCurrentBattleOne:YES];
