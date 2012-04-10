@@ -105,6 +105,7 @@ typedef enum {
 // Gesture Action
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer;
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
+- (void)cancelKeyViewExcept:(GameMenuKeyView)targetView;
 
 @end
 
@@ -422,6 +423,7 @@ typedef enum {
       if (self.gameMenuSixPokemonsViewController.isSelectedPokemonInfoViewOpening)
         [self.gameMenuSixPokemonsViewController unloadSelcetedPokemonInfoView];
       [self.gameMenuSixPokemonsViewController unloadSixPokemonsAnimated:YES];
+      
       self.gameMenuKeyView = kGameMenuKeyViewNone;
     }
   }
@@ -761,7 +763,7 @@ typedef enum {
 // Action for |buttonFight_|
 - (void)openMoveView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    if (! self.gameMenuMoveViewController) {
+    if (self.gameMenuMoveViewController == nil) {
       GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
       self.gameMenuMoveViewController = gameMenuMoveViewController;
       [gameMenuMoveViewController release];
@@ -777,7 +779,7 @@ typedef enum {
 // Action for |buttonBag_|
 - (void)openBagView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    if (! self.gameMenuBagViewController) {
+    if (self.gameMenuBagViewController == nil) {
       GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
       self.gameMenuBagViewController = gameMenuBagViewController;
       [gameMenuBagViewController release];
@@ -802,25 +804,14 @@ typedef enum {
 }
 
 // Notification for |centerMainButton_| at view bottom
-- (void)toggleSixPokemonsView:(NSNotification *)notification
-{
-  switch (self.gameMenuKeyView) {
-    case kGameMenuKeyViewMoveView:
-      [self.gameMenuMoveViewController unloadViewWithAnimationToLeft:YES animated:YES];
-      break;
-      
-    case kGameMenuKeyViewBagView:
-      if (self.gameMenuBagViewController.isSelectedItemViewOpening)
-        [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
-      [self.gameMenuBagViewController unloadViewWithAnimationToLeft:NO animated:YES];
-      break;
-      
-    case kGameMenuKeyViewNone:
-    case kGameMenuKeyViewSixPokemonsView:
-    default:
-      [self toggleSixPokemonView];
-      break;
-  }
+- (void)toggleSixPokemonsView:(NSNotification *)notification {
+  // Toggle SixPokemons'view only when 
+  //   the key view is None or |kGameMenuKeyViewSixPokemonsView|
+  if (self.gameMenuKeyView == kGameMenuKeyViewNone ||
+      self.gameMenuKeyView == kGameMenuKeyViewSixPokemonsView)
+    [self toggleSixPokemonView];
+  // Otherwise, cancel other key views first
+  else [self cancelKeyViewExcept:kGameMenuKeyViewSixPokemonsView];
 }
 
 // Update message for game battle
@@ -884,20 +875,22 @@ typedef enum {
 
 // Action for swipe gesture recognizer
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
-  void (^animationBlock)();
+  void (^animations)();
   
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight: {
       NSLog(@"Swipe to Right");
       if (self.gameMenuKeyView == kGameMenuKeyViewNone) [self openMoveView];
-      animationBlock = ^(){};
+      else [self cancelKeyViewExcept:kGameMenuKeyViewMoveView];
+      return;
       break;
     }
       
     case UISwipeGestureRecognizerDirectionLeft: {
       NSLog(@"Swipe to Left");
       if (self.gameMenuKeyView == kGameMenuKeyViewNone) [self openBagView];
-      animationBlock = ^(){};
+      else [self cancelKeyViewExcept:kGameMenuKeyViewBagView];
+      return;
       break;
     }
       
@@ -906,16 +899,14 @@ typedef enum {
       if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
         playerPokemonStatusViewFrame.origin.y = kViewHeight - 150.f - 64.f;
-        animationBlock = ^(){
+        animations = ^(){
           [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
         };
         self.gameMenuKeyView = kGameMenuKeyViewPlayerPokemonStatusView;
       }
-      else if (self.gameMenuKeyView == kGameMenuKeyViewEnemyPokemonStatusView) {
-        CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
-        enemyPokemonStatusViewFrame.origin.y = -56.f;
-        animationBlock = ^(){ [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame]; };
-        self.gameMenuKeyView = kGameMenuKeyViewNone;
+      else {
+        [self cancelKeyViewExcept:kGameMenuKeyViewPlayerPokemonStatusView];
+        return;
       }
       break;
     }
@@ -925,14 +916,12 @@ typedef enum {
       if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
         CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
         enemyPokemonStatusViewFrame.origin.y = 0.f;
-        animationBlock = ^(){ [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame]; };
+        animations = ^(){ [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame]; };
         self.gameMenuKeyView = kGameMenuKeyViewEnemyPokemonStatusView;
       }
-      else if (self.gameMenuKeyView == kGameMenuKeyViewPlayerPokemonStatusView) {
-        CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
-        playerPokemonStatusViewFrame.origin.y = kViewHeight - 150.f - 8.f;
-        animationBlock = ^(){ [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame]; };
-        self.gameMenuKeyView = kGameMenuKeyViewNone;
+      else {
+        [self cancelKeyViewExcept:kGameMenuKeyViewEnemyPokemonStatusView];
+        return;
       }
       break;
     }
@@ -944,7 +933,7 @@ typedef enum {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
-                   animations:animationBlock
+                   animations:animations
                    completion:nil];
 }
 
@@ -954,6 +943,62 @@ typedef enum {
     [self openRunConfirmView];
 //  if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 1)
 //    [self toggleMenu:NO];
+}
+
+// Cancel key view except |targetView|
+- (void)cancelKeyViewExcept:(GameMenuKeyView)targetView {
+  if (self.gameMenuKeyView == targetView)
+    return;
+  
+  void (^animations)();
+  
+  // Cancel current opening view
+  switch (self.gameMenuKeyView) {
+    case kGameMenuKeyViewSixPokemonsView:
+      return;
+      break;
+      
+    case kGameMenuKeyViewMoveView:
+      [self.gameMenuMoveViewController unloadViewWithAnimationToLeft:YES animated:YES];
+      return;
+      break;
+      
+    case kGameMenuKeyViewBagView:
+      if (self.gameMenuBagViewController.isSelectedItemViewOpening)
+        [self.gameMenuBagViewController unloadSelcetedItemTalbeView:nil];
+      [self.gameMenuBagViewController unloadViewWithAnimationToLeft:NO animated:YES];
+      return;
+      break;
+      
+    case kGameMenuKeyViewPlayerPokemonStatusView: {
+      animations = ^(){
+        CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
+        playerPokemonStatusViewFrame.origin.y = kViewHeight - 150.f - 8.f;
+        [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
+      };
+      break;
+    }
+      
+    case kGameMenuKeyViewEnemyPokemonStatusView: {
+      CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
+      enemyPokemonStatusViewFrame.origin.y = -56.f;
+      animations = ^(){
+        [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame];
+      };
+      break;
+    }
+      
+    default:
+      animations = ^(){};
+      break;
+  }
+  self.gameMenuKeyView = kGameMenuKeyViewNone;
+  
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:animations
+                   completion:nil];
 }
 
 #pragma mark - Public Methods

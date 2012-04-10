@@ -193,39 +193,9 @@
   self.view = view;
   [view release];
   
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:
-                                 [UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
+  [self.view setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
   [self.view setOpaque:NO];
-  
-  // Base iVar Settings
-  centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
-  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
-  isCenterMenuOpening_    = NO;
-  isCenterMainButtonTouchDownCircleViewLoading_ = NO;
-  isMapViewOpening_       = NO;
-  isGameMainViewOpening_  = NO;
-  
-  // Add self as Notification observer
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showLoginTableView:)
-                                               name:kPMNSessionIsInvalid
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showNewbieGuideView:)
-                                               name:kPMNShowNewbieGuide
-                                             object:nil]; // From |TrainerController|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
-                                               name:kPMNChangeCenterMainButtonStatus
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
-                                               name:kPMNPokemonAppeared
-                                             object:self.mapViewController];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
-                                               name:kPMNBattleEnd
-                                             object:self.gameMainViewController];
   
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
@@ -273,6 +243,36 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // Base iVar Settings
+  centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
+  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
+  isCenterMenuOpening_    = NO;
+  isCenterMainButtonTouchDownCircleViewLoading_ = NO;
+  isMapViewOpening_       = NO;
+  isGameMainViewOpening_  = NO;
+  
+  // Add self as Notification observer
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showLoginTableView:)
+                                               name:kPMNSessionIsInvalid
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showNewbieGuideView:)
+                                               name:kPMNShowNewbieGuide
+                                             object:nil]; // From |TrainerController|
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNChangeCenterMainButtonStatus
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNPokemonAppeared
+                                             object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(changeCenterMainButtonStatus:)
+                                               name:kPMNBattleEnd
+                                             object:self.gameMainViewController];
   
 #ifndef DEBUG_PREINIT_POPULATE_DATA
   // Game Main View
@@ -635,11 +635,11 @@
     return;
   
   // Else, just normal button action
-  CGRect mapViewFrame   = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
-  CGRect mapButtonFrame = CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                     100.f,
-                                     kMapButtonSize,
-                                     kMapButtonSize);
+  __block CGRect mapViewFrame   = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+  __block CGRect mapButtonFrame = CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                             100.f,
+                                             kMapButtonSize,
+                                             kMapButtonSize);
   
   if (self.isMapViewOpening) {
     mapViewFrame.origin.y   = kViewHeight;
