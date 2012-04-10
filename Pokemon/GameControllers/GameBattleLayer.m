@@ -171,11 +171,11 @@
   // Player pokemon sprite setting
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d", [playerPokemon.sid intValue]];
   GamePokemonSprite * playerPokemonSprite =
-    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
+    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.imageBack).CGImage
                                            key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
-  [self.playerPokemonSprite setPosition:ccp(410, 250)];
+  [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosOffsetX, kGameBattlePlayerPokemonPosY)];
   [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.playerPokemonSprite];
   
@@ -186,7 +186,7 @@
                                            key:spriteKeyEnemyPokemon];
   self.enemyPokemonSprite = enemyPokemonSprite;
   [enemyPokemonSprite release];
-  [self.enemyPokemonSprite setPosition:ccp(-90, 350)];
+  [self.enemyPokemonSprite setPosition:ccp(kGameBattleEnemyPokemonPosOffsetX, kGameBattleEnemyPokemonPosY)];
   [self.enemyPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.enemyPokemonSprite];
   
@@ -256,8 +256,10 @@
 - (void)runBattleBeginAnimation
 {
   // Battle begin animation
-  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:1.5f position:ccp(70, 250)]];
-  [self.enemyPokemonSprite  runAction:[CCMoveTo actionWithDuration:1.5f position:ccp(250, 350)]];
+  [self.playerPokemonSprite runAction:
+    [CCMoveTo actionWithDuration:1.5f position:ccp(kGameBattlePlayerPokemonPosX, kGameBattlePlayerPokemonPosY)]];
+  [self.enemyPokemonSprite  runAction:
+    [CCMoveTo actionWithDuration:1.5f position:ccp(kGameBattleEnemyPokemonPosX, kGameBattleEnemyPokemonPosY)]];
   
   // Start game loop after some time delay (waiting the animation done)
   [self performSelector:@selector(startGameLoop) withObject:nil afterDelay:2.f];
@@ -277,12 +279,12 @@
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",
                                        [playerPokemon.sid intValue]];
   GamePokemonSprite * playerPokemonSprite =
-    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.image).CGImage
+    [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.imageBack).CGImage
                                            key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
   [playerPokemonSprite release];
   playerPokemon = nil;
-  [self.playerPokemonSprite setPosition:ccp(70, 250)];
+  [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosX, kGameBattlePlayerPokemonPosY)];
   [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.playerPokemonSprite];
   
@@ -304,13 +306,17 @@
 
 // Player's Pokemon FAINT
 - (void)playerPokemonFaint:(NSNotification *)notification {
-  [self.playerPokemonSprite runAction:[CCMoveTo actionWithDuration:.3f position:ccp(70, 200)]];
+  [self.playerPokemonSprite runAction:
+    [CCMoveTo actionWithDuration:.3f position:ccp(kGameBattlePlayerPokemonPosX,
+                                                  kGameBattlePlayerPokemonPosY - kGameBattlePokemonFaintedOffsetY)]];
   [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
 }
 
 // Enemy's Pokemon (or WildPokemon) FAINT
 - (void)enemyPokemonFaint:(NSNotification *)notification {
-  [self.enemyPokemonSprite runAction:[CCMoveTo actionWithDuration:.3f position:ccp(250, 300)]];
+  [self.enemyPokemonSprite runAction:
+    [CCMoveTo actionWithDuration:.3f position:ccp(kGameBattleEnemyPokemonPosX,
+                                                  kGameBattleEnemyPokemonPosY - kGameBattlePokemonFaintedOffsetY)]];
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
 }
 
@@ -321,8 +327,8 @@
 
 // END Game Battle
 - (void)endGameBattle:(NSNotification *)notification {
-  [self.playerPokemonSprite setPosition:ccp(410, 250)];
-  [self.enemyPokemonSprite  setPosition:ccp(-90, 350)];
+  [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosOffsetX, kGameBattlePlayerPokemonPosY)];
+  [self.enemyPokemonSprite  setPosition:ccp(kGameBattleEnemyPokemonPosOffsetX, kGameBattleEnemyPokemonPosY)];
 }
 
 @end

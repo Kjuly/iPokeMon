@@ -523,7 +523,7 @@ typedef enum {
   
   TrainerTamedPokemon * pokemon =
     [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
-  [self.pokemonImageView setImage:pokemon.pokemon.image];
+  [self.pokemonImageView setImage:pokemon.pokemon.imageBack];
   [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
   pokemon = nil;
 }

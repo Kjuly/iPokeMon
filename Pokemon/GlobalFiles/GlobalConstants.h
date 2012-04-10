@@ -133,6 +133,14 @@ typedef enum {
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10
 
+#define kGameBattlePlayerPokemonPosOffsetX 410.f // Offscreen's position X
+#define kGameBattlePlayerPokemonPosX       80.f
+#define kGameBattlePlayerPokemonPosY       225.f // ccp(70.f, 230.f) = CGPoint(70,kViewHeight-230.f)
+#define kGameBattleEnemyPokemonPosOffsetX  -90.f
+#define kGameBattleEnemyPokemonPosX        250.f
+#define kGameBattleEnemyPokemonPosY        350.f
+#define kGameBattlePokemonFaintedOffsetY   50.f
+
 // Table View
 #define kCellHeightOfTrainerBadgesTableView 52.5f
 #define kCellHeightOfPokedexTableView       70.f
