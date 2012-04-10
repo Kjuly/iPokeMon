@@ -218,37 +218,39 @@
 #pragma mark - Public Methods
 
 - (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
-  self.isForReplacing    = forReplacing;
-  self.currBattlePokemon = forReplacing ? currBattlePokemon_ : 0;
+  // Basic Setting
+  self.isSelectedPokemonInfoViewOpening = NO;
+  self.isForReplacing                   = forReplacing;
+  self.currBattlePokemon                = forReplacing ? currBattlePokemon_ : 0;
   NSLog(@"|%@| - |initWithSixPokemonsForReplacing:| - |currBattlePokemon_|:%d", [self class], self.currBattlePokemon);
+  
+  // Create Pokemon unit views
   self.sixPokemons       = [[TrainerController sharedInstance] sixPokemons];
   CGFloat buttonSize     = 60.f;
   CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
-  //
-  // TODO:
-  //   Every time they'll be created, no need actually
-  //
+  
   for (int i = 0; i < [self.sixPokemons count];) {
-    TrainerTamedPokemon * pokemon = [self.sixPokemons objectAtIndex:i];
-    GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView =
-      [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:++i];
-    gameMenuSixPokemonsUnitView.delegate = self;
-    [gameMenuSixPokemonsUnitView setTag:i];
-    [gameMenuSixPokemonsUnitView setAlpha:0.f];
+    TrainerTamedPokemon         * pokemon  = [self.sixPokemons objectAtIndex:i];
+    GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:++i];
+    if (unitView == nil) {
+      NSLog(@"unitView == nil, create new one...");
+      unitView = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:i];
+      unitView.delegate = self;
+      [unitView setTag:i];
+      [unitView setAlpha:0.f];
+      [self.view insertSubview:unitView belowSubview:self.cancelButton];
+    }
     
     // Set as current battle one
     if (self.currBattlePokemon == i)
-      [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
+      [unitView setAsCurrentBattleOne:YES];
     // Set FAINTED when HP == 0
     if (forReplacing && ([pokemon.hp intValue] == 0))
-      [gameMenuSixPokemonsUnitView setAsFainted:YES];
+      [unitView setAsFainted:YES];
     
-    [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
-    [gameMenuSixPokemonsUnitView release];
-    pokemon = nil;
+    unitView = nil;
+    pokemon  = nil;
   }
-  // Basic Setting
-  self.isSelectedPokemonInfoViewOpening = NO;
 }
 
 - (void)loadSixPokemonsAnimated:(BOOL)animated {
