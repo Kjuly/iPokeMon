@@ -2,7 +2,7 @@
 //  Pokemon.h
 //  Pokemon
 //
-//  Created by Kaijie Yu on 4/9/12.
+//  Created by Kaijie Yu on 4/10/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
@@ -41,6 +41,7 @@
 @property (nonatomic, retain) NSNumber * type1;
 @property (nonatomic, retain) NSNumber * type2;
 @property (nonatomic, retain) NSNumber * weight;
+@property (nonatomic, retain) id imageBack;
 @property (nonatomic, retain) NSSet *tamedGroup;
 @property (nonatomic, retain) NSSet *wildGroup;
 @end

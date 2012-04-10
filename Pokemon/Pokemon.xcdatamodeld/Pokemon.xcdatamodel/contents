@@ -95,6 +95,7 @@
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="hiddenAbility" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="imageBack" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="imageIcon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="moves" optional="YES" attributeType="String" valueTransformerName="ArrayToStringTransformer" syncable="YES"/>

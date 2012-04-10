@@ -141,6 +141,7 @@ typedef enum {
     Pokemon * pokemon = entity;
     pokemon.sid           = [NSNumber numberWithInt:index];
     pokemon.image         = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", index]];
+    pokemon.imageBack     = [UIImage imageNamed:[NSString stringWithFormat:@"PMSpriteBack_%d.png", index]];
     pokemon.imageIcon     = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", index - 1]];
     pokemon.type1         = [dataDict objectForKey:@"type1"];
     pokemon.type2         = [dataDict objectForKey:@"type2"];
