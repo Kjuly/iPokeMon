@@ -149,8 +149,11 @@
 - (void)createNewSceneWithWildPokemonID:(NSInteger)wildPokemonID
 {
   NSLog(@"Generating a new scene......");
-  TrainerTamedPokemon * playerPokemon = [[TrainerController sharedInstance] firstPokemonOfSix];
+  TrainerController * trainer = [TrainerController sharedInstance];
+  NSInteger currentBattleAblePokemonIndex = [trainer battleAvailablePokemonIndex];
+  TrainerTamedPokemon * playerPokemon = [trainer pokemonOfSixAtIndex:currentBattleAblePokemonIndex];
   WildPokemon * enemyPokemon          = [WildPokemon queryPokemonDataWithID:wildPokemonID];
+  trainer = nil;
   
   // Set pokemon for |gameSystemProcess_|
   self.gameSystemProcess.playerPokemon = playerPokemon;
