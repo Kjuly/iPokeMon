@@ -35,26 +35,28 @@
     CGFloat const typeWidth     = 60.f;
     CGFloat const labelHeight   = 32.f;
     
-    CGRect  const type1Frame  = CGRectMake(10.f, 5.f, typeWidth, labelHeight);
-    CGRect  const nameFrame   = CGRectMake(10.f + typeWidth, 5.f, frame.size.width - typeWidth - 80.f, labelHeight);
-    CGRect  const ppFrame     = CGRectMake(nameFrame.origin.x + nameFrame.size.width, 5.f, 60.f, labelHeight);
+    CGRect  const type1Frame  = CGRectMake(10.f, 20.f, typeWidth, labelHeight);
+    CGRect  const nameFrame   = CGRectMake(20.f + typeWidth,   20.f, frame.size.width - typeWidth - 20.f, labelHeight);
+    CGRect  const ppFrame     = CGRectMake(nameFrame.origin.x, 20.f + labelHeight, 60.f, labelHeight);
     CGRect  const viewButtonFrame = CGRectMake(10.f, 0.f, frame.size.width, frame.size.height);
     
     type1_ = [[UILabel alloc] initWithFrame:type1Frame];
     [type1_ setBackgroundColor:[UIColor clearColor]];
+    [type1_ setTextAlignment:UITextAlignmentRight];
     [type1_ setTextColor:[GlobalRender textColorNormal]];
     [type1_ setFont:[GlobalRender textFontBoldInSizeOf:12.f]];
     [self addSubview:type1_];
     
     name_ = [[UILabel alloc] initWithFrame:nameFrame];
     [name_ setBackgroundColor:[UIColor clearColor]];
+    [name_ setTextAlignment:UITextAlignmentLeft];
     [name_ setTextColor:[GlobalRender textColorOrange]];
-    [name_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+    [name_ setFont:[GlobalRender textFontBoldInSizeOf:24.f]];
     [self addSubview:name_];
     
     pp_ = [[UILabel alloc] initWithFrame:ppFrame];
     [pp_ setBackgroundColor:[UIColor clearColor]];
-    [pp_ setTextAlignment:UITextAlignmentRight];
+    [pp_ setTextAlignment:UITextAlignmentLeft];
     [pp_ setTextColor:[GlobalRender textColorOrange]];
     [pp_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [self addSubview:pp_];
