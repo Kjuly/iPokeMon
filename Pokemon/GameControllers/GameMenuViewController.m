@@ -93,6 +93,7 @@ typedef enum {
 - (void)checkPokeball:(NSNotification *)notification;
 - (void)resetPokeball:(NSNotification *)notification;
 - (void)getPokemonBack;
+- (void)updateForNewPokemon;
 - (void)openMoveView;
 - (void)openBagView;
 - (void)openRunConfirmView;
@@ -436,11 +437,19 @@ typedef enum {
 - (void)replacePokemon:(NSNotification *)notification {
   self.gameMenuKeyView = kGameMenuKeyViewNone;
   
-  // Get current battling pokemon back from scene
-  [self performSelector:@selector(getPokemonBack) withObject:nil afterDelay:1.f];
-  // Send new pokemon to scene
-  [self performSelector:@selector(throwPokeballToReplacePokemon) withObject:nil afterDelay:1.8f];
-  
+  CGFloat baseDalay = 0.f;
+  // If player's current battle Pokemon not fainted, get back it with animation first
+  TrainerTamedPokemon * pokemon =
+    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+  if ([pokemon.hp intValue] != 0) {
+    // Get current battling pokemon back from scene animated
+    baseDalay = 1.f;
+    [self performSelector:@selector(getPokemonBack) withObject:nil afterDelay:baseDalay];
+  }
+  // Update for new Pokemon
+  [self performSelector:@selector(updateForNewPokemon) withObject:nil afterDelay:baseDalay];
+  // Send new pokemon to scene animated
+  [self performSelector:@selector(throwPokeballToReplacePokemon) withObject:nil afterDelay:(baseDalay + .8f)];
 }
 
 // Try to catch Wild Pokemon
@@ -521,7 +530,10 @@ typedef enum {
   [self.pokemonImageView setImage:pokemon.pokemon.image];
   [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
   pokemon = nil;
-  
+}
+
+// Update data for new Pokemon (generally dispatched after method:|getPokemonBack|)
+- (void)updateForNewPokemon {
   // Post notification to |GameBattleLayer| to replace pokemon sprite
   NSInteger newPokemonIndex = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
