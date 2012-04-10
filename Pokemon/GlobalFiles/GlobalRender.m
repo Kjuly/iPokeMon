@@ -45,9 +45,19 @@
   return [self colorOrange];
 }
 
+// Red |
++ (UIColor *)textColorRed {
+  return [UIColor redColor];
+}
+
 // Blue   | #49627D
 + (UIColor *)textColorTitleWhite {
   return [UIColor whiteColor];
+}
+
+// Text color for diabled button, etc.
++ (UIColor *)textColorDisabled {
+  return [self colorGray];
 }
 
 + (UIColor *)colorOrange {

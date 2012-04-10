@@ -16,7 +16,10 @@
 
 + (UIColor *)textColorNormal;
 + (UIColor *)textColorOrange;
++ (UIColor *)textColorRed;
 + (UIColor *)textColorTitleWhite;
+
++ (UIColor *)textColorDisabled;
 
 + (UIColor *)colorOrange;
 + (UIColor *)colorBlue;

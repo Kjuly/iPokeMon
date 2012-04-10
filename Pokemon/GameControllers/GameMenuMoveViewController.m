@@ -8,6 +8,7 @@
 
 #import "GameMenuMoveViewController.h"
 
+#import "GlobalRender.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"
@@ -170,7 +171,7 @@
   self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
   
   // Four moves
-  Move * move1 = self.playerPokemon.move1;
+  Move * move1 = [self.playerPokemon move1];
   if (move1 != nil) {
     [self.move1View.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
@@ -180,9 +181,19 @@
                                 [[fourMovesPP_ objectAtIndex:0] intValue],
                                 [[fourMovesPP_ objectAtIndex:1] intValue]]];
     move1 = nil;
+    
+    // Change Text color if needed
+    if ([[fourMovesPP_ objectAtIndex:0] intValue] == 0) {
+      [self.move1View.name setTextColor:[GlobalRender textColorDisabled]];
+      [self.move1View.viewButton setEnabled:NO];
+    }
+    else {
+      [self.move1View.name setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.move1View.viewButton setEnabled:YES];
+    }
   }
   
-  Move * move2 = self.playerPokemon.move2;
+  Move * move2 = [self.playerPokemon move2];
   if (move2 != nil) {
     [self.move2View.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
@@ -192,9 +203,19 @@
                                 [[fourMovesPP_ objectAtIndex:2] intValue],
                                 [[fourMovesPP_ objectAtIndex:3] intValue]]];
     move2 = nil;
+    
+    // Change Text color if needed
+    if ([[fourMovesPP_ objectAtIndex:2] intValue] == 0) {
+      [self.move2View.name setTextColor:[GlobalRender textColorDisabled]];
+      [self.move2View.viewButton setEnabled:NO];
+    }
+    else {
+      [self.move2View.name setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.move2View.viewButton setEnabled:YES];
+    }
   }
   
-  Move * move3 = self.playerPokemon.move3;
+  Move * move3 = [self.playerPokemon move3];
   if (move3 != nil) {
     [self.move3View.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
@@ -204,9 +225,19 @@
                                 [[fourMovesPP_ objectAtIndex:4] intValue],
                                 [[fourMovesPP_ objectAtIndex:5] intValue]]];
     move3 = nil;
+    
+    // Change Text color if needed
+    if ([[fourMovesPP_ objectAtIndex:4] intValue] == 0) {
+      [self.move3View.name setTextColor:[GlobalRender textColorDisabled]];
+      [self.move3View.viewButton setEnabled:NO];
+    }
+    else {
+      [self.move3View.name setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.move3View.viewButton setEnabled:YES];
+    }
   }
   
-  Move * move4 = self.playerPokemon.move4;
+  Move * move4 = [self.playerPokemon move4];
   if (move4 != nil) {
     [self.move4View.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
@@ -216,6 +247,16 @@
                                 [[fourMovesPP_ objectAtIndex:6] intValue],
                                 [[fourMovesPP_ objectAtIndex:7] intValue]]];
     move4 = nil;
+    
+    // Change Text color if needed
+    if ([[fourMovesPP_ objectAtIndex:6] intValue] == 0) {
+      [self.move4View.name setTextColor:[GlobalRender textColorDisabled]];
+      [self.move4View.viewButton setEnabled:NO];
+    }
+    else {
+      [self.move4View.name setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.move4View.viewButton setEnabled:YES];
+    }
   }
 }
 
