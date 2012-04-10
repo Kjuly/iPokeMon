@@ -117,6 +117,8 @@
   // Four moves
   Move * move1 = [self.pokemon move1];
   if (move1 != nil) {
+    [self.moveOneView.viewButton setEnabled:YES];
+    
     [self.moveOneView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
     [self.moveOneView.name setText:
@@ -126,9 +128,12 @@
                                   [[fourMovesPP_ objectAtIndex:1] intValue]]];
     move1 = nil;
   }
+  else [self.moveOneView.viewButton setEnabled:NO];
   
   Move * move2 = [self.pokemon move2];
   if (move2 != nil) {
+    [self.moveTwoView.viewButton setEnabled:YES];
+    
     [self.moveTwoView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
     [self.moveTwoView.name setText:
@@ -138,9 +143,12 @@
                                   [[fourMovesPP_ objectAtIndex:3] intValue]]];
     move2 = nil;
   }
+  else [self.moveTwoView.viewButton setEnabled:NO];
   
   Move * move3 = [self.pokemon move3];
   if (move3 != nil) {
+    [self.moveThreeView.viewButton setEnabled:YES];
+    
     [self.moveThreeView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
     [self.moveThreeView.name setText:
@@ -150,9 +158,12 @@
                                     [[fourMovesPP_ objectAtIndex:5] intValue]]];
     move3 = nil;
   }
+  else [self.moveThreeView.viewButton setEnabled:NO];
   
   Move * move4 = [self.pokemon move4];
   if (move4 != nil) {
+    [self.moveFourView.viewButton setEnabled:YES];
+    
     [self.moveFourView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
     [self.moveFourView.name setText:
@@ -162,6 +173,7 @@
                                    [[fourMovesPP_ objectAtIndex:7] intValue]]];
     move4 = nil;
   }
+  else [self.moveFourView.viewButton setEnabled:NO];
 }
 
 - (void)viewDidUnload

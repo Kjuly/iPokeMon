@@ -192,6 +192,7 @@
       [self.move1View.viewButton setEnabled:YES];
     }
   }
+  else [self.move1View.viewButton setEnabled:NO];
   
   Move * move2 = [self.playerPokemon move2];
   if (move2 != nil) {
@@ -214,6 +215,7 @@
       [self.move2View.viewButton setEnabled:YES];
     }
   }
+  else [self.move2View.viewButton setEnabled:NO];
   
   Move * move3 = [self.playerPokemon move3];
   if (move3 != nil) {
@@ -236,6 +238,7 @@
       [self.move3View.viewButton setEnabled:YES];
     }
   }
+  else [self.move3View.viewButton setEnabled:NO];
   
   Move * move4 = [self.playerPokemon move4];
   if (move4 != nil) {
@@ -258,6 +261,7 @@
       [self.move4View.viewButton setEnabled:YES];
     }
   }
+  else [self.move4View.viewButton setEnabled:NO];
 }
 
 @end
