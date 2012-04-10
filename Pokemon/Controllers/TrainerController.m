@@ -184,15 +184,19 @@ static TrainerController * trainerController_ = nil;
   return [self.entitySixPokemons objectAtIndex:--index];
 }
 
-// Check whether Pokemons in Six can battle
-- (BOOL)sixPokemonsBattleAvailable {
-  BOOL available = NO;
-  for (TrainerTamedPokemon *pokemon in self.entitySixPokemons)
+// Check whether Pokemons in Six can battle,
+//   and return the first battleable one's index
+- (NSInteger)battleAvailablePokemonIndex {
+  NSInteger availablePokemonIndex = 0;
+  NSInteger i = 1;
+  for (TrainerTamedPokemon *pokemon in self.entitySixPokemons) {
     if ([pokemon.hp intValue] > 0) {
-      available = YES;
+      availablePokemonIndex = i;
       break;
     }
-  return available;
+    ++i;
+  }
+  return availablePokemonIndex;
 }
 
 // Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)

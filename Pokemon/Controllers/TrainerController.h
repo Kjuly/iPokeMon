@@ -38,7 +38,7 @@
 - (NSURL *)avatarURL;                                          // Avatar URL (Gravatar)
 - (TrainerTamedPokemon *)firstPokemonOfSix;                    // First of Six Pokemons
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index; // Pokemon at |index| of Six Pokemons
-- (BOOL)sixPokemonsBattleAvailable;                            // Check whether Pokemons in Six can battle
+- (NSInteger)battleAvailablePokemonIndex;                      // Check whether Pokemons in Six can battle, & return the first
 - (NSArray *)bagItemsFor:(BagQueryTargetType)targetType;       // Bag Items
 
 // Setting

@@ -713,6 +713,9 @@
   
   // Set new HP value to |currHP| for Pokemon
   pokemon.hp = [NSNumber numberWithInt:(pokemonHP > pokemonHPMax ? pokemonHPMax : pokemonHP)];
+  
+  // SYNC data
+  [pokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP

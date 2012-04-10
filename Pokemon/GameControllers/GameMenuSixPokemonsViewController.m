@@ -109,19 +109,12 @@
   [self.cancelButton setOpaque:NO];
   [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
-  
-  // Basic Setting
-  isForReplacing_    = NO;
-  currBattlePokemon_ = 1;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-  
-  // Basic Setting
-  currOpeningUnitViewTag_ = 0;
+  [super viewDidLoad];  
 }
 
 - (void)viewDidUnload
@@ -157,13 +150,18 @@
   self.currOpeningUnitViewTag = 0;
 }
 
+// Confirm selected Pokemon
 - (void)confirm:(id)sender {
   NSInteger tag = ((UIButton *)sender).tag;
   if (self.isForReplacing) {
     // Replace the current pokemon
     GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView =
       (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
-    [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+    TrainerTamedPokemon * pokemon = [[TrainerController sharedInstance] pokemonOfSixAtIndex:self.currBattlePokemon];
+    if ([pokemon.hp intValue] == 0)
+      [previousBattlePokemonUnitView setAsFainted:YES];
+    else [previousBattlePokemonUnitView setAsCurrentBattleOne:NO];
+    pokemon = nil;
     previousBattlePokemonUnitView = nil;
     
     self.currBattlePokemon = tag;
@@ -221,7 +219,8 @@
 
 - (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
   self.isForReplacing    = forReplacing;
-  self.currBattlePokemon = forReplacing ? self.currBattlePokemon : 0;
+  self.currBattlePokemon = forReplacing ? currBattlePokemon_ : 0;
+  NSLog(@"|%@| - |initWithSixPokemonsForReplacing:| - |currBattlePokemon_|:%d", [self class], self.currBattlePokemon);
   self.sixPokemons       = [[TrainerController sharedInstance] sixPokemons];
   CGFloat buttonSize     = 60.f;
   CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
@@ -236,9 +235,14 @@
     gameMenuSixPokemonsUnitView.delegate = self;
     [gameMenuSixPokemonsUnitView setTag:i];
     [gameMenuSixPokemonsUnitView setAlpha:0.f];
-    if (self.currBattlePokemon == i) {
+    
+    // Set as current battle one
+    if (self.currBattlePokemon == i)
       [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
-    }
+    // Set FAINTED when HP == 0
+    if (forReplacing && ([pokemon.hp intValue] == 0))
+      [gameMenuSixPokemonsUnitView setAsFainted:YES];
+    
     [self.view insertSubview:gameMenuSixPokemonsUnitView belowSubview:self.cancelButton];
     [gameMenuSixPokemonsUnitView release];
     pokemon = nil;
@@ -372,11 +376,16 @@
 }
 
 - (void)prepareForNewScene {
+  // Basic Setting
+  currOpeningUnitViewTag_ = 0;
+  isForReplacing_         = NO;
+  
+  NSInteger currBattlePokemon = [[TrainerController sharedInstance] battleAvailablePokemonIndex];
   //
   // TODO:
   //   Redundancy!!
   //
-  if (self.currBattlePokemon != 1) {
+  if (self.currBattlePokemon != currBattlePokemon) {
     if (self.currBattlePokemon != 0) {
       GameMenuSixPokemonsUnitView * previousBattlePokemonUnitView =
         (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
@@ -384,7 +393,7 @@
       previousBattlePokemonUnitView = nil;
     }
     
-    self.currBattlePokemon = 1;
+    self.currBattlePokemon = currBattlePokemon;
     GameMenuSixPokemonsUnitView * firstPokemonUnitView =
       (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currBattlePokemon];
     [firstPokemonUnitView setAsCurrentBattleOne:YES];

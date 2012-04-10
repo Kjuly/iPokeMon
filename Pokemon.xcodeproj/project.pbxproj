@@ -284,6 +284,8 @@
 		7F77F6FA14FA7D8900842700 /* GameMenuBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F914FA7D8900842700 /* GameMenuBagViewController.m */; };
 		7F77F6FD14FA7F7400842700 /* GameMenuMoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6FC14FA7F7400842700 /* GameMenuMoveViewController.m */; };
 		7F77F70114FAA16C00842700 /* GameMenuMoveUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */; };
+		7F7A7A4A1534031300EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7A7A481534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png */; };
+		7F7A7A4B1534031300EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7A7A491534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png */; };
 		7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C88F914F74FEA0023D079 /* GameMainViewController.m */; };
 		7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C890114F755170023D079 /* GlobalNotificationConstants.m */; };
 		7F7F2EF414EBE4A800315EC5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EE014EBE4A800315EC5 /* AFHTTPClient.m */; };
@@ -1279,6 +1281,8 @@
 		7F77F6FE14FA826500842700 /* GameMenuAbstractChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuAbstractChildViewController.h; sourceTree = "<group>"; };
 		7F77F6FF14FAA16C00842700 /* GameMenuMoveUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuMoveUnitView.h; sourceTree = "<group>"; };
 		7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveUnitView.m; sourceTree = "<group>"; };
+		7F7A7A481534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png; sourceTree = "<group>"; };
+		7F7A7A491534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png"; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
 		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
@@ -3297,6 +3301,8 @@
 				7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */,
 				7F199ED4150A45D6004CE84E /* GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png */,
 				7F199ED5150A45D6004CE84E /* GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground@2x.png */,
+				7F7A7A481534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png */,
+				7F7A7A491534031200EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png */,
 				7FB764561509FCA6008A9AA1 /* ButtonIconCancel.png */,
 				7FB764571509FCA6008A9AA1 /* ButtonIconCancel@2x.png */,
 				7FB764581509FCA6008A9AA1 /* ButtonIconConfirm.png */,
@@ -4010,6 +4016,8 @@
 				7F2B589D152C27FC0071AAD5 /* ButtonIconUnknow@2x.png in Resources */,
 				7F6D0E54152C8FBC001D91F4 /* MainViewCenterButtonImageHalfCancel.png in Resources */,
 				7F6D0E55152C8FBC001D91F4 /* MainViewCenterButtonImageHalfCancel@2x.png in Resources */,
+				7F7A7A4A1534031300EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png in Resources */,
+				7F7A7A4B1534031300EB7332 /* GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

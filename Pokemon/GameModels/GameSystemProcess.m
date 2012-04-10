@@ -1283,7 +1283,7 @@ static GameSystemProcess * gameSystemProcess = nil;
                                                       userInfo:nil];
     // If there're still some Pokemons battle available,
     //   show view of |GameMenuSixPokemonsViewController| to choose Pokemon
-    if ([[TrainerController sharedInstance] sixPokemonsBattleAvailable]) {
+    if ([[TrainerController sharedInstance] battleAvailablePokemonIndex]) {
       NSLog(@"sixPokemonsBattleAvailable... show view to choose new Pokemon");
       [self performSelector:@selector(chooseNewPokemonToBattle) withObject:nil afterDelay:3.f];
     }

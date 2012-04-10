@@ -412,12 +412,6 @@ typedef enum {
 // Toggle six pokemons' view
 - (void)toggleSixPokemonView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    if (! self.gameMenuSixPokemonsViewController) {
-      GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController
-      = [[GameMenuSixPokemonsViewController alloc] init];
-      self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
-      [gameMenuSixPokemonViewController release];
-    }
     if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
       [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:YES];
@@ -965,6 +959,13 @@ typedef enum {
 #pragma mark - Public Methods
 
 - (void)prepareForNewScene {
+  if (self.gameMenuSixPokemonsViewController == nil) {
+    GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController =
+      [[GameMenuSixPokemonsViewController alloc] init];
+    self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
+    [gameMenuSixPokemonViewController release];
+  }
+  
   [self.playerPokemonStatusViewController prepareForNewScene];
   [self.enemyPokemonStatusViewController  prepareForNewScene];
   [self.gameMenuSixPokemonsViewController prepareForNewScene];

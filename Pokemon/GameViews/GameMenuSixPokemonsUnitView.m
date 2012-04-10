@@ -15,6 +15,7 @@
   UIButton * infoButton_;
   UIButton * cancelButton_;
   BOOL       isCurrBattlePokemon_;
+  BOOL       isFainted_;
 }
 
 @property (nonatomic, retain) UIButton * mainButton;
@@ -22,6 +23,7 @@
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
 @property (nonatomic, assign) BOOL       isCurrBattlePokemon;
+@property (nonatomic, assign) BOOL       isFainted;
 
 - (void)openUnit:(id)sender;
 
@@ -36,6 +38,7 @@
 @synthesize infoButton    = infoButton_;
 @synthesize cancelButton  = cancelButton_;
 @synthesize isCurrBattlePokemon = isCurrBattlePokemon_;
+@synthesize isFainted           = isFainted_;
 
 - (void)dealloc
 {
@@ -99,6 +102,7 @@
   if (self) {
     [self setFrame:frame];
     isCurrBattlePokemon_ = NO;
+    isFainted_           = NO;
   }
   return self;
 }
@@ -129,7 +133,7 @@
                                         options:UIViewAnimationOptionCurveEaseInOut
                                      animations:^{
                                        // If it's the current battle pokemon, do not show confirm button
-                                       if (! self.isCurrBattlePokemon) {
+                                       if (! self.isCurrBattlePokemon && ! self.isFainted) {
                                          [self.confirmButton setAlpha:1.f];
                                          [self.confirmButton setFrame:confirmButtonFrame];
                                        }
@@ -169,6 +173,7 @@
   [self.delegate resetUnit];
 }
 
+// Set the Pokemon as current battle one
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
 {
   self.isCurrBattlePokemon = isCurrentBattleOne;
@@ -179,7 +184,18 @@
                              forState:UIControlStateNormal];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
                                forState:UIControlStateNormal];
-  
+}
+
+// Set the Pokemon as Fainted
+- (void)setAsFainted:(BOOL)isFainted {
+  self.isFainted = isFainted;
+  NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
+  if (isFainted)
+    buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png";
+  [self.mainButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+                             forState:UIControlStateNormal];
+  [self.cancelButton setBackgroundImage:[UIImage imageNamed:buttonBackgroundImageName]
+                               forState:UIControlStateNormal];
 }
 
 @end
