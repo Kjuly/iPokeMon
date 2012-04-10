@@ -115,7 +115,7 @@
   self.fourMovesPP = [self.pokemon fourMovesPPInArray];
   
   // Four moves
-  Move * move1 = self.pokemon.move1;
+  Move * move1 = [self.pokemon move1];
   if (move1 != nil) {
     [self.moveOneView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
@@ -127,7 +127,7 @@
     move1 = nil;
   }
   
-  Move * move2 = self.pokemon.move2;
+  Move * move2 = [self.pokemon move2];
   if (move2 != nil) {
     [self.moveTwoView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
@@ -139,7 +139,7 @@
     move2 = nil;
   }
   
-  Move * move3 = self.pokemon.move3;
+  Move * move3 = [self.pokemon move3];
   if (move3 != nil) {
     [self.moveThreeView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
@@ -151,7 +151,7 @@
     move3 = nil;
   }
   
-  Move * move4 = self.pokemon.move4;
+  Move * move4 = [self.pokemon move4];
   if (move4 != nil) {
     [self.moveFourView.type1 setText:
      NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
@@ -194,6 +194,9 @@
   // Move tag: one of 1, 2, 3, 4
   NSInteger moveTag = ((UIButton *)sender).tag;
   Move * move = [self.pokemon moveWithIndex:moveTag];
+  if (move == nil)
+    return;
+  
   [self.moveDetailView.moveBaseView.type1 setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
   [self.moveDetailView.moveBaseView.name setText:
