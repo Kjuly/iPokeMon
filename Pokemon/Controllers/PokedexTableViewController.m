@@ -8,6 +8,7 @@
 
 #import "PokedexTableViewController.h"
 
+#import "NSString+Algorithm.h"
 #import "GlobalRender.h"
 #import "PListParser.h"
 #import "DataDecoder.h"
@@ -18,7 +19,16 @@
 #import "AppDelegate.h"
 
 
-@interface PokedexTableViewController ()
+@interface PokedexTableViewController () {
+ @private
+  TrainerController          * trainer_;
+//  NSMutableArray             * pokedexSequence_;
+  NSFetchedResultsController * fetchedResultsController_;
+}
+
+@property (nonatomic, retain) TrainerController          * trainer;
+//@property (nonatomic, copy)   NSMutableArray             * pokedexSequence;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
 - (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
@@ -27,14 +37,17 @@
 
 @implementation PokedexTableViewController
 
-@synthesize pokedexSequence          = pokedexSequence_;
+@synthesize trainer                  = trainer_;
+//@synthesize pokedexSequence          = pokedexSequence_;
 @synthesize fetchedResultsController = fetchedResultsController_;
 
 - (void)dealloc
 {
-  [pokedexSequence_ release];
+//  [pokedexSequence_ release];
   self.fetchedResultsController.delegate = nil;
   self.fetchedResultsController          = nil;
+  
+  [trainer_ release];
   
   [super dealloc];
 }
@@ -45,6 +58,8 @@
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    
+    self.trainer = [TrainerController sharedInstance];
     
     // Get a handle to our fetchedResultsController (which implicitly creates it as well)
     // and call |performFetch:| to retrieve the first batch of data
@@ -73,8 +88,8 @@
   [super viewDidLoad];
   
   // Fetch data from web service
-  NSString * dataFromWebService = @"2db7aab7";
-  self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
+//  NSString * dataFromWebService = @"2db7aab7";
+//  self.pokedexSequence = [DataDecoder generateHexArrayFrom:dataFromWebService];
 //  self.pokedexSequence = [[[TrainerController sharedInstance] pokedex] mutableCopy];
 }
 
@@ -82,8 +97,8 @@
 {
   [super viewDidUnload];
 
-  self.pokedexSequence          = nil;
-  self.fetchedResultsController = nil;
+//  self.pokedexSequence          = nil;
+//  self.fetchedResultsController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -119,8 +134,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:section];
-  return [sectionInfo numberOfObjects];
+//  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:section];
+//  return [sectionInfo numberOfObjects];
+  return [self.trainer.pokedex length] * 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -142,7 +158,8 @@
   // Set Pokemon photo & name
   // 1 << 0 = 0001, 1 << 1 = 0010
 //  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16)))
-  if (rowID != 3 || rowID != 5)
+//  if (rowID != 3 || rowID != 5)
+  if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)])
     [self configureCell:cell atIndexPath:indexPath];
   else {
     [cell.labelTitle setText:@"? ? ?"];
@@ -198,21 +215,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger rowID = [indexPath row];
-//  if ([[self.pokedexSequence objectAtIndex:([self.pokedexSequence count] - rowID / 16 - 1)] intValue] & (1 << (rowID % 16))) {
+  if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)]) {
     PokemonDetailTabViewController * pokemonDetailTabViewController =
       [[PokemonDetailTabViewController alloc] initWithPokemonID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
     [pokemonDetailTabViewController release];
-//  }
+  }
 }
 
 #pragma mark - Private Methods
 
 - (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  //  FailedBankInfo *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-  //  cell.textLabel.text = info.name;
-  //  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", 
-  //                               info.city, info.state];
   Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
   [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
   [cell.imageView setImage:pokemon.image];
