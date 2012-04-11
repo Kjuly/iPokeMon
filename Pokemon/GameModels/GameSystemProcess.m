@@ -81,6 +81,7 @@ typedef enum {
   NSInteger             itemIndex_;            // Bag item index
   NSInteger catchingWildPokemonTimeCounter_;   // Time counter for catching Wild Pokemon
   
+  GameBattleEventType eventType_;              // Mark for game event type
   BOOL      complete_;                         // Mark for system turn end
   NSInteger delayTime_;                        // Delay time for every turn
 }
@@ -170,11 +171,28 @@ static GameSystemProcess * gameSystemProcess = nil;
   playerPokemonPPInOne_ = [self.playerPokemon fourMovesPPInOne];
 }
 
+// Reset for Battle scene
+- (void)reset {
+  eventType_  = kGameBattleEventTypeNone;
+  complete_   = NO;
+  delayTime_  = 0;
+  
+  [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
+  [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
+}
+
+// Update Game loop
 - (void)update:(ccTime)dt
 {
   delayTime_ += 100 * dt;
+  
+  // If there's an EVENT running, wait for it ended
+  if (eventType_ != kGameBattleEventTypeNone)
+    return;
+  
   if (complete_) {
-    if (delayTime_ < 200) return;
+    if (delayTime_ < 200)
+      return;
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusSystemProcess];
     [self reset];
   }
@@ -211,19 +229,58 @@ static GameSystemProcess * gameSystemProcess = nil;
   }
 }
 
+// End Game turn, including Player, Enemy, and System's turn
 - (void)endTurn {
+  if (eventType_ != kGameBattleEventTypeNone)
+    return;
+  
   if (processType_ != kGameSystemProcessTypeBattleEnd)
     complete_ = YES;
 }
 
-- (void)reset {
-  complete_  = NO;
-  delayTime_ = 0;
-  
-  [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
-  [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
+// End event e.g. Level Up, Evoluation, Caught WPM, etc
+- (void)endEvent {
+  if (eventType_ & kGameBattleEventTypeLevelUp) {
+    eventType_ = kGameBattleEventTypeNone;
+  }
+  else if (eventType_ & kGameBattleEventTypeEvolution) {
+    eventType_ = kGameBattleEventTypeNone;
+  }
+  else if (eventType_ & kGameBattleEventTypeCaughtWPM) {
+    eventType_ = kGameBattleEventTypeNone;
+    [self endBattleWithEventType:kGameBattleEndEventTypeNone];
+  }
 }
 
+// Run EVENT with event type
+- (void)runEventWithEventType:(GameBattleEventType)eventType {
+  // Mark as running EVENT
+  eventType_ = eventType;
+  
+  // Level Up
+  if (eventType & kGameBattleEventTypeLevelUp) {
+    
+  }
+  // Evolution
+  else if (eventType & kGameBattleEventTypeEvolution) {
+    
+  }
+  // Caught a Wild Pokemon
+  else if (eventType & kGameBattleEventTypeCaughtWPM) {
+    // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
+    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+  }
+  else return;
+  
+  
+  // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSNumber numberWithInt:eventType], @"eventType", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleRunEvent
+                                                      object:self
+                                                    userInfo:userInfo];
+  [userInfo release];
+}
 
 // Replace Pokemon
 - (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user {
@@ -1285,7 +1342,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     //   show view of |GameMenuSixPokemonsViewController| to choose Pokemon
     if ([[TrainerController sharedInstance] battleAvailablePokemonIndex]) {
       NSLog(@"sixPokemonsBattleAvailable... show view to choose new Pokemon");
-      [self performSelector:@selector(chooseNewPokemonToBattle) withObject:nil afterDelay:3.f];
+      [self performSelector:@selector(chooseNewPokemonToBattle) withObject:nil afterDelay:2.f];
     }
     // Else, END Game Battle with Player LOSE event
     // Post notification to |GameMainViewController|
@@ -1421,11 +1478,10 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSLog(@"|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
   catchingWildPokemonTimeCounter_ = 0;
   
-  // If caught Wild Pokemon succeed, end the battle
+  // If caught Wild Pokemon succeed, show Pokemon Info view
   if (succeed) {
-    // End Game Battle with Caught WildPokemon event
-    [self endBattleWithEventType:kGameBattleEndEventTypeCaughtWildPokemon];
-    return;
+    // Run Game Battle Event with Event:Caught WildPokemon
+    [self runEventWithEventType:kGameBattleEventTypeCaughtWPM];
   }
   else {
     // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
@@ -1443,8 +1499,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Post Message to |GameMenuViewController| to set message for game
-- (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo
-{
+- (void)postMessageForProcessType:(GameSystemProcessType)processType
+                  withMessageInfo:(NSDictionary *)messageInfo {
   NSString * message = nil;
   
   switch (processType) {
@@ -1582,8 +1638,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 #pragma mark - Setting Methods
 
-- (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user moveIndex:(NSInteger)moveIndex
-{
+- (void)setSystemProcessOfFightWithUser:(GameSystemProcessUser)user
+                              moveIndex:(NSInteger)moveIndex {
   processType_ = kGameSystemProcessTypeFight;
   user_        = user;
   moveIndex_   = moveIndex;
@@ -1592,8 +1648,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)setSystemProcessOfUseBagItemWithUser:(GameSystemProcessUser)user
                                   targetType:(BagQueryTargetType)targetType
                         selectedPokemonIndex:(NSInteger)selectedPokemonIndex
-                                   itemIndex:(NSInteger)itemIndex
-{
+                                   itemIndex:(NSInteger)itemIndex {
   processType_          = kGameSystemProcessTypeUseBagItem;
   user_                 = user;
   targetType_           = targetType;
@@ -1602,65 +1657,46 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 - (void)setSystemProcessOfReplacePokemonWithUser:(GameSystemProcessUser)user
-                            selectedPokemonIndex:(NSInteger)selectedPokemonIndex
-{
+                            selectedPokemonIndex:(NSInteger)selectedPokemonIndex {
   processType_          = kGameSystemProcessTypeReplacePokemon;
   selectedPokemonIndex_ = selectedPokemonIndex;
   user_                 = user;
 }
 
-- (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user
-{
+- (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user {
   processType_ = kGameSystemProcessTypeRun;
   user_        = user;
 }
 
 #pragma mark - END Game Battle
 
-- (void)endBattleWithEventType:(GameBattleEndEventType)eventType {
-//  NSString * notificationName;
-  GameBattleEndEventType battleEndEventyType;
-  switch (eventType) {
-    case kGameBattleEndEventTypeWin:
-      battleEndEventyType = kGameBattleEndEventTypeWin;
-      // Update message in |GameMenuViewController| to show Player WIN
-      [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
-      break;
-      
-    case kGameBattleEndEventTypeLose:
-      battleEndEventyType = kGameBattleEndEventTypeLose;
-      // Update message in |GameMenuViewController| to show Player LOSE
-      [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
-      break;
-      
-    case kGameBattleEndEventTypeCaughtWildPokemon:
-      battleEndEventyType = kGameBattleEndEventTypeCaughtWildPokemon;
-      // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
-      [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
-      break;
-      
-    case kGameBattleEndEventTypeRun:
-      battleEndEventyType = kGameBattleEndEventTypeNone;
-//      // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
-//      [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
-      break;
-      
-    case kGameBattleEndEventTypeWildPokemonRun:
-      break;
-      
-    default:
-      return;
-      break;
+// End battle with event
+- (void)endBattleWithEventType:(GameBattleEndEventType)battleEndEventType {
+  if (battleEndEventType & kGameBattleEndEventTypeWin) {
+    // Update message in |GameMenuViewController| to show Player WIN
+    [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
   }
-  processType_ = kGameSystemProcessTypeBattleEnd;
+  else if (battleEndEventType & kGameBattleEndEventTypeLose) {
+    // Update message in |GameMenuViewController| to show Player LOSE
+    [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
+  }
+  else if (battleEndEventType & kGameBattleEndEventTypeRun) {
+    
+  }
+  else if (battleEndEventType & kGameBattleEndEventTypeWildPokemonRun) {
+    
+  }
   
+  // Set system process type to |kGameSystemProcessTypeBattleEnd|
+  processType_ = kGameSystemProcessTypeBattleEnd;
   
   // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                              [NSNumber numberWithInt:battleEndEventyType], @"battleEndEventyType", nil];
+                              [NSNumber numberWithInt:battleEndEventType], @"battleEndEventType", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent
                                                       object:self
                                                     userInfo:userInfo];
+  [userInfo release];
   
   // Save data for current battle Pokemon to Server
   [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];

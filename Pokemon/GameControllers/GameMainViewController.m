@@ -15,6 +15,7 @@
 #import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
+#import "GameBattleEventViewController.h"
 #import "GameBattleEndViewController.h"
 
 #import "cocos2d.h"
@@ -23,13 +24,16 @@
 @interface GameMainViewController () {
  @private
   CenterMainButtonStatus previousCenterMainButtonStatus_;
-  GameBattleEndViewController * gameBattleEndViewController_;
+  GameBattleEventViewController * gameBattleEventViewController_;
+  GameBattleEndViewController   * gameBattleEndViewController_;
 }
 
 @property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
-@property (nonatomic, retain) GameBattleEndViewController * gameBattleEndViewController;
+@property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
+@property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
 - (void)loadBattleScene:(NSNotification *)notification;
+- (void)loadViewForEvent:(NSNotification *)notification;
 - (void)endGameBattleWithEvent:(NSNotification *)notification;
 
 @end
@@ -40,6 +44,7 @@
 @synthesize gameMenuViewController         = gameMenuViewController_;
 
 @synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
+@synthesize gameBattleEventViewController  = gameBattleEventViewController_;
 @synthesize gameBattleEndViewController    = gameBattleEndViewController_;
 
 - (void)dealloc
@@ -49,6 +54,7 @@
   
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleRunEvent object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleEndWithEvent object:nil];
   [super dealloc];
 }
@@ -92,6 +98,11 @@
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(loadBattleScene:)
                                                name:kPMNBattleStart
+                                             object:nil];
+  // Notification from |GameSystemProcess| when an EVENT occurred
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(loadViewForEvent:)
+                                               name:kPMNGameBattleRunEvent
                                              object:nil];
   // Notification from |GameSystemProcess| when battle END
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -192,11 +203,36 @@
                    }];
 }
 
+// Load game EVENT view
+- (void)loadViewForEvent:(NSNotification *)notification {
+  GameBattleEventType eventType = [[notification.userInfo valueForKey:@"eventType"] intValue];
+  if (eventType == kGameBattleEventTypeNone)
+    return;
+  
+  if (self.gameBattleEventViewController == nil) {
+    GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
+    self.gameBattleEventViewController = gameBattleEventViewController;
+    [gameBattleEventViewController release];
+  }
+  
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
+  NSTimeInterval delay = 1.5f;
+  [self.gameBattleEventViewController loadViewWithEventType:eventType
+                                                   animated:YES
+                                                 afterDelay:delay];
+}
+
 // End game battle with Events:
 //   Player WIN/LOSE
 //   Caught Wild Pokemon
 - (void)endGameBattleWithEvent:(NSNotification *)notification {
-  GameBattleEndEventType battleEndEventyType = [[notification.userInfo valueForKey:@"battleEndEventyType"] intValue];
+  GameBattleEndEventType battleEndEventType = [[notification.userInfo valueForKey:@"battleEndEventType"] intValue];
+  
+  // If no more Event need to be occurred, just unload battle scene
+  if (battleEndEventType == kGameBattleEndEventTypeNone) {
+    [self unloadBattleScene];
+    return;
+  }
   
   if (self.gameBattleEndViewController == nil) {
     GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
@@ -204,11 +240,14 @@
     [gameBattleEndViewController release];
   }
   
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
   NSTimeInterval delay = 1.5f;
-  [self.gameBattleEndViewController loadViewWithEventType:battleEndEventyType
-                                                 animated:YES
-                                               afterDelay:delay];
+  if (battleEndEventType != kGameBattleEndEventTypeWin) {
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+    [self.gameBattleEndViewController loadViewWithEventType:battleEndEventType
+                                                   animated:YES
+                                                 afterDelay:delay];
+  }
+  
   [self performSelector:@selector(unloadBattleScene) withObject:nil afterDelay:delay];
 }
 

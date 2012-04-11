@@ -45,7 +45,8 @@ NSString * const kPMNPlayerPokemonFaint        = @"PMNPlayerPokemonFaint"; // Pl
 NSString * const kPMNEnemyPokemonFaint         = @"PMNEnemyPokemonFaint";  // Enemy Pokemon FAINT
 
 // Game Battle END
-NSString * const kPMNGameBattleEnd          = @"PMNGameBattleEnd"; // END Game Battle
+NSString * const kPMNGameBattleRunEvent     = @"PMNGameBattleRunEvent";     // Run EVENT for game battle
+NSString * const kPMNGameBattleEnd          = @"PMNGameBattleEnd";          // END Game Battle
 NSString * const kPMNGameBattleEndWithEvent = @"PMNGameBattleEndWithEvent"; // Battle END with Event
 
 @implementation GlobalNotificationConstants

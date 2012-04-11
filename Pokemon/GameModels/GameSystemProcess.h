@@ -10,6 +10,7 @@
 #import "cocos2d.h"
 
 #import "GlobalConstants.h"
+#import "GameBattleEventViewController.h"
 #import "GameBattleEndViewController.h"
 
 @class TrainerTamedPokemon;
@@ -36,7 +37,9 @@ typedef enum {
 - (void)prepareForNewSceneBattleBetweenTrainers:(BOOL)battleBetweenTrainers;
 - (void)reset;
 - (void)update:(ccTime)dt;
-- (void)endTurn;
+- (void)endTurn;  // End current Turn (set |complete_|)
+- (void)endEvent; // End event e.g. Level Up, Evoluation, Caught WPM, etc
+- (void)runEventWithEventType:(GameBattleEventType)eventType;
 
 - (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user;
 
@@ -51,6 +54,6 @@ typedef enum {
 - (void)setSystemProcessOfRunWithUser:(GameSystemProcessUser)user;
 
 // End Game Battle with event
-- (void)endBattleWithEventType:(GameBattleEndEventType)eventType;
+- (void)endBattleWithEventType:(GameBattleEndEventType)battleEndEventType;
 
 @end
