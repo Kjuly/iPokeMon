@@ -80,6 +80,7 @@
 "PMSMessageChooseNewPokemon"    = "Choose a Pokemon to battle.";
 "PMSMessagePlayerWin"           = "You win!";
 "PMSMessagePlayerLose"          = "You lose...";
+"PMSMessageLevelUp"             = "Level Up!";
 "PMSMessagePokemonGainedXXXEXP1"= "gained";
 "PMSMessagePokemonGainedXXXEXP3"= "EXP. points";
 

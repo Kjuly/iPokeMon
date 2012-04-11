@@ -79,6 +79,7 @@
 "PMSMessageChooseNewPokemon"   = "选择口袋妖怪...";
 "PMSMessagePlayerWin"          = "你赢了!";
 "PMSMessagePlayerLose"         = "你输了...";
+"PMSMessageLevelUp"            = "升级了!";
 "PMSMessagePokemonGainedXXXEXP1"= "获得了";
 "PMSMessagePokemonGainedXXXEXP3"= "点经验";
 
