@@ -385,8 +385,9 @@
   [ppArray release];
 }
 
-// Add gained EXP
-- (void)addGainedExp:(NSInteger)gainedExp {
+// Return Levels Up after added gained EXP
+- (NSInteger)levelsUpWithGainedExp:(NSInteger)gainedExp {
+  NSInteger levelsUp       = 0;
   NSInteger exp            = [self.exp intValue];
   NSInteger expToNextLevel = [self.toNextLevel intValue];
   exp            += gainedExp;
@@ -394,14 +395,57 @@
   
   // Level Up when |expToNextLevel <= 0|
   if (expToNextLevel <= 0) {
-    //
-    // !!!TODO
-    //
+    NSInteger level = [self.level intValue] + 1;
+    do {
+      ++levelsUp;
+      expToNextLevel += [self.pokemon expToNextLevel:++level];
+    } while (expToNextLevel <= 0);
+    self.level = [NSNumber numberWithInt:--level];
   }
   
   // Save new data
   self.exp         = [NSNumber numberWithInt:exp];
   self.toNextLevel = [NSNumber numberWithInt:expToNextLevel];
+  return levelsUp;
+}
+
+// Add stats with number of levels up
+//   return an array to show detail of stats added
+- (NSArray *)addStatsWithLevelsUp:(NSInteger)levelsUp {
+  NSInteger statDeltaHP;
+  NSInteger statDeltaAttack;
+  NSInteger statDeltaDefense;
+  NSInteger statDeltaSpAttack;
+  NSInteger statDeltaSpDefense;
+  NSInteger statDeltaSpeed;
+  
+  // Calculate the stats
+  statDeltaHP        = 3 * levelsUp;
+  statDeltaAttack    = levelsUp;
+  statDeltaDefense   = levelsUp;
+  statDeltaSpAttack  = levelsUp;
+  statDeltaSpDefense = levelsUp;
+  statDeltaSpeed     = levelsUp;
+  
+  // Save stats
+  NSArray * stats = [self maxStatsInArray];
+  self.maxStats = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
+                   [[stats objectAtIndex:0] intValue] + statDeltaHP,
+                   [[stats objectAtIndex:1] intValue] + statDeltaAttack,
+                   [[stats objectAtIndex:2] intValue] + statDeltaDefense,
+                   [[stats objectAtIndex:3] intValue] + statDeltaSpAttack,
+                   [[stats objectAtIndex:4] intValue] + statDeltaSpDefense,
+                   [[stats objectAtIndex:5] intValue] + statDeltaSpeed];
+  stats = nil;
+  
+  // Return delta stats
+  return [NSArray arrayWithObjects:
+          [NSNumber numberWithInt:statDeltaHP],
+          [NSNumber numberWithInt:statDeltaAttack],
+          [NSNumber numberWithInt:statDeltaDefense],
+          [NSNumber numberWithInt:statDeltaSpAttack],
+          [NSNumber numberWithInt:statDeltaSpDefense],
+          [NSNumber numberWithInt:statDeltaSpeed], nil];
 }
 
 @end

@@ -218,6 +218,7 @@
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
   NSTimeInterval delay = 1.5f;
   [self.gameBattleEventViewController loadViewWithEventType:eventType
+                                                       info:notification.userInfo
                                                    animated:YES
                                                  afterDelay:delay];
 }

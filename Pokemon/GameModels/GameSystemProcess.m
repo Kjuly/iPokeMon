@@ -241,13 +241,17 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Run EVENT with event type
-- (void)runEventWithEventType:(GameBattleEventType)eventType {
+- (void)runEventWithEventType:(GameBattleEventType)eventType
+                         info:(NSDictionary *)info {
   // Mark as running EVENT
   eventType_ = eventType;
   
+  NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                    [NSNumber numberWithInt:eventType], @"eventType", nil];
+  
   // Level Up
   if (eventType & kGameBattleEventTypeLevelUp) {
-    
+    [userInfo setValue:[info valueForKey:@"levelsUp"] forKey:@"levelsUp"];
   }
   // Evolution
   else if (eventType & kGameBattleEventTypeEvolution) {
@@ -260,10 +264,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   }
   else return;
   
-  
   // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
-  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             [NSNumber numberWithInt:eventType], @"eventType", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleRunEvent
                                                       object:self
                                                     userInfo:userInfo];
@@ -1476,7 +1477,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   // If caught Wild Pokemon succeed, show Pokemon Info view
   if (succeed) {
     // Run Game Battle Event with Event:Caught WildPokemon
-    [self runEventWithEventType:kGameBattleEventTypeCaughtWPM];
+    [self runEventWithEventType:kGameBattleEventTypeCaughtWPM info:nil];
   }
   else {
     // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
@@ -1585,7 +1586,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       NSInteger expGained = [self calculateExpGained];
       // Add gained EXP to Pokemon
       //   and post to |GameMenuViewController| to update EXP bar in Pokemon status view
-      [self.playerPokemon addGainedExp:expGained];
+      NSInteger levelsUp = [self.playerPokemon levelsUpWithGainedExp:expGained];
       NSInteger expMaxInBar = [self.playerPokemon.pokemon expToNextLevel:[self.playerPokemon.level intValue]];
       NSInteger expInBar    = expMaxInBar - [self.playerPokemon.toNextLevel intValue];
       NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -1603,6 +1604,15 @@ static GameSystemProcess * gameSystemProcess = nil;
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP1", nil),
                  expGained,
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP3", nil), nil];
+      
+      // If |levelsUp > 0|, run EVENT:Level UP to show view for Level Up Info
+      if (levelsUp) {
+        NSDictionary * info = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSNumber numberWithInt:levelsUp], @"levelsUp", nil];
+        [self runEventWithEventType:kGameBattleEventTypeLevelUp
+                               info:info];
+        [info release];
+      }
       break;
     }
       

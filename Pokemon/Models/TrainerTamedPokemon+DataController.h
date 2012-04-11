@@ -46,6 +46,7 @@
 - (void)replaceMoveAtIndex:(NSInteger)index withNewMoveID:(NSInteger)newMoveID; // Replace move
 - (void)updateFourMovesWithPPArray:(NSArray *)ppArray;                          // Update PP for moves (NSArray)
 - (void)updateFourMovesWithPPInOne:(NSInteger)PPInOne;                          // Update PP for moves (NSInteger)
-- (void)addGainedExp:(NSInteger)gainedExp;
+- (NSInteger)levelsUpWithGainedExp:(NSInteger)gainedExp;                        // Levels up by adding gained EXP
+- (NSArray *)addStatsWithLevelsUp:(NSInteger)levelsUp;                          // Add stats with number of levels up
 
 @end

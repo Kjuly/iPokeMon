@@ -18,6 +18,7 @@ typedef enum {
 @interface GameBattleEventViewController : UIViewController
 
 - (void)loadViewWithEventType:(GameBattleEventType)eventType
+                         info:(NSDictionary *)info
                      animated:(BOOL)animated
                    afterDelay:(NSTimeInterval)delay;
 

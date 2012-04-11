@@ -39,7 +39,7 @@ typedef enum {
 - (void)update:(ccTime)dt;
 - (void)endTurn;  // End current Turn (set |complete_|)
 - (void)endEvent; // End event e.g. Level Up, Evoluation, Caught WPM, etc
-- (void)runEventWithEventType:(GameBattleEventType)eventType;
+- (void)runEventWithEventType:(GameBattleEventType)eventType info:(NSDictionary *)info;
 
 - (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user;
 
