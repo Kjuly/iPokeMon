@@ -130,7 +130,7 @@
   void (^animations)();
  
   // Player WIN
-  if (eventType == kGameBattleEndEventTypePlayerWin) {
+  if (eventType == kGameBattleEndEventTypeWin) {
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
       self.message = message;
@@ -152,7 +152,7 @@
     };
   }
   // Player LOSE
-  else if (eventType == kGameBattleEndEventTypePlayerLose) {
+  else if (eventType == kGameBattleEndEventTypeLose) {
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
       self.message = message;
@@ -244,10 +244,10 @@
 
 // Tap gesture action
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
-  if (self.eventType == kGameBattleEndEventTypePlayerWin) {
+  if (self.eventType == kGameBattleEndEventTypeWin) {
     [self unloadViewAnimated:YES];
   }
-  else if (self.eventType == kGameBattleEndEventTypePlayerLose) {
+  else if (self.eventType == kGameBattleEndEventTypeLose) {
     [self unloadViewAnimated:YES];
   }
   else if (self.eventType == kGameBattleEndEventTypeCaughtWildPokemon) {

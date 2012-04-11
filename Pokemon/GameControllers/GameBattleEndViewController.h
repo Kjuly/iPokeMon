@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-  kGameBattleEndEventTypePlayerWin = 0,
-  kGameBattleEndEventTypePlayerLose,
-  kGameBattleEndEventTypeCaughtWildPokemon,
-  kGameBattleEndEventTypePlayerRun,
-  kGameBattleEndEventTypeWildPokemonRun
+  kGameBattleEndEventTypeNone               = 0,
+  kGameBattleEndEventTypeWin                = 1 << 0,
+  kGameBattleEndEventTypeLose               = 1 << 1,
+  kGameBattleEndEventTypeLevelUp            = 1 << 2,
+  kGameBattleEndEventTypeCaughtWildPokemon  = 1 << 3,
+  kGameBattleEndEventTypeRun                = 1 << 4,
+  kGameBattleEndEventTypeWildPokemonRun     = 1 << 5
 }GameBattleEndEventType;
 
 @interface GameBattleEndViewController : UIViewController

@@ -1618,28 +1618,29 @@ static GameSystemProcess * gameSystemProcess = nil;
 #pragma mark - END Game Battle
 
 - (void)endBattleWithEventType:(GameBattleEndEventType)eventType {
-  NSString * notificationName;
+//  NSString * notificationName;
+  GameBattleEndEventType battleEndEventyType;
   switch (eventType) {
-    case kGameBattleEndEventTypePlayerWin:
-      notificationName = kPMNGameBattleEndWithPlayerWin;
+    case kGameBattleEndEventTypeWin:
+      battleEndEventyType = kGameBattleEndEventTypeWin;
       // Update message in |GameMenuViewController| to show Player WIN
       [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
       break;
       
-    case kGameBattleEndEventTypePlayerLose:
-      notificationName = kPMNGameBattleEndWithPlayerLose;
+    case kGameBattleEndEventTypeLose:
+      battleEndEventyType = kGameBattleEndEventTypeLose;
       // Update message in |GameMenuViewController| to show Player LOSE
       [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
       break;
       
     case kGameBattleEndEventTypeCaughtWildPokemon:
-      notificationName = kPMNGameBattleEndWithCaughtWildPokemon;
+      battleEndEventyType = kGameBattleEndEventTypeCaughtWildPokemon;
       // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
       [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
       break;
       
-    case kGameBattleEndEventTypePlayerRun:
-      notificationName = nil;
+    case kGameBattleEndEventTypeRun:
+      battleEndEventyType = kGameBattleEndEventTypeNone;
 //      // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
 //      [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
       break;
@@ -1652,10 +1653,14 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
   }
   processType_ = kGameSystemProcessTypeBattleEnd;
+  
+  
   // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
-  [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSNumber numberWithInt:battleEndEventyType], @"battleEndEventyType", nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent
                                                       object:self
-                                                    userInfo:nil];
+                                                    userInfo:userInfo];
   
   // Save data for current battle Pokemon to Server
   [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
@@ -1668,11 +1673,11 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 - (void)playerWin {
-  [self endBattleWithEventType:kGameBattleEndEventTypePlayerWin];
+  [self endBattleWithEventType:kGameBattleEndEventTypeWin];
 }
 
 - (void)playerLose {
-  [self endBattleWithEventType:kGameBattleEndEventTypePlayerLose];
+  [self endBattleWithEventType:kGameBattleEndEventTypeLose];
 }
 
 @end
