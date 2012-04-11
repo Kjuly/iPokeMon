@@ -91,31 +91,19 @@ typedef enum {
 - (void)calculateEffectForMove:(Move *)move;
 - (NSInteger)calculateDamageForMove:(Move *)move;
 - (void)decreasePPValue;                       // Decrease PP value (playerPokemonPPInOne_) with |moveIndex_|
-- (NSInteger)calculateExpGained;
-//- (void)MoveTargetSinglePokemonOtherThanTheUser;
-//- (void)MoveTargetNone;
-//- (void)MoveTargetOneOpposingPokemonSelectedAtRandom;
-//- (void)MoveTargetAllOpposingPokemon;
-//- (void)MoveTargetAllPokemonOtherThanTheUser;
-//- (void)MoveTargetUser;
-//- (void)MoveTargetBothSides;
-//- (void)MoveTargetUserSide;
-//- (void)MoveTargetOpposingPokemonSide;
-//- (void)MoveTargetUserPartner;
-//- (void)MoveTargetPlayerChoiceOfUserOrUserPartner;
-//- (void)MoveTargetSinglePokemonOnOpponentSide;
-- (void)checkPokemonFaintOrNot;
-- (void)useBagItem;
-- (void)replacePokemon;
-- (void)catchingWildPokemon;
-- (BOOL)hasDoneForCatchingWildPokemonResult;
-- (void)caughtWildPokemonSucceed:(BOOL)succeed;
-- (void)run;
+- (NSInteger)calculateExpGained;               // Calculate EXP gained
+- (void)checkPokemonFaintOrNot;                // Check Pokemon Faint or not
+- (void)chooseNewPokemonToBattle;              // When Player's Pokemon fainted, choose new PM to battle
+- (void)useBagItem;                            // Use Bag Item
+- (void)replacePokemon;                        // Replace Pokemon
+- (void)catchingWildPokemon;                   // Catching Wild Pokemon
+- (BOOL)hasDoneForCatchingWildPokemonResult;   // ...
+- (void)caughtWildPokemonSucceed:(BOOL)succeed;// ...
+- (void)run; //!!!!
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
-- (void)chooseNewPokemonToBattle;
-- (void)playerWin;
-- (void)playerLose;
+- (void)playerWin;  // WIN
+- (void)playerLose; // LOSE
 
 @end
 
@@ -1357,6 +1345,13 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self endTurn];
 }
 
+// When Player's Pokemon fainted, choose new PM to battle
+- (void)chooseNewPokemonToBattle {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons
+                                                      object:self
+                                                    userInfo:nil];
+}
+
 // Use bag item
 - (void)useBagItem
 {
@@ -1702,16 +1697,12 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
 }
 
-- (void)chooseNewPokemonToBattle {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons
-                                                      object:self
-                                                    userInfo:nil];
-}
-
+// WIN
 - (void)playerWin {
   [self endBattleWithEventType:kGameBattleEndEventTypeWin];
 }
 
+// LOSE
 - (void)playerLose {
   [self endBattleWithEventType:kGameBattleEndEventTypeLose];
 }
