@@ -64,7 +64,7 @@
     labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 50.f, 11.f, titleWidth, titleHeight)];
     [labelTitle_ setBackgroundColor:[UIColor clearColor]];
     [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [labelTitle_ setTextColor:[GlobalRender textColorOrange]];
+    [labelTitle_ setTextColor:[GlobalRender textColorTitleWhite]];
     [self.contentView addSubview:labelTitle_];
   }
   return self;

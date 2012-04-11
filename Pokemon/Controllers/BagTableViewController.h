@@ -9,10 +9,5 @@
 #import "CustomTableViewController.h"
 
 @interface BagTableViewController : CustomTableViewController
-{
-  NSArray * bagItems_;
-}
-
-@property (nonatomic, copy) NSArray * bagItems;
 
 @end

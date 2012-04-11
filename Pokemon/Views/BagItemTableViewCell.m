@@ -67,7 +67,7 @@
     name_ = [[UILabel alloc] initWithFrame:nameFrame];
     [name_ setBackgroundColor:[UIColor clearColor]];
     [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [name_ setTextColor:[GlobalRender textColorOrange]];
+    [name_ setTextColor:[GlobalRender textColorTitleWhite]];
     [self.contentView addSubview:name_];
     
     // Symbal

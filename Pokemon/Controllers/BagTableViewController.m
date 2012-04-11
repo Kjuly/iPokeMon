@@ -14,12 +14,8 @@
 
 @implementation BagTableViewController
 
-@synthesize bagItems = bagItems_;
-
 - (void)dealloc
-{
-  [bagItems_ release];
-  
+{ 
   [super dealloc];
 }
 
@@ -45,24 +41,11 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  bagItems_ = [[NSArray alloc] initWithObjects:
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Items",       @"item", @"BagItemIcon_Items",       @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Medicine",    @"item", @"BagItemIcon_Medicine",    @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Pokeballs",   @"item", @"BagItemIcon_Pokeballs",   @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"TMs & HMs",   @"item", @"BagItemIcon_TMsHMs",      @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Berries",     @"item", @"BagItemIcon_Berries",     @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Mail",        @"item", @"BagItemIcon_Mail",        @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"BattleItems", @"item", @"BagItemIcon_BattleItems", @"image", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"KeyItems",    @"item", @"BagItemIcon_KeyItems",    @"image", nil],
-               nil];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  
-  self.bagItems = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,7 +81,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.bagItems count];
+  return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,9 +98,9 @@
   }
   
   // Configure the cell...
-  NSDictionary * itemDict = [self.bagItems objectAtIndex:[indexPath row]];
-  [cell.labelTitle setText:[itemDict valueForKey:@"item"]];
-  [cell.imageView setImage:[UIImage imageNamed:[itemDict objectForKey:@"image"]]];
+  NSInteger index = [indexPath row] + 1;
+  [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", index]), nil)];
+//  [cell.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"BagIcon_%d.png", index]]];
   
   return cell;
 }

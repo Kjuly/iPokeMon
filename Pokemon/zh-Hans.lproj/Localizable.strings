@@ -53,6 +53,19 @@
 "PMSLabelNameSettingMessage2" = "对不起，用户名已存在，请输入另一个用户名。";
 "PMSLabelNameSettingMessage3" = "对不起，网络异常，请重试。";
 
+// Bag Tableview
+"Bag1"         = "道具";
+"Bag2"         = "回复类";
+"Bag3"         = "精灵球";
+"Bag4"         = "技能训练机";
+"Bag5"         = "树果";
+"Bag6"         = "信件";
+"Bag7"         = "战斗辅助";
+"Bag8"         = "重要物品";
+"BagMedicine1" = "状态回复";
+"BagMedicine2" = "HP回复";
+"BagMedicine3" = "PP回复";
+
 // Game
 "PMSGameMenuBagItem1" = "状态回复";
 "PMSGameMenuBagItem2" = "HP 回复";

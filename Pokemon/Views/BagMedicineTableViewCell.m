@@ -54,8 +54,8 @@
     // Set name Label
     name_ = [[UILabel alloc] initWithFrame:nameFrame];
     [name_ setBackgroundColor:[UIColor clearColor]];
-    [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-    [name_ setTextColor:[GlobalRender textColorOrange]];
+    [name_ setFont:[GlobalRender textFontBoldInSizeOf:22.0f]];
+    [name_ setTextColor:[GlobalRender textColorTitleWhite]];
     [name_ setTextAlignment:UITextAlignmentCenter];
     [self.contentView addSubview:name_];
   }

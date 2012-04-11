@@ -13,24 +13,10 @@
 #import "BagItemTableViewController.h"
 
 
-@interface BagMedicineTableViewController () {
- @private
-  NSArray * bagItems_;
-}
-
-@property (nonatomic, copy) NSArray * bagItems;
-
-@end
-
-
 @implementation BagMedicineTableViewController
-
-@synthesize bagItems = bagItems_;
 
 - (void)dealloc
 {
-  [bagItems_ release];
-  
   [super dealloc];
 }
 
@@ -56,19 +42,11 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  bagItems_ = [[NSArray alloc] initWithObjects:
-               [NSDictionary dictionaryWithObjectsAndKeys:@"Status", @"item", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"HP",     @"item", nil],
-               [NSDictionary dictionaryWithObjectsAndKeys:@"PP",     @"item", nil],
-               nil];
 }
 
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  
-  self.bagItems = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,7 +82,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.bagItems count];
+  return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,8 +100,8 @@
   }
   
   // Configure the cell...
-  NSDictionary * itemDict = [self.bagItems objectAtIndex:[indexPath row]];
-  [cell.name setText:[itemDict valueForKey:@"item"]];
+  NSInteger index = [indexPath row] + 1;
+  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", index]), nil)];
   
   return cell;
 }
@@ -172,8 +150,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << ([indexPath row] + 8));
-  BagItemTableViewController * bagItemTableViewController
-  = [[BagItemTableViewController alloc] initWithBagItem:targetType];
+  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:targetType];
   [self.navigationController pushViewController:bagItemTableViewController animated:YES];
   [bagItemTableViewController release];
 }
