@@ -137,6 +137,7 @@ typedef enum {
 #define kGameMenuPMStatusViewHeight        64.f  //       ...: Pokemon Status view height
 #define kGameMenuPMStatusHPBarHeight       8.f   //       ...:            ...'s HP Bar height
 #define kGameMenuPokeballSize              60.f  // Size of Pokeball (which is used for replacing & catching PM)
+#define kGameBattlePMSize                  96.f  // Size of Pokemon Image
 #define kGameBattlePlayerPMPointPosX       80.f  // Pokemons' Point
 #define kGameBattlePlayerPMPointPosY       190.f 
 #define kGameBattleEnemyPMPointPosX        240.f
