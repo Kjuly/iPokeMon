@@ -167,7 +167,9 @@ static TrainerController * trainerController_ = nil;
 - (NSInteger)numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
 - (NSInteger)numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
-- (NSInteger) numberOfSixPokemons {return [self.entityTrainer.sixPokemonsID length];}
+- (NSInteger) numberOfSixPokemons {
+  return [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] count];
+}
 // Avatar URL, asynchronously downloads the image with the specified url request object
 - (NSURL *)   avatarURL   {
   return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100",
