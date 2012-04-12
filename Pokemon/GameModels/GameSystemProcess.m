@@ -1492,9 +1492,24 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Run
 - (BOOL)isRunSucceed; {
-  BOOL isRunSucceed = YES;
+  CGFloat runRate = 100.f;
   
-  return isRunSucceed;
+  NSInteger playerPMLevel = [self.playerPokemon.level intValue];
+  NSInteger enemyPMLevel  = [self.enemyPokemon.level  intValue];
+  
+  // If player Pokemon's level is lower than enemy Pokemon's level
+  if (playerPMLevel < enemyPMLevel) {
+    runRate -= (enemyPMLevel - playerPMLevel) * 2;
+  }
+  
+  // If player Pokemon has some special status
+  if (playerPokemonStatus_ != kPokemonStatusNormal)
+    runRate -= 10.f;
+  
+  // Result of run
+  if (arc4random() % 1000 / 10 > runRate)
+    return NO;
+  return YES;
 }
 
 // Post Message to |GameMenuViewController| to set message for game
