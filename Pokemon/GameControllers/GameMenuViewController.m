@@ -210,9 +210,18 @@ typedef enum {
 //  [self.view setOpaque:NO];
   
   // Constants
-  CGRect messageViewFrame             = CGRectMake(0.f, kViewHeight - 150.f, 320.f, 150.f);
-  CGRect enemyPokemonStatusViewFrame  = CGRectMake(0.f, -56.f, 320.f, 64.f);
-  CGRect playerPokemonStatusViewFrame = CGRectMake(0.f, kViewHeight - 150.f - 8.f, 320.f, 64.f);
+  CGRect messageViewFrame             = CGRectMake(0.f,
+                                                   kViewHeight - kGameMenuMessageViewHeight,
+                                                   kViewWidth,
+                                                   kGameMenuMessageViewHeight);
+  CGRect enemyPokemonStatusViewFrame  = CGRectMake(0.f,
+                                                   kGameMenuPMStatusHPBarHeight - kGameMenuPMStatusViewHeight,
+                                                   kViewWidth,
+                                                   kGameMenuPMStatusViewHeight);
+  CGRect playerPokemonStatusViewFrame = CGRectMake(0.f,
+                                                   kViewHeight - kGameMenuMessageViewHeight - kGameMenuPMStatusHPBarHeight,
+                                                   kViewWidth,
+                                                   kGameMenuPMStatusViewHeight);
   
   //
   // Pokemon Status

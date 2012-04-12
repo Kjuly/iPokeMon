@@ -140,6 +140,9 @@ typedef enum {
 #define kGameBattleEnemyPokemonPosX        250.f
 #define kGameBattleEnemyPokemonPosY        350.f
 #define kGameBattlePokemonFaintedOffsetY   50.f
+#define kGameMenuMessageViewHeight         150.f // Game Menu: Message view hegith
+#define kGameMenuPMStatusViewHeight        64.f  //       ...: Pokemon Status view height
+#define kGameMenuPMStatusHPBarHeight       8.f   //       ...:            ...'s HP Bar height
 
 // Table View
 #define kCellHeightOfTrainerBadgesTableView 52.5f

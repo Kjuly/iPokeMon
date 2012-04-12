@@ -458,6 +458,8 @@
 		7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
+		7F8F93D71537135A00DF472B /* GameBattleSceneBackground_09.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */; };
+		7F8F93D81537135A00DF472B /* GameBattleSceneBackground_09@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */; };
 		7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */; };
 		7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */; };
 		7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */; };
@@ -1628,6 +1630,8 @@
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
 		7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
+		7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_09.png; sourceTree = "<group>"; };
+		7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_09@2x.png"; sourceTree = "<group>"; };
 		7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Messages.png; sourceTree = "<group>"; };
 		7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Messages@2x.png"; sourceTree = "<group>"; };
 		7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_SixPokemons.png; sourceTree = "<group>"; };
@@ -3766,6 +3770,8 @@
 		7FC127FF1504C24400E2A8F7 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
+				7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */,
+				7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */,
 				7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */,
 				7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */,
 				7F199EDD150A6B54004CE84E /* GamePokeball.png */,
@@ -4640,6 +4646,8 @@
 				7F072F4715348D860085E1DD /* PMSpriteBack_97.png in Resources */,
 				7F072F4815348D860085E1DD /* PMSpriteBack_98.png in Resources */,
 				7F072F4915348D860085E1DD /* PMSpriteBack_99.png in Resources */,
+				7F8F93D71537135A00DF472B /* GameBattleSceneBackground_09.png in Resources */,
+				7F8F93D81537135A00DF472B /* GameBattleSceneBackground_09@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
