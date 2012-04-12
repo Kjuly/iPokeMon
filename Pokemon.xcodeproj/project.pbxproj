@@ -451,6 +451,8 @@
 		7F7F2EFD14EBE4A800315EC5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F2EF314EBE4A800315EC5 /* UIImageView+AFNetworking.m */; };
 		7F84C2BA151C617400E8D27E /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84C2B9151C617400E8D27E /* KeychainWrapper.m */; };
 		7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84C2BB151C678800E8D27E /* Security.framework */; };
+		7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */; };
+		7F892E61153725CC00C00F91 /* GameBattleScenePMPoint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F892E5F153725CC00C00F91 /* GameBattleScenePMPoint@2x.png */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8B816B14E5786A0085CE22 /* BagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816A14E5786A0085CE22 /* BagTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
@@ -1618,6 +1620,8 @@
 		7F84C2B8151C617400E8D27E /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		7F84C2B9151C617400E8D27E /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		7F84C2BB151C678800E8D27E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleScenePMPoint.png; sourceTree = "<group>"; };
+		7F892E5F153725CC00C00F91 /* GameBattleScenePMPoint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleScenePMPoint@2x.png"; sourceTree = "<group>"; };
 		7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewCell.h; sourceTree = "<group>"; };
 		7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewCell.m; sourceTree = "<group>"; };
 		7F8B816914E5786A0085CE22 /* BagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewCell.h; sourceTree = "<group>"; };
@@ -3772,6 +3776,8 @@
 			children = (
 				7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */,
 				7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */,
+				7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */,
+				7F892E5F153725CC00C00F91 /* GameBattleScenePMPoint@2x.png */,
 				7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */,
 				7F2B7CE11515B3210091E739 /* GameMessageViewBackground@2x.png */,
 				7F199EDD150A6B54004CE84E /* GamePokeball.png */,
@@ -4648,6 +4654,8 @@
 				7F072F4915348D860085E1DD /* PMSpriteBack_99.png in Resources */,
 				7F8F93D71537135A00DF472B /* GameBattleSceneBackground_09.png in Resources */,
 				7F8F93D81537135A00DF472B /* GameBattleSceneBackground_09@2x.png in Resources */,
+				7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */,
+				7F892E61153725CC00C00F91 /* GameBattleScenePMPoint@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5020,7 +5028,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/Pokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/Pokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5038,7 +5046,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/Pokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/Pokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

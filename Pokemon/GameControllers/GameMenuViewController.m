@@ -261,8 +261,11 @@ typedef enum {
   [self.view addSubview:self.pokemonImageView];
   
   // Pokeball
-  UIImageView * pokeball = [[UIImageView alloc] initWithFrame:
-                            CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
+  UIImageView * pokeball =
+    [[UIImageView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                                  kViewHeight,
+                                                  kGameMenuPokeballSize,
+                                                  kGameMenuPokeballSize)];
   self.pokeball = pokeball;
   [pokeball release];
   [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
@@ -639,7 +642,7 @@ typedef enum {
   [path addCurveToPoint:CGPointMake(220.f, 140.f)
           controlPoint1:CGPointMake(160.f, 290.f)
           controlPoint2:CGPointMake(160.f, 240.f)];
-  [path addCurveToPoint:CGPointMake(250.f, 110.f)
+  [path addCurveToPoint:CGPointMake(kGameBattleEnemyPokemonPosX, kViewHeight - kGameBattleEnemyPokemonPosY)
           controlPoint1:CGPointMake(240.f, 110.f)
           controlPoint2:CGPointMake(245.f, 110.f)];
   /*
@@ -727,7 +730,7 @@ typedef enum {
   
   // Move animation
   CAKeyframeAnimation * moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
-  CGFloat originalPositionX = 250.f;
+  CGFloat originalPositionX = kGameBattleEnemyPokemonPosX;
   moveAnimation.values   = [NSArray arrayWithObjects:
                             [NSNumber numberWithFloat:originalPositionX],
                             [NSNumber numberWithFloat:originalPositionX - 5],
@@ -766,7 +769,10 @@ typedef enum {
 
 // Reset Pokeball
 - (void)resetPokeball:(NSNotification *)notification {
-  [self.pokeball setFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, 60.f, 60.f)];
+  [self.pokeball setFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                     kViewHeight,
+                                     kGameMenuPokeballSize,
+                                     kGameMenuPokeballSize)];
 }
 
 // Action for |buttonFight_|
@@ -907,7 +913,7 @@ typedef enum {
       NSLog(@"Swipe to Up");
       if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
-        playerPokemonStatusViewFrame.origin.y = kViewHeight - 150.f - 64.f;
+        playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuMessageViewHeight - kGameMenuPMStatusViewHeight;
         animations = ^(){
           [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
         };
@@ -982,7 +988,7 @@ typedef enum {
     case kGameMenuKeyViewPlayerPokemonStatusView: {
       animations = ^(){
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
-        playerPokemonStatusViewFrame.origin.y = kViewHeight - 150.f - 8.f;
+        playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuMessageViewHeight - kGameMenuPMStatusHPBarHeight;
         [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
       };
       break;
@@ -990,7 +996,7 @@ typedef enum {
       
     case kGameMenuKeyViewEnemyPokemonStatusView: {
       CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
-      enemyPokemonStatusViewFrame.origin.y = -56.f;
+      enemyPokemonStatusViewFrame.origin.y = - (kGameMenuPMStatusViewHeight - kGameMenuPMStatusHPBarHeight);
       animations = ^(){
         [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame];
       };
@@ -1041,7 +1047,10 @@ typedef enum {
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
   if ([[anim valueForKey:@"animationType"] isEqualToString:@"throwPokeballToCatchWildPokemon"]) {
     CGFloat scale = .5f;
-    [self.pokeball setFrame:CGRectMake(250.f - 30.f * scale, 110.f - 30.f * scale, 60.f * scale, 60.f * scale)];
+    [self.pokeball setFrame:CGRectMake(kGameBattleEnemyPokemonPosX - kGameMenuPokeballSize / 2 * scale,
+                                       kViewHeight - kGameBattleEnemyPokemonPosY - kGameMenuPokeballSize / 2 * scale,
+                                       kGameMenuPokeballSize * scale,
+                                       kGameMenuPokeballSize * scale)];
     // Post notification to |GameBattleLayer| to get WildPokemon into Pokeball
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballGetWildPokemon object:self userInfo:nil];
   }

@@ -25,6 +25,8 @@
   GamePlayerProcess * playerProcess_;
   GameEnemyProcess  * enemyProcess_;
   CCSprite          * background_;
+  CCSprite          * playerPokemonPoint_;
+  CCSprite          * enemyPokemonPoint_;
   GamePokemonSprite * playerPokemonSprite_;
   GamePokemonSprite * enemyPokemonSprite_;
 }
@@ -34,6 +36,8 @@
 @property (nonatomic, retain) GamePlayerProcess * playerProcess;
 @property (nonatomic, retain) GameEnemyProcess  * enemyProcess;
 @property (nonatomic, retain) CCSprite          * background;
+@property (nonatomic, retain) CCSprite          * playerPokemonPoint;
+@property (nonatomic, retain) CCSprite          * enemyPokemonPoint;
 @property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
 @property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
 
@@ -60,6 +64,8 @@
 @synthesize playerProcess       = playerProcess_;
 @synthesize enemyProcess        = enemyProcess_;
 @synthesize background          = background_;
+@synthesize playerPokemonPoint  = playerPokemonPoint_;
+@synthesize enemyPokemonPoint   = enemyPokemonPoint_;
 @synthesize playerPokemonSprite = playerPokemonSprite_;
 @synthesize enemyPokemonSprite  = enemyPokemonSprite_;
 
@@ -107,7 +113,7 @@
     self.gameSystemProcess = [GameSystemProcess sharedInstance];
     
     // Create a new scene
-    [self createNewSceneWithWildPokemonUID:8];
+    [self createNewSceneWithWildPokemonUID:9];
     
     // Add observer for notification to replace player, enemy's pokemon
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -173,11 +179,19 @@
   [enemyProcess release];
   
   // Game battle scene's background
-  self.background =
-    [CCSprite spriteWithFile:[NSString stringWithFormat:@"GameBattleSceneBackground_%.2d.png",
-                              [enemyPokemon.pokemon.habitat intValue]]];
-  [self.background setPosition:ccp(0, kGameMenuMessageViewHeight)];
+  NSString * backgroundImageName =
+    [NSString stringWithFormat:@"GameBattleSceneBackground_09.png", [enemyPokemon.pokemon.habitat intValue]];
+  self.background = [CCSprite spriteWithFile:backgroundImageName];
+  [self.background setPosition:ccp(kViewWidth / 2, kGameMenuMessageViewHeight + 310.f / 2)];
   [self addChild:self.background];
+  
+  // Pokemons' Points
+  self.playerPokemonPoint = [CCSprite spriteWithFile:@"GameBattleScenePMPoint.png"];
+  self.enemyPokemonPoint  = [CCSprite spriteWithFile:@"GameBattleScenePMPoint.png"];
+  [self.playerPokemonPoint setPosition:ccp(kGameBattlePlayerPMPointPosX, kGameBattlePlayerPMPointPosY)];
+  [self.enemyPokemonPoint  setPosition:ccp(kGameBattleEnemyPMPointPosX,  kGameBattleEnemyPMPointPosY)];
+  [self addChild:self.playerPokemonPoint];
+  [self addChild:self.enemyPokemonPoint];
   
   // Player & Enemy's Pokemon sprite setting
   // Player Pokemon sprite setting

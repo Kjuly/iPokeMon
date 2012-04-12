@@ -133,16 +133,21 @@ typedef enum {
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10
 
+#define kGameMenuMessageViewHeight         150.f // Game Menu: Message view hegith
+#define kGameMenuPMStatusViewHeight        64.f  //       ...: Pokemon Status view height
+#define kGameMenuPMStatusHPBarHeight       8.f   //       ...:            ...'s HP Bar height
+#define kGameMenuPokeballSize              60.f  // Size of Pokeball (which is used for replacing & catching PM)
+#define kGameBattlePlayerPMPointPosX       80.f  // Pokemons' Point
+#define kGameBattlePlayerPMPointPosY       190.f 
+#define kGameBattleEnemyPMPointPosX        240.f
+#define kGameBattleEnemyPMPointPosY        320.f
 #define kGameBattlePlayerPokemonPosOffsetX 410.f // Offscreen's position X
 #define kGameBattlePlayerPokemonPosX       80.f
 #define kGameBattlePlayerPokemonPosY       225.f // ccp(70.f, 230.f) = CGPoint(70,kViewHeight-230.f)
 #define kGameBattleEnemyPokemonPosOffsetX  -90.f
-#define kGameBattleEnemyPokemonPosX        250.f
+#define kGameBattleEnemyPokemonPosX        240.f
 #define kGameBattleEnemyPokemonPosY        350.f
 #define kGameBattlePokemonFaintedOffsetY   50.f
-#define kGameMenuMessageViewHeight         150.f // Game Menu: Message view hegith
-#define kGameMenuPMStatusViewHeight        64.f  //       ...: Pokemon Status view height
-#define kGameMenuPMStatusHPBarHeight       8.f   //       ...:            ...'s HP Bar height
 
 // Table View
 #define kCellHeightOfTrainerBadgesTableView 52.5f
