@@ -167,6 +167,7 @@ static TrainerController * trainerController_ = nil;
 - (NSInteger)numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
 - (NSInteger)numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
+- (NSString *)sixPokemonsUID {return self.entityTrainer.sixPokemonsID;}
 - (NSInteger) numberOfSixPokemons {
   return [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] count];
 }

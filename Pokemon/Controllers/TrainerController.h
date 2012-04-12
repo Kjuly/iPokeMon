@@ -34,6 +34,7 @@
 - (NSInteger)numberOfPokemonsForPokedex;                       // Number of Pokemons for Pokedex
 - (NSInteger)numberOfTamedPokemons;                            // Number of tamed Pokemons (total) (include duplicate)
 - (NSArray *)sixPokemons;                                      // Six Pokemons
+- (NSString *)sixPokemonsUID;                                  // Six Pokemons' UID
 - (NSInteger)numberOfSixPokemons;                              // Number of Six Pokemons
 - (NSURL *)avatarURL;                                          // Avatar URL (Gravatar)
 - (TrainerTamedPokemon *)firstPokemonOfSix;                    // First of Six Pokemons

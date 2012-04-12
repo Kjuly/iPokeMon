@@ -18,19 +18,23 @@
 
 @interface GameMenuSixPokemonsViewController () {
  @private
-  BOOL      isForReplacing_;         // If it is YES, when |confirm|, replace pokemon, otherwise, use item
-  NSInteger currOpeningUnitViewTag_;
-  UIView  * backgroundView_;
-  NSArray * sixPokemons_;
+  TrainerController * trainer_;
+  BOOL        isForReplacing_;         // If it is YES, when |confirm|, replace pokemon, otherwise, use item
+  NSInteger   currOpeningUnitViewTag_;
+  UIView    * backgroundView_;
+  NSArray   * sixPokemons_;
+  NSString  * sixPokemonsUID_;        // Mark for six PMs UID, if changed, reload PMs
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController_;
   CAAnimationGroup                   * animationGroupForNotReplacing_;
   UIButton                           * cancelButton_;
 }
 
-@property (nonatomic, assign) BOOL      isForReplacing;
-@property (nonatomic, assign) NSInteger currOpeningUnitViewTag;
-@property (nonatomic, retain) UIView  * backgroundView;
-@property (nonatomic, copy) NSArray   * sixPokemons;
+@property (nonatomic, retain) TrainerController * trainer;
+@property (nonatomic, assign) BOOL        isForReplacing;
+@property (nonatomic, assign) NSInteger   currOpeningUnitViewTag;
+@property (nonatomic, retain) UIView    * backgroundView;
+@property (nonatomic, copy)   NSArray   * sixPokemons;
+@property (nonatomic, copy)   NSString  * sixPokemonsUID;
 @property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
 @property (nonatomic, retain) CAAnimationGroup                   * animationGroupForNotReplacing;
 @property (nonatomic, retain) UIButton                           * cancelButton;
@@ -45,18 +49,22 @@
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
 @synthesize currBattlePokemon                = currBattlePokemon_;
 
+@synthesize trainer                = trainer_;
 @synthesize isForReplacing         = isForReplacing_;
 @synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
 @synthesize backgroundView         = backgroundView_;
 @synthesize sixPokemons            = sixPokemons_;
+@synthesize sixPokemonsUID         = sixPokemonsUID_;
 @synthesize sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController_;
 @synthesize animationGroupForNotReplacing      = animationGroupForNotReplacing_;
 @synthesize cancelButton                       = cancelButton_;
 
 - (void)dealloc
 {
-  [backgroundView_ release];
-  [sixPokemons_    release];
+  [trainer_         release];
+  [backgroundView_  release];
+  [sixPokemons_     release];
+  self.sixPokemonsUID = nil;
   [sixPokemonsDetailTabViewController_ release];
   [cancelButton_                       release];
   
@@ -94,6 +102,7 @@
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
+  [backgroundView_ setTag:0];
   [self.view addSubview:backgroundView_];
   
   // Create a fake |mapButton_| as the cancel button
@@ -107,6 +116,7 @@
                                forState:UIControlStateNormal];
   [self.cancelButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageHalfCancel.png"] forState:UIControlStateNormal];
   [self.cancelButton setOpaque:NO];
+  [self.cancelButton setTag:0];
   [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
 }
@@ -114,7 +124,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-  [super viewDidLoad];  
+  [super viewDidLoad];
+  
+  self.trainer = [TrainerController sharedInstance];
 }
 
 - (void)viewDidUnload
@@ -225,7 +237,8 @@
   NSLog(@"|%@| - |initWithSixPokemonsForReplacing:| - |currBattlePokemon_|:%d", [self class], self.currBattlePokemon);
   
   // Create Pokemon unit views
-  self.sixPokemons       = [[TrainerController sharedInstance] sixPokemons];
+  self.sixPokemons       = [self.trainer sixPokemons];
+  self.sixPokemonsUID    = [self.trainer sixPokemonsUID];
   CGFloat buttonSize     = 60.f;
   CGRect originFrame     = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
   
@@ -386,6 +399,18 @@
   isForReplacing_         = NO;
   
   NSInteger currBattlePokemon = [[TrainerController sharedInstance] battleAvailablePokemonIndex];
+  
+  // If six Pokemons' UID changed, reload data for Six Pokemons
+  if (! [self.sixPokemonsUID isEqualToString:[self.trainer sixPokemonsUID]]) {
+    NSLog(@"|%@| - Six PokemonsUID changed...Reload Six Pokemons......", [self class]);
+    for (UIView *view in [self.view subviews]) {
+      if (view.tag == 0)
+        continue;
+      [view removeFromSuperview];
+    }
+    [self initWithSixPokemonsForReplacing:NO];
+  }
+  
   //
   // TODO:
   //   Redundancy!!
