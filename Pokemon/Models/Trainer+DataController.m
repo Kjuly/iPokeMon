@@ -207,8 +207,7 @@
 }
 
 // Fetch Pokemons for |sixPokemons|
-- (NSArray *)sixPokemons
-{
+- (NSArray *)sixPokemons {
   NSArray * sixPokemonsUID = [self.sixPokemonsID componentsSeparatedByString:@","];
   NSArray * sixPokemons = [TrainerTamedPokemon queryPokemonsWithUID:sixPokemonsUID
                                                          trainerUID:[self.uid intValue]

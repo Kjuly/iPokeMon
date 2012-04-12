@@ -123,8 +123,8 @@
   [self.info  setAlpha:0.f];
   
   // Tap gesture recognizer
-  UITapGestureRecognizer * tapGestureRecognizer
-  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unloadViewWithAnimation)];
+  UITapGestureRecognizer * tapGestureRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unloadViewWithAnimation)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];

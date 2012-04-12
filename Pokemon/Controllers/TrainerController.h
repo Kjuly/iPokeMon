@@ -17,7 +17,7 @@
 
 + (TrainerController *)sharedInstance;
 - (void)initTrainerWithUserID:(NSInteger)userID;
-- (void)save;
+- (void)saveWithSync:(BOOL)withSync;
 
 // Sync data between Client & Server
 - (void)sync;
@@ -47,6 +47,7 @@
 //- (void)loseMoney:(NSInteger)money; // Lose money when LOSE
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
+- (void)replacePokemonAtIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex; // Replace Pokemon's index
 - (void)useBagItemForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex; // Used a bag item (with type)
 - (void)addBagItemsForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex quantity:(NSInteger)quantity;
 - (void)tossBagItemsForType:(BagQueryTargetType)targetType withItemIndex:(NSInteger)itemIndex quantity:(NSInteger)quantity;

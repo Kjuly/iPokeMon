@@ -15,13 +15,29 @@
 #import "SixPokemonsDetailTabViewController.h"
 
 
+@interface SixPokemonsTableViewController () {
+ @private
+  NSMutableArray         * sixPokemons_;
+  UITapGestureRecognizer * tapGestureRecognizer_;
+}
+
+- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
+
+@property (nonatomic, copy)   NSMutableArray         * sixPokemons;
+@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+
+@end
+
+
 @implementation SixPokemonsTableViewController
 
-@synthesize sixPokemons = sixPokemons_;
+@synthesize sixPokemons          = sixPokemons_;
+@synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc
 {
-  [sixPokemons_ release];
+  [sixPokemons_          release];
+  [tapGestureRecognizer_ release];
   
   [super dealloc];
 }
@@ -64,6 +80,15 @@
                     [NSNumber numberWithInt:0x0051],
                     nil];
   self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
+  
+  // Tap gesture recognizer
+  UITapGestureRecognizer * tapGestureRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+  self.tapGestureRecognizer = tapGestureRecognizer;
+  [tapGestureRecognizer release];
+  [self.tapGestureRecognizer setNumberOfTapsRequired:1];
+  [self.tapGestureRecognizer setNumberOfTouchesRequired:2];
+  [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
 }
 
 - (void)viewDidUnload
@@ -77,7 +102,7 @@
 {
   [super viewWillAppear:animated];
   
-  self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
+  self.sixPokemons = [[[TrainerController sharedInstance] sixPokemons] mutableCopy];
   [self.tableView reloadData];
 }
 
@@ -151,6 +176,44 @@
   return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+  return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewCellEditingStyleNone;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 0;
+}
+
+// Can move rows
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+  return YES;
+}
+
+// Move row
+- (void) tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+       toIndexPath:(NSIndexPath *)destinationIndexPath {
+  NSInteger sourceRow      = [sourceIndexPath row];
+  NSInteger destinationRow = [destinationIndexPath row];
+  [[TrainerController sharedInstance] replacePokemonAtIndex:sourceRow toIndex:destinationRow];
+  
+  // Retch data
+  self.sixPokemons = [[[TrainerController sharedInstance] sixPokemons] mutableCopy];
+  [tableView reloadData];
+  
+  /*
+  id object = [self.sixPokemons objectAtIndex:sourceRow];
+  
+  [self.sixPokemons removeObjectAtIndex:sourceRow];
+  [self.sixPokemons insertObject:object atIndex:destinationRow];
+   */
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,6 +266,16 @@
                                                      withTopbar:YES];
   [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
   [sixPokemonsDetailTabViewController release];
+}
+
+#pragma mark - Private Methods
+
+// Tap gesture action
+- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
+  if ([self.tableView isEditing])
+    [self.tableView setEditing:NO animated:YES];
+  else
+    [self.tableView setEditing:YES animated:YES];
 }
 
 @end

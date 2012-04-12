@@ -77,12 +77,23 @@
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
     
+    /*/ Set editing view
+    UIView * editingView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, cellHeight)];
+    [editingView setBackgroundColor:[UIColor whiteColor]];
+    [self setEditingAccessoryView:editingView];
+    [editingView release];
+    
+    [self setShouldIndentWhileEditing:NO];
+    [self setShowsReorderControl:NO];
+    [self setEditingAccessoryType:UITableViewCellAccessoryNone];
+    [self setAccessoryType:UITableViewCellAccessoryNone];*/
+    
     
     // Set Layouts for |contentView|(readonly)
     // Image View
     imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 5.f, imageWidth, imageWidth)];
     [imageView_ setUserInteractionEnabled:YES];
-    [self.contentView addSubview:imageView_];
+    [self addSubview:imageView_];
     
     ///Data View
     UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
@@ -126,7 +137,7 @@
     [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [dataView addSubview:HPLabel_];
     
-    [self.contentView addSubview:dataView];
+    [self addSubview:dataView];
     [dataView release];
   }
   return self;
@@ -139,5 +150,19 @@
 //  [self.HPBarTotal setBackgroundColor:[GlobalRender textColorTitleWhite]];
 //  [self.HPBarLeft setBackgroundColor:[GlobalRender textColorOrange]];
 }
+
+/*
+- (void)layoutSubviews {
+  [super layoutSubviews];
+//  if ([self isEditing]) {
+    // Set editing view
+//    UIView * editingView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, kCellHeightOfSixPokemonsTableView)];
+//    [editingView setBackgroundColor:[UIColor whiteColor]];
+////    [self setEditingAccessoryView:editingView];
+//    [self.contentView addSubview:editingView];
+//    [editingView release];
+//  }
+}
+ */
 
 @end

@@ -111,7 +111,7 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Save Client data to CoreData
--(void)save {
+-(void)saveWithSync:(BOOL)withSync {
   NSLog(@"......|%@| - SVEING DATA......", [self class]);
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -120,7 +120,7 @@ static TrainerController * trainerController_ = nil;
     NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
   
   // Sync data to Server
-  [self sync];
+  if (withSync) [self sync];
 }
 
 #pragma mark - Data Related Methods
@@ -233,7 +233,7 @@ static TrainerController * trainerController_ = nil;
 - (void)setName:(NSString *)name {
   self.entityTrainer.name = name;
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
-  [self save];
+  [self saveWithSync:YES];
 }
 
 // Transfer WildPokemon to TamedPokemon
@@ -262,7 +262,7 @@ static TrainerController * trainerController_ = nil;
     [self addPokemonToSixPokemonsWithPokemonUID:[self numberOfTamedPokemons]];
   
   // Save & sync data
-  [self save];
+  [self saveWithSync:YES];
 }
 
 // Add Pokemon to |sixPokemons|
@@ -274,6 +274,28 @@ static TrainerController * trainerController_ = nil;
   [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID
                                                                       trainerUID:self.userID]];
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
+}
+
+// Replace Pokemon's index order
+- (void)replacePokemonAtIndex:(NSInteger)sourceIndex
+                      toIndex:(NSInteger)destinationIndex {
+  NSLog(@"Original SixPokemons:%@", self.entityTrainer.sixPokemonsID);
+  NSLog(@"Moved sourceIndex:%d -> destinationIndex:%d", sourceIndex + 1, destinationIndex + 1);
+  NSMutableArray * sixPokemonsID = [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] mutableCopy];
+  id sourceObject      = [sixPokemonsID objectAtIndex:sourceIndex];
+  id destinationObject = [sixPokemonsID objectAtIndex:destinationIndex];
+  [sixPokemonsID replaceObjectAtIndex:sourceIndex withObject:destinationObject];
+  [sixPokemonsID replaceObjectAtIndex:destinationIndex withObject:sourceObject];
+  
+  // Save & Sync data
+  self.entityTrainer.sixPokemonsID = [sixPokemonsID componentsJoinedByString:@","];
+  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
+  NSLog(@"Replaced SixPokemons:%@", self.entityTrainer.sixPokemonsID);
+  [self saveWithSync:NO];
+  
+  sixPokemonsID = nil;
+  // Refetch data of Six Pokemons
+  self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
 }
 
 // BagItem - Use
@@ -336,7 +358,7 @@ static TrainerController * trainerController_ = nil;
   else return;
   
   self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerBag;
-  [self save];
+  [self saveWithSync:YES];
 }
 
 @end
