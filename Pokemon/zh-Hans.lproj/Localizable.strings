@@ -95,6 +95,8 @@
 "PMSMessageLevelUp"            = "升级了!";
 "PMSMessagePokemonGainedXXXEXP1"= "获得了";
 "PMSMessagePokemonGainedXXXEXP3"= "点经验";
+"PMSMessageRunSucceed"          = "成功逃跑了！";
+"PMSMessageRunFailed"           = "逃跑失败了！";
 
 /*
  * Memo for Pokemon

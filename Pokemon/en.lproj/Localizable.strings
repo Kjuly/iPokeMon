@@ -96,6 +96,8 @@
 "PMSMessageLevelUp"             = "Level Up!";
 "PMSMessagePokemonGainedXXXEXP1"= "gained";
 "PMSMessagePokemonGainedXXXEXP3"= "EXP. points";
+"PMSMessageRunSucceed"          = "Got away safely!";
+"PMSMessageRunFailed"           = "Can't escape!";
 
 /*
  * Memo for Pokemon

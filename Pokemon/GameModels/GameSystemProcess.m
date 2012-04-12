@@ -99,7 +99,7 @@ typedef enum {
 - (void)catchingWildPokemon;                   // Catching Wild Pokemon
 - (BOOL)hasDoneForCatchingWildPokemonResult;   // ...
 - (void)caughtWildPokemonSucceed:(BOOL)succeed;// ...
-- (void)run; //!!!!
+- (BOOL)isRunSucceed;                          // Run scuueed or not
 - (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
 - (void)playerWin;  // WIN
@@ -204,7 +204,7 @@ static GameSystemProcess * gameSystemProcess = nil;
         break;
         
       case kGameSystemProcessTypeRun:
-        [self run];
+//        [self run];
         break;
         
       case kGameSystemProcessTypeBattleEnd:
@@ -1491,7 +1491,10 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Run
-- (void)run {
+- (BOOL)isRunSucceed; {
+  BOOL isRunSucceed = YES;
+  
+  return isRunSucceed;
 }
 
 // Post Message to |GameMenuViewController| to set message for game
@@ -1621,8 +1624,12 @@ static GameSystemProcess * gameSystemProcess = nil;
       message = NSLocalizedString(@"PMSMessagePlayerLose", nil);
       break;
       
-    case kGameSystemProcessTypeRun:
+    case kGameSystemProcessTypeRun: {
+      BOOL isRunSucceed = [[messageInfo valueForKey:@"isRunSucceed"] boolValue];
+      if (isRunSucceed) message = NSLocalizedString(@"PMSMessageRunSucceed", nil);
+      else              message = NSLocalizedString(@"PMSMessageRunFailed", nil);
       break;
+    }
       
     case kGameSystemProcessTypeNone:
       break;
@@ -1686,7 +1693,25 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
+    BOOL isRunSucceed = YES;
+    if (! [self isRunSucceed]) {
+      isRunSucceed = NO;
+    }
+    // Update message in |GameMenuViewController| to show run succeed or not
+    NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                  [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];
+    [self postMessageForProcessType:kGameSystemProcessTypeRun withMessageInfo:messageInfo];
+    [messageInfo release];
     
+    // If run faild, do not END battle
+    if (! isRunSucceed) {
+      // Set Game System Process
+      GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
+      [gameSystemProcess setSystemProcessOfRunWithUser:kGameSystemProcessUserPlayer];
+      [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
+      [self endTurn];
+      return;
+    }
   }
   else if (battleEndEventType & kGameBattleEndEventTypeWildPokemonRun) {
     

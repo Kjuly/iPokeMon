@@ -242,7 +242,7 @@
   }
   
   NSTimeInterval delay = 1.5f;
-  if (battleEndEventType != kGameBattleEndEventTypeWin) {
+  if (battleEndEventType != kGameBattleEndEventTypeWin && battleEndEventType != kGameBattleEndEventTypeRun) {
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
     [self.gameBattleEndViewController loadViewWithEventType:battleEndEventType
                                                    animated:YES

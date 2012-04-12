@@ -1043,7 +1043,7 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (buttonIndex == 0) {
     [[GameSystemProcess sharedInstance] endBattleWithEventType:kGameBattleEndEventTypeRun];
-    [delegate_ unloadBattleScene];
+//    [delegate_ unloadBattleScene];
   }
 }
 
