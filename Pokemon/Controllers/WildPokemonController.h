@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface WildPokemonController : NSObject
 
 + (WildPokemonController *)sharedInstance;
 
 - (void)updateForCurrentRegion;
+- (void)updateAtLocation:(CLLocation *)location;
+- (BOOL)isReady;
 - (NSInteger)appearedPokemonUID;
 
 @end

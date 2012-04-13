@@ -94,6 +94,81 @@
   return pokemon;
 }
 
+// Pokemon SIDs for type of Habitat
++ (NSArray *)SIDsForHabitat:(PokemonHabitat)habitat {
+  /*/
+  // For TESTING
+  //
+  // Set
+  PokemonHabitat habitatForTesting = kPokemonHabitatWatersEdge;
+  
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"habitat == %d", habitatForTesting];
+  [fetchRequest setPredicate:predicate];
+  //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
+  
+  NSError * error;
+  NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  NSMutableArray * pokemonSIDsInArray = [NSMutableArray array];
+  for (Pokemon *pokemon in pokemons)
+    [pokemonSIDsInArray addObject:pokemon.sid];
+  NSLog(@"!!!TESTING - PokemonSIDs:<< %@ >>, forType:%d",
+        [pokemonSIDsInArray componentsJoinedByString:@","], habitatForTesting);
+  // END For TESTING
+  /*/
+  
+  
+  NSString * pokemonSIDsInString;
+  switch (habitat) {
+    case kPokemonHabitatCave:
+      pokemonSIDsInString = @"51,92,42,94,50,93,41,95";
+      break;
+      
+    case kPokemonHabitatForest:
+      pokemonSIDsInString = @"46,70,13,10,18,26,48,16,69,47,71,14,11,127,102,12,17,25,103,49,15";
+      break;
+      
+    case kPokemonHabitatGrassland:
+      pokemonSIDsInString = @"2,58,123,20,37,83,44,125,33,85,78,128,31,96,115,40,24,59,38,45,1,29,84,19,43,32,34,108,77,30,97,114,39,3,23";
+      break;
+      
+    case kPokemonHabitatMountain:
+      pokemonSIDsInString = @"105,68,56,35,74,76,104,67,5,142,126,57,36,75,4,6,143,66";
+      break;
+      
+    case kPokemonHabitatRare:
+      pokemonSIDsInString = @"144,145,151,146,150";
+      break;
+      
+    case kPokemonHabitatRoughTerrain:
+      pokemonSIDsInString = @"21,111,28,81,112,82,22,27";
+      break;
+      
+    case kPokemonHabitatSea:
+      pokemonSIDsInString = @"90,139,117,87,73,120,140,91,86,116,131,121,141,138,72";
+      break;
+      
+    case kPokemonHabitatUrban:
+      pokemonSIDsInString = @"133,63,107,135,101,110,122,52,137,89,132,109,64,106,65,124,113,53,136,134,88,100";
+      break;
+      
+    case kPokemonHabitatWatersEdge:
+      pokemonSIDsInString = @"9,80,119,147,54,61,130,149,98,7,148,79,118,55,62,129,8,99,60";
+      break;
+      
+    default:
+      pokemonSIDsInString = @"";
+      break;
+  }
+  return [pokemonSIDsInString componentsSeparatedByString:@","];
+}
+
 #pragma mark - Basic Data
 
 // Calculate EXP based on |baseEXP| with |level|

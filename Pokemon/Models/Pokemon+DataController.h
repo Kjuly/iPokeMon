@@ -7,6 +7,7 @@
 //
 
 #import "Pokemon.h"
+#import "PokemonConstants.h"
 
 @interface Pokemon (DataController)
 
@@ -14,6 +15,7 @@
 
 + (NSArray *)queryAllData;
 + (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
++ (NSArray *)SIDsForHabitat:(PokemonHabitat)habitat;
 
 // Basic Data
 - (NSInteger)expAtLevel:(NSInteger)level;

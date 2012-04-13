@@ -11,24 +11,26 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "AFJSONRequestOperation.h"
+#import "WildPokemonController.h"
 #import "Pokemon+DataController.h"
 
 #define kLocationServiceLowBatteryMode 0
 
 
-@interface MapViewController ()
-{
+@interface MapViewController () {
  @private
-  BOOL                 isUpdatingLocation_;
-  BOOL                 isPokemonAppeared_;
-  NSTimer            * eventTimer_;
-  CLLocationDistance   moveDistance_;
+  WildPokemonController * wildPokemonController_;
+  BOOL                    isUpdatingLocation_;
+  BOOL                    isPokemonAppeared_;
+  NSTimer               * eventTimer_;
+  CLLocationDistance      moveDistance_;
 }
 
-@property (nonatomic, assign) BOOL                 isUpdatingLocation;
-@property (nonatomic, assign) BOOL                 isPokemonAppeared;
-@property (nonatomic, retain) NSTimer            * eventTimer;
-@property (nonatomic, assign) CLLocationDistance   moveDistance;
+@property (nonatomic, retain) WildPokemonController * wildPokemonController;
+@property (nonatomic, assign) BOOL                    isUpdatingLocation;
+@property (nonatomic, assign) BOOL                    isPokemonAppeared;
+@property (nonatomic, retain) NSTimer               * eventTimer;
+@property (nonatomic, assign) CLLocationDistance      moveDistance;
 
 - (void)continueUpdatingLocation;
 - (void)resetIsPokemonAppeared:(NSNotification *)notification;
@@ -44,16 +46,19 @@
 @synthesize locationManager = locationManager_;
 @synthesize location        = location_;
 
-@synthesize isUpdatingLocation = isUpdatingLocation_;
-@synthesize isPokemonAppeared  = isPokemonAppeared_;
-@synthesize eventTimer         = eventTimer_;
-@synthesize moveDistance       = moveDistance_;
+@synthesize wildPokemonController = wildPokemonController_;
+@synthesize isUpdatingLocation    = isUpdatingLocation_;
+@synthesize isPokemonAppeared     = isPokemonAppeared_;
+@synthesize eventTimer            = eventTimer_;
+@synthesize moveDistance          = moveDistance_;
 
 - (void)dealloc
 {
   [mapView_         release];
   [locationManager_ release];
   [location_        release];
+  
+  [wildPokemonController_ release];
   
   [super dealloc];
 }
@@ -103,8 +108,10 @@
   
   [self.mapView setShowsUserLocation:YES];
   
-  isPokemonAppeared_ = NO;
-  moveDistance_      = 0;
+  // Basic settings
+  self.wildPokemonController = [WildPokemonController sharedInstance];
+  isPokemonAppeared_         = NO;
+  moveDistance_              = 0;
   
   // Core Location
   // Create the Manager Object 
@@ -197,6 +204,9 @@
   NSLog(@"Move Distance: %f", self.moveDistance);
   
   if (! self.isPokemonAppeared && self.moveDistance >= 100.0f && arc4random() % 2) {
+    // Update data for Wild Pokemon at current location
+    [self.wildPokemonController updateAtLocation:newLocation];
+    
     // Generate the Info Dictionary for Appeared Pokemon
     NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],

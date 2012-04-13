@@ -15,6 +15,7 @@
 #import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
+#import "WildPokemonController.h"
 #import "GameBattleEventViewController.h"
 #import "GameBattleEndViewController.h"
 
@@ -181,6 +182,11 @@
 
 - (void)loadBattleScene:(NSNotification *)notification
 {
+  if (! [[WildPokemonController sharedInstance] isReady]) {
+    // Show loading view to wait until data generate done
+    NSLog(@"......PREPARING DATA for BATTLE......");
+  }
+  
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   // Remember previous |centerMainButton_|'s status
   self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];

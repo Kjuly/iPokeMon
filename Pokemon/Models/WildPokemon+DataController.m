@@ -37,16 +37,35 @@
   return pokemon;
 }
 
-// Get Pokemons that in |pokemonsID| array (for PokemonSelcetion)
-+ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit
-{
+// Get Pokemons that in |pokemonUIDs| array (for PokemonSelcetion)
++ (NSArray *)queryPokemonsWithUIDs:(NSArray *)pokemonUIDs
+                        fetchLimit:(NSInteger)fetchLimit {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonsID]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid IN %@", pokemonUIDs]];
+  [fetchRequest setFetchLimit:fetchLimit];
+  
+  NSError * error;
+  NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return pokemons;
+}
+
+// Get Pokemons that in |pokemonSIDs| array (for generate Wild Pokemon)
++ (NSArray *)queryPokemonsWithSIDs:(NSArray *)pokemonSIDs
+                        fetchLimit:(NSInteger)fetchLimit {
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid IN %@", pokemonSIDs]];
   [fetchRequest setFetchLimit:fetchLimit];
   
   NSError * error;

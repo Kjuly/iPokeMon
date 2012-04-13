@@ -200,7 +200,7 @@
 #pragma mark - Public Methods
 
 - (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID {
-  self.pokemons = [WildPokemon queryPokemonsWithID:pokemonsUID fetchLimit:3];
+  self.pokemons = [WildPokemon queryPokemonsWithUIDs:pokemonsUID fetchLimit:3];
   
   NSInteger pokemonsCount = [self.pokemons count];
   CGFloat   buttonSize    = kCenterMainButtonSize;

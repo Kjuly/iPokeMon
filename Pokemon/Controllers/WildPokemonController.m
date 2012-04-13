@@ -12,7 +12,7 @@
 #import "PokemonConstants.h"
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
-#import "WildPokemon.h"
+#import "WildPokemon+DataController.h"
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
 #import "ServerAPIClient.h"
@@ -22,8 +22,17 @@
 
 @interface WildPokemonController () {
  @private
-  
+  BOOL                  isReady_;
+  BOOL                  isPokemonAppeared_;
+  NSInteger             UID_;
+  NSMutableDictionary * locationInfo_;
+//  NSMutableArray * UIDs_;
+//  NSMutableSet   * SIDs_;
 }
+
+@property (nonatomic, copy) NSMutableDictionary * locationInfo;
+//@property (nonatomic, copy)   NSMutableArray * UIDs;
+//@property (nonatomic, retain) NSMutableSet   * SIDs;
 
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data;
 - (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
@@ -31,10 +40,18 @@
 - (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
 - (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level;
 
+- (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
+- (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType;
+//- (NSArray *)filterSIDs:(NSArray *)SIDs;
+
 @end
 
 
 @implementation WildPokemonController
+
+@synthesize locationInfo = locationInfo_;
+//@synthesize UIDs = UIDs_;
+//@synthesize SIDs = SIDs_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -49,8 +66,18 @@ static WildPokemonController * wildPokemonController_ = nil;
   return wildPokemonController_;
 }
 
+- (void)dealloc
+{
+  self.locationInfo = nil;
+  
+  [super dealloc];
+}
+
 - (id)init {
   if (self = [super init]) {
+    isReady_           = NO;
+    isPokemonAppeared_ = NO;
+    UID_               = 0;
   }
   return self;
 }
@@ -60,6 +87,14 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (void)updateForCurrentRegion {
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    /*/ Reset |UIDs_| & |SIDs_|
+    NSMutableArray * UIDs = [[NSMutableArray alloc] init];
+    NSMutableSet   * SIDs = [[NSMutableSet alloc] init];
+    self.UIDs = UIDs;
+    self.SIDs = SIDs;
+    [UIDs release];
+    [SIDs release];*/
+    
     // Get JSON Data Array from HTTP Response
     NSArray * wildPokemons = [JSON valueForKey:@"wildpokemons"];
     
@@ -70,7 +105,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
-    // Update the data for |WildPokemon|
+    // Update the data for |WildPokePokemon|
     for (NSDictionary * wildPokemonData in wildPokemons) {
       // Check the existence of the entity
       // If exist, execute fetching request, otherwise, insert new one
@@ -88,6 +123,10 @@ static WildPokemonController * wildPokemonController_ = nil;
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
     NSLog(@"...Update |%@| data done...", [WildPokemon class]);
+    
+    // If a Wild Pokemon Appeared already, fetch data for it
+    if (isPokemonAppeared_)
+      [self generateWildPokemonWithLocationInfo:self.locationInfo];
   };
   
   // Failure Block Method
@@ -99,25 +138,117 @@ static WildPokemonController * wildPokemonController_ = nil;
   [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegionSuccess:success failure:failure];
 }
 
+// Update data for Wild Pokemon at current location
+- (void)updateAtLocation:(CLLocation *)location {
+  isPokemonAppeared_ = YES;
+  isReady_           = NO;
+  
+  NSLog(@"......|%@| - UPDATING AT LOCATION......", [self class]);
+  ///Fetch Data from server
+  // Success Block
+  void (^success)(NSURLRequest *, NSHTTPURLResponse *, id);
+  success = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    // Set data
+    NSLog(@"status: %@", [JSON valueForKey:@"status"]);
+    // Check STATUS CODE
+    //
+    //               OK: indicates that no errors occurred;
+    //                   the place was successfully detected and at least one result was returned.
+    //    UNKNOWN_ERROR: indicates a server-side error; trying again may be successful.
+    //     ZERO_RESULTS: indicates that the reference was valid but no longer refers to a valid result.
+    //                   This may occur if the establishment is no longer in business.
+    // OVER_QUERY_LIMIT: indicates that you are over your quota.
+    //   REQUEST_DENIED: indicates that your request was denied, generally because of lack of a sensor parameter.
+    //  INVALID_REQUEST: generally indicates that the query (reference) is missing.
+    //
+    if (! [[JSON valueForKey:@"status"] isEqualToString:@"OK"]) {
+      NSLog(@"!!! ERROR: Response STATUS is NOT OK");
+      return;
+    }
+    
+    // The GeocoderResults object literal represents a single Geocoding result
+    //   and is an object of the following form:
+    //
+    // results[]: {
+    //   types[]: string,
+    //   formatted_address: string,
+    //   address_components[]: {
+    //     short_name: string,
+    //     long_name: string,
+    //     types[]: string
+    //   },
+    //   geometry: {
+    //     location: LatLng,
+    //     location_type: GeocoderLocationType
+    //     viewport: LatLngBounds,
+    //     bounds: LatLngBounds
+    //   }
+    // }
+    //
+    NSLog(@"Setting data for |locationInfo|....");
+    NSDictionary * results  = [[JSON valueForKey:@"results"] objectAtIndex:0];
+    
+    NSDictionary * locationInfo;
+    locationInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                    [[results valueForKey:@"types"] objectAtIndex:0], @"type", nil];
+    
+    // Generate Wild Pokemon with the data of |locationInfo|
+    [self generateWildPokemonWithLocationInfo:locationInfo];
+    [locationInfo release];
+    results  = nil;
+  };
+  
+  // Failure Block
+  void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
+  failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    NSLog(@"!!! ERROR: %@", error);
+  };
+  
+  // Fetch Data from server
+  NSString * requestURL =
+    [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",
+      location.coordinate.latitude, location.coordinate.longitude];
+  NSLog(@"%@", requestURL);
+  NSURL * url = [[NSURL alloc] initWithString:requestURL];
+  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+  [url release];
+  AFJSONRequestOperation * operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:success
+                                                    failure:failure];
+  [request release];
+  [operation start];
+}
+
+// Only YES if data for new appeared Pokemon generated done
+- (BOOL)isReady {
+  return isReady_;
+}
+
 // Return UID for appeared Pokemon to generate Wild Pokemon for Game Battle Scene
 - (NSInteger)appearedPokemonUID {
-  NSInteger UID = 1;
-  return UID;
+//  return UID_;
+  return 1;
 }
 
 #pragma mark - Private Methods
+#pragma mark - For updating
 
 // Update data for WildPokemon entity
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSDictionary *)data {
   // Update basic data fetched from server
-  wildPokemon.uid         = [data valueForKey:@"uid"];
-  wildPokemon.sid         = [data valueForKey:@"sid"];
+  id UID = [data valueForKey:@"uid"];
+  id SID = [data valueForKey:@"sid"];
+//  [self.UIDs addObject:UID];
+//  [self.SIDs addObject:SID];
+  wildPokemon.uid         = UID;
+  wildPokemon.sid         = SID;
   wildPokemon.status      = [NSNumber numberWithInt:kPokemonStatusNormal];
   wildPokemon.level       = [data valueForKey:@"level"];
   NSInteger level = [wildPokemon.level intValue];
   
   // Fetch Pokemon entity with |sid|
-  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[[data valueForKey:@"sid"] intValue]];
+  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:[SID intValue]];
   wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
   
   // |gender|
@@ -225,5 +356,121 @@ static WildPokemonController * wildPokemonController_ = nil;
   result = (10000000 - 100) / (100 - 1) * level + baseEXP;
   return result;
 }
+
+#pragma mark - For Generating
+
+// Generate Wild Pokemon with location info
+- (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo {
+  NSLog(@"|%@| - |generateWildPokemonWithLocationInfo:| - locationInfo::%@", [self class], locationInfo);
+  
+  // Parse the habitat type from current location type
+  PokemonHabitat     habitat = [self parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
+  NSArray      * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
+  WildPokemon  * wildPokemon = [[WildPokemon queryPokemonsWithSIDs:pokemonSIDs fetchLimit:1] lastObject];
+  NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
+        habitat, [pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+  
+  // If no Wild Pokemon data matched, update all data for current region
+  if (wildPokemon == nil) {
+    // Save location info data
+    self.locationInfo = [locationInfo mutableCopy];
+    [self updateForCurrentRegion];
+    return;
+  }
+  
+  // Set data
+  UID_               = [wildPokemon.uid intValue];
+  isReady_           = YES;
+  isPokemonAppeared_ = NO;
+}
+
+// Parse habitat with the location type
+/*
+ kPokemonHabitatCave         = 1,
+ kPokemonHabitatForest       = 2,
+ kPokemonHabitatGrassland    = 3,
+ kPokemonHabitatMountain     = 4,
+ kPokemonHabitatRare         = 5, // Mean "Unknow"
+ kPokemonHabitatRoughTerrain = 6,
+ kPokemonHabitatSea          = 7,
+ kPokemonHabitatUrban        = 8,
+ kPokemonHabitatWatersEdge   = 9
+ */
+/*
+              street_address: indicates a precise street address.
+                       route: indicates a named route (such as "US 101").
+                intersection: indicates a major intersection, usually of two major roads.
+                   political: indicates a political entity. Usually, this type indicates a polygon
+                              of some civil administration.
+                     country: indicates the national political entity, and is typically the highest
+                              order type returned by the Geocoder.
+ administrative_area_level_1: indicates a first-order civil entity below the country level.
+                              Within the United States, these administrative levels are states.
+                              Not all nations exhibit these administrative levels.
+ administrative_area_level_2: indicates a second-order civil entity below the country level.
+                              Within the United States, these administrative levels are counties.
+                              Not all nations exhibit these administrative levels.
+ administrative_area_level_3: indicates a third-order civil entity below the country level.
+                              This type indicates a minor civil division.
+                              Not all nations exhibit these administrative levels.
+             colloquial_area: indicates a commonly-used alternative name for the entity.
+                    locality: indicates an incorporated city or town political entity.
+                 sublocality: indicates an first-order civil entity below a locality.
+                neighborhood: indicates a named neighborhood.
+                     premise: indicates a named location, usually a building or collection of buildings
+                              with a common name
+                  subpremise: indicates a first-order entity below a named location, usually a singular
+                              building within a collection of buildings with a common name.
+                 postal_code: indicates a postal code as used to address postal mail within the country.
+             natural_feature: indicates a prominent natural feature.
+                     airport: indicates an airport.
+                        park: indicates a named park.
+ */
+- (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType {
+  NSLog(@"locationType:%@", locationType);
+  PokemonHabitat habitat;
+  if ([locationType isEqualToString:@"premise"] || [locationType isEqualToString:@"subpremise"])
+    habitat = kPokemonHabitatCave;
+  else if ([locationType isEqualToString:@"natural_feature"])
+    habitat = kPokemonHabitatForest;
+  else if ([locationType isEqualToString:@"park"])
+    habitat = kPokemonHabitatGrassland;
+  else if ([locationType isEqualToString:@"airport"])
+    habitat = kPokemonHabitatMountain;
+  else if ([locationType isEqualToString:@"colloquial_area"])
+    habitat = kPokemonHabitatRoughTerrain;
+  else if ([locationType isEqualToString:@""])
+    habitat = kPokemonHabitatSea;
+  else if ([locationType isEqualToString:@"street_address"] ||
+           [locationType isEqualToString:@"route"] ||
+           [locationType isEqualToString:@"intersection"] ||
+           [locationType isEqualToString:@"locality"] ||
+           [locationType isEqualToString:@"sublocality"] ||
+           [locationType isEqualToString:@"political"] ||
+           [locationType isEqualToString:@"country"] ||
+           [locationType isEqualToString:@"administrative_area_level_1"] ||
+           [locationType isEqualToString:@"administrative_area_level_2"] ||
+           [locationType isEqualToString:@"administrative_area_level_3"])
+    habitat = kPokemonHabitatUrban;
+  else if ([locationType isEqualToString:@"neighborhood"])
+    habitat = kPokemonHabitatWatersEdge;
+  else
+    habitat = kPokemonHabitatRare;
+  
+  return habitat;
+}
+
+/*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
+- (NSArray *)filterSIDs:(NSArray *)SIDs {
+  NSLog(@"ORIGINAL SIDs:%@", SIDs);
+  if (SIDs == nil || [SIDs count] == 0)
+    return nil;
+  
+  NSMutableArray * newSIDs = [NSMutableArray array];
+  for (id SID in SIDs) {
+  }
+  NSLog(@"NEW SIDs:%@", newSIDs);
+  return newSIDs;
+}*/
 
 @end

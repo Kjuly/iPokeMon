@@ -12,7 +12,8 @@
 @interface WildPokemon (DataController)
 
 + (WildPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
-+ (NSArray *)queryPokemonsWithID:(NSArray *)pokemonsID fetchLimit:(NSInteger)fetchLimit;
++ (NSArray *)queryPokemonsWithUIDs:(NSArray *)pokemonUIDs fetchLimit:(NSInteger)fetchLimit;
++ (NSArray *)queryPokemonsWithSIDs:(NSArray *)pokemonSIDs fetchLimit:(NSInteger)fetchLimit;
 
 // Base data dispatch
 - (Move *)moveWithIndex:(NSInteger)index;
