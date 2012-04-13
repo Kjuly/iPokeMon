@@ -41,8 +41,12 @@
 //     BIN: 1  0  1  0 1 1 1 1 1 1 1 1 : 1:Caught 0:Not
 // PokeDEX: 12 11 10 9 8 7 6 5 4 3 2 1
 - (BOOL)isBinary1AtIndex:(NSInteger)index {
-  NSRange   scanRange = NSMakeRange([self length] - round((index - 1) / 4) - 1, 1);
+  NSInteger rangeStart = [self length] - round((index - 1) / 4) - 1;
+  if (rangeStart < 0)
+    return NO;
+  
   unsigned  result    = 0;
+  NSRange   scanRange = NSMakeRange(rangeStart, 1);
   NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
   [scanner scanHexInt:&result];
   [scanner release];

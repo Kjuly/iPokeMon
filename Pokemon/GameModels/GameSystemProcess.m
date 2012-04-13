@@ -1455,15 +1455,15 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
   // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
   //   (0 means it cannot be caught by anything except a Master Ball).
-//  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
-//    return NO;
+  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
+    return NO;
   
   // Calculation for catching WildPokemon result,
   //   based on Pokemon |status|, |hp|, etc.
   BOOL succeed = NO;
-//  if (arc4random() % 2 == 1) {
+  if (arc4random() % 2 == 1) {
     succeed = YES;
-//  }
+  }
   [self caughtWildPokemonSucceed:succeed];
   
   return YES;
