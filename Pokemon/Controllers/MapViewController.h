@@ -15,7 +15,7 @@
 @interface MapViewController : UIViewController <UtilityViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
 {
   MKMapView         * mapView_;
-  CLLocationManager * locationManageer_;
+  CLLocationManager * locationManager_;
   CLLocation        * location_;
 }
 

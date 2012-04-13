@@ -99,6 +99,12 @@ static WildPokemonController * wildPokemonController_ = nil;
   [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegionSuccess:success failure:failure];
 }
 
+// Return UID for appeared Pokemon to generate Wild Pokemon for Game Battle Scene
+- (NSInteger)appearedPokemonUID {
+  NSInteger UID = 1;
+  return UID;
+}
+
 #pragma mark - Private Methods
 
 // Update data for WildPokemon entity

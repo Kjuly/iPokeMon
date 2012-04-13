@@ -33,7 +33,6 @@
 - (void)continueUpdatingLocation;
 - (void)resetIsPokemonAppeared:(NSNotification *)notification;
 - (void)setEventTimerStatusToRunning:(BOOL)running;
-- (NSDictionary *)generateInfoForAppearedPokemon;
 - (NSDictionary *)generateInfoForCurrentLocation;
 
 @end
@@ -42,7 +41,7 @@
 @implementation MapViewController
 
 @synthesize mapView         = mapView_;
-@synthesize locationManager = locationManageer_;
+@synthesize locationManager = locationManager_;
 @synthesize location        = location_;
 
 @synthesize isUpdatingLocation = isUpdatingLocation_;
@@ -52,9 +51,9 @@
 
 - (void)dealloc
 {
-  [mapView_          release];
-  [locationManageer_ release];
-  [location_         release];
+  [mapView_         release];
+  [locationManager_ release];
+  [location_        release];
   
   [super dealloc];
 }
@@ -109,14 +108,14 @@
   
   // Core Location
   // Create the Manager Object 
-  locationManageer_ = [[CLLocationManager alloc] init];
-  locationManageer_.delegate = self;
+  locationManager_ = [[CLLocationManager alloc] init];
+  locationManager_.delegate = self;
   
   // This is the most important property to set for the manager. It ultimately determines how the manager will
   // attempt to acquire location and thus, the amount of power that will be consumed.
-  [locationManageer_ setDesiredAccuracy:kCLLocationAccuracyBest];
-//  [locationManageer_ setDistanceFilter:kCLDistanceFilterNone];
-  [locationManageer_ setDistanceFilter:100];
+  [locationManager_ setDesiredAccuracy:kCLLocationAccuracyBest];
+//  [locationManager_ setDistanceFilter:kCLDistanceFilterNone];
+  [locationManager_ setDistanceFilter:100];
   
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
@@ -199,7 +198,9 @@
   
   if (! self.isPokemonAppeared && self.moveDistance >= 100.0f && arc4random() % 2) {
     // Generate the Info Dictionary for Appeared Pokemon
-    NSDictionary * userInfo = [self generateInfoForAppearedPokemon];
+    NSDictionary * userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],
+                               @"centerMainButtonStatus", nil];
     
     ///Send Corresponding Notification: Pokemon Appeared!!!
     // Use |Local Notification| if in Background Mode
@@ -327,21 +328,6 @@
     [self.eventTimer invalidate];
     self.eventTimer = nil;
   }
-}
-
-- (NSDictionary *)generateInfoForAppearedPokemon
-{
-  // Generate an Appeared Pokemon to user
-  // TODO:
-  // need to be random
-  Pokemon * appearedPokemon = [Pokemon queryPokemonDataWithID:1];
-  
-  NSDictionary * pokemonInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared], @"centerMainButtonStatus",
-                                appearedPokemon.sid, @"pokemonID",
-                                nil];
-  appearedPokemon = nil;
-  return pokemonInfo;
 }
 
 // Request a query to Google Maps API to get a detail info about current location

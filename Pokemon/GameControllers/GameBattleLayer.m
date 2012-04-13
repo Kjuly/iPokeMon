@@ -15,7 +15,7 @@
 #import "GameEnemyProcess.h"
 #import "GamePokemonSprite.h"
 #import "TrainerController.h"
-#import "WildPokemon+DataController.h"
+#import "WildPokemonController.h"
 
 
 @interface GameBattleLayer () {
@@ -113,7 +113,8 @@
     self.gameSystemProcess = [GameSystemProcess sharedInstance];
     
     // Create a new scene
-    [self createNewSceneWithWildPokemonUID:9];
+    // Generate a Wild Pokemon as the appeared Pokemon
+    [self createNewSceneWithWildPokemonUID:[[WildPokemonController sharedInstance] appearedPokemonUID]];
     
     // Add observer for notification to replace player, enemy's pokemon
     [[NSNotificationCenter defaultCenter] addObserver:self
