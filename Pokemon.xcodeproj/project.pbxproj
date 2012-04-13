@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F005A331537D27D0026076E /* GameBattleSceneBackground_09.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A311537D27D0026076E /* GameBattleSceneBackground_09.png */; };
+		7F005A341537D27D0026076E /* GameBattleSceneBackground_09@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A321537D27D0026076E /* GameBattleSceneBackground_09@2x.png */; };
+		7F005A451537D6A90026076E /* GameBattleSceneBackground_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A351537D6A80026076E /* GameBattleSceneBackground_01.png */; };
+		7F005A461537D6A90026076E /* GameBattleSceneBackground_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A361537D6A80026076E /* GameBattleSceneBackground_01@2x.png */; };
+		7F005A471537D6A90026076E /* GameBattleSceneBackground_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A371537D6A80026076E /* GameBattleSceneBackground_02.png */; };
+		7F005A481537D6A90026076E /* GameBattleSceneBackground_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A381537D6A80026076E /* GameBattleSceneBackground_02@2x.png */; };
+		7F005A491537D6A90026076E /* GameBattleSceneBackground_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A391537D6A80026076E /* GameBattleSceneBackground_03.png */; };
+		7F005A4A1537D6A90026076E /* GameBattleSceneBackground_03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3A1537D6A80026076E /* GameBattleSceneBackground_03@2x.png */; };
+		7F005A4B1537D6A90026076E /* GameBattleSceneBackground_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3B1537D6A80026076E /* GameBattleSceneBackground_04.png */; };
+		7F005A4C1537D6A90026076E /* GameBattleSceneBackground_04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3C1537D6A80026076E /* GameBattleSceneBackground_04@2x.png */; };
+		7F005A4D1537D6A90026076E /* GameBattleSceneBackground_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3D1537D6A90026076E /* GameBattleSceneBackground_05.png */; };
+		7F005A4E1537D6A90026076E /* GameBattleSceneBackground_05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3E1537D6A90026076E /* GameBattleSceneBackground_05@2x.png */; };
+		7F005A4F1537D6A90026076E /* GameBattleSceneBackground_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A3F1537D6A90026076E /* GameBattleSceneBackground_06.png */; };
+		7F005A501537D6A90026076E /* GameBattleSceneBackground_06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A401537D6A90026076E /* GameBattleSceneBackground_06@2x.png */; };
+		7F005A511537D6A90026076E /* GameBattleSceneBackground_07.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A411537D6A90026076E /* GameBattleSceneBackground_07.png */; };
+		7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */; };
+		7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */; };
+		7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */; };
 		7F072EB315348D860085E1DD /* PMSpriteBack_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F072E1C15348D860085E1DD /* PMSpriteBack_1.png */; };
 		7F072EB415348D860085E1DD /* PMSpriteBack_10.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F072E1D15348D860085E1DD /* PMSpriteBack_10.png */; };
 		7F072EB515348D860085E1DD /* PMSpriteBack_100.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F072E1E15348D860085E1DD /* PMSpriteBack_100.png */; };
@@ -460,8 +478,6 @@
 		7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8EFA8D14D937C000FF1055 /* UtilityBallMenuIconBig.png */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
-		7F8F93D71537135A00DF472B /* GameBattleSceneBackground_09.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */; };
-		7F8F93D81537135A00DF472B /* GameBattleSceneBackground_09@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */; };
 		7F90C57214E517A200147718 /* PoketchTabBarIcon_Messages.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */; };
 		7F90C57314E517A200147718 /* PoketchTabBarIcon_Messages@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */; };
 		7F90C57614E517A200147718 /* PoketchTabBarIcon_SixPokemons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */; };
@@ -979,6 +995,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F005A311537D27D0026076E /* GameBattleSceneBackground_09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_09.png; sourceTree = "<group>"; };
+		7F005A321537D27D0026076E /* GameBattleSceneBackground_09@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_09@2x.png"; sourceTree = "<group>"; };
+		7F005A351537D6A80026076E /* GameBattleSceneBackground_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_01.png; sourceTree = "<group>"; };
+		7F005A361537D6A80026076E /* GameBattleSceneBackground_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_01@2x.png"; sourceTree = "<group>"; };
+		7F005A371537D6A80026076E /* GameBattleSceneBackground_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_02.png; sourceTree = "<group>"; };
+		7F005A381537D6A80026076E /* GameBattleSceneBackground_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_02@2x.png"; sourceTree = "<group>"; };
+		7F005A391537D6A80026076E /* GameBattleSceneBackground_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_03.png; sourceTree = "<group>"; };
+		7F005A3A1537D6A80026076E /* GameBattleSceneBackground_03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_03@2x.png"; sourceTree = "<group>"; };
+		7F005A3B1537D6A80026076E /* GameBattleSceneBackground_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_04.png; sourceTree = "<group>"; };
+		7F005A3C1537D6A80026076E /* GameBattleSceneBackground_04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_04@2x.png"; sourceTree = "<group>"; };
+		7F005A3D1537D6A90026076E /* GameBattleSceneBackground_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_05.png; sourceTree = "<group>"; };
+		7F005A3E1537D6A90026076E /* GameBattleSceneBackground_05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_05@2x.png"; sourceTree = "<group>"; };
+		7F005A3F1537D6A90026076E /* GameBattleSceneBackground_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_06.png; sourceTree = "<group>"; };
+		7F005A401537D6A90026076E /* GameBattleSceneBackground_06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_06@2x.png"; sourceTree = "<group>"; };
+		7F005A411537D6A90026076E /* GameBattleSceneBackground_07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_07.png; sourceTree = "<group>"; };
+		7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_07@2x.png"; sourceTree = "<group>"; };
+		7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_08.png; sourceTree = "<group>"; };
+		7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_08@2x.png"; sourceTree = "<group>"; };
 		7F072E1C15348D860085E1DD /* PMSpriteBack_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_1.png; sourceTree = "<group>"; };
 		7F072E1D15348D860085E1DD /* PMSpriteBack_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_10.png; sourceTree = "<group>"; };
 		7F072E1E15348D860085E1DD /* PMSpriteBack_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_100.png; sourceTree = "<group>"; };
@@ -1634,8 +1668,6 @@
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
 		7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
-		7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_09.png; sourceTree = "<group>"; };
-		7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_09@2x.png"; sourceTree = "<group>"; };
 		7F90C56A14E517A200147718 /* PoketchTabBarIcon_Messages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_Messages.png; sourceTree = "<group>"; };
 		7F90C56B14E517A200147718 /* PoketchTabBarIcon_Messages@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoketchTabBarIcon_Messages@2x.png"; sourceTree = "<group>"; };
 		7F90C56E14E517A200147718 /* PoketchTabBarIcon_SixPokemons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoketchTabBarIcon_SixPokemons.png; sourceTree = "<group>"; };
@@ -2230,6 +2262,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F005A301537D27D0026076E /* GameBattleSceneBackgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				7F005A351537D6A80026076E /* GameBattleSceneBackground_01.png */,
+				7F005A361537D6A80026076E /* GameBattleSceneBackground_01@2x.png */,
+				7F005A371537D6A80026076E /* GameBattleSceneBackground_02.png */,
+				7F005A381537D6A80026076E /* GameBattleSceneBackground_02@2x.png */,
+				7F005A391537D6A80026076E /* GameBattleSceneBackground_03.png */,
+				7F005A3A1537D6A80026076E /* GameBattleSceneBackground_03@2x.png */,
+				7F005A3B1537D6A80026076E /* GameBattleSceneBackground_04.png */,
+				7F005A3C1537D6A80026076E /* GameBattleSceneBackground_04@2x.png */,
+				7F005A3D1537D6A90026076E /* GameBattleSceneBackground_05.png */,
+				7F005A3E1537D6A90026076E /* GameBattleSceneBackground_05@2x.png */,
+				7F005A3F1537D6A90026076E /* GameBattleSceneBackground_06.png */,
+				7F005A401537D6A90026076E /* GameBattleSceneBackground_06@2x.png */,
+				7F005A411537D6A90026076E /* GameBattleSceneBackground_07.png */,
+				7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */,
+				7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */,
+				7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */,
+				7F005A311537D27D0026076E /* GameBattleSceneBackground_09.png */,
+				7F005A321537D27D0026076E /* GameBattleSceneBackground_09@2x.png */,
+			);
+			path = GameBattleSceneBackgrounds;
+			sourceTree = "<group>";
+		};
 		7F072E1B15348D860085E1DD /* PMSpriteBack */ = {
 			isa = PBXGroup;
 			children = (
@@ -3774,8 +3831,7 @@
 		7FC127FF1504C24400E2A8F7 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
-				7F8F93D51537135A00DF472B /* GameBattleSceneBackground_09.png */,
-				7F8F93D61537135A00DF472B /* GameBattleSceneBackground_09@2x.png */,
+				7F005A301537D27D0026076E /* GameBattleSceneBackgrounds */,
 				7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */,
 				7F892E5F153725CC00C00F91 /* GameBattleScenePMPoint@2x.png */,
 				7F2B7CE01515B3210091E739 /* GameMessageViewBackground.png */,
@@ -4652,10 +4708,26 @@
 				7F072F4715348D860085E1DD /* PMSpriteBack_97.png in Resources */,
 				7F072F4815348D860085E1DD /* PMSpriteBack_98.png in Resources */,
 				7F072F4915348D860085E1DD /* PMSpriteBack_99.png in Resources */,
-				7F8F93D71537135A00DF472B /* GameBattleSceneBackground_09.png in Resources */,
-				7F8F93D81537135A00DF472B /* GameBattleSceneBackground_09@2x.png in Resources */,
 				7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */,
 				7F892E61153725CC00C00F91 /* GameBattleScenePMPoint@2x.png in Resources */,
+				7F005A331537D27D0026076E /* GameBattleSceneBackground_09.png in Resources */,
+				7F005A341537D27D0026076E /* GameBattleSceneBackground_09@2x.png in Resources */,
+				7F005A451537D6A90026076E /* GameBattleSceneBackground_01.png in Resources */,
+				7F005A461537D6A90026076E /* GameBattleSceneBackground_01@2x.png in Resources */,
+				7F005A471537D6A90026076E /* GameBattleSceneBackground_02.png in Resources */,
+				7F005A481537D6A90026076E /* GameBattleSceneBackground_02@2x.png in Resources */,
+				7F005A491537D6A90026076E /* GameBattleSceneBackground_03.png in Resources */,
+				7F005A4A1537D6A90026076E /* GameBattleSceneBackground_03@2x.png in Resources */,
+				7F005A4B1537D6A90026076E /* GameBattleSceneBackground_04.png in Resources */,
+				7F005A4C1537D6A90026076E /* GameBattleSceneBackground_04@2x.png in Resources */,
+				7F005A4D1537D6A90026076E /* GameBattleSceneBackground_05.png in Resources */,
+				7F005A4E1537D6A90026076E /* GameBattleSceneBackground_05@2x.png in Resources */,
+				7F005A4F1537D6A90026076E /* GameBattleSceneBackground_06.png in Resources */,
+				7F005A501537D6A90026076E /* GameBattleSceneBackground_06@2x.png in Resources */,
+				7F005A511537D6A90026076E /* GameBattleSceneBackground_07.png in Resources */,
+				7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */,
+				7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */,
+				7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
