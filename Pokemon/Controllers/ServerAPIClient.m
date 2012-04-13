@@ -180,15 +180,15 @@ static ServerAPIClient * client_;
 
 #pragma mark - Public Methods: WildPokemon
 
+// Update data for Wild Pokemon at current Region
+//   |regionInfo|:
+//                 { "t"(type):XXX, ... }
 - (void)updateWildPokemonsForCurrentRegion:(NSDictionary *)regionInfo
                                    success:(void (^)(AFHTTPRequestOperation *, id))success
                                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  NSDictionary * parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"", @"r", nil];
-  
   [self updateHeaderWithFlog:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
   [self getPath:[ServerAPI getWildPokemon]
-     parameters:parameters
+     parameters:regionInfo
         success:success
         failure:failure];
 }

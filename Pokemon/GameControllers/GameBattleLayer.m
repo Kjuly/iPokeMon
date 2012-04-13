@@ -163,7 +163,7 @@
   TrainerController * trainer = [TrainerController sharedInstance];
   NSInteger currentBattleAblePokemonIndex = [trainer battleAvailablePokemonIndex];
   TrainerTamedPokemon * playerPokemon = [trainer pokemonOfSixAtIndex:currentBattleAblePokemonIndex];
-  WildPokemon * enemyPokemon          = [WildPokemon queryPokemonDataWithID:wildPokemonUID];
+  WildPokemon * enemyPokemon          = [WildPokemon queryPokemonDataWithUID:wildPokemonUID];
   trainer = nil;
   
   // Set pokemon for |gameSystemProcess_|

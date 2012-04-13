@@ -16,8 +16,29 @@
 
 @implementation WildPokemon (DataController)
 
-// Query a Wild Pokemon Data
-+ (WildPokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
+// Query a Wild Pokemon Data with UID
++ (WildPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
+{
+  NSManagedObjectContext * managedObjectContext =
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
+                                             inManagedObjectContext:managedObjectContext];
+  [fetchRequest setEntity:entity];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"uid == %d", pokemonUID];
+  [fetchRequest setPredicate:predicate];
+  //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
+  [fetchRequest setFetchLimit:1];
+  
+  NSError * error;
+  WildPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+  [fetchRequest release];
+  
+  return pokemon;
+}
+
+// Query a Wild Pokemon Data wit SID
++ (WildPokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID
 {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -25,7 +46,7 @@
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonSID];
   [fetchRequest setPredicate:predicate];
   //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];
