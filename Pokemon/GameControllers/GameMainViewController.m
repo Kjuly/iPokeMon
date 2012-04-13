@@ -182,10 +182,10 @@
 
 - (void)loadBattleScene:(NSNotification *)notification
 {
-  if (! [[WildPokemonController sharedInstance] isReady]) {
-    // Show loading view to wait until data generate done
-    NSLog(@"......PREPARING DATA for BATTLE......");
-  }
+//  if (! [[WildPokemonController sharedInstance] isReady]) {
+//    // Show loading view to wait until data generate done
+//    NSLog(@"......PREPARING DATA for BATTLE......");
+//  }
   
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   // Remember previous |centerMainButton_|'s status

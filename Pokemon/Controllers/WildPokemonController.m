@@ -12,6 +12,7 @@
 #import "PokemonConstants.h"
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"
+#import "LoadingManager.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
@@ -22,6 +23,7 @@
 
 @interface WildPokemonController () {
  @private
+  LoadingManager      * loadingManager_;
   BOOL                  isReady_;
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
@@ -30,8 +32,9 @@
   NSMutableDictionary * regionInfo_;
 }
 
-@property (nonatomic, copy) NSMutableDictionary * locationInfo;
-@property (nonatomic, copy) NSMutableDictionary * regionInfo;
+@property (nonatomic, retain) LoadingManager      * loadingManager;
+@property (nonatomic, copy)   NSMutableDictionary * locationInfo;
+@property (nonatomic, copy)   NSMutableDictionary * regionInfo;
 
 - (void)cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
@@ -49,8 +52,9 @@
 
 @implementation WildPokemonController
 
-@synthesize locationInfo = locationInfo_;
-@synthesize regionInfo   = regionInfo_;
+@synthesize loadingManager = loadingManager_;
+@synthesize locationInfo   = locationInfo_;
+@synthesize regionInfo     = regionInfo_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -75,10 +79,11 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 - (id)init {
   if (self = [super init]) {
-    isReady_           = NO;
-    isPokemonAppeared_ = NO;
-    UID_               = 0;
-    pokemonCounter_    = 0;
+    self.loadingManager = [LoadingManager sharedInstance];
+    isReady_            = NO;
+    isPokemonAppeared_  = NO;
+    UID_                = 0;
+    pokemonCounter_     = 0;
   }
   return self;
 }
@@ -86,6 +91,9 @@ static WildPokemonController * wildPokemonController_ = nil;
 #pragma mark - Public Methods
 
 - (void)updateForCurrentRegion {
+  // Show loading process view
+  [self.loadingManager show];
+  
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     NSManagedObjectContext * managedObjectContext =
@@ -114,11 +122,16 @@ static WildPokemonController * wildPokemonController_ = nil;
     // If a Wild Pokemon Appeared already, fetch data for it
     if (isPokemonAppeared_)
       [self generateWildPokemonWithLocationInfo:self.locationInfo];
+    
+    // Hide loading process view
+    [self.loadingManager hide];
   };
   
   // Failure Block Method
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! ERROR: %@", error);
+    // Hide loading process view
+    [self.loadingManager hide];
   };
   
   // Update data via |ServerAPIClient|
@@ -129,6 +142,9 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Update data for Wild Pokemon at current location
 - (void)updateAtLocation:(CLLocation *)location {
+  // Show loading process view
+  [self.loadingManager show];
+  
   isPokemonAppeared_ = YES;
   isReady_           = NO;
   
@@ -185,12 +201,17 @@ static WildPokemonController * wildPokemonController_ = nil;
     [self generateWildPokemonWithLocationInfo:locationInfo];
     [locationInfo release];
     results  = nil;
+    
+    // Hide loading process view
+    [self.loadingManager hide];
   };
   
   // Failure Block
   void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
   failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
     NSLog(@"!!! ERROR: %@", error);
+    // Hide loading process view
+    [self.loadingManager hide];
   };
   
   // Fetch Data from server

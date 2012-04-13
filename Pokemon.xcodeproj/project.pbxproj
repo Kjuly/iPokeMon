@@ -503,6 +503,7 @@
 		7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AB14E5592D00147718 /* CustomTabViewController.m */; };
 		7F90C5AF14E5640B00147718 /* PokedexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */; };
 		7F9169BE15386BD40095A8A8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9169BD15386BD40095A8A8 /* MBProgressHUD.m */; };
+		7F9169CF15387EAD0095A8A8 /* LoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9169CE15387EAD0095A8A8 /* LoadingManager.m */; };
 		7F91D0A514EE3BC400476AFB /* Pokemon.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */; };
 		7F91D0A814EE3D4500476AFB /* Pokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */; };
 		7F91D14414EE868100476AFB /* 001.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0AD14EE868100476AFB /* 001.png */; };
@@ -1697,6 +1698,8 @@
 		7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokedexTableViewCell.m; sourceTree = "<group>"; };
 		7F9169BC15386BD40095A8A8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		7F9169BD15386BD40095A8A8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		7F9169CD15387EAD0095A8A8 /* LoadingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingManager.h; sourceTree = "<group>"; };
+		7F9169CE15387EAD0095A8A8 /* LoadingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingManager.m; sourceTree = "<group>"; };
 		7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pokemon.sqlite3; sourceTree = "<group>"; };
 		7F91D0A614EE3D4500476AFB /* Pokemon+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pokemon+DataController.h"; sourceTree = "<group>"; };
 		7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pokemon+DataController.m"; sourceTree = "<group>"; };
@@ -3008,6 +3011,8 @@
 				7FB4128D1529C979003F41F0 /* TrainerController.m */,
 				7FB412931529CC98003F41F0 /* WildPokemonController.h */,
 				7FB412941529CC98003F41F0 /* WildPokemonController.m */,
+				7F9169CD15387EAD0095A8A8 /* LoadingManager.h */,
+				7F9169CE15387EAD0095A8A8 /* LoadingManager.m */,
 				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7FCEDEF4152ACC9500CE96AB /* GTMOAuth2ViewControllerTouch+Custom.h */,
@@ -5009,6 +5014,7 @@
 				7FAC07B51535573F00DF86B7 /* GameBattleEventViewController.m in Sources */,
 				7FAC07B9153582F600DF86B7 /* PokemonLevelUpUnitView.m in Sources */,
 				7F9169BE15386BD40095A8A8 /* MBProgressHUD.m in Sources */,
+				7F9169CF15387EAD0095A8A8 /* LoadingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
