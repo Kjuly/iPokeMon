@@ -92,7 +92,7 @@
 }
 
 - (void)setBagItem:(BagQueryTargetType)targetType {
-  self.items = [[[TrainerController sharedInstance] bagItemsFor:targetType] mutableCopy];
+  self.items = [NSMutableArray arrayWithArray:[[TrainerController sharedInstance] bagItemsFor:targetType]];
   self.targetType = targetType;
   
   if ([self.items count] <= 1)

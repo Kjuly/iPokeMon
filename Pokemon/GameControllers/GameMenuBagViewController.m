@@ -229,7 +229,7 @@
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
   
   // Unload bag menu
-  [UIView animateWithDuration:0.6f
+  [UIView animateWithDuration:.6f
                         delay:0.f
                       options:UIViewAnimationCurveLinear
                    animations:^{ [self.view setAlpha:0.f]; }

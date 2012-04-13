@@ -94,7 +94,7 @@ static TrainerController * trainerController_ = nil;
   // S->C: Initialize TrainerTamedPokemon data from Server to Client
   [TrainerTamedPokemon initWithTrainer:self.entityTrainer];
   // Fetch Trainer's Six Pokemons data from Client (CoreData)
-  self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
+  self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
   if (self.entitySixPokemons == nil) {
     NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
     self.entitySixPokemons = [NSMutableArray array];
@@ -296,13 +296,13 @@ static TrainerController * trainerController_ = nil;
   
   sixPokemonsID = nil;
   // Refetch data of Six Pokemons
-  self.entitySixPokemons = [[self.entityTrainer sixPokemons] mutableCopy];
+  self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
 }
 
 // BagItem - Use
 - (void)useBagItemForType:(BagQueryTargetType)targetType
             withItemIndex:(NSInteger)itemIndex {
-  NSMutableArray * bagItems = [[self bagItemsFor:targetType] mutableCopy];
+  NSMutableArray * bagItems = [[NSMutableArray alloc] initWithArray:[self bagItemsFor:targetType]];
   NSLog(@"BagItem: ORIGINAL:::%@", bagItems);
   NSInteger targetIndex = itemIndex * 2 + 1;
   NSLog(@"BagItem: targetIndex:%d", targetIndex);
@@ -314,6 +314,7 @@ static TrainerController * trainerController_ = nil;
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
   [self saveBagItemsFor:targetType withData:bagItemsInString];
+  [bagItems release];
 }
 
 // BagItem - Add new

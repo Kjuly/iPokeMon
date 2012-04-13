@@ -102,7 +102,7 @@
 {
   [super viewWillAppear:animated];
   
-  self.sixPokemons = [[[TrainerController sharedInstance] sixPokemons] mutableCopy];
+  self.sixPokemons = [NSMutableArray arrayWithArray:[[TrainerController sharedInstance] sixPokemons]];
   [self.tableView reloadData];
 }
 
@@ -147,7 +147,8 @@
   
   SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                            reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
@@ -203,7 +204,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [[TrainerController sharedInstance] replacePokemonAtIndex:sourceRow toIndex:destinationRow];
   
   // Retch data
-  self.sixPokemons = [[[TrainerController sharedInstance] sixPokemons] mutableCopy];
+  self.sixPokemons = [NSMutableArray arrayWithArray:[[TrainerController sharedInstance] sixPokemons]];
   [tableView reloadData];
   
   /*
