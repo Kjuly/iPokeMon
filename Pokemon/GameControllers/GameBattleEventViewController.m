@@ -193,12 +193,12 @@
     WildPokemon * wildPokemon = self.systemProcess.enemyPokemon;
     
     // Save WildPokemon to TraienrTamedPokemon groupd
-    [self.trainer caughtNewWildPokemon:wildPokemon memo:@""];
+    [self.trainer caughtNewWildPokemon:wildPokemon memo:@"PMSMemoTest"];
     
     // Load Pokemon info view
     Pokemon * pokemonData = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
     PokemonInfoViewController * pokemonInfoViewController =
-    [[PokemonInfoViewController alloc] initWithPokemonDataDict:pokemonData];
+      [[PokemonInfoViewController alloc] initWithPokemonDataDict:pokemonData];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     [self.backgroundView addSubview:pokemonInfoViewController.view];
     [pokemonInfoViewController release];

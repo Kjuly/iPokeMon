@@ -101,7 +101,8 @@
 /*
  * Memo for Pokemon
  */
-"PMSMemo001" = "为定义.";
+"PMSMemoTest" = "捕获于测试阶段";
+"PMSMemo001"  = "未定义.";
 
 
 /*

@@ -389,7 +389,7 @@
       // Add Selected Wild Pokemon as one of Tamed Pokemon
       WildPokemon * wildPokemon =
         [WildPokemon queryPokemonDataWithUID:self.pokemonSelectionViewController.selectedPokemonUID];
-      [self.trainer caughtNewWildPokemon:wildPokemon memo:NSLocalizedString(@"PMSMemo001", nil)];
+      [self.trainer caughtNewWildPokemon:wildPokemon memo:@"PMSMemo001"];
       wildPokemon = nil;
       
       ++guideStep_;

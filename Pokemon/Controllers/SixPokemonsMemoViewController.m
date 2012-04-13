@@ -40,7 +40,7 @@
   [memoField setEditable:NO];
   [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [memoField setTextColor:[GlobalRender textColorNormal]];
-  [memoField setText:self.pokemon.memo];
+  [memoField setText:NSLocalizedString(self.pokemon.memo, nil)];
   [self.view addSubview:memoField];
   [memoField release];
 }
