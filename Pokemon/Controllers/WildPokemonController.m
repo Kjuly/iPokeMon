@@ -93,29 +93,14 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     // Get JSON Data Array from HTTP Response
     NSArray * wildPokemons = [JSON valueForKey:@"wpms"];
-    
-//    NSError * error;
-//    NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-//    [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
-//                                        inManagedObjectContext:managedObjectContext]];
-//    [fetchRequest setFetchLimit:1];
     // Update the data for |WildPokePokemon|
     for (NSDictionary * wildPokemonData in wildPokemons) {
-      // Check the existence of the entity
-      // If exist, execute fetching request, otherwise, insert new one
-//      WildPokemon * wildPokemon;
-//      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"uid == %@", [wildPokemonData valueForKey:@"uid"]]];
-//      if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
-//        wildPokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-//      else wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-//                                                       inManagedObjectContext:managedObjectContext];
       WildPokemon * wildPokemon;
       wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                   inManagedObjectContext:managedObjectContext];
       // Update data for current |wildPokemon|
       [self updateWildPokemon:wildPokemon withData:wildPokemonData];
     }
-//    [fetchRequest release];
     
     NSError * error;
     if (! [managedObjectContext save:&error])
@@ -123,8 +108,8 @@ static WildPokemonController * wildPokemonController_ = nil;
     NSLog(@"...Update |%@| data done...", [WildPokemon class]);
     
     // If a Wild Pokemon Appeared already, fetch data for it
-//    if (isPokemonAppeared_)
-//      [self generateWildPokemonWithLocationInfo:self.locationInfo];
+    if (isPokemonAppeared_)
+      [self generateWildPokemonWithLocationInfo:self.locationInfo];
   };
   
   // Failure Block Method
@@ -280,11 +265,6 @@ static WildPokemonController * wildPokemonController_ = nil;
   
   // |exp| & |toNextLevel|
   // Calculate EXP based on Level Formular with value:|level|
-//  NSInteger baseEXP       = [pokemon.baseEXP intValue];
-//  NSInteger currEXP       = [self calculateEXPWithBaseEXP:baseEXP level:level];
-//  NSInteger nextLevelEXP  = [self calculateEXPWithBaseEXP:baseEXP level:(level + 1)];
-//  wildPokemon.exp         = [NSNumber numberWithInt:currEXP];
-//  wildPokemon.toNextLevel = [NSNumber numberWithInt:(nextLevelEXP - currEXP)];
   wildPokemon.exp         = [NSNumber numberWithInt:[pokemon expAtLevel:level]];
   wildPokemon.toNextLevel = [NSNumber numberWithInt:[pokemon expToNextLevel:(level + 1)]];
   
