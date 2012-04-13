@@ -97,6 +97,12 @@
 }
 
 #pragma mark - GET Base data dispatch
+
+// Number of Moves in |fourMoves|
+- (NSInteger)numberOfMoves {
+  return [[self.fourMoves componentsSeparatedByString:@","] count] / 3;
+}
+
 //
 // |self.fourMoves|:
 //    move1ID,move1currPP,move1maxPP, move2ID,move2currPP,move2maxPP,
@@ -104,6 +110,8 @@
 //
 - (Move *)moveWithIndex:(NSInteger)index {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
+  if (index > [fourMoves count] / 3 || index <= 0)
+    return nil;
   Move * move = [Move queryMoveDataWithID:[[fourMoves objectAtIndex:(--index * 3)] intValue]];
   fourMoves = nil;
   return move;
@@ -116,15 +124,14 @@
 
 - (NSArray *)fourMovesPPInArray {
   NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
-  NSArray * fourMovesPP = [NSArray arrayWithObjects:
-                           [fourMoves objectAtIndex:1],
-                           [fourMoves objectAtIndex:2],
-                           [fourMoves objectAtIndex:4],
-                           [fourMoves objectAtIndex:5],
-                           [fourMoves objectAtIndex:7],
-                           [fourMoves objectAtIndex:8],
-                           [fourMoves objectAtIndex:10],
-                           [fourMoves objectAtIndex:11], nil];
+  NSInteger fourMovesCount = [fourMoves count] / 3;
+  if (fourMovesCount <= 0)
+    return nil;
+  NSMutableArray * fourMovesPP = [NSMutableArray arrayWithCapacity:(fourMovesCount * 2)];
+  for (NSInteger i = 0; i < fourMovesCount; ++i) {
+    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 1)]];
+    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 2)]];
+  }
   fourMoves = nil;
   return fourMovesPP;
 }
@@ -134,10 +141,5 @@
 }
 
 #pragma mark - SET Base data
-
-- (void)setFourMovesPPWith:(NSArray *)newPPArray
-{
-  
-}
 
 @end

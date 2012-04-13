@@ -10,11 +10,13 @@
 
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
+#import "WildPokemon+DataController.h"
 
 
 @interface GameEnemyProcess () {
  @private
-  BOOL complete_;
+  BOOL      complete_;
+  NSInteger numberOfMoves_;
 }
 
 - (void)attack;
@@ -31,7 +33,8 @@
 - (id)init
 {
   if (self = [super init]) {
-    complete_ = NO;
+    complete_      = NO;
+    numberOfMoves_ = 0;
   }
   return self;
 }
@@ -51,14 +54,13 @@
 
 #pragma mark - Private Methods
 
-- (void)attack
-{
-  // Do Move Attack
-  //
-  // TODO:
-  //   Need an algorithm to choose the MOVE
-  //
-  NSInteger moveIndex = 1;
+// Do Move Attack
+- (void)attack {
+  // Get number of Moves in |fourMoves_|
+  if (numberOfMoves_ == 0)
+    numberOfMoves_ = [[GameSystemProcess sharedInstance].enemyPokemon numberOfMoves];
+  
+  NSInteger moveIndex = arc4random() % numberOfMoves_ + 1;
   
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];

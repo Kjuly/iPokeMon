@@ -17,6 +17,7 @@
 + (NSArray *)queryPokemonsWithSIDs:(NSArray *)pokemonSIDs fetchLimit:(NSInteger)fetchLimit;
 
 // Base data dispatch
+- (NSInteger)numberOfMoves;
 - (Move *)moveWithIndex:(NSInteger)index;
 - (Move *)move1;
 - (Move *)move2;
@@ -24,7 +25,5 @@
 - (Move *)move4;
 - (NSArray *)fourMovesPPInArray;
 - (NSArray *)maxStatsInArray;
-
-- (void)setFourMovesPPWith:(NSArray *)newPPArray;
 
 @end
