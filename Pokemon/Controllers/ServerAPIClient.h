@@ -39,7 +39,8 @@ typedef enum {
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // WildPokemon
-- (void)updateWildPokemonsForCurrentRegionSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)updateWildPokemonsForCurrentRegion:(NSDictionary *)regionInfo
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end
