@@ -11,6 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 //#import "TrainerController.h"
+#import "WildPokemonController.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon.h"
 #import "PokemonDetailTabViewController.h"
@@ -200,14 +201,27 @@
 
 #pragma mark - Public Methods
 
-- (void)initWithPokemonsWithUID:(NSArray *)pokemonsUID {
-  self.pokemons = [WildPokemon queryPokemonsWithUIDs:pokemonsUID fetchLimit:3];
+// Initialize the Pokemons' data for selection
+- (void)initWithPokemonsWithSIDs:(NSArray *)pokemonSIDs {
+  NSInteger pokemonsCount = [pokemonSIDs count];
+  self.pokemons = [WildPokemon queryUniquePokemonsWithSIDs:pokemonSIDs fetchLimit:pokemonsCount];
   
-  NSInteger pokemonsCount = [self.pokemons count];
-  CGFloat   buttonSize    = kCenterMainButtonSize;
-  CGFloat   buttonDelta   = buttonSize + 10.f;
-  CGRect    originFrame   =
-    CGRectMake(0.f, kViewHeight - buttonSize / 2 - (pokemonsCount + 1) * buttonDelta, kViewWidth, buttonSize);
+  // If fetched Pokemons number is less than |pokemonsCount|,
+  //   add new Pokemons to |WildPokemon| with the |pokemonSIDs|
+  //   and set added Pokemons as the |pokemons|
+  if ([self.pokemons count] < pokemonsCount || self.pokemons == nil) {
+    NSLog(@"!!!|%@| - |initWithPokemonsWithSIDs| - |[self.pokemons count] < pokemonsCount|", [self class]);
+    self.pokemons = [[WildPokemonController sharedInstance] pokemonsAddedWithSIDs:pokemonSIDs];
+  }
+  
+  // If the number of |pokemons_| is still less than |pokemonsCount|, throw an ERROR
+  if ([self.pokemons count] < pokemonsCount)
+    NSLog(@"!!!ERROR: |%@| - |initWithPokemonsWithSIDs:| - pokemons < [pokemonSIDs count]", [self class]);
+  
+  // Constants
+  CGFloat buttonSize  = kCenterMainButtonSize;
+  CGFloat buttonDelta = buttonSize + 10.f;
+  CGRect  originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2 - (pokemonsCount + 1) * buttonDelta, kViewWidth, buttonSize);
   
   // Create Pokemon unit views
   for (int i = 0; i < pokemonsCount;) {
@@ -215,7 +229,7 @@
     WildPokemon * pokemon = [self.pokemons objectAtIndex:i];
     GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:++i];
     if (unitView == nil) {
-      NSLog(@"unitView == nil, create new one...");
+      NSLog(@"|%@|: unitView == nil, create new one...", [self class]);
       unitView = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:i];
       unitView.delegate = self;
       [unitView setTag:i];
@@ -341,7 +355,6 @@
 
 // Show Pokemon Selection view
 - (void)showPokemonSelectionView:(id)sender {
-  NSLog(@"|%@| - |showPokemonSelectionView:|", [self class]);
   // Post notification to |NewbieGuideViewController| to hide |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNHideConfirmButtonInNebbieGuide object:self userInfo:nil];
   [self loadPokemonSelectionViewAnimated:YES];

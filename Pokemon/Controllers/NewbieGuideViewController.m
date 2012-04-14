@@ -173,6 +173,15 @@
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
   nameInputView_.delegate = self;
+  
+  // Pokemon Selection view
+  pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
+  NSArray * pokemonSIDs = [[NSArray alloc] initWithObjects:
+                           [NSNumber numberWithInt:1],
+                           [NSNumber numberWithInt:4],
+                           [NSNumber numberWithInt:7], nil];
+  [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
+  [pokemonSIDs release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -303,15 +312,16 @@
             ++guideStep_;
             
             // Create view for selecting a Pokemon
-            if (self.pokemonSelectionViewController == nil) {
+            /*if (self.pokemonSelectionViewController == nil) {
               // Pokemon Selection view
               pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
-              NSArray * pokemonsUID = [NSArray arrayWithObjects:
+              NSArray * pokemonSIDs = [[NSArray alloc] initWithObjects:
                                        [NSNumber numberWithInt:1],
                                        [NSNumber numberWithInt:4],
                                        [NSNumber numberWithInt:7], nil];
-              [pokemonSelectionViewController_ initWithPokemonsWithUID:pokemonsUID];
-            }
+              [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
+              [pokemonSIDs release];
+            }*/
             [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
             [self.pokemonSelectionViewController.view setAlpha:0.f];
           }

@@ -81,19 +81,43 @@
 + (NSArray *)queryPokemonsWithSIDs:(NSArray *)pokemonSIDs
                         fetchLimit:(NSInteger)fetchLimit {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid IN %@", pokemonSIDs]];
-  [fetchRequest setFetchLimit:fetchLimit];
+  if (fetchLimit > 0) [fetchRequest setFetchLimit:fetchLimit];
   
   NSError * error;
   NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
   [fetchRequest release];
   
   return pokemons;
+}
+
+// Get unique Pokemons that in |pokemonSIDs| array (for generate Wild Pokemon),
+//   i.e. one Pokemon match one SID
++ (NSArray *)queryUniquePokemonsWithSIDs:(NSArray *)pokemonSIDs
+                              fetchLimit:(NSInteger)fetchLimit {
+  NSArray * pokemons = [self queryPokemonsWithSIDs:pokemonSIDs fetchLimit:0];
+  
+  // If fetch Pokemons number is less than |fetchLimit|,
+  //   no need to filter the array, just return nil
+  if ([pokemons count] < fetchLimit) {
+    NSLog(@"|%@| - |queryUniquePokemonsWithSIDs:fetchLimit:| - [pokemons count] < fetchLimit", [self class]);
+    pokemons = nil;
+    return nil;
+  }
+  
+  // Filter the |pokemons| to get unique array
+  NSMutableArray * uniquePokemons = [NSMutableArray arrayWithCapacity:fetchLimit];
+  for (id SID in pokemonSIDs)
+    for (WildPokemon *pokemon in pokemons)
+      if ([pokemon.sid intValue] == [SID intValue])
+        [uniquePokemons addObject:pokemon];
+  pokemons = nil;
+  return uniquePokemons;
 }
 
 #pragma mark - GET Base data dispatch

@@ -15,6 +15,7 @@
 + (WildPokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID;
 + (NSArray *)queryPokemonsWithUIDs:(NSArray *)pokemonUIDs fetchLimit:(NSInteger)fetchLimit;
 + (NSArray *)queryPokemonsWithSIDs:(NSArray *)pokemonSIDs fetchLimit:(NSInteger)fetchLimit;
++ (NSArray *)queryUniquePokemonsWithSIDs:(NSArray *)pokemonSIDs fetchLimit:(NSInteger)fetchLimit;
 
 // Base data dispatch
 - (NSInteger)numberOfMoves;

@@ -293,7 +293,7 @@
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
-  [[WildPokemonController sharedInstance] updateForCurrentRegion];
+//  [[WildPokemonController sharedInstance] updateForCurrentRegion];
 }
 
 - (void)viewDidUnload

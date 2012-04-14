@@ -240,6 +240,61 @@ static WildPokemonController * wildPokemonController_ = nil;
   [operation start];
 }
 
+// Add more Wild Pokemons with SID array
+- (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  // Add the data to |WildPokePokemon| with SID array
+  for (id data in pokemonSIDs) {
+    // Transfer NSNumber to NSString if it is NSNumber type
+    if ([data isKindOfClass:[NSNumber class]])
+      data = [data stringValue];
+    
+    WildPokemon * wildPokemon;
+    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                inManagedObjectContext:managedObjectContext];
+    // Update data for current |wildPokemon|
+    [self updateWildPokemon:wildPokemon withData:data];
+  }
+  
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
+}
+
+// Add more Wild Pokemons with SID array
+//   return added Pokemons as an array
+- (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  // Add the data to |WildPokePokemon| with SID array
+  NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
+  for (id data in pokemonSIDs) {
+    // Transfer NSNumber to NSString if it is NSNumber type
+    if ([data isKindOfClass:[NSNumber class]])
+      data = [data stringValue];
+    
+    WildPokemon * wildPokemon;
+    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                inManagedObjectContext:managedObjectContext];
+    // Update data for current |wildPokemon|
+    [self updateWildPokemon:wildPokemon withData:data];
+    
+    // Add Pokemon to array
+    [pokemons addObject:wildPokemon];
+  }
+  
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
+  
+  return pokemons;
+}
+
 // Only YES if data for new appeared Pokemon generated done
 - (BOOL)isReady {
   return isReady_;
