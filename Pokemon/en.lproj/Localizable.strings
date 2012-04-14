@@ -89,8 +89,7 @@
 // Text Message
 "PMSMessage_used" = "used";
 "PMSMessage_Go"   = "Go";
-"PMSMessageYouUsedXXXToXXX_1"   = "You used";
-"PMSMessageYouUsedXXXToXXX_3"   = "to";
+"PMSMessage:You used %@ to %@"  = "You used %@ to %@.";
 "PMSMessageYouThrowedXXX"       = "You throwed";
 "PMSMessageCatchPokemonXXXFailed1"  = "Oh, no! The";
 "PMSMessageCatchPokemonXXXFailed3"  = "broke free!";

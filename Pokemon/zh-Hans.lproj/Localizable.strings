@@ -88,8 +88,7 @@
 // Text Message
 "PMSMessage_used" = "使用了";
 "PMSMessage_Go"   = "看你了";
-"PMSMessageYouUsedXXXToXXX_1"  = "你对";
-"PMSMessageYouUsedXXXToXXX_3"  = "使用了";
+"PMSMessage:You used %@ to %@"  = "你对 %2$@ 使用了 %1$@.";
 "PMSMessageYouThrowedXXX"      = "你丢出了";
 "PMSMessageCatchPokemonXXXFailed1"  = "";
 "PMSMessageCatchPokemonXXXFailed3"  = "挣脱了精灵球";

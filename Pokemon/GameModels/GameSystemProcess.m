@@ -1549,11 +1549,14 @@ static GameSystemProcess * gameSystemProcess = nil;
       else {
         NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
         // Message: (You used <ItemName> to <PokemonName>)
-        message = [NSString stringWithFormat:@"%@ %@ %@ %@",
-                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
+        message = [NSString stringWithFormat:NSLocalizedString(@"PMSMessage:You used %@ to %@", nil),
                    NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
-                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
-                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil)];
+//        message = [NSString stringWithFormat:@"%@ %@ %@ %@",
+//                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
+//                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
+//                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
+//                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
       }
       break;
     }
