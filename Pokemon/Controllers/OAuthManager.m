@@ -12,6 +12,7 @@
 #import "NSString+Algorithm.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
+#import "LoadingManager.h"
 #import "AFJSONRequestOperation.h"
 
 
@@ -27,12 +28,14 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 #pragma mark - OAuthManager
 @interface OAuthManager () {
  @private
+  LoadingManager             * loadingManager_;          // Loading manager
   NSOperationQueue           * operationQueue_;          // Operation Queue
   GTMOAuth2Authentication    * oauth_;                   // OAuth object
   OAuthServiceProviderChoice   selectedServiceProvider_; // Selected service provider
   BOOL                         isUserIDSynced_;          // Mark for whether user ID has been synced
 }
 
+@property (nonatomic, retain) LoadingManager             * loadingManager;
 @property (nonatomic, retain) NSOperationQueue           * operationQueue;
 @property (nonatomic, retain) GTMOAuth2Authentication    * oauth;
 @property (nonatomic, assign) OAuthServiceProviderChoice   selectedServiceProvider;
@@ -49,6 +52,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 @implementation OAuthManager
 
+@synthesize loadingManager          = loadingManager_;
 @synthesize operationQueue          = operationQueue_;
 @synthesize oauth                   = oauth_;
 @synthesize selectedServiceProvider = selectedServiceProvider_;
@@ -80,6 +84,7 @@ static OAuthManager * oauthManager_ = nil;
 - (id)init
 {
   if (self = [super init]) {
+    self.loadingManager = [LoadingManager sharedInstance];
     isUserIDSynced_ = NO;
     
     OAuthServiceProviderChoice lastUsedServiceProvider =
@@ -118,6 +123,9 @@ static OAuthManager * oauthManager_ = nil;
 // Login with a service provider
 - (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider
 {
+  // Show loading
+  [self.loadingManager showOverBar];
+  
   self.selectedServiceProvider = serviceProvider;                     // Set selected service provider
   NSDictionary * oauthData     = [self oauthDataFor:serviceProvider]; // OAuth data for the service provider
   SEL finishedSelector         = @selector(viewController:finishedWithAuth:error:);
@@ -210,6 +218,9 @@ static OAuthManager * oauthManager_ = nil;
 
 // Current authticated User's ID (Trainer's |uid|)
 - (void)syncUserID {
+  // Show loading
+  [self.loadingManager showOverBar];
+  
   // Success Block Method
   void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
     ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
@@ -219,11 +230,16 @@ static OAuthManager * oauthManager_ = nil;
       TrainerController * trainer = [TrainerController sharedInstance];
       [trainer initTrainerWithUserID:userID];
       [trainer sync];
+      
+      // Hide loading
+      [self.loadingManager hideOverBar];
     };
   // Failure Block Method
   void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
     ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
       NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
+      // Hide loading
+      [self.loadingManager hideOverBar];
     };
   
   // Fetch data for Trainer
@@ -291,6 +307,9 @@ static OAuthManager * oauthManager_ = nil;
     // Current authticated User's ID (Trainer's |uid|)
     [self syncUserID];
   }
+  
+  // Hide loading
+  [self.loadingManager hideOverBar];
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
 #import "Trainer+DataController.h"
+#import "LoadingManager.h"
 
 
 @implementation TrainerTamedPokemon (DataController)
@@ -20,6 +21,9 @@
 + (void)initWithTrainer:(Trainer *)trainer {
   if (trainer == nil)
     return;
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
   
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
@@ -30,6 +34,9 @@
     // {'pd':[...]} // pd:PokeDex
     if ([[JSON valueForKey:@"pd"] isKindOfClass:[NSNull class]]) {
       NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
+      
+      // Hide loading
+      [[LoadingManager sharedInstance] hideOverBar];
       return;
     }
     
@@ -87,11 +94,16 @@
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
     NSLog(@"...Update |%@| data done...", [self class]);
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   // Failure Block Method
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! ERROR: %@", error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   // Fetch data from server & populate the |teamedPokemon|
@@ -111,6 +123,9 @@
 - (void)syncWithFlag:(DataModifyFlag)flag {
   if (! (flag & kDataModifyTamedPokemon))
     return;
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
   
   NSLog(@"......|%@| - SVEING DATA......", [self class]);
   NSManagedObjectContext * managedObjectContext =
@@ -152,9 +167,14 @@
     // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
     if ([[responseObject valueForKey:@"v"] intValue])
       [[TrainerController sharedInstance] syncDoneWithFlag:kDataModifyTamedPokemon];
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   NSLog(@"Sync Data:%@", data);

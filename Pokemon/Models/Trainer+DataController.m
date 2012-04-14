@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
+#import "LoadingManager.h"
 
 #import "AFJSONRequestOperation.h"
 
@@ -28,6 +29,9 @@
 // Update Data
 + (void)initWithUserID:(NSInteger)userID {
   if (userID <= 0) return;
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
   
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -80,11 +84,16 @@
     if (! [managedObjectContext save:&error])
       NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
     NSLog(@"...Update |%@| data done...", [self class]);
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   // Failure Block Method
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
     NSLog(@"!!! |%@| data fetch ERROR: %@", [self class], error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   // Fetch data from server & populate the data for Tainer
@@ -183,6 +192,9 @@
   if (! (flag & kDataModifyTrainer))
     return;
   
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
+  
   if (flag & kDataModifyTrainerName)        [data setValue:self.name                  forKey:@"name"];
   if (flag & kDataModifyTrainerMoney)       [data setValue:self.money                 forKey:@"money"];
   if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges                forKey:@"badges"];
@@ -196,9 +208,14 @@
     // Reset |flag_| in |TrainerCoreDataController| after sync done & successed (response 'v' with value 1)
     if ([[responseObject valueForKey:@"v"] intValue])
       [[TrainerController sharedInstance] syncDoneWithFlag:kDataModifyTrainer];
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! Sync |%@| data failed ERROR: %@", [self class], error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
   };
   
   NSLog(@"Sync Data:%@", data);
