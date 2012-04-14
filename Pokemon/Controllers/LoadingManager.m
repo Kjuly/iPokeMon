@@ -49,6 +49,7 @@ static LoadingManager * loadingManager_ = nil;
 - (void)show {
   if (++counter_ == 1)
     [MBProgressHUD showHUDAddedTo:[[[UIApplication sharedApplication] delegate] window] animated:YES];
+  NSLog(@"LOADING SHOW: %d", counter_);
 }
 
 // Hide loading view
@@ -58,6 +59,7 @@ static LoadingManager * loadingManager_ = nil;
     counter_ = 0;
   if (counter_ == 0)
     [MBProgressHUD hideHUDForView:[[[UIApplication sharedApplication] delegate] window] animated:YES];
+  NSLog(@"LOADING HIDE: %d", counter_);
 }
 
 // Clean all loading view

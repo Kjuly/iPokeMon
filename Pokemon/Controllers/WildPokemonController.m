@@ -168,6 +168,8 @@ static WildPokemonController * wildPokemonController_ = nil;
     //
     if (! [[JSON valueForKey:@"status"] isEqualToString:@"OK"]) {
       NSLog(@"!!! ERROR: Response STATUS is NOT OK");
+      // Hide loading process view
+      [self.loadingManager hide];
       return;
     }
     
@@ -200,7 +202,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     // Generate Wild Pokemon with the data of |locationInfo|
     [self generateWildPokemonWithLocationInfo:locationInfo];
     [locationInfo release];
-    results  = nil;
+    results = nil;
     
     // Hide loading process view
     [self.loadingManager hide];
@@ -218,10 +220,18 @@ static WildPokemonController * wildPokemonController_ = nil;
   NSString * requestURL =
     [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",
       location.coordinate.latitude, location.coordinate.longitude];
-  NSLog(@"%@", requestURL);
   NSURL * url = [[NSURL alloc] initWithString:requestURL];
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+  NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
   [url release];
+  NSString * body = @"sensor=true";
+  [request setHTTPMethod:@"POST"];
+  [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+  //
+  // !!!TODO
+  //   When network is not available, timeout not works!!!
+  //
+  [request setTimeoutInterval:10.f];
+  NSLog(@"%@", request.URL);
   AFJSONRequestOperation * operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                     success:success
