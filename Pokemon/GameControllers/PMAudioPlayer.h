@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioPlayer.h>
 
-@interface GameAudioPlayer : NSObject
+@interface PMAudioPlayer : NSObject
 
-+ (GameAudioPlayer *)sharedInstance;
++ (PMAudioPlayer *)sharedInstance;
 
 @end

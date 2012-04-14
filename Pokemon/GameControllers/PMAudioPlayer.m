@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "GameAudioPlayer.h"
+#import "PMAudioPlayer.h"
 
 
-@interface GameAudioPlayer () {
+@interface PMAudioPlayer () {
  @private
   AVAudioPlayer * audioPlayer_;
 }
@@ -19,19 +19,19 @@
 @end
 
 
-@implementation GameAudioPlayer
+@implementation PMAudioPlayer
 
 @synthesize audioPlayer = audioPlayer_;
 
 // Singleton
-static GameAudioPlayer * gameAudioPlayer_ = nil;
-+ (GameAudioPlayer *)sharedInstance {
+static PMAudioPlayer * gameAudioPlayer_ = nil;
++ (PMAudioPlayer *)sharedInstance {
   if (gameAudioPlayer_ != nil)
     return gameAudioPlayer_;
   
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    gameAudioPlayer_ = [[GameAudioPlayer alloc] init];
+    gameAudioPlayer_ = [[PMAudioPlayer alloc] init];
   });
   return gameAudioPlayer_;
 }
@@ -46,7 +46,7 @@ static GameAudioPlayer * gameAudioPlayer_ = nil;
 
 - (id)init {
   if (self = [super init]) {
-    
+    audioPlayer_ = [[AVAudioPlayer alloc] init];
   }
   return self;
 }

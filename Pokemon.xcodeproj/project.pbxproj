@@ -211,7 +211,7 @@
 		7F0A485C14E671DD001C62A0 /* PokemonDetailImageBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485A14E671DD001C62A0 /* PokemonDetailImageBackground@2x.png */; };
 		7F0A485F14E67DAF001C62A0 /* PokemonDetailDescriptionBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485D14E67DAE001C62A0 /* PokemonDetailDescriptionBackground.png */; };
 		7F0A486014E67DAF001C62A0 /* PokemonDetailDescriptionBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0A485E14E67DAE001C62A0 /* PokemonDetailDescriptionBackground@2x.png */; };
-		7F0AAA7F1539B8BB004BB3B3 /* GameAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AAA7E1539B8BB004BB3B3 /* GameAudioPlayer.m */; };
+		7F0AAA7F1539B8BB004BB3B3 /* PMAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */; };
 		7F0D18C715072E2A009CFDBA /* GameBattleViewTopBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0D18C515072E2A009CFDBA /* GameBattleViewTopBarBackground.png */; };
 		7F0D18CC15072E54009CFDBA /* GameTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D18CB15072E54009CFDBA /* GameTopViewController.m */; };
 		7F0D18D115073228009CFDBA /* GameBattleViewTopBarAvatarBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0D18CD15073227009CFDBA /* GameBattleViewTopBarAvatarBottom.png */; };
@@ -1220,8 +1220,8 @@
 		7F0A485A14E671DD001C62A0 /* PokemonDetailImageBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokemonDetailImageBackground@2x.png"; sourceTree = "<group>"; };
 		7F0A485D14E67DAE001C62A0 /* PokemonDetailDescriptionBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PokemonDetailDescriptionBackground.png; sourceTree = "<group>"; };
 		7F0A485E14E67DAE001C62A0 /* PokemonDetailDescriptionBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokemonDetailDescriptionBackground@2x.png"; sourceTree = "<group>"; };
-		7F0AAA7D1539B8BB004BB3B3 /* GameAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAudioPlayer.h; sourceTree = "<group>"; };
-		7F0AAA7E1539B8BB004BB3B3 /* GameAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAudioPlayer.m; sourceTree = "<group>"; };
+		7F0AAA7D1539B8BB004BB3B3 /* PMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMAudioPlayer.h; sourceTree = "<group>"; };
+		7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMAudioPlayer.m; sourceTree = "<group>"; };
 		7F0D18C515072E2A009CFDBA /* GameBattleViewTopBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewTopBarBackground.png; sourceTree = "<group>"; };
 		7F0D18CA15072E54009CFDBA /* GameTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTopViewController.h; sourceTree = "<group>"; };
 		7F0D18CB15072E54009CFDBA /* GameTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTopViewController.m; sourceTree = "<group>"; };
@@ -3262,8 +3262,8 @@
 			isa = PBXGroup;
 			children = (
 				7F50B80B14F93BEA00883412 /* GameConfig.h */,
-				7F0AAA7D1539B8BB004BB3B3 /* GameAudioPlayer.h */,
-				7F0AAA7E1539B8BB004BB3B3 /* GameAudioPlayer.m */,
+				7F0AAA7D1539B8BB004BB3B3 /* PMAudioPlayer.h */,
+				7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */,
 				7F52451714FBEA800019C75A /* GameStatusMachine.h */,
 				7F52451814FBEA810019C75A /* GameStatusMachine.m */,
 				7F9F15B71508B12600795591 /* GamePlayerProcess.h */,
@@ -5020,7 +5020,7 @@
 				7FAC07B9153582F600DF86B7 /* PokemonLevelUpUnitView.m in Sources */,
 				7F9169BE15386BD40095A8A8 /* MBProgressHUD.m in Sources */,
 				7F9169CF15387EAD0095A8A8 /* LoadingManager.m in Sources */,
-				7F0AAA7F1539B8BB004BB3B3 /* GameAudioPlayer.m in Sources */,
+				7F0AAA7F1539B8BB004BB3B3 /* PMAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
