@@ -176,6 +176,7 @@
 - (void)openInfoView:(id)sender
 {
   WildPokemon * pokemon = [self.pokemons objectAtIndex:((UIButton *)sender).tag - 1];
+  NSLog(@"!!!%@", pokemon.sid);
   NSInteger pokemonID = [pokemon.sid intValue];
   
   PokemonDetailTabViewController * pokemonDetailTabViewController =
@@ -208,23 +209,29 @@
   CGRect    originFrame   =
     CGRectMake(0.f, kViewHeight - buttonSize / 2 - (pokemonsCount + 1) * buttonDelta, kViewWidth, buttonSize);
   
-  //
-  // TODO:
-  //   Every time they'll be created, no need actually
-  //
+  // Create Pokemon unit views
   for (int i = 0; i < pokemonsCount;) {
     originFrame.origin.y += buttonDelta;
     WildPokemon * pokemon = [self.pokemons objectAtIndex:i];
-    GameMenuSixPokemonsUnitView * gameMenuSixPokemonsUnitView =
-      [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:++i];
-    gameMenuSixPokemonsUnitView.delegate = self;
-    [gameMenuSixPokemonsUnitView setTag:i];
-    [gameMenuSixPokemonsUnitView setAlpha:0.f];
+    GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:++i];
+    if (unitView == nil) {
+      NSLog(@"unitView == nil, create new one...");
+      unitView = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:i];
+      unitView.delegate = self;
+      [unitView setTag:i];
+      [unitView setAlpha:0.f];
+      [self.view addSubview:unitView];
+    }
+    
+    // Set as normal for |unitView|
+    [unitView setAsNormal];
+    
+    // Set as current selecetd one
     if (self.currSelectedPokemon == i)
-      [gameMenuSixPokemonsUnitView setAsCurrentBattleOne:YES];
-    [self.view addSubview:gameMenuSixPokemonsUnitView];
-    [gameMenuSixPokemonsUnitView release];
-    pokemon = nil;
+      [unitView setAsCurrentBattleOne:YES];
+    
+    unitView = nil;
+    pokemon  = nil;
   }
   
   // Basic Setting

@@ -10,7 +10,10 @@
  * UI Text
  * */
 
-// Base
+/*
+ * View i18n
+ */
+// Login & Newbie guide
 "PMSLoginChoice"    = "选择登录服务";
 "PMSAuthenticating" = "正在验证中...";
 "PMSNewbiewGuide1Text1" = "欢迎来到口袋妖怪世界！";
@@ -19,6 +22,11 @@
 "PMSNewbiewGuide1TextERROR"     = "对不起，发生异常错误。";
 "PMSNewbiewGuide2Text1" = "请选择一只喜欢的口袋妖怪开始游戏。";
 "PMSNewbiewGuide3Text1" = "准备好了?";
+
+// Setting view
+"PMSSettingSection1" = "游戏设置";
+"PMSSettingSection2" = "关于";
+
 
 // Pokemon
 "PMSLabelSpecies" = "类型：";

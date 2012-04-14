@@ -30,12 +30,8 @@ typedef enum {
 
 @implementation SettingTableViewController
 
-@synthesize sectionNames = sectionNames_;
-
 - (void)dealloc
 {
-  [sectionNames_ release];
-  
   [super dealloc];
 }
 
@@ -45,12 +41,7 @@ typedef enum {
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
-    
-#ifdef DEBUG
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
-#endif
-    
-    sectionNames_ = [[NSArray alloc] initWithObjects:@"App Settings", @"About", nil];
+//    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
   }
   return self;
 }
@@ -73,8 +64,6 @@ typedef enum {
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-  
-  self.sectionNames = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,7 +128,8 @@ typedef enum {
 {
   CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
-  [sectionHeaderView.title setText:[self.sectionNames objectAtIndex:section]];
+  [sectionHeaderView.title setText:
+    NSLocalizedString(([NSString stringWithFormat:@"PMSSettingSection%d", section + 1]), nil)];
   return [sectionHeaderView autorelease];
 }
 

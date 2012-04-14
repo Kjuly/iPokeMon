@@ -75,7 +75,8 @@
   
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.f, 10.f, imageWidth, imageHeight)];
-  [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+  [imageContainer setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -83,7 +84,7 @@
   [imageView setUserInteractionEnabled:YES];
   [imageView setContentMode:UIViewContentModeCenter];
   [imageView setBackgroundColor:[UIColor clearColor]];
-  [imageView setImage:[self.pokemonDataDict valueForKey:@"image"]];
+  [imageView setImage:self.pokemonDataDict.image];
   
   [imageContainer addSubview:imageView];
   [imageView release];
@@ -98,7 +99,7 @@
   PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
                                         initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight)
                                         hasValueLabel:NO];
-  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [[self.pokemonDataDict valueForKey:@"sid"] intValue]]];
+  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [self.pokemonDataDict.sid intValue]]];
   [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
   [idLabelView.name.layer setShadowOpacity:1.f];
   [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
@@ -112,7 +113,7 @@
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                         [[self.pokemonDataDict valueForKey:@"sid"] intValue]]), nil)];
+                                         [self.pokemonDataDict.sid intValue]]), nil)];
   [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel.layer setShadowOpacity:1.f];
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];

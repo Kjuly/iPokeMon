@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingTableViewController : UITableViewController {
-  NSArray * sectionNames_;
-}
-
-@property (nonatomic, copy) NSArray * sectionNames;
+@interface SettingTableViewController : UITableViewController
 
 @end

@@ -12,7 +12,10 @@
  * UI Text
  * */
 
-// Base
+/*
+ * View i18n
+ */
+// Login & Newbie guide
 "PMSLoginChoice"    = "Login Choice";
 "PMSAuthenticating" = "Authenticating...";
 "PMSNewbiewGuide1Text1" = "Welcome to Pokemon world!";
@@ -21,6 +24,11 @@
 "PMSNewbiewGuide1TextERROR"     = "Web service unknown ERROR..";
 "PMSNewbiewGuide2Text1" = "Choose a Pokemon you would like...";
 "PMSNewbiewGuide3Text1" = "Are you ready?";
+
+// Setting view
+"PMSSettingSection1" = "App Settings";
+"PMSSettingSection2" = "About";
+
 
 // Pokemon
 "PMSLabelSpecies" = "Species: ";

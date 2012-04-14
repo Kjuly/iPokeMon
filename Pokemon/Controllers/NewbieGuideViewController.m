@@ -164,7 +164,7 @@
   
   // Layouts for different steps
   // Constants
-  CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f, 260.f, 32.f);
+  CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f - 50.f, 260.f, 32.f);
   
   // Name setting input view
   nameInputView_ = [[UITextField alloc] initWithFrame:nameInputViewFrame];
@@ -173,11 +173,6 @@
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
   nameInputView_.delegate = self;
-  
-  // Pokemon Selection view
-  pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
-  NSArray * pokemonsUID = [NSArray arrayWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:4], [NSNumber numberWithInt:7], nil];
-  [pokemonSelectionViewController_ initWithPokemonsWithUID:pokemonsUID];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -306,6 +301,17 @@
             [self.trainer setName:name];
             newText = @"PMSNewbiewGuide2Text1";
             ++guideStep_;
+            
+            // Create view for selecting a Pokemon
+            if (self.pokemonSelectionViewController == nil) {
+              // Pokemon Selection view
+              pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
+              NSArray * pokemonsUID = [NSArray arrayWithObjects:
+                                       [NSNumber numberWithInt:1],
+                                       [NSNumber numberWithInt:4],
+                                       [NSNumber numberWithInt:7], nil];
+              [pokemonSelectionViewController_ initWithPokemonsWithUID:pokemonsUID];
+            }
             [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
             [self.pokemonSelectionViewController.view setAlpha:0.f];
           }
