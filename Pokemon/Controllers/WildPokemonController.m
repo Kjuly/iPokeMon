@@ -38,6 +38,7 @@
 
 - (void)cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
+- (NSInteger)calculateLevel;
 - (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
 - (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
 - (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
@@ -331,15 +332,17 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data {
   // Update basic data fetched from server
   NSInteger SID = [data intValue];
-  wildPokemon.uid         = [NSNumber numberWithInt:++pokemonCounter_];
-  wildPokemon.sid         = [NSNumber numberWithInt:SID];
-  wildPokemon.status      = [NSNumber numberWithInt:kPokemonStatusNormal];
-  wildPokemon.level       = [NSNumber numberWithInt:10];
-  NSInteger level = [wildPokemon.level intValue];
+  wildPokemon.uid    = [NSNumber numberWithInt:++pokemonCounter_];
+  wildPokemon.sid    = [NSNumber numberWithInt:SID];
+  wildPokemon.status = [NSNumber numberWithInt:kPokemonStatusNormal];
   
   // Fetch Pokemon entity with |sid|
   Pokemon * pokemon = [Pokemon queryPokemonDataWithID:SID];
   wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
+  
+  // |level|
+  NSInteger level = [self calculateLevel];
+  wildPokemon.level = [NSNumber numberWithInt:level];
   
   // |gender|
   wildPokemon.gender = [self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]];
@@ -359,6 +362,15 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.toNextLevel = [NSNumber numberWithInt:[pokemon expToNextLevel:(level + 1)]];
   
   pokemon = nil;
+}
+
+// Calculate |level| based on Trainer's "level"
+//
+// !!!TODO
+//   Need a formular
+//
+- (NSInteger)calculateLevel {
+  return 10;
 }
 
 // Calculate |gender| based on |pokemonGenderRate|
