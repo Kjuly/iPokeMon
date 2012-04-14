@@ -9,6 +9,7 @@
 #import "GameBattleLayer.h"
 
 #import "GlobalNotificationConstants.h"
+#import "PMAudioPlayer.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "GamePlayerProcess.h"
@@ -20,6 +21,7 @@
 
 @interface GameBattleLayer () {
  @private
+  PMAudioPlayer     * audioPlayer_;
   GameStatusMachine * gameStatusMachine_;
   GameSystemProcess * gameSystemProcess_;
   GamePlayerProcess * playerProcess_;
@@ -31,6 +33,7 @@
   GamePokemonSprite * enemyPokemonSprite_;
 }
 
+@property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
 @property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
 @property (nonatomic, retain) GameSystemProcess * gameSystemProcess;
 @property (nonatomic, retain) GamePlayerProcess * playerProcess;
@@ -59,6 +62,7 @@
 
 @synthesize gameMoveEffect  = gameMoveEffect_;
 
+@synthesize audioPlayer         = audioPlayer_;
 @synthesize gameStatusMachine   = gameStatusMachine_;
 @synthesize gameSystemProcess   = gameSystemProcess_;
 @synthesize playerProcess       = playerProcess_;
@@ -86,6 +90,7 @@
 {
   self.gameMoveEffect  = nil;
   
+  self.audioPlayer         = nil;
   self.gameStatusMachine   = nil;
   self.playerProcess       = nil;
   self.enemyProcess        = nil;
@@ -109,6 +114,7 @@
     [self setIsTouchEnabled:YES];
     
     // Status Machine for Game
+    self.audioPlayer       = [PMAudioPlayer     sharedInstance];
     self.gameStatusMachine = [GameStatusMachine sharedInstance];
     self.gameSystemProcess = [GameSystemProcess sharedInstance];
     
@@ -221,6 +227,9 @@
   
   playerPokemon = nil;
   enemyPokemon  = nil;
+  
+  // Run battle begin background music
+  [self.audioPlayer playWithAudioType:kAudioBattleStartVSWildPM];
   
   // Run battle begin animation is it's a new battle with the Pokemon
   [self runBattleBeginAnimation];

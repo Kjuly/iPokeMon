@@ -417,6 +417,11 @@
 		7F61D8651500FF09007C0BBD /* TabView3TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D8531500FF09007C0BBD /* TabView3TabsCircleBarBackground@2x.png */; };
 		7F61D86A1500FF09007C0BBD /* TabView2TabsCircleBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D8581500FF09007C0BBD /* TabView2TabsCircleBarBackground.png */; };
 		7F61D86B1500FF09007C0BBD /* TabView2TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D8591500FF09007C0BBD /* TabView2TabsCircleBarBackground@2x.png */; };
+		7F6474C91539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */; };
+		7F6474CA1539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */; };
+		7F6474CB1539E7D900D77887 /* AudioGameGuide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */; };
+		7F6474CC1539E7D900D77887 /* AudioGamePMEvolution.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */; };
+		7F6474CD1539E7D900D77887 /* AudioGamePMRecovery.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */; };
 		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
 		7F6C19241517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */; };
 		7F6C19251517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191D1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png */; };
@@ -1220,7 +1225,7 @@
 		7F0A485A14E671DD001C62A0 /* PokemonDetailImageBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokemonDetailImageBackground@2x.png"; sourceTree = "<group>"; };
 		7F0A485D14E67DAE001C62A0 /* PokemonDetailDescriptionBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PokemonDetailDescriptionBackground.png; sourceTree = "<group>"; };
 		7F0A485E14E67DAE001C62A0 /* PokemonDetailDescriptionBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokemonDetailDescriptionBackground@2x.png"; sourceTree = "<group>"; };
-		7F0AAA7D1539B8BB004BB3B3 /* PMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMAudioPlayer.h; sourceTree = "<group>"; };
+		7F0AAA7D1539B8BB004BB3B3 /* PMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMAudioPlayer.h; sourceTree = "<group>"; };
 		7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMAudioPlayer.m; sourceTree = "<group>"; };
 		7F0D18C515072E2A009CFDBA /* GameBattleViewTopBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleViewTopBarBackground.png; sourceTree = "<group>"; };
 		7F0D18CA15072E54009CFDBA /* GameTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTopViewController.h; sourceTree = "<group>"; };
@@ -1580,6 +1585,11 @@
 		7F61D8531500FF09007C0BBD /* TabView3TabsCircleBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabView3TabsCircleBarBackground@2x.png"; sourceTree = "<group>"; };
 		7F61D8581500FF09007C0BBD /* TabView2TabsCircleBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabView2TabsCircleBarBackground.png; sourceTree = "<group>"; };
 		7F61D8591500FF09007C0BBD /* TabView2TabsCircleBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabView2TabsCircleBarBackground@2x.png"; sourceTree = "<group>"; };
+		7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleStartVSWildPM.mp3; sourceTree = "<group>"; };
+		7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleVictoryVSWildPM.mp3; sourceTree = "<group>"; };
+		7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameGuide.mp3; sourceTree = "<group>"; };
+		7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGamePMEvolution.mp3; sourceTree = "<group>"; };
+		7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGamePMRecovery.mp3; sourceTree = "<group>"; };
 		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
 		7F6910DC14EF95AF00127E2F /* DataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTransformer.m; sourceTree = "<group>"; };
 		7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconCancel.png; sourceTree = "<group>"; };
@@ -3190,6 +3200,11 @@
 		7F6E6CF414D6CB9800033C65 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */,
+				7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */,
+				7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */,
+				7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */,
+				7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -4751,6 +4766,11 @@
 				7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */,
 				7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */,
 				7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */,
+				7F6474C91539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 in Resources */,
+				7F6474CA1539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 in Resources */,
+				7F6474CB1539E7D900D77887 /* AudioGameGuide.mp3 in Resources */,
+				7F6474CC1539E7D900D77887 /* AudioGamePMEvolution.mp3 in Resources */,
+				7F6474CD1539E7D900D77887 /* AudioGamePMRecovery.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
