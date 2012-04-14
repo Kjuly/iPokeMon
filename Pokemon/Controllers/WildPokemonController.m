@@ -92,7 +92,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 - (void)updateForCurrentRegion {
   // Show loading process view
-  [self.loadingManager show];
+  [self.loadingManager showOverBar];
   
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
@@ -124,14 +124,14 @@ static WildPokemonController * wildPokemonController_ = nil;
       [self generateWildPokemonWithLocationInfo:self.locationInfo];
     
     // Hide loading process view
-    [self.loadingManager hide];
+    [self.loadingManager hideOverBar];
   };
   
   // Failure Block Method
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! ERROR: %@", error);
     // Hide loading process view
-    [self.loadingManager hide];
+    [self.loadingManager hideOverBar];
   };
   
   // Update data via |ServerAPIClient|
@@ -143,7 +143,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Update data for Wild Pokemon at current location
 - (void)updateAtLocation:(CLLocation *)location {
   // Show loading process view
-  [self.loadingManager show];
+  [self.loadingManager showOverBar];
   
   isPokemonAppeared_ = YES;
   isReady_           = NO;
@@ -169,7 +169,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     if (! [[JSON valueForKey:@"status"] isEqualToString:@"OK"]) {
       NSLog(@"!!! ERROR: Response STATUS is NOT OK");
       // Hide loading process view
-      [self.loadingManager hide];
+      [self.loadingManager hideOverBar];
       return;
     }
     
@@ -205,7 +205,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     results = nil;
     
     // Hide loading process view
-    [self.loadingManager hide];
+    [self.loadingManager hideOverBar];
   };
   
   // Failure Block
@@ -213,7 +213,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
     NSLog(@"!!! ERROR: %@", error);
     // Hide loading process view
-    [self.loadingManager hide];
+    [self.loadingManager hideOverBar];
   };
   
   // Fetch Data from server

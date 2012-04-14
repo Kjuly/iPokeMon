@@ -14,8 +14,14 @@
 
 + (LoadingManager *)sharedInstance;
 
-- (void)show;  // Show loading view
-- (void)hide;  // Hide loading view
-- (void)clean; // Clean all loading view
+// Loading over view
+- (void)showOverView;
+- (void)hideOverView;
+- (void)cleanOverView;
+
+// Loading over bar (status bar)
+- (void)showOverBar;
+- (void)hideOverBar;
+- (void)cleanOverBar;
 
 @end

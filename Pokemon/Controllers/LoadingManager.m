@@ -11,7 +11,8 @@
 
 @interface LoadingManager () {
  @private
-  NSInteger counter_;
+  NSInteger overViewLoadingCounter_;
+  NSInteger overBarLoadingCounter_;
 }
 @end
 
@@ -38,35 +39,65 @@ static LoadingManager * loadingManager_ = nil;
 
 - (id)init {
   if (self = [super init]) {
-    counter_ = 0;
+    overViewLoadingCounter_ = 0;
+    overBarLoadingCounter_  = 0;
   }
   return self;
 }
 
 #pragma mark - Public Methods
 
-// Show loading view
-- (void)show {
-  if (++counter_ == 1)
+#pragma mark - Loading over View
+
+// Show loading over view
+- (void)showOverView {
+  if (++overViewLoadingCounter_ == 1)
     [MBProgressHUD showHUDAddedTo:[[[UIApplication sharedApplication] delegate] window] animated:YES];
-  NSLog(@"LOADING SHOW: %d", counter_);
+  NSLog(@"LOADING OVER VIEW SHOW: %d", overViewLoadingCounter_);
 }
 
-// Hide loading view
-- (void)hide {
-  --counter_;
-  if (counter_ < 0)
-    counter_ = 0;
-  if (counter_ == 0)
+// Hide loading over view
+- (void)hideOverView {
+  --overViewLoadingCounter_;
+  if (overViewLoadingCounter_ < 0)
+    overViewLoadingCounter_ = 0;
+  if (overViewLoadingCounter_ == 0)
     [MBProgressHUD hideHUDForView:[[[UIApplication sharedApplication] delegate] window] animated:YES];
-  NSLog(@"LOADING HIDE: %d", counter_);
+  NSLog(@"LOADING OVER VIEW HIDE: %d", overViewLoadingCounter_);
 }
 
-// Clean all loading view
-- (void)clean {
-  if (counter_ > 0) {
+// Clean all loading over view
+- (void)cleanOverView {
+  if (overViewLoadingCounter_ > 0) {
     [MBProgressHUD hideHUDForView:[[[UIApplication sharedApplication] delegate] window] animated:YES];
-    counter_ = 0;
+    overViewLoadingCounter_ = 0;
+  }
+}
+
+#pragma mark - Loading over Bar
+
+// Show loading over bar
+- (void)showOverBar {
+  if (++overBarLoadingCounter_ == 1)
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+  NSLog(@"LOADING OVER BAR SHOW: %d", overBarLoadingCounter_);
+}
+
+// Hide loading over bar
+- (void)hideOverBar {
+  --overBarLoadingCounter_;
+  if (overBarLoadingCounter_ < 0)
+    overBarLoadingCounter_ = 0;
+  if (overBarLoadingCounter_ == 0)
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+  NSLog(@"LOADING OVER BAR HIDE: %d", overBarLoadingCounter_);
+}
+
+// Clean all loading over bar
+- (void)cleanOverBar {
+  if (overBarLoadingCounter_ > 0) {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    overBarLoadingCounter_ = 0;
   }
 }
 
