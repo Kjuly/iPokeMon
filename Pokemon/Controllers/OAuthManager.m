@@ -171,19 +171,19 @@ static OAuthManager * oauthManager_ = nil;
   NSString * keychainItemName; // Keychain Item Name
   NSString * scope;            // Scope
   switch (serviceProvider) {
-    case kOAuthServiceProviderChoiceFacebook:
+    //case kOAuthServiceProviderChoiceFacebook:
       //clientID         = kOAuthGoogleClientID;
       //clientSecret     = kOAuthGoogleClientSecret;
       //keychainItemName = kOAuthGoogleKeychainItemName;
       //scope            = kOAuthGoogleScope;
-      break;
+      //break;
       
-    case kOAuthServiceProviderChoiceGithub:
+    //case kOAuthServiceProviderChoiceGithub:
       //clientID         = kOAuthGoogleClientID;
       //clientSecret     = kOAuthGoogleClientSecret;
       //keychainItemName = kOAuthGoogleKeychainItemName;
       //scope            = kOAuthGoogleScope;
-      break;
+      //break;
       
     case kOAuthServiceProviderChoiceGoogle:
       clientID         = kOAuthGoogleClientID;
@@ -192,19 +192,19 @@ static OAuthManager * oauthManager_ = nil;
       scope            = kOAuthGoogleScope;
       break;
       
-    case kOAuthServiceProviderChoiceTwitter:
+    //case kOAuthServiceProviderChoiceTwitter:
       //clientID         = kOAuthGoogleClientID;
       //clientSecret     = kOAuthGoogleClientSecret;
       //keychainItemName = kOAuthGoogleKeychainItemName;
       //scope            = kOAuthGoogleScope;
-      break;
+      //break;
       
-    case kOAuthServiceProviderChoiceWeibo:
+    //case kOAuthServiceProviderChoiceWeibo:
       //clientID         = kOAuthGoogleClientID;
       //clientSecret     = kOAuthGoogleClientSecret;
       //keychainItemName = kOAuthGoogleKeychainItemName;
       //scope            = kOAuthGoogleScope;
-      break;
+      //break;
       
     default:
       break;

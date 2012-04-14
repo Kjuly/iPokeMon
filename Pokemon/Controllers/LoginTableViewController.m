@@ -202,25 +202,25 @@
 - (NSString *)nameForProvider:(OAuthServiceProviderChoice)provider {
   NSString * providerName;
   switch (provider) {
-    case kOAuthServiceProviderChoiceFacebook:
-      providerName = @"Facebook";
-      break;
+    //case kOAuthServiceProviderChoiceFacebook:
+      //providerName = @"Facebook";
+      //break;
       
-    case kOAuthServiceProviderChoiceGithub:
-      providerName = @"Github";
-      break;
+    //case kOAuthServiceProviderChoiceGithub:
+      //providerName = @"Github";
+      //break;
       
     case kOAuthServiceProviderChoiceGoogle:
       providerName = @"Google";
       break;
       
-    case kOAuthServiceProviderChoiceTwitter:
-      providerName = @"Twitter";
-      break;
+    //case kOAuthServiceProviderChoiceTwitter:
+      //providerName = @"Twitter";
+      //break;
       
-    case kOAuthServiceProviderChoiceWeibo:
-      providerName = @"Weibo";
-      break;
+    //case kOAuthServiceProviderChoiceWeibo:
+      //providerName = @"Weibo";
+      //break;
       
     default:
       break;

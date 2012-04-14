@@ -12,11 +12,11 @@
 
 
 typedef enum {
-  kOAuthServiceProviderChoiceFacebook = 0,
-  kOAuthServiceProviderChoiceGithub,
+//  kOAuthServiceProviderChoiceFacebook = 0,
+//  kOAuthServiceProviderChoiceGithub,
   kOAuthServiceProviderChoiceGoogle,
-  kOAuthServiceProviderChoiceTwitter,
-  kOAuthServiceProviderChoiceWeibo,
+//  kOAuthServiceProviderChoiceTwitter,
+//  kOAuthServiceProviderChoiceWeibo,
   kOAuthServiceProviderChoicesCount
 }OAuthServiceProviderChoice;
 
