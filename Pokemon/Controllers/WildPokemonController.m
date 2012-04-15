@@ -449,7 +449,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 //
 - (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level {
   NSInteger result;
-  result = (10000000 - 100) / (100 - 1) * level + baseEXP;
+  result = (100000 - 100) / (100 - 1) * level + baseEXP;
   return result;
 }
 
