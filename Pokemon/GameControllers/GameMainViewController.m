@@ -12,6 +12,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "PMAudioPlayer.h"
+#import "TrainerController.h"
 #import "GameBattleLayer.h"
 #import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
@@ -200,13 +201,29 @@
 #pragma mark - Private Methods
 
 - (void)startBattle:(NSNotification *)notification {
-  // Mark now is loading resources for battle,
-  //   so it can load battle scene when receives the notification from |LoadingManageer|
-  isLoadingResourceForBattle_ = YES;
-  
   // Remember previous |centerMainButton_|'s status
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+  
+  // If Trainer has no battle available Pokemon, don't load Battle Scene,
+  //   load |gameBattleEventView| instead
+  if ([[TrainerController sharedInstance] battleAvailablePokemonIndex] == 0) {
+    if (self.gameBattleEventViewController == nil) {
+      GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
+      self.gameBattleEventViewController = gameBattleEventViewController;
+      [gameBattleEventViewController release];
+    }
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
+    [self.gameBattleEventViewController loadViewWithEventType:kGameBattleEventTypeNoPMAvailable
+                                                         info:nil
+                                                     animated:YES
+                                                   afterDelay:0];
+    return;
+  }
+  
+  // Mark now is loading resources for battle,
+  //   so it can load battle scene when receives the notification from |LoadingManageer|
+  isLoadingResourceForBattle_ = YES;
   
   // Preload audio resources for battle scene
   [self.audioPlayer preloadForBattleVSWildPokemon];
@@ -262,8 +279,11 @@
 //   Player WIN/LOSE
 //   Caught Wild Pokemon
 - (void)endGameBattleWithEvent:(NSNotification *)notification {
-  GameBattleEndEventType battleEndEventType = [[notification.userInfo valueForKey:@"battleEndEventType"] intValue];
-  
+  GameBattleEndEventType battleEndEventType;
+  if ([notification.userInfo valueForKey:@"battleEndEventType"])
+    battleEndEventType = [[notification.userInfo valueForKey:@"battleEndEventType"] intValue];
+  else battleEndEventType = kGameBattleEndEventTypeNone;
+   
   // If no more Event need to be occurred, just unload battle scene
   if (battleEndEventType == kGameBattleEndEventTypeNone) {
     [self unloadBattleScene];

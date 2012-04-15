@@ -134,20 +134,55 @@
   void (^animations)();
   void (^completion)(BOOL);
   
-  // Level Up
-  if (eventType & kGameBattleEventTypeLevelUp) {
+  // NO Pokemon Available to battle
+  if (eventType & kGameBattleEventTypeNoPMAvailable) {
     // Message Label
     if (self.message == nil) {
-      UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 380.f, 260.f, 60.f)];
+      UILabel * message = [[UILabel alloc] init];
       self.message = message;
       [message release];
       [self.message setBackgroundColor:[UIColor clearColor]];
-      [self.message setTextAlignment:UITextAlignmentCenter];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
+      [self.message setLineBreakMode:UILineBreakModeWordWrap];
+      [self.message setNumberOfLines:0];
       [self.message setAlpha:0.f];
     }
+    [self.message setFrame:CGRectMake(30.f, 300.f, 260.f, 140.f)];
+    [self.message setTextAlignment:UITextAlignmentLeft];
+    [self.message setText:NSLocalizedString(@"PMSMessageEventNOPMAvailable", nil)];
+    [self.message sizeToFit];
+    [self.backgroundView addSubview:self.message];
+    
+    // Animation blocks
+    __block CGRect messageFrame = self.message.frame;
+    animations = ^(){
+      [self.backgroundView setAlpha:1.f];
+      
+      messageFrame.origin.y -= 20.f;
+      [self.message setFrame:messageFrame];
+      [self.message setAlpha:1.f];
+    };
+    completion = nil;
+  }
+  // LEVEL UP
+  else if (eventType & kGameBattleEventTypeLevelUp) {
+    // Message Label
+    if (self.message == nil) {
+      UILabel * message = [[UILabel alloc] init];
+      self.message = message;
+      [message release];
+      [self.message setBackgroundColor:[UIColor clearColor]];
+      [self.message setTextColor:[GlobalRender textColorTitleWhite]];
+      [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
+      [self.message setLineBreakMode:UILineBreakModeWordWrap];
+      [self.message setNumberOfLines:0];
+      [self.message setAlpha:0.f];
+    }
+    [self.message setFrame:CGRectMake(30.f, 380.f, 260.f, 60.f)];
+    [self.message setTextAlignment:UITextAlignmentCenter];
     [self.message setText:NSLocalizedString(@"PMSMessageLevelUp", nil)];
+    [self.message sizeToFit];
     [self.backgroundView addSubview:self.message];
     
     // Show info for Level Up
@@ -255,8 +290,11 @@
       [view removeFromSuperview];
     [self.view removeFromSuperview];
     
-    // ENS EVENT
-    [self.systemProcess endEvent];
+    // If battle is not started (Trainer has NO Pokemon available)
+    if (self.eventType & kGameBattleEventTypeNoPMAvailable)
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent object:self userInfo:nil];
+    else // ENS EVENT
+      [self.systemProcess endEvent];
   };
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f

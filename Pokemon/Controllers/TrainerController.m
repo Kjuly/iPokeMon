@@ -184,6 +184,8 @@ static TrainerController * trainerController_ = nil;
 
 // Return Pokemon at |index|(1-6) of six Pokemons
 - (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index {
+  if (index < 1 || index > 6)
+    return nil;
   return [self.entitySixPokemons objectAtIndex:--index];
 }
 
