@@ -229,7 +229,7 @@
   enemyPokemon  = nil;
   
   // Run battle begin background music
-  [self.audioPlayer playWithAudioType:kAudioBattleStartVSWildPM];
+  [self.audioPlayer playForAudioType:kAudioBattleStartVSWildPM];
   
   // Run battle begin animation is it's a new battle with the Pokemon
   [self runBattleBeginAnimation];

@@ -9,21 +9,29 @@
 #import "PMAudioPlayer.h"
 
 
+typedef enum {
+  kAudioActionPrepareToPlay = 0,
+  kAudioActionPlay,
+  kAudioActionPause,
+  kAudioActionStop
+}PMAudioAction;
+
 @interface PMAudioPlayer () {
  @private
-  AVAudioPlayer * audioPlayer_;
+  NSMutableDictionary * audioPlayers_;
 }
 
-@property (nonatomic, retain) AVAudioPlayer * audioPlayer;
+@property (nonatomic, copy) NSMutableDictionary * audioPlayers;
 
-- (NSString *)resourceNameForAuditType:(PMAudioType)audioType;
+- (void)_addAudioPlayerForAudioType:(PMAudioType)audioType withAction:(PMAudioAction)audioAction;
+- (NSString *)_resourceNameForAudioType:(PMAudioType)audioType;
 
 @end
 
 
 @implementation PMAudioPlayer
 
-@synthesize audioPlayer = audioPlayer_;
+@synthesize audioPlayers = audioPlayers_;
 
 // Singleton
 static PMAudioPlayer * gameAudioPlayer_ = nil;
@@ -40,60 +48,115 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 - (void)dealloc
 {
-  [audioPlayer_ release];
-  audioPlayer_ = nil;
+  [audioPlayers_ release];
+  self.audioPlayers = nil;
   
   [super dealloc];
 }
 
 - (id)init {
   if (self = [super init]) {
-//    audioPlayer_ = [[AVAudioPlayer alloc] init];
+    audioPlayers_ = [[NSMutableDictionary alloc] init];
   }
   return self;
 }
 
 #pragma mark - Public Methods
 
-/*/ get ready to play the sound. happens automatically on play
-- (void)prepareToPlayWithAudioType:(PMAudioType)audioType {
+// get ready to play the sound. happens automatically on play
+- (void)prepareToPlayForAudioType:(PMAudioType)audioType {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+  if (audioPlayer != nil) {
+    [audioPlayer prepareToPlay];
+    return;
+  }
   
-}*/
+  // If the Audio Player for type not exist, add new for this type
+  [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPrepareToPlay];
+  [[self.audioPlayers objectForKey:audioResourceName] prepareToPlay];
+}
 
 // Play
-- (void)playWithAudioType:(PMAudioType)audioType {
-  NSString * path = [[NSBundle mainBundle] pathForResource:[self resourceNameForAuditType:audioType]
-                                                    ofType:@"mp3"];
-  NSLog(@"Audio Path:%@", path);
+- (void)playForAudioType:(PMAudioType)audioType {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+  if (audioPlayer != nil) {
+    [audioPlayer play];
+    return;
+  }
   
-  NSError * error;
-  AVAudioPlayer * audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
-  self.audioPlayer = audioPlayer;
-  [audioPlayer release];
-  self.audioPlayer.delegate = self;
-  
-  if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
-  else [self.audioPlayer play];
+  // If the Audio Player for type not exist, add new for this type
+  [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPlay];
+  [[self.audioPlayers objectForKey:audioResourceName] play];
 }
 
 // resume to play
-- (void)resume {
-  [audioPlayer_ play];
+- (void)resumeForAudioType:(PMAudioType)audioType {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+  if (audioPlayer != nil) {
+    [audioPlayer play];
+    return;
+  }
+  
+  // If the Audio Player for type not exist, add new for this type
+  [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPlay];
+  [[self.audioPlayers objectForKey:audioResourceName] play];
 }
 
 // pauses playback, but remains ready to play
-- (void)pause {
-  [audioPlayer_ pause];
+- (void)pauseForAudioType:(PMAudioType)audioType {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+  if (audioPlayer != nil) {
+    [audioPlayer pause];
+    return;
+  }
+  
+  // If the Audio Player for type not exist, add new for this type
+  [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPause];
+  [[self.audioPlayers objectForKey:audioResourceName] prepareToPlay];
 }
 
  // stops playback. no longer ready to play
-- (void)stop {
-  [audioPlayer_ stop];
+- (void)stopForAudioType:(PMAudioType)audioType {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+  if (audioPlayer != nil) {
+    [audioPlayer stop];
+    return;
+  }
+  
+  // If the Audio Player for type not exist, add new for this type
+  [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionStop];
 }
 
 #pragma mark - Private Methods
 
-- (NSString *)resourceNameForAuditType:(PMAudioType)audioType {
+// Add a new audio player to |audioPlayers_|
+- (void)_addAudioPlayerForAudioType:(PMAudioType)audioType
+                         withAction:(PMAudioAction)audioAction {
+  NSLog(@"!!!AudioPlayer for AudioType_%d not exists, adding new......", audioType);
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  NSString * path = [[NSBundle mainBundle] pathForResource:audioResourceName ofType:@"mp3"];
+  NSLog(@"Audio Path:%@", path);
+  
+  NSError * error;
+  AVAudioPlayer * audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+  audioPlayer.delegate = self;
+  if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
+  else {
+    [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
+    AVAudioPlayer * addedAudioPlayer = [self.audioPlayers objectForKey:audioResourceName];
+    if      (audioAction == kAudioActionPlay)          [addedAudioPlayer play];
+    else if (audioAction == kAudioActionPrepareToPlay) [addedAudioPlayer prepareToPlay];
+  }
+  [audioPlayer release];
+}
+
+// Audio resource name for the audio type
+- (NSString *)_resourceNameForAudioType:(PMAudioType)audioType {
   NSString * resourceName;
   switch (audioType) {
     case kAudioGameGuide:
@@ -126,12 +189,12 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Audio finished playing
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-  NSLog(@"Playing Audio Finished");
+  NSLog(@"...Playing Audio Finished...");
 }
 
 // Audio playing ERROR
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
-  NSLog(@"Playing Audio Decode Error Occurred");
+  NSLog(@"!!!ERROR::Playing Audio Decode Error Occurred");
 }
 
 @end

@@ -21,10 +21,10 @@ typedef enum {
 
 + (PMAudioPlayer *)sharedInstance;
 
-//- (void)prepareToPlayWithAudioType:(PMAudioType)audioType; // get ready to play the sound. happens automatically on play
-- (void)playWithAudioType:(PMAudioType)audioType; // play
-- (void)resume;        // resume to play
-- (void)pause;         // pauses playback, but remains ready to play
-- (void)stop;          // stops playback. no longer ready to play
+- (void)prepareToPlayForAudioType:(PMAudioType)audioType; // get ready to play the sound. happens automatically on play
+- (void)playForAudioType:(PMAudioType)audioType;          // play
+- (void)resumeForAudioType:(PMAudioType)audioType;        // resume to play
+- (void)pauseForAudioType:(PMAudioType)audioType;         // pauses playback, but remains ready to play
+- (void)stopForAudioType:(PMAudioType)audioType;          // stops playback. no longer ready to play
 
 @end
