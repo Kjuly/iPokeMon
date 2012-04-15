@@ -10,12 +10,13 @@
 #import <AVFoundation/AVAudioPlayer.h>
 
 typedef enum {
-  kAudioGameERROR = 0,          // ERROR
+  kAudioNone = 0,
+  kAudioGameERROR,              // ERROR
   kAudioGameGuide,              // Newbie Guide
   kAudioGamePMRecovery,         // All Pokemon's HP/PP/Status Recovery
   kAudioGamePMEvolution,        // Pokemon Evolution
   kAudioGamePMEvolutionDone,    // Pokemon Evolution done
-  kAudioBattleStartVSWildPM,    // Battle start with Wild Pokemon
+  kAudioGameEND,                // === END mark - Game (App) Basic
   kAudioBattleUseMedicine,      // Use Medicine (Status Healer, HP/PP Restore)
   kAudioBattlePMLevelUp,        // Pokemon Level Up
   kAudioBattleThrowPokeball,    // Throw Pokeball (Replace Pokemon / Try to catch Wild Pokemon)
@@ -23,9 +24,12 @@ typedef enum {
   kAudioBattlePMCaught,         // Checking done with Wild Pokemon Caught
   kAudioBattlePMCaughtSucceed,  // Wild Pokemon Caught succeed
   kAudioBattlePMBrokeFree,      // Wild Pokemon broke free from Pokeball
-  kAudioBattleVictoryVSWildPM,  // Player WIN in battle VS. Wild Pokemon
   kAudioBattleRun,              // Player RUN in battle VS. Wild Pokemon
-  kAudioMoveBasicAttack         // MOVE: basic attack
+  kAudioMoveBasicAttack,        // MOVE: basic attack
+  kAudioBattleEND,              // === END mark - Battle Basic
+  kAudioBattleStartVSWildPM,    // - VS.WPM: Battle start with Wild Pokemon
+  kAudioBattleVictoryVSWildPM,  // - VS.WPM: Player WIN in battle VS. Wild Pokemon
+  kAudioBattleVSWildPmEND       // === END mark - Battle VS. Wild Pokemon
 }PMAudioType;
 
 @interface PMAudioPlayer : NSObject <AVAudioPlayerDelegate>
@@ -38,6 +42,8 @@ typedef enum {
 - (void)pauseForAudioType:(PMAudioType)audioType;         // pauses playback, but remains ready to play
 - (void)stopForAudioType:(PMAudioType)audioType;          // stops playback. no longer ready to play
 
+- (void)preloadForAppBasic;            // preload App basic audios    (|kAudioGame...|)
+- (void)preloadForBattleBasic;         // preload battle basic audios (|kAudioBattle...|)
 - (void)preloadForBattleVSWildPokemon; // preload resources for battle VS. Wild Pokemon
 //- (void)preloadForBattleVSTrainer;     // preload resources for battle VS. Trainer
 //- (void)preloadForBattleVSGymLeader;   // preload resources for battle VS. Gym Leader

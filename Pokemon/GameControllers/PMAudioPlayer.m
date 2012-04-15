@@ -140,14 +140,29 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 #pragma mark - Preloads
 
+// preload App basic audios (|kAudioGame...|)
+- (void)preloadForAppBasic {
+  for (PMAudioType audioType = kAudioNone + 1; audioType < kAudioGameEND; ++audioType)
+    if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
+      [self _addAudioPlayerForAudioType:audioType
+                             withAction:kAudioActionPrepareToPlay];
+}
+
+// preload game basic audios (|kAudioBattle...|)
+- (void)preloadForBattleBasic {
+  for (PMAudioType audioType = kAudioGameEND + 1; audioType < kAudioBattleEND; ++audioType)
+    if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
+      [self _addAudioPlayerForAudioType:audioType
+                             withAction:kAudioActionPrepareToPlay];
+}
+
 // Preload resources for battle VS. Wild Pokemon
 - (void)preloadForBattleVSWildPokemon {
-  if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleStartVSWildPM]] == nil)
-      [self _addAudioPlayerForAudioType:kAudioBattleStartVSWildPM
+  for (PMAudioType audioType = kAudioBattleEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
+    if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
+      [self _addAudioPlayerForAudioType:audioType
                              withAction:kAudioActionPrepareToPlay];
-  if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleVictoryVSWildPM]] == nil)
-      [self _addAudioPlayerForAudioType:kAudioBattleVictoryVSWildPM
-                             withAction:kAudioActionPrepareToPlay];
+  [self preloadForBattleBasic];
 }
 
 // Clean resources when END battle
@@ -206,6 +221,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   NSString * resourceName;
   
   switch (audioType) {
+    ///
+    // Game (APP)
     case kAudioGameERROR:
       break;
       
@@ -225,10 +242,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       resourceName = @"AudioGamePMEvolutionDone"; // Not added!!!
       break;
       
-    case kAudioBattleStartVSWildPM: // Battle start with Wild Pokemon
-      resourceName = @"AudioBattleStartVSWildPM";
-      break;
-      
+    ///
+    // Battle
     case kAudioBattleUseMedicine: // Use Medicine (Status Healer, HP/PP Restore)
       resourceName = @"AudioBattleUseMedicine";
       break;
@@ -257,16 +272,22 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       resourceName = @"AudioBattlePMBrokeFree";
       break;
       
-    case kAudioBattleVictoryVSWildPM: // Player WIN in battle VS. Wild Pokemon
-      resourceName = @"AudioBattleVictoryVSWildPM";
-      break;
-      
     case kAudioBattleRun: // Player RUN in battle VS. Wild Pokemon
       resourceName = @"AudioBattleRun";
       break;
       
     case kAudioMoveBasicAttack: // MOVE: basic attack
       resourceName = @"AudioMoveBasicAttack";
+      break;
+      
+    ////
+    // - VS.WPM (Wild PokeMon)
+    case kAudioBattleStartVSWildPM:   // - VS.WPM:Battle start with Wild Pokemon
+      resourceName = @"AudioBattleStartVSWildPM";
+      break;
+      
+    case kAudioBattleVictoryVSWildPM: // - VS.WPM:Player WIN in battle VS. Wild Pokemon
+      resourceName = @"AudioBattleVictoryVSWildPM";
       break;
       
     default:
