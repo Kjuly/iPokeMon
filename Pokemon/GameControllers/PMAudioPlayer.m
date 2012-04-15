@@ -62,6 +62,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 #pragma mark - Public Methods
+#pragma mark - Audio Player Manager
 
 // get ready to play the sound. happens automatically on play
 - (void)prepareToPlayForAudioType:(PMAudioType)audioType {
@@ -130,6 +131,23 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionStop];
+}
+
+#pragma mark - Preloads
+
+// Preload resources for battle VS. Wild Pokemon
+- (void)preloadForBattleVSWildPokemon {
+  if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleStartVSWildPM]] == nil)
+    [self _addAudioPlayerForAudioType:kAudioBattleStartVSWildPM
+                           withAction:kAudioActionPrepareToPlay];
+  if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleVictoryVSWildPM]] == nil)
+    [self _addAudioPlayerForAudioType:kAudioBattleVictoryVSWildPM
+                           withAction:kAudioActionPrepareToPlay];
+}
+
+// Clean resources when END battle
+- (void)endBattle {
+  [self.audioPlayers removeAllObjects];
 }
 
 #pragma mark - Private Methods

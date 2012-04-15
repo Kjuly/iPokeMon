@@ -11,6 +11,7 @@
 //#import "GameConfig.h"
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
+#import "PMAudioPlayer.h"
 #import "GameBattleLayer.h"
 #import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
@@ -24,11 +25,13 @@
 
 @interface GameMainViewController () {
  @private
+  PMAudioPlayer                 * audioPlayer_;
   CenterMainButtonStatus previousCenterMainButtonStatus_;
   GameBattleEventViewController * gameBattleEventViewController_;
   GameBattleEndViewController   * gameBattleEndViewController_;
 }
 
+@property (nonatomic, retain) PMAudioPlayer                 * audioPlayer;
 @property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
@@ -44,13 +47,15 @@
 
 @synthesize gameMenuViewController         = gameMenuViewController_;
 
+@synthesize audioPlayer                    = audioPlayer_;
 @synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
 @synthesize gameBattleEventViewController  = gameBattleEventViewController_;
 @synthesize gameBattleEndViewController    = gameBattleEndViewController_;
 
 - (void)dealloc
 {
-  [gameMenuViewController_ release];
+  [audioPlayer_                 release];
+  [gameMenuViewController_      release];
   [gameBattleEndViewController_ release];
   
   // Remove observers
@@ -127,6 +132,9 @@
   blankScene = nil;
   [[CCDirector sharedDirector] pause];
   
+  // Audio Player
+  self.audioPlayer = [PMAudioPlayer sharedInstance];
+  
   // Game Menu View Controller
   gameMenuViewController_ = [[GameMenuViewController alloc] init];
   gameMenuViewController_.delegate = self;
@@ -174,6 +182,7 @@
                      // Reset all status
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
+                     [self.audioPlayer endBattle];
                      [self.gameMenuViewController reset];
                    }];
 }
@@ -186,6 +195,9 @@
 //    // Show loading view to wait until data generate done
 //    NSLog(@"......PREPARING DATA for BATTLE......");
 //  }
+  
+  // Preload audio resources for battle scene
+  [self.audioPlayer preloadForBattleVSWildPokemon];
   
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   // Remember previous |centerMainButton_|'s status

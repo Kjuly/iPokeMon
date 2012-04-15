@@ -27,4 +27,9 @@ typedef enum {
 - (void)pauseForAudioType:(PMAudioType)audioType;         // pauses playback, but remains ready to play
 - (void)stopForAudioType:(PMAudioType)audioType;          // stops playback. no longer ready to play
 
+- (void)preloadForBattleVSWildPokemon; // preload resources for battle VS. Wild Pokemon
+//- (void)preloadForBattleVSTrainer;     // preload resources for battle VS. Trainer
+//- (void)preloadForBattleVSGymLeader;   // preload resources for battle VS. Gym Leader
+- (void)endBattle;
+
 @end

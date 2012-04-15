@@ -9,6 +9,7 @@
 #import "GameSystemProcess.h"
 
 #import "GlobalNotificationConstants.h"
+#import "PMAudioPlayer.h"
 #import "GameStatusMachine.h"
 #import "TrainerController.h"
 #import "WildPokemon+DataController.h"
@@ -70,6 +71,7 @@ typedef enum {
   NSInteger     enemyPokemonTransientAccuracy_;
   NSInteger     enemyPokemonTransientEvasion_;
   
+  PMAudioPlayer       * audioPlayer_;
   TrainerController   * trainer_;
   BOOL                  isBattleBetweenTrainers_;
   GameSystemProcessType processType_;          // What action process the system to deal with
@@ -85,6 +87,9 @@ typedef enum {
   BOOL      complete_;                         // Mark for system turn end
   NSInteger delayTime_;                        // Delay time for every turn
 }
+
+@property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
+@property (nonatomic, retain) TrainerController * trainer;
 
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
 - (void)fight;
@@ -113,6 +118,9 @@ typedef enum {
 @synthesize playerPokemon = playerPokemon_;
 @synthesize enemyPokemon  = enemyPokemon_;
 
+@synthesize audioPlayer   = audioPlayer_;
+@synthesize trainer       = trainer_;
+
 static GameSystemProcess * gameSystemProcess = nil;
 
 + (GameSystemProcess *)sharedInstance {
@@ -128,6 +136,9 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 - (void)dealloc
 {
+  self.audioPlayer = nil;
+  self.trainer     = nil;
+  
   [super dealloc];
 }
 
@@ -135,7 +146,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (self = [super init]) {
     [self reset];
     
-    trainer_              = [TrainerController sharedInstance];
+    self.audioPlayer      = [PMAudioPlayer     sharedInstance];
+    self.trainer          = [TrainerController sharedInstance];
     processType_          = kGameSystemProcessTypeNone;
     user_                 = kGameSystemProcessUserNone;
     moveIndex_            = 0;
@@ -1702,7 +1714,12 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // End battle with event
 - (void)endBattleWithEventType:(GameBattleEndEventType)battleEndEventType {
+  // END Battle background audio
+  [self.audioPlayer stopForAudioType:kAudioBattleStartVSWildPM];
+  
   if (battleEndEventType & kGameBattleEndEventTypeWin) {
+    // Run audio for victory
+    [self.audioPlayer playForAudioType:kAudioBattleVictoryVSWildPM];
     // Update message in |GameMenuViewController| to show Player WIN
     [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
   }
@@ -1711,10 +1728,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
-    BOOL isRunSucceed = YES;
-    if (! [self isRunSucceed]) {
-      isRunSucceed = NO;
-    }
+    BOOL isRunSucceed = [self isRunSucceed];
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];
