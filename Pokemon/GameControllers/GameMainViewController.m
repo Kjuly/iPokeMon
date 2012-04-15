@@ -193,7 +193,7 @@
                      // Reset all status
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
-                     [self.audioPlayer endBattle];
+//                     [self.audioPlayer endBattle];
                      [self.gameMenuViewController reset];
                    }];
 }

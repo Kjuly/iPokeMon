@@ -11,6 +11,7 @@
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
+#import "PMAudioPlayer.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerController.h"
@@ -34,6 +35,7 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
+  PMAudioPlayer                         * audioPlayer_;
   GameStatusMachine                     * gameStatusMachine_;
 //  GameTopViewController                 * gameTopViewController_;
   GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
@@ -60,6 +62,7 @@ typedef enum {
   
 }
 
+@property (nonatomic, retain) PMAudioPlayer                         * audioPlayer;
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
 //@property (nonatomic, retain) GameTopViewController                 * gameTopViewController;
 @property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
@@ -115,6 +118,7 @@ typedef enum {
 @synthesize buttonBag   = buttonBag_;
 @synthesize buttonRun   = buttonRun_;
 
+@synthesize audioPlayer                       = audioPlayer_;
 @synthesize gameStatusMachine                 = gameStatusMachine_;
 //@synthesize gameTopViewController             = gameTopViewController_;
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
@@ -277,6 +281,7 @@ typedef enum {
   [super viewDidLoad];
   
   // Base Settings
+  self.audioPlayer       = [PMAudioPlayer     sharedInstance];
   self.gameStatusMachine = [GameStatusMachine sharedInstance];
   self.gameMenuKeyView   = kGameMenuKeyViewNone;
   
@@ -620,6 +625,9 @@ typedef enum {
   [animations release];
   [self.pokeball.layer addAnimation:throwPokeballAnimation forKey:@"throwPokeball"];
   
+  // Play audio for throwing Pokeball
+  [self.audioPlayer playForAudioType:kAudioBattleThrowPokeball afterDelay:0];
+  
   // Set current battle pokemon ID
   self.currPokemon = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
   
@@ -707,6 +715,9 @@ typedef enum {
   throwPokeballAnimation.removedOnCompletion = NO;
   [animations release];
   [self.pokeball.layer addAnimation:throwPokeballAnimation forKey:@"throwPokeballToCatchWildPokemon"];
+  
+  // Play audio for throwing Pokeball
+  [self.audioPlayer playForAudioType:kAudioBattleThrowPokeball afterDelay:0];
 }
 
 // Check Pokeball whether the Wild Pokemon caught with animations
@@ -762,6 +773,9 @@ typedef enum {
   [animations release];
   
   [self.pokeball.layer addAnimation:checkPokeballAnimation forKey:@"checkPokeball"];
+  
+  // Play audio for checking Pokeball
+  [self.audioPlayer playForAudioType:kAudioBattlePMCaughtChecking afterDelay:0];
 }
 
 // Reset Pokeball

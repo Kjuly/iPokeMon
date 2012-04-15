@@ -121,6 +121,7 @@
     // Create a new scene
     // Generate a Wild Pokemon as the appeared Pokemon
     [self createNewSceneWithWildPokemonUID:[[WildPokemonController sharedInstance] appearedPokemonUID]];
+//    [self createNewSceneWithWildPokemonUID:8];
     
     // Add observer for notification to replace player, enemy's pokemon
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -229,7 +230,7 @@
   enemyPokemon  = nil;
   
   // Run battle begin background music
-  [self.audioPlayer playForAudioType:kAudioBattleStartVSWildPM];
+  [self.audioPlayer playForAudioType:kAudioBattleStartVSWildPM afterDelay:0];
   
   // Run battle begin animation is it's a new battle with the Pokemon
   [self runBattleBeginAnimation];

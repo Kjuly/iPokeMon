@@ -13,11 +13,11 @@ typedef enum {
   kAudioNone = 0,
   kAudioGameERROR,              // ERROR
   kAudioGameGuide,              // Newbie Guide
+  kAudioGameUseMedicine,        // Use Medicine (Status Healer, HP/PP Restore)
   kAudioGamePMRecovery,         // All Pokemon's HP/PP/Status Recovery
   kAudioGamePMEvolution,        // Pokemon Evolution
   kAudioGamePMEvolutionDone,    // Pokemon Evolution done
   kAudioGameEND,                // === END mark - Game (App) Basic
-  kAudioBattleUseMedicine,      // Use Medicine (Status Healer, HP/PP Restore)
   kAudioBattlePMLevelUp,        // Pokemon Level Up
   kAudioBattleThrowPokeball,    // Throw Pokeball (Replace Pokemon / Try to catch Wild Pokemon)
   kAudioBattlePMCaughtChecking, // When Caughting Wild Pokemon, do checking caught or not
@@ -37,7 +37,7 @@ typedef enum {
 + (PMAudioPlayer *)sharedInstance;
 
 - (void)prepareToPlayForAudioType:(PMAudioType)audioType; // get ready to play the sound. happens automatically on play
-- (void)playForAudioType:(PMAudioType)audioType;          // play
+- (void)playForAudioType:(PMAudioType)audioType afterDelay:(NSTimeInterval)delay; // play after delay
 - (void)resumeForAudioType:(PMAudioType)audioType;        // resume to play
 - (void)pauseForAudioType:(PMAudioType)audioType;         // pauses playback, but remains ready to play
 - (void)stopForAudioType:(PMAudioType)audioType;          // stops playback. no longer ready to play

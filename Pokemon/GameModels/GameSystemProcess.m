@@ -1236,6 +1236,13 @@ static GameSystemProcess * gameSystemProcess = nil;
   self.playerPokemon.hp = [NSNumber numberWithInt:playerPokemonHP];
   self.enemyPokemon.hp  = [NSNumber numberWithInt:enemyPokemonHP];
   
+  // !!!TODO
+  //   Different Move has its own audio type!
+  //
+  // If Move affect on HP, play Move Basic Attack Audio
+  if (userPokemonHPDelta < 0 || opposingPokemonHPDelta < 0)
+    [self.audioPlayer playForAudioType:kAudioMoveBasicAttack afterDelay:.8f];
+  
   // Post to |GameMenuViewController| to update pokemon status view
   NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:statusUpdateTarget],   @"target",
@@ -1307,7 +1314,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Caclute the result of EXP
   expGained = 10 * enemyPokemonLevel;
   
-  return expGained;
+//  return expGained;
+  return 1000000;
 }
 
 // Check Pokemon Faint or not
@@ -1490,13 +1498,17 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (succeed) {
     // Run Game Battle Event with Event:Caught WildPokemon
     [self runEventWithEventType:kGameBattleEventTypeCaughtWPM info:nil];
+    // Play AUDIO
+    [self.audioPlayer playForAudioType:kAudioBattlePMCaught afterDelay:.8];
+    [self.audioPlayer playForAudioType:kAudioBattlePMCaughtSucceed afterDelay:1.8f];
   }
   else {
     // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballLossWildPokemon object:self userInfo:nil];
-    
     // Update message in |GameMenuViewController| to show Catching WildPokemon Failed
     [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonFailed withMessageInfo:nil];
+    // Play AUDIO
+    [self.audioPlayer playForAudioType:kAudioBattlePMBrokeFree afterDelay:0];
   }
   delayTime_ = 0;
   [self endTurn];
@@ -1719,7 +1731,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   if (battleEndEventType & kGameBattleEndEventTypeWin) {
     // Run audio for victory
-    [self.audioPlayer playForAudioType:kAudioBattleVictoryVSWildPM];
+    [self.audioPlayer playForAudioType:kAudioBattleVictoryVSWildPM afterDelay:0];
     // Update message in |GameMenuViewController| to show Player WIN
     [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
   }
@@ -1728,12 +1740,17 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
-    BOOL isRunSucceed = [self isRunSucceed];
+//    BOOL isRunSucceed = [self isRunSucceed];
+    BOOL isRunSucceed = YES;
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];
     [self postMessageForProcessType:kGameSystemProcessTypeRun withMessageInfo:messageInfo];
     [messageInfo release];
+    
+    // If run succeed, play AUDIO
+    if (isRunSucceed)
+      [self.audioPlayer playForAudioType:kAudioBattleRun afterDelay:.8f];
     
     // If run faild, do not END battle
     if (! isRunSucceed) {

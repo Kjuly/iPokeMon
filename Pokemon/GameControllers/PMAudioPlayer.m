@@ -84,17 +84,17 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // Play
-- (void)playForAudioType:(PMAudioType)audioType {
+- (void)playForAudioType:(PMAudioType)audioType afterDelay:(NSTimeInterval)delay {
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
-    [audioPlayer play];
+    if (delay == 0) [audioPlayer play];
+    else            [audioPlayer playAtTime:(audioPlayer.deviceCurrentTime + delay)];
     return;
   }
   
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPlay];
-  [[self.audioPlayers objectForKey:audioResourceName] play];
 }
 
 // resume to play
@@ -108,7 +108,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPlay];
-  [[self.audioPlayers objectForKey:audioResourceName] play];
 }
 
 // pauses playback, but remains ready to play
@@ -122,7 +121,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPause];
-  [[self.audioPlayers objectForKey:audioResourceName] prepareToPlay];
 }
 
  // stops playback. no longer ready to play
@@ -189,7 +187,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   
   // Load audio resource
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSLog(@"!!!AudioPlayer for AudioType_%d not exists, adding new......", audioType);
+    NSLog(@"!!!AudioPlayer for AudioType::|%@| not exists, adding new......",
+          [self _resourceNameForAudioType:audioType]);
     NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
     
     NSError * error;
@@ -230,6 +229,10 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       resourceName = @"AudioGameGuide";
       break;
       
+    case kAudioGameUseMedicine: // Use Medicine (Status Healer, HP/PP Restore)
+      resourceName = @"AudioBattleUseMedicine";
+      break;
+      
     case kAudioGamePMRecovery: // All Pokemon's HP/PP/Status Recovery
       resourceName = @"AudioGamePMRecovery";
       break;
@@ -244,10 +247,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       
     ///
     // Battle
-    case kAudioBattleUseMedicine: // Use Medicine (Status Healer, HP/PP Restore)
-      resourceName = @"AudioBattleUseMedicine";
-      break;
-      
     case kAudioBattlePMLevelUp: // Pokemon Level Up
       resourceName = @"AudioBattlePMLevelUp";
       break;

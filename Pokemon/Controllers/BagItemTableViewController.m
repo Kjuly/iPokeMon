@@ -12,6 +12,7 @@
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "PListParser.h"
+#import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
@@ -22,6 +23,7 @@
 
 @interface BagItemTableViewController () {
  @private
+  PMAudioPlayer                     * audioPlayer_;
   BagItemTableViewCell              * selectedCell_;
   BagItemTableViewHiddenCell        * hiddenCell_;
   UIView                            * hiddenCellAreaView_;
@@ -29,6 +31,7 @@
   GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
 }
 
+@property (nonatomic, retain) PMAudioPlayer                     * audioPlayer;
 @property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
 @property (nonatomic, retain) UIView                            * hiddenCellAreaView;
@@ -55,12 +58,14 @@
 @implementation BagItemTableViewController
 
 @synthesize items                = items_;
+@synthesize selectedCellIndex    = selectedCellIndex_;
 @synthesize itemNumberSequence   = itemNumberSequence_;
 @synthesize targetType           = targetType_;
 @synthesize selectedPokemonIndex = selectedPokemonIndex_;
 @synthesize isDuringBattle       = isDuringBattle_;
 
-@synthesize selectedCellIndex                 = selectedCellIndex_;
+
+@synthesize audioPlayer                       = audioPlayer_;
 @synthesize selectedCell                      = selectedCell_;
 @synthesize hiddenCell                        = hiddenCell_;
 @synthesize hiddenCellAreaView                = hiddenCellAreaView_;
@@ -71,6 +76,7 @@
 {
   [items_ release];
   
+  self.audioPlayer  = nil;
   self.selectedCell = nil;
   self.hiddenCell   = nil;
   [hiddenCellAreaView_                release];
@@ -134,6 +140,7 @@
     targetType_           = 0;
     selectedPokemonIndex_ = 0;
     isDuringBattle_       = NO;
+    self.audioPlayer      = [PMAudioPlayer sharedInstance];
     
     // Cell Area View
     hiddenCellAreaView_ = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
@@ -401,6 +408,8 @@
       [self restorePPForPokemonMove:[targetPokemon moveWithIndex:selectedMoveIndex]
                     withBagMedicine:(BagMedicine *)anonymousEntity];
     } else return;
+    // Play AUDIO for using Medicine
+    [self.audioPlayer playForAudioType:kAudioGameUseMedicine afterDelay:1.f];
   }
 //  else if (self.targetType & kBagQueryTargetTypePokeball)     {}
   else if (self.targetType & kBagQueryTargetTypeTMHM)         {}

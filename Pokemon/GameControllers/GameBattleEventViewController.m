@@ -10,6 +10,7 @@
 
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
+#import "PMAudioPlayer.h"
 #import "GameSystemProcess.h"
 #import "TrainerController.h"
 #import "PokemonLevelUpUnitView.h"
@@ -19,6 +20,7 @@
 @interface GameBattleEventViewController () {
  @private
   GameBattleEventType      eventType_;
+  PMAudioPlayer          * audioPlayer_;
   GameSystemProcess      * systemProcess_;
   TrainerController      * trainer_;
   UIView                 * backgroundView_;
@@ -28,6 +30,7 @@
 }
 
 @property (nonatomic, assign) GameBattleEventType      eventType;
+@property (nonatomic, retain) PMAudioPlayer          * audioPlayer;
 @property (nonatomic, retain) GameSystemProcess      * systemProcess;
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UIView                 * backgroundView;
@@ -44,6 +47,7 @@
 @implementation GameBattleEventViewController
 
 @synthesize eventType            = eventType_;
+@synthesize audioPlayer          = audioPlayer_;
 @synthesize systemProcess        = systemProcess_;
 @synthesize trainer              = trainer_;
 @synthesize backgroundView       = backgroundView_;
@@ -54,6 +58,7 @@
 - (void)dealloc
 {
   [systemProcess_        release];
+  [audioPlayer_          release];
   [trainer_              release];
   [backgroundView_       release];
   [message_              release];
@@ -67,6 +72,7 @@
 {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
+    self.audioPlayer   = [PMAudioPlayer     sharedInstance];
     self.systemProcess = [GameSystemProcess sharedInstance];
     self.trainer       = [TrainerController sharedInstance];
   }
@@ -214,6 +220,9 @@
                        }
                        completion:nil];
     };
+    
+    // Play AUDIO
+    [self.audioPlayer playForAudioType:kAudioBattlePMLevelUp afterDelay:2.f];
   }
   // Evolution
   //
