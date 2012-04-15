@@ -49,6 +49,8 @@ NSString * const kPMNGameBattleRunEvent     = @"PMNGameBattleRunEvent";     // R
 NSString * const kPMNGameBattleEnd          = @"PMNGameBattleEnd";          // END Game Battle
 NSString * const kPMNGameBattleEndWithEvent = @"PMNGameBattleEndWithEvent"; // Battle END with Event
 
+NSString * const kPMNLoadingDone = @"PMNLoadingDone"; // Loading done
+
 @implementation GlobalNotificationConstants
 
 @end

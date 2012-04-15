@@ -47,6 +47,8 @@ extern NSString * const kPMNGameBattleRunEvent;
 extern NSString * const kPMNGameBattleEnd;
 extern NSString * const kPMNGameBattleEndWithEvent;
 
+extern NSString * const kPMNLoadingDone;
+
 @interface GlobalNotificationConstants : NSObject
 
 @end

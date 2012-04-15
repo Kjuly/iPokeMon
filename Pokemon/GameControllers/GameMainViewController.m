@@ -29,6 +29,7 @@
   CenterMainButtonStatus previousCenterMainButtonStatus_;
   GameBattleEventViewController * gameBattleEventViewController_;
   GameBattleEndViewController   * gameBattleEndViewController_;
+  BOOL                            isLoadingResourceForBattle_;
 }
 
 @property (nonatomic, retain) PMAudioPlayer                 * audioPlayer;
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
+- (void)startBattle:(NSNotification *)notification;
 - (void)loadBattleScene:(NSNotification *)notification;
 - (void)loadViewForEvent:(NSNotification *)notification;
 - (void)endGameBattleWithEvent:(NSNotification *)notification;
@@ -100,10 +102,18 @@
 {
   [super viewDidLoad];
   
+  // Basic settings
+  isLoadingResourceForBattle_ = NO;
+  
   // Add Notification Observer
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(loadBattleScene:)
+                                           selector:@selector(startBattle:)
                                                name:kPMNBattleStart
+                                             object:nil];
+  // Notification from |LoadingManageer| when loading done
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(loadBattleScene:)
+                                               name:kPMNLoadingDone
                                              object:nil];
   // Notification from |GameSystemProcess| when an EVENT occurred
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -189,23 +199,30 @@
 
 #pragma mark - Private Methods
 
-- (void)loadBattleScene:(NSNotification *)notification
-{
-//  if (! [[WildPokemonController sharedInstance] isReady]) {
-//    // Show loading view to wait until data generate done
-//    NSLog(@"......PREPARING DATA for BATTLE......");
-//  }
+- (void)startBattle:(NSNotification *)notification {
+  // Mark now is loading resources for battle,
+  //   so it can load battle scene when receives the notification from |LoadingManageer|
+  isLoadingResourceForBattle_ = YES;
+  
+  // Remember previous |centerMainButton_|'s status
+  NSLog(@"Pokemon Info: %@", notification.userInfo);
+  self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
   
   // Preload audio resources for battle scene
   [self.audioPlayer preloadForBattleVSWildPokemon];
-  
-  NSLog(@"Pokemon Info: %@", notification.userInfo);
-  // Remember previous |centerMainButton_|'s status
-  self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+}
+
+// Load battle scene
+- (void)loadBattleScene:(NSNotification *)notification {
+  // Only load scene when it is loading resource for battle
+  if (! isLoadingResourceForBattle_)
+    return;
+  // Reset mark
+  isLoadingResourceForBattle_ = NO;
   
   // Replace the previous scene before show the battle scene
+  //   and prepare data for new scene
   [[CCDirector sharedDirector] replaceScene:[GameBattleLayer scene]];
-  // Prepare data for new scene
   [[GameSystemProcess sharedInstance] prepareForNewSceneBattleBetweenTrainers:NO];
   [self.gameMenuViewController        prepareForNewScene];
   

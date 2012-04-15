@@ -8,16 +8,104 @@
 
 #import "LoadingManager.h"
 
+#import "GlobalConstants.h"
+#import "GlobalRender.h"
+#import "GlobalNotificationConstants.h"
+
+#pragma mark - LoadingBar
+
+@interface LoadingBar () {
+ @private
+  UIProgressView * progressBar_;
+}
+
+@property (nonatomic, retain) UIProgressView * progressBar;
+
+@end
+
+
+@implementation LoadingBar
+
+@synthesize progressBar = progressBar_;
+
+// Singleton
+static LoadingBar * loadingBar_ = nil;
++ (LoadingBar *)sharedInstance {
+  if (loadingBar_ != nil)
+    return loadingBar_;
+  
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    loadingBar_ = [[LoadingBar alloc] init];
+  });
+  return loadingBar_;
+}
+
+- (void)dealloc
+{
+  self.progressBar = nil;
+  
+  [super dealloc];
+}
+
+- (id)init {
+  if (self = [super initWithFrame:CGRectMake(0.f, kViewHeight - 20.f, kViewWidth, 20.f)]) {
+    self.windowLevel = UIWindowLevelStatusBar;
+    [self setBackgroundColor:[UIColor whiteColor]];
+    
+    progressBar_ = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [progressBar_ setFrame:CGRectMake(0.f, 5.f, 320.f, 20.f)];
+    [self addSubview:progressBar_];
+    
+    /*UILabel *label = [[UILabel alloc] initWithFrame:self.frame];
+    label.text = @"testing";
+    label.backgroundColor = [UIColor blackColor];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = UITextAlignmentCenter;
+    [self addSubview:label];
+    NSLog(@"label %@", label);
+    [label release];*/
+    
+    [self makeKeyAndVisible];
+  }
+  return self;
+}
+
+// Set value for progress bar
+- (void)setProgress:(float)progress {
+  if (progress < self.progressBar.progress || progress < 0)
+    return;
+  [self.progressBar setProgress:progress animated:YES];
+}
+
+// Done prgressing
+- (void)done {
+  [self.progressBar setProgress:0 animated:NO];
+  [[[[UIApplication sharedApplication] windows] objectAtIndex:0] makeKeyWindow];
+}
+
+@end
+
+
+#pragma mark -
+#pragma mark - LoadingManager
 
 @interface LoadingManager () {
  @private
-  NSInteger overViewLoadingCounter_;
-  NSInteger overBarLoadingCounter_;
+  NSInteger    overViewLoadingCounter_;
+  NSInteger    overBarLoadingCounter_;
+  LoadingBar * loadingBar_;
+  NSInteger    resourceCounter_;
 }
+
+@property (nonatomic, retain) LoadingBar * loadingBar;
+
 @end
 
 
 @implementation LoadingManager
+
+@synthesize loadingBar = loadingBar_;
 
 // Singleton
 static LoadingManager * loadingManager_ = nil;
@@ -34,6 +122,8 @@ static LoadingManager * loadingManager_ = nil;
 
 - (void)dealloc
 {
+  self.loadingBar = nil;
+  
   [super dealloc];
 }
 
@@ -41,6 +131,8 @@ static LoadingManager * loadingManager_ = nil;
   if (self = [super init]) {
     overViewLoadingCounter_ = 0;
     overBarLoadingCounter_  = 0;
+//    self.loadingBar         = [LoadingBar sharedInstance];
+    resourceCounter_        = 0;
   }
   return self;
 }
@@ -61,8 +153,11 @@ static LoadingManager * loadingManager_ = nil;
   --overViewLoadingCounter_;
   if (overViewLoadingCounter_ < 0)
     overViewLoadingCounter_ = 0;
-  if (overViewLoadingCounter_ == 0)
+  if (overViewLoadingCounter_ == 0) {
     [MBProgressHUD hideHUDForView:[[[UIApplication sharedApplication] delegate] window] animated:YES];
+    // Post notification that loading done
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoadingDone object:self userInfo:nil];
+  }
   NSLog(@"LOADING OVER VIEW HIDE: %d", overViewLoadingCounter_);
 }
 
@@ -99,6 +194,31 @@ static LoadingManager * loadingManager_ = nil;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     overBarLoadingCounter_ = 0;
   }
+}
+
+#pragma mark - Progress Bar's resource unit Management
+
+// New resource wait to be loaded
+- (void)addResourceToLoadingQueue {
+  ++resourceCounter_;
+  NSLog(@"+++ LOADING RESOURCES COUNT:%d", resourceCounter_);
+}
+
+// Done loading for a resource unit
+- (void)popResourceFromLoadingQueue {
+  if (resourceCounter_ == 0) {
+    NSLog(@"!!!|popResourceFromLoadingQueue| but |resourceCounter_| is 0 already!!!");
+    return;
+  }
+  
+  [self.loadingBar setProgress:(100.f / resourceCounter_)];
+  --resourceCounter_;
+  if (resourceCounter_ == 0) {
+    NSLog(@"--- LOADING RESOURCES DONE!");
+    [loadingBar_ done];
+    return;
+  }
+  NSLog(@"--- LOADING RESOURCES COUNT:%d", resourceCounter_);
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "PMAudioPlayer.h"
 
+#import "LoadingManager.h"
 
 typedef enum {
   kAudioActionPrepareToPlay = 0,
@@ -19,9 +20,11 @@ typedef enum {
 @interface PMAudioPlayer () {
  @private
   NSMutableDictionary * audioPlayers_;
+  LoadingManager      * loadingManager_;
 }
 
-@property (nonatomic, copy) NSMutableDictionary * audioPlayers;
+@property (nonatomic, copy)   NSMutableDictionary * audioPlayers;
+@property (nonatomic, retain) LoadingManager      * loadingManager;
 
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType withAction:(PMAudioAction)audioAction;
 - (NSString *)_resourceNameForAudioType:(PMAudioType)audioType;
@@ -31,7 +34,8 @@ typedef enum {
 
 @implementation PMAudioPlayer
 
-@synthesize audioPlayers = audioPlayers_;
+@synthesize audioPlayers   = audioPlayers_;
+@synthesize loadingManager = loadingManager_;
 
 // Singleton
 static PMAudioPlayer * gameAudioPlayer_ = nil;
@@ -57,6 +61,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 - (id)init {
   if (self = [super init]) {
     audioPlayers_ = [[NSMutableDictionary alloc] init];
+    self.loadingManager = [LoadingManager sharedInstance];
   }
   return self;
 }
@@ -138,11 +143,11 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 // Preload resources for battle VS. Wild Pokemon
 - (void)preloadForBattleVSWildPokemon {
   if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleStartVSWildPM]] == nil)
-    [self _addAudioPlayerForAudioType:kAudioBattleStartVSWildPM
-                           withAction:kAudioActionPrepareToPlay];
+      [self _addAudioPlayerForAudioType:kAudioBattleStartVSWildPM
+                             withAction:kAudioActionPrepareToPlay];
   if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:kAudioBattleVictoryVSWildPM]] == nil)
-    [self _addAudioPlayerForAudioType:kAudioBattleVictoryVSWildPM
-                           withAction:kAudioActionPrepareToPlay];
+      [self _addAudioPlayerForAudioType:kAudioBattleVictoryVSWildPM
+                             withAction:kAudioActionPrepareToPlay];
 }
 
 // Clean resources when END battle
@@ -163,22 +168,37 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 // Add a new audio player to |audioPlayers_|
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType
                          withAction:(PMAudioAction)audioAction {
-  NSLog(@"!!!AudioPlayer for AudioType_%d not exists, adding new......", audioType);
-  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  // Add resource unit to loading queue
+//  [self.loadingManager addResourceToLoadingQueue];
+  [self.loadingManager showOverView];
   
-  NSError * error;
-  AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
-  [audioPlayer initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:audioResourceName withExtension:@"mp3"]
-                               error:&error];
-  audioPlayer.delegate = self;
-  if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
-  else {
-    [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
-    if      (audioAction == kAudioActionPlay)          [audioPlayer play];
-    else if (audioAction == kAudioActionPrepareToPlay) [audioPlayer prepareToPlay];
-  }
-  [audioPlayer release];
-  audioPlayer = nil;
+  // Load audio resource
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    NSLog(@"!!!AudioPlayer for AudioType_%d not exists, adding new......", audioType);
+    NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+    
+    NSError * error;
+    AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
+    [audioPlayer initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:audioResourceName withExtension:@"mp3"]
+                                 error:&error];
+    audioPlayer.delegate = self;
+    if (error) {
+      NSLog(@"!!!Error: %@", [error localizedDescription]);
+    }
+    else {
+      [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
+      if      (audioAction == kAudioActionPlay)          [audioPlayer play];
+      else if (audioAction == kAudioActionPrepareToPlay) [audioPlayer prepareToPlay];
+    }
+    [audioPlayer release];
+    audioPlayer = nil;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      // Pop resource unit from loading queue
+//      [self.loadingManager popResourceFromLoadingQueue];
+      [self.loadingManager hideOverView];
+    });
+  });
 }
 
 // Audio resource name for the audio type
