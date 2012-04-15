@@ -304,7 +304,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Return UID for appeared Pokemon to generate Wild Pokemon for Game Battle Scene
 - (NSInteger)appearedPokemonUID {
   return UID_;
-//  return 1;
 }
 
 #pragma mark - Private Methods
@@ -471,8 +470,11 @@ static WildPokemonController * wildPokemonController_ = nil;
                       [NSNumber numberWithInt:habitat], @"t", nil];
   
   // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
-  NSArray      * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
-  WildPokemon  * wildPokemon = [[WildPokemon queryPokemonsWithSIDs:pokemonSIDs fetchLimit:1] lastObject];
+  NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
+  // Generate a random SID for fetching the related Wild Pokemon
+  NSInteger randomIndex = arc4random() % [pokemonSIDs count];
+  WildPokemon * wildPokemon =
+    [WildPokemon queryPokemonDataWithSID:[[pokemonSIDs objectAtIndex:randomIndex] intValue]];
   NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
         habitat, [pokemonSIDs componentsJoinedByString:@","], wildPokemon);
   
