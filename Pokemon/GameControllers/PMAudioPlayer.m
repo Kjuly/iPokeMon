@@ -204,25 +204,69 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 // Audio resource name for the audio type
 - (NSString *)_resourceNameForAudioType:(PMAudioType)audioType {
   NSString * resourceName;
+  
   switch (audioType) {
-    case kAudioGameGuide:
+    case kAudioGameERROR:
+      break;
+      
+    case kAudioGameGuide: // Newbie Guide
       resourceName = @"AudioGameGuide";
       break;
       
-    case kAudioGamePMRecovery:
+    case kAudioGamePMRecovery: // All Pokemon's HP/PP/Status Recovery
       resourceName = @"AudioGamePMRecovery";
       break;
       
-    case kAudioGamePMEvolution:
+    case kAudioGamePMEvolution: // Pokemon Evolution
       resourceName = @"AudioGamePMEvolution";
       break;
       
-    case kAudioBattleStartVSWildPM:
+    case kAudioGamePMEvolutionDone: // Pokemon Evolution done
+      resourceName = @"AudioGamePMEvolutionDone"; // Not added!!!
+      break;
+      
+    case kAudioBattleStartVSWildPM: // Battle start with Wild Pokemon
       resourceName = @"AudioBattleStartVSWildPM";
       break;
       
-    case kAudioBattleVictoryVSWildPM:
+    case kAudioBattleUseMedicine: // Use Medicine (Status Healer, HP/PP Restore)
+      resourceName = @"AudioBattleUseMedicine";
+      break;
+      
+    case kAudioBattlePMLevelUp: // Pokemon Level Up
+      resourceName = @"AudioBattlePMLevelUp";
+      break;
+      
+    case kAudioBattleThrowPokeball: // Throw Pokeball (Replace Pokemon / Try to catch Wild Pokemon)
+      resourceName = @"AudioBattleThrowPokeball";
+      break;
+      
+    case kAudioBattlePMCaughtChecking: // When Caughting Wild Pokemon, do checking caught or not
+      resourceName = @"AudioBattlePMCaughtChecking";
+      break;
+      
+    case kAudioBattlePMCaught: // Checking done with Wild Pokemon Caught
+      resourceName = @"AudioBattlePMCaught";
+      break;
+      
+    case kAudioBattlePMCaughtSucceed: // Wild Pokemon Caught succeed
+      resourceName = @"AudioBattlePMCaughtSucceed";
+      break;
+      
+    case kAudioBattlePMBrokeFree: // Wild Pokemon broke free from Pokeball
+      resourceName = @"AudioBattlePMBrokeFree";
+      break;
+      
+    case kAudioBattleVictoryVSWildPM: // Player WIN in battle VS. Wild Pokemon
       resourceName = @"AudioBattleVictoryVSWildPM";
+      break;
+      
+    case kAudioBattleRun: // Player RUN in battle VS. Wild Pokemon
+      resourceName = @"AudioBattleRun";
+      break;
+      
+    case kAudioMoveBasicAttack: // MOVE: basic attack
+      resourceName = @"AudioMoveBasicAttack";
       break;
       
     default:

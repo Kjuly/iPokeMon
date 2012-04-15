@@ -10,11 +10,22 @@
 #import <AVFoundation/AVAudioPlayer.h>
 
 typedef enum {
-  kAudioGameGuide = 0,
-  kAudioGamePMRecovery,
-  kAudioGamePMEvolution,
-  kAudioBattleStartVSWildPM,
-  kAudioBattleVictoryVSWildPM,
+  kAudioGameERROR = 0,          // ERROR
+  kAudioGameGuide,              // Newbie Guide
+  kAudioGamePMRecovery,         // All Pokemon's HP/PP/Status Recovery
+  kAudioGamePMEvolution,        // Pokemon Evolution
+  kAudioGamePMEvolutionDone,    // Pokemon Evolution done
+  kAudioBattleStartVSWildPM,    // Battle start with Wild Pokemon
+  kAudioBattleUseMedicine,      // Use Medicine (Status Healer, HP/PP Restore)
+  kAudioBattlePMLevelUp,        // Pokemon Level Up
+  kAudioBattleThrowPokeball,    // Throw Pokeball (Replace Pokemon / Try to catch Wild Pokemon)
+  kAudioBattlePMCaughtChecking, // When Caughting Wild Pokemon, do checking caught or not
+  kAudioBattlePMCaught,         // Checking done with Wild Pokemon Caught
+  kAudioBattlePMCaughtSucceed,  // Wild Pokemon Caught succeed
+  kAudioBattlePMBrokeFree,      // Wild Pokemon broke free from Pokeball
+  kAudioBattleVictoryVSWildPM,  // Player WIN in battle VS. Wild Pokemon
+  kAudioBattleRun,              // Player RUN in battle VS. Wild Pokemon
+  kAudioMoveBasicAttack         // MOVE: basic attack
 }PMAudioType;
 
 @interface PMAudioPlayer : NSObject <AVAudioPlayerDelegate>
