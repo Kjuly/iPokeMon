@@ -147,6 +147,14 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Clean resources when END battle
 - (void)endBattle {
+  /*NSEnumerator * enumerator = [self.audioPlayers keyEnumerator];
+  if (enumerator == nil)
+    return;
+  id key;
+  while ((key = [enumerator nextObject])) {
+    [[self.audioPlayers objectForKey:key] ];
+  }*/
+  
   [self.audioPlayers removeAllObjects];
 }
 
@@ -157,20 +165,20 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
                          withAction:(PMAudioAction)audioAction {
   NSLog(@"!!!AudioPlayer for AudioType_%d not exists, adding new......", audioType);
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
-  NSString * path = [[NSBundle mainBundle] pathForResource:audioResourceName ofType:@"mp3"];
-  NSLog(@"Audio Path:%@", path);
   
   NSError * error;
-  AVAudioPlayer * audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+  AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
+  [audioPlayer initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:audioResourceName withExtension:@"mp3"]
+                               error:&error];
   audioPlayer.delegate = self;
   if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
   else {
     [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
-    AVAudioPlayer * addedAudioPlayer = [self.audioPlayers objectForKey:audioResourceName];
-    if      (audioAction == kAudioActionPlay)          [addedAudioPlayer play];
-    else if (audioAction == kAudioActionPrepareToPlay) [addedAudioPlayer prepareToPlay];
+    if      (audioAction == kAudioActionPlay)          [audioPlayer play];
+    else if (audioAction == kAudioActionPrepareToPlay) [audioPlayer prepareToPlay];
   }
   [audioPlayer release];
+  audioPlayer = nil;
 }
 
 // Audio resource name for the audio type

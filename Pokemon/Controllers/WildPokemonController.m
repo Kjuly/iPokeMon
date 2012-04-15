@@ -224,9 +224,9 @@ static WildPokemonController * wildPokemonController_ = nil;
   NSURL * url = [[NSURL alloc] initWithString:requestURL];
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
   [url release];
-  NSString * body = @"sensor=true";
+//  NSString * body = @"sensor=true";
   [request setHTTPMethod:@"POST"];
-  [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+//  [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
   //
   // !!!TODO
   //   When network is not available, timeout not works!!!
