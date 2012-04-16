@@ -663,6 +663,7 @@
 		7F91D1D814EE868100476AFB /* 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14114EE868100476AFB /* 150.png */; };
 		7F91D1D914EE868100476AFB /* 151.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14214EE868100476AFB /* 151.png */; };
 		7F91D1DA14EE868100476AFB /* 091.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D14314EE868100476AFB /* 091.png */; };
+		7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */; };
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
@@ -1877,6 +1878,7 @@
 		7F91D14114EE868100476AFB /* 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 150.png; sourceTree = "<group>"; };
 		7F91D14214EE868100476AFB /* 151.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 151.png; sourceTree = "<group>"; };
 		7F91D14314EE868100476AFB /* 091.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 091.png; sourceTree = "<group>"; };
+		7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlingVSWildPM.mp3; sourceTree = "<group>"; };
 		7F9F15B415089F8800795591 /* GamePokemonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePokemonSprite.h; sourceTree = "<group>"; };
 		7F9F15B515089F8900795591 /* GamePokemonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonSprite.m; sourceTree = "<group>"; };
 		7F9F15B71508B12600795591 /* GamePlayerProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePlayerProcess.h; path = ../GameModels/GamePlayerProcess.h; sourceTree = "<group>"; };
@@ -3220,6 +3222,7 @@
 		7F6E6CF414D6CB9800033C65 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */,
 				7FB13529153B14ED00975CB5 /* AudioBattlePMBrokeFree.mp3 */,
 				7FB1352A153B14ED00975CB5 /* AudioBattlePMCaught.mp3 */,
 				7FB1352B153B14ED00975CB5 /* AudioBattlePMCaughtChecking.mp3 */,
@@ -4811,6 +4814,7 @@
 				7FB1353A153B14EE00975CB5 /* AudioGameUseMedicine.mp3 in Resources */,
 				7FB1353B153B14EE00975CB5 /* AudioGameERROR.mp3 in Resources */,
 				7FB1353C153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 in Resources */,
+				7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

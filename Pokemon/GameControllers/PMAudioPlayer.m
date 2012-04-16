@@ -201,10 +201,13 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
     AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
     [audioPlayer initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:audioResourceName withExtension:@"mp3"]
                                  error:&error];
-    audioPlayer.delegate = self;
-    if (error) {
-      NSLog(@"!!!Error: %@", [error localizedDescription]);
+    [audioPlayer setDelegate:self];
+    // Set LOOP for special AUDIO
+    if (audioType == kAudioBattlingVSWildPM) {
+      [audioPlayer setNumberOfLoops:-1];
     }
+    
+    if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
     else {
       [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
       if      (audioAction == kAudioActionPlay)          [audioPlayer play];
@@ -289,6 +292,10 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
     // - VS.WPM (Wild PokeMon)
     case kAudioBattleStartVSWildPM:   // - VS.WPM:Battle start with Wild Pokemon
       resourceName = @"AudioBattleStartVSWildPM";
+      break;
+      
+    case kAudioBattlingVSWildPM:      // - VS.WPM: Batting
+      resourceName = @"AudioBattlingVSWildPM";
       break;
       
     case kAudioBattleVictoryVSWildPM: // - VS.WPM:Player WIN in battle VS. Wild Pokemon

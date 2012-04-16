@@ -231,6 +231,7 @@
   
   // Run battle begin background music
   [self.audioPlayer playForAudioType:kAudioBattleStartVSWildPM afterDelay:0];
+  [self.audioPlayer playForAudioType:kAudioBattlingVSWildPM afterDelay:2.95f];
   
   // Run battle begin animation is it's a new battle with the Pokemon
   [self runBattleBeginAnimation];

@@ -1730,7 +1730,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self.audioPlayer stopForAudioType:kAudioBattleStartVSWildPM];
   
   if (battleEndEventType & kGameBattleEndEventTypeWin) {
-    // Run audio for victory
+    // Stop battling audio & Run audio for VICTORY
+    [self.audioPlayer stopForAudioType:kAudioBattlingVSWildPM];
     [self.audioPlayer playForAudioType:kAudioBattleVictoryVSWildPM afterDelay:0];
     // Update message in |GameMenuViewController| to show Player WIN
     [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];

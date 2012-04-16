@@ -28,6 +28,7 @@ typedef enum {
   kAudioMoveBasicAttack,        // MOVE: basic attack
   kAudioBattleEND,              // === END mark - Battle Basic
   kAudioBattleStartVSWildPM,    // - VS.WPM: Battle start with Wild Pokemon
+  kAudioBattlingVSWildPM,       // - VS.WPM: Batting
   kAudioBattleVictoryVSWildPM,  // - VS.WPM: Player WIN in battle VS. Wild Pokemon
   kAudioBattleVSWildPmEND       // === END mark - Battle VS. Wild Pokemon
 }PMAudioType;
