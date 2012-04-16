@@ -10,9 +10,7 @@
 
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
-#import "GlobalRender.h"
 #import "TrainerController.h"
-#import "WildPokemonController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "LoginTableViewController.h"
 #import "NewbieGuideViewController.h"
@@ -98,8 +96,8 @@
 
 @implementation MainViewController
 
-@synthesize centerMainButton = centerMainButton_;
-@synthesize mapButton        = mapButton_;
+@synthesize centerMainButton       = centerMainButton_;
+@synthesize mapButton              = mapButton_;
 @synthesize gameMainViewController = gameMainViewController_;
 
 @synthesize centerMenuUtilityNavigationController     = centerMenuUtilityNavigationController_;
@@ -293,11 +291,9 @@
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
-//  [[WildPokemonController sharedInstance] updateForCurrentRegion];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
   
   self.centerMainButton = nil;
@@ -319,13 +315,11 @@
   self.longTapTimer = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -528,8 +522,7 @@
 }
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
-- (void)closeCenterMenuView
-{
+- (void)closeCenterMenuView {
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
                                                       object:self
                                                     userInfo:nil];
@@ -540,8 +533,7 @@
 
 // Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
 // Close the |centerMenu_| when necessary
-- (void)activateCenterMenuOpenStatusTimer
-{
+- (void)activateCenterMenuOpenStatusTimer {
   self.centerMenuOpenStatusTimeCounter = 0;
   self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.f
                                                                     target:self
@@ -556,8 +548,7 @@
 }
 
 // Close |centerMenu_| when long time no operation 
-- (void)closeCenterMenuWhenLongTimeNoOperation
-{
+- (void)closeCenterMenuWhenLongTimeNoOperation {
   self.centerMenuOpenStatusTimeCounter += 5;
   NSLog(@"%d", self.centerMenuOpenStatusTimeCounter);
   if (self.centerMenuOpenStatusTimeCounter == 10) {
@@ -567,8 +558,7 @@
 }
 
 // |centerMainButton_| touch down action
-- (void)countLongTapTimeWithAction:(id)sender
-{
+- (void)countLongTapTimeWithAction:(id)sender {
   if (! self.isCenterMenuOpening && self.centerMainButtonMessageSignal != kCenterMainButtonMessageSignalPokemonAppeared) {
     // Start time counting
     self.currentKeyButton = (UIButton *)sender;
@@ -583,18 +573,17 @@
 }
 
 // Method for counting Tap Down time
-- (void)increaseTimeWithAction
-{
+- (void)increaseTimeWithAction {
   ++self.timeCounter;
   NSLog(@"Touch Keep Time: %d", self.timeCounter);
   
   NSInteger buttonTag = self.currentKeyButton.tag;
   
+  ///TARGET:|centerMainButton_|
   // If the target is |centerMainButton_|, and |timeCounter_ >= 1.0|, loading it
   // Time: delay 1.0 second, then every 2.0 second got a new point
   if (! self.isCenterMainButtonTouchDownCircleViewLoading && buttonTag == kTagMainViewCenterMainButton
-      && ! self.isCenterMenuOpening && self.timeCounter >= 1.f)
-  {
+      && ! self.isCenterMenuOpening && self.timeCounter >= 1.f) {
     // Run this block after |mapButton_| moved to view top
     void (^completionBlock)(BOOL) = ^(BOOL finished) {
       NSLog(@"increaseTimeWithAction - Start loading |centerMainButtonTouchDownCircleView|...");
@@ -619,16 +608,16 @@
     [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:completionBlock];
   }
   
+  ///TARGET:|mapButton_|
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
-  else if (buttonTag == kTagMainViewMapButton && self.timeCounter >= 3.f) {
+  else if (buttonTag == kTagMainViewMapButton && self.timeCounter > 2.f) {
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }
 }
 
 // |mapButton_| action
-- (void)toggleMapView:(id)sender
-{
+- (void)toggleMapView:(id)sender {
   [self.longTapTimer invalidate];
   // If Location Service is not allowed, do nothing
   if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"] || self.timeCounter >= 6.f)
@@ -695,26 +684,27 @@
 }
 
 // Toggle Location Service after long press on |mapButton_|
-- (void)toggleLocationService
-{
+- (void)toggleLocationService {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults boolForKey:@"keyAppSettingsLocationServices"]) {
     NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:@"keyAppSettingsLocationServices"];
     [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
-  }
-  else {
+    // Post notification to |MapViewController| to stop location tracking
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
+  } else {
     NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:@"keyAppSettingsLocationServices"];
     [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+    // Post notification to |MapViewController| to start location tracking
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
-  NSLog(@"%d", [[userDefaults objectForKey:@"keyAppSettingsLocationServices"] intValue]);
 }
 
 // Set layouts for buttons
-- (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL))completion
-{
-  void (^animationBlock)() = ^(){
+- (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts
+      withCompletionBlock:(void (^)(BOOL))completion {
+  void (^animations)() = ^{
     CGRect centerMainButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                                               (kViewHeight - kCenterMainButtonSize) / 2,
                                               kCenterMainButtonSize,
@@ -740,7 +730,7 @@
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
-                   animations:animationBlock
+                   animations:animations
                    completion:completion];
 }
 

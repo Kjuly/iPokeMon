@@ -114,10 +114,10 @@
   // Add observers for notification
   // Notification from |MainViewController| when |mapButton_| pressed
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(resetIsPokemonAppeared:)
+                                           selector:@selector(enableTracking:)
                                                name:kPMNEnableTracking object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(resetIsPokemonAppeared:)
+                                           selector:@selector(disableTracking:)
                                                name:kPMNDisableTracking object:nil];
   // When game battle END
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -227,7 +227,7 @@
   
   // If there's no Wild Pokemon Arreared yet, and got the basic required move distance,
   //   Generate a Wild Pokemon for player
-  if (! self.isPokemonAppeared && self.moveDistance > 100.0f && arc4random() % 2) {
+  if (! self.isPokemonAppeared && self.moveDistance > 10000.0f && arc4random() % 2) {
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
     
@@ -338,19 +338,22 @@
 
 // Enable tracking
 - (void)enableTracking:(NSNotification *)notification {
+  NSLog(@"|%@| - ENABLING TRACKING...", [self class]);
   self.isEnableTracking = YES;
   [self setEventTimerStatusToRunning:YES];
 }
 
 // Disable tracking
 - (void)disableTracking:(NSNotification *)notification {
-  self.isEnableTracking  = NO;
-  self.isPokemonAppeared = NO;
-  [self setEventTimerStatusToRunning:NO];
-  
+  NSLog(@"|%@| - DISABLING TRACKING...", [self class]);
   // Stop updating Location
   self.isUpdatingLocation = NO;
   [self.locationManager stopUpdatingLocation];
+  
+  // Reset basic settings
+  self.isEnableTracking  = NO;
+  self.isPokemonAppeared = NO;
+  [self setEventTimerStatusToRunning:NO];
   
   // Reset |moveDistance_|
   self.moveDistance = 0;
@@ -366,7 +369,7 @@
 }
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification {
-  if (self.isEnableTracking) {
+  if (self.isEnableTracking && [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"]) {
     NSLog(@"resetIsPokemonAppeared");
     self.isPokemonAppeared = NO;
     [self setEventTimerStatusToRunning:YES];
