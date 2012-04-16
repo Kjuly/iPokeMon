@@ -17,9 +17,6 @@
   CGRect    buttonOriginFrame_;
 }
 
-@property (nonatomic, assign) NSInteger buttonCount;
-@property (nonatomic, assign) CGRect buttonOriginFrame;
-
 - (void)closeCenterMenuView:(NSNotification *)notification;
 - (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse;
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin;
@@ -29,23 +26,25 @@
 
 @implementation AbstractCenterMenuViewController
 
-@synthesize centerMenu    = centerMenu_;
+@synthesize centerMenu = centerMenu_;
 
-@synthesize buttonCount       = buttonCount_;
-@synthesize buttonOriginFrame = buttonOriginFrame_;
-
--(void)dealloc
-{
-  [centerMenu_ release];
-  
+-(void)dealloc {
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  for (UIView *view in [self.centerMenu subviews]) {
+    [view removeFromSuperview];
+    view = nil;
+  }
+  self.centerMenu = nil;
 }
 
 - (id)initWithButtonCount:(NSInteger)buttonCount
 {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if (self = [self initWithNibName:nil bundle:nil])
     buttonCount_ = buttonCount; // Min: 1, Max: 6
-  }
   return self;
 }
 
@@ -71,17 +70,13 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
   
   // Center Menu View
-  UIView * centerMenu = [[UIView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMenuSize) / 2,
-                                                                 (kViewHeight - kCenterMenuSize) / 2,
-                                                                 kCenterMenuSize,
-                                                                 kCenterMenuSize)];
-  
+  CGRect centerMenuFrame = CGRectMake((kViewWidth - kCenterMenuSize) / 2, (kViewHeight - kCenterMenuSize) / 2, kCenterMenuSize, kCenterMenuSize);
+  UIView * centerMenu = [[UIView alloc] initWithFrame:centerMenuFrame];
   self.centerMenu = centerMenu;
   [centerMenu release];
   [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
@@ -94,7 +89,7 @@
                                   (kCenterMenuSize - kCenterMainButtonSize) / 2,
                                   kCenterMenuButtonSize,
                                   kCenterMenuButtonSize);
-  for (int i = 0; i < self.buttonCount;) {
+  for (int i = 0; i < buttonCount_;) {
     UIButton * button = [[UIButton alloc] initWithFrame:buttonOriginFrame_];
     [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
                       forState:UIControlStateNormal];
@@ -107,30 +102,24 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-
-  self.centerMenu = nil;
+  [self releaseSubviews];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -138,9 +127,7 @@
 #pragma mark - Publich Button Action
 
 // Run action depend on button, it'll be implemented by subclass
-- (void)runButtonActions:(id)sender
-{
-}
+- (void)runButtonActions:(id)sender {}
 
 // Push View Controller
 - (void)pushViewController:(id)viewController {
@@ -167,15 +154,13 @@
 
 // Check device's system, it it's lower than iOS5.0, methods like |viewWillAppear:| will not be called
 // So, manually send them
-- (void)checkDeviceSystemFor:(id)viewController
-{
+- (void)checkDeviceSystemFor:(id)viewController {
   if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
     [viewController viewWillAppear:YES];
 }
 
 // Open center menu view
-- (void)openCenterMenuView
-{
+- (void)openCenterMenuView {
   // Show buttons with animation
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -204,8 +189,7 @@
 }
 
 // Change |centerMainButton_|'s status in main view
-- (void)changeCenterMainButtonStatusToMove:(CenterMainButtonStatus)centerMainButtonStatus
-{
+- (void)changeCenterMainButtonStatusToMove:(CenterMainButtonStatus)centerMainButtonStatus {
   // |centerMainButtonStatus : 1|, move |centerMainButton_| to view bottom
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:centerMainButtonStatus], @"centerMainButtonStatus", nil];
@@ -246,7 +230,7 @@
                       options:UIViewAnimationCurveEaseIn
                    animations:^{
                      for (UIButton * button in [self.centerMenu subviews])
-                       [button setFrame:self.buttonOriginFrame];
+                       [button setFrame:buttonOriginFrame_];
                      [self.centerMenu setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
@@ -284,7 +268,7 @@
   //     /|\       /|\        /|\       /|\       /|\       /|\
   //                           o       o   o     o   o     o o o
   //
-  switch (self.buttonCount) {
+  switch (buttonCount_) {
     case 1:
       [self setButtonWithTag:1 origin:CGPointMake(centerBallMenuHalfSize - buttonRadius,
                                                   centerBallMenuHalfSize - triangleHypotenuse - buttonRadius)];
@@ -375,8 +359,7 @@
 }
 
 // Set Frame for button with special tag
-- (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin
-{
+- (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin {
   UIButton * button = (UIButton *)[self.centerMenu viewWithTag:buttonTag];
   [button setFrame:CGRectMake(origin.x, origin.y, kCenterMenuButtonSize, kCenterMenuButtonSize)];
   button = nil;

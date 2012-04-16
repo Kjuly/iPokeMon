@@ -50,14 +50,18 @@
 @synthesize trainerCardViewController      = trainerCardViewController;
 @synthesize settingTableViewController     = settingTableViewController_;
 
--(void)dealloc
-{ 
+-(void)dealloc {
   [pokedexTableViewController_     release];
   [sixPokemonsTableViewController_ release];
   [bagTableViewController_         release];
   [trainerCardViewController_      release];
   [settingTableViewController_     release];
-  
+  self.pokedexTableViewController     = nil;
+  self.sixPokemonsTableViewController = nil;
+  self.bagTableViewController         = nil;
+  self.trainerCardViewController      = nil;
+  self.settingTableViewController     = nil;
+  [self releaseSubviews];
   [super dealloc];
 }
 
@@ -83,20 +87,13 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokedexTableViewController     = nil;
-  self.sixPokemonsTableViewController = nil;
-  self.bagTableViewController         = nil;
-  self.trainerCardViewController      = nil;
-  self.settingTableViewController     = nil;
+  [self releaseSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,8 +106,7 @@
 
 #pragma mark - Button Action
 
-- (void)runButtonActions:(id)sender
-{
+- (void)runButtonActions:(id)sender {
   [super runButtonActions:sender];
   
   NSInteger buttonTag = ((UIButton *)sender).tag;

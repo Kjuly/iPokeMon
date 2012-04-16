@@ -9,4 +9,5 @@
 #import "AbstractCenterMenuViewController.h"
 
 @interface CenterMenuUtilityViewController : AbstractCenterMenuViewController
+
 @end

@@ -27,59 +27,51 @@
 
 @synthesize sixPokemons = sixPokemons_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   [sixPokemons_ release];
-  
+  self.sixPokemons = nil;
+  [self releaseSubviews];
   [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
+  // Releases the view if it doesn't have a superview.
+  [super didReceiveMemoryWarning];
+  
+  // Release any cached data, images, etc that aren't in use.
+  [sixPokemons_ release];
+  self.sixPokemons = nil;
 }
 
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
-  
   self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.sixPokemons = nil;
+  [self releaseSubviews];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
   if ([self.sixPokemons count] > 0) {
     // Set Buttons' style in center menu view
     NSInteger i = -1;
     for (UIButton * button in [self.centerMenu subviews]) {
-      TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:++i];
-      Pokemon * pokemonBaseInfo = pokemonData.pokemon;
-      //
-      // TODO:
-      //   Replace |image| to |imageIcon|
-      //
-      [button setImage:pokemonBaseInfo.imageIcon forState:UIControlStateNormal];
+      TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:++i];
+      [button setImage:tamedPokemon.pokemon.imageIcon forState:UIControlStateNormal];
+      tamedPokemon = nil;
     }
   }
 }
@@ -87,14 +79,13 @@
 #pragma mark - Button Action
 
 // Button actions, declared in parent VC
-- (void)runButtonActions:(id)sender
-{
+- (void)runButtonActions:(id)sender {
   [super runButtonActions:sender];
   
   // Load Pokemon's detail information view
-  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
-    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
-                                                     withTopbar:YES];
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
+  [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
+                                           withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
   [sixPokemonsDetailTabViewController release];
   
