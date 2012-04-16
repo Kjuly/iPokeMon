@@ -26,21 +26,18 @@
 
 @implementation GamePlayerProcess
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     complete_ = NO;
   }
   return self;
 }
 
-- (void)update:(ccTime)dt
-{
+- (void)update:(ccTime)dt {
   // Player will control the turn and send
   //   |[[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];|,
   // so jsut pass here if completed.
@@ -59,8 +56,8 @@
 
 #pragma mark - Private Methods
 
-- (void)sendMessageToPlayer
-{
+// Send message to Player (i.e. update text in |messageView_| of |GameMenuViewController| )
+- (void)sendMessageToPlayer {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   
   NSString * message;

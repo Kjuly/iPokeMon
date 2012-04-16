@@ -50,11 +50,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   return gameAudioPlayer_;
 }
 
-- (void)dealloc
-{
-  [audioPlayers_ release];
+- (void)dealloc {
   self.audioPlayers = nil;
-  
   [super dealloc];
 }
 

@@ -13,7 +13,6 @@
 #import "GameStatusMachine.h"
 #import "TrainerController.h"
 #import "WildPokemon+DataController.h"
-#import "Move.h"
 
 
 // System Process Type
@@ -52,6 +51,9 @@ typedef enum {
 
 @interface GameSystemProcess () {
 @private
+  PMAudioPlayer     * audioPlayer_; // AUDIO player
+  TrainerController * trainer_;     // Trainer Controller
+  
   // Pokemon transient status
   NSInteger     playerPokemonPPInOne_;            // Store four Moves' PP data
   PokemonStatus playerPokemonStatus_;
@@ -71,8 +73,6 @@ typedef enum {
   NSInteger     enemyPokemonTransientAccuracy_;
   NSInteger     enemyPokemonTransientEvasion_;
   
-  PMAudioPlayer       * audioPlayer_;
-  TrainerController   * trainer_;
   BOOL                  isBattleBetweenTrainers_;
   GameSystemProcessType processType_;          // What action process the system to deal with
   GameSystemProcessUser user_;                 // Action (use move, bag item, etc) user
@@ -121,8 +121,8 @@ typedef enum {
 @synthesize audioPlayer   = audioPlayer_;
 @synthesize trainer       = trainer_;
 
+// Singleton
 static GameSystemProcess * gameSystemProcess = nil;
-
 + (GameSystemProcess *)sharedInstance {
   if (gameSystemProcess != nil)
     return gameSystemProcess;
@@ -134,11 +134,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   return gameSystemProcess;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.audioPlayer = nil;
   self.trainer     = nil;
-  
   [super dealloc];
 }
 
@@ -158,8 +156,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   return self;
 }
 
-- (void)prepareForNewSceneBattleBetweenTrainers:(BOOL)battleBetweenTrainers
-{
+// Prepare for new battle scene
+- (void)prepareForNewSceneBattleBetweenTrainers:(BOOL)battleBetweenTrainers {
   isBattleBetweenTrainers_ = battleBetweenTrainers;
   // Reset HP for enemy Pokemon
   NSArray * stats = [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
@@ -182,9 +180,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
 }
 
-// Update Game loop
-- (void)update:(ccTime)dt
-{
+///
+// Update GAME LOOP
+- (void)update:(ccTime)dt {
   delayTime_ += 100 * dt;
   
   // If there's an EVENT running, wait for it ended
@@ -233,7 +231,6 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)endTurn {
   if (eventType_ != kGameBattleEventTypeNone)
     return;
-  
   if (processType_ != kGameSystemProcessTypeBattleEnd)
     complete_ = YES;
 }
@@ -241,7 +238,6 @@ static GameSystemProcess * gameSystemProcess = nil;
 // End event e.g. Level Up, Evoluation, Caught WPM, etc
 - (void)endEvent {
   eventType_ = kGameBattleEventTypeNone;
-  
   // If game battle already END, unload battle scene
   if (processType_ == kGameSystemProcessTypeBattleEnd)
     [self endBattleWithEventType:kGameBattleEndEventTypeNone];
@@ -255,7 +251,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     [NSNumber numberWithInt:eventType], @"eventType", nil];
-  
   // Level Up
   if (eventType & kGameBattleEventTypeLevelUp) {
     [userInfo setValue:[info valueForKey:@"levelsUp"] forKey:@"levelsUp"];
@@ -269,7 +264,10 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
     [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
   }
-  else return;
+  else {
+    [userInfo release];
+    return;
+  }
   
   // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleRunEvent
@@ -306,10 +304,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 // 
 - (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
   NSArray * stats;
-  if (user == kGameSystemProcessUserPlayer)
-    stats = [self.playerPokemon.maxStats componentsSeparatedByString:@","];
-  else if (user == kGameSystemProcessUserEnemy)
-    stats = [self.enemyPokemon.maxStats componentsSeparatedByString:@","];
+  if (user == kGameSystemProcessUserPlayer)     stats = [self.playerPokemon maxStatsInArray];
+  else if (user == kGameSystemProcessUserEnemy) stats = [self.enemyPokemon  maxStatsInArray];
   else return;
   enemyPokemonStatus_               = kPokemonStatusNormal;
   playerPokemonTransientAttack_     = [[stats objectAtIndex:1] intValue];
@@ -323,8 +319,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Fight
-- (void)fight
-{
+- (void)fight {
   if (user_ == kGameSystemProcessUserNone || moveIndex_ == 0) {
      NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
     return;
@@ -356,7 +351,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   [messageInfo release];
   
   move = nil;
-//  [self endTurn];
   processType_ = kGameSystemProcessTypeNone;
 }
 
@@ -479,8 +473,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 // 选择 最近 随机 二体 全体 自身 全场 己方                     
 // 01  01  01 00/01 01  10  11  10   1vs1: 00-无, 01-对方, 10-自身, 11-双方
 //
-- (void)calculateEffectForMove:(Move *)move
-{
+- (void)calculateEffectForMove:(Move *)move {
   // Real move target
   //  1vs1: 00-无, 01-对方, 10-自身, 11-双方
   //  2vs2: ...
@@ -1261,8 +1254,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Calculate the move damage
-- (NSInteger)calculateDamageForMove:(Move *)move
-{
+- (NSInteger)calculateDamageForMove:(Move *)move {
   if ([move.baseDamage intValue] == 0)
     return 0;
   
@@ -1371,20 +1363,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Use bag item
-- (void)useBagItem
-{
-//  NSInteger pokemonID;
-//  
-//  // Case the move user is Player
-//  if (user_ == kGameSystemProcessUserPlayer) {
-//    pokemonID = [self.playerPokemon.sid intValue];
-//  }
-//  // Case the move user is Enemy
-//  else if (user_ == kGameSystemProcessUserEnemy) {
-//    pokemonID = [self.enemyPokemon.sid intValue];
-//  }
-//  else { NSLog(@"!!! Exception: The Bag Item has no user"); return; }
-  
+- (void)useBagItem {  
   // Throw Pokeball
   if (targetType_ == kBagQueryTargetTypePokeball) {
     // Post Message to update |messageView_| in |GameMenuViewController|
@@ -1393,7 +1372,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Turn to Catching Wild Pokemon
     processType_ = kGameSystemProcessTypeCathingWildPokemon;
     delayTime_ = 0;
-//    [self endTurn];
   }
   // Use Status Healers, HP/PP Restores, etc. for Pokemons
   else {
@@ -1576,11 +1554,6 @@ static GameSystemProcess * gameSystemProcess = nil;
         message = [NSString stringWithFormat:NSLocalizedString(@"PMSMessage:You used %@ to %@", nil),
                    NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
                    NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil)];
-//        message = [NSString stringWithFormat:@"%@ %@ %@ %@",
-//                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_1", nil),
-//                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
-//                   NSLocalizedString(@"PMSMessageYouUsedXXXToXXX_3", nil),
-//                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
       }
       break;
     }

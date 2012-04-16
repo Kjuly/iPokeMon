@@ -14,6 +14,7 @@
   UIButton * confirmButton_;
   UIButton * infoButton_;
   UIButton * cancelButton_;
+  
   BOOL       isCurrBattlePokemon_;
   BOOL       isFainted_;
 }
@@ -22,8 +23,6 @@
 @property (nonatomic, retain) UIButton * confirmButton;
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
-@property (nonatomic, assign) BOOL       isCurrBattlePokemon;
-@property (nonatomic, assign) BOOL       isFainted;
 
 - (void)openUnit:(id)sender;
 - (void)setBackgroundForButtonsWithImageName:(NSString *)imageName;
@@ -38,18 +37,14 @@
 @synthesize confirmButton = confirmButton_;
 @synthesize infoButton    = infoButton_;
 @synthesize cancelButton  = cancelButton_;
-@synthesize isCurrBattlePokemon = isCurrBattlePokemon_;
-@synthesize isFainted           = isFainted_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.delegate = nil;
   
   self.mainButton    = nil;
   self.confirmButton = nil;
   self.infoButton    = nil;
   self.cancelButton  = nil;
-  
   [super dealloc];
 }
 
@@ -117,6 +112,7 @@
 }
 */
 
+// Open Unit
 - (void)openUnit:(id)sender {
   [self.delegate checkUnit:sender];
   
@@ -134,7 +130,7 @@
                                         options:UIViewAnimationOptionCurveEaseInOut
                                      animations:^{
                                        // If it's the current battle pokemon, do not show confirm button
-                                       if (! self.isCurrBattlePokemon && ! self.isFainted) {
+                                       if (! isCurrBattlePokemon_ && ! isFainted_) {
                                          [self.confirmButton setAlpha:1.f];
                                          [self.confirmButton setFrame:confirmButtonFrame];
                                        }
@@ -145,6 +141,7 @@
                   }];
 }
 
+// Cancel Unit
 - (void)cancelUnitAnimated:(BOOL)animated {
   void (^animation)() = ^(){
     CGFloat buttonSize = 60.f;
@@ -176,15 +173,14 @@
 
 // Set the Pokemon as Normal
 - (void)setAsNormal {
-  self.isCurrBattlePokemon = NO;
-  self.isFainted           = NO;
+  isCurrBattlePokemon_ = NO;
+  isFainted_           = NO;
   [self setBackgroundForButtonsWithImageName:@"MainViewCenterMenuButtonBackground.png"];
 }
 
 // Set the Pokemon as current battle one
-- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
-{
-  self.isCurrBattlePokemon = isCurrentBattleOne;
+- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne {
+  isCurrBattlePokemon_ = isCurrentBattleOne;
   NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
   if (isCurrentBattleOne)
     buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";
@@ -193,7 +189,7 @@
 
 // Set the Pokemon as Fainted
 - (void)setAsFainted:(BOOL)isFainted {
-  self.isFainted = isFainted;
+  isFainted_ = isFainted;
   NSString * buttonBackgroundImageName = @"MainViewCenterMenuButtonBackground.png";
   if (isFainted)
     buttonBackgroundImageName = @"GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png";

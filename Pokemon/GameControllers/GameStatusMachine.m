@@ -22,28 +22,24 @@
 
 @implementation GameStatusMachine
 
-static GameStatusMachine * gameStatusMachine = nil;
-
 // Singleton
-+ (GameStatusMachine *)sharedInstance
-{
-  if (gameStatusMachine != nil)
-    return gameStatusMachine;
+static GameStatusMachine * gameStatusMachine_ = nil;
++ (GameStatusMachine *)sharedInstance {
+  if (gameStatusMachine_ != nil)
+    return gameStatusMachine_;
   
-  static dispatch_once_t pred;        // Lock
-  dispatch_once(&pred, ^{             // This code is called at most once per app
-    gameStatusMachine = [[GameStatusMachine alloc] init];
+  static dispatch_once_t onceToken; // Lock
+  dispatch_once(&onceToken, ^{      // This code is called at most once per app
+    gameStatusMachine_ = [[GameStatusMachine alloc] init];
   });
-  return gameStatusMachine;
+  return gameStatusMachine_;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     gameStatus_     = kGameStatusInitialization;
     gameNextStatus_ = kGameStatusSystemProcess;
@@ -63,8 +59,7 @@ static GameStatusMachine * gameStatusMachine = nil;
   gameStatus_ = kGameStatusInitialization;
 }
 
-- (void)endStatus:(GameStatus)status
-{
+- (void)endStatus:(GameStatus)status {
   switch (status) {
     case kGameStatusSystemProcess:
       gameStatus_ = gameNextStatus_;

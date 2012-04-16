@@ -25,13 +25,11 @@
 
 @implementation GameEnemyProcess
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     complete_      = NO;
     numberOfMoves_ = 0;
@@ -39,8 +37,7 @@
   return self;
 }
 
-- (void)update:(ccTime)dt
-{
+- (void)update:(ccTime)dt {
   if (complete_) {
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusEnemyTurn];
     complete_ = NO;

@@ -6,11 +6,9 @@
 //  Copyright 2012 Kjuly. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface GamePlayerProcess : CCNode {
-}
+@interface GamePlayerProcess : CCNode
 
 - (void)update:(ccTime)dt;
 - (void)reset;

@@ -275,7 +275,7 @@
 #endif
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
-  self.centerMainButtonMessageSignal = kCenterMainButtonMessageSignalPokemonAppeared;
+  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
   [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
