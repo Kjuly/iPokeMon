@@ -24,6 +24,7 @@
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
 
+- (void)releaseSubviews;
 - (void)open;
 - (void)cancel;
 
@@ -32,23 +33,24 @@
 
 @implementation GameMenuSixPokemonsUnitViewController
 
-@synthesize mainButton     = mainButton_;
-@synthesize confirmButton  = confirmButton_;
-@synthesize infoButton     = infoButton_;
-@synthesize cancelButton   = cancelButton_;
+@synthesize mainButton    = mainButton_;
+@synthesize confirmButton = confirmButton_;
+@synthesize infoButton    = infoButton_;
+@synthesize cancelButton  = cancelButton_;
 
-- (void)dealloc
-{
-  [mainButton_     release];
-  [confirmButton_  release];
-  [infoButton_     release];
-  [cancelButton_   release];
-  
+- (void)dealloc {
+  [self releaseSubviews];
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.mainButton    = nil;
+  self.confirmButton = nil;
+  self.infoButton    = nil;
+  self.cancelButton  = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -107,23 +109,16 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.mainButton     = nil;
-  self.confirmButton  = nil;
-  self.infoButton     = nil;
-  self.cancelButton   = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -152,8 +147,6 @@
                                      }
                                      completion:nil];
                   }];
-  
-  
 }
 
 - (void)cancel {

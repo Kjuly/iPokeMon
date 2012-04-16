@@ -43,9 +43,9 @@
 @synthesize bagItemTableViewController  = bagItemTableViewController_;
 
 - (void)dealloc {
-  [cancelButton_ release]; 
-  [swipeRightGestureRecognizer_ release];
-  [bagItemTableViewController_  release];
+  self.cancelButton = nil;
+  self.swipeRightGestureRecognizer = nil;
+  self.bagItemTableViewController  = nil;
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleTopCancelButton object:nil];
@@ -107,8 +107,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Swipte to RIGHT, close bag view
@@ -131,13 +130,9 @@
                                              object:self.bagItemTableViewController];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
   self.cancelButton = nil;
-  self.swipeRightGestureRecognizer = nil;
-  self.bagItemTableViewController  = nil;
 }
 
 #pragma mark - Public Methods
@@ -162,8 +157,7 @@
 
 #pragma mark - Private Methods
 
-- (void)loadSelcetedItemTalbeView:(id)sender
-{
+- (void)loadSelcetedItemTalbeView:(id)sender {
   BagQueryTargetType targetType;
   switch (((UIButton *)sender).tag) {
     case 1: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus; break;
@@ -210,8 +204,8 @@
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
                      CGRect cancelButtonFrame = self.cancelButton.frame;
-                     cancelButtonFrame.origin.y = (cancelButtonFrame.origin.y == - kMapButtonSize)
-                     ? -(kMapButtonSize / 2) : -kMapButtonSize;
+                     cancelButtonFrame.origin.y = (cancelButtonFrame.origin.y == - kMapButtonSize) ?
+                       -(kMapButtonSize / 2) : -kMapButtonSize;
                      [self.cancelButton setFrame:cancelButtonFrame];
                    }
                    completion:nil];
@@ -238,8 +232,6 @@
                      [self unloadSelcetedItemTalbeView:nil];
                      [self.view setAlpha:1.f];
                    }];
-  
-  
 }
 
 @end

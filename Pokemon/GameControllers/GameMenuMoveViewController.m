@@ -12,33 +12,31 @@
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"
-#import "Move.h"
 #import "GameMenuMoveUnitView.h"
 
 
 @interface GameMenuMoveViewController () {
  @private
-  TrainerTamedPokemon * playerPokemon_;
-  NSArray             * fourMovesPP_;
-  
   GameMenuMoveUnitView * move1View_;
   GameMenuMoveUnitView * move2View_;
   GameMenuMoveUnitView * move3View_;
   GameMenuMoveUnitView * move4View_;
   
+  TrainerTamedPokemon      * playerPokemon_;
+  NSArray                  * fourMovesPP_;
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;
 }
-
-@property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
-@property (nonatomic, copy) NSArray               * fourMovesPP;
 
 @property (nonatomic, retain) GameMenuMoveUnitView * move1View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move2View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move3View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move4View;
 
+@property (nonatomic, retain) TrainerTamedPokemon      * playerPokemon;
+@property (nonatomic, copy)   NSArray                  * fourMovesPP;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 
+- (void)releaseSubviews;
 - (void)useSelectedMove:(id)sender;
 
 @end
@@ -46,29 +44,28 @@
 
 @implementation GameMenuMoveViewController
 
-@synthesize playerPokemon  = playerPokemon;
-@synthesize fourMovesPP    = fourMovesPP_;
-
 @synthesize move1View = move1View_;
 @synthesize move2View = move2View_;
 @synthesize move3View = move3View_;
 @synthesize move4View = move4View_;
 
+@synthesize playerPokemon              = playerPokemon;
+@synthesize fourMovesPP                = fourMovesPP_;
 @synthesize swipeLeftGestureRecognizer = swipeLeftGestureRecognizer_;
 
-- (void)dealloc
-{
-  [playerPokemon release];
-  [fourMovesPP_  release];
-  
-  [move1View_ release];
-  [move2View_ release];
-  [move3View_ release];
-  [move4View_ release];
-  
-  [swipeLeftGestureRecognizer_ release];
-  
+- (void)dealloc {
+  self.playerPokemon = nil;
+  self.fourMovesPP   = nil;
+  self.swipeLeftGestureRecognizer = nil;
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.move1View = nil;
+  self.move2View = nil;
+  self.move3View = nil;
+  self.move4View = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,8 +118,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   [self updateFourMoves];
@@ -136,19 +132,9 @@
   [self.view addGestureRecognizer:self.swipeLeftGestureRecognizer];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.playerPokemon = nil;
-  self.fourMovesPP   = nil;
-  
-  self.move1View = nil;
-  self.move2View = nil;
-  self.move3View = nil;
-  self.move4View = nil;
-  
-  self.swipeLeftGestureRecognizer = nil;
+  [self releaseSubviews];
 }
 
 #pragma mark - Private Methods
@@ -165,8 +151,7 @@
 
 #pragma mark - Public Methods
 
-- (void)updateFourMoves
-{
+- (void)updateFourMoves {
   self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
   

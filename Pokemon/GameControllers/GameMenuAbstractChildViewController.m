@@ -29,12 +29,11 @@
 //@synthesize animationGroupToShow = animationGroupToShow_;
 //@synthesize animationGroupToHide = animationGroupToHide_;
 
-- (void)dealloc
-{
-  [tableAreaView_ release];
+- (void)dealloc {
+  self.tableAreaView = nil;
+  
 //  self.animationGroupToShow = nil;
 //  self.animationGroupToHide = nil;
-  
   [super dealloc];
 }
 
@@ -76,8 +75,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   /*
@@ -131,17 +129,13 @@
   [self.animationGroupToHide setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];*/
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
   
-  self.tableAreaView   = nil;
-//  self.animationGroupToShow = nil;
-//  self.animationGroupToHide = nil;
+  self.tableAreaView = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -186,8 +180,7 @@
     [self.view removeFromSuperview];
 }*/
 
-- (void)swipeView:(UISwipeGestureRecognizer *)recognizer
-{
+- (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight:
       [self unloadViewWithAnimationToLeft:NO animated:YES];
