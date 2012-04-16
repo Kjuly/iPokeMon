@@ -8,20 +8,17 @@
 
 #import "BagMedicineTableViewController.h"
 
-#import "GlobalConstants.h"
 #import "BagMedicineTableViewCell.h"
 #import "BagItemTableViewController.h"
 
 
 @implementation BagMedicineTableViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -39,38 +36,31 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -89,10 +79,9 @@
   return kCellHeightOfBagMedicineTableView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  
   BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -147,10 +136,10 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << ([indexPath row] + 8));
-  BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] initWithBagItem:targetType];
+  BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
+  [bagItemTableViewController initWithBagItem:targetType];
   [self.navigationController pushViewController:bagItemTableViewController animated:YES];
   [bagItemTableViewController release];
 }

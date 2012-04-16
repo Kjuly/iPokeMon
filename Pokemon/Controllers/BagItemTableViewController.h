@@ -10,22 +10,19 @@
 
 #import "BagItemTableViewHiddenCell.h"
 
-@interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate>
-{
-  NSMutableArray     * items_;
-  NSInteger            selectedCellIndex_; // For query data
-  NSInteger            itemNumberSequence_;
-  BagQueryTargetType   targetType_;
-  NSInteger            selectedPokemonIndex_;
-  BOOL                 isDuringBattle_;
+@interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate> {
+  NSMutableArray   * items_;
+  BOOL               isDuringBattle_;
+  BagQueryTargetType targetType_;
+  NSInteger          selectedCellIndex_; // For querying data
+  NSInteger          selectedPokemonIndex_;
 }
 
-@property (nonatomic, copy)   NSMutableArray     * items;
-@property (nonatomic, assign) NSInteger            selectedCellIndex;
-@property (nonatomic, assign) NSInteger            itemNumberSequence;
-@property (nonatomic, assign) BagQueryTargetType   targetType;
-@property (nonatomic, assign) NSInteger            selectedPokemonIndex;
-@property (nonatomic, assign) BOOL                 isDuringBattle;
+@property (nonatomic, copy)   NSMutableArray   * items;
+@property (nonatomic, assign) BOOL               isDuringBattle;
+@property (nonatomic, assign) BagQueryTargetType targetType;
+@property (nonatomic, assign) NSInteger          selectedCellIndex;
+@property (nonatomic, assign) NSInteger          selectedPokemonIndex;
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType;
 - (void)setBagItem:(BagQueryTargetType)targetType;

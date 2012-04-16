@@ -23,13 +23,13 @@
   UITapGestureRecognizer * tapGestureRecognizer_;
 }
 
-@property (nonatomic, assign) BOOL                     isDuringBattle;
 @property (nonatomic, retain) UIView                 * backgroundView;
 @property (nonatomic, retain) UILabel                * name;
 @property (nonatomic, retain) UILabel                * price;
 @property (nonatomic, retain) UILabel                * info;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
+- (void)releaseSubviews;
 - (void)unloadViewWithAnimation;
 
 @end
@@ -37,26 +37,26 @@
 
 @implementation BagItemInfoViewController
 
-@synthesize isDuringBattle       = isDuringBattle_;
 @synthesize backgroundView       = backgroundView_;
 @synthesize name                 = name_;
 @synthesize price                = price_;
 @synthesize info                 = info_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc
-{
-  [backgroundView_       release];
-  [name_                 release];
-  [price_                release];
-  [info_                 release];
-  [tapGestureRecognizer_ release];
-  
+- (void)dealloc {
+  self.tapGestureRecognizer = nil;
+  [self releaseSubviews];
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.backgroundView = nil;
+  self.name           = nil;
+  self.price          = nil;
+  self.info           = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -117,14 +117,14 @@
 {
   [super viewDidLoad];
   
-  self.isDuringBattle = NO;
+  isDuringBattle_ = NO;
   [self.name  setAlpha:0.f];
   [self.price setAlpha:0.f];
   [self.info  setAlpha:0.f];
   
   // Tap gesture recognizer
-  UITapGestureRecognizer * tapGestureRecognizer =
-    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unloadViewWithAnimation)];
+  UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
+  [tapGestureRecognizer initWithTarget:self action:@selector(unloadViewWithAnimation)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
@@ -132,19 +132,12 @@
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.backgroundView       = nil;
-  self.name                 = nil;
-  self.price                = nil;
-  self.info                 = nil;
-  self.tapGestureRecognizer = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -154,11 +147,10 @@
 - (void)setDataWithName:(NSString *)name
                   price:(NSInteger)price
                    info:(NSString *)info
-           duringBattle:(BOOL)duringBattle
-{
-  self.isDuringBattle = duringBattle;
+           duringBattle:(BOOL)duringBattle {
+  isDuringBattle_ = duringBattle;
   [self.name setText:name];
-  [self.price setText:(price ? [NSString stringWithFormat:@"$ %d", price] : @"- - -")];
+  [self.price setText:(price ? [NSString stringWithFormat:@"§ %d", price] : @"- - -")];
   CGRect infoFrame  = CGRectMake(30.f, 150.f, 260.f, 32.f);
   [self.info setFrame:infoFrame];
   [self.info setText:info];
@@ -176,7 +168,7 @@
                      [self.info  setAlpha:1.f];
                    }
                    completion:nil];
-  if (self.isDuringBattle)
+  if (isDuringBattle_)
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton object:self userInfo:nil];
 }
 
@@ -197,7 +189,7 @@
                      [self.price setAlpha:0.f];
                      [self.info  setAlpha:0.f];
                    }];
-  if (self.isDuringBattle)
+  if (isDuringBattle_)
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton object:self userInfo:nil];
 }
 

@@ -12,15 +12,14 @@
 #import "BagMedicineTableViewController.h"
 #import "BagItemTableViewController.h"
 
+
 @implementation BagTableViewController
 
-- (void)dealloc
-{ 
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -38,38 +37,31 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -88,13 +80,13 @@
   return kCellHeightOfBagTableView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  
   BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                    reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
@@ -146,18 +138,16 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSInteger row = [indexPath row];
   if (row != 1) { // Not Bag Medicine, as it has three sub types
-    BagItemTableViewController * bagItemTableViewController =
-      [[BagItemTableViewController alloc] initWithBagItem:(1 << row)];
+    BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
+    [bagItemTableViewController initWithBagItem:(1 << row)];
     [self.navigationController pushViewController:bagItemTableViewController animated:YES];
     [bagItemTableViewController release];
-  }
-  else {
-    BagMedicineTableViewController * bagMedicineTableViewController =
-      [[BagMedicineTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  } else {
+    BagMedicineTableViewController * bagMedicineTableViewController = [BagMedicineTableViewController alloc];
+    [bagMedicineTableViewController initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:bagMedicineTableViewController animated:YES];
     [bagMedicineTableViewController release];
   }
