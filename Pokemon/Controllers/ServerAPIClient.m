@@ -205,7 +205,7 @@ static ServerAPIClient * client_;
   if (flag & kHTTPHeaderDefault) {
     [self setDefaultHeader:@"provider" value:
       [NSString stringWithFormat:@"%d",
-        [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]]];
+        [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]]];
     [self setDefaultHeader:@"identity" value:[[OAuthManager sharedInstance] userEmailInMD5]];
   }
   

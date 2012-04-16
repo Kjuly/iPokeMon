@@ -88,7 +88,7 @@ static OAuthManager * oauthManager_ = nil;
     isUserIDSynced_ = NO;
     
     OAuthServiceProviderChoice lastUsedServiceProvider =
-      [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+      [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
     self.selectedServiceProvider = lastUsedServiceProvider;
     NSDictionary * oauthData = [self oauthDataFor:lastUsedServiceProvider];
     self.oauth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:[oauthData valueForKey:@"keychainItemName"]
@@ -117,7 +117,7 @@ static OAuthManager * oauthManager_ = nil;
 
 // Current service provider user using
 - (OAuthServiceProviderChoice)serviceProvider {
-  return [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+  return [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
 }
 
 // Login with a service provider
@@ -245,7 +245,7 @@ static OAuthManager * oauthManager_ = nil;
   // Fetch data for Trainer
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getURLForUserID]];
   NSString * provider = [NSString stringWithFormat:@"%d",
-                         [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider]];
+                         [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
   [request setValue:@"123456" forHTTPHeaderField:@"key"];
   [request setValue:provider forHTTPHeaderField:@"provider"];
   [request setValue:[self userEmailInMD5] forHTTPHeaderField:@"identity"];
@@ -274,7 +274,7 @@ static OAuthManager * oauthManager_ = nil;
     }
     self.oauth = nil;
     self.selectedServiceProvider =
-      [[NSUserDefaults standardUserDefaults] integerForKey:kUserDefaultsLastUsedServiceProvider];
+      [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
   } else {
     NSLog(@"Authentication succeeded..");
     // Authentication succeeded
@@ -297,7 +297,7 @@ static OAuthManager * oauthManager_ = nil;
     // save the authentication object
     self.oauth = auth;
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setInteger:self.selectedServiceProvider forKey:kUserDefaultsLastUsedServiceProvider];
+    [userDefaults setInteger:self.selectedServiceProvider forKey:kUDKeyLastUsedServiceProvider];
     [userDefaults synchronize];
     userDefaults = nil;
     

@@ -81,7 +81,7 @@
   }
   else {
     // Set value in User Preferences (its default value is NO)
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"keyAppSettingsLocationServices"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyEnableLocationTracking];
     [[NSUserDefaults standardUserDefaults] synchronize];
   }
   

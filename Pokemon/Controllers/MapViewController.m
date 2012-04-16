@@ -19,7 +19,6 @@
 
 @interface MapViewController () {
  @private
-  BOOL                    isEnableTracking_;
   WildPokemonController * wildPokemonController_;
   BOOL                    isUpdatingLocation_;
   BOOL                    isPokemonAppeared_;
@@ -27,7 +26,6 @@
   CLLocationDistance      moveDistance_;
 }
 
-@property (nonatomic, assign) BOOL                    isEnableTracking;
 @property (nonatomic, retain) WildPokemonController * wildPokemonController;
 @property (nonatomic, assign) BOOL                    isUpdatingLocation;
 @property (nonatomic, assign) BOOL                    isPokemonAppeared;
@@ -50,7 +48,6 @@
 @synthesize locationManager = locationManager_;
 @synthesize location        = location_;
 
-@synthesize isEnableTracking      = isEnableTracking_;
 @synthesize wildPokemonController = wildPokemonController_;
 @synthesize isUpdatingLocation    = isUpdatingLocation_;
 @synthesize isPokemonAppeared     = isPokemonAppeared_;
@@ -127,7 +124,6 @@
   [self.mapView setShowsUserLocation:YES];
   
   // Basic settings
-  isEnableTracking_          = NO;
   self.wildPokemonController = [WildPokemonController sharedInstance];
   isPokemonAppeared_         = NO;
   moveDistance_              = 0;
@@ -146,9 +142,8 @@
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
 
-  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"]);
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"]) {
-    self.isEnableTracking = YES;
+  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyEnableLocationTracking]);
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyEnableLocationTracking]) {
     if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
       NSLog(@"Significant Location Change Monitoring Available");
       // Significant-Change Location Service
@@ -264,17 +259,7 @@
     
     // Mark as a Wild Pokemon appeared & stop tracking
     self.isPokemonAppeared = YES;
-    // Not real disable tracking, so enable tracking after it
     [self disableTracking:nil];
-    self.isEnableTracking  = YES;
-//    [self setEventTimerStatusToRunning:NO];
-//    
-//    // Stop updating Location
-//    self.isUpdatingLocation = NO;
-//    [self.locationManager stopUpdatingLocation];
-//    
-//    // Reset |moveDistance_|
-//    self.moveDistance = 0;
   }
 
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
@@ -339,7 +324,6 @@
 // Enable tracking
 - (void)enableTracking:(NSNotification *)notification {
   NSLog(@"|%@| - ENABLING TRACKING...", [self class]);
-  self.isEnableTracking = YES;
   [self setEventTimerStatusToRunning:YES];
 }
 
@@ -351,7 +335,6 @@
   [self.locationManager stopUpdatingLocation];
   
   // Reset basic settings
-  self.isEnableTracking  = NO;
   self.isPokemonAppeared = NO;
   [self setEventTimerStatusToRunning:NO];
   
@@ -369,8 +352,8 @@
 }
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification {
-  if (self.isEnableTracking && [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"]) {
-    NSLog(@"resetIsPokemonAppeared");
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyEnableLocationTracking]) {
+    NSLog(@"|resetIsPokemonAppeared|");
     self.isPokemonAppeared = NO;
     [self setEventTimerStatusToRunning:YES];
   }

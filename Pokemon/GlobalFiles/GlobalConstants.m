@@ -8,7 +8,8 @@
 
 #import "GlobalConstants.h"
 
-NSString * const kUserDefaultsLastUsedServiceProvider = @"keyLastUsedServiceProvider";
+NSString * const kUDKeyEnableLocationTracking  = @"keyAppSettingsLocationServices";
+NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider";
 
 @implementation GlobalConstants
 

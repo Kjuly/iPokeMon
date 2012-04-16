@@ -16,7 +16,8 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 // UserDefautls
-extern NSString * const kUserDefaultsLastUsedServiceProvider;
+extern NSString * const kUDKeyEnableLocationTracking;  // enable location tracking
+extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider used
 
 // View Basic
 #define kViewHeight 460.f
