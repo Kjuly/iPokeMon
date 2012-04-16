@@ -60,6 +60,8 @@
   
   [wildPokemonController_ release];
   
+  // Remove observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:nil];
   [super dealloc];
 }
 
