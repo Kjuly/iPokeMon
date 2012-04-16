@@ -10,22 +10,29 @@
 
 #import "CustomNavigationBar.h"
 
+@interface CustomNavigationController () {
+ @private
+  UIImage * navigationBarBackgroundImage_;
+}
+
+@property (nonatomic, retain) UIImage * navigationBarBackgroundImage;
+
+@end
+
+
 @implementation CustomNavigationController
 
 @synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
 
-- (void)dealloc
-{
-  [navigationBarBackgroundImage_ release];
-  
+- (void)dealloc {
+  self.navigationBarBackgroundImage = nil;
   [super dealloc];
 }
 
 // Class Method of |initWithRootViewController:|
 // This one is perfect without any leak
 + (id)initWithRootViewController:(UIViewController *)rootViewController
-    navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage
-{
+    navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage {
   NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
                                                         owner:self
                                                       options:nil];

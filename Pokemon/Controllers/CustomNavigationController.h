@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomNavigationController : UINavigationController
-{
-  UIImage * navigationBarBackgroundImage_;
-}
-
-@property (nonatomic, retain) UIImage * navigationBarBackgroundImage;
 
 + (id)initWithRootViewController:(UIViewController *)rootViewController
     navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage;
