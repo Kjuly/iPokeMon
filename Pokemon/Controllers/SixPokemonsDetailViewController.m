@@ -8,16 +8,12 @@
 
 #import "SixPokemonsDetailViewController.h"
 
-#import "GlobalConstants.h"
-
 @implementation SixPokemonsDetailViewController
 
 @synthesize pokemon = pokemon_;
 
-- (void)dealloc
-{
-  [pokemon_ release];
-  
+- (void)dealloc {
+  self.pokemon = nil;
   [super dealloc];
 }
 

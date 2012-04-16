@@ -8,13 +8,30 @@
 
 #import "SixPokemonsMoveViewController.h"
 
-#import "TrainerTamedPokemon+DataController.h"
 #import "Move.h"
 #import "PokemonMoveView.h"
 #import "PokemonMoveDetailView.h"
 
-@interface SixPokemonsMoveViewController ()
+@interface SixPokemonsMoveViewController () {
+ @private
+  NSArray               * fourMovesPP_;
+  UIView                * fourMovesView_;
+  PokemonMoveView       * moveOneView_;
+  PokemonMoveView       * moveTwoView_;
+  PokemonMoveView       * moveThreeView_;
+  PokemonMoveView       * moveFourView_;
+  PokemonMoveDetailView * moveDetailView_;
+}
 
+@property (nonatomic, retain) NSArray               * fourMovesPP;
+@property (nonatomic, retain) UIView                * fourMovesView;
+@property (nonatomic, retain) PokemonMoveView       * moveOneView;
+@property (nonatomic, retain) PokemonMoveView       * moveTwoView;
+@property (nonatomic, retain) PokemonMoveView       * moveThreeView;
+@property (nonatomic, retain) PokemonMoveView       * moveFourView;
+@property (nonatomic, retain) PokemonMoveDetailView * moveDetailView;
+
+- (void)releaseSubviews;
 - (void)loadMoveDetailView:(id)sender;
 - (void)cancelMoveDetailView;
 
@@ -30,17 +47,19 @@
 @synthesize moveFourView   = moveFourView_;
 @synthesize moveDetailView = moveDetailView_;
 
-- (void)dealloc
-{
-  [fourMovesPP_    release];
-  [fourMovesView_  release];
-  [moveOneView_    release];
-  [moveTwoView_    release];
-  [moveThreeView_  release];
-  [moveFourView_   release];
-  [moveDetailView_ release];
-  
+- (void)dealloc {
+  self.fourMovesPP = nil;
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.fourMovesView  = nil;
+  self.moveOneView    = nil;
+  self.moveTwoView    = nil;
+  self.moveThreeView  = nil;
+  self.moveFourView   = nil;
+  self.moveDetailView = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -176,32 +195,21 @@
   else [self.moveFourView.viewButton setEnabled:NO];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.fourMovesPP    = nil;
-  self.fourMovesView  = nil;
-  self.moveOneView    = nil;
-  self.moveTwoView    = nil;
-  self.moveThreeView  = nil;
-  self.moveFourView   = nil;
-  self.moveDetailView = nil;
+  [self releaseSubviews];
 }
 
 #pragma mark - Private Methods
 
-- (void)loadMoveDetailView:(id)sender
-{
-  if (! moveDetailView_) {
-    CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
-    PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
-    self.moveDetailView = moveDetailView;
-    [moveDetailView release];
-    [self.moveDetailView.backButton addTarget:self
-                                       action:@selector(cancelMoveDetailView)
-                             forControlEvents:UIControlEventTouchUpInside];
-  }
+- (void)loadMoveDetailView:(id)sender {
+  CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
+  PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
+  self.moveDetailView = moveDetailView;
+  [moveDetailView release];
+  [self.moveDetailView.backButton addTarget:self
+                                     action:@selector(cancelMoveDetailView)
+                           forControlEvents:UIControlEventTouchUpInside];
   
   // Move tag: one of 1, 2, 3, 4
   NSInteger moveTag = ((UIButton *)sender).tag;
@@ -238,7 +246,9 @@
                       toView:self.fourMovesView
                     duration:.6f
                      options:UIViewAnimationOptionTransitionFlipFromLeft
-                  completion:nil];
+                  completion:^(BOOL finished) {
+                    self.moveDetailView = nil;
+                  }];
 }
 
 @end

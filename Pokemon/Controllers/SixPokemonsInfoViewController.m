@@ -10,12 +10,20 @@
 
 @interface SixPokemonsInfoViewController () {
  @private
+  PokemonInfoLabelView * levelLabelView_;
+  PokemonInfoLabelView * expLabelView_;
+  PokemonInfoLabelView * toNextLevelLabelView_;
   UIImageView * expBarTotal_;
   UIImageView * expBarCurrntPoint_;
 }
 
 @property (nonatomic, retain) UIImageView * expBarTotal;
 @property (nonatomic, retain) UIImageView * expBarCurrntPoint;
+@property (nonatomic, retain) PokemonInfoLabelView * levelLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * expLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * toNextLevelLabelView;
+
+- (void)releaseSubviews;
 
 @end
 
@@ -25,20 +33,20 @@
 @synthesize levelLabelView       = levelLabelView_;
 @synthesize expLabelView         = expLabelView_;
 @synthesize toNextLevelLabelView = toNextLevelLabelView_;
+@synthesize expBarTotal          = expBarTotal_;
+@synthesize expBarCurrntPoint    = expBarCurrntPoint_;
 
-@synthesize expBarTotal       = expBarTotal_;
-@synthesize expBarCurrntPoint = expBarCurrntPoint_;
-
-- (void)dealloc
-{
-  [levelLabelView_       release];
-  [expLabelView_         release];
-  [toNextLevelLabelView_ release];
-  
-  [expBarTotal_       release];
-  [expBarCurrntPoint_ release];
-  
+- (void)dealloc {
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.levelLabelView       = nil;
+  self.expLabelView         = nil;
+  self.toNextLevelLabelView = nil;
+  self.expBarTotal          = nil;
+  self.expBarCurrntPoint    = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +73,6 @@
   CGRect  const expLabelViewFrame   = CGRectMake(0.f, labelHeight * 2, 300.f, labelHeight);
   CGRect  const toNextLevelLabelViewFrame = CGRectMake(0.f, labelHeight * 3, 300.f, labelHeight);
   CGRect  const expBarTotalFrame    = CGRectMake(0.f, labelHeight * 4 + 10.f, 300.f, 6.f);
-  
   
   // Base information for Pokemon
   Pokemon * pokemonBaseInfo = self.pokemon.pokemon;
@@ -115,34 +122,21 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.levelLabelView       = nil;
-  self.expLabelView         = nil;
-  self.toNextLevelLabelView = nil;
-  
-  self.expBarTotal       = nil;
-  self.expBarCurrntPoint = nil;
+  [self releaseSubviews];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
   [self.levelLabelView.value       setText:[self.pokemon.level stringValue]];
   [self.expLabelView.value         setText:[self.pokemon.exp stringValue]];
   [self.toNextLevelLabelView.value setText:[self.pokemon.toNextLevel stringValue]];
-  //
-  // TODO:
-  //   !!! Need Recompute Here
-  //
   [self.expBarCurrntPoint setFrame:CGRectMake(0.f, 0.f, 300.f * abs([self.pokemon.hp intValue] - [self.pokemon.toNextLevel intValue]) / ([self.pokemon.hp intValue] + [self.pokemon.toNextLevel intValue]), 6.f)];
 }
 

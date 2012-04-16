@@ -8,7 +8,6 @@
 
 #import "SixPokemonsTableViewController.h"
 
-#import "PListParser.h"
 #import "TrainerController.h"
 #import "Pokemon.h"
 #import "SixPokemonsTableViewCell.h"
@@ -17,12 +16,14 @@
 
 @interface SixPokemonsTableViewController () {
  @private
+  TrainerController      * trainer_;
   NSMutableArray         * sixPokemons_;
   UITapGestureRecognizer * tapGestureRecognizer_;
 }
 
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
+@property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, copy)   NSMutableArray         * sixPokemons;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
@@ -31,13 +32,15 @@
 
 @implementation SixPokemonsTableViewController
 
+@synthesize trainer              = trainer_;
 @synthesize sixPokemons          = sixPokemons_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc
 {
-  [sixPokemons_          release];
-  [tapGestureRecognizer_ release];
+  self.trainer              = nil;
+  self.sixPokemons          = nil;
+  self.tapGestureRecognizer = nil;
   
   [super dealloc];
 }
@@ -65,21 +68,8 @@
 {
   [super viewDidLoad];
   
-  // Initialize |sixPokemons_|'s data
-  //
-  // 0xFFF 1
-  //   --- -
-  //   ID  1:Live 0:Dead
-  //
-  /*sixPokemonsID_ = [[NSMutableArray alloc] initWithObjects:
-                    [NSNumber numberWithInt:0x0001],
-                    [NSNumber numberWithInt:0x0011],
-                    [NSNumber numberWithInt:0x0021],
-                    [NSNumber numberWithInt:0x0031],
-                    [NSNumber numberWithInt:0x0041],
-                    [NSNumber numberWithInt:0x0051],
-                    nil];
-  self.sixPokemons = [PListParser sixPokemons:self.sixPokemonsID];*/
+  // Basic setting
+  self.trainer = [TrainerController sharedInstance];
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer =
@@ -91,38 +81,30 @@
   [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.sixPokemons = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
-  self.sixPokemons = [NSMutableArray arrayWithArray:[[TrainerController sharedInstance] sixPokemons]];
+  self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
   [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -153,10 +135,8 @@
   
   // Configure the cell...
   NSInteger rowID = [indexPath row];
-//  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:rowID] intValue] >> 4;
-  
-  TrainerTamedPokemon * pokemonData = [self.sixPokemons objectAtIndex:rowID];
-  Pokemon * pokemonBaseInfo = pokemonData.pokemon;
+  TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:rowID];
+  Pokemon * pokemonBaseInfo = tamedPokemon.pokemon;
   
   // Image
   [cell.imageView setImage:pokemonBaseInfo.image];
@@ -164,13 +144,13 @@
   // Data
   [cell.nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                               [pokemonBaseInfo.sid intValue]]), nil)];
-  [cell.genderImageView setImage:[UIImage imageNamed:pokemonData.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
-  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [pokemonData.level intValue]]];
+  [cell.genderImageView setImage:[UIImage imageNamed:tamedPokemon.gender ?
+                                  @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+  [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [tamedPokemon.level intValue]]];
   
   // Stats data array
-  NSArray * maxStatsArray = [pokemonData.maxStats  componentsSeparatedByString:@","];
-  NSInteger HPLeft  = [pokemonData.hp intValue];
-  NSInteger HPTotal = [[maxStatsArray objectAtIndex:0] intValue];
+  NSInteger HPLeft  = [tamedPokemon.hp intValue];
+  NSInteger HPTotal = [[[tamedPokemon maxStatsInArray] objectAtIndex:0] intValue];
   [cell.HPLabel setText:[NSString stringWithFormat:@"%d/%d", HPLeft, HPTotal]];
   [cell.HPBarLeft setFrame:CGRectMake(0.f, 0.f, 160.f * HPLeft / HPTotal, cell.HPBarLeft.frame.size.height)];
   
@@ -201,10 +181,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
        toIndexPath:(NSIndexPath *)destinationIndexPath {
   NSInteger sourceRow      = [sourceIndexPath row];
   NSInteger destinationRow = [destinationIndexPath row];
-  [[TrainerController sharedInstance] replacePokemonAtIndex:sourceRow toIndex:destinationRow];
+  [self.trainer replacePokemonAtIndex:sourceRow toIndex:destinationRow];
   
   // Retch data
-  self.sixPokemons = [NSMutableArray arrayWithArray:[[TrainerController sharedInstance] sixPokemons]];
+  self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
   [tableView reloadData];
   
   /*
@@ -256,15 +236,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//  NSInteger pokemonID = [[self.sixPokemonsID objectAtIndex:[indexPath row] + 1] intValue] >> 4;
-//  NSInteger pokemonID = [[[self.sixPokemons objectAtIndex:[indexPath row]] valueForKey:@"sid"] intValue];
-//  PokemonDetailTabViewController * pokemonDetailTabViewController = [[PokemonDetailTabViewController alloc]
-//                                                                     initWithPokemonID:pokemonID];
-  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
-    [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
-                                                     withTopbar:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
+  sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
+  [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
+                                           withTopbar:YES];
   [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
   [sixPokemonsDetailTabViewController release];
 }

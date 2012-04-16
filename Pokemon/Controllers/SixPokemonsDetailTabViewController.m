@@ -8,9 +8,6 @@
 
 #import "SixPokemonsDetailTabViewController.h"
 
-#import "GlobalConstants.h"
-#import "GlobalRender.h"
-#import "TrainerTamedPokemon.h"
 #import "SixPokemonsInfoViewController.h"
 #import "SixPokemonsMemoViewController.h"
 #import "SixPokemonsSkillViewController.h"
@@ -22,11 +19,21 @@
 @interface SixPokemonsDetailTabViewController () {
  @private
   BOOL isWithTopBar_;
+  TrainerTamedPokemon * pokemon_;
+  SixPokemonsInfoViewController  * sixPokemonsInfoViewController_;
+  SixPokemonsMemoViewController  * sixPokemonsMemoViewController_;
+  SixPokemonsSkillViewController * sixPokemonsSkillViewController_;
+  SixPokemonsMoveViewController  * sixPokemonsMoveViewController_;
 }
 
-@property (nonatomic, assign) BOOL isWithTopBar;
+@property (nonatomic, retain) TrainerTamedPokemon * pokemon;
+@property (nonatomic, retain) SixPokemonsInfoViewController  * sixPokemonsInfoViewController;
+@property (nonatomic, retain) SixPokemonsMemoViewController  * sixPokemonsMemoViewController;
+@property (nonatomic, retain) SixPokemonsSkillViewController * sixPokemonsSkillViewController;
+@property (nonatomic, retain) SixPokemonsMoveViewController  * sixPokemonsMoveViewController;
 
 @end
+
 
 @implementation SixPokemonsDetailTabViewController
 
@@ -36,20 +43,18 @@
 @synthesize sixPokemonsSkillViewController = sixPokemonsSkillViewController_;
 @synthesize sixPokemonsMoveViewController  = sixPokemonsMoveViewController_;
 
-@synthesize isWithTopBar = isWithTopBar_;
 
--(void)dealloc
-{
-  [pokemon_ release];
-  [sixPokemonsInfoViewController_  release];
-  [sixPokemonsMemoViewController_  release];
-  [sixPokemonsSkillViewController_ release];
-  [sixPokemonsMoveViewController_  release];
+-(void)dealloc {
+  self.pokemon = nil;
+  self.sixPokemonsInfoViewController  = nil;
+  self.sixPokemonsMemoViewController  = nil;
+  self.sixPokemonsSkillViewController = nil;
+  self.sixPokemonsMoveViewController  = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon withTopbar:(BOOL)withTopbar
-{
+- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
+           withTopbar:(BOOL)withTopbar {
   self = [super init];
   if (self) {
     // Set View Frame
@@ -67,10 +72,10 @@
     CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
     CGRect childViewFrame =
       CGRectMake(0.f, marginTop + kTopIDViewHeight, kViewWidth, kViewHeight - marginTop - kTopIDViewHeight);
-    [sixPokemonsInfoViewController_.view setFrame:childViewFrame];
-    [sixPokemonsMemoViewController_.view setFrame:childViewFrame];
+    [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
+    [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
     [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
-    [sixPokemonsMoveViewController_.view setFrame:childViewFrame];
+    [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
     
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
@@ -100,16 +105,16 @@
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   
   // Constants
-  CGFloat const imageHeight       = 150.f;
-  CGFloat const imageWidth        = 150.f;
+  CGFloat const imageHeight     = 150.f;
+  CGFloat const imageWidth      = 150.f;
   
-  CGFloat const labelHeight       = 30.f;
-  CGFloat const labelWidth        = 80.f;
+  CGFloat const labelHeight     = 30.f;
+  CGFloat const labelWidth      = 80.f;
   
-  CGFloat const nameLabelWidth    = 300.f - imageWidth;
-  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
+  CGFloat const nameLabelWidth  = 300.f - imageWidth;
+  CGFloat const nameLabelHeight = imageHeight / 2 - labelHeight;
   
-  CGFloat marginTop = self.isWithTopBar ? kTopBarHeight : 0.f;
+  CGFloat marginTop = isWithTopBar_ ? kTopBarHeight : 0.f;
   CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f + marginTop, imageWidth, imageHeight);
   CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f + marginTop, 300.f - imageWidth, imageHeight - 50.f);
   
@@ -118,7 +123,8 @@
   
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:imageContainerFrame];
-  [imageContainer setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+  [imageContainer setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -138,9 +144,8 @@
   UIView * IDView = [[UIView alloc] initWithFrame:IDViewFrame];
   
   // ID
-  PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
-                                        initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight)
-                                        hasValueLabel:NO];
+  PokemonInfoLabelView * idLabelView = [PokemonInfoLabelView alloc];
+  [idLabelView initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight) hasValueLabel:NO];
   [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
   [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
   [idLabelView.name.layer setShadowOpacity:1.f];
@@ -164,7 +169,8 @@
   
   // Gender
   UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
-  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ?
+                             @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
   [IDView addSubview:genderImageView];
   [genderImageView release];
   
@@ -174,24 +180,15 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemon = nil;
-  self.sixPokemonsInfoViewController  = nil;
-  self.sixPokemonsMemoViewController  = nil;
-  self.sixPokemonsSkillViewController = nil;
-  self.sixPokemonsMoveViewController  = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

@@ -8,26 +8,6 @@
 
 #import "SixPokemonsDetailViewController.h"
 
-@class PokemonMoveView;
-@class PokemonMoveDetailView;
-
 @interface SixPokemonsMoveViewController : SixPokemonsDetailViewController
-{
-  NSArray               * fourMovesPP_;
-  UIView                * fourMovesView_;
-  PokemonMoveView       * moveOneView_;
-  PokemonMoveView       * moveTwoView_;
-  PokemonMoveView       * moveThreeView_;
-  PokemonMoveView       * moveFourView_;
-  PokemonMoveDetailView * moveDetailView_;
-}
-
-@property (nonatomic, retain) NSArray               * fourMovesPP;
-@property (nonatomic, retain) UIView                * fourMovesView;
-@property (nonatomic, retain) PokemonMoveView       * moveOneView;
-@property (nonatomic, retain) PokemonMoveView       * moveTwoView;
-@property (nonatomic, retain) PokemonMoveView       * moveThreeView;
-@property (nonatomic, retain) PokemonMoveView       * moveFourView;
-@property (nonatomic, retain) PokemonMoveDetailView * moveDetailView;
 
 @end

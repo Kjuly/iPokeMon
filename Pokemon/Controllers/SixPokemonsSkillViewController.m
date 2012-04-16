@@ -8,6 +8,34 @@
 
 #import "SixPokemonsSkillViewController.h"
 
+@interface SixPokemonsSkillViewController () {
+ @private
+  PokemonInfoLabelView * hpLabelView_;
+  UIImageView          * hpBarTotal_;
+  UIImageView          * hpBarLeft_;
+  PokemonInfoLabelView * attackLabelView_;
+  PokemonInfoLabelView * defenseLabelView_;
+  PokemonInfoLabelView * spAttackLabelView_;
+  PokemonInfoLabelView * spDefenseLabelView_;
+  PokemonInfoLabelView * speedLabelView_;
+  PokemonInfoLabelView * abilityLabelView_;
+}
+
+@property (nonatomic, retain) PokemonInfoLabelView * hpLabelView;
+@property (nonatomic, retain) UIImageView          * hpBarTotal;
+@property (nonatomic, retain) UIImageView          * hpBarLeft;
+@property (nonatomic, retain) PokemonInfoLabelView * attackLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * defenseLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * spAttackLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * spDefenseLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * speedLabelView;
+@property (nonatomic, retain) PokemonInfoLabelView * abilityLabelView;
+
+- (void)releaseSubviews;
+
+@end
+
+
 @implementation SixPokemonsSkillViewController
 
 @synthesize hpLabelView        = hpLabelView_;
@@ -20,19 +48,21 @@
 @synthesize speedLabelView     = speedLabelView_;
 @synthesize abilityLabelView   = abilityLabelView_;
 
-- (void)dealloc
-{
-  [hpLabelView_        release];
-  [hpBarTotal_         release];
-  [hpBarLeft_          release];
-  [attackLabelView_    release];
-  [defenseLabelView_   release];
-  [spAttackLabelView_  release];
-  [spDefenseLabelView_ release];
-  [speedLabelView_     release];
-  [abilityLabelView_   release];
-  
+- (void)dealloc{
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.hpLabelView        = nil;
+  self.hpBarTotal         = nil;
+  self.hpBarLeft          = nil;
+  self.attackLabelView    = nil;
+  self.defenseLabelView   = nil;
+  self.spAttackLabelView  = nil;
+  self.spDefenseLabelView = nil;
+  self.speedLabelView     = nil;
+  self.abilityLabelView   = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,17 +171,9 @@
   [self.abilityLabelView.value   setText:[self.pokemon.pokemon.ability1 stringValue]];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.hpLabelView        = nil;
-  self.attackLabelView    = nil;
-  self.defenseLabelView   = nil;
-  self.spAttackLabelView  = nil;
-  self.spDefenseLabelView = nil;
-  self.speedLabelView     = nil;
-  self.abilityLabelView   = nil;
+  [self releaseSubviews];
 }
 
 @end

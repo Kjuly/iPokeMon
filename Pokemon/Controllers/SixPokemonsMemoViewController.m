@@ -10,8 +10,7 @@
 
 @implementation SixPokemonsMemoViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
@@ -35,7 +34,8 @@
   
   ///Memo
   UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
-  [memoField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+  [memoField setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
   [memoField setOpaque:NO];
   [memoField setEditable:NO];
   [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
@@ -46,13 +46,11 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
 }
 
