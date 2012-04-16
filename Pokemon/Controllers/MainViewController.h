@@ -8,17 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class GameMainViewController;
-
 @interface MainViewController : UIViewController
-{
-  UIButton * centerMainButton_;
-  UIButton * mapButton_;
-  GameMainViewController * gameMainViewController_;
-}
-
-@property (nonatomic, retain) UIButton * centerMainButton;
-@property (nonatomic, retain) UIButton * mapButton;
-@property (nonatomic, retain) GameMainViewController * gameMainViewController;
 
 @end
