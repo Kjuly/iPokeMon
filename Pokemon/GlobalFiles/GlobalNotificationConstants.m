@@ -16,6 +16,8 @@ NSString * const kPMNShowNewbieGuide                = @"PMNShowNewbiewGuide";
 NSString * const kPMNShowConfirmButtonInNebbieGuide = @"PMNShowConfirmButtonInNebbieGuide";
 NSString * const kPMNHideConfirmButtonInNebbieGuide = @"PMNHideConfirmButtonInNebbieGuide";
 
+NSString * const kPMNEnableTracking               = @"PMNEnableTracking";  // enable  tracking
+NSString * const kPMNDisableTracking              = @"PMNDisableTracking"; // disable tracking
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
 //NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
