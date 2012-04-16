@@ -13,7 +13,7 @@
 
 @property (nonatomic, assign) NSInteger viewCount;
 
-- (void)initNavigationBarWith:(UIImage *)backgroundImage;
+- (void)setup;
 - (void)setTitleWithText:(NSString *)text animated:(BOOL)animated;
 - (void)backToRoot:(id)sender;
 - (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated;

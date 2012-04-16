@@ -314,9 +314,7 @@
       self.loginTableViewController = loginTableViewController;
       [loginTableViewController release];
     }
-    loginNavigationController_ =
-      [CustomNavigationController initWithRootViewController:self.loginTableViewController
-                                navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+    loginNavigationController_ = [CustomNavigationController initWithRootViewController:self.loginTableViewController];
     [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   }
   [self.view addSubview:loginNavigationController_.view];
@@ -454,9 +452,8 @@
         self.centerMenuUtilityViewController = centerMenuUtilityViewController;
         [centerMenuUtilityViewController release];
       }
-      centerMenuUtilityNavigationController_ = [CustomNavigationController
-                                      initWithRootViewController:self.centerMenuUtilityViewController
-                                    navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+      centerMenuUtilityNavigationController_ =
+        [CustomNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
       [centerMenuUtilityNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
     
@@ -480,8 +477,7 @@
         [centerMenuSixPokemonsViewController release];
       }
       centerMenuSixPokemonsNavigationController_ =
-        [CustomNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController
-                                  navigationBarBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"]];
+        [CustomNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
       [centerMenuSixPokemonsNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
     [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view

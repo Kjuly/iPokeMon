@@ -10,29 +10,16 @@
 
 #import "CustomNavigationBar.h"
 
-@interface CustomNavigationController () {
- @private
-  UIImage * navigationBarBackgroundImage_;
-}
-
-@property (nonatomic, retain) UIImage * navigationBarBackgroundImage;
-
-@end
-
 
 @implementation CustomNavigationController
 
-@synthesize navigationBarBackgroundImage = navigationBarBackgroundImage_;
-
 - (void)dealloc {
-  self.navigationBarBackgroundImage = nil;
   [super dealloc];
 }
 
 // Class Method of |initWithRootViewController:|
 // This one is perfect without any leak
-+ (id)initWithRootViewController:(UIViewController *)rootViewController
-    navigationBarBackgroundImage:(UIImage *)navigationBarBackgroundImage {
++ (id)initWithRootViewController:(UIViewController *)rootViewController {
   NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
                                                         owner:self
                                                       options:nil];
@@ -41,7 +28,6 @@
   
   if (self) {
     NSLog(@"--- CustomNavigationController initWithRootViewController if(self) ---");
-    navigationController.navigationBarBackgroundImage = navigationBarBackgroundImage;
     [navigationController pushViewController:rootViewController animated:NO];
   }
   return navigationController;
@@ -83,7 +69,7 @@
   [super viewDidLoad];
   
   // Set Navigation Bar
-  [(CustomNavigationBar *)self.navigationBar initNavigationBarWith:self.navigationBarBackgroundImage];
+  [(CustomNavigationBar *)self.navigationBar setup];
 //  CGRect navigationBarFram = self.navigationBar.frame;
   NSLog(@"???? %f", self.navigationBar.frame.origin.y);
 //  navigationBarFram.origin.y = 0.f;
@@ -94,8 +80,6 @@
 - (void)viewDidUnload
 {
   [super viewDidUnload];
-
-  self.navigationBarBackgroundImage = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

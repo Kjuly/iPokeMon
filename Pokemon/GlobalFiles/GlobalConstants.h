@@ -132,6 +132,10 @@ typedef enum {
 #define kTabBarHeight 115.0f
 #define kTabBarWdith  215.0f
 
+#define kNavigationBarHeight 60.f
+#define kNavigationBarBackButtonHeight 60.f
+#define kNavigationBarBackButtonWidth  40.f
+
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10
 
