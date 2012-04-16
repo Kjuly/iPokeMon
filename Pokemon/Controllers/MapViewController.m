@@ -37,7 +37,6 @@
 - (void)continueUpdatingLocation;
 - (void)resetIsPokemonAppeared:(NSNotification *)notification;
 - (void)setEventTimerStatusToRunning:(BOOL)running;
-- (NSDictionary *)generateInfoForCurrentLocation;
 
 @end
 
@@ -91,7 +90,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
@@ -372,47 +370,6 @@
     [self.eventTimer invalidate];
     self.eventTimer = nil;
   }
-}
-
-// Request a query to Google Maps API to get a detail info about current location
-- (NSDictionary *)generateInfoForCurrentLocation
-{
-  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
-  
-  ///Fetch Data from server & populate the |locationInfo|
-  // Success Block Method
-  void (^blockPopulateData)(NSURLRequest *, NSHTTPURLResponse *, id) =
-  ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-    // Set data
-    NSLog(@"status: %@", [JSON valueForKey:@"status"]);
-    if ([[JSON valueForKey:@"status"] isEqualToString:@"OK"]) {
-      NSLog(@"Setting data....");
-      NSDictionary * results = [[JSON valueForKey:@"results"] lastObject];
-      [locationInfo setValue:[results objectForKey:@"types"] forKey:@"types"];
-    }
-    NSLog(@"In: %@", locationInfo);
-  };
-  
-  // Failure Block Method
-  void (^blockError)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
-  ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
-    NSLog(@"!!! ERROR: %@", error);
-  };
-  
-  // Fetch Data from server
-  NSString * requestURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true", self.location.coordinate.latitude, self.location.coordinate.longitude];
-  NSLog(@"%@", requestURL);
-  NSURL * url = [[NSURL alloc] initWithString:requestURL];
-  NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-  [url release];
-  AFJSONRequestOperation * operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:blockPopulateData
-                                                  failure:blockError];
-  [request release];
-  [operation start];
-  
-  return [locationInfo autorelease];
 }
 
 @end
