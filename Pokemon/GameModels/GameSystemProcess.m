@@ -242,14 +242,24 @@ static GameSystemProcess * gameSystemProcess = nil;
 - (void)endEvent {
   if (eventType_ & kGameBattleEventTypeLevelUp) {
     eventType_ = kGameBattleEventTypeNone;
+    // If game battle already END, unload battle scene
+//    if (processType_ == kGameSystemProcessTypeBattleEnd)
+//      [self endBattleWithEventType:kGameBattleEndEventTypeNone];
   }
   else if (eventType_ & kGameBattleEventTypeEvolution) {
     eventType_ = kGameBattleEventTypeNone;
+    // If game battle already END, unload battle scene
+//    if (processType_ == kGameSystemProcessTypeBattleEnd)
+//      [self endBattleWithEventType:kGameBattleEndEventTypeNone];
   }
   else if (eventType_ & kGameBattleEventTypeCaughtWPM) {
     eventType_ = kGameBattleEventTypeNone;
-    [self endBattleWithEventType:kGameBattleEndEventTypeNone];
+//    [self endBattleWithEventType:kGameBattleEndEventTypeNone];
   }
+  
+  // If game battle already END, unload battle scene
+  if (processType_ == kGameSystemProcessTypeBattleEnd)
+    [self endBattleWithEventType:kGameBattleEndEventTypeNone];
 }
 
 // Run EVENT with event type
@@ -1292,7 +1302,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //
 - (void)decreasePPValue {
   // Only for Player now (not include WildPokemon (enemy))
-  if (user_ != kGameSystemProcessUserPlayer || moveIndex_ == 0)
+  if (user_ != kGameSystemProcessUserPlayer || moveIndex_ < 1 || moveIndex_ > 4)
     return;
   playerPokemonPPInOne_ -= pow(1000, (moveIndex_ - 1));
   NSLog(@"Used Move_%d, New value of ppInOne:%d", moveIndex_, playerPokemonPPInOne_);
@@ -1314,8 +1324,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Caclute the result of EXP
   expGained = 10 * enemyPokemonLevel;
   
-//  return expGained;
-  return 1000000;
+  return expGained;
 }
 
 // Check Pokemon Faint or not
@@ -1496,6 +1505,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // If caught Wild Pokemon succeed, show Pokemon Info view
   if (succeed) {
+    // Mark game has already END
+    processType_ = kGameSystemProcessTypeBattleEnd;
+    
     // Run Game Battle Event with Event:Caught WildPokemon
     [self runEventWithEventType:kGameBattleEventTypeCaughtWPM info:nil];
     // Play AUDIO
@@ -1740,8 +1752,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
-//    BOOL isRunSucceed = [self isRunSucceed];
-    BOOL isRunSucceed = YES;
+    BOOL isRunSucceed = [self isRunSucceed];
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];

@@ -163,16 +163,22 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   [self preloadForBattleBasic];
 }
 
-// Clean resources when END battle
-- (void)endBattle {
-  /*NSEnumerator * enumerator = [self.audioPlayers keyEnumerator];
-  if (enumerator == nil)
-    return;
-  id key;
-  while ((key = [enumerator nextObject])) {
-    [[self.audioPlayers objectForKey:key] ];
-  }*/
-  
+// Unload resources particular for battle VS. Wild Pokemon when this type battle END
+- (void)cleanForBattleVSWildPokemon {
+  for (PMAudioType audioType = kAudioBattleEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
+    if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] != nil)
+      [self.audioPlayers removeObjectForKey:[self _resourceNameForAudioType:audioType]];
+}
+
+// unload resources for Battle (include Battle Basic) when NO BATTLE
+- (void)cleanForBattle {
+  for (PMAudioType audioType = kAudioGameEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
+    if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] != nil)
+      [self.audioPlayers removeObjectForKey:[self _resourceNameForAudioType:audioType]];
+}
+
+// unload all resources (include App Basic) when AUDIO NOT ALLOWED
+- (void)cleanAll {
   [self.audioPlayers removeAllObjects];
 }
 

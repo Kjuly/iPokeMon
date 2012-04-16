@@ -42,11 +42,16 @@ typedef enum {
 - (void)pauseForAudioType:(PMAudioType)audioType;         // pauses playback, but remains ready to play
 - (void)stopForAudioType:(PMAudioType)audioType;          // stops playback. no longer ready to play
 
+// Preload
 - (void)preloadForAppBasic;            // preload App basic audios    (|kAudioGame...|)
 - (void)preloadForBattleBasic;         // preload battle basic audios (|kAudioBattle...|)
 - (void)preloadForBattleVSWildPokemon; // preload resources for battle VS. Wild Pokemon
 //- (void)preloadForBattleVSTrainer;     // preload resources for battle VS. Trainer
 //- (void)preloadForBattleVSGymLeader;   // preload resources for battle VS. Gym Leader
-- (void)endBattle;
+
+// Unload
+- (void)cleanForBattleVSWildPokemon;   // unload resources particular for battle VS. Wild Pokemon
+- (void)cleanForBattle;                // unload resources for Battle (include Battle Basic) when NO BATTLE
+- (void)cleanAll;                      // unload all resources (include App Basic) when AUDIO NOT ALLOWED
 
 @end
