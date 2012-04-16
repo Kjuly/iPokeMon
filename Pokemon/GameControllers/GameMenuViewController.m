@@ -250,7 +250,7 @@ typedef enum {
   [messageView release];
   [self.messageView setBackgroundColor:
     [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameMessageViewBackground.png"]]];
-  [self.messageView setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
+  [self.messageView setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
   [self.messageView setEditable:NO];
   [self.view addSubview:self.messageView];
@@ -843,6 +843,31 @@ typedef enum {
 // Update message for game battle
 - (void)updateMessage:(NSNotification *)notification {
   NSDictionary * userInfo = notification.userInfo;
+  
+  // Different colors for different type of message owner (action user)
+  id user = [userInfo objectForKey:@"user"];
+  if (user != nil) {
+    switch ([user intValue]) {
+      case kGameSystemProcessUserPlayer:
+        [self.messageView setTextColor:[GlobalRender textColorBlue]];
+        break;
+        
+      case kGameSystemProcessUserEnemy:
+        [self.messageView setTextColor:[GlobalRender textColorRed]];
+        break;
+        
+      case -1: // What will XXX do?
+        [self.messageView setTextColor:[GlobalRender textColorOrange]];
+        break;
+        
+      default:
+        [self.messageView setTextColor:[GlobalRender textColorNormal]];
+        break;
+    }
+  }
+  else [self.messageView setTextColor:[GlobalRender textColorNormal]];
+  
+  // Update message
   [self.messageView setText:[userInfo objectForKey:@"message"]];
 }
 

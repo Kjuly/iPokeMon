@@ -15,6 +15,7 @@
 + (UIColor *)backgroundColorBar;
 
 + (UIColor *)textColorNormal;
++ (UIColor *)textColorBlue;
 + (UIColor *)textColorOrange;
 + (UIColor *)textColorRed;
 + (UIColor *)textColorTitleWhite;

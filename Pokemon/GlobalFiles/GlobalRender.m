@@ -40,6 +40,11 @@
   return [UIColor colorWithWhite:204.0f / 255.0f alpha:1.0f];
 }
 
+// Bulr
++ (UIColor *)textColorBlue {
+  return [self colorBlue];
+}
+
 // Orange | #EE9911
 + (UIColor *)textColorOrange {
   return [self colorOrange];

@@ -72,11 +72,13 @@
                NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
   else message = NSLocalizedString(@"PMSMessageChooseNewPokemon", nil);
   
-  
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             message,                     @"message",
+                             [NSNumber numberWithInt:-1], @"user", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self
-                                                    userInfo:[NSDictionary dictionaryWithObject:message
-                                                                                         forKey:@"message"]];
+                                                    userInfo:userInfo];
+  [userInfo release];
   playerPokemon = nil;
   [self endTurn];
 }

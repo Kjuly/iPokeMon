@@ -1684,10 +1684,13 @@ static GameSystemProcess * gameSystemProcess = nil;
     return;
   
   // Post |message| to |messageView_| in |GameMenuViewController|
-  NSDictionary * userInfo = [NSDictionary dictionaryWithObject:message forKey:@"message"];
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             message,                        @"message",
+                             [NSNumber numberWithInt:user_], @"user", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self
                                                     userInfo:userInfo];
+  [userInfo release];
 }
 
 #pragma mark - Setting Methods
