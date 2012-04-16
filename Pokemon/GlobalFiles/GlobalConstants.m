@@ -8,6 +8,7 @@
 
 #import "GlobalConstants.h"
 
+NSString * const kUDKeyAppVersion              = @"keyAboutAppVersion";
 NSString * const kUDKeyEnableLocationTracking  = @"keyAppSettingsLocationServices";
 NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider";
 

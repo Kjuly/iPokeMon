@@ -46,7 +46,7 @@
 {
   // User Preferences
   // If not exists, load keyValues from |Settings.bundle| to |NSUserDefaults|
-  NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"];
+  NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyAppVersion];
   if (! appVersion) {
     NSLog(@"Register Defaults From Settings.bundle...");
     [self registerDefaultsFromSettingsBundle];
