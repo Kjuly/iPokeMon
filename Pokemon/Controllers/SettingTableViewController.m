@@ -142,14 +142,15 @@ typedef enum {
     cell = [[[SettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  
   // Configure the cell...
   NSInteger sectionNum = indexPath.section;
   NSInteger rowNum     = indexPath.row;
   if (sectionNum == kSectionAppSettings) {
     switch (rowNum) {
       case kSectionAppSettingsRowLocationServices:
-        [cell.labelTitle setText:
-         [[NSUserDefaults standardUserDefaults] objectForKey:@"keyAppSettingsLocationServices"] ? @"YES" : @"NO"];
+        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyEnableLocationTracking] ? @"YES" : @"NO"];
         break;
         
       default:
@@ -159,7 +160,7 @@ typedef enum {
   else if (sectionNum == kSectionAbout) {
     switch (rowNum) {
       case kSectionAboutRowVersion:
-        [cell.labelTitle setText:[[NSUserDefaults standardUserDefaults] objectForKey:@"keyAboutAppVersion"]];
+        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyAppVersion]];
         break;
         
       default:
