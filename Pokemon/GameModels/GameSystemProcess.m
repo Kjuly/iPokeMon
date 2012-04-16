@@ -169,6 +169,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // Reset data for player Pokemon
   playerPokemonPPInOne_ = [self.playerPokemon fourMovesPPInOne];
+  NSLog(@"playerPokemonPPInOne_::%d", playerPokemonPPInOne_);
 }
 
 // Reset for Battle scene
@@ -216,7 +217,6 @@ static GameSystemProcess * gameSystemProcess = nil;
         break;
         
       case kGameSystemProcessTypeRun:
-//        [self run];
         break;
         
       case kGameSystemProcessTypeBattleEnd:
@@ -240,22 +240,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // End event e.g. Level Up, Evoluation, Caught WPM, etc
 - (void)endEvent {
-  if (eventType_ & kGameBattleEventTypeLevelUp) {
-    eventType_ = kGameBattleEventTypeNone;
-    // If game battle already END, unload battle scene
-//    if (processType_ == kGameSystemProcessTypeBattleEnd)
-//      [self endBattleWithEventType:kGameBattleEndEventTypeNone];
-  }
-  else if (eventType_ & kGameBattleEventTypeEvolution) {
-    eventType_ = kGameBattleEventTypeNone;
-    // If game battle already END, unload battle scene
-//    if (processType_ == kGameSystemProcessTypeBattleEnd)
-//      [self endBattleWithEventType:kGameBattleEndEventTypeNone];
-  }
-  else if (eventType_ & kGameBattleEventTypeCaughtWPM) {
-    eventType_ = kGameBattleEventTypeNone;
-//    [self endBattleWithEventType:kGameBattleEndEventTypeNone];
-  }
+  eventType_ = kGameBattleEventTypeNone;
   
   // If game battle already END, unload battle scene
   if (processType_ == kGameSystemProcessTypeBattleEnd)
@@ -298,6 +283,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   if (user == kGameSystemProcessUserPlayer) {
     [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
     self.playerPokemon = pokemon;
+    // Reset data for player Pokemon
+    playerPokemonPPInOne_ = [self.playerPokemon fourMovesPPInOne];
+    NSLog(@"playerPokemonPPInOne_::%d", playerPokemonPPInOne_);
   }
   else {
     self.enemyPokemon = pokemon;
