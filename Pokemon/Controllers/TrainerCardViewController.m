@@ -24,7 +24,6 @@ typedef enum {
 
 @interface TrainerCardViewController () {
  @private
-  TrainerController * trainer_;
   UIView            * mainView_;
   UIImageView       * imageView_;
   UIView            * IDView_;
@@ -39,17 +38,18 @@ typedef enum {
   UILabel           * adventureStartedTimeLabel_;
   UILabel           * adventureStartedTimeValue_;
   
+  UIButton          * avatarSetttingButton_;
+  UIButton          * nameSettingButton_;
+  UIView            * settingView_;
+  UITextField       * nameSettingField_;   // Name setting input field
+  UILabel           * nameSettingMessage_; // Message for name setting problem
+  UIView            * transparentView_;
+  
+  TrainerController      * trainer_;
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer_;
   BOOL                     isSetttingButtonsHidden_;
-  UIButton               * avatarSetttingButton_;
-  UIButton               * nameSettingButton_;
-  UIView                 * settingView_;
-  UITextField            * nameSettingField_;   // Name setting input field
-  UILabel                * nameSettingMessage_; // Message for name setting problem
-  UIView                 * transparentView_;
 }
 
-@property (nonatomic, retain) TrainerController * trainer;
 @property (nonatomic, retain) UIView            * mainView;
 @property (nonatomic, retain) UIImageView       * imageView;
 @property (nonatomic, retain) UIView            * IDView;
@@ -64,15 +64,17 @@ typedef enum {
 @property (nonatomic, retain) UILabel           * adventureStartedTimeLabel;
 @property (nonatomic, retain) UILabel           * adventureStartedTimeValue;
 
-@property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
-@property (nonatomic, assign) BOOL                     isSetttingButtonsHidden;
-@property (nonatomic, retain) UIButton               * avatarSetttingButton;
-@property (nonatomic, retain) UIButton               * nameSettingButton;
-@property (nonatomic, retain) UIView                 * settingView;
-@property (nonatomic, retain) UITextField            * nameSettingField;
-@property (nonatomic, retain) UILabel                * nameSettingMessage;
-@property (nonatomic, retain) UIView                 * transparentView;
+@property (nonatomic, retain) UIButton          * avatarSetttingButton;
+@property (nonatomic, retain) UIButton          * nameSettingButton;
+@property (nonatomic, retain) UIView            * settingView;
+@property (nonatomic, retain) UITextField       * nameSettingField;
+@property (nonatomic, retain) UILabel           * nameSettingMessage;
+@property (nonatomic, retain) UIView            * transparentView;
 
+@property (nonatomic, retain) TrainerController      * trainer;
+@property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
+
+- (void)releaseSubviews;
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
 - (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)showSettingView:(id)sender;
@@ -83,7 +85,6 @@ typedef enum {
 
 @implementation TrainerCardViewController
 
-@synthesize trainer      = trainer_;
 @synthesize mainView     = mainView_;
 @synthesize imageView    = imageView_;
 @synthesize IDView       = IDView_;
@@ -98,8 +99,6 @@ typedef enum {
 @synthesize adventureStartedTimeLabel = adventureStartedTimeLabel_;
 @synthesize adventureStartedTimeValue = adventureStartedTimeValue_;
 
-@synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
-@synthesize isSetttingButtonsHidden            = isSetttingButtonsHidden_;
 @synthesize avatarSetttingButton               = avatarSetttingButton_;
 @synthesize nameSettingButton                  = nameSettingButton_;
 @synthesize settingView                        = settingView_;
@@ -107,26 +106,31 @@ typedef enum {
 @synthesize nameSettingMessage                 = nameSettingMessage_;
 @synthesize transparentView                    = transparentView_;
 
-- (void)dealloc
-{
+@synthesize trainer                            = trainer_;
+@synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
+
+- (void)dealloc {
+  self.trainer                            = nil;
+  self.twoFingersTwoTapsGestureRecognizer = nil;
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.mainView                  = nil;
+  self.imageView                 = nil;
+  self.IDView                    = nil;
+  self.IDLabel                   = nil;
+  self.nameLabel                 = nil;
+  self.dataView                  = nil;
+  self.moneyLabel                = nil;
+  self.moneyValue                = nil;
+  self.pokedexLabel              = nil;
+  self.pokedexValue              = nil;
+  self.badgeView                 = nil;
+  self.adventureStartedTimeLabel = nil;
+  self.adventureStartedTimeValue = nil;
   
-  self.trainer = nil;
-  [mainView_     release];
-  [imageView_    release];
-  [IDView_       release];
-  [IDLabel_      release];
-  [nameLabel_    release];
-  [dataView_     release];
-  [moneyLabel_   release];
-  [moneyValue_   release];
-  [pokedexLabel_ release];
-  [pokedexValue_ release];
-  [badgeView_    release];
-  [adventureStartedTimeLabel_ release];
-  [adventureStartedTimeValue_ release];
-  
-  [twoFingersTwoTapsGestureRecognizer_ release];
   self.avatarSetttingButton = nil;
   self.nameSettingButton    = nil;
   self.settingView          = nil;
@@ -311,44 +315,22 @@ typedef enum {
   [self.view addGestureRecognizer:self.twoFingersTwoTapsGestureRecognizer];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
   // Set new data
   [self.nameLabel setText:[self.trainer name]];
   [self.nameLabel sizeToFit];
-  [self.moneyValue   setText:[NSString stringWithFormat:@"$ %d", [self.trainer money]]];
+  [self.moneyValue   setText:[NSString stringWithFormat:@"§ %d", [self.trainer money]]];
   [self.pokedexValue setText:[NSString stringWithFormat:@"%d",   [self.trainer numberOfPokemonsForPokedex]]];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.imageView    = nil;
-  self.IDView       = nil;
-  self.IDLabel      = nil;
-  self.nameLabel    = nil;
-  self.dataView     = nil;
-  self.moneyLabel   = nil;
-  self.moneyValue   = nil;
-  self.pokedexLabel = nil;
-  self.pokedexValue = nil;
-  self.badgeView    = nil;
-  self.adventureStartedTimeLabel = nil;
-  self.adventureStartedTimeValue = nil;
-  
-  self.twoFingersTwoTapsGestureRecognizer = nil;
-  self.avatarSetttingButton               = nil;
-  self.nameSettingButton                  = nil;
-  self.settingView                        = nil;
-  self.nameSettingMessage                 = nil;
-  self.transparentView                    = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -360,12 +342,12 @@ typedef enum {
   // Two fingers with two taps to show setting buttons for Trainer Info View
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2) {
     NSLog(@"Two Fingers Two Taps");
-    [self setSettingButtonsHidden:!self.isSetttingButtonsHidden animated:YES];
+    [self setSettingButtonsHidden:!isSetttingButtonsHidden_ animated:YES];
   }
 }
 
 - (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
-  self.isSetttingButtonsHidden = hidden;
+  isSetttingButtonsHidden_ = hidden;
   
   /*if (self.avatarSetttingButton == nil) {
     CGRect avatarSetttingButtonFrame = self.imageView.frame;
@@ -383,6 +365,7 @@ typedef enum {
     [self.avatarSetttingButton addSubview:setableMarkView];
     [setableMarkView release];
   }*/
+  
   if (self.nameSettingButton == nil) {
     CGRect nameSettingButtonFrame = self.nameLabel.frame;
     nameSettingButtonFrame.origin.x = 0;
@@ -552,6 +535,7 @@ typedef enum {
       return;
     };
     
+    // Check UNIQUENESS for user name
     [[ServerAPIClient sharedInstance] checkUniquenessForName:name success:success failure:failure];
   }
   [self cancelSettingViewAnimated:YES];
@@ -559,21 +543,29 @@ typedef enum {
 
 // Cancel |settingView_|
 - (void)cancelSettingViewAnimated:(BOOL)animated {
-  void (^animations)() = ^(){
+  [self.nameSettingField resignFirstResponder];
+  
+  void (^animations)() = ^{
     CGRect settingViewFrame = self.settingView.frame;
     settingViewFrame.origin.y = -settingViewFrame.size.height;
     [self.settingView setFrame:settingViewFrame];
     [self.transparentView setAlpha:0.f];
+  };
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    self.avatarSetttingButton = nil;
+    self.nameSettingButton    = nil;
+    self.settingView          = nil;
+    self.nameSettingField     = nil;
+    self.nameSettingMessage   = nil;
+    self.transparentView      = nil;
   };
   
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f
                                     options:UIViewAnimationOptionCurveEaseOut
                                  animations:animations
-                                 completion:nil];
-  else animations();
-  [self.nameSettingField removeFromSuperview];
-  [self.nameSettingField resignFirstResponder];
+                                 completion:completion];
+  else { animations(); completion(YES); }
 }
 
 @end
