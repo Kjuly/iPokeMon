@@ -16,6 +16,6 @@
 
 @property (nonatomic, retain) MKMapView * mapView;
 
-- (id)initWithPokemonID:(NSInteger)pokemonID;
+- (id)initWithPokemonSID:(NSInteger)pokemonSID;
 
 @end

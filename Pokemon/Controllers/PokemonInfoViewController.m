@@ -42,7 +42,6 @@
                                                300.f,
                                                130.f);
   
-  
   ///Data View in Center
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
@@ -50,18 +49,18 @@
   PokemonInfoLabelView * speciesLabelView = [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
   [speciesLabelView.name  setText:NSLocalizedString(@"PMSLabelSpecies", nil)];
   [speciesLabelView.value setText:NSLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
-                                                      [[self.pokemonDataDict valueForKey:@"species"] intValue]]), nil)];
+                                                      [[self.pokemon valueForKey:@"species"] intValue]]), nil)];
   [dataView addSubview:speciesLabelView];
   [speciesLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
   NSString * types = NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
-                                         [self.pokemonDataDict.type1 intValue]]), nil);
-  if ([self.pokemonDataDict.type2 intValue])
+                                         [self.pokemon.type1 intValue]]), nil);
+  if ([self.pokemon.type2 intValue])
     types = [types stringByAppendingString:[NSString stringWithFormat:@", %@",
                                             NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
-                                                                [self.pokemonDataDict.type2 intValue]]), nil)]];
+                                                                [self.pokemon.type2 intValue]]), nil)]];
   [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
@@ -79,25 +78,22 @@
   [descriptionField setEditable:NO];
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [descriptionField setTextColor:[GlobalRender textColorNormal]];
-  [descriptionField setText:NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d",
-                                                [self.pokemonDataDict.sid intValue]]), nil)];
+  [descriptionField setText:
+    NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
   [self.view addSubview:descriptionField];
   [descriptionField release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

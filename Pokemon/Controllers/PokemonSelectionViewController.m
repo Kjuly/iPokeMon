@@ -178,10 +178,10 @@
 {
   WildPokemon * pokemon = [self.pokemons objectAtIndex:((UIButton *)sender).tag - 1];
   NSLog(@"!!!%@", pokemon.sid);
-  NSInteger pokemonID = [pokemon.sid intValue];
+  NSInteger pokemonSID = [pokemon.sid intValue];
   
   PokemonDetailTabViewController * pokemonDetailTabViewController =
-    [[PokemonDetailTabViewController alloc] initWithPokemonID:pokemonID withTopbar:NO];
+    [[PokemonDetailTabViewController alloc] initWithPokemonSID:pokemonSID withTopbar:NO];
   self.pokemonDetailTabViewController = pokemonDetailTabViewController;
   [pokemonDetailTabViewController release];
   

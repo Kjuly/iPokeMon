@@ -15,20 +15,19 @@
 
 @implementation PokemonDetailViewController
 
-@synthesize pokemonDataDict = pokemonDataDict_;
+@synthesize pokemon = pokemon_;
 
 - (void)dealloc
 {
-  [pokemonDataDict_ release];
-  
+  self.pokemon = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemonDataDict:(Pokemon *)pokemonDataDict
+- (id)initWithPokemon:(Pokemon *)pokemon
 {
   self = [self init];
   if (self) {
-    self.pokemonDataDict = pokemonDataDict;
+    self.pokemon = pokemon;
   }
   return self;
 }
@@ -54,7 +53,6 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
@@ -84,7 +82,7 @@
   [imageView setUserInteractionEnabled:YES];
   [imageView setContentMode:UIViewContentModeCenter];
   [imageView setBackgroundColor:[UIColor clearColor]];
-  [imageView setImage:self.pokemonDataDict.image];
+  [imageView setImage:self.pokemon.image];
   
   [imageContainer addSubview:imageView];
   [imageView release];
@@ -99,7 +97,7 @@
   PokemonInfoLabelView * idLabelView = [[PokemonInfoLabelView alloc]
                                         initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight)
                                         hasValueLabel:NO];
-  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [self.pokemonDataDict.sid intValue]]];
+  [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [self.pokemon.sid intValue]]];
   [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
   [idLabelView.name.layer setShadowOpacity:1.f];
   [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
@@ -113,7 +111,7 @@
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                         [self.pokemonDataDict.sid intValue]]), nil)];
+                                         [self.pokemon.sid intValue]]), nil)];
   [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel.layer setShadowOpacity:1.f];
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
@@ -127,20 +125,15 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemonDataDict = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

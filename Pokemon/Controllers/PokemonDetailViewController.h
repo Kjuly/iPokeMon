@@ -15,11 +15,11 @@
 @class Pokemon;
 
 @interface PokemonDetailViewController : UIViewController {
-  Pokemon * pokemonDataDict_;
+  Pokemon * pokemon_;
 }
 
-@property (nonatomic, retain) Pokemon * pokemonDataDict;
+@property (nonatomic, retain) Pokemon * pokemon;
 
-- (id)initWithPokemonDataDict:(Pokemon *)pokemonDataDict;
+- (id)initWithPokemon:(Pokemon *)pokemon;
 
 @end

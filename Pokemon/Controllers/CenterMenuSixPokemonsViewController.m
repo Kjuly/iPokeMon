@@ -28,9 +28,7 @@
 @synthesize sixPokemons = sixPokemons_;
 
 - (void)dealloc {
-  [sixPokemons_ release];
   self.sixPokemons = nil;
-  [self releaseSubviews];
   [super dealloc];
 }
 
@@ -40,7 +38,6 @@
   [super didReceiveMemoryWarning];
   
   // Release any cached data, images, etc that aren't in use.
-  [sixPokemons_ release];
   self.sixPokemons = nil;
 }
 
@@ -59,7 +56,6 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

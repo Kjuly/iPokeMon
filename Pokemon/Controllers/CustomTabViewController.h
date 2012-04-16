@@ -10,16 +10,13 @@
 
 #import "CustomTabBar.h"
 
-@interface CustomTabViewController : UIViewController <CustomTabBarDelegate>
-{
-  CustomTabBar * tabBar_;
-  NSArray      * tabBarItems_;
-  CGRect         viewFrame_;
+@interface CustomTabViewController : UIViewController <CustomTabBarDelegate> {
+  NSArray * tabBarItems_;
+  CGRect    viewFrame_;
 }
 
-@property (nonatomic, retain) CustomTabBar * tabBar;
-@property (nonatomic, copy) NSArray        * tabBarItems;
-@property (nonatomic, assign) CGRect viewFrame;
+@property (nonatomic, copy)   NSArray * tabBarItems;
+@property (nonatomic, assign) CGRect    viewFrame;
 
 - (void)toggleTabBar:(NSNotification *)notification;
 

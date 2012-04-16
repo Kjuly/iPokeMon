@@ -16,7 +16,6 @@
 
 @property (nonatomic, retain) UIView * centerMenu;
 
-- (void)releaseSubviews;
 - (id)initWithButtonCount:(NSInteger)buttonCount;
 - (void)runButtonActions:(id)sender;
 - (void)pushViewController:(id)viewController;

@@ -182,8 +182,8 @@
     
     // Load Pokemon info view
     Pokemon * pokemonData = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
-    PokemonInfoViewController * pokemonInfoViewController =
-      [[PokemonInfoViewController alloc] initWithPokemonDataDict:pokemonData];
+    PokemonInfoViewController * pokemonInfoViewController;
+    pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:pokemonData];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     [self.backgroundView addSubview:pokemonInfoViewController.view];
     [pokemonInfoViewController release];

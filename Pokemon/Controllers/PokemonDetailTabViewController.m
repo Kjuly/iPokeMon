@@ -15,31 +15,41 @@
 #import "PokemonSizeViewController.h"
 
 
+@interface PokemonDetailTabViewController () {
+ @private
+  Pokemon * pokemon_;
+}
+
+@property (nonatomic, retain) Pokemon * pokemon;
+
+@end
+
+
 @implementation PokemonDetailTabViewController
 
-@synthesize pokemonDataDict = pokemonDataDict_;
+@synthesize pokemon = pokemon_;
 
 - (void)dealloc
 {
+  self.pokemon = nil;
   [super dealloc];
-  
-  [pokemonDataDict_ release];
 }
 
-- (id)initWithPokemonID:(NSInteger)pokemonID withTopbar:(BOOL)withTopbar {
+- (id)initWithPokemonSID:(NSInteger)pokemonSID withTopbar:(BOOL)withTopbar {
   self = [super init];
   if (self) {
     // Set View Frame
     self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
     
-    self.pokemonDataDict = [Pokemon queryPokemonDataWithID:pokemonID];
+    self.pokemon = [Pokemon queryPokemonDataWithID:pokemonSID];
     
     // Add child view controllers to each tab
-    PokemonInfoViewController * pokemonInfoViewController = [[PokemonInfoViewController alloc]
-                                                             initWithPokemonDataDict:self.pokemonDataDict];
-    PokemonAreaViewController * pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonID:pokemonID];
-    PokemonSizeViewController * pokemonSizeViewController = [[PokemonSizeViewController alloc]
-                                                             initWithPokemonDataDict:self.pokemonDataDict];
+    PokemonInfoViewController * pokemonInfoViewController;
+    PokemonAreaViewController * pokemonAreaViewController;
+    PokemonSizeViewController * pokemonSizeViewController;
+    pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:self.pokemon];
+    pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonSID:pokemonSID];
+    pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemon:self.pokemon];
     
     // Set child views' Frame
     CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
@@ -70,21 +80,16 @@
 
 #pragma mark - View lifecycle
 
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemonDataDict = nil;
 }
 
 @end

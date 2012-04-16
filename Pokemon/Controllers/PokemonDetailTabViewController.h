@@ -8,15 +8,8 @@
 
 #import "CustomTabViewController.h"
 
-@class Pokemon;
-
 @interface PokemonDetailTabViewController : CustomTabViewController
-{
-  Pokemon * pokemonDataDict_;
-}
 
-@property (nonatomic, retain) Pokemon * pokemonDataDict;
-
-- (id)initWithPokemonID:(NSInteger)pokemonID withTopbar:(BOOL)withTopbar;
+- (id)initWithPokemonSID:(NSInteger)pokemonSID withTopbar:(BOOL)withTopbar;
 
 @end

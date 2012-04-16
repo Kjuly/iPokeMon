@@ -37,8 +37,7 @@
 @synthesize fetchedResultsController = fetchedResultsController_;
 
 - (void)dealloc {
-  [trainer_ release];
-  self.trainer = nil;
+  self.trainer                           = nil;
   self.fetchedResultsController.delegate = nil;
   self.fetchedResultsController          = nil;
   [super dealloc];
@@ -190,7 +189,7 @@
   NSInteger rowID = [indexPath row];
   if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)]) {
     PokemonDetailTabViewController * pokemonDetailTabViewController =
-      [[PokemonDetailTabViewController alloc] initWithPokemonID:++rowID withTopbar:YES];
+      [[PokemonDetailTabViewController alloc] initWithPokemonSID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
     [pokemonDetailTabViewController release];
   }

@@ -45,7 +45,7 @@
   PokemonInfoLabelView * heightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:heightLabelFrame hasValueLabel:YES];
   [heightLabelView.name  setText:NSLocalizedString(@"PMSLabelHeight", nil)];
   [heightLabelView.value setText:[NSString stringWithFormat:@"%.2f m",
-                                  [[self.pokemonDataDict valueForKey:@"height"] floatValue]]];
+                                  [[self.pokemon valueForKey:@"height"] floatValue]]];
   [sizeView addSubview:heightLabelView];
   [heightLabelView release];
   
@@ -53,7 +53,7 @@
   PokemonInfoLabelView * weightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
   [weightLabelView.name  setText:NSLocalizedString(@"PMSLabelWeight", nil)];
   [weightLabelView.value setText:[NSString stringWithFormat:@"%.2f kg",
-                                  [[self.pokemonDataDict valueForKey:@"weight"] floatValue]]];
+                                  [[self.pokemon valueForKey:@"weight"] floatValue]]];
   [sizeView addSubview:weightLabelView];
   [weightLabelView release];
   
@@ -63,13 +63,11 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
 }
 

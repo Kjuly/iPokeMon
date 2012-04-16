@@ -29,16 +29,8 @@
 @synthesize centerMenu = centerMenu_;
 
 -(void)dealloc {
-  [self releaseSubviews];
-  [super dealloc];
-}
-
-- (void)releaseSubviews {
-  for (UIView *view in [self.centerMenu subviews]) {
-    [view removeFromSuperview];
-    view = nil;
-  }
   self.centerMenu = nil;
+  [super dealloc];
 }
 
 - (id)initWithButtonCount:(NSInteger)buttonCount
@@ -108,7 +100,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  self.centerMenu = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

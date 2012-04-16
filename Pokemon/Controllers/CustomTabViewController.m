@@ -16,15 +16,13 @@
 
 @interface CustomTabViewController () {
  @private
-  BOOL    isTabBarHide_;
-  BOOL    isSwiping_;     // doing swiping
-  CGFloat swipeStartPoint_;  // Value of the starting touch point's x location
+  CustomTabBar * tabBar_;
+  BOOL           isTabBarHide_;
+  BOOL           isSwiping_;       // doing swiping
+  CGFloat        swipeStartPoint_; // Value of the starting touch point's x location
 }
 
-@property (nonatomic, assign) BOOL    isTabBarHide;
-@property (nonatomic, assign) BOOL    isSwiping;
-@property (nonatomic, assign) CGFloat swipeStartPoint;
-
+@property (nonatomic, retain) CustomTabBar * tabBar;
 
 - (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex;
 
@@ -37,16 +35,12 @@
 @synthesize tabBarItems = tabBarItems_;
 @synthesize viewFrame   = viewFrame_;
 
-@synthesize isTabBarHide    = isTabBarHide_;
-@synthesize isSwiping       = isSwiping_;
-@synthesize swipeStartPoint = swipeStartPoint_;
-
-
 - (void)dealloc
 {
-  [tabBar_      release];
-  [tabBarItems_ release];
+  self.tabBar      = nil;
+  self.tabBarItems = nil;
   
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleTabBar object:nil];
   [super dealloc];
 }
 
@@ -79,7 +73,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
   self.view = view;
   [view release];
@@ -117,7 +110,11 @@
     [view.layer setPosition:CGPointMake(view.frame.size.width / 2, kViewHeight)];
   }
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleTabBar:) name:kPMNToggleTabBar object:nil];
+  // Notification for toggle tab bar
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(toggleTabBar:)
+                                               name:kPMNToggleTabBar
+                                             object:nil];
 }
 
 - (void)viewDidUnload
@@ -135,36 +132,32 @@
   [super viewWillAppear:animated];
   
   // If |tabBar_| is hidden, show it
-  if (self.isTabBarHide) [self toggleTabBar:nil];
+  if (isTabBarHide_) [self toggleTabBar:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Touch Actions
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   if ([touches count] != 1) return;
   UIView * currentView = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
-  self.swipeStartPoint = [[touches anyObject] locationInView:currentView].x;
+  swipeStartPoint_ = [[touches anyObject] locationInView:currentView].x;
   currentView = nil;
-  self.isSwiping = YES;
+  isSwiping_ = YES;
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-  if (! self.isSwiping || [touches count] != 1) return;
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+  if (! isSwiping_ || [touches count] != 1) return;
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-  if (! self.isSwiping) return;
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+  if (! isSwiping_) return;
   UIView * currentView  = [self.view viewWithTag:kPoketchSelectedViewControllerTag];
-  CGFloat swipeDistance = [[touches anyObject] locationInView:currentView].x - self.swipeStartPoint;
+  CGFloat swipeDistance = [[touches anyObject] locationInView:currentView].x - swipeStartPoint_;
   currentView = nil;
   NSInteger previousItemIndex = self.tabBar.previousItemIndex;
   
@@ -180,7 +173,7 @@
     [self.tabBar touchDownAction:button];
     button = nil;
   }
-  self.isSwiping = NO;
+  isSwiping_ = NO;
 }
 
 #pragma mark - PoketchTabBarDelegate
@@ -190,8 +183,7 @@
   return [UIImage imageNamed:[[self.tabBarItems objectAtIndex:itemIndex] objectForKey:@"image"]];
 }
 
-- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex withPreviousItemIndex:(NSUInteger)previousItemIndex
-{
+- (void)touchDownAtItemAtIndex:(NSUInteger)itemIndex withPreviousItemIndex:(NSUInteger)previousItemIndex {
   // if |angle > 0|, rotate to left
   CGFloat angle = [self angleForRatationWithItemIndex:itemIndex previousItemIndex:previousItemIndex];
   
@@ -244,7 +236,7 @@
 {
   CGRect tabBarFrame = self.tabBar.frame;
   CGAffineTransform transform = CGAffineTransformIdentity;
-  if (self.isTabBarHide) {
+  if (isTabBarHide_) {
     tabBarFrame.origin.y = self.viewFrame.size.height - kTabBarHeight;
     transform = CGAffineTransformScale(transform, 1.f, 1.f);
   }
@@ -261,15 +253,15 @@
 //                     [self.tabBar setTransform:transform];
                    }
                    completion:^(BOOL finished) {
-                     self.isTabBarHide = ! self.isTabBarHide;
+                     isTabBarHide_ = ! isTabBarHide_;
                    }];
 }
 
 #pragma mark - Private Methods
 
 // Return angle (in redians) for rotation
-- (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex previousItemIndex:(NSUInteger)previousItemIndex
-{
+- (CGFloat)angleForRatationWithItemIndex:(NSUInteger)itemIndex
+                       previousItemIndex:(NSUInteger)previousItemIndex {
   CGFloat degree;
   switch ([self.tabBarItems count]) {
     case 2:
@@ -285,7 +277,7 @@
       degree = 25;
       break;
   }
-  return degree * (NSInteger)(previousItemIndex - itemIndex) * M_PI / 180 ;
+  return degree * (NSInteger)(previousItemIndex - itemIndex) * M_PI / 180;
 }
 
 @end

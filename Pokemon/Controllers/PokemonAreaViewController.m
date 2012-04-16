@@ -17,16 +17,14 @@
 
 - (void)dealloc
 {
-  [mapView_ release];
-  
+  self.mapView = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemonID:(NSInteger)pokemonID
+- (id)initWithPokemonSID:(NSInteger)pokemonSID
 {
   self = [self init];
   if (self) {
-    
   }
   return self;
 }
@@ -52,7 +50,6 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-//  [super loadView];
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];

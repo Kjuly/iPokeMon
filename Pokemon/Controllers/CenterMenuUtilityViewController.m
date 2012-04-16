@@ -51,17 +51,11 @@
 @synthesize settingTableViewController     = settingTableViewController_;
 
 -(void)dealloc {
-  [pokedexTableViewController_     release];
-  [sixPokemonsTableViewController_ release];
-  [bagTableViewController_         release];
-  [trainerCardViewController_      release];
-  [settingTableViewController_     release];
   self.pokedexTableViewController     = nil;
   self.sixPokemonsTableViewController = nil;
   self.bagTableViewController         = nil;
   self.trainerCardViewController      = nil;
   self.settingTableViewController     = nil;
-  [self releaseSubviews];
   [super dealloc];
 }
 
@@ -93,7 +87,6 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
