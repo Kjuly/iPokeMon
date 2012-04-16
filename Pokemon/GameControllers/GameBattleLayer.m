@@ -120,8 +120,8 @@
     
     // Create a new scene
     // Generate a Wild Pokemon as the appeared Pokemon
-//    [self createNewSceneWithWildPokemonUID:[[WildPokemonController sharedInstance] appearedPokemonUID]];
-    [self createNewSceneWithWildPokemonUID:8];
+    [self createNewSceneWithWildPokemonUID:[[WildPokemonController sharedInstance] appearedPokemonUID]];
+//    [self createNewSceneWithWildPokemonUID:8];
     
     // Add observer for notification to replace player, enemy's pokemon
     [[NSNotificationCenter defaultCenter] addObserver:self

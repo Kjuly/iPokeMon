@@ -214,8 +214,8 @@
   [self.moveDetailView.moveBaseView.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
   [self.moveDetailView.moveBaseView.pp setText:
-   [NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:moveTag * 2 - 1] intValue],
-                                          [[fourMovesPP_ objectAtIndex:moveTag * 2 - 2] intValue]]];
+   [NSString stringWithFormat:@"%d / %d", [[fourMovesPP_ objectAtIndex:((moveTag - 1) * 2)]     intValue],
+                                          [[fourMovesPP_ objectAtIndex:((moveTag - 1) * 2 + 1)] intValue]]];
   [self.moveDetailView.categoryLabelView.value setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMoveCategory%d", [move.category intValue]]), nil)];
   [self.moveDetailView.powerLabelView.value setText:
