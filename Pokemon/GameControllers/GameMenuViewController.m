@@ -35,22 +35,20 @@ typedef enum {
 
 @interface GameMenuViewController () {
  @private
+  UIView      * menuArea_;
+  UITextView  * messageView_;
+  UIImageView * pokemonImageView_;
+  UIImageView * pokeball_;
+  
   PMAudioPlayer                         * audioPlayer_;
+  TrainerController                     * trainer_;
   GameStatusMachine                     * gameStatusMachine_;
 //  GameTopViewController                 * gameTopViewController_;
   GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
   GamePlayerPokemonStatusViewController * playerPokemonStatusViewController_;
-  
-  GameMenuKeyView                     gameMenuKeyView_;
-  GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
-  GameMenuMoveViewController        * gameMenuMoveViewController_;
-  GameMenuBagViewController         * gameMenuBagViewController_;
-  UIView                            * menuArea_;
-  UITextView                        * messageView_;
-  
-  NSInteger                           currPokemon_;
-  UIImageView                       * pokemonImageView_;
-  UIImageView                       * pokeball_;
+  GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController_;
+  GameMenuMoveViewController            * gameMenuMoveViewController_;
+  GameMenuBagViewController             * gameMenuBagViewController_;
   
   // Gestures
   UISwipeGestureRecognizer * swipeRightGestureRecognizer_;        // Open Move view for Fight
@@ -60,24 +58,24 @@ typedef enum {
   UITapGestureRecognizer   * twoFingersTwoTapsGestureRecognizer_; // Open Run confirm view
   UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer_;  // Open Menu
   
+  GameMenuKeyView gameMenuKeyView_;
+  NSInteger       currPokemon_;
 }
 
+@property (nonatomic, retain) UIView      * menuArea;
+@property (nonatomic, retain) UITextView  * messageView;
+@property (nonatomic, retain) UIImageView * pokemonImageView;
+@property (nonatomic, retain) UIImageView * pokeball;
+
 @property (nonatomic, retain) PMAudioPlayer                         * audioPlayer;
+@property (nonatomic, retain) TrainerController                     * trainer;
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
 //@property (nonatomic, retain) GameTopViewController                 * gameTopViewController;
 @property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
 @property (nonatomic, retain) GamePlayerPokemonStatusViewController * playerPokemonStatusViewController;
-
-@property (nonatomic, assign) GameMenuKeyView                     gameMenuKeyView;
-@property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
-@property (nonatomic, retain) GameMenuMoveViewController        * gameMenuMoveViewController;
-@property (nonatomic, retain) GameMenuBagViewController         * gameMenuBagViewController;
-@property (nonatomic, retain) UIView                            * menuArea;
-@property (nonatomic, retain) UITextView                        * messageView;
-
-@property (nonatomic, assign) NSInteger                           currPokemon;
-@property (nonatomic, retain) UIImageView                       * pokemonImageView;
-@property (nonatomic, retain) UIImageView                       * pokeball;
+@property (nonatomic, retain) GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController;
+@property (nonatomic, retain) GameMenuMoveViewController            * gameMenuMoveViewController;
+@property (nonatomic, retain) GameMenuBagViewController             * gameMenuBagViewController;
 
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
@@ -86,6 +84,7 @@ typedef enum {
 @property (nonatomic, retain) UITapGestureRecognizer   * twoFingersTwoTapsGestureRecognizer;
 @property (nonatomic, retain) UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer;
 
+- (void)releaseSubviews;
 // Button Actions
 - (void)updateGameMenuKeyView:(NSNotification *)notification;
 - (void)toggleSixPokemonView;
@@ -113,27 +112,22 @@ typedef enum {
 
 @implementation GameMenuViewController
 
-@synthesize delegate    = delegate_;
-@synthesize buttonFight = buttonFight_;
-@synthesize buttonBag   = buttonBag_;
-@synthesize buttonRun   = buttonRun_;
+@synthesize delegate = delegate_;
+
+@synthesize menuArea         = menuArea_;
+@synthesize messageView      = messageView_;
+@synthesize pokemonImageView = pokemonImageView_;
+@synthesize pokeball         = pokeball_;
 
 @synthesize audioPlayer                       = audioPlayer_;
+@synthesize trainer                           = trainer_;
 @synthesize gameStatusMachine                 = gameStatusMachine_;
 //@synthesize gameTopViewController             = gameTopViewController_;
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
 @synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
-
-@synthesize gameMenuKeyView                   = gameMenuKeyView_;
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 @synthesize gameMenuMoveViewController        = gameMenuMoveViewController_;
 @synthesize gameMenuBagViewController         = gameMenuBagViewController_;
-@synthesize menuArea                          = menuArea_;
-@synthesize messageView                       = messageView_;
-
-@synthesize currPokemon                       = currPokemon_;
-@synthesize pokemonImageView                  = pokemonImageView_;
-@synthesize pokeball                          = pokeball_;
 
 @synthesize swipeRightGestureRecognizer        = swipeRightGestureRecognizer_;
 @synthesize swipeLeftGestureRecognizer         = swipeLeftGestureRecognizer_;
@@ -142,33 +136,26 @@ typedef enum {
 @synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
 @synthesize twoFingersOneTapGestureRecognizer  = twoFingersOneTapGestureRecognizer_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.delegate = nil;
+  [self releaseSubviews];
   
-  [buttonFight_ release];
-  [buttonBag_   release];
-  [buttonRun_   release];
+  self.audioPlayer                        = nil;
+  self.trainer                            = nil;
+  self.gameStatusMachine                  = nil;
+//  self.gameTopViewController             = nil;
+  self.enemyPokemonStatusViewController   = nil;
+  self.playerPokemonStatusViewController  = nil;
+  self.gameMenuSixPokemonsViewController  = nil;
+  self.gameMenuMoveViewController         = nil;
+  self.gameMenuBagViewController          = nil;
   
-  self.gameStatusMachine = nil;
-//  [gameTopViewController_             release];
-  [enemyPokemonStatusViewController_  release];
-  [playerPokemonStatusViewController_ release];
-  
-  [gameMenuSixPokemonsViewController_ release];
-  [gameMenuMoveViewController_        release];
-  [gameMenuBagViewController_         release];
-  [menuArea_                          release];
-  [messageView_                       release];
-  [pokemonImageView_                  release];
-  [pokeball_                          release];
-  
-  [swipeRightGestureRecognizer_        release];
-  [swipeLeftGestureRecognizer_         release];
-  [swipeUpGestureRecognizer_           release];
-  [swipeDownGestureRecognizer_         release];
-  [twoFingersTwoTapsGestureRecognizer_ release];
-  [twoFingersOneTapGestureRecognizer_  release];
+  self.swipeRightGestureRecognizer        = nil;
+  self.swipeLeftGestureRecognizer         = nil;
+  self.swipeUpGestureRecognizer           = nil;
+  self.swipeDownGestureRecognizer         = nil;
+  self.twoFingersTwoTapsGestureRecognizer = nil;
+  self.twoFingersOneTapGestureRecognizer  = nil;
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateGameMenuKeyView object:nil];
@@ -180,6 +167,13 @@ typedef enum {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballChecking object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokeballLossWildPokemon object:nil];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.menuArea         = nil;
+  self.messageView      = nil;
+  self.pokemonImageView = nil;
+  self.pokeball         = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -283,7 +277,7 @@ typedef enum {
   // Base Settings
   self.audioPlayer       = [PMAudioPlayer     sharedInstance];
   self.gameStatusMachine = [GameStatusMachine sharedInstance];
-  self.gameMenuKeyView   = kGameMenuKeyViewNone;
+  gameMenuKeyView_       = kGameMenuKeyViewNone;
   
   //
   // Getsture Recognizers
@@ -383,35 +377,12 @@ typedef enum {
                                              object:nil];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.buttonFight = nil;
-  self.buttonBag   = nil;
-  self.buttonRun   = nil;
-  
-//  self.gameTopViewController             = nil;
-  self.enemyPokemonStatusViewController  = nil;
-  self.playerPokemonStatusViewController = nil;
-  
-  self.gameMenuSixPokemonsViewController = nil;
-  self.gameMenuMoveViewController        = nil;
-  self.gameMenuBagViewController         = nil;
-  self.menuArea                          = nil;
-  self.messageView                       = nil;
-  self.pokeball                          = nil;
-  
-  self.swipeRightGestureRecognizer        = nil;
-  self.swipeLeftGestureRecognizer         = nil;
-  self.swipeUpGestureRecognizer           = nil;
-  self.swipeDownGestureRecognizer         = nil;
-  self.twoFingersTwoTapsGestureRecognizer = nil;
-  self.twoFingersOneTapGestureRecognizer  = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -420,37 +391,36 @@ typedef enum {
 
 // Update key view
 - (void)updateGameMenuKeyView:(NSNotification *)notification {
-  self.gameMenuKeyView = kGameMenuKeyViewNone;
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
 }
 
 // Button actions
 // Toggle six pokemons' view
 - (void)toggleSixPokemonView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
+    if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
       [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:YES];
       [self.gameMenuSixPokemonsViewController loadSixPokemonsAnimated:YES];
-      self.gameMenuKeyView = kGameMenuKeyViewSixPokemonsView;
+      gameMenuKeyView_ = kGameMenuKeyViewSixPokemonsView;
     }
     else {
       if (self.gameMenuSixPokemonsViewController.isSelectedPokemonInfoViewOpening)
         [self.gameMenuSixPokemonsViewController unloadSelcetedPokemonInfoView];
       [self.gameMenuSixPokemonsViewController unloadSixPokemonsAnimated:YES];
       
-      self.gameMenuKeyView = kGameMenuKeyViewNone;
+      gameMenuKeyView_ = kGameMenuKeyViewNone;
     }
   }
 }
 
 // Replace the battle pokemon
 - (void)replacePokemon:(NSNotification *)notification {
-  self.gameMenuKeyView = kGameMenuKeyViewNone;
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   CGFloat baseDalay = 0.f;
   // If player's current battle Pokemon not fainted, get back it with animation first
-  TrainerTamedPokemon * pokemon =
-    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+  TrainerTamedPokemon * pokemon = [[self.trainer sixPokemons] objectAtIndex:currPokemon_];
   if ([pokemon.hp intValue] != 0) {
     // Get current battling pokemon back from scene animated
     baseDalay = 1.f;
@@ -464,8 +434,7 @@ typedef enum {
 
 // Try to catch Wild Pokemon
 - (void)catchWildPokemon:(NSNotification *)notification {
-  self.gameMenuKeyView = kGameMenuKeyViewNone;
-  
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
   // Throw Pokeball to WildPokemon
   [self performSelector:@selector(throwPokeballToCatchPokemon) withObject:nil afterDelay:1.f];
 }
@@ -535,8 +504,7 @@ typedef enum {
   getPokemonBackAnimation.animations = animations;
   [animations release];
   
-  TrainerTamedPokemon * pokemon =
-    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:self.currPokemon];
+  TrainerTamedPokemon * pokemon = [[self.trainer sixPokemons] objectAtIndex:currPokemon_];
   [self.pokemonImageView setImage:pokemon.pokemon.imageBack];
   [self.pokemonImageView.layer addAnimation:getPokemonBackAnimation forKey:@"getPokemonBack"];
   pokemon = nil;
@@ -629,7 +597,7 @@ typedef enum {
   [self.audioPlayer playForAudioType:kAudioBattleThrowPokeball afterDelay:0];
   
   // Set current battle pokemon ID
-  self.currPokemon = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
+  currPokemon_ = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
   
   // Update Pokmeon's Move
   [self.gameMenuMoveViewController updateFourMoves];
@@ -650,14 +618,6 @@ typedef enum {
   [path addCurveToPoint:CGPointMake(kGameBattleEnemyPokemonPosX, kViewHeight - kGameBattleEnemyPokemonPosY)
           controlPoint1:CGPointMake(240.f, 110.f)
           controlPoint2:CGPointMake(245.f, 110.f)];
-  /*
-   [path addCurveToPoint:CGPointMake(100.f, 250.f)
-   controlPoint1:CGPointMake(160.f, 330.f)
-   controlPoint2:CGPointMake(130.f, 270.f)];
-   [path addCurveToPoint:CGPointMake(70.f, 230.f)
-   controlPoint1:CGPointMake(90.f, 245.f)
-   controlPoint2:CGPointMake(80.f, 230.f)];
-   */
   
 //  #ifdef DEBUG
 //    CAShapeLayer * pathTrack = [CAShapeLayer layer];
@@ -798,7 +758,7 @@ typedef enum {
     // Update Moves' data & load view with animations
     [self.gameMenuMoveViewController updateFourMoves];
     [self.gameMenuMoveViewController loadViewWithAnimationFromLeft:YES animated:YES];
-    self.gameMenuKeyView = kGameMenuKeyViewMoveView;
+    gameMenuKeyView_ = kGameMenuKeyViewMoveView;
   }
 }
 
@@ -812,7 +772,7 @@ typedef enum {
     }
     [self.view addSubview:self.gameMenuBagViewController.view];
     [self.gameMenuBagViewController loadViewWithAnimationFromLeft:NO animated:YES];
-    self.gameMenuKeyView = kGameMenuKeyViewBagView;
+    gameMenuKeyView_ = kGameMenuKeyViewBagView;
   }
 }
 
@@ -833,8 +793,8 @@ typedef enum {
 - (void)toggleSixPokemonsView:(NSNotification *)notification {
   // Toggle SixPokemons'view only when 
   //   the key view is None or |kGameMenuKeyViewSixPokemonsView|
-  if (self.gameMenuKeyView == kGameMenuKeyViewNone ||
-      self.gameMenuKeyView == kGameMenuKeyViewSixPokemonsView)
+  if (gameMenuKeyView_ == kGameMenuKeyViewNone ||
+      gameMenuKeyView_ == kGameMenuKeyViewSixPokemonsView)
     [self toggleSixPokemonView];
   // Otherwise, cancel other key views first
   else [self cancelKeyViewExcept:kGameMenuKeyViewSixPokemonsView];
@@ -889,7 +849,7 @@ typedef enum {
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight: {
       NSLog(@"Swipe to Right");
-      if (self.gameMenuKeyView == kGameMenuKeyViewNone) [self openMoveView];
+      if (gameMenuKeyView_ == kGameMenuKeyViewNone) [self openMoveView];
       else [self cancelKeyViewExcept:kGameMenuKeyViewMoveView];
       return;
       break;
@@ -897,7 +857,7 @@ typedef enum {
       
     case UISwipeGestureRecognizerDirectionLeft: {
       NSLog(@"Swipe to Left");
-      if (self.gameMenuKeyView == kGameMenuKeyViewNone) [self openBagView];
+      if (gameMenuKeyView_ == kGameMenuKeyViewNone) [self openBagView];
       else [self cancelKeyViewExcept:kGameMenuKeyViewBagView];
       return;
       break;
@@ -905,13 +865,13 @@ typedef enum {
       
     case UISwipeGestureRecognizerDirectionUp: {
       NSLog(@"Swipe to Up");
-      if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
+      if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
         playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuMessageViewHeight - kGameMenuPMStatusViewHeight;
         animations = ^(){
           [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
         };
-        self.gameMenuKeyView = kGameMenuKeyViewPlayerPokemonStatusView;
+        gameMenuKeyView_ = kGameMenuKeyViewPlayerPokemonStatusView;
       }
       else {
         [self cancelKeyViewExcept:kGameMenuKeyViewPlayerPokemonStatusView];
@@ -922,11 +882,11 @@ typedef enum {
       
     case UISwipeGestureRecognizerDirectionDown: {
       NSLog(@"Swipe to Down");
-      if (self.gameMenuKeyView == kGameMenuKeyViewNone) {
+      if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
         CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
         enemyPokemonStatusViewFrame.origin.y = 0.f;
         animations = ^(){ [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame]; };
-        self.gameMenuKeyView = kGameMenuKeyViewEnemyPokemonStatusView;
+        gameMenuKeyView_ = kGameMenuKeyViewEnemyPokemonStatusView;
       }
       else {
         [self cancelKeyViewExcept:kGameMenuKeyViewEnemyPokemonStatusView];
@@ -954,13 +914,13 @@ typedef enum {
 
 // Cancel key view except |targetView|
 - (void)cancelKeyViewExcept:(GameMenuKeyView)targetView {
-  if (self.gameMenuKeyView == targetView)
+  if (gameMenuKeyView_ == targetView)
     return;
   
   void (^animations)();
   
   // Cancel current opening view
-  switch (self.gameMenuKeyView) {
+  switch (gameMenuKeyView_) {
     case kGameMenuKeyViewSixPokemonsView:
       return;
       break;
@@ -978,7 +938,7 @@ typedef enum {
       break;
       
     case kGameMenuKeyViewPlayerPokemonStatusView: {
-      animations = ^(){
+      animations = ^{
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
         playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuMessageViewHeight - kGameMenuPMStatusHPBarHeight;
         [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
@@ -989,17 +949,17 @@ typedef enum {
     case kGameMenuKeyViewEnemyPokemonStatusView: {
       CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
       enemyPokemonStatusViewFrame.origin.y = - (kGameMenuPMStatusViewHeight - kGameMenuPMStatusHPBarHeight);
-      animations = ^(){
+      animations = ^{
         [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame];
       };
       break;
     }
       
     default:
-      animations = ^(){};
+      animations = nil;
       break;
   }
-  self.gameMenuKeyView = kGameMenuKeyViewNone;
+  gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -1023,7 +983,7 @@ typedef enum {
   [self.gameMenuSixPokemonsViewController prepareForNewScene];
   if (self.gameMenuMoveViewController != nil)
     [self.gameMenuMoveViewController updateFourMoves];         // Update data in Move View
-  self.currPokemon = 0;                                        // Set current Battle Pokemon
+  currPokemon_ = 0;                                            // Set current Battle Pokemon
                                                                //   !!!TODO, if first one is not available!
 }
 
@@ -1053,7 +1013,6 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (buttonIndex == 0) {
     [[GameSystemProcess sharedInstance] endBattleWithEventType:kGameBattleEndEventTypeRun];
-//    [delegate_ unloadBattleScene];
   }
 }
 

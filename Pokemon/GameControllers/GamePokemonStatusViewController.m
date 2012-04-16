@@ -15,6 +15,7 @@
 
 @interface GamePokemonStatusViewController ()
 
+- (void)releaseSubviews;
 - (void)showStatus:(NSNotification *)notification;
 
 @end
@@ -27,20 +28,21 @@
 @synthesize pokemonLevel   = pokemonLevel_;
 @synthesize pokemonGender  = pokemonGender_;
 
-- (void)dealloc
-{
-  [pokemonHPBar_   release];
-  [pokemonName_    release];
-  [pokemonLevel_   release];
-  [pokemonGender_  release];
-  
+- (void)dealloc {
+  [self releaseSubviews];
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowPokemonStatus object:nil];
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.pokemonHPBar  = nil;
+  self.pokemonName   = nil;
+  self.pokemonLevel  = nil;
+  self.pokemonGender = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -98,8 +100,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Add observer for notification to show status view
@@ -109,18 +110,12 @@
                                              object:nil];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemonHPBar   = nil;
-  self.pokemonName    = nil;
-  self.pokemonLevel   = nil;
-  self.pokemonGender  = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -128,8 +123,7 @@
 #pragma mark - Public Methods
 
 // Update Pokemon's Status
-- (void)updatePokemonStatus:(NSDictionary *)statusInfo
-{
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo {
   if ([statusInfo objectForKey:@"name"])
     [self.pokemonName setText:[statusInfo objectForKey:@"name"]];
   if ([statusInfo objectForKey:@"gender"])

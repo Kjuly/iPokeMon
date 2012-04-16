@@ -8,6 +8,7 @@
 
 #import "GamePlayerPokemonStatusViewController.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"
@@ -17,13 +18,13 @@
 
 @interface GamePlayerPokemonStatusViewController () {
  @private
-  UILabel  * pokemonHP_;
-  BOOL       isStatusBarOpening_;
+  UILabel * pokemonHP_;
+  BOOL      isStatusBarOpening_;
 }
 
-@property (nonatomic, retain) UILabel  * pokemonHP;
-@property (nonatomic, assign) BOOL       isStatusBarOpening;
+@property (nonatomic, retain) UILabel * pokemonHP;
 
+- (void)releaseSubviews;
 - (void)toggleStatusBar;
 
 @end
@@ -31,20 +32,20 @@
 
 @implementation GamePlayerPokemonStatusViewController
 
-@synthesize pokemonEXPBar      = pokemonEXPBar_;
-@synthesize pokemonHP          = pokemonHP_;
-@synthesize isStatusBarOpening = isStatusBarOpening_;
+@synthesize pokemonEXPBar = pokemonEXPBar_;
+@synthesize pokemonHP     = pokemonHP_;
 
-- (void)dealloc
-{
-  [pokemonEXPBar_     release];
-  [pokemonHP_         release];
-  
+- (void)dealloc {
+  [self releaseSubviews];
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.pokemonEXPBar     = nil;
+  self.pokemonHP         = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -68,7 +69,7 @@
   [super loadView];
   
   // Constants
-  CGRect pokemonHPBarFrame   = CGRectMake(0.f, 0.f, 320.f, 8.f);
+  CGRect pokemonHPBarFrame   = CGRectMake(0.f, 0.f, kViewWidth, kGameMenuPMStatusHPBarHeight);
   CGRect pokemonHPFrame      = CGRectMake(250.f, 22.f, 70.f, 20.f);
   CGRect pokemonEXPBarFrame  = CGRectMake(0.f, 58.f, 320.f, 6.f);
   
@@ -91,21 +92,16 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemonEXPBar     = nil;
-  self.pokemonHP         = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -113,8 +109,7 @@
 #pragma mark - Public Methods
 
 // Parent |GamePokemonStatusViewController|
-- (void)updatePokemonStatus:(NSDictionary *)statusInfo
-{
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo {
   [super updatePokemonStatus:statusInfo];
   
   if ([statusInfo objectForKey:@"playerPokemonHP"])
@@ -125,8 +120,7 @@
     [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
 }
 
-- (void)prepareForNewScene
-{
+- (void)prepareForNewScene {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   [self.pokemonName setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                                 [playerPokemon.sid intValue]]), nil)];
@@ -146,15 +140,14 @@
 
 - (void)reset {
   [super reset];
-  if (self.isStatusBarOpening) [self toggleStatusBar];
+  if (isStatusBarOpening_) [self toggleStatusBar];
 }
 
 #pragma mark - Private Methods
 
-- (void)toggleStatusBar
-{
+- (void)toggleStatusBar {
   CGRect viewFrame = CGRectMake(0.f, 0.f, 280.f, 65.f);
-  if (self.isStatusBarOpening)
+  if (isStatusBarOpening_)
     viewFrame.origin.x += 100.f;
   
   [UIView animateWithDuration:.3f
@@ -164,7 +157,7 @@
                      [self.view setFrame:viewFrame];
                    }
                    completion:nil];
-  self.isStatusBarOpening = ! self.isStatusBarOpening;
+  isStatusBarOpening_ = ! isStatusBarOpening_;
 }
 
 @end
