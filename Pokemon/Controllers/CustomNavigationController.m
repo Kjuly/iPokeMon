@@ -9,12 +9,12 @@
 #import "CustomNavigationController.h"
 
 #import "GlobalConstants.h"
-#import "CustomNavigationBar.h"
 
 
 @implementation CustomNavigationController
 
 - (void)dealloc {
+  self.navigationBar.delegate = nil;
   [super dealloc];
 }
 
@@ -24,8 +24,7 @@
     NSLog(@"|%@| - INIT......", [self class]);
     CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
     [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
-    customNavigationBar.navigationController = self;
-    [customNavigationBar setup];
+    customNavigationBar.delegate = self;
     [self setValue:customNavigationBar forKey:@"navigationBar"];
     [customNavigationBar release];
   }
@@ -86,6 +85,24 @@
   
   // Dispatch |UINavigationController|'s |pushViewController:animated:| method
   [super pushViewController:viewController animated:animated];
+}
+
+#pragma mark - CustomNavigationBar Delegate
+
+- (void)hideNavigationBar:(BOOL)hide animated:(BOOL)animated {
+  [self setNavigationBarHidden:hide animated:animated];
+}
+
+- (id)rootViewController {
+  return self.topViewController;
+}
+
+- (void)backToRootViewAnimated:(BOOL)animated {
+  [self popToRootViewControllerAnimated:animated];
+}
+
+- (void)backToPreviousViewAnimated:(BOOL)animated {
+  [self popViewControllerAnimated:animated];
 }
 
 @end

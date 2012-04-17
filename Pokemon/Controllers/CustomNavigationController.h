@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomNavigationController : UINavigationController
+#import "CustomNavigationBar.h"
+
+@interface CustomNavigationController : UINavigationController <CustomNavigationBarDelegate>
 
 // Overwrited |UINavigationController| Methods
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;

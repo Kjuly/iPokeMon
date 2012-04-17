@@ -15,7 +15,7 @@
 
 
 @interface CustomNavigationBar () {
- @private
+ @private  
   UILabel  * title_;
   UIButton * backButtonToRoot_;
   UIButton * backButton_;
@@ -26,26 +26,35 @@
 @property (nonatomic, retain) UIButton * backButtonToRoot;
 @property (nonatomic, retain) UIButton * backButton;
 
-- (void)setBackButtonForRoot;
+- (void)_setBackButtonForRoot;
+- (void)_removeBackButtonForPreviousView;
 
 @end
 
 
 @implementation CustomNavigationBar
 
-@synthesize viewCount            = viewCount_;
-@synthesize navigationController = navigationController_;
+@synthesize delegate         = delegate_;
+@synthesize viewCount        = viewCount_;
 
-@synthesize title                = title_;
-@synthesize backButtonToRoot     = backButtonToRoot_;
-@synthesize backButton           = backButton_;
+@synthesize title            = title_;
+@synthesize backButtonToRoot = backButtonToRoot_;
+@synthesize backButton       = backButton_;
 
 -(void)dealloc {
-  self.navigationController = nil;
-  self.title                = nil;
-  self.backButtonToRoot     = nil;
-  self.backButton           = nil;
+  self.delegate         = nil;
+  self.title            = nil;
+  self.backButtonToRoot = nil;
+  self.backButton       = nil;
   [super dealloc];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+  if (self = [super initWithFrame:frame]) {
+    viewCount_      = -1;
+    isButtonHidden_ = NO;
+  }
+  return self;
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -60,7 +69,7 @@
   [backgroundImage drawInRect:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
   
   // Create custom |backButton_|
-  [self setBackButtonForRoot];
+  [self _setBackButtonForRoot];
 }
 
 // Reset NavigationBar's size to container |navigationBarBackgroundImage_|
@@ -77,13 +86,6 @@
 //
 - (CGSize)sizeThatFits:(CGSize)size {
   return CGSizeMake(kViewWidth, kNavigationBarHeight);
-}
-
-// Save the background image to |navigationBarBackgroundImage_|,
-// If not shown, call |[self setNeedsDisplay];| to force a redraw.
-- (void)setup {
-  viewCount_      = -1;
-  isButtonHidden_ = NO;
 }
 
 // Set title for navigation bar
@@ -106,14 +108,13 @@
 - (void)backToRoot:(id)sender {
   // Reset |viewCount_|
   if (self.viewCount >= 2)
-    [self removeBackButtonForPreviousView];
+    [self _removeBackButtonForPreviousView];
   self.viewCount = 0;
   
-  [self.navigationController popToRootViewControllerAnimated:YES];
-  
+  [self.delegate backToRootViewAnimated:YES];
   // Animation blocks
   void (^animations)() = ^{
-    if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+    if ([[self.delegate rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
       // Slide up the Navigation bar to hide it
       [self setFrame:CGRectMake(0.f, -kNavigationBarHeight, kViewWidth, kNavigationBarHeight)];
     }
@@ -124,11 +125,11 @@
     }
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
-    if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+    if ([[self.delegate rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
       // And recover button' layout in center view
-      [self.navigationController setNavigationBarHidden:YES];
-      [(AbstractCenterMenuViewController *)self.navigationController.topViewController
+      [self.delegate hideNavigationBar:YES animated:NO];
+      [(AbstractCenterMenuViewController *)[self.delegate rootViewController]
        changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
     }
   };  
@@ -145,22 +146,9 @@
   
   // Remove the |backButton| if needed
   if (self.viewCount >= 2 && --self.viewCount < 2)
-    [self removeBackButtonForPreviousView];
+    [self _removeBackButtonForPreviousView];
   
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-// Create |backButton| to Root (Private)
-- (void)setBackButtonForRoot {
-  if (self.backButtonToRoot == nil) {
-    CGRect buttonFrame = CGRectMake((isButtonHidden_ ? 160.f : 10.f), 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
-    backButtonToRoot_ = [[UIButton alloc] initWithFrame:buttonFrame];
-    [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
-                       forState:UIControlStateNormal];
-    [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
-  }
-  [self addSubview:self.backButtonToRoot];
-  [self.backButtonToRoot setAlpha:(isButtonHidden_ ? 0.f : 1.f)];
+  [self.delegate backToPreviousViewAnimated:YES];
 }
 
 // Set |backButtonToRoot_| to hidden or not
@@ -206,8 +194,23 @@
                    completion:nil];
 }
 
+#pragma mark - Private Methods
+
+// Create |backButton| to Root (Private)
+- (void)_setBackButtonForRoot {
+  if (self.backButtonToRoot == nil) {
+    CGRect buttonFrame = CGRectMake((isButtonHidden_ ? 160.f : 10.f), 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
+    backButtonToRoot_ = [[UIButton alloc] initWithFrame:buttonFrame];
+    [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
+                       forState:UIControlStateNormal];
+    [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  [self addSubview:self.backButtonToRoot];
+  [self.backButtonToRoot setAlpha:(isButtonHidden_ ? 0.f : 1.f)];
+}
+
 // Remove |backButton| for previous view
-- (void)removeBackButtonForPreviousView {
+- (void)_removeBackButtonForPreviousView {
   __block CGRect originalFrame = self.backButton.frame;
   [UIView animateWithDuration:.2f
                         delay:0.f
@@ -220,13 +223,6 @@
                    completion:^(BOOL finished) {
                      [self.backButton removeFromSuperview];
                    }];
-}
-
-// clear the background image and call setNeedsDisplay to force a redraw
-- (void)clearBackground {
-  self.backButtonToRoot = nil;
-  self.backButton       = nil;
-  [self setNeedsDisplay];
 }
 
 @end
