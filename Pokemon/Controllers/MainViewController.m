@@ -306,6 +306,7 @@
     [loginTableViewController release];
   }
   
+  // Create custom NVC
   CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
   [customNavigationController initWithRootViewController:self.loginTableViewController];
   self.customNavigationController = customNavigationController;
@@ -439,13 +440,14 @@
   // Do action based on tap down keepped time
   // Utility Menu
   if (timeCounter_ < 3.f) {
-    if (! self.centerMenuUtilityViewController) {
-      CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
-                                                                           initWithButtonCount:6];
+    if (self.centerMenuUtilityViewController == nil) {
+      CenterMenuUtilityViewController * centerMenuUtilityViewController;
+      centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
       [centerMenuUtilityViewController release];
     }
     
+    // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
     [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
     self.customNavigationController = customNavigationController;
@@ -462,14 +464,15 @@
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
-    if (! self.centerMenuSixPokemonsViewController) {
-      NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
-      CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController =
-      [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:numberOfSixPokemons];
-      self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
-      [centerMenuSixPokemonsViewController release];
-    }
+    // Create VC for Six Pokemons
+    NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
+    CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
+    centerMenuSixPokemonsViewController = [CenterMenuSixPokemonsViewController alloc];
+    [centerMenuSixPokemonsViewController initWithButtonCount:numberOfSixPokemons];
+    self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
+    [centerMenuSixPokemonsViewController release];
     
+    // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
     [customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
     self.customNavigationController = customNavigationController;
