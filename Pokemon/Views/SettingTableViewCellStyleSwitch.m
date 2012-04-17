@@ -6,27 +6,27 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "SettingTableViewCellStyleTitle.h"
+#import "SettingTableViewCellStyleSwitch.h"
 
 #import "GlobalRender.h"
 
 
-@interface SettingTableViewCellStyleTitle () {
+@interface SettingTableViewCellStyleSwitch () {
  @private
-  UILabel * title_;
+  UISwitch * switchButton_;
 }
 
-@property (nonatomic, retain) UILabel * title;
+@property (nonatomic, retain) UISwitch * switchButton;
 
 @end
 
 
-@implementation SettingTableViewCellStyleTitle
+@implementation SettingTableViewCellStyleSwitch
 
-@synthesize title = title_;
+@synthesize switchButton = switchButton_;
 
 - (void)dealloc {
-  self.title = nil;
+  self.switchButton = nil;
   [super dealloc];
 }
 
@@ -54,29 +54,17 @@
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
     
-    
-    // Subviews' related constants
-//    CGFloat const margin      = 30.f;
-//    CGFloat const labelHeight = 34.f;
-//    CGFloat const titleWidth  = 150.f;
-//    CGFloat const valueWidth  = cellWidth - margin * 2 - titleWidth;
-//    CGRect titleFrame = CGRectMake(margin, 5.f, titleWidth, labelHeight);
-    
-    // Set layouts for |contentView|(readonly)
-    // Set Title Label
-//    title_ = [[UILabel alloc] initWithFrame:titleFrame];
-//    [title_ setBackgroundColor:[UIColor clearColor]];
-//    [title_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-//    [title_ setTextColor:[GlobalRender textColorTitleWhite]];
-//    [self.contentView addSubview:title_];
-    
-    
     // Custom subviews for cell
     [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
     
-    [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-    [self.detailTextLabel setTextColor:[GlobalRender textColorOrange]];
+    // Switch Button
+    switchButton_ = [[UISwitch alloc] init];
+    CGRect switchButtonFrame = switchButton_.frame;
+    switchButtonFrame.origin.x = cellWidth - switchButtonFrame.size.width - 10.f;
+    switchButtonFrame.origin.y = 10.f;
+    [switchButton_ setFrame:switchButtonFrame];
+    [self.contentView addSubview:switchButton_];
   }
   return self;
 }
@@ -90,11 +78,9 @@
 #pragma mark - Public Methods
 
 - (void)configureCellWithTitle:(NSString *)title
-                         value:(NSString *)value
-                 accessoryType:(UITableViewCellAccessoryType)accessoryType {
+                      switchOn:(BOOL)switchOn {
   [self.textLabel setText:title];
-  [self.detailTextLabel setText:value];
-  [self setAccessoryType:accessoryType];
+  [self.switchButton setOn:switchOn];
 }
 
 @end

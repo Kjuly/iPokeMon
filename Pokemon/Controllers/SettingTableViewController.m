@@ -9,6 +9,7 @@
 #import "SettingTableViewController.h"
 
 #import "SettingTableViewCellStyleTitle.h"
+#import "SettingTableViewCellStyleSwitch.h"
 #import "SettingSectionHeaderView.h"
 
 /*
@@ -138,14 +139,12 @@
       ///GENERAL - Location Service
       case kSectionGeneralLocationServices: {
         CellIdentifier = @"CellStyleSwitch";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        SettingTableViewCellStyleSwitch *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                              reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
-                               value:([userDefaults objectForKey:kUDKeyGeneralLocationServices] ? @"YES" : @"NO")
-                       accessoryType:UITableViewCellAccessoryNone];
+                            switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
         return cell;
         break;
       }
