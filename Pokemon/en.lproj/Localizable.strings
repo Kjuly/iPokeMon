@@ -26,15 +26,25 @@
 "PMSNewbiewGuide3Text1" = "Are you ready?";
 
 // Setting view
+// GENERAL
 "PMSSettingSection1" = "App Settings";
 "PMSSettingSection2" = "About";
 "PMSSettingGeneralLocationServices" = "Location Services";
+// Bandwidth useage
 "PMSSettingGeneralBandWidthUsage"   = "Bandwidth Usage";
 "PMSSettingGeneralBandWidthUsage0"  = "Offline";
 "PMSSettingGeneralBandWidthUsage1"  = "Minimal";
 "PMSSettingGeneralBandWidthUsage2"  = "Standard";
-"PMSSettingGeneralGameSettings"     = "Game Settings";
-"PMSSettingAboutVersion"            = "Version";
+// Game settings
+"PMSSettingGeneralGameSettings"                 = "Game Settings";
+"PMSSettingGeneralGameSettingsSection1"         = "Volume";
+"PMSSettingGeneralGameSettingsSection2"         = "Others";
+"PMSSettingGeneralGameSettingsVolumeMaster"     = "Master";
+"PMSSettingGeneralGameSettingsVolumeMusic"      = "Music";
+"PMSSettingGeneralGameSettingsVolumeSounds"     = "Sounds";
+"PMSSettingGeneralGameSettingsOthersAnimations" = "Animations";
+// ABOUT
+"PMSSettingAboutVersion" = "Version";
 
 
 // Pokemon

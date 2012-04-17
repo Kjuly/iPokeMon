@@ -24,15 +24,25 @@
 "PMSNewbiewGuide3Text1" = "准备好了?";
 
 // Setting view
+// GENERAL
 "PMSSettingSection1" = "游戏设置";
 "PMSSettingSection2" = "关于";
 "PMSSettingGeneralLocationServices" = "位置服务";
+// Bandwidth useage
 "PMSSettingGeneralBandWidthUsage"   = "带宽使用率";
 "PMSSettingGeneralBandWidthUsage0"  = "离线";
 "PMSSettingGeneralBandWidthUsage1"  = "最低";
 "PMSSettingGeneralBandWidthUsage2"  = "标准";
-"PMSSettingGeneralGameSettings"     = "游戏设置";
-"PMSSettingAboutVersion"            = "版本";
+// Game settings
+"PMSSettingGeneralGameSettings"                 = "游戏设置";
+"PMSSettingGeneralGameSettingsSection1"         = "音量调节";
+"PMSSettingGeneralGameSettingsSection2"         = "其它";
+"PMSSettingGeneralGameSettingsVolumeMaster"     = "主要";
+"PMSSettingGeneralGameSettingsVolumeMusic"      = "背景音乐";
+"PMSSettingGeneralGameSettingsVolumeSounds"     = "音效";
+"PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
+// ABOUT
+"PMSSettingAboutVersion" = "版本";
 
 
 // Pokemon

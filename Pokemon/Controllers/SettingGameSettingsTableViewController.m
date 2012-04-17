@@ -6,12 +6,11 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "SettingTableViewController.h"
+#import "SettingGameSettingsTableViewController.h"
 
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
 #import "SettingSectionHeaderView.h"
-#import "SettingGameSettingsTableViewController.h"
 
 /*
  // Settings.bundle
@@ -30,7 +29,7 @@
  extern NSString * const kUDKeyAboutVersion;            // version for App
  */
 
-@implementation SettingTableViewController
+@implementation SettingGameSettingsTableViewController
 
 - (void)dealloc
 {
@@ -90,17 +89,17 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return kNumberOfSections;
+  return kNumberOfGameSettingsSection;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
-    case kSectionGeneral:
-      return kNumberOfSectionGeneralRows;
+    case kGameSettingsSectionVolume:
+      return kNumberOfGameSettingsSectionVolumeRows;
       break;
       
-    case kSectionAbout:
-      return kNumberOfSectionAboutRows;
+    case kGameSettingsSectionOthers:
+      return kNumberOfGameSettingsSectionOthersRows;
       break;
       
     default:
@@ -123,7 +122,7 @@
   CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:
-    NSLocalizedString(([NSString stringWithFormat:@"PMSSettingSection%d", section + 1]), nil)];
+    NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralGameSettingsSection%d", section + 1]), nil)];
   return [sectionHeaderView autorelease];
 }
 
@@ -134,47 +133,45 @@
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger sectionNum = indexPath.section;
   NSInteger rowNum     = indexPath.row;
-  //////GENERAL//////
-  if (sectionNum == kSectionGeneral) {
+  //////VOLUME//////
+  if (sectionNum == kGameSettingsSectionVolume) {
     switch (rowNum) {
       ///GENERAL - Location Service
-      case kSectionGeneralLocationServices: {
-        CellIdentifier = @"CellStyleSwitch";
-        SettingTableViewCellStyleSwitch *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
-                            switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
-        return cell;
-        break;
-      }
-        
-      ///GENERAL - Bandwidth Usage
-      case kSectionGeneralBandwidthUsage: {
+      case kGameSettingsSectionVolumeMaster: {
         CellIdentifier = @"CellStyleTitle";
         SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
           cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
-        NSString * bandwidthUsageName =
-          NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d",
-                              [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]]), nil);
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)
-                               value:bandwidthUsageName
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeSounds", nil)
+                               value:nil
+                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+        return cell;
+        break;
+      }
+        
+      ///GENERAL - Bandwidth Usage
+      case kGameSettingsSectionVolumeMusic: {
+        CellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeMusic", nil)
+                               value:nil
                        accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
         return cell;
         break;
       }
         
       ///GENERAL - Game Settings
-      case kSectionGeneralGameSettings: {
+      case kGameSettingsSectionVolumeSounds: {
         CellIdentifier = @"CellStyleTitle";
         SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
           cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeSounds", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
         return cell;
@@ -185,20 +182,18 @@
         break;
     }
   }
-  //////ABOUT//////
-  else if (sectionNum == kSectionAbout) {
+  //////ANIMATIONS//////
+  else if (sectionNum == kGameSettingsSectionOthers) {
     switch (rowNum) {
       ///ABOUT - Version
-      case kSectionAboutRowVersion: {
-        static NSString *CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+      case kGameSettingsSectionOthersAnimation: {
+        CellIdentifier = @"CellStyleSwitch";
+        SettingTableViewCellStyleSwitch *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                              reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
-                               value:[NSString stringWithFormat:@"%.2f", [userDefaults floatForKey:kUDKeyAboutVersion]]
-                       accessoryType:UITableViewCellAccessoryNone];
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsOthersAnimations", nil)
+                            switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
         return cell;
         break;
       }
@@ -252,18 +247,16 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSInteger section = [indexPath section];
-  NSInteger row     = [indexPath row];
-  
-  // Game Settings
-  if (section == kSectionGeneral && row == kSectionGeneralGameSettings) {
-    SettingGameSettingsTableViewController * settingGameSettingsTableViewController;
-    settingGameSettingsTableViewController = [SettingGameSettingsTableViewController alloc];
-    [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
-    [settingGameSettingsTableViewController release];
-  }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     [detailViewController release];
+     */
 }
 
 @end
