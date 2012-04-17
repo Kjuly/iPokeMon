@@ -409,7 +409,7 @@
 		7F58BB681505335F00640F57 /* SettingTableViewSectionHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB641505335E00640F57 /* SettingTableViewSectionHeaderBackground@2x.png */; };
 		7F58BB691505335F00640F57 /* SettingTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB651505335E00640F57 /* SettingTableViewCellBackground.png */; };
 		7F58BB6A1505335F00640F57 /* SettingTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB661505335F00640F57 /* SettingTableViewCellBackground@2x.png */; };
-		7F58BB6D1505349700640F57 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB6C1505349500640F57 /* SettingTableViewCell.m */; };
+		7F58BB6D1505349700640F57 /* SettingTableViewCellStyleTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB6C1505349500640F57 /* SettingTableViewCellStyleTitle.m */; };
 		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
 		7F61D85E1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */; };
 		7F61D85F1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F61D84D1500FF09007C0BBD /* TabView4TabsCircleBarBackground@2x.png */; };
@@ -1585,8 +1585,8 @@
 		7F58BB641505335E00640F57 /* SettingTableViewSectionHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewSectionHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		7F58BB651505335E00640F57 /* SettingTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F58BB661505335F00640F57 /* SettingTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
-		7F58BB6B1505349300640F57 /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
-		7F58BB6C1505349500640F57 /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
+		7F58BB6B1505349300640F57 /* SettingTableViewCellStyleTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SettingTableViewCellStyleTitle.h; sourceTree = "<group>"; };
+		7F58BB6C1505349500640F57 /* SettingTableViewCellStyleTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCellStyleTitle.m; sourceTree = "<group>"; };
 		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
 		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
 		7F61D84C1500FF09007C0BBD /* TabView4TabsCircleBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabView4TabsCircleBarBackground.png; sourceTree = "<group>"; };
@@ -3281,8 +3281,8 @@
 				7F58BB521505239600640F57 /* BagItemTableViewCell.m */,
 				7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */,
 				7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */,
-				7F58BB6B1505349300640F57 /* SettingTableViewCell.h */,
-				7F58BB6C1505349500640F57 /* SettingTableViewCell.m */,
+				7F58BB6B1505349300640F57 /* SettingTableViewCellStyleTitle.h */,
+				7F58BB6C1505349500640F57 /* SettingTableViewCellStyleTitle.m */,
 				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
 				7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */,
 				7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */,
@@ -5002,7 +5002,7 @@
 				7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */,
 				7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */,
 				7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */,
-				7F58BB6D1505349700640F57 /* SettingTableViewCell.m in Sources */,
+				7F58BB6D1505349700640F57 /* SettingTableViewCellStyleTitle.m in Sources */,
 				7F0D18CC15072E54009CFDBA /* GameTopViewController.m in Sources */,
 				7F0D18D7150745CB009CFDBA /* PokemonHPBar.m in Sources */,
 				7F0D18DA150748F2009CFDBA /* GamePlayerPokemonStatusViewController.m in Sources */,

@@ -30,7 +30,11 @@
 "PMSSettingSection2" = "About";
 "PMSSettingGeneralLocationServices" = "Location Services";
 "PMSSettingGeneralBandWidthUsage"   = "Bandwidth Usage";
+"PMSSettingGeneralBandWidthUsage0"  = "Offline";
+"PMSSettingGeneralBandWidthUsage1"  = "Minimal";
+"PMSSettingGeneralBandWidthUsage2"  = "Standard";
 "PMSSettingGeneralGameSettings"     = "Game Settings";
+"PMSSettingAboutVersion"            = "Version";
 
 
 // Pokemon

@@ -8,7 +8,7 @@
 
 #import "SettingTableViewController.h"
 
-#import "SettingTableViewCell.h"
+#import "SettingTableViewCellStyleTitle.h"
 #import "SettingSectionHeaderView.h"
 
 /*
@@ -127,47 +127,88 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
-    cell = [[[SettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                        reuseIdentifier:CellIdentifier] autorelease];
-  }
+  static NSString * CellIdentifier;
   
-  // Configure the cell...
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger sectionNum = indexPath.section;
   NSInteger rowNum     = indexPath.row;
+  //////GENERAL//////
   if (sectionNum == kSectionGeneral) {
     switch (rowNum) {
-      case kSectionGeneralLocationServices:
-        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyGeneralLocationServices] ? @"YES" : @"NO"];
+      ///GENERAL - Location Service
+      case kSectionGeneralLocationServices: {
+        CellIdentifier = @"CellStyleSwitch";
+        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
+                               value:([userDefaults objectForKey:kUDKeyGeneralLocationServices] ? @"YES" : @"NO")
+                       accessoryType:UITableViewCellAccessoryNone];
+        return cell;
         break;
+      }
         
-      case kSectionGeneralBandWidthUsage:
-        [cell.labelTitle setText:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)];
+      ///GENERAL - Bandwidth Usage
+      case kSectionGeneralBandwidthUsage: {
+        CellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        }
+        NSString * bandwidthUsageName =
+          NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d",
+                              [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]]), nil);
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)
+                               value:bandwidthUsageName
+                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+        return cell;
         break;
+      }
         
-      case kSectionGeneralGameSettings:
-        [cell.labelTitle setText:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)];
+      ///GENERAL - Game Settings
+      case kSectionGeneralGameSettings: {
+        CellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)
+                               value:nil
+                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+        return cell;
         break;
+      }
         
       default:
         break;
     }
   }
+  //////ABOUT//////
   else if (sectionNum == kSectionAbout) {
     switch (rowNum) {
-      case kSectionAboutRowVersion:
-        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyAboutVersion]];
+      ///ABOUT - Version
+      case kSectionAboutRowVersion: {
+        static NSString *CellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
+                               value:[NSString stringWithFormat:@"%.2f", [userDefaults floatForKey:kUDKeyAboutVersion]]
+                       accessoryType:UITableViewCellAccessoryNone];
+        return cell;
         break;
+      }
         
       default:
         break;
     }
   }
   
-  return cell;
+  return nil;
 }
 
 /*

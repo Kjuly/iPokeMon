@@ -13,7 +13,7 @@
 ///UserDefautls
 // Settings.bundle
 NSString * const kUDKeyGeneralLocationServices = @"keyGeneralLocationServices"; // enable location tracking (bool)
-NSString * const kUDKeyGeneralBandWidthUsage   = @"keyGeneralBandWidthUsage";   // bandwidth useage (number:0,1,2)
+NSString * const kUDKeyGeneralBandwidthUsage   = @"keyGeneralBandwidthUsage";   // bandwidth useage (number:0,1,2)
 // Game settings
 NSString * const kUDKeyGeneralGameSettings     = @"keyGeneralGameSettings";
 NSString * const kUDKeyGameSettingsMasterTitle = @"keyGameSettingsMasterTitle";

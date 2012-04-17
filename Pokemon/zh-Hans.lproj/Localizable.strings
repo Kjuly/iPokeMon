@@ -28,7 +28,11 @@
 "PMSSettingSection2" = "关于";
 "PMSSettingGeneralLocationServices" = "位置服务";
 "PMSSettingGeneralBandWidthUsage"   = "带宽使用率";
+"PMSSettingGeneralBandWidthUsage0"  = "离线";
+"PMSSettingGeneralBandWidthUsage1"  = "最低";
+"PMSSettingGeneralBandWidthUsage2"  = "标准";
 "PMSSettingGeneralGameSettings"     = "游戏设置";
+"PMSSettingAboutVersion"            = "版本";
 
 
 // Pokemon

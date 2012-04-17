@@ -21,7 +21,7 @@
 ///UserDefautls
 // Settings.bundle
 extern NSString * const kUDKeyGeneralLocationServices; // enable location tracking (bool)
-extern NSString * const kUDKeyGeneralBandWidthUsage;   // bandwidth useage (number:0,1,2)
+extern NSString * const kUDKeyGeneralBandwidthUsage;   // bandwidth useage (number:0,1,2)
 // Game settings
 extern NSString * const kUDKeyGeneralGameSettings;
 extern NSString * const kUDKeyGameSettingsMasterTitle;

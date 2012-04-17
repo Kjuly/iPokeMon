@@ -16,7 +16,7 @@ typedef enum {
 
 typedef enum {
   kSectionGeneralLocationServices = 0,
-  kSectionGeneralBandWidthUsage,
+  kSectionGeneralBandwidthUsage,
   kSectionGeneralGameSettings,
   kNumberOfSectionGeneralRows
 }SectionGeneralRow;
