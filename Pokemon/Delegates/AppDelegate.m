@@ -46,7 +46,7 @@
 {
   // User Preferences
   // If not exists, load keyValues from |Settings.bundle| to |NSUserDefaults|
-  NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyAppVersion];
+  NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyAboutVersion];
   if (! appVersion) {
     NSLog(@"Register Defaults From Settings.bundle...");
     [self registerDefaultsFromSettingsBundle];
@@ -81,7 +81,7 @@
   }
   else {
     // Set value in User Preferences (its default value is NO)
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyEnableLocationTracking];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyGeneralLocationServices];
     [[NSUserDefaults standardUserDefaults] synchronize];
   }
   

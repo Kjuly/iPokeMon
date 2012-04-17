@@ -15,10 +15,31 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
-// UserDefautls
-extern NSString * const kUDKeyAppVersion;              // version for App
-extern NSString * const kUDKeyEnableLocationTracking;  // enable location tracking
+
+#pragma mark - User Defaults
+
+///UserDefautls
+// Settings.bundle
+extern NSString * const kUDKeyGeneralLocationServices; // enable location tracking (bool)
+extern NSString * const kUDKeyGeneralBandWidthUsage;   // bandwidth useage (number:0,1,2)
+// Game settings
+extern NSString * const kUDKeyGeneralGameSettings;
+extern NSString * const kUDKeyGameSettingsMasterTitle;
+extern NSString * const kUDKeyGameSettingsMaster;      // master volume (slider [0,100])
+extern NSString * const kUDKeyGameSettingsMusicTitle;
+extern NSString * const kUDKeyGameSettingsMusic;       // music volume (slider [0,100])
+extern NSString * const kUDKeyGameSettingsSoundsTitle;
+extern NSString * const kUDKeyGameSettingsSounds;      // sounds volume (slider [0,100])
+extern NSString * const kUDKeyGameSettingsAnimations;  // enable animations (switch)
+// About
+extern NSString * const kUDKeyAboutVersion;            // version for App
+
+///Extra UserDefaults
 extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider used
+///END UserDefaults
+//////
+
+#pragma mark -
 
 // View Basic
 #define kViewHeight 460.f

@@ -140,8 +140,8 @@
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
 
-  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyEnableLocationTracking]);
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyEnableLocationTracking]) {
+  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyGeneralLocationServices]);
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
       NSLog(@"Significant Location Change Monitoring Available");
       // Significant-Change Location Service
@@ -350,7 +350,7 @@
 }
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification {
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyEnableLocationTracking]) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"|resetIsPokemonAppeared|");
     self.isPokemonAppeared = NO;
     [self setEventTimerStatusToRunning:YES];

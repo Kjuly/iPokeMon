@@ -659,15 +659,15 @@
 // Toggle Location Service after long press on |mapButton_|
 - (void)toggleLocationService {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  if ([userDefaults boolForKey:kUDKeyEnableLocationTracking]) {
+  if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"Service is on, turn off");
-    [userDefaults setBool:NO forKey:kUDKeyEnableLocationTracking];
+    [userDefaults setBool:NO forKey:kUDKeyGeneralLocationServices];
     [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
     // Post notification to |MapViewController| to stop location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   } else {
     NSLog(@"Service is off, turn on");
-    [userDefaults setBool:YES forKey:kUDKeyEnableLocationTracking];
+    [userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
     [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
     // Post notification to |MapViewController| to start location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];

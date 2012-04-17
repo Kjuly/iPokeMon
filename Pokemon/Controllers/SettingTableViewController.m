@@ -141,7 +141,7 @@ typedef enum {
   if (sectionNum == kSectionAppSettings) {
     switch (rowNum) {
       case kSectionAppSettingsRowLocationServices:
-        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyEnableLocationTracking] ? @"YES" : @"NO"];
+        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyGeneralLocationServices] ? @"YES" : @"NO"];
         break;
         
       default:
@@ -151,7 +151,7 @@ typedef enum {
   else if (sectionNum == kSectionAbout) {
     switch (rowNum) {
       case kSectionAboutRowVersion:
-        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyAppVersion]];
+        [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyAboutVersion]];
         break;
         
       default:
