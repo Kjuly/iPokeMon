@@ -28,6 +28,9 @@
 // Setting view
 "PMSSettingSection1" = "App Settings";
 "PMSSettingSection2" = "About";
+"PMSSettingGeneralLocationServices" = "Location Services";
+"PMSSettingGeneralBandWidthUsage"   = "Bandwidth Usage";
+"PMSSettingGeneralGameSettings"     = "Game Settings";
 
 
 // Pokemon

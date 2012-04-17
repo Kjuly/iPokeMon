@@ -26,6 +26,9 @@
 // Setting view
 "PMSSettingSection1" = "游戏设置";
 "PMSSettingSection2" = "关于";
+"PMSSettingGeneralLocationServices" = "位置服务";
+"PMSSettingGeneralBandWidthUsage"   = "带宽使用率";
+"PMSSettingGeneralGameSettings"     = "游戏设置";
 
 
 // Pokemon

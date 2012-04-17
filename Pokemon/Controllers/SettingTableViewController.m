@@ -11,22 +11,22 @@
 #import "SettingTableViewCell.h"
 #import "SettingSectionHeaderView.h"
 
-
-typedef enum {
-  kSectionAppSettings = 0,
-  kSectionAbout,
-  kNumberOfSections
-}Section;
-
-typedef enum {
-  kSectionAppSettingsRowLocationServices = 0,
-  kNumberOfSectionAppSettingsRows
-}SectionAppSettingsRow;
-
-typedef enum {
-  kSectionAboutRowVersion = 0,
-  kNumberOfSectionAboutRows
-}SectionAboutRow;
+/*
+ // Settings.bundle
+ extern NSString * const kUDKeyGeneralLocationServices; // enable location tracking (bool)
+ extern NSString * const kUDKeyGeneralBandWidthUsage;   // bandwidth useage (number:0,1,2)
+ // Game settings
+ extern NSString * const kUDKeyGeneralGameSettings;
+ extern NSString * const kUDKeyGameSettingsMasterTitle;
+ extern NSString * const kUDKeyGameSettingsMaster;      // master volume (slider [0,100])
+ extern NSString * const kUDKeyGameSettingsMusicTitle;
+ extern NSString * const kUDKeyGameSettingsMusic;       // music volume (slider [0,100])
+ extern NSString * const kUDKeyGameSettingsSoundsTitle;
+ extern NSString * const kUDKeyGameSettingsSounds;      // sounds volume (slider [0,100])
+ extern NSString * const kUDKeyGameSettingsAnimations;  // enable animations (switch)
+ // About
+ extern NSString * const kUDKeyAboutVersion;            // version for App
+ */
 
 @implementation SettingTableViewController
 
@@ -93,8 +93,8 @@ typedef enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
-    case kSectionAppSettings:
-      return kNumberOfSectionAppSettingsRows;
+    case kSectionGeneral:
+      return kNumberOfSectionGeneralRows;
       break;
       
     case kSectionAbout:
@@ -138,10 +138,18 @@ typedef enum {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger sectionNum = indexPath.section;
   NSInteger rowNum     = indexPath.row;
-  if (sectionNum == kSectionAppSettings) {
+  if (sectionNum == kSectionGeneral) {
     switch (rowNum) {
-      case kSectionAppSettingsRowLocationServices:
+      case kSectionGeneralLocationServices:
         [cell.labelTitle setText:[userDefaults objectForKey:kUDKeyGeneralLocationServices] ? @"YES" : @"NO"];
+        break;
+        
+      case kSectionGeneralBandWidthUsage:
+        [cell.labelTitle setText:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)];
+        break;
+        
+      case kSectionGeneralGameSettings:
+        [cell.labelTitle setText:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)];
         break;
         
       default:

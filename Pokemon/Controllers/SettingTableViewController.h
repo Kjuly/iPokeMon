@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+  kSectionGeneral = 0,
+  kSectionAbout,
+  kNumberOfSections
+}Section;
+
+typedef enum {
+  kSectionGeneralLocationServices = 0,
+  kSectionGeneralBandWidthUsage,
+  kSectionGeneralGameSettings,
+  kNumberOfSectionGeneralRows
+}SectionGeneralRow;
+
+typedef enum {
+  kSectionAboutRowVersion = 0,
+  kNumberOfSectionAboutRows
+}SectionAboutRow;
+
 @interface SettingTableViewController : UITableViewController
 
 @end
