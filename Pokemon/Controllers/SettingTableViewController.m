@@ -11,6 +11,7 @@
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
 #import "SettingSectionHeaderView.h"
+#import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
 
 /*
@@ -256,13 +257,23 @@
   NSInteger section = [indexPath section];
   NSInteger row     = [indexPath row];
   
-  // Game Settings
-  if (section == kSectionGeneral && row == kSectionGeneralGameSettings) {
-    SettingGameSettingsTableViewController * settingGameSettingsTableViewController;
-    settingGameSettingsTableViewController = [SettingGameSettingsTableViewController alloc];
-    [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
-    [settingGameSettingsTableViewController release];
+  // GENERAL Section
+  if (section == kSectionGeneral) {
+    if (row == kSectionGeneralBandwidthUsage) {
+      SettingBandwidthUsageTableViewController * settingBandwidthUsageTableViewController;
+      settingBandwidthUsageTableViewController = [SettingBandwidthUsageTableViewController alloc];
+      [settingBandwidthUsageTableViewController initWithStyle:UITableViewStylePlain];
+      [self.navigationController pushViewController:settingBandwidthUsageTableViewController animated:YES];
+      [settingBandwidthUsageTableViewController release];
+    }
+    // Game Settings
+    else if (row == kSectionGeneralGameSettings) {
+      SettingGameSettingsTableViewController * settingGameSettingsTableViewController;
+      settingGameSettingsTableViewController = [SettingGameSettingsTableViewController alloc];
+      [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
+      [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
+      [settingGameSettingsTableViewController release];
+    }
   }
 }
 
