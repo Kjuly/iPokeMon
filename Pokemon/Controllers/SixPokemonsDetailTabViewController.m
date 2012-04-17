@@ -18,7 +18,6 @@
 
 @interface SixPokemonsDetailTabViewController () {
  @private
-  BOOL isWithTopBar_;
   TrainerTamedPokemon * pokemon_;
   SixPokemonsInfoViewController  * sixPokemonsInfoViewController_;
   SixPokemonsMemoViewController  * sixPokemonsMemoViewController_;
@@ -58,7 +57,8 @@
   self = [super init];
   if (self) {
     // Set View Frame
-    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
+    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
     self.pokemon = pokemon;
     
     // Add child view controllers to each tab
@@ -68,10 +68,8 @@
     sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
     
     // Set child views' Frame
-    isWithTopBar_ = withTopbar;
-    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
     CGRect childViewFrame =
-      CGRectMake(0.f, marginTop + kTopIDViewHeight, kViewWidth, kViewHeight - marginTop - kTopIDViewHeight);
+      CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
     [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
     [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
     [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
@@ -114,9 +112,8 @@
   CGFloat const nameLabelWidth  = 300.f - imageWidth;
   CGFloat const nameLabelHeight = imageHeight / 2 - labelHeight;
   
-  CGFloat marginTop = isWithTopBar_ ? kTopBarHeight : 0.f;
-  CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f + marginTop, imageWidth, imageHeight);
-  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f + marginTop, 300.f - imageWidth, imageHeight - 50.f);
+  CGRect  const imageContainerFrame = CGRectMake(10.f, 10.f, imageWidth, imageHeight);
+  CGRect  const IDViewFrame         = CGRectMake(imageWidth + 20.f, 50.f, 300.f - imageWidth, imageHeight - 50.f);
   
   // Base information for Pokemon
   Pokemon * pokemonBaseInfo = self.pokemon.pokemon;

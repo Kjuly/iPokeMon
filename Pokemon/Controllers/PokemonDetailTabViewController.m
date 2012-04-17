@@ -39,7 +39,8 @@
   self = [super init];
   if (self) {
     // Set View Frame
-    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
+    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
     
     self.pokemon = [Pokemon queryPokemonDataWithID:pokemonSID];
     
@@ -52,8 +53,7 @@
     pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemon:self.pokemon];
     
     // Set child views' Frame
-    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
-    CGRect childViewFrame = CGRectMake(0.f, marginTop, kViewWidth, kViewHeight - marginTop);
+    CGRect childViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
     [pokemonInfoViewController.view setFrame:childViewFrame];
     [pokemonAreaViewController.view setFrame:childViewFrame];
     [pokemonSizeViewController.view setFrame:childViewFrame];

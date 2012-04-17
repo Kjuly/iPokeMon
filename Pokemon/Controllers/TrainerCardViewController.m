@@ -176,7 +176,7 @@ typedef enum {
   CGFloat const nameLabelWidth    = 290.f - imageWidth;
   CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
   
-  CGRect  const mainViewFrame     = CGRectMake(0.f, kTopBarHeight, kViewWidth, kViewHeight - kTopBarHeight);
+  CGRect  const mainViewFrame     = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - kTopBarHeight);
   CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
   CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
   CGRect  const IDLabelFrame      = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
