@@ -16,14 +16,12 @@
 
 @interface CustomNavigationBar () {
  @private
-  UINavigationController * navigationController_;
   UILabel                * title_;
   UIButton               * backButtonToRoot_;
   UIButton               * backButton_;
   BOOL                     isButtonHidden_;
 }
 
-@property (nonatomic, retain) IBOutlet UINavigationController * navigationController;
 @property (nonatomic, retain) UILabel     * title;
 @property (nonatomic, retain) UIButton    * backButtonToRoot;
 @property (nonatomic, retain) UIButton    * backButton;

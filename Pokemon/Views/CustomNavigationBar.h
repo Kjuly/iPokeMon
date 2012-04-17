@@ -9,9 +9,11 @@
 @interface CustomNavigationBar : UINavigationBar
 {
   NSInteger viewCount_;
+  UINavigationController * navigationController_;
 }
 
 @property (nonatomic, assign) NSInteger viewCount;
+@property (nonatomic, retain) UINavigationController * navigationController;
 
 - (void)setup;
 - (void)setTitleWithText:(NSString *)text animated:(BOOL)animated;

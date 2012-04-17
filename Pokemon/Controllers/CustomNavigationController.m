@@ -8,6 +8,7 @@
 
 #import "CustomNavigationController.h"
 
+#import "GlobalConstants.h"
 #import "CustomNavigationBar.h"
 
 
@@ -23,7 +24,7 @@
   NSArray * bundleArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
                                                         owner:self
                                                       options:nil];
-  CustomNavigationController * navigationController  = [bundleArray objectAtIndex:0];
+  CustomNavigationController * navigationController = [bundleArray objectAtIndex:0];
   bundleArray = nil;
   
   if (self) {
@@ -31,6 +32,19 @@
     [navigationController pushViewController:rootViewController animated:NO];
   }
   return navigationController;
+}
+
+- (id)init {
+  self = [super initWithNibName:nil bundle:nil];
+  if (self) {
+    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!");
+    CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
+    [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
+    customNavigationBar.navigationController = self;
+    [self setValue:customNavigationBar forKey:@"navigationBar"];
+    [customNavigationBar release];
+  }
+  return self;
 }
 
 // Instance Method of |initWithRootViewController:|
@@ -58,6 +72,7 @@
 {
   NSLog(@"--- CustomNavigationController loadView ---");
   [super loadView];
+  [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
 //  [self.view setFrame:CGRectMake(0.f, -20.f, 320.f, 460.f)];
   NSLog(@"!!!!!!!! ? %f, %f", self.view.frame.origin.y, self.view.frame.size.height);
 }
@@ -69,7 +84,7 @@
   [super viewDidLoad];
   
   // Set Navigation Bar
-  [(CustomNavigationBar *)self.navigationBar setup];
+//  [(CustomNavigationBar *)self.navigationBar setup];
 //  CGRect navigationBarFram = self.navigationBar.frame;
   NSLog(@"???? %f", self.navigationBar.frame.origin.y);
 //  navigationBarFram.origin.y = 0.f;

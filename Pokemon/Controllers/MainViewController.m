@@ -231,6 +231,15 @@
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:self.mapButton];
+  
+  // Navigation Controller
+//  centerMenuUtilityNavigationController_ = [CustomNavigationController init];
+  centerMenuUtilityNavigationController_ = [[CustomNavigationController alloc] init];
+  
+//    [CustomNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
+//  [centerMenuUtilityNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  // Insert |utilityNavigationController|'s view
+//  [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.gameMainViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -444,19 +453,18 @@
   // Do action based on tap down keepped time
   // Utility Menu
   if (timeCounter_ < 3.f) {
-    if (! self.centerMenuUtilityNavigationController) {
-      NSLog(@"--- MainViewController openBallMenuView if(!): Create new CustomNavigationController ---");
-      if (! self.centerMenuUtilityViewController) {
-        CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
-                                                                             initWithButtonCount:6];
-        self.centerMenuUtilityViewController = centerMenuUtilityViewController;
-        [centerMenuUtilityViewController release];
-      }
-      centerMenuUtilityNavigationController_ =
-        [CustomNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
-      [centerMenuUtilityNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    if (! self.centerMenuUtilityViewController) {
+      CenterMenuUtilityViewController * centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc]
+                                                                           initWithButtonCount:6];
+      self.centerMenuUtilityViewController = centerMenuUtilityViewController;
+      [centerMenuUtilityViewController release];
     }
     
+    CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
+    [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
+    self.centerMenuUtilityNavigationController = customNavigationController;
+    [customNavigationController release];
+    [self.centerMenuUtilityNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     // Insert |utilityNavigationController|'s view
     [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.gameMainViewController.view];
     
