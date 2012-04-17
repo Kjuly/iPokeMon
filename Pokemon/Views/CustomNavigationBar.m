@@ -84,7 +84,7 @@
 // Save the background image to |navigationBarBackgroundImage_|,
 // If not shown, call |[self setNeedsDisplay];| to force a redraw.
 - (void)setup {
-  viewCount_      = 0;
+  viewCount_      = -1;
   isButtonHidden_ = NO;
 }
 

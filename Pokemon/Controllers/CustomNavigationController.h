@@ -10,8 +10,6 @@
 
 @interface CustomNavigationController : UINavigationController
 
-+ (id)initWithRootViewController:(UIViewController *)rootViewController;
-
 // Overwrited |UINavigationController| Methods
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
