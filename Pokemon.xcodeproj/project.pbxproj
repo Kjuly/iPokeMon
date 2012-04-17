@@ -943,7 +943,6 @@
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
-		7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
 		7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA514DAD91700419825 /* UtilityNavigationBarBackground.png */; };
@@ -2187,7 +2186,6 @@
 		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
-		7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
 		7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
 		7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationBar.m; sourceTree = "<group>"; };
 		7FE2BAA214DABCD900419825 /* CustomTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewController.h; sourceTree = "<group>"; };
@@ -3257,7 +3255,6 @@
 		7F6E6CF614D6CB9800033C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CF714D6CB9800033C65 /* Xibs */,
 				7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */,
 				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
@@ -3296,14 +3293,6 @@
 				7F0D18DC15075111009CFDBA /* PokemonEXPBar.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		7F6E6CF714D6CB9800033C65 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				7FE2BA9A14DAA50000419825 /* CustomNavigationController.xib */,
-			);
-			path = Xibs;
 			sourceTree = "<group>";
 		};
 		7F7C88F614F74F860023D079 /* GameControllers */ = {
@@ -4084,7 +4073,6 @@
 				7F51C42B14D8180D0091902D /* UtilityView_SetAccount.png in Resources */,
 				7F51C42C14D8180D0091902D /* UtilityView_ShowWorld.png in Resources */,
 				7F8EFA8F14D937C000FF1055 /* UtilityBallMenuIconBig.png in Resources */,
-				7FE2BA9B14DAA50000419825 /* CustomNavigationController.xib in Resources */,
 				7FE2BAA614DAD91700419825 /* UtilityNavigationBarBackground.png in Resources */,
 				7F2EFB7614DE78250068F681 /* GenerationOne.png in Resources */,
 				7F2EFB7C14DE9FDB0068F681 /* PokedexDefaultImage.png in Resources */,
