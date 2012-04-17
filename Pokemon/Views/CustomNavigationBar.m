@@ -16,15 +16,15 @@
 
 @interface CustomNavigationBar () {
  @private
-  UILabel                * title_;
-  UIButton               * backButtonToRoot_;
-  UIButton               * backButton_;
-  BOOL                     isButtonHidden_;
+  UILabel  * title_;
+  UIButton * backButtonToRoot_;
+  UIButton * backButton_;
+  BOOL       isButtonHidden_;
 }
 
-@property (nonatomic, retain) UILabel     * title;
-@property (nonatomic, retain) UIButton    * backButtonToRoot;
-@property (nonatomic, retain) UIButton    * backButton;
+@property (nonatomic, retain) UILabel  * title;
+@property (nonatomic, retain) UIButton * backButtonToRoot;
+@property (nonatomic, retain) UIButton * backButton;
 
 - (void)setBackButtonForRoot;
 
@@ -33,20 +33,18 @@
 
 @implementation CustomNavigationBar
 
-@synthesize viewCount      = viewCount_;
-
+@synthesize viewCount            = viewCount_;
 @synthesize navigationController = navigationController_;
+
 @synthesize title                = title_;
 @synthesize backButtonToRoot     = backButtonToRoot_;
 @synthesize backButton           = backButton_;
 
--(void)dealloc
-{
+-(void)dealloc {
   self.navigationController = nil;
   self.title                = nil;
   self.backButtonToRoot     = nil;
   self.backButton           = nil;
-  
   [super dealloc];
 }
 
@@ -113,30 +111,32 @@
   
   [self.navigationController popToRootViewControllerAnimated:YES];
   
+  // Animation blocks
+  void (^animations)() = ^{
+    if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+      // Slide up the Navigation bar to hide it
+      [self setFrame:CGRectMake(0.f, -kNavigationBarHeight, kViewWidth, kNavigationBarHeight)];
+    }
+    // For Login view
+    else {
+      [self setBackToRootButtonToHidden:YES animated:YES];
+      [self setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:YES];
+    }
+  };
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
+      // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
+      // And recover button' layout in center view
+      [self.navigationController setNavigationBarHidden:YES];
+      [(AbstractCenterMenuViewController *)self.navigationController.topViewController
+       changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
+    }
+  };  
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
-                       // Slide up the Navigation bar to hide it
-                       CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
-                       navigationBarFrame.origin.y = - navigationBarFrame.size.height;
-                       [self.navigationController.navigationBar setFrame:navigationBarFrame];
-                     }
-                     else {
-                       [self setBackToRootButtonToHidden:YES animated:YES];
-                       [self setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:YES];
-                     }
-                   }
-                   completion:^(BOOL finished) {
-                     if ([self.navigationController.topViewController isKindOfClass:[AbstractCenterMenuViewController class]]) {
-                       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
-                       // And recover button' layout in center view
-                       [self.navigationController setNavigationBarHidden:YES];
-                       [(AbstractCenterMenuViewController *)self.navigationController.topViewController
-                          changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
-                     }
-                   }];
+                   animations:animations
+                   completion:completion];
 }
 
 // Provide the action for the custom |backButton|
@@ -184,8 +184,7 @@
 }
 
 // Add |backButton| for previous view
-- (void)addBackButtonForPreviousView
-{
+- (void)addBackButtonForPreviousView {
   __block CGRect originalFrame = CGRectMake(160.f, 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
   
   if (! self.backButton) {
@@ -208,10 +207,8 @@
 }
 
 // Remove |backButton| for previous view
-- (void)removeBackButtonForPreviousView
-{
+- (void)removeBackButtonForPreviousView {
   __block CGRect originalFrame = self.backButton.frame;
-  
   [UIView animateWithDuration:.2f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -227,9 +224,8 @@
 
 // clear the background image and call setNeedsDisplay to force a redraw
 - (void)clearBackground {
-  self.backButtonToRoot             = nil;
-  self.backButton                   = nil;
-  
+  self.backButtonToRoot = nil;
+  self.backButton       = nil;
   [self setNeedsDisplay];
 }
 
