@@ -29,12 +29,10 @@
 @interface MainViewController () {
  @private
   GameMainViewController              * gameMainViewController_;
-  CustomNavigationController          * centerMenuUtilityNavigationController_;
+  CustomNavigationController          * customNavigationController_;
   CenterMenuUtilityViewController     * centerMenuUtilityViewController_;
-  CustomNavigationController          * centerMenuSixPokemonsNavigationController_;
   CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController_;
   MapViewController                   * mapViewController_;
-  CustomNavigationController          * loginNavigationController_;
   LoginTableViewController            * loginTableViewController_;
   NewbieGuideViewController           * newbieGuideViewController_;
   HelpViewController                  * helpViewController_;
@@ -56,12 +54,10 @@
 }
 
 @property (nonatomic, retain) GameMainViewController              * gameMainViewController;
-@property (nonatomic, retain) CustomNavigationController          * centerMenuUtilityNavigationController;
+@property (nonatomic, retain) CustomNavigationController          * customNavigationController;
 @property (nonatomic, retain) CenterMenuUtilityViewController     * centerMenuUtilityViewController;
-@property (nonatomic, retain) CustomNavigationController          * centerMenuSixPokemonsNavigationController;
 @property (nonatomic, retain) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
 @property (nonatomic, retain) MapViewController                   * mapViewController;
-@property (nonatomic, retain) CustomNavigationController          * loginNavigationController;
 @property (nonatomic, retain) LoginTableViewController            * loginTableViewController;
 @property (nonatomic, retain) NewbieGuideViewController           * newbieGuideViewController;
 @property (nonatomic, retain) HelpViewController                  * helpViewController;
@@ -95,18 +91,16 @@
 
 @implementation MainViewController
 
-@synthesize gameMainViewController                    = gameMainViewController_;
-@synthesize centerMenuUtilityNavigationController     = centerMenuUtilityNavigationController_;
-@synthesize centerMenuUtilityViewController           = centerMenuUtilityViewController_;
-@synthesize centerMenuSixPokemonsNavigationController = centerMenuSixPokemonsNavigationController_;
-@synthesize centerMenuSixPokemonsViewController       = centerMenuSixPokemonsViewController_;
-@synthesize mapViewController                         = mapViewController_;
-@synthesize loginNavigationController                 = loginNavigationController_;
-@synthesize loginTableViewController                  = loginTableViewController_;
-@synthesize newbieGuideViewController                 = newbieGuideViewController_;
-@synthesize helpViewController                        = helpViewController_;
+@synthesize gameMainViewController              = gameMainViewController_;
+@synthesize customNavigationController          = customNavigationController_;
+@synthesize centerMenuUtilityViewController     = centerMenuUtilityViewController_;
+@synthesize centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController_;
+@synthesize mapViewController                   = mapViewController_;
+@synthesize loginTableViewController            = loginTableViewController_;
+@synthesize newbieGuideViewController           = newbieGuideViewController_;
+@synthesize helpViewController                  = helpViewController_;
 
-@synthesize centerMainButtonTouchDownCircleView       = centerMainButtonTouchDownCircleView_;
+@synthesize centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView_;
 @synthesize centerMainButton                = centerMainButton_;
 @synthesize mapButton                       = mapButton_;
 @synthesize currentKeyButton                = currentKeyButton_;
@@ -115,12 +109,10 @@
 
 - (void)dealloc {
   self.gameMainViewController                    = nil;
-  self.centerMenuUtilityNavigationController     = nil;
+  self.customNavigationController                = nil;
   self.centerMenuUtilityViewController           = nil;
-  self.centerMenuSixPokemonsNavigationController = nil;
   self.centerMenuSixPokemonsViewController       = nil;
   self.mapViewController                         = nil;
-  self.loginNavigationController                 = nil;
   self.loginTableViewController                  = nil;
   self.newbieGuideViewController                 = nil;
   self.helpViewController                        = nil;
@@ -231,15 +223,6 @@
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:self.mapButton];
-  
-  // Navigation Controller
-//  centerMenuUtilityNavigationController_ = [CustomNavigationController init];
-  centerMenuUtilityNavigationController_ = [[CustomNavigationController alloc] init];
-  
-//    [CustomNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
-//  [centerMenuUtilityNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  // Insert |utilityNavigationController|'s view
-//  [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.gameMainViewController.view];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -316,17 +299,20 @@
 
 // Show login table view if user session is invalid
 - (void)showLoginTableView:(NSNotification *)notification {
-  if (self.loginNavigationController == nil) {
-    if (self.loginTableViewController == nil) {
-      LoginTableViewController * loginTableViewController;
-      loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
-      self.loginTableViewController = loginTableViewController;
-      [loginTableViewController release];
-    }
-    loginNavigationController_ = [CustomNavigationController initWithRootViewController:self.loginTableViewController];
-    [loginNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  if (self.loginTableViewController == nil) {
+    LoginTableViewController * loginTableViewController;
+    loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.loginTableViewController = loginTableViewController;
+    [loginTableViewController release];
   }
-  [self.view addSubview:loginNavigationController_.view];
+  
+  CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
+  [customNavigationController initWithRootViewController:self.loginTableViewController];
+  self.customNavigationController = customNavigationController;
+  [customNavigationController release];
+  [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  // Insert |utilityNavigationController|'s view
+  [self.view addSubview:self.customNavigationController.view];
 }
 
 // Show guide view for newbie (new trainer)
@@ -462,11 +448,11 @@
     
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
     [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
-    self.centerMenuUtilityNavigationController = customNavigationController;
+    self.customNavigationController = customNavigationController;
     [customNavigationController release];
-    [self.centerMenuUtilityNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     // Insert |utilityNavigationController|'s view
-    [self.view insertSubview:self.centerMenuUtilityNavigationController.view belowSubview:self.gameMainViewController.view];
+    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
     // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
@@ -476,20 +462,21 @@
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
-    if (! self.centerMenuSixPokemonsNavigationController) {
-      if (! self.centerMenuSixPokemonsViewController) {
-        NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
-        CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController =
-          [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:numberOfSixPokemons];
-        self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
-        [centerMenuSixPokemonsViewController release];
-      }
-      centerMenuSixPokemonsNavigationController_ =
-        [CustomNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
-      [centerMenuSixPokemonsNavigationController_.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    if (! self.centerMenuSixPokemonsViewController) {
+      NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
+      CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController =
+      [[CenterMenuSixPokemonsViewController alloc] initWithButtonCount:numberOfSixPokemons];
+      self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
+      [centerMenuSixPokemonsViewController release];
     }
-    [self.view insertSubview:self.centerMenuSixPokemonsNavigationController.view
-                belowSubview:self.gameMainViewController.view];
+    
+    CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
+    [customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
+    self.customNavigationController = customNavigationController;
+    [customNavigationController release];
+    [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    // Insert |utilityNavigationController|'s view
+    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {[self.centerMenuSixPokemonsViewController openCenterMenuView];};
