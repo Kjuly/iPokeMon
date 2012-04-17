@@ -8,8 +8,8 @@
 
 #import "SettingGameSettingsTableViewController.h"
 
-#import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
+#import "SettingTableViewCellStyleSlider.h"
 #import "SettingSectionHeaderView.h"
 
 /*
@@ -139,13 +139,12 @@
       ///GENERAL - Location Service
       case kGameSettingsSectionVolumeMaster: {
         CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeSounds", nil)
-                               value:nil
-                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeMaster", nil)
+                         sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsMaster] / 100.f)];
         return cell;
         break;
       }
@@ -153,13 +152,12 @@
       ///GENERAL - Bandwidth Usage
       case kGameSettingsSectionVolumeMusic: {
         CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeMusic", nil)
-                               value:nil
-                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+                         sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsMusic] / 100.f)];
         return cell;
         break;
       }
@@ -167,13 +165,12 @@
       ///GENERAL - Game Settings
       case kGameSettingsSectionVolumeSounds: {
         CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeSounds", nil)
-                               value:nil
-                       accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+                         sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsSounds] / 100.f)];
         return cell;
         break;
       }
@@ -193,7 +190,7 @@
           cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsOthersAnimations", nil)
-                            switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
+                            switchOn:[userDefaults boolForKey:kUDKeyGameSettingsAnimations]];
         return cell;
         break;
       }
