@@ -18,19 +18,22 @@
 
 @interface GameBattleEndViewController () {
  @private
-  GameBattleEndEventType   eventType_;
-  TrainerController      * trainer_;
   UIView                 * backgroundView_;
-  UITapGestureRecognizer * tapGestureRecognizer_;
   UILabel                * message_;
+  
+  TrainerController      * trainer_;
+  UITapGestureRecognizer * tapGestureRecognizer_;
+  
+  GameBattleEndEventType   eventType_;
 }
 
-@property (nonatomic, assign) GameBattleEndEventType   eventType;
-@property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UIView                 * backgroundView;
-@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 @property (nonatomic, retain) UILabel                * message;
 
+@property (nonatomic, retain) TrainerController      * trainer;
+@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+
+- (void)releaseSubviews;
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
@@ -39,20 +42,22 @@
 
 @implementation GameBattleEndViewController
 
-@synthesize eventType            = eventType_;
-@synthesize trainer              = trainer_;
 @synthesize backgroundView       = backgroundView_;
-@synthesize tapGestureRecognizer = tapGestureRecognizer_;
 @synthesize message              = message_;
 
+@synthesize trainer              = trainer_;
+@synthesize tapGestureRecognizer = tapGestureRecognizer_;
+
 - (void)dealloc {
-  [trainer_              release];
-  [backgroundView_       release];
-  [tapGestureRecognizer_ release];
-  
-  self.message = nil;
-  
+  self.trainer              = nil;
+  self.tapGestureRecognizer = nil;
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.backgroundView = nil;
+  self.message        = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -89,8 +94,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Tap gesture recognizer
@@ -103,17 +107,12 @@
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.backgroundView       = nil;
-  self.tapGestureRecognizer = nil;
-  self.message              = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -124,7 +123,7 @@
 -(void)loadViewWithEventType:(GameBattleEndEventType)eventType
                     animated:(BOOL)animated
                   afterDelay:(NSTimeInterval)delay{
-  self.eventType = eventType;
+  eventType_ = eventType;
   
   void (^animations)();
  
@@ -243,13 +242,13 @@
 
 // Tap gesture action
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
-  if (self.eventType == kGameBattleEndEventTypeWin) {
+  if (eventType_ == kGameBattleEndEventTypeWin) {
     [self unloadViewAnimated:YES];
   }
-  else if (self.eventType == kGameBattleEndEventTypeLose) {
+  else if (eventType_ == kGameBattleEndEventTypeLose) {
     [self unloadViewAnimated:YES];
   }
-  else if (self.eventType == kGameBattleEndEventTypeCaughtWildPokemon) {
+  else if (eventType_ == kGameBattleEndEventTypeCaughtWildPokemon) {
     [self unloadViewAnimated:YES];
   }
   else return;

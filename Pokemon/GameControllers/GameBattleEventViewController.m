@@ -19,25 +19,28 @@
 
 @interface GameBattleEventViewController () {
  @private
-  GameBattleEventType      eventType_;
-  PMAudioPlayer          * audioPlayer_;
-  GameSystemProcess      * systemProcess_;
-  TrainerController      * trainer_;
   UIView                 * backgroundView_;
   UILabel                * message_;
   UIView                 * levelUpView_;
+  
+  PMAudioPlayer          * audioPlayer_;
+  GameSystemProcess      * systemProcess_;
+  TrainerController      * trainer_;
   UITapGestureRecognizer * tapGestureRecognizer_;
+  
+  GameBattleEventType      eventType_;
 }
 
-@property (nonatomic, assign) GameBattleEventType      eventType;
-@property (nonatomic, retain) PMAudioPlayer          * audioPlayer;
-@property (nonatomic, retain) GameSystemProcess      * systemProcess;
-@property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UIView                 * backgroundView;
 @property (nonatomic, retain) UILabel                * message;
 @property (nonatomic, retain) UIView                 * levelUpView;
+
+@property (nonatomic, retain) PMAudioPlayer          * audioPlayer;
+@property (nonatomic, retain) GameSystemProcess      * systemProcess;
+@property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
+- (void)releaseSubviews;
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
 - (void)setLevelUpViewWithBaseStats:(NSArray *)baseStats deltaStats:(NSArray *)deltaStats;
@@ -46,7 +49,6 @@
 
 @implementation GameBattleEventViewController
 
-@synthesize eventType            = eventType_;
 @synthesize audioPlayer          = audioPlayer_;
 @synthesize systemProcess        = systemProcess_;
 @synthesize trainer              = trainer_;
@@ -56,15 +58,18 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc {
-  [systemProcess_        release];
-  [audioPlayer_          release];
-  [trainer_              release];
-  [backgroundView_       release];
-  [message_              release];
-  [levelUpView_          release];
-  [tapGestureRecognizer_ release];
-  
+  self.audioPlayer          = nil;
+  self.systemProcess        = nil;
+  self.trainer              = nil;
+  self.tapGestureRecognizer = nil;
+  [self releaseSubviews];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.backgroundView = nil;
+  self.message        = nil;
+  self.levelUpView    = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -116,6 +121,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
+  [self releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -130,7 +136,7 @@
                         info:(NSDictionary *)info
                     animated:(BOOL)animated
                   afterDelay:(NSTimeInterval)delay {
-  self.eventType = eventType;
+  eventType_ = eventType;
   
   void (^animations)();
   void (^completion)(BOOL);
@@ -295,7 +301,7 @@
     [self.view removeFromSuperview];
     
     // If battle is not started (Trainer has NO Pokemon available)
-    if (self.eventType & kGameBattleEventTypeNoPMAvailable)
+    if (eventType_ & kGameBattleEventTypeNoPMAvailable)
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent object:self userInfo:nil];
     else // ENS EVENT
       [self.systemProcess endEvent];
