@@ -88,7 +88,7 @@ typedef enum {
   
 }
 
-- (void)updateHeaderWithFlog:(HTTPHeaderFlag)flag;
+- (void)updateHeaderWithFlag:(HTTPHeaderFlag)flag;
 //- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 
 @end
@@ -130,7 +130,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI getPokedex];
   else return;
   
-  [self updateHeaderWithFlog:kHTTPHeaderDefault];
+  [self updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:path parameters:nil success:success failure:failure];
   
@@ -161,7 +161,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI updatePokemon];
   else return;
   
-  [self updateHeaderWithFlog:kHTTPHeaderDefault];
+  [self updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Sync Data Request - clientDescription:%@", [self description]);
   [self postPath:path parameters:data success:success failure:failure];
 }
@@ -170,7 +170,7 @@ static ServerAPIClient * client_;
 - (void)checkUniquenessForName:(NSString *)name
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-  [self updateHeaderWithFlog:kHTTPHeaderDefault];
+  [self updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL Description:%@", [self description]);
   [self postPath:[ServerAPI checkUniquenessForName]
       parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
@@ -186,7 +186,7 @@ static ServerAPIClient * client_;
 - (void)updateWildPokemonsForCurrentRegion:(NSDictionary *)regionInfo
                                    success:(void (^)(AFHTTPRequestOperation *, id))success
                                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  [self updateHeaderWithFlog:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
+  [self updateHeaderWithFlag:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
   [self getPath:[ServerAPI getWildPokemon]
      parameters:regionInfo
         success:success
@@ -195,7 +195,7 @@ static ServerAPIClient * client_;
 
 #pragma mark - Provate Methods
 
-- (void)updateHeaderWithFlog:(HTTPHeaderFlag)flag {
+- (void)updateHeaderWithFlag:(HTTPHeaderFlag)flag {
   // Reset headers to empty
   [self setDefaultHeader:@"provider" value:nil];
   [self setDefaultHeader:@"identity" value:nil];
