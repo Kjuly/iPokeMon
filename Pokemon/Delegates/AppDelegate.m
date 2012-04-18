@@ -22,7 +22,8 @@
 
 @interface AppDelegate ()
 
-- (void)registerDefaultsFromSettingsBundle;
+- (void)_registerDefaultsFromSettingsBundle;
+- (void)_registerDefaultsFromSettingsBundleWithPlistName:(NSString *)plistName;
 
 @end
 
@@ -49,7 +50,7 @@
   NSString * appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyAboutVersion];
   if (! appVersion) {
     NSLog(@"Register Defaults From Settings.bundle...");
-    [self registerDefaultsFromSettingsBundle];
+    [self _registerDefaultsFromSettingsBundle];
   }
   
   // Set View
@@ -315,13 +316,17 @@
 
 #pragma mark - Private Methods
 
-- (void)registerDefaultsFromSettingsBundle
-{
+- (void)_registerDefaultsFromSettingsBundle {
+  [self _registerDefaultsFromSettingsBundleWithPlistName:@"Root.plist"];
+  [self _registerDefaultsFromSettingsBundleWithPlistName:@"GameSettings.plist"];
+}
+
+- (void)_registerDefaultsFromSettingsBundleWithPlistName:(NSString *)plistName {
   NSString * settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
   if(! settingsBundle) return;
   
   NSDictionary * settings = [[NSDictionary alloc] initWithContentsOfFile:
-                             [settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
+                             [settingsBundle stringByAppendingPathComponent:plistName]];
   NSArray * preferences = [[NSArray alloc] initWithArray:[settings objectForKey:@"PreferenceSpecifiers"]];
   [settings release];
   
