@@ -507,11 +507,11 @@
 // Close the |centerMenu_| when necessary
 - (void)activateCenterMenuOpenStatusTimer {
   centerMenuOpenStatusTimeCounter_ = 0;
-  centerMenuOpenStatusTimer_ = [NSTimer scheduledTimerWithTimeInterval:5.f
-                                                                target:self
-                                                              selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
-                                                              userInfo:nil
-                                                               repeats:YES];
+  self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.f
+                                                                    target:self
+                                                                  selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
+                                                                  userInfo:nil
+                                                                   repeats:YES];
 }
 
 // Stop |centerMenuOpenStatusTimer_| when button clicked

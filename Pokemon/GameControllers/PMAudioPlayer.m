@@ -8,6 +8,7 @@
 
 #import "PMAudioPlayer.h"
 
+#import "GlobalConstants.h"
 #import "LoadingManager.h"
 
 typedef enum {
@@ -28,6 +29,7 @@ typedef enum {
 
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType withAction:(PMAudioAction)audioAction;
 - (NSString *)_resourceNameForAudioType:(PMAudioType)audioType;
+- (BOOL)_isMusicForAudioType:(PMAudioType)audioType;
 
 @end
 
@@ -82,9 +84,36 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Play
 - (void)playForAudioType:(PMAudioType)audioType afterDelay:(NSTimeInterval)delay {
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSInteger masterVolume = [userDefaults integerForKey:kUDKeyGameSettingsMaster];
+  // If ZERO master volume, do not play any audio
+  if (masterVolume == 0)
+    return;
+  NSInteger musicVolume = [userDefaults integerForKey:kUDKeyGameSettingsMusic];
+  // If ZERO music volume, do not play music
+  if (musicVolume == 0) {
+    if ([self _isMusicForAudioType:audioType])
+      return;
+  }
+  NSInteger soundsVolume = [userDefaults integerForKey:kUDKeyGameSettingsSounds];
+  // If ZERO sounds volume, do not play sounds (not music)
+  if (soundsVolume == 0) {
+    if (! [self _isMusicForAudioType:audioType])
+      return;
+  }
+  
+  // Play AUDIO
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
+    // Set volume
+    float volume = masterVolume / 100.f;
+    if ([self _isMusicForAudioType:audioType])
+      volume *= musicVolume / 100.f;
+    else
+      volume *= soundsVolume / 100.f;
+    [audioPlayer setVolume:volume];
+    
     if (delay == 0) [audioPlayer play];
     else            [audioPlayer playAtTime:(audioPlayer.deviceCurrentTime + delay)];
     return;
@@ -303,6 +332,18 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       break;
   }
   return resourceName;
+}
+
+// If the audio type is music, return YES, else (sounds), return NO
+- (BOOL)_isMusicForAudioType:(PMAudioType)audioType {
+  if (audioType == kAudioGameGuide ||
+      audioType == kAudioGamePMEvolution ||
+      audioType == kAudioBattlePMCaughtSucceed ||
+      audioType == kAudioBattleStartVSWildPM ||
+      audioType == kAudioBattlingVSWildPM ||
+      audioType == kAudioBattleVictoryVSWildPM)
+    return YES;
+  return NO;
 }
 
 #pragma mark - AVAudioPlayer Delegate
