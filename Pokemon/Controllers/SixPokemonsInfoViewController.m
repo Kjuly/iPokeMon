@@ -124,6 +124,11 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
 - (void)viewDidUnload {

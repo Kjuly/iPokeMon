@@ -45,8 +45,7 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 @synthesize message              = message_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   [trainer_              release];
   [backgroundView_       release];
   [tapGestureRecognizer_ release];

@@ -33,15 +33,13 @@
   [super dealloc];
 }
 
-- (id)initWithButtonCount:(NSInteger)buttonCount
-{
+- (id)initWithButtonCount:(NSInteger)buttonCount {
   if (self = [self initWithNibName:nil bundle:nil])
     buttonCount_ = buttonCount; // Min: 1, Max: 6
   return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization

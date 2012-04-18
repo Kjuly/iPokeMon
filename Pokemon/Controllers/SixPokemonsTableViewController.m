@@ -79,6 +79,11 @@
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
   [self.tapGestureRecognizer setNumberOfTouchesRequired:2];
   [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
+  
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
 - (void)viewDidUnload {

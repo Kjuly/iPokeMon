@@ -52,6 +52,11 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
+  
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
 - (void)viewDidUnload {

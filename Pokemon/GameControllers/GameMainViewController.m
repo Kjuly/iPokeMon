@@ -99,8 +99,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Basic settings
@@ -152,10 +151,8 @@
   [self.view addSubview:gameMenuViewController_.view];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
   self.gameMenuViewController = nil;
   self.gameBattleEndViewController = nil;
   
@@ -163,16 +160,14 @@
   [[CCDirector sharedDirector] end];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - GameMenuViewControllerDelegate
 
-- (void)unloadBattleScene
-{
+- (void)unloadBattleScene {
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
                              @"previousCenterMainButtonStatus", nil];

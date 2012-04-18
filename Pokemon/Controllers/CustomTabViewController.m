@@ -99,8 +99,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Place the layout for view's layer
@@ -115,20 +114,20 @@
                                            selector:@selector(toggleTabBar:)
                                                name:kPMNToggleTabBar
                                              object:nil];
+  
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-
   self.tabBar      = nil;
   self.tabBarItems = nil;
-  
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
   // If |tabBar_| is hidden, show it

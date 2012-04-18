@@ -313,6 +313,11 @@ typedef enum {
   [self.twoFingersTwoTapsGestureRecognizer setNumberOfTapsRequired:2];
   [self.twoFingersTwoTapsGestureRecognizer setNumberOfTouchesRequired:2];
   [self.view addGestureRecognizer:self.twoFingersTwoTapsGestureRecognizer];
+  
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
