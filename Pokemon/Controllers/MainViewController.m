@@ -285,7 +285,6 @@
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
-  [self showLoginTableView:nil];
 }
 
 - (void)viewDidUnload {

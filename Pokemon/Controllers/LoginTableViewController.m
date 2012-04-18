@@ -140,10 +140,30 @@
     cell = [[[LoginTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
+  // Get icon file name
+  NSInteger row = indexPath.row;
+  NSString * iconName;
+  switch (row) {
+    //case kOAuthServiceProviderChoiceFacebook:
+      //iconName = @"SocialIconFacebook.png";
+      //break;
+      
+    case kOAuthServiceProviderChoiceGoogle:
+      iconName = @"SocialIconGoogle.png";
+      break;
+      
+    //case kOAuthServiceProviderChoiceTwitter:
+      //iconName = @"SocialIconTwitter.png";
+      //break;
+      
+    default:
+      break;
+  }
+  
   // Configure the cell...
   [cell.textLabel setBackgroundColor:[UIColor clearColor]];
   [cell configureCellWithTitle:[self nameForProvider:[indexPath row]]
-                          icon:[UIImage imageNamed:@"SocialIconGoogle.png"]
+                          icon:[UIImage imageNamed:iconName]
                  accessoryType:UITableViewCellAccessoryNone];
   return cell;
 }

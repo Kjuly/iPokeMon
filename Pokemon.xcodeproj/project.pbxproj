@@ -376,6 +376,10 @@
 		7F50B81C14F955A900883412 /* GameBattleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F50B81B14F955A900883412 /* GameBattleLayer.m */; };
 		7F50BF95153F2B1E00B24BC4 /* SocialIconGoogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */; };
 		7F50BF96153F2B1E00B24BC4 /* SocialIconGoogle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */; };
+		7F50BF9C153F306900B24BC4 /* SocialIconFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF98153F306800B24BC4 /* SocialIconFacebook.png */; };
+		7F50BF9D153F306900B24BC4 /* SocialIconFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF99153F306800B24BC4 /* SocialIconFacebook@2x.png */; };
+		7F50BF9E153F306900B24BC4 /* SocialIconTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF9A153F306800B24BC4 /* SocialIconTwitter.png */; };
+		7F50BF9F153F306900B24BC4 /* SocialIconTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF9B153F306800B24BC4 /* SocialIconTwitter@2x.png */; };
 		7F51BF5314F364F8008FCF1D /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */; };
 		7F51BF5414F364F8008FCF1D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5114F364F8008FCF1D /* JSONKit.m */; };
 		7F51BF5514F364F8008FCF1D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF5214F364F8008FCF1D /* README.md */; };
@@ -1543,6 +1547,10 @@
 		7F50B81B14F955A900883412 /* GameBattleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLayer.m; sourceTree = "<group>"; };
 		7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialIconGoogle.png; sourceTree = "<group>"; };
 		7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SocialIconGoogle@2x.png"; sourceTree = "<group>"; };
+		7F50BF98153F306800B24BC4 /* SocialIconFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialIconFacebook.png; sourceTree = "<group>"; };
+		7F50BF99153F306800B24BC4 /* SocialIconFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SocialIconFacebook@2x.png"; sourceTree = "<group>"; };
+		7F50BF9A153F306800B24BC4 /* SocialIconTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialIconTwitter.png; sourceTree = "<group>"; };
+		7F50BF9B153F306800B24BC4 /* SocialIconTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SocialIconTwitter@2x.png"; sourceTree = "<group>"; };
 		7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7F51BF5014F364F8008FCF1D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		7F51BF5114F364F8008FCF1D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -3642,6 +3650,10 @@
 			children = (
 				7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */,
 				7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */,
+				7F50BF98153F306800B24BC4 /* SocialIconFacebook.png */,
+				7F50BF99153F306800B24BC4 /* SocialIconFacebook@2x.png */,
+				7F50BF9A153F306800B24BC4 /* SocialIconTwitter.png */,
+				7F50BF9B153F306800B24BC4 /* SocialIconTwitter@2x.png */,
 				7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */,
 				7FB412A7152A02EF003F41F0 /* IconBadgeBronze@2x.png */,
 				7FB412A8152A02EF003F41F0 /* IconBadgeGold.png */,
@@ -4836,6 +4848,10 @@
 				7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */,
 				7F50BF95153F2B1E00B24BC4 /* SocialIconGoogle.png in Resources */,
 				7F50BF96153F2B1E00B24BC4 /* SocialIconGoogle@2x.png in Resources */,
+				7F50BF9C153F306900B24BC4 /* SocialIconFacebook.png in Resources */,
+				7F50BF9D153F306900B24BC4 /* SocialIconFacebook@2x.png in Resources */,
+				7F50BF9E153F306900B24BC4 /* SocialIconTwitter.png in Resources */,
+				7F50BF9F153F306900B24BC4 /* SocialIconTwitter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
