@@ -27,6 +27,7 @@
   if (self) {
     [self setBackgroundColor:
      [UIColor colorWithPatternImage:[UIImage imageNamed:@"SettingTableViewSectionHeaderBackground.png"]]];
+    [self setOpaque:NO];
     title_ = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 5.f, 300.f, 22.f)];
     [title_ setBackgroundColor:[UIColor clearColor]];
     [title_ setTextColor:[UIColor blackColor]];

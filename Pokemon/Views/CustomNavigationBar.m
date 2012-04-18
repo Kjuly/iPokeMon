@@ -53,6 +53,7 @@
   if (self = [super initWithFrame:frame]) {
     viewCount_      = -1;
     isButtonHidden_ = NO;
+    [self setOpaque:NO];
   }
   return self;
 }
@@ -67,7 +68,6 @@
   NSLog(@"*** CustomNavigationBar drawRect:");
   UIImage * backgroundImage = [UIImage imageNamed:@"NavigationBarBackground.png"];
   [backgroundImage drawInRect:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
-  
   // Create custom |backButton_|
   [self _setBackButtonForRoot];
 }
