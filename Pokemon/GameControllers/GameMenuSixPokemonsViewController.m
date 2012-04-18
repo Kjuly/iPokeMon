@@ -304,6 +304,7 @@
       animationFade.fillMode       = kCAFillModeForwards;
       
       self.animationGroupForNotReplacing = [CAAnimationGroup animation];
+      [self.animationGroupForNotReplacing setValue:@"animationToShowForNotReplacing" forKey:@"animationType"];
       self.animationGroupForNotReplacing.delegate = self;
       self.animationGroupForNotReplacing.duration = duration;
       NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
@@ -426,6 +427,22 @@
     firstPokemonUnitView = nil;
   }
 }
+
+#pragma mark - Animation delegate
+
+/*- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+  if ([[anim valueForKey:@"animationType"] isEqualToString:@"animationToShowForNotReplacing"]) {
+    CGFloat buttonSize = 60.f;
+    CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
+    for (int i = [self.sixPokemons count]; i > 0; --i) {
+      GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
+      originFrame.origin.y -= 70.f;
+      [unitView setAlpha:1.f];
+      [unitView setFrame:originFrame];
+      unitView = nil;
+    }
+  }
+}*/
 
 #pragma mark - Private Methods
 
