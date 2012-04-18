@@ -11,16 +11,6 @@
 #import "GlobalRender.h"
 
 
-@interface SettingTableViewCellStyleSwitch () {
- @private
-  UISwitch * switchButton_;
-}
-
-@property (nonatomic, retain) UISwitch * switchButton;
-
-@end
-
-
 @implementation SettingTableViewCellStyleSwitch
 
 @synthesize switchButton = switchButton_;
@@ -64,7 +54,7 @@
     switchButtonFrame.origin.x = cellWidth - switchButtonFrame.size.width - 10.f;
     switchButtonFrame.origin.y = 10.f;
     [switchButton_ setFrame:switchButtonFrame];
-    [self.contentView addSubview:switchButton_];
+    [self addSubview:switchButton_];
   }
   return self;
 }

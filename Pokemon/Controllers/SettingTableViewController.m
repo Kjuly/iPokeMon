@@ -19,6 +19,7 @@
 @interface SettingTableViewController ()
 
 - (void)updateValueSettings:(NSNotification *)notification;
+- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
 
 @end
 
@@ -146,6 +147,9 @@
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
+        [cell.switchButton addTarget:self
+                              action:@selector(updateValueWithTappedSwitchButton:event:)
+                    forControlEvents:UIControlEventValueChanged];
         return cell;
         break;
       }
@@ -281,6 +285,27 @@
 // Update value when value for Settings changed
 - (void)updateValueSettings:(NSNotification *)notification {
   [self.tableView reloadData];
+}
+
+// Update value when Switch button changed value
+- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
+  UISwitch * switchButton = (UISwitch *)button;
+  UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  if (indexPath == nil)
+    return;
+  
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  // Update value for Location Service
+  if (indexPath.section == kSectionGeneral) {
+    if (indexPath.row == kSectionGeneralLocationServices) {
+      // Save value to UserDefaults
+      [userDefaults setBool:[switchButton isOn] forKey:kUDKeyGeneralLocationServices];
+      [userDefaults synchronize];
+      // Post notification to toggle Location Service
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralLocationServices object:self userInfo:nil];
+    }
+  }
 }
 
 @end

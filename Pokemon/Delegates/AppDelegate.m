@@ -82,8 +82,8 @@
   }
   else {
     // Set value in User Preferences (its default value is NO)
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyGeneralLocationServices];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyGeneralLocationServices];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
   }
   
   ///

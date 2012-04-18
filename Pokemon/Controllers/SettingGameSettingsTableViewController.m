@@ -28,6 +28,12 @@
  // About
  extern NSString * const kUDKeyAboutVersion;            // version for App
  */
+@interface SettingGameSettingsTableViewController ()
+
+- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
+
+@end
+
 
 @implementation SettingGameSettingsTableViewController
 
@@ -191,6 +197,9 @@
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsOthersAnimations", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGameSettingsAnimations]];
+        [cell.switchButton addTarget:self
+                              action:@selector(updateValueWithTappedSwitchButton:event:)
+                    forControlEvents:UIControlEventValueChanged];
         return cell;
         break;
       }
@@ -254,6 +263,27 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+#pragma mark - Private Methods
+
+// Update value when Switch button changed value
+- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
+  UISwitch * switchButton = (UISwitch *)button;
+  UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  if (indexPath == nil)
+    return;
+  
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  // Update value for Location Service
+  if (indexPath.section == kGameSettingsSectionOthers) {
+    if (indexPath.row == kGameSettingsSectionOthersAnimation) {
+      // Save value to UserDefaults
+      [userDefaults setBool:[switchButton isOn] forKey:kUDKeyGameSettingsAnimations];
+      [userDefaults synchronize];
+    }
+  }
 }
 
 @end

@@ -10,7 +10,11 @@
 
 #import "GlobalConstants.h"
 
-@interface SettingTableViewCellStyleSwitch : UITableViewCell
+@interface SettingTableViewCellStyleSwitch : UITableViewCell {
+  UISwitch * switchButton_;
+}
+
+@property (nonatomic, retain) UISwitch * switchButton;
 
 - (void)configureCellWithTitle:(NSString *)title
                       switchOn:(BOOL)switchOn;
