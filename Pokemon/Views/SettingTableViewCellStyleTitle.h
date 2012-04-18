@@ -15,5 +15,7 @@
 - (void)configureCellWithTitle:(NSString *)title
                          value:(NSString *)value
                  accessoryType:(UITableViewCellAccessoryType)accessoryType;
+- (void)normalize;
+- (void)highlight;
 
 @end

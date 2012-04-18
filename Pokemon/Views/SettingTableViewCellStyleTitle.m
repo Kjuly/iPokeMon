@@ -72,11 +72,7 @@
     
     
     // Custom subviews for cell
-    [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
-    
-    [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-    [self.detailTextLabel setTextColor:[GlobalRender textColorOrange]];
+    [self normalize];
   }
   return self;
 }
@@ -89,12 +85,29 @@
 
 #pragma mark - Public Methods
 
+// Configure cell
 - (void)configureCellWithTitle:(NSString *)title
                          value:(NSString *)value
                  accessoryType:(UITableViewCellAccessoryType)accessoryType {
   [self.textLabel setText:title];
   [self.detailTextLabel setText:value];
   [self setAccessoryType:accessoryType];
+}
+
+// Normalize cell
+- (void)normalize {
+  [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+  [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
+  
+  [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+  [self.detailTextLabel setTextColor:[GlobalRender textColorOrange]];
+  [self setNeedsDisplay];
+}
+
+// Highlight cell
+- (void)highlight {
+  [self.textLabel setTextColor:[GlobalRender textColorOrange]];
+  [self setNeedsDisplay];
 }
 
 @end

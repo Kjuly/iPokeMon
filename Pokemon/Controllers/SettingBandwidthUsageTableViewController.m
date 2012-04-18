@@ -11,10 +11,22 @@
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingSectionHeaderView.h"
 
+
+@interface SettingBandwidthUsageTableViewController () {
+ @private
+  NSIndexPath * selectedCellIndexPath_;
+}
+
+@property (nonatomic, retain) NSIndexPath * selectedCellIndexPath;
+
+@end
+
 @implementation SettingBandwidthUsageTableViewController
 
-- (void)dealloc
-{
+@synthesize selectedCellIndexPath = selectedCellIndexPath_;
+
+- (void)dealloc {
+  self.selectedCellIndexPath = nil;
   [super dealloc];
 }
 
@@ -106,7 +118,14 @@
   }
   
 //  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  switch ([indexPath row]) {
+  NSInteger row = [indexPath row];
+  // Highlight the seleceted cell
+  if (row == 2) {
+    [cell highlight];
+    self.selectedCellIndexPath = indexPath;
+  }
+  
+  switch (row) {
       ///GENERAL - Location Service
     case kGeneralSectionBandwidthOffline: {
       [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage0", nil)
@@ -127,7 +146,7 @@
     case kGeneralSectionBandwidthStandard: {
       [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage2", nil)
                              value:nil
-                     accessoryType:UITableViewCellAccessoryCheckmark];
+                     accessoryType:UITableViewCellAccessoryNone];
       break;
     }
       
@@ -179,17 +198,12 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  // Normalize original selected cell
+  [((SettingTableViewCellStyleTitle *)[tableView cellForRowAtIndexPath:self.selectedCellIndexPath]) normalize];
   
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+  // Highlight current selected cell
+  [((SettingTableViewCellStyleTitle *)[tableView cellForRowAtIndexPath:indexPath]) highlight];
 }
 
 @end
