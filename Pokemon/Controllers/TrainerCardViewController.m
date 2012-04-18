@@ -195,7 +195,7 @@ typedef enum {
   ///Left Image View
   imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(15.f, 20.f, imageWidth, imageHeight)];
   [imageView_ setUserInteractionEnabled:YES];
-  [imageView_ setContentMode:UIViewContentModeCenter];
+  [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
   [imageView_ setBackgroundColor:[UIColor clearColor]];
   [imageView_.layer setMasksToBounds:YES];
   [imageView_.layer setCornerRadius:5.f];
@@ -285,8 +285,7 @@ typedef enum {
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Basic Setting

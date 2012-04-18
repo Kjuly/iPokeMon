@@ -164,16 +164,16 @@ static TrainerController * trainerController_ = nil;
 - (NSArray *) badges      {return [self.entityTrainer.badges componentsSeparatedByString:@","];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
-- (NSInteger)numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
-- (NSInteger)numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
+- (NSInteger) numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
+- (NSInteger) numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
 - (NSString *)sixPokemonsUID {return self.entityTrainer.sixPokemonsID;}
 - (NSInteger) numberOfSixPokemons {
   return [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] count];
 }
 // Avatar URL, asynchronously downloads the image with the specified url request object
-- (NSURL *)   avatarURL   {
-  return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=100",
+- (NSURL *)avatarURL {
+  return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=200",
                                [[OAuthManager sharedInstance] userEmailInMD5]]];
 }
 
