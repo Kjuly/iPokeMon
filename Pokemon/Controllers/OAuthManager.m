@@ -132,8 +132,7 @@ static OAuthManager * oauthManager_ = nil;
                                                                    delegate:self
                                                            finishedSelector:finishedSelector];
   // Optional: display some html briefly before the sign-in page loads
-  NSString * html = @"<html><body bgcolor=white><div align=center>Loading sign-in page...</div></body></html>";
-  loginViewController.initialHTMLString = html;
+  loginViewController.initialHTMLString = @"SHOW";
   
   return [loginViewController autorelease];
 }

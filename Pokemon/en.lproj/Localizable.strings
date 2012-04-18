@@ -16,8 +16,9 @@
  * View i18n
  */
 // Login & Newbie guide
-"PMSLoginChoice"    = "Login Choice";
-"PMSAuthenticating" = "Authenticating...";
+"PMSLoginChoice"        = "Login Choice";
+"PMSLoginSigninPage"    = "Loading sign-in page...";
+"PMSAuthenticating"     = "Authenticating...";
 "PMSNewbiewGuide1Text1" = "Welcome to Pokemon world!";
 "PMSNewbiewGuide1Text2" = "What's your name?";
 "PMSNewbiewGuide1TextNameExist" = "Sorry, name exists.";

@@ -19,10 +19,16 @@
 - (void)viewDidLoad {
   // the app may prefer some html other than blank white to be displayed
   // before the sign-in web page loads
-  NSString * html = self.initialHTMLString;
-  if ([html length] > 0) {
-    [[self webView] loadHTMLString:html baseURL:nil];
-  }
+  self.initialHTMLString =
+    [NSString stringWithFormat:@"<html><style type=\"text/css\">\
+     body{ background:#000 url('MainViewBackgroundBlack.png'); font-size:20px; color:#fff; font-family:Arial, Helvetica, sans-serif; text-align:center; }\
+     div.main{ margin:160px auto; font-size:20px; font-weight:bold; }</style>\
+     <body><div class=\"main\">%@</div></body></html>",
+     NSLocalizedString(@"PMSLoginSigninPage", nil)];
+  NSString * basePath = [[NSBundle mainBundle] bundlePath];
+  [self.webView loadHTMLString:self.initialHTMLString
+                       baseURL:[NSURL fileURLWithPath:basePath]];
+  
   // Implement the completion block
   // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
   if (SYSTEM_VERSION_LESS_THAN(@"5.0"))

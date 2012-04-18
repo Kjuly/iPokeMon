@@ -14,8 +14,9 @@
  * View i18n
  */
 // Login & Newbie guide
-"PMSLoginChoice"    = "选择登录服务";
-"PMSAuthenticating" = "正在验证中...";
+"PMSLoginChoice"        = "选择登录服务";
+"PMSLoginSigninPage"    = "加载登录页面中...";
+"PMSAuthenticating"     = "正在验证中...";
 "PMSNewbiewGuide1Text1" = "欢迎来到口袋妖怪世界！";
 "PMSNewbiewGuide1Text2" = "请设置你的名字。";
 "PMSNewbiewGuide1TextNameExist" = "对不起，用户名已存在。";

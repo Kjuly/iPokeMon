@@ -238,7 +238,7 @@
     [self.authenticatingView setAlpha:0.f];
   }
   if (self.authenticatingLabel == nil) {
-    UILabel * authenticatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 180.f, 290.f, 32.f)];
+    UILabel * authenticatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 160.f, 290.f, 32.f)];
     self.authenticatingLabel = authenticatingLabel;
     [authenticatingLabel release];
     [self.authenticatingLabel setBackgroundColor:[UIColor clearColor]];
