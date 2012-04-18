@@ -8,6 +8,7 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "CustomNavigationBar.h"
 
@@ -22,6 +23,10 @@
   if ([html length] > 0) {
     [[self webView] loadHTMLString:html baseURL:nil];
   }
+  // Implement the completion block
+  // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
+  if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
+    [self viewWillAppear:YES];
 }
 
 // Overwrite method:|popView|
