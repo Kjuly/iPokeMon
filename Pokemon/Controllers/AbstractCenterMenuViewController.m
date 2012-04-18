@@ -228,7 +228,8 @@
                        [self.navigationController.view removeFromSuperview];
 //                       [self.navigationController removeFromParentViewController];
                      else
-                       [self removeFromParentViewController];
+                       [self.view removeFromSuperview];
+//                       [self removeFromParentViewController];
                      
                      // After closed self, remove Notification Observer
                      [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
