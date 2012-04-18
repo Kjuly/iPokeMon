@@ -60,8 +60,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 // Singleton
 static OAuthManager * oauthManager_ = nil;
-+ (OAuthManager *)sharedInstance
-{
++ (OAuthManager *)sharedInstance {
   if (oauthManager_ != nil) return oauthManager_;
   
   static dispatch_once_t onceToken;
@@ -71,18 +70,15 @@ static OAuthManager * oauthManager_ = nil;
   return oauthManager_;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.oauth = nil;
-  
   [self.operationQueue cancelAllOperations];
   self.operationQueue = nil;
   
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
     isUserIDSynced_ = NO;
@@ -121,10 +117,9 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Login with a service provider
-- (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider
-{
+- (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider {
   // Show loading
-  [self.loadingManager showOverBar];
+//  [self.loadingManager showOverBar];
   
   self.selectedServiceProvider = serviceProvider;                     // Set selected service provider
   NSDictionary * oauthData     = [self oauthDataFor:serviceProvider]; // OAuth data for the service provider
@@ -309,7 +304,7 @@ static OAuthManager * oauthManager_ = nil;
   }
   
   // Hide loading
-  [self.loadingManager hideOverBar];
+//  [self.loadingManager hideOverBar];
 }
 
 @end
