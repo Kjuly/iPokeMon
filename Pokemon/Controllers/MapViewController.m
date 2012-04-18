@@ -20,6 +20,7 @@
 @interface MapViewController () {
  @private
   WildPokemonController * wildPokemonController_;
+  BOOL                    hasSettedUp_;
   BOOL                    isUpdatingLocation_;
   BOOL                    isPokemonAppeared_;
   NSTimer               * eventTimer_;
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) NSTimer               * eventTimer;
 @property (nonatomic, assign) CLLocationDistance      moveDistance;
 
+- (void)_setup;
 - (void)enableTracking:(NSNotification *)notification;
 - (void)disableTracking:(NSNotification *)notification;
 - (void)continueUpdatingLocation;
@@ -53,13 +55,12 @@
 @synthesize eventTimer            = eventTimer_;
 @synthesize moveDistance          = moveDistance_;
 
-- (void)dealloc
-{
-  [mapView_         release];
-  [locationManager_ release];
-  [location_        release];
-  
-  [wildPokemonController_ release];
+- (void)dealloc { 
+  self.mapView               = nil;
+  self.locationManager       = nil;
+  self.location              = nil;
+  self.wildPokemonController = nil;
+  self.eventTimer            = nil;
   
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
@@ -68,11 +69,18 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithLocationTracking {
+  self = [self initWithNibName:nil bundle:nil];
+  if (self) {
+    [self _setup];
+  }
+  return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    // Custom initialization
+    hasSettedUp_ = NO;
   }
   return self;
 }
@@ -102,76 +110,18 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
-  
-  // Add observers for notification
-  // Notification from |MainViewController| when |mapButton_| pressed
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(enableTracking:)
-                                               name:kPMNEnableTracking
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(disableTracking:)
-                                               name:kPMNDisableTracking
-                                             object:nil];
-  // When game battle END
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(resetIsPokemonAppeared:)
-                                               name:kPMNBattleEnd
-                                             object:nil];
-  
+  [self _setup];
   [self.mapView setShowsUserLocation:YES];
-  
-  // Basic settings
-  self.wildPokemonController = [WildPokemonController sharedInstance];
-  isPokemonAppeared_         = NO;
-  moveDistance_              = 0;
-  
-  // Core Location
-  // Create the Manager Object 
-  locationManager_ = [[CLLocationManager alloc] init];
-  locationManager_.delegate = self;
-  
-  // This is the most important property to set for the manager. It ultimately determines how the manager will
-  // attempt to acquire location and thus, the amount of power that will be consumed.
-  [locationManager_ setDesiredAccuracy:kCLLocationAccuracyBest];
-//  [locationManager_ setDistanceFilter:kCLDistanceFilterNone];
-  [locationManager_ setDistanceFilter:100];
-  
-  // Create the CLLocation Object
-  location_ = [[CLLocation alloc] init];
-
-  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyGeneralLocationServices]);
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
-    if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
-      NSLog(@"Significant Location Change Monitoring Available");
-      // Significant-Change Location Service
-      [self.locationManager startMonitoringSignificantLocationChanges];
-    }
-    else {
-      NSLog(@"Start Tracking Location...");
-      isUpdatingLocation_ = NO;
-      // Check whether it is updating location after some time interval
-      [self setEventTimerStatusToRunning:YES];
-    }
-  }
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-
   self.mapView = nil;
-  
-  self.locationManager = nil;
-  self.location        = nil;
-  self.eventTimer      = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -179,8 +129,7 @@
 #pragma mark - UtilityViewControllerDelegate
 
 // Locate user's location
-- (void)actionForButtonLocateMe
-{
+- (void)actionForButtonLocateMe {
   // Get current location
   self.location = self.locationManager.location;
   
@@ -193,8 +142,7 @@
 }
 
 // Show whole world map
-- (void)actionForButtonShowWorld
-{
+- (void)actionForButtonShowWorld {
   // Get current location
   self.location = self.locationManager.location;
   
@@ -321,7 +269,65 @@
 }
 
 #pragma mark - Actions
-   
+
+// Setup
+- (void)_setup {
+  if (hasSettedUp_)
+    return;
+  
+  // Add observers for notification
+  // Notification from |MainViewController| when |mapButton_| pressed
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(enableTracking:)
+                                               name:kPMNEnableTracking
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(disableTracking:)
+                                               name:kPMNDisableTracking
+                                             object:nil];
+  // When game battle END
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(resetIsPokemonAppeared:)
+                                               name:kPMNBattleEnd
+                                             object:nil];
+  
+  // Basic settings
+  self.wildPokemonController = [WildPokemonController sharedInstance];
+  isPokemonAppeared_         = NO;
+  moveDistance_              = 0;
+  
+  // Core Location
+  // Create the Manager Object
+  locationManager_ = [[CLLocationManager alloc] init];
+  locationManager_.delegate = self;
+  
+  // This is the most important property to set for the manager. It ultimately determines how the manager will
+  // attempt to acquire location and thus, the amount of power that will be consumed.
+  [locationManager_ setDesiredAccuracy:kCLLocationAccuracyBest];
+  //  [locationManager_ setDistanceFilter:kCLDistanceFilterNone];
+  [locationManager_ setDistanceFilter:100];
+  
+  // Create the CLLocation Object
+  location_ = [[CLLocation alloc] init];
+  
+  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyGeneralLocationServices]);
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
+    if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
+      NSLog(@"Significant Location Change Monitoring Available");
+      // Significant-Change Location Service
+      [self.locationManager startMonitoringSignificantLocationChanges];
+    }
+    else {
+      NSLog(@"Start Tracking Location...");
+      isUpdatingLocation_ = NO;
+      // Check whether it is updating location after some time interval
+      [self setEventTimerStatusToRunning:YES];
+    }
+  }
+  
+  hasSettedUp_ = YES;
+}
+
 // Enable tracking
 - (void)enableTracking:(NSNotification *)notification {
   NSLog(@"|%@| - ENABLING TRACKING...", [self class]);

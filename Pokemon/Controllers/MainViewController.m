@@ -128,7 +128,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNChangeCenterMainButtonStatus object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil]; // self.mapViewController
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:self.gameMainViewController];
   [super dealloc];
 }
@@ -174,6 +174,8 @@
     [UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
   [self.view setOpaque:NO];
   
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  
   // Ball menu which locate at center
   UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                                                                            (kViewHeight - kCenterMainButtonSize) / 2,
@@ -208,7 +210,7 @@
   [self.mapButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.mapButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
                             forState:UIControlStateNormal];
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices])
+  if ([userDefaults boolForKey:kUDKeyGeneralLocationServices])
     [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
   else [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
   [self.mapButton setOpaque:NO];
@@ -216,6 +218,11 @@
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:self.mapButton];
+  
+  // Init |mapViewController_| to run location tracking,
+  //   if enable location tracking, it'll do tracking
+  //   otherwise, just add observer for notification when enable trakcing
+  mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -253,7 +260,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNPokemonAppeared
-                                             object:self.mapViewController];
+                                             object:nil]; // self.mapViewController
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNBattleEnd
@@ -332,8 +339,7 @@
 }
 
 // Slide |centerMainButton_| to view bottom when button in center menu is clicked
-- (void)changeCenterMainButtonStatus:(NSNotification *)notification
-{
+- (void)changeCenterMainButtonStatus:(NSNotification *)notification {
   switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
     case kCenterMainButtonStatusAtBottom:
       centerMainButtonStatus_ = kCenterMainButtonStatusAtBottom;
