@@ -698,8 +698,8 @@ typedef enum {
   CGFloat originalPositionX = kGameBattleEnemyPokemonPosX;
   moveAnimation.values   = [NSArray arrayWithObjects:
                             [NSNumber numberWithFloat:originalPositionX],
-                            [NSNumber numberWithFloat:originalPositionX - 5],
-                            [NSNumber numberWithFloat:originalPositionX + 5],
+                            [NSNumber numberWithFloat:(originalPositionX - 5.f)],
+                            [NSNumber numberWithFloat:(originalPositionX + 5.f)],
                             [NSNumber numberWithFloat:originalPositionX], nil];
   moveAnimation.keyTimes = keyTimes;
   moveAnimation.duration = duration;
