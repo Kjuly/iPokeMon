@@ -374,6 +374,8 @@
 		7F50B81314F940B100883412 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50B81214F940B100883412 /* AudioToolbox.framework */; };
 		7F50B81514F9410700883412 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F50B81414F9410700883412 /* QuartzCore.framework */; };
 		7F50B81C14F955A900883412 /* GameBattleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F50B81B14F955A900883412 /* GameBattleLayer.m */; };
+		7F50BF95153F2B1E00B24BC4 /* SocialIconGoogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */; };
+		7F50BF96153F2B1E00B24BC4 /* SocialIconGoogle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */; };
 		7F51BF5314F364F8008FCF1D /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */; };
 		7F51BF5414F364F8008FCF1D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51BF5114F364F8008FCF1D /* JSONKit.m */; };
 		7F51BF5514F364F8008FCF1D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F51BF5214F364F8008FCF1D /* README.md */; };
@@ -456,6 +458,7 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */; };
 		7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */; };
 		7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */; };
 		7F77F6F314FA75A200842700 /* GameMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F77F6F214FA75A200842700 /* GameMenuViewController.m */; };
@@ -1538,6 +1541,8 @@
 		7F50B81414F9410700883412 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F50B81A14F955A900883412 /* GameBattleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleLayer.h; sourceTree = "<group>"; };
 		7F50B81B14F955A900883412 /* GameBattleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLayer.m; sourceTree = "<group>"; };
+		7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialIconGoogle.png; sourceTree = "<group>"; };
+		7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SocialIconGoogle@2x.png"; sourceTree = "<group>"; };
 		7F51BF4F14F364F8008FCF1D /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7F51BF5014F364F8008FCF1D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		7F51BF5114F364F8008FCF1D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -1648,6 +1653,8 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F6FC128153F0BE400E97986 /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
+		7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
 		7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageLBSDisabled.png; sourceTree = "<group>"; };
 		7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewMapButtonImageLBSDisabled@2x.png"; sourceTree = "<group>"; };
 		7F77F6F114FA75A200842700 /* GameMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuViewController.h; sourceTree = "<group>"; };
@@ -3275,6 +3282,8 @@
 				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
+				7F6FC128153F0BE400E97986 /* LoginTableViewCell.h */,
+				7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */,
 				7FB412B2152A0469003F41F0 /* TrainerBadgeView.h */,
 				7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */,
 				7F51BF6C14F3FDED008FCF1D /* PokemonInfoLabelView.h */,
@@ -3631,6 +3640,8 @@
 		7FA1D86A15035DC700E0D2F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */,
+				7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */,
 				7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */,
 				7FB412A7152A02EF003F41F0 /* IconBadgeBronze@2x.png */,
 				7FB412A8152A02EF003F41F0 /* IconBadgeGold.png */,
@@ -4823,6 +4834,8 @@
 				7FB1353B153B14EE00975CB5 /* AudioGameERROR.mp3 in Resources */,
 				7FB1353C153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 in Resources */,
 				7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */,
+				7F50BF95153F2B1E00B24BC4 /* SocialIconGoogle.png in Resources */,
+				7F50BF96153F2B1E00B24BC4 /* SocialIconGoogle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5097,6 +5110,7 @@
 				7F5A4D65153DDC4300F55F23 /* SettingGameSettingsTableViewController.m in Sources */,
 				7F5A4D68153DE27500F55F23 /* SettingTableViewCellStyleSlider.m in Sources */,
 				7F5A4D6B153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m in Sources */,
+				7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

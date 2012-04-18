@@ -12,6 +12,7 @@
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "CustomNavigationBar.h"
+#import "LoginTableViewCell.h"
 
 
 @interface LoginTableViewController () {
@@ -35,8 +36,7 @@
 @synthesize authenticatingView  = authenticatingView_;
 @synthesize authenticatingLabel = authenticatingLabel_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.authenticatingView = nil;
   self.authenticatingView = nil;
   
@@ -46,8 +46,7 @@
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     // Custom initialization
@@ -65,8 +64,7 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Show navigation bar, but hide back button
@@ -75,6 +73,9 @@
   [navigationBar setBackToRootButtonToHidden:YES animated:NO];
   [navigationBar setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:NO];
   navigationBar = nil;
+  
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
   
   // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -88,36 +89,30 @@
                                              object:nil];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
   
   self.authenticatingView  = nil;
   self.authenticatingLabel = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -132,17 +127,24 @@
   return kOAuthServiceProviderChoicesCount;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kCellHeightOfLoginTableView;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[LoginTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
-  [cell.textLabel setText:[self nameForProvider:[indexPath row]]];
+  [cell.textLabel setBackgroundColor:[UIColor clearColor]];
+  [cell configureCellWithTitle:[self nameForProvider:[indexPath row]]
+                          icon:[UIImage imageNamed:@"SocialIconGoogle.png"]
+                 accessoryType:UITableViewCellAccessoryNone];
   return cell;
 }
 

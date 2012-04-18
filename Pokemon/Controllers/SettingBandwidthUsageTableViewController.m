@@ -97,7 +97,7 @@
 
 // Section Header Height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-  return 32.f;
+  return kSectionHeaderHeightOfSettingTableView;
 }
 
 // Section Header View Style

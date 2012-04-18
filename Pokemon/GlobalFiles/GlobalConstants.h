@@ -179,6 +179,7 @@ typedef enum {
 #define kGameBattlePokemonFaintedOffsetY   50.f
 
 // Table View
+#define kCellHeightOfLoginTableView         44.f
 #define kCellHeightOfTrainerBadgesTableView 52.5f
 #define kCellHeightOfPokedexTableView       70.f
 #define kCellHeightOfSixPokemonsTableView   70.f
@@ -186,7 +187,7 @@ typedef enum {
 #define kCellHeightOfBagMedicineTableView   128.f //(kViewHeight - 60.f) / 3.f
 #define kCellHeightOfBagItemTableView       64.f
 #define kCellHeightOfSettingTableView       44.f
-
+// Header
 #define kSectionHeaderHeightOfSettingTableView 32.f
 
 // Others
