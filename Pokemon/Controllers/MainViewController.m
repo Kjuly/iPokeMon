@@ -83,6 +83,7 @@
 - (void)countLongTapTimeWithAction:(id)sender;
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
+- (void)updateLocationService:(NSNotification *)notification;
 - (void)toggleLocationService;
 - (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL finished))completion;
 
@@ -123,22 +124,12 @@
   self.longTapTimer              = nil;
   
   // Remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNSessionIsInvalid
-                                                object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNShowNewbieGuide
-                                                object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNChangeCenterMainButtonStatus
-                                                object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNPokemonAppeared
-                                                object:self.mapViewController];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNBattleEnd
-                                                object:self.gameMainViewController];
-  
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNSessionIsInvalid object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNChangeCenterMainButtonStatus object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:self.mapViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:self.gameMainViewController];
   [super dealloc];
 }
 
@@ -217,7 +208,9 @@
   [self.mapButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.mapButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
                             forState:UIControlStateNormal];
-  [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices])
+    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+  else [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
   [self.mapButton setOpaque:NO];
   [self.mapButton setTag:kTagMainViewMapButton];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
@@ -247,6 +240,12 @@
                                            selector:@selector(showNewbieGuideView:)
                                                name:kPMNShowNewbieGuide
                                              object:nil]; // From |TrainerController|
+  // Notification from |SettingTableViewController|,
+  //   when the value of Switch button for Location service changed
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(updateLocationService:)
+                                               name:kPMNUDGeneralLocationServices
+                                             object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(changeCenterMainButtonStatus:)
                                                name:kPMNChangeCenterMainButtonStatus
@@ -593,7 +592,7 @@
 - (void)toggleMapView:(id)sender {
   [self.longTapTimer invalidate];
   // If Location Service is not allowed, do nothing
-  if (! [[NSUserDefaults standardUserDefaults] boolForKey:@"keyAppSettingsLocationServices"] || timeCounter_ >= 6.f)
+  if (! [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices] || timeCounter_ >= 6.f)
     return;
   
   // Else, just normal button action
@@ -654,6 +653,19 @@
                        [self.mapViewController.view removeFromSuperview];
                      }
                    }];
+}
+
+// Toggle tracking
+- (void)updateLocationService:(NSNotification *)notification {
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
+    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
+  }
+  else {
+    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
+  }
 }
 
 // Toggle Location Service after long press on |mapButton_|

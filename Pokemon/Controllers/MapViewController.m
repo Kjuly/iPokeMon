@@ -110,14 +110,17 @@
   // Notification from |MainViewController| when |mapButton_| pressed
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(enableTracking:)
-                                               name:kPMNEnableTracking object:nil];
+                                               name:kPMNEnableTracking
+                                             object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(disableTracking:)
-                                               name:kPMNDisableTracking object:nil];
+                                               name:kPMNDisableTracking
+                                             object:nil];
   // When game battle END
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(resetIsPokemonAppeared:)
-                                               name:kPMNBattleEnd object:nil];
+                                               name:kPMNBattleEnd
+                                             object:nil];
   
   [self.mapView setShowsUserLocation:YES];
   
@@ -318,7 +321,7 @@
 }
 
 #pragma mark - Actions
-
+   
 // Enable tracking
 - (void)enableTracking:(NSNotification *)notification {
   NSLog(@"|%@| - ENABLING TRACKING...", [self class]);
