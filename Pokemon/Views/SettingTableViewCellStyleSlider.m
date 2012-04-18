@@ -11,16 +11,6 @@
 #import "GlobalRender.h"
 
 
-@interface SettingTableViewCellStyleSlider () {
- @private
-  UISlider * slider_;
-}
-
-@property (nonatomic, retain) UISlider * slider;
-
-@end
-
-
 @implementation SettingTableViewCellStyleSlider
 
 @synthesize slider = slider_;
@@ -63,7 +53,7 @@
     slider_ = [[UISlider alloc] init];
     CGFloat sliderHeight = slider_.frame.size.height;
     [slider_ setFrame:CGRectMake(10.f, 10.f, cellWidth - 20.f, sliderHeight)];
-    [self.contentView addSubview:slider_];
+    [self addSubview:slider_];
   }
   return self;
 }

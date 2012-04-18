@@ -12,24 +12,9 @@
 #import "SettingTableViewCellStyleSlider.h"
 #import "SettingSectionHeaderView.h"
 
-/*
- // Settings.bundle
- extern NSString * const kUDKeyGeneralLocationServices; // enable location tracking (bool)
- extern NSString * const kUDKeyGeneralBandWidthUsage;   // bandwidth useage (number:0,1,2)
- // Game settings
- extern NSString * const kUDKeyGeneralGameSettings;
- extern NSString * const kUDKeyGameSettingsMasterTitle;
- extern NSString * const kUDKeyGameSettingsMaster;      // master volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsMusicTitle;
- extern NSString * const kUDKeyGameSettingsMusic;       // music volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsSoundsTitle;
- extern NSString * const kUDKeyGameSettingsSounds;      // sounds volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsAnimations;  // enable animations (switch)
- // About
- extern NSString * const kUDKeyAboutVersion;            // version for App
- */
 @interface SettingGameSettingsTableViewController ()
 
+- (void)updateValueWithSlider:(UIControl *)button event:(UIEvent *)event;
 - (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
 
 @end
@@ -141,49 +126,38 @@
   NSInteger rowNum     = indexPath.row;
   //////VOLUME//////
   if (sectionNum == kGameSettingsSectionVolume) {
+    CellIdentifier = @"CellStyleTitle";
+    SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+      cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
     switch (rowNum) {
       ///GENERAL - Location Service
-      case kGameSettingsSectionVolumeMaster: {
-        CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+      case kGameSettingsSectionVolumeMaster:
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeMaster", nil)
                          sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsMaster] / 100.f)];
-        return cell;
         break;
-      }
         
       ///GENERAL - Bandwidth Usage
-      case kGameSettingsSectionVolumeMusic: {
-        CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+      case kGameSettingsSectionVolumeMusic:
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeMusic", nil)
                          sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsMusic] / 100.f)];
-        return cell;
         break;
-      }
         
       ///GENERAL - Game Settings
-      case kGameSettingsSectionVolumeSounds: {
-        CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+      case kGameSettingsSectionVolumeSounds:
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsVolumeSounds", nil)
                          sliderValue:([userDefaults floatForKey:kUDKeyGameSettingsSounds] / 100.f)];
-        return cell;
         break;
-      }
         
       default:
         break;
     }
+    [cell.slider addTarget:self
+                    action:@selector(updateValueWithSlider:event:)
+          forControlEvents:UIControlEventValueChanged];
+    return cell;
   }
   //////ANIMATIONS//////
   else if (sectionNum == kGameSettingsSectionOthers) {
@@ -266,6 +240,41 @@
 }
 
 #pragma mark - Private Methods
+
+// Update value when Slider value changed
+- (void)updateValueWithSlider:(UIControl *)button event:(UIEvent *)event {
+  UISlider * slider = (UISlider *)button;
+  UITableViewCell * cell = (UITableViewCell *)slider.superview;
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  if (indexPath == nil)
+    return;
+  
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  // Update value for Location Service
+  if (indexPath.section == kGameSettingsSectionVolume) {
+    NSString * key;
+    switch (indexPath.row) {
+      case kGameSettingsSectionVolumeMaster:
+        key = kUDKeyGameSettingsMaster;
+        break;
+        
+      case kGameSettingsSectionVolumeMusic:
+        key = kUDKeyGameSettingsMusic;
+        break;
+        
+      case kGameSettingsSectionVolumeSounds:
+        key = kUDKeyGameSettingsSounds;
+        break;
+        
+      default:
+        return;
+        break;
+    }
+    // Save value to UserDefaults
+    [userDefaults setInteger:round(slider.value * 100.f) forKey:key];
+    [userDefaults synchronize];
+  }
+}
 
 // Update value when Switch button changed value
 - (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {

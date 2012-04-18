@@ -10,7 +10,11 @@
 
 #import "GlobalConstants.h"
 
-@interface SettingTableViewCellStyleSlider : UITableViewCell
+@interface SettingTableViewCellStyleSlider : UITableViewCell {
+  UISlider * slider_;
+}
+
+@property (nonatomic, retain) UISlider * slider;
 
 - (void)configureCellWithTitle:(NSString *)title
                    sliderValue:(float)value;
