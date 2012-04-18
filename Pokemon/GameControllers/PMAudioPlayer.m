@@ -166,6 +166,12 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // preload App basic audios (|kAudioGame...|)
 - (void)preloadForAppBasic {
+  // If ZERO master or sounds volume, do not need to load related audioes
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  if ([userDefaults integerForKey:kUDKeyGameSettingsMaster] == 0 ||
+      [userDefaults integerForKey:kUDKeyGameSettingsSounds] == 0)
+    return;
+  // Load Audioes
   for (PMAudioType audioType = kAudioNone + 1; audioType < kAudioGameEND; ++audioType)
     if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
       [self _addAudioPlayerForAudioType:audioType
@@ -174,6 +180,12 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // preload game basic audios (|kAudioBattle...|)
 - (void)preloadForBattleBasic {
+  // If ZERO master or sounds volume, do not need to load related audioes
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  if ([userDefaults integerForKey:kUDKeyGameSettingsMaster] == 0 ||
+      [userDefaults integerForKey:kUDKeyGameSettingsSounds] == 0)
+    return;
+  // Load Audioes
   for (PMAudioType audioType = kAudioGameEND + 1; audioType < kAudioBattleEND; ++audioType)
     if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
       [self _addAudioPlayerForAudioType:audioType
@@ -182,11 +194,19 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Preload resources for battle VS. Wild Pokemon
 - (void)preloadForBattleVSWildPokemon {
+  // Load battle basic audioes
+  [self preloadForBattleBasic];
+  
+  // If ZERO master or music volume, do not need to load related audioes
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  if ([userDefaults integerForKey:kUDKeyGameSettingsMaster] == 0 ||
+      [userDefaults integerForKey:kUDKeyGameSettingsMusic] == 0)
+    return;
+  // Load Audioes
   for (PMAudioType audioType = kAudioBattleEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
     if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] == nil)
       [self _addAudioPlayerForAudioType:audioType
                              withAction:kAudioActionPrepareToPlay];
-  [self preloadForBattleBasic];
 }
 
 // Unload resources particular for battle VS. Wild Pokemon when this type battle END

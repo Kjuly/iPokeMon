@@ -223,7 +223,7 @@
   
   // If there's no Wild Pokemon Arreared yet, and got the basic required move distance,
   //   Generate a Wild Pokemon for player
-  if (! self.isPokemonAppeared && self.moveDistance > 10000.0f && arc4random() % 2) {
+  if (! self.isPokemonAppeared && self.moveDistance > 3000.0f && arc4random() % 2) {
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
     

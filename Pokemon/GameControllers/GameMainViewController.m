@@ -226,7 +226,9 @@
   isLoadingResourceForBattle_ = YES;
   
   // Preload audio resources for battle scene
-  [self.audioPlayer preloadForBattleVSWildPokemon];
+  if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0)
+    [self loadBattleScene:nil];
+  else [self.audioPlayer preloadForBattleVSWildPokemon];
 }
 
 // Load battle scene
