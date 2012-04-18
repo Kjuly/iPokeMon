@@ -8,33 +8,26 @@
 
 #import "SettingTableViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
 #import "SettingSectionHeaderView.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
 
-/*
- // Settings.bundle
- extern NSString * const kUDKeyGeneralLocationServices; // enable location tracking (bool)
- extern NSString * const kUDKeyGeneralBandWidthUsage;   // bandwidth useage (number:0,1,2)
- // Game settings
- extern NSString * const kUDKeyGeneralGameSettings;
- extern NSString * const kUDKeyGameSettingsMasterTitle;
- extern NSString * const kUDKeyGameSettingsMaster;      // master volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsMusicTitle;
- extern NSString * const kUDKeyGameSettingsMusic;       // music volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsSoundsTitle;
- extern NSString * const kUDKeyGameSettingsSounds;      // sounds volume (slider [0,100])
- extern NSString * const kUDKeyGameSettingsAnimations;  // enable animations (switch)
- // About
- extern NSString * const kUDKeyAboutVersion;            // version for App
- */
+
+@interface SettingTableViewController ()
+
+- (void)updateValueSettings:(NSNotification *)notification;
+
+@end
+
 
 @implementation SettingTableViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
+  // Remove notification observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
   [super dealloc];
 }
 
@@ -61,6 +54,12 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  // Add observer for notification from |SettingBandwidthUsageTableViewController| when value changed
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(updateValueSettings:)
+                                               name:kPMNUDGeneralBandwidthUsage
+                                             object:nil];
 }
 
 - (void)viewDidUnload {
@@ -275,6 +274,13 @@
       [settingGameSettingsTableViewController release];
     }
   }
+}
+   
+#pragma mark - Private Methods
+
+// Update value when value for Settings changed
+- (void)updateValueSettings:(NSNotification *)notification {
+  [self.tableView reloadData];
 }
 
 @end

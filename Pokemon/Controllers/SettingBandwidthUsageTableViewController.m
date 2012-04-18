@@ -8,6 +8,7 @@
 
 #import "SettingBandwidthUsageTableViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingSectionHeaderView.h"
 
@@ -104,7 +105,7 @@
   CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:
-    NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralGameSettingsSection%d", section + 1]), nil)];
+    NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)];
   return [sectionHeaderView autorelease];
 }
 
@@ -117,10 +118,10 @@
                                                   reuseIdentifier:CellIdentifier] autorelease];
   }
   
-//  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger row = [indexPath row];
   // Highlight the seleceted cell
-  if (row == 2) {
+  if (row == [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]) {
     [cell highlight];
     self.selectedCellIndexPath = indexPath;
   }
@@ -199,11 +200,22 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  if ([self.selectedCellIndexPath row] == [indexPath row])
+    return;
+  
   // Normalize original selected cell
   [((SettingTableViewCellStyleTitle *)[tableView cellForRowAtIndexPath:self.selectedCellIndexPath]) normalize];
   
   // Highlight current selected cell
   [((SettingTableViewCellStyleTitle *)[tableView cellForRowAtIndexPath:indexPath]) highlight];
+  self.selectedCellIndexPath = indexPath;
+  [tableView reloadData];
+  
+  // Save value to UserDefaults & post notification to |SettingTableViewController| to update value
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  [userDefaults setInteger:[indexPath row] forKey:kUDKeyGeneralBandwidthUsage];
+  [userDefaults synchronize];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralBandwidthUsage object:self userInfo:nil];
 }
 
 @end

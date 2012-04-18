@@ -78,7 +78,7 @@
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-  [super setSelected:selected animated:animated];
+//  [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state
 }
@@ -101,13 +101,11 @@
   
   [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
   [self.detailTextLabel setTextColor:[GlobalRender textColorOrange]];
-  [self setNeedsDisplay];
 }
 
 // Highlight cell
 - (void)highlight {
   [self.textLabel setTextColor:[GlobalRender textColorOrange]];
-  [self setNeedsDisplay];
 }
 
 @end

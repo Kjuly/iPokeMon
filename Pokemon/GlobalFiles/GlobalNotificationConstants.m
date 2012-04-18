@@ -8,6 +8,13 @@
 
 #import "GlobalNotificationConstants.h"
 
+// Notification for UserDefaults changed
+NSString * const kPMNUDGeneralLocationServices  = @"PMNUDGeneralLocationServices";  // general - location service
+NSString * const kPMNUDGeneralBandwidthUsage    = @"PMNUDGeneralBandwidthUsage";    // general - bandwidth useage
+NSString * const kPMNUDGameSettingsVolumeMaster = @"PMNUDGameSettingsVolumeMaster"; // game settings - master volume
+NSString * const kPMNUDGameSettingsVolumeMusic  = @"PMNUDGameSettingsVolumeMusic";  // game settings - music volume
+NSString * const kPMNUDGameSettingsVolumeSounds = @"PMNUDGameSettingsVolumeSounds"; // game settings - sounds volume
+
 // PMN: PokeMon Notification
 NSString * const kPMNSessionIsInvalid               = @"PMNSessionIsInvalid";
 NSString * const kPMNAuthenticating                 = @"PMNAuthenticating";
