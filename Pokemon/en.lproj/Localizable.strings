@@ -32,9 +32,8 @@
 "PMSSettingGeneralLocationServices" = "Location Services";
 // Bandwidth useage
 "PMSSettingGeneralBandWidthUsage"   = "Bandwidth Usage";
-"PMSSettingGeneralBandWidthUsage0"  = "Offline";
-"PMSSettingGeneralBandWidthUsage1"  = "Minimal";
-"PMSSettingGeneralBandWidthUsage2"  = "Standard";
+"PMSSettingGeneralBandWidthUsage0"  = "Minimal";
+"PMSSettingGeneralBandWidthUsage1"  = "Standard";
 // Game settings
 "PMSSettingGeneralGameSettings"                 = "Game Settings";
 "PMSSettingGeneralGameSettingsSection1"         = "Volume";

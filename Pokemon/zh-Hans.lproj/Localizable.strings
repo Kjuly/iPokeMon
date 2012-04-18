@@ -30,9 +30,8 @@
 "PMSSettingGeneralLocationServices" = "位置服务";
 // Bandwidth useage
 "PMSSettingGeneralBandWidthUsage"   = "带宽使用率";
-"PMSSettingGeneralBandWidthUsage0"  = "离线";
-"PMSSettingGeneralBandWidthUsage1"  = "最低";
-"PMSSettingGeneralBandWidthUsage2"  = "标准";
+"PMSSettingGeneralBandWidthUsage0"  = "最低";
+"PMSSettingGeneralBandWidthUsage1"  = "标准";
 // Game settings
 "PMSSettingGeneralGameSettings"                 = "游戏设置";
 "PMSSettingGeneralGameSettingsSection1"         = "音量调节";

@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-  kGeneralSectionBandwidthOffline = 0,
-  kGeneralSectionBandwidthMinimal,
+  kGeneralSectionBandwidthMinimal = 0,
   kGeneralSectionBandwidthStandard,
   kNumberOfGeneralSectionBandwidthRows
 }GeneralSectionBandwidthRow;

@@ -29,17 +29,15 @@
 			<string>keyGeneralBandwidthUsage</string>
 			<key>Titles</key>
 			<array>
-				<string>Offline</string>
 				<string>Minimal</string>
 				<string>Standard</string>
 			</array>
 			<key>DefaultValue</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
-				<integer>2</integer>
 			</array>
 		</dict>
 		<dict>

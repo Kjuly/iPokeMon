@@ -120,39 +120,15 @@
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger row = [indexPath row];
+  NSString * localizedStringKey = [NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d", row];
+  [cell configureCellWithTitle:NSLocalizedString(localizedStringKey, nil)
+                         value:nil
+                 accessoryType:UITableViewCellAccessoryNone];
+  
   // Highlight the seleceted cell
   if (row == [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]) {
     [cell highlight];
     self.selectedCellIndexPath = indexPath;
-  }
-  
-  switch (row) {
-      ///GENERAL - Location Service
-    case kGeneralSectionBandwidthOffline: {
-      [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage0", nil)
-                             value:nil
-                     accessoryType:UITableViewCellAccessoryNone];
-      break;
-    }
-      
-      ///GENERAL - Bandwidth Usage
-    case kGeneralSectionBandwidthMinimal: {
-      [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage1", nil)
-                             value:nil
-                     accessoryType:UITableViewCellAccessoryNone];
-      break;
-    }
-      
-      ///GENERAL - Game Settings
-    case kGeneralSectionBandwidthStandard: {
-      [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage2", nil)
-                             value:nil
-                     accessoryType:UITableViewCellAccessoryNone];
-      break;
-    }
-      
-    default:
-      break;
   }
   
   return cell;
