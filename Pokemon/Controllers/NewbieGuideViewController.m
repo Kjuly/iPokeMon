@@ -293,75 +293,64 @@
 // Action for |confirmButton_|
 - (void)confirm:(id)sender {
   // If is processing, do nothing until processing done
-  if (self.isProcessing) return;
+  if (self.isProcessing)
+    return;
   
   switch (self.guideStep) {
     case 1: {
       NSString * name = self.nameInputView.text;
       NSLog(@"New Name:%@", name);
-      if (! [name isEqualToString:[self.trainer name]]) {
-        // Block: |success| & |failure|
-        void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-          // Response:-1:ERROR: 0:Name Exist 1:OK
-          NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
-          NSString * newText;
-          NSLog(@"...|checkUniquenessForName| data success...response value of |uniqueness|:%d", uniqueness);
-          if (uniqueness == 1) {
-            [self.trainer setName:name];
-            newText = @"PMSNewbiewGuide2Text1";
-            ++guideStep_;
-            
-            // Create view for selecting a Pokemon
-            /*if (self.pokemonSelectionViewController == nil) {
-              // Pokemon Selection view
-              pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
-              NSArray * pokemonSIDs = [[NSArray alloc] initWithObjects:
-                                       [NSNumber numberWithInt:1],
-                                       [NSNumber numberWithInt:4],
-                                       [NSNumber numberWithInt:7], nil];
-              [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
-              [pokemonSIDs release];
-            }*/
-            [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
-            [self.pokemonSelectionViewController.view setAlpha:0.f];
-          }
-          else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
-          else newText = @"PMSNewbiewGuide1TextNameERROR";
+      // Block: |success| & |failure|
+      void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        // Response:-1:ERROR: 0:Name Exist 1:OK
+        NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
+        NSString * newText;
+        NSLog(@"...|checkUniquenessForName| data success...response value of |uniqueness|:%d", uniqueness);
+        if (uniqueness == 1) {
+          [self.trainer setName:name];
+          newText = @"PMSNewbiewGuide2Text1";
+          ++guideStep_;
           
-          void (^animations)() = ^() {
-            if (uniqueness == 1) {
-              [self.nameInputView                       setAlpha:0.f];
-              [self.pokemonSelectionViewController.view setAlpha:1.f];
-            }
-            [self.textView1 setAlpha:0.f];
-            [self.textView2 setAlpha:0.f];
-          };
-          void (^completion)(BOOL) = ^(BOOL finished) {
-            [self setTextViewWithText1:newText text2:nil];
-            if (uniqueness == 1) [self.nameInputView removeFromSuperview];
-            [UIView animateWithDuration:.3f
-                                  delay:0.f
-                                options:UIViewAnimationOptionCurveLinear
-                             animations:^{
-                               [self.textView1 setAlpha:1.f];
-                               [self.textView2 setAlpha:1.f];
-                             }
-                             completion:nil];
-          };
+          [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
+          [self.pokemonSelectionViewController.view setAlpha:0.f];
+        }
+        else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
+        else newText = @"PMSNewbiewGuide1TextNameERROR";
+        
+        void (^animations)() = ^() {
+          if (uniqueness == 1) {
+            [self.nameInputView                       setAlpha:0.f];
+            [self.pokemonSelectionViewController.view setAlpha:1.f];
+          }
+          [self.textView1 setAlpha:0.f];
+          [self.textView2 setAlpha:0.f];
+        };
+        void (^completion)(BOOL) = ^(BOOL finished) {
+          [self setTextViewWithText1:newText text2:nil];
+          if (uniqueness == 1)
+            [self.nameInputView removeFromSuperview];
           [UIView animateWithDuration:.3f
                                 delay:0.f
                               options:UIViewAnimationOptionCurveLinear
-                           animations:animations
-                           completion:completion];
-          self.isProcessing = NO;
+                           animations:^{
+                             [self.textView1 setAlpha:1.f];
+                             [self.textView2 setAlpha:1.f];
+                           }
+                           completion:nil];
         };
-        void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-          NSLog(@"!!! |checkUniquenessForName| data failed ERROR: %@", error);
-        };
-        
-        [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
-        self.isProcessing = YES;
-      }
+        [UIView animateWithDuration:.3f
+                              delay:0.f
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:animations
+                         completion:completion];
+        self.isProcessing = NO;
+      };
+      void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"!!! |checkUniquenessForName| data failed ERROR: %@", error);
+      };
+      
+      [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
+      self.isProcessing = YES;
       break;
     }
       
