@@ -951,6 +951,8 @@
 		7FEAE83414FD0854003679C1 /* MainViewCenterCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */; };
 		7FEAE83514FD0854003679C1 /* MainViewCenterCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */; };
 		7FEED5C414E4E8F10010F7F2 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */; };
+		7FF02448154072E3004401DF /* MainViewCenterButtonImageConfirm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF02446154072E2004401DF /* MainViewCenterButtonImageConfirm.png */; };
+		7FF02449154072E3004401DF /* MainViewCenterButtonImageConfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF02447154072E3004401DF /* MainViewCenterButtonImageConfirm@2x.png */; };
 		7FF3E3691514D44A00F79316 /* OriginalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E3681514D44A00F79316 /* OriginalDataManager.m */; };
 		7FF3E36C1514D8C400F79316 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E36B1514D8C300F79316 /* BagItem.m */; };
 		7FF3E36F1514D8C600F79316 /* BagBattleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF3E36E1514D8C500F79316 /* BagBattleItem.m */; };
@@ -2174,6 +2176,8 @@
 		7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterCircle@2x.png"; sourceTree = "<group>"; };
 		7FEED5C214E4E8F10010F7F2 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
 		7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
+		7FF02446154072E2004401DF /* MainViewCenterButtonImageConfirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageConfirm.png; sourceTree = "<group>"; };
+		7FF02447154072E3004401DF /* MainViewCenterButtonImageConfirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageConfirm@2x.png"; sourceTree = "<group>"; };
 		7FF3E3671514D44900F79316 /* OriginalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OriginalDataManager.h; sourceTree = "<group>"; };
 		7FF3E3681514D44A00F79316 /* OriginalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OriginalDataManager.m; sourceTree = "<group>"; };
 		7FF3E36A1514D8C200F79316 /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
@@ -3875,6 +3879,8 @@
 				7FEAE82E14FD0851003679C1 /* MainViewCenterCircle.png */,
 				7FEAE82F14FD0851003679C1 /* MainViewCenterCircle@2x.png */,
 				7FEAE81A14FD03FC003679C1 /* MainViewBackgroundBlack@2x.png */,
+				7FF02446154072E2004401DF /* MainViewCenterButtonImageConfirm.png */,
+				7FF02447154072E3004401DF /* MainViewCenterButtonImageConfirm@2x.png */,
 				7F6D0E52152C8FBB001D91F4 /* MainViewCenterButtonImageHalfCancel.png */,
 				7F6D0E53152C8FBC001D91F4 /* MainViewCenterButtonImageHalfCancel@2x.png */,
 				7FEAE82314FD03FC003679C1 /* MainViewCenterMenuButtonBackground@2x.png */,
@@ -4670,6 +4676,8 @@
 				7FA7BAC41540414300DF6377 /* BagTableViewCellIcon_7@2x.png in Resources */,
 				7FA7BAC51540414300DF6377 /* BagTableViewCellIcon_8.png in Resources */,
 				7FA7BAC61540414300DF6377 /* BagTableViewCellIcon_8@2x.png in Resources */,
+				7FF02448154072E3004401DF /* MainViewCenterButtonImageConfirm.png in Resources */,
+				7FF02449154072E3004401DF /* MainViewCenterButtonImageConfirm@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
