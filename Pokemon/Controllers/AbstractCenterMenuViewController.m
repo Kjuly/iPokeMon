@@ -81,8 +81,8 @@
                                   kCenterMenuButtonSize);
   for (int i = 0; i < buttonCount_;) {
     UIButton * button = [[UIButton alloc] initWithFrame:buttonOriginFrame_];
-    [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
-                      forState:UIControlStateNormal];
+//    [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+//                      forState:UIControlStateNormal];
     [button setOpaque:NO];
     [button setTag:++i];
     [button addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];

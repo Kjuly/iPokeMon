@@ -75,9 +75,11 @@
   [super loadView];
   
   // Set Buttons' style in center menu view
-  for (UIButton * button in [self.centerMenu subviews])
+  for (UIButton * button in [self.centerMenu subviews]) {
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
             forState:UIControlStateNormal];
+    [button setAlpha:.95f];
+  }
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
