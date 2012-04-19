@@ -41,8 +41,8 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 @property (nonatomic, assign) OAuthServiceProviderChoice   selectedServiceProvider;
 @property (nonatomic, assign) BOOL                         isUserIDSynced;
 
-- (NSDictionary *)oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
-- (void)syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
+- (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
+- (void)_syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error;
@@ -86,7 +86,7 @@ static OAuthManager * oauthManager_ = nil;
     OAuthServiceProviderChoice lastUsedServiceProvider =
       [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
     self.selectedServiceProvider = lastUsedServiceProvider;
-    NSDictionary * oauthData = [self oauthDataFor:lastUsedServiceProvider];
+    NSDictionary * oauthData = [self _oauthDataFor:lastUsedServiceProvider];
     self.oauth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:[oauthData valueForKey:@"keychainItemName"]
                                                                        clientID:[oauthData valueForKey:@"clientID"]
                                                                    clientSecret:[oauthData valueForKey:@"clientSecret"]];
@@ -101,7 +101,7 @@ static OAuthManager * oauthManager_ = nil;
 - (BOOL)isSessionValid {
   NSLog(@"<::LOG::> OAuthManager - isSessionValid: Email:%@, VerifiedEmail:%@, ClientID:%@, ClientSecret:%@, TokenType:%@, AccessToken:%@, RefreshToken:%@, Code:%@, UserData:%@", self.oauth.userEmail,self.oauth.userEmailIsVerified, self.oauth.clientID, self.oauth.clientSecret, self.oauth.tokenType, self.oauth.accessToken, self.oauth.refreshToken, self.oauth.code, self.oauth.userData);
   if (! [self.oauth canAuthorize]) return NO;
-  if (! self.isUserIDSynced) [self syncUserID];
+  if (! self.isUserIDSynced) [self _syncUserID];
   return YES;
 }
 
@@ -122,7 +122,7 @@ static OAuthManager * oauthManager_ = nil;
 //  [self.loadingManager showOverBar];
   
   self.selectedServiceProvider = serviceProvider;                     // Set selected service provider
-  NSDictionary * oauthData     = [self oauthDataFor:serviceProvider]; // OAuth data for the service provider
+  NSDictionary * oauthData     = [self _oauthDataFor:serviceProvider]; // OAuth data for the service provider
   SEL finishedSelector         = @selector(viewController:finishedWithAuth:error:);
   GTMOAuth2ViewControllerTouch * loginViewController;
   loginViewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:[oauthData valueForKey:@"scope"]
@@ -139,7 +139,7 @@ static OAuthManager * oauthManager_ = nil;
 
 // Revoke authorized service
 - (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider {
-  NSDictionary * oauthData = [self oauthDataFor:serviceProvider];
+  NSDictionary * oauthData = [self _oauthDataFor:serviceProvider];
   NSString * keychainItemName = [oauthData valueForKey:@"keychainItemName"];
   [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:keychainItemName];
   [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:self.oauth];
@@ -162,8 +162,7 @@ static OAuthManager * oauthManager_ = nil;
 #pragma mark - Private Methods
 
 // Get OAuth data for the service provider
-- (NSDictionary *)oauthDataFor:(OAuthServiceProviderChoice)serviceProvider
-{
+- (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider {
   NSString * clientID;         // Client ID
   NSString * clientSecret;     // Client Secret
   NSString * keychainItemName; // Keychain Item Name
@@ -215,7 +214,7 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Current authticated User's ID (Trainer's |uid|)
-- (void)syncUserID {
+- (void)_syncUserID {
   // Show loading
   [self.loadingManager showOverBar];
   
@@ -238,6 +237,7 @@ static OAuthManager * oauthManager_ = nil;
       NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
       // Hide loading
       [self.loadingManager hideOverBar];
+      // Show Network not available view
     };
   
   // Fetch data for Trainer
@@ -303,7 +303,7 @@ static OAuthManager * oauthManager_ = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:nil];
     
     // Current authticated User's ID (Trainer's |uid|)
-    [self syncUserID];
+    [self _syncUserID];
   }
   
   // Hide loading
