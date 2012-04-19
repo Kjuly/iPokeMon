@@ -432,8 +432,7 @@
 }
 
 // |centerMainButton_| touch up inside action
-- (void)runCenterMainButtonTouchUpInsideAction:(id)sender
-{
+- (void)runCenterMainButtonTouchUpInsideAction:(id)sender {
   // If Pokemon Appeared, and got a message, deal with it
   if (centerMainButtonMessageSignal_ == kCenterMainButtonMessageSignalPokemonAppeared
       && centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared) {
@@ -471,8 +470,15 @@
     
     case kCenterMainButtonStatusNormal:
     default:
-      if (isCenterMenuOpening_) [self closeCenterMenuView];
-      else {
+      // If it is still in opening or closing process, do nothing until it done
+      if (self.centerMenuUtilityViewController.isInProcessing)
+        return;
+      
+      if (isCenterMenuOpening_) {
+        if (self.centerMenuUtilityViewController.isOpening
+            || self.centerMenuSixPokemonsViewController.isOpening)
+          [self closeCenterMenuView];
+      } else {
         [self openCenterMenuView];
         // Activate |centerMenuOpenStatusTimer_|
         [self activateCenterMenuOpenStatusTimer];
@@ -482,8 +488,7 @@
 }
 
 // Method for opening center menu view when |isCenterMenuOpening_ == NO|
-- (void)openCenterMenuView
-{
+- (void)openCenterMenuView {
   [self.longTapTimer invalidate];
   
   // Stop |centerMainButtonTouchDownCircleView_| loading
@@ -496,11 +501,16 @@
   // Do action based on tap down keepped time
   // Utility Menu
   if (timeCounter_ < 3.f) {
-    // Center menu utility view controller
-    CenterMenuUtilityViewController * centerMenuUtilityViewController;
-    centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
-    self.centerMenuUtilityViewController = centerMenuUtilityViewController;
-    [centerMenuUtilityViewController release];
+    if (self.centerMenuUtilityViewController == nil) {
+      // Center menu utility view controller
+      CenterMenuUtilityViewController * centerMenuUtilityViewController;
+      centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
+      self.centerMenuUtilityViewController = centerMenuUtilityViewController;
+      [centerMenuUtilityViewController release];
+    }
+    
+    if (self.customNavigationController != nil)
+      [self.customNavigationController.view removeFromSuperview];
     
     // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
@@ -512,7 +522,10 @@
     [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
-    completionBlock = ^(BOOL finished) {[self.centerMenuUtilityViewController openCenterMenuView];};
+    completionBlock = ^(BOOL finished) {
+      [self.centerMenuUtilityViewController openCenterMenuView];
+      isCenterMenuOpening_ = YES;
+    };
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
@@ -534,7 +547,9 @@
     [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
-    completionBlock = ^(BOOL finished) {[self.centerMenuSixPokemonsViewController openCenterMenuView];};
+    completionBlock = ^(BOOL finished) {
+      [self.centerMenuSixPokemonsViewController openCenterMenuView];
+    };
   }
   else {
     isCenterMenuOpening_ = NO; // !!! Need to be remove

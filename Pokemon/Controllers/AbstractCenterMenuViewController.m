@@ -15,6 +15,7 @@
  @private
   NSInteger buttonCount_;
   CGRect    buttonOriginFrame_;
+  BOOL      isClosed_;
 }
 
 - (void)closeCenterMenuView:(NSNotification *)notification;
@@ -26,16 +27,24 @@
 
 @implementation AbstractCenterMenuViewController
 
-@synthesize centerMenu = centerMenu_;
+@synthesize centerMenu     = centerMenu_;
+@synthesize isOpening      = isOpening_;
+@synthesize isInProcessing = isInProcessing_;
 
 -(void)dealloc {
   self.centerMenu = nil;
+  // Remove Notification Observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
   [super dealloc];
 }
 
 - (id)initWithButtonCount:(NSInteger)buttonCount {
-  if (self = [self initWithNibName:nil bundle:nil])
-    buttonCount_ = buttonCount; // Min: 1, Max: 6
+  if (self = [self initWithNibName:nil bundle:nil]) {
+    isInProcessing_ = NO;
+    buttonCount_    = buttonCount; // Min: 1, Max: 6
+    isOpening_      = NO;
+    isClosed_       = YES;
+  }
   return self;
 }
 
@@ -81,8 +90,6 @@
                                   kCenterMenuButtonSize);
   for (int i = 0; i < buttonCount_;) {
     UIButton * button = [[UIButton alloc] initWithFrame:buttonOriginFrame_];
-//    [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
-//                      forState:UIControlStateNormal];
     [button setOpaque:NO];
     [button setTag:++i];
     [button addTarget:self action:@selector(runButtonActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -94,6 +101,13 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  // Add Observer for close self
+  // If |centerMainButton_| post cancel notification, do it
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(closeCenterMenuView:)
+                                               name:kPMNCloseCenterMenu
+                                             object:nil];
 }
 
 - (void)viewDidUnload {
@@ -151,6 +165,9 @@
 
 // Open center menu view
 - (void)openCenterMenuView {
+  if (isOpening_)
+    return;
+  isInProcessing_ = YES;
   // Show buttons with animation
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -167,14 +184,11 @@
                                       animations:^{
                                         [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.f];
                                       }
-                                      completion:nil];
-                     
-                     // Add Observer for close self
-                     // If |centerMainButton_| post cancel notification, do it
-                     [[NSNotificationCenter defaultCenter] addObserver:self
-                                                              selector:@selector(closeCenterMenuView:)
-                                                                  name:kPMNCloseCenterMenu
-                                                                object:nil];
+                                      completion:^(BOOL finished) {
+                                        isOpening_ = YES;
+                                        isClosed_ = NO;
+                                        isInProcessing_ = NO;
+                                      }];
                    }];
 }
 
@@ -214,6 +228,9 @@
 
 // Close center menu view
 - (void)closeCenterMenuView:(NSNotification *)notification {
+  if (isClosed_)
+    return;
+  isInProcessing_ = YES;
   // Hide buttons with animation
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -230,15 +247,14 @@
                      else
                        [self.view removeFromSuperview];
 //                       [self removeFromParentViewController];
-                     
-                     // After closed self, remove Notification Observer
-                     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
+                     isClosed_       = YES;
+                     isOpening_      = NO;
+                     isInProcessing_ = NO;
                    }];
 }
 
 // Compute buttons' layout based on |buttonCount|
-- (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse
-{
+- (void)computeAndSetButtonLayoutWithTriangleHypotenuse:(CGFloat)triangleHypotenuse {
   //
   //  Triangle Values for Buttons' Position
   // 

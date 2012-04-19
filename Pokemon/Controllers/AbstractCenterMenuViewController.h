@@ -12,9 +12,13 @@
 
 @interface AbstractCenterMenuViewController : UIViewController {
   UIView * centerMenu_;
+  BOOL      isOpening_;
+  BOOL isInProcessing_;
 }
 
 @property (nonatomic, retain) UIView * centerMenu;
+@property (nonatomic, assign) BOOL     isOpening;
+@property (nonatomic, assign) BOOL     isInProcessing;
 
 - (id)initWithButtonCount:(NSInteger)buttonCount;
 - (void)runButtonActions:(id)sender;
