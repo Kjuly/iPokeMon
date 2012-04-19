@@ -26,6 +26,9 @@ typedef enum {
 
 + (ServerAPIClient *)sharedInstance;
 
+// Connection checking
+- (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 // Trainer
 - (void)fetchDataFor:(DataFetchTarget)target
              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success

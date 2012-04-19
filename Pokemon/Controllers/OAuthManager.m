@@ -44,7 +44,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 @property (nonatomic, assign) BOOL                         isUserIDSynced;
 
 - (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
-- (void)_syncUserID;                                      // Current authticated User's ID (Trainer's |uid|)
+- (void)_syncUserID;                                     // Current authticated User's ID (Trainer's |uid|)
 - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error;

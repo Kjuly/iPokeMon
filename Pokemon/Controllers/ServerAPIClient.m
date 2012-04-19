@@ -15,6 +15,8 @@
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
 NSString * const kServerAPIRoot            = @"http://localhost:8080";
+// Connection Checking
+NSString * const kServerAPICheckConnection = @"/cc";     // /cc:Check Connection
 // User
 NSString * const kServerAPIGetUserID       = @"/id";     // /uid:User's Unique ID
 NSString * const kServerAPIGetUser         = @"/u";      // /u:User
@@ -31,6 +33,8 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 #pragma mark -
 #pragma mark - ServerAPI
 @interface ServerAPI ()
+// Connection checking
++ (NSString *)checkConnection;                              // GET
 // User
 + (NSString *)getUserID;                                    // GET
 + (NSString *)getUser;                                      // GET
@@ -53,6 +57,8 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 }
 
 #pragma mark - Private Methods
+// Connection checking
++ (NSString *)checkConnection { return kServerAPICheckConnection; }
 // User
 + (NSString *)getUserID  { return kServerAPIGetUserID; }
 + (NSString *)getUser    { return kServerAPIGetUser; }
@@ -117,6 +123,15 @@ static ServerAPIClient * client_;
 }
 
 #pragma mark - Public Methods
+
+// Method for checking connection to server
+- (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *, id))success
+                               failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  NSLog(@"Request URL Description:%@", [self description]);
+  [self getPath:[ServerAPI checkConnection] parameters:nil success:success failure:failure];
+}
+
 #pragma mark - Public Methods: Trainer
 
 // GET

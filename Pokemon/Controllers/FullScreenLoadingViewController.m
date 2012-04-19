@@ -10,6 +10,8 @@
 
 #import "GlobalConstants.h"
 #import "GlobalRender.h"
+#import "LoadingManager.h"
+#import "ServerAPIClient.h"
 
 
 @interface FullScreenLoadingViewController () {
@@ -17,6 +19,8 @@
   UILabel  * title_;
   UILabel  * message_;
   UIButton * refreshButton_;
+  
+  BOOL isCheckingConnection_;
 }
 
 @property (nonatomic, retain) UILabel  * title;
@@ -50,6 +54,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    isCheckingConnection_ = NO;
   }
   return self;
 }
@@ -151,7 +156,32 @@
 #pragma mark - Private Methods
 
 - (void)refresh {
+  if (isCheckingConnection_)
+    return;
   
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
+  
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Checking CONNECTION to SERVER...");
+    // If connection to server succeed, unload view
+    if ([responseObject valueForKey:@"v"])
+      [self unloadViewAnimated:YES];
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+    isCheckingConnection_ = NO;
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+    isCheckingConnection_ = NO;
+  };
+  
+  [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
+  isCheckingConnection_ = YES;
 }
 
 @end
