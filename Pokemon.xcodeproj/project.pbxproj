@@ -402,6 +402,7 @@
 		7F52451914FBEA810019C75A /* GameStatusMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451814FBEA810019C75A /* GameStatusMachine.m */; };
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
+		7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */; };
 		7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */; };
 		7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */; };
 		7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB521505239600640F57 /* BagItemTableViewCell.m */; };
@@ -1588,6 +1589,8 @@
 		7F579E701530A37900907A45 /* GameBattleEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEndViewController.m; sourceTree = "<group>"; };
 		7F581F431511D5F500F154FA /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		7F581F441511D5F500F154FA /* Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Move.m; sourceTree = "<group>"; };
+		7F58B7A9153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SettingTableViewCellStyleCenterTitle.h; sourceTree = "<group>"; };
+		7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCellStyleCenterTitle.m; sourceTree = "<group>"; };
 		7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameViewPokemonMoveView.png; sourceTree = "<group>"; };
 		7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameViewPokemonMoveView@2x.png"; sourceTree = "<group>"; };
 		7F58BB511505239500640F57 /* BagItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewCell.h; sourceTree = "<group>"; };
@@ -3320,6 +3323,8 @@
 				7F5A4D61153DD73500F55F23 /* SettingTableViewCellStyleSwitch.m */,
 				7F5A4D66153DE27500F55F23 /* SettingTableViewCellStyleSlider.h */,
 				7F5A4D67153DE27500F55F23 /* SettingTableViewCellStyleSlider.m */,
+				7F58B7A9153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.h */,
+				7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */,
 				7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */,
 				7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */,
 				7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */,
@@ -5127,6 +5132,7 @@
 				7F5A4D68153DE27500F55F23 /* SettingTableViewCellStyleSlider.m in Sources */,
 				7F5A4D6B153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m in Sources */,
 				7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */,
+				7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

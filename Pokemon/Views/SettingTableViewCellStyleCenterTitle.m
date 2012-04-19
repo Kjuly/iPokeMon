@@ -6,9 +6,13 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "LoginTableViewCell.h"
+#import "SettingTableViewCellStyleCenterTitle.h"
 
-@implementation LoginTableViewCell
+#import "GlobalConstants.h"
+#import "GlobalRender.h"
+
+
+@implementation SettingTableViewCellStyleCenterTitle
 
 - (void)dealloc {
   [super dealloc];
@@ -18,25 +22,24 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Basic constants
-    CGFloat const cellHeight = kCellHeightOfLoginTableView;
+    CGFloat const cellHeight = kCellHeightOfSettingTableView;
     CGFloat const cellWidth  = kViewWidth;
     CGRect  const cellFrame  = CGRectMake(0.f, 0.f, cellWidth, cellHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:cellFrame];
-    [backgroundView setBackgroundColor:
-      [UIColor colorWithPatternImage:[UIImage imageNamed:@"SettingTableViewCellBackground.png"]]];
-    [backgroundView setOpaque:NO];
+    [backgroundView setBackgroundColor:[UIColor clearColor]];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [selectedBackgroundView setBackgroundColor:
-      [UIColor colorWithPatternImage:[UIImage imageNamed:@"SettingTableViewCellBackground.png"]]];
-    [selectedBackgroundView setOpaque:NO];
+    [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
+    
+    
+    // Custom subviews for cell
   }
   return self;
 }
@@ -50,26 +53,15 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  // Custom subviews for cell
-  CGFloat imageSize  = 32.f;
-  CGFloat marginLeft = 35.f;
-  CGRect imageViewFrame = CGRectMake(marginLeft, (kCellHeightOfLoginTableView - imageSize) / 2, imageSize, imageSize);
-  CGRect textLabelFrame = CGRectMake(marginLeft + imageSize + 20.f, 0.f, 200.f, kCellHeightOfLoginTableView);
-  
-  [self.textLabel setFrame:textLabelFrame];
   [self.textLabel setTextColor:[UIColor whiteColor]];
-  [self.imageView setFrame:imageViewFrame];
+  [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+  [self.textLabel setTextAlignment:UITextAlignmentCenter];
 }
 
 #pragma mark - Public Methods
 
-// Configure cell
-- (void)configureCellWithTitle:(NSString *)title
-                          icon:(UIImage *)icon
-                 accessoryType:(UITableViewCellAccessoryType)accessoryType {
+- (void)configureCellWithTitle:(NSString *)title {
   [self.textLabel setText:title];
-  [self.imageView setImage:icon];
-  [self setAccessoryType:accessoryType];
 }
 
 @end

@@ -43,6 +43,7 @@
 "PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
 // ABOUT
 "PMSSettingAboutVersion" = "版本";
+"PMSSettingLogout"       = "注销";
 
 
 // Pokemon

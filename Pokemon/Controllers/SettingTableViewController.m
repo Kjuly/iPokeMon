@@ -11,6 +11,7 @@
 #import "GlobalNotificationConstants.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
+#import "SettingTableViewCellStyleCenterTitle.h"
 #import "SettingSectionHeaderView.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
@@ -111,6 +112,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == kSectionAbout)
+    if (indexPath.row == kSectionAboutRowLogout)
+      return kCellHeightOfSettingTableViewLogout;
   return kCellHeightOfSettingTableView;
 }
 
@@ -203,6 +207,18 @@
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
                                value:[NSString stringWithFormat:@"%.2f", [userDefaults floatForKey:kUDKeyAboutVersion]]
                        accessoryType:UITableViewCellAccessoryNone];
+        return cell;
+        break;
+      }
+        
+      case kSectionAboutRowLogout: {
+        static NSString *CellIdentifier = @"CellStyleLogout";
+        SettingTableViewCellStyleCenterTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
+                                                              reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingLogout", nil)];
         return cell;
         break;
       }

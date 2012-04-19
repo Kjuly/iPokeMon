@@ -187,6 +187,7 @@ typedef enum {
 #define kCellHeightOfBagMedicineTableView   128.f //(kViewHeight - 60.f) / 3.f
 #define kCellHeightOfBagItemTableView       64.f
 #define kCellHeightOfSettingTableView       44.f
+#define kCellHeightOfSettingTableViewLogout 64.f // Logout
 // Header
 #define kSectionHeaderHeightOfSettingTableView 32.f
 

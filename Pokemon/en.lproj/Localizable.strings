@@ -45,6 +45,7 @@
 "PMSSettingGeneralGameSettingsOthersAnimations" = "Animations";
 // ABOUT
 "PMSSettingAboutVersion" = "Version";
+"PMSSettingLogout"       = "Logout";
 
 
 // Pokemon

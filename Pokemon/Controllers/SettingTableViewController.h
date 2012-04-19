@@ -23,6 +23,7 @@ typedef enum {
 
 typedef enum {
   kSectionAboutRowVersion = 0,
+  kSectionAboutRowLogout,
   kNumberOfSectionAboutRows
 }SectionAboutRow;
 
