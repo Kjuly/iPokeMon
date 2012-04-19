@@ -183,9 +183,9 @@ typedef enum {
   CGRect  const nameLabelFrame    = CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight);
   CGRect  const badgeViewFrame    = CGRectMake(0.f, labelHeight * 2, 290.f, labelHeight);
   CGRect  const adventureStartedTimeLabelFrame =
-    CGRectMake(0.f, dataViewFrame.size.height - labelHeight, 150.f, labelHeight);
+    CGRectMake(0.f, dataViewFrame.size.height - 50.f, 150.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
-    CGRectMake(150.f, dataViewFrame.size.height - labelHeight, 140.f, valueHeight);
+    CGRectMake(150.f, dataViewFrame.size.height - 50.f, 140.f, valueHeight);
   
   
   // Main View
