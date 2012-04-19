@@ -834,6 +834,22 @@
 		7FA7BAA11540209600DF6377 /* IconRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BA9F1540209600DF6377 /* IconRefresh.png */; };
 		7FA7BAA21540209600DF6377 /* IconRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */; };
 		7FA7BAA61540324000DF6377 /* BagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA51540323F00DF6377 /* BagTableViewCell.m */; };
+		7FA7BAB71540414300DF6377 /* BagTableViewCellIcon_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA71540413B00DF6377 /* BagTableViewCellIcon_1.png */; };
+		7FA7BAB81540414300DF6377 /* BagTableViewCellIcon_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA81540413B00DF6377 /* BagTableViewCellIcon_1@2x.png */; };
+		7FA7BAB91540414300DF6377 /* BagTableViewCellIcon_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA91540413C00DF6377 /* BagTableViewCellIcon_2.png */; };
+		7FA7BABA1540414300DF6377 /* BagTableViewCellIcon_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAA1540413C00DF6377 /* BagTableViewCellIcon_2@2x.png */; };
+		7FA7BABB1540414300DF6377 /* BagTableViewCellIcon_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAB1540413D00DF6377 /* BagTableViewCellIcon_3.png */; };
+		7FA7BABC1540414300DF6377 /* BagTableViewCellIcon_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAC1540413D00DF6377 /* BagTableViewCellIcon_3@2x.png */; };
+		7FA7BABD1540414300DF6377 /* BagTableViewCellIcon_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAD1540413E00DF6377 /* BagTableViewCellIcon_4.png */; };
+		7FA7BABE1540414300DF6377 /* BagTableViewCellIcon_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAE1540413E00DF6377 /* BagTableViewCellIcon_4@2x.png */; };
+		7FA7BABF1540414300DF6377 /* BagTableViewCellIcon_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAAF1540413F00DF6377 /* BagTableViewCellIcon_5.png */; };
+		7FA7BAC01540414300DF6377 /* BagTableViewCellIcon_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB01540413F00DF6377 /* BagTableViewCellIcon_5@2x.png */; };
+		7FA7BAC11540414300DF6377 /* BagTableViewCellIcon_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB11540413F00DF6377 /* BagTableViewCellIcon_6.png */; };
+		7FA7BAC21540414300DF6377 /* BagTableViewCellIcon_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB21540414000DF6377 /* BagTableViewCellIcon_6@2x.png */; };
+		7FA7BAC31540414300DF6377 /* BagTableViewCellIcon_7.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB31540414000DF6377 /* BagTableViewCellIcon_7.png */; };
+		7FA7BAC41540414300DF6377 /* BagTableViewCellIcon_7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */; };
+		7FA7BAC51540414300DF6377 /* BagTableViewCellIcon_8.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */; };
+		7FA7BAC61540414300DF6377 /* BagTableViewCellIcon_8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */; };
 		7FAC07B51535573F00DF86B7 /* GameBattleEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */; };
 		7FAC07B9153582F600DF86B7 /* PokemonLevelUpUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B8153582F600DF86B7 /* PokemonLevelUpUnitView.m */; };
 		7FAC496814DEE627008BAB45 /* PokemonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */; };
@@ -2012,6 +2028,22 @@
 		7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconRefresh@2x.png"; sourceTree = "<group>"; };
 		7FA7BAA41540323F00DF6377 /* BagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewCell.h; sourceTree = "<group>"; };
 		7FA7BAA51540323F00DF6377 /* BagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTableViewCell.m; sourceTree = "<group>"; };
+		7FA7BAA71540413B00DF6377 /* BagTableViewCellIcon_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_1.png; sourceTree = "<group>"; };
+		7FA7BAA81540413B00DF6377 /* BagTableViewCellIcon_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_1@2x.png"; sourceTree = "<group>"; };
+		7FA7BAA91540413C00DF6377 /* BagTableViewCellIcon_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_2.png; sourceTree = "<group>"; };
+		7FA7BAAA1540413C00DF6377 /* BagTableViewCellIcon_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_2@2x.png"; sourceTree = "<group>"; };
+		7FA7BAAB1540413D00DF6377 /* BagTableViewCellIcon_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_3.png; sourceTree = "<group>"; };
+		7FA7BAAC1540413D00DF6377 /* BagTableViewCellIcon_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_3@2x.png"; sourceTree = "<group>"; };
+		7FA7BAAD1540413E00DF6377 /* BagTableViewCellIcon_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_4.png; sourceTree = "<group>"; };
+		7FA7BAAE1540413E00DF6377 /* BagTableViewCellIcon_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_4@2x.png"; sourceTree = "<group>"; };
+		7FA7BAAF1540413F00DF6377 /* BagTableViewCellIcon_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_5.png; sourceTree = "<group>"; };
+		7FA7BAB01540413F00DF6377 /* BagTableViewCellIcon_5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_5@2x.png"; sourceTree = "<group>"; };
+		7FA7BAB11540413F00DF6377 /* BagTableViewCellIcon_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_6.png; sourceTree = "<group>"; };
+		7FA7BAB21540414000DF6377 /* BagTableViewCellIcon_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_6@2x.png"; sourceTree = "<group>"; };
+		7FA7BAB31540414000DF6377 /* BagTableViewCellIcon_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_7.png; sourceTree = "<group>"; };
+		7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_7@2x.png"; sourceTree = "<group>"; };
+		7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_8.png; sourceTree = "<group>"; };
+		7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_8@2x.png"; sourceTree = "<group>"; };
 		7FAC07B31535573F00DF86B7 /* GameBattleEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEventViewController.h; sourceTree = "<group>"; };
 		7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEventViewController.m; sourceTree = "<group>"; };
 		7FAC07B7153582F600DF86B7 /* PokemonLevelUpUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonLevelUpUnitView.h; sourceTree = "<group>"; };
@@ -3564,6 +3596,22 @@
 				7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */,
 				7F37216C15283A10007D9A00 /* IconSettingModify.png */,
 				7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */,
+				7FA7BAA71540413B00DF6377 /* BagTableViewCellIcon_1.png */,
+				7FA7BAA81540413B00DF6377 /* BagTableViewCellIcon_1@2x.png */,
+				7FA7BAA91540413C00DF6377 /* BagTableViewCellIcon_2.png */,
+				7FA7BAAA1540413C00DF6377 /* BagTableViewCellIcon_2@2x.png */,
+				7FA7BAAB1540413D00DF6377 /* BagTableViewCellIcon_3.png */,
+				7FA7BAAC1540413D00DF6377 /* BagTableViewCellIcon_3@2x.png */,
+				7FA7BAAD1540413E00DF6377 /* BagTableViewCellIcon_4.png */,
+				7FA7BAAE1540413E00DF6377 /* BagTableViewCellIcon_4@2x.png */,
+				7FA7BAAF1540413F00DF6377 /* BagTableViewCellIcon_5.png */,
+				7FA7BAB01540413F00DF6377 /* BagTableViewCellIcon_5@2x.png */,
+				7FA7BAB11540413F00DF6377 /* BagTableViewCellIcon_6.png */,
+				7FA7BAB21540414000DF6377 /* BagTableViewCellIcon_6@2x.png */,
+				7FA7BAB31540414000DF6377 /* BagTableViewCellIcon_7.png */,
+				7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */,
+				7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */,
+				7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */,
 				7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */,
 				7F6C19321517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png */,
 				7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */,
@@ -4606,6 +4654,22 @@
 				7F7EF441153FFDAC0061D82E /* PokemonHPBarBackground@2x.png in Resources */,
 				7FA7BAA11540209600DF6377 /* IconRefresh.png in Resources */,
 				7FA7BAA21540209600DF6377 /* IconRefresh@2x.png in Resources */,
+				7FA7BAB71540414300DF6377 /* BagTableViewCellIcon_1.png in Resources */,
+				7FA7BAB81540414300DF6377 /* BagTableViewCellIcon_1@2x.png in Resources */,
+				7FA7BAB91540414300DF6377 /* BagTableViewCellIcon_2.png in Resources */,
+				7FA7BABA1540414300DF6377 /* BagTableViewCellIcon_2@2x.png in Resources */,
+				7FA7BABB1540414300DF6377 /* BagTableViewCellIcon_3.png in Resources */,
+				7FA7BABC1540414300DF6377 /* BagTableViewCellIcon_3@2x.png in Resources */,
+				7FA7BABD1540414300DF6377 /* BagTableViewCellIcon_4.png in Resources */,
+				7FA7BABE1540414300DF6377 /* BagTableViewCellIcon_4@2x.png in Resources */,
+				7FA7BABF1540414300DF6377 /* BagTableViewCellIcon_5.png in Resources */,
+				7FA7BAC01540414300DF6377 /* BagTableViewCellIcon_5@2x.png in Resources */,
+				7FA7BAC11540414300DF6377 /* BagTableViewCellIcon_6.png in Resources */,
+				7FA7BAC21540414300DF6377 /* BagTableViewCellIcon_6@2x.png in Resources */,
+				7FA7BAC31540414300DF6377 /* BagTableViewCellIcon_7.png in Resources */,
+				7FA7BAC41540414300DF6377 /* BagTableViewCellIcon_7@2x.png in Resources */,
+				7FA7BAC51540414300DF6377 /* BagTableViewCellIcon_8.png in Resources */,
+				7FA7BAC61540414300DF6377 /* BagTableViewCellIcon_8@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

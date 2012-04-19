@@ -92,7 +92,7 @@
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
   [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", index]), nil)
-                          icon:[UIImage imageNamed:[NSString stringWithFormat:@"BagIcon_%d.png", index]]
+                          icon:[UIImage imageNamed:[NSString stringWithFormat:@"BagTableViewCellIcon_%d.png", index]]
                  accessoryType:UITableViewCellAccessoryNone];
   return cell;
 }
