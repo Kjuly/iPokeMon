@@ -53,18 +53,15 @@
 @synthesize newPositionForArrow = newPositionForArrow_;
 @synthesize currArcForArrow     = currArcForArrow_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.buttons             = nil;
   self.backgroundImageView = nil;
   self.arrow               = nil;
-  
   [super dealloc];
 }
 
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     // Initialization code
@@ -84,8 +81,7 @@
 - (id)initWithItemCount:(NSUInteger)itemCount
                    size:(CGSize)itemSize
                     tag:(NSInteger)objectTag
-               delegate:(NSObject <CustomTabBarDelegate> *)tabBarDelegate
-{
+               delegate:(NSObject <CustomTabBarDelegate> *)tabBarDelegate {
   if (self = [super init]) {
     // The tag allows callers with multiple controls to distinguish between them
     [self setTag:objectTag];
@@ -93,8 +89,9 @@
     delegate_ = tabBarDelegate;
     
     // Set background
-    UIImageView * backgroundImageView = [[UIImageView alloc] initWithImage:
-                                         [UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarBackground.png", (NSInteger)itemCount]]];
+    UIImageView * backgroundImageView = [UIImageView alloc];
+    [backgroundImageView initWithImage:
+      [UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarBackground.png", (NSInteger)itemCount]]];
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
     
@@ -164,8 +161,7 @@
 }
 
 // Only light the selected button area
-- (void)dimAllButtonsExcept:(UIButton *)selectedButton
-{
+- (void)dimAllButtonsExcept:(UIButton *)selectedButton {
   for (UIButton * button in buttons_) {
     if (button == selectedButton) {
       [button setSelected:YES];
@@ -186,8 +182,7 @@
   }
 }
 
-- (void)touchDownAction:(UIButton *)button
-{
+- (void)touchDownAction:(UIButton *)button {
   [self dimAllButtonsExcept:button];
   [self moveArrowToNewPosition];
   
@@ -197,28 +192,24 @@
   self.previousItemIndex = newSelectedItemIndex;
 }
 
-- (void)touchUpInsideAction:(UIButton *)button
-{
+- (void)touchUpInsideAction:(UIButton *)button {
   [self dimAllButtonsExcept:button];
   
   if ([delegate_ respondsToSelector:@selector(touchUpInsideItemAtIndex:)])
     [delegate_ touchUpInsideItemAtIndex:[buttons_ indexOfObject:button]];
 }
 
-- (void)otherTouchesAction:(UIButton*)button
-{
+- (void)otherTouchesAction:(UIButton*)button {
   [self dimAllButtonsExcept:button];
 }
 
-- (void)selectItemAtIndex:(NSInteger)index
-{
+- (void)selectItemAtIndex:(NSInteger)index {
   UIButton * button = [buttons_ objectAtIndex:index];
   [self dimAllButtonsExcept:button];
 }
 
 // Get position.x of the selected tab
-- (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex
-{
+- (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex {
   UIImageView * tabBarArrow = (UIImageView *)[self viewWithTag:kTabArrowImageTag];
   
   // A single tab item's width is the same as the button's width
@@ -238,8 +229,7 @@
 }
 
 // Add TabBar Arrow Image
-- (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex
-{
+- (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex {
   UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabBarSelectedArrow.png"]];
   [tabBarArrow setTag:kTabArrowImageTag];
   [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.f,
@@ -253,8 +243,7 @@
 // Create a tab bar image
 - (UIImage *)tabBarImage:(UIImage *)startImage
                     size:(CGSize)targetSize
-         backgroundImage:(UIImage *)backgroundImageSource
-{
+         backgroundImage:(UIImage *)backgroundImageSource {
   UIImage * backgroundImage = [self tabBarBackgroundImageWithSize:startImage.size
                                                   backgroundImage:backgroundImageSource];
   UIImage * bwImage = [self blackFilledImageWithWhiteBackgroundUsing:startImage];
@@ -293,8 +282,7 @@
 }
 
 // Convert the image's fill color to black and background to white
-- (UIImage *)blackFilledImageWithWhiteBackgroundUsing:(UIImage *)startImage
-{
+- (UIImage *)blackFilledImageWithWhiteBackgroundUsing:(UIImage *)startImage {
   // Create the proper sized rect
   CGRect imageRect = CGRectMake(0.f, 0.f, CGImageGetWidth(startImage.CGImage), CGImageGetHeight(startImage.CGImage));
   
@@ -331,8 +319,7 @@
 }
 
 - (UIImage *)tabBarBackgroundImageWithSize:(CGSize)targetSize
-                           backgroundImage:(UIImage*)backgroundImage
-{
+                           backgroundImage:(UIImage*)backgroundImage {
   UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.f);
   
   if (backgroundImage) {
@@ -353,8 +340,7 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
+                                duration:(NSTimeInterval)duration {
   CGFloat itemWidth = ((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)  ? self.window.frame.size.height : self.window.frame.size.width) / buttons_.count;
   // horizontalOffset tracks the x value
   CGFloat horizontalOffset = 0;
@@ -373,8 +359,7 @@
 
 #pragma mark - Private Methods
 
-- (void)setFrameForButtonsBasedOnItemCount
-{
+- (void)setFrameForButtonsBasedOnItemCount {
   CGFloat tabAreaHalfHeight      = kTabBarHeight;
   CGFloat tabAreaHalfWidth       = kTabBarWdith  / 2;
   CGFloat buttonRadius           = 22.f;
@@ -427,8 +412,7 @@
 }
 
 // Set Frame for button with special tag
-- (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin
-{
+- (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin {
   UIButton * button = [self.buttons objectAtIndex:buttonTag];
   [button setFrame:CGRectMake(origin.x, origin.y, 44.f, 44.f)];
   button = nil;
@@ -436,15 +420,13 @@
 
 #pragma mark - Animation Control Methods
 
--(void)pauseLayer:(CALayer*)layer
-{
+-(void)pauseLayer:(CALayer*)layer {
   CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
   layer.speed = 0.f;
   layer.timeOffset = pausedTime;
 }
 
--(void)resumeLayer:(CALayer*)layer
-{
+-(void)resumeLayer:(CALayer*)layer {
   CFTimeInterval pausedTime = [layer timeOffset];
   layer.speed = 1.f;
   layer.timeOffset = 0.f;
@@ -453,8 +435,7 @@
   layer.beginTime = timeSincePause;
 }
 
-- (void)moveArrowToNewPosition
-{
+- (void)moveArrowToNewPosition {
   CGFloat radius            = kTabBarHeight - 26.f; // Distance to Ball Center
   CGFloat centerOriginX     = kTabBarWdith / 2;
   CGFloat centerOriginY     = kTabBarHeight;

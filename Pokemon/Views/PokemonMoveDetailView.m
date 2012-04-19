@@ -21,15 +21,13 @@
 @synthesize accuracyLabelView = accuracyLabelView_;
 @synthesize infoTextView      = infoTextView_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.moveBaseView      = nil;
   self.backButton        = nil;
   self.categoryLabelView = nil;
   self.powerLabelView    = nil;
   self.accuracyLabelView = nil;
   self.infoTextView      = nil;
-  
   [super dealloc];
 }
 

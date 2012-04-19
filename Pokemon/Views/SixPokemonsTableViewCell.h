@@ -11,8 +11,7 @@
 #import "GlobalConstants.h"
 
 
-@interface SixPokemonsTableViewCell : UITableViewCell
-{
+@interface SixPokemonsTableViewCell : UITableViewCell {
   UIImageView * imageView_;
   UILabel     * nameLabel_;
   UIImageView * genderImageView_;

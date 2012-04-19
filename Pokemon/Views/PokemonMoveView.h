@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PokemonMoveView : UIView
-{
+@interface PokemonMoveView : UIView {
   UILabel  * type1_;
   UILabel  * name_;
   UILabel  * pp_;

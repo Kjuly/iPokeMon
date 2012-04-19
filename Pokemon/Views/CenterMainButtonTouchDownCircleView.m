@@ -35,18 +35,15 @@
 @synthesize circle              = circle_;
 @synthesize drawAnimation       = drawAnimation_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.backgroundImageView = nil;
   self.foregroundImageView = nil;
   self.circle              = nil;
   self.drawAnimation       = nil;
-  
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     [self setBackgroundColor:[UIColor clearColor]];
@@ -106,8 +103,7 @@
 
 #pragma mark - Public Methods
 
-- (void)startAnimation
-{
+- (void)startAnimation {
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationCurveEaseInOut
@@ -120,8 +116,7 @@
                    }];
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
   [UIView animateWithDuration:0.3f
                         delay:0.0f
                       options:UIViewAnimationCurveEaseInOut

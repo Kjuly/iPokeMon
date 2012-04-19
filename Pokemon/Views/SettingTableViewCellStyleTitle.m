@@ -11,22 +11,9 @@
 #import "GlobalRender.h"
 
 
-@interface SettingTableViewCellStyleTitle () {
- @private
-  UILabel * title_;
-}
-
-@property (nonatomic, retain) UILabel * title;
-
-@end
-
-
 @implementation SettingTableViewCellStyleTitle
 
-@synthesize title = title_;
-
 - (void)dealloc {
-  self.title = nil;
   [super dealloc];
 }
 
@@ -53,23 +40,6 @@
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
-    
-    
-    // Subviews' related constants
-//    CGFloat const margin      = 30.f;
-//    CGFloat const labelHeight = 34.f;
-//    CGFloat const titleWidth  = 150.f;
-//    CGFloat const valueWidth  = cellWidth - margin * 2 - titleWidth;
-//    CGRect titleFrame = CGRectMake(margin, 5.f, titleWidth, labelHeight);
-    
-    // Set layouts for |contentView|(readonly)
-    // Set Title Label
-//    title_ = [[UILabel alloc] initWithFrame:titleFrame];
-//    [title_ setBackgroundColor:[UIColor clearColor]];
-//    [title_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-//    [title_ setTextColor:[GlobalRender textColorTitleWhite]];
-//    [self.contentView addSubview:title_];
-    
     
     // Custom subviews for cell
     [self normalize];

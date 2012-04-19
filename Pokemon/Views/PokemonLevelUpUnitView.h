@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PokemonLevelUpUnitView : UIView
-{
+@interface PokemonLevelUpUnitView : UIView {
   UILabel * name_;
   UILabel * value_;
   UILabel * deltaValue_;

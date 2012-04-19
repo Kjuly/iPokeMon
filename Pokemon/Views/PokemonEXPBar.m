@@ -37,8 +37,7 @@
 @synthesize exp              = exp_;
 @synthesize expMax           = expMax_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.expBar           = nil;
   self.expBarBackground = nil;
   

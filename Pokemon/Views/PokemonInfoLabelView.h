@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PokemonInfoLabelView : UIView
-{
+@interface PokemonInfoLabelView : UIView {
   UILabel * name_;
   UILabel * value_;
 }

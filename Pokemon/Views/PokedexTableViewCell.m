@@ -17,21 +17,14 @@
 @synthesize labelTitle    = labelTitle_;
 @synthesize labelSubtitle = labelSubtitle_;
 
-- (void)dealloc
-{
-  [imageView_     release];
-  [labelTitle_    release];
-  [labelSubtitle_ release];
-  
+- (void)dealloc { 
   self.imageView     = nil;
   self.labelTitle    = nil;
   self.labelSubtitle = nil;
-  
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
@@ -81,8 +74,7 @@
   return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state

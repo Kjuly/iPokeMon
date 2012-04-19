@@ -14,15 +14,12 @@
 
 @synthesize title = title_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.title = nil;
-  
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     [self setBackgroundColor:

@@ -17,15 +17,13 @@
 @synthesize info     = info_;
 @synthesize cancel   = cancel_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.delegate = nil;
   self.use      = nil;
   self.give     = nil;
   self.toss     = nil;
   self.info     = nil;
   self.cancel   = nil;
-  
   [super dealloc];
 }
 

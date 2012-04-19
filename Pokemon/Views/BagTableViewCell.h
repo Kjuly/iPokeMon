@@ -11,8 +11,7 @@
 #import "GlobalConstants.h"
 
 
-@interface BagTableViewCell : UITableViewCell
-{
+@interface BagTableViewCell : UITableViewCell {
   UIImageView * imageView_;
   UILabel     * labelTitle_;
 }

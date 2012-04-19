@@ -17,12 +17,10 @@
 @synthesize name      = name_;
 @synthesize quantity  = quantity_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.imageView = nil;
   self.name      = nil;
   self.quantity  = nil;
-  
   [super dealloc];
 }
 

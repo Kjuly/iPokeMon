@@ -13,22 +13,16 @@
 
 @implementation BagTableViewCell
 
-@synthesize imageView     = imageView_;
-@synthesize labelTitle    = labelTitle_;
+@synthesize imageView  = imageView_;
+@synthesize labelTitle = labelTitle_;
 
-- (void)dealloc
-{
-//  [imageView_     release];
-//  [labelTitle_    release];
-  
-  self.imageView     = nil;
-  self.labelTitle    = nil;
-  
+- (void)dealloc { 
+  self.imageView  = nil;
+  self.labelTitle = nil;
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
@@ -70,8 +64,7 @@
   return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state

@@ -11,8 +11,7 @@
 #import "GlobalConstants.h"
 
 
-@interface BagMedicineTableViewCell : UITableViewCell
-{
+@interface BagMedicineTableViewCell : UITableViewCell {
   UILabel * name_;
 }
 

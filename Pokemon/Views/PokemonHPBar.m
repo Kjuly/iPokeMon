@@ -39,8 +39,7 @@
 @synthesize hp              = hp_;
 @synthesize hpMax           = hpMax_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.hpBar           = nil;
 //  self.hpBarBackground = nil;
   

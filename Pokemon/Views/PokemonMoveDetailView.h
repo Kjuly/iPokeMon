@@ -11,8 +11,7 @@
 @class PokemonMoveView;
 @class PokemonInfoLabelView;
 
-@interface PokemonMoveDetailView : UIView
-{
+@interface PokemonMoveDetailView : UIView {
   PokemonMoveView      * moveBaseView_;
   UIButton             * backButton_;
   PokemonInfoLabelView * categoryLabelView_;

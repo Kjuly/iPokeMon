@@ -17,17 +17,14 @@
 @synthesize value      = value_;
 @synthesize deltaValue = deltaValue_;
 
-- (void)dealloc
-{
-  [name_       release];
-  [value_      release];
-  [deltaValue_ release];
-  
+- (void)dealloc {
+  self.name       = nil;
+  self.value      = nil;
+  self.deltaValue = nil;
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     CGFloat const labelHeight     = frame.size.height;
@@ -86,8 +83,7 @@
 
 // |deltaWidth| > 0, increase |name| width, decrease |value| width;
 //              < 0, decrease |name| width, increase |value| width;
-- (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth
-{
+- (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth {
   CGRect nameFrame  = self.name.frame;
   CGRect valueFrame = self.value.frame;
   nameFrame.size.width  += deltaWidth;

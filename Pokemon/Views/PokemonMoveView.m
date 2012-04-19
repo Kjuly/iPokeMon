@@ -17,13 +17,11 @@
 @synthesize pp    = pp_;
 @synthesize viewButton = viewButton_;
 
--(void)dealloc
-{
-  self.name  = nil;
-  self.type1 = nil;
-  self.pp    = nil;
+-(void)dealloc {
+  self.name       = nil;
+  self.type1      = nil;
+  self.pp         = nil;
   self.viewButton = nil;
-  
   [super dealloc];
 }
 

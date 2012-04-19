@@ -21,16 +21,7 @@
 @synthesize HPBarTotal      = HPBarTotal_;
 @synthesize HPBarLeft       = HPBarLeft_;
 
-- (void)dealloc
-{
-  [imageView_       release];
-  [nameLabel_       release];
-  [genderImageView_ release];
-  [levelLabel_      release];
-  [HPLabel_         release];
-  [HPBarTotal_      release];
-  [HPBarLeft_       release];
-  
+- (void)dealloc {
   self.imageView       = nil;
   self.nameLabel       = nil;
   self.genderImageView = nil;
@@ -38,7 +29,6 @@
   self.HPLabel         = nil;
   self.HPBarTotal      = nil;
   self.HPBarLeft       = nil;
-  
   [super dealloc];
 }
 
