@@ -15,6 +15,7 @@ extern NSString * const kPMNUDGameSettingsVolumeMaster; // game settings - maste
 extern NSString * const kPMNUDGameSettingsVolumeMusic;  // game settings - music volume
 extern NSString * const kPMNUDGameSettingsVolumeSounds; // game settings - sounds volume
 
+extern NSString * const kPMNNetworkNotAvailable; // Network NOT available
 extern NSString * const kPMNSessionIsInvalid;
 extern NSString * const kPMNAuthenticating;
 extern NSString * const kPMNLoginSucceed;

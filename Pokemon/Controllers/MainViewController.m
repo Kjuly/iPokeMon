@@ -12,6 +12,7 @@
 #import "GlobalNotificationConstants.h"
 #import "TrainerController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
+#import "FullScreenLoadingViewController.h"
 #import "LoginTableViewController.h"
 #import "NewbieGuideViewController.h"
 #import "HelpViewController.h"
@@ -28,6 +29,7 @@
 
 @interface MainViewController () {
  @private
+  FullScreenLoadingViewController     * fullScreenLoadingViewController_;
   GameMainViewController              * gameMainViewController_;
   CustomNavigationController          * customNavigationController_;
   CenterMenuUtilityViewController     * centerMenuUtilityViewController_;
@@ -53,6 +55,7 @@
   NSInteger                       timeCounter_;
 }
 
+@property (nonatomic, retain) FullScreenLoadingViewController     * fullScreenLoadingViewController;
 @property (nonatomic, retain) GameMainViewController              * gameMainViewController;
 @property (nonatomic, retain) CustomNavigationController          * customNavigationController;
 @property (nonatomic, retain) CenterMenuUtilityViewController     * centerMenuUtilityViewController;
@@ -71,6 +74,7 @@
 
 - (void)releaseSubviews;
 - (void)_resetAll;
+- (void)showFullScreenLoadingView:(NSNotification *)notification;
 - (void)showLoginTableView:(NSNotification *)notification;
 - (void)showNewbieGuideView:(NSNotification *)notification;
 - (void)showHelpView:(id)sender;
@@ -93,6 +97,7 @@
 
 @implementation MainViewController
 
+@synthesize fullScreenLoadingViewController     = fullScreenLoadingViewController_;
 @synthesize gameMainViewController              = gameMainViewController_;
 @synthesize customNavigationController          = customNavigationController_;
 @synthesize centerMenuUtilityViewController     = centerMenuUtilityViewController_;
@@ -110,6 +115,7 @@
 @synthesize longTapTimer                    = longTapTimer_;
 
 - (void)dealloc {
+  self.fullScreenLoadingViewController     = nil;
   self.gameMainViewController              = nil;
   self.customNavigationController          = nil;
   self.centerMenuUtilityViewController     = nil;
@@ -125,6 +131,7 @@
   self.longTapTimer              = nil;
   
   // Remove notification observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNNetworkNotAvailable object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNSessionIsInvalid object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
@@ -240,6 +247,11 @@
   isGameMainViewOpening_  = NO;
   
   // Add self as Notification observer
+  // Notification from |OAuthManager| when cannot connet to server
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(showFullScreenLoadingView:)
+                                               name:kPMNNetworkNotAvailable
+                                             object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(showLoginTableView:)
                                                name:kPMNSessionIsInvalid
@@ -314,6 +326,7 @@
   isGameMainViewOpening_                        = NO;
   for (UIViewController * vc in [self.customNavigationController childViewControllers])
     [vc.view removeFromSuperview];
+  self.fullScreenLoadingViewController     = nil;
   self.centerMenuUtilityViewController     = nil;
   self.centerMenuSixPokemonsViewController = nil;
   self.loginTableViewController            = nil;
@@ -322,6 +335,16 @@
   self.customNavigationController          = nil;
 //  self.gameMainViewController              = nil;
   [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
+}
+
+// Show full screen loading view
+- (void)showFullScreenLoadingView:(NSNotification *)notification {
+  FullScreenLoadingViewController * fullScreenLoadingViewController;
+  fullScreenLoadingViewController = [[FullScreenLoadingViewController alloc] init];
+  self.fullScreenLoadingViewController = fullScreenLoadingViewController;
+  [fullScreenLoadingViewController release];
+  [self.view addSubview:self.fullScreenLoadingViewController.view];
+  [self.fullScreenLoadingViewController loadViewAnimated:YES];
 }
 
 // Show login table view if user session is invalid

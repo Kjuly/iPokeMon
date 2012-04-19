@@ -19,6 +19,9 @@
 "PMSYes" = "Yes";
 "PMSNo"  = "No";
 
+// Full screen view text
+"PMSConnectErrorTitle"  = "Connect Error";
+"PMSConnectErrorMessage"= "Sorry, try to connect to the server failed. Please check the network and refresh.";
 // Login & Newbie guide
 "PMSLoginChoice"        = "Login Choice";
 "PMSLoginSigninPage"    = "Loading sign-in page...";

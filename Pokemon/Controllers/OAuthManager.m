@@ -13,6 +13,8 @@
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
 #import "LoadingManager.h"
+#import "FullScreenLoadingViewController.h"
+
 #import "AFJSONRequestOperation.h"
 
 
@@ -237,7 +239,9 @@ static OAuthManager * oauthManager_ = nil;
       NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
       // Hide loading
       [self.loadingManager hideOverBar];
-      // Show Network not available view
+      
+      // Post notification to |MainViewController| to warn Network not available view
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
     };
   
   // Fetch data for Trainer

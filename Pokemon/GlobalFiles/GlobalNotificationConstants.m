@@ -16,6 +16,7 @@ NSString * const kPMNUDGameSettingsVolumeMusic  = @"PMNUDGameSettingsVolumeMusic
 NSString * const kPMNUDGameSettingsVolumeSounds = @"PMNUDGameSettingsVolumeSounds"; // game settings - sounds volume
 
 // PMN: PokeMon Notification
+NSString * const kPMNNetworkNotAvailable            = @"PMNNetworkNotAvailable"; // Network NOT available
 NSString * const kPMNSessionIsInvalid               = @"PMNSessionIsInvalid";
 NSString * const kPMNAuthenticating                 = @"PMNAuthenticating";
 NSString * const kPMNLoginSucceed                   = @"PMNLoginSucceed";
