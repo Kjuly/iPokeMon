@@ -776,11 +776,12 @@ typedef enum {
 // Action for |buttonRun_|
 - (void)openRunConfirmView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
-    UIAlertView * runConfirmView = [[UIAlertView alloc] initWithTitle:nil
-                                                              message:NSLocalizedString(@"PMSRunConfirmViewText", nil)
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"PMSRunConfirmViewYes", nil)
-                                                    otherButtonTitles:NSLocalizedString(@"PMSRunConfirmViewNo", nil), nil];
+    UIAlertView * runConfirmView = [UIAlertView alloc];
+    [runConfirmView initWithTitle:nil
+                          message:NSLocalizedString(@"PMSRunConfirmViewText", nil)
+                         delegate:self
+                cancelButtonTitle:NSLocalizedString(@"PMSYes", nil)
+                otherButtonTitles:NSLocalizedString(@"PMSNo", nil), nil];
     [runConfirmView show];
     [runConfirmView release];
   }

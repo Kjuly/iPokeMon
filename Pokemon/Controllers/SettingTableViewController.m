@@ -21,6 +21,7 @@
 
 - (void)updateValueSettings:(NSNotification *)notification;
 - (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
+- (void)openLogoutConfirmView;
 
 @end
 
@@ -294,6 +295,10 @@
       [settingGameSettingsTableViewController release];
     }
   }
+  else if (section == kSectionAbout) {
+    if (row == kSectionAboutRowLogout)
+      [self openLogoutConfirmView];
+  }
 }
    
 #pragma mark - Private Methods
@@ -321,6 +326,26 @@
       // Post notification to toggle Location Service
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralLocationServices object:self userInfo:nil];
     }
+  }
+}
+
+// Open Logut confirm view
+- (void)openLogoutConfirmView {
+  UIAlertView * logoutConfirmView = [UIAlertView alloc];
+  [logoutConfirmView initWithTitle:nil
+                           message:NSLocalizedString(@"PMSSettingLogoutConfirmText", nil)
+                          delegate:self
+                 cancelButtonTitle:NSLocalizedString(@"PMSYes", nil)
+                 otherButtonTitles:NSLocalizedString(@"PMSNo", nil), nil];
+  [logoutConfirmView show];
+  [logoutConfirmView release];
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+  if (buttonIndex == 0) {
+    NSLog(@"LOGOUT...");
   }
 }
 

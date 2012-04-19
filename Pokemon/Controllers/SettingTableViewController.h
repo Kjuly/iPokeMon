@@ -27,6 +27,6 @@ typedef enum {
   kNumberOfSectionAboutRows
 }SectionAboutRow;
 
-@interface SettingTableViewController : UITableViewController
+@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate>
 
 @end

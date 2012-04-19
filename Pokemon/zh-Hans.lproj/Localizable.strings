@@ -13,6 +13,10 @@
 /*
  * View i18n
  */
+// Basic
+"PMSYes" = "是的";
+"PMSNo"  = "取消";
+
 // Login & Newbie guide
 "PMSLoginChoice"        = "选择登录服务";
 "PMSLoginSigninPage"    = "加载登录页面中...";
@@ -43,7 +47,8 @@
 "PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
 // ABOUT
 "PMSSettingAboutVersion" = "版本";
-"PMSSettingLogout"       = "注销";
+"PMSSettingLogout"            = "注销";
+"PMSSettingLogoutConfirmText" = "确认注销?";
 
 
 // Pokemon
@@ -100,8 +105,6 @@
 "PMSGameMenuBagItem5" = "精灵球";
 "PMSGameMenuBagItem6" = "战斗辅助";
 "PMSRunConfirmViewText" = "确认要逃跑吗？";
-"PMSRunConfirmViewYes"  = "是的";
-"PMSRunConfirmViewNo"   = "取消";
 
 // Text Message
 "PMSMessage_used" = "使用了";
