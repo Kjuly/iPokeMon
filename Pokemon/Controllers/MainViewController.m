@@ -354,11 +354,9 @@
 
 // Show guide view for newbie (new trainer)
 - (void)showNewbieGuideView:(NSNotification *)notification {
-  if (self.newbieGuideViewController == nil) {
-    NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
-    self.newbieGuideViewController = newbieGuideViewController;
-    [newbieGuideViewController release];
-  }
+  NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
+  self.newbieGuideViewController = newbieGuideViewController;
+  [newbieGuideViewController release];
   [self.view addSubview:self.newbieGuideViewController.view];
   [self.newbieGuideViewController loadViewAnimated:YES];
 }
@@ -475,12 +473,11 @@
   // Do action based on tap down keepped time
   // Utility Menu
   if (timeCounter_ < 3.f) {
-    if (self.centerMenuUtilityViewController == nil) {
-      CenterMenuUtilityViewController * centerMenuUtilityViewController;
-      centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
-      self.centerMenuUtilityViewController = centerMenuUtilityViewController;
-      [centerMenuUtilityViewController release];
-    }
+    // Center menu utility view controller
+    CenterMenuUtilityViewController * centerMenuUtilityViewController;
+    centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
+    self.centerMenuUtilityViewController = centerMenuUtilityViewController;
+    [centerMenuUtilityViewController release];
     
     // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
@@ -492,9 +489,6 @@
     [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
     // Implement the completion block
-    // iOS4 will not call |viewWillAppear:| when the VC is a child of another VC
-    //    if (SYSTEM_VERSION_LESS_THAN(@"5.0"))
-    //      [self.centerMenuUtilityViewController viewWillAppear:YES];
     completionBlock = ^(BOOL finished) {[self.centerMenuUtilityViewController openCenterMenuView];};
   }
   // Six Pokemons Menu
