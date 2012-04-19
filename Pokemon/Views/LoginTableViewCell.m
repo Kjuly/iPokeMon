@@ -57,6 +57,7 @@
   CGRect textLabelFrame = CGRectMake(marginLeft + imageSize + 20.f, 0.f, 200.f, kCellHeightOfLoginTableView);
   
   [self.textLabel setFrame:textLabelFrame];
+  [self.textLabel setBackgroundColor:[UIColor clearColor]];
   [self.textLabel setTextColor:[UIColor whiteColor]];
   [self.imageView setFrame:imageViewFrame];
 }

@@ -240,8 +240,10 @@ static OAuthManager * oauthManager_ = nil;
       // Hide loading
       [self.loadingManager hideOverBar];
       
+#ifndef DEBUG_NO_SESSION_MOED
       // Post notification to |MainViewController| to warn Network not available view
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+#endif
     };
   
   // Fetch data for Trainer

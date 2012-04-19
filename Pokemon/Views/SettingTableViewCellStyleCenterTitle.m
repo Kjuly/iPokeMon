@@ -53,6 +53,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
+  [self.textLabel setBackgroundColor:[UIColor clearColor]];
   [self.textLabel setTextColor:[UIColor whiteColor]];
   [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [self.textLabel setTextAlignment:UITextAlignmentCenter];

@@ -85,15 +85,15 @@
   static NSString *CellIdentifier = @"Cell";
   BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                     reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
-  [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", index]), nil)];
-//  [cell.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"BagIcon_%d.png", index]]];
-  
+  [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", index]), nil)
+                          icon:[UIImage imageNamed:[NSString stringWithFormat:@"BagIcon_%d.png", index]]
+                 accessoryType:UITableViewCellAccessoryNone];
   return cell;
 }
 

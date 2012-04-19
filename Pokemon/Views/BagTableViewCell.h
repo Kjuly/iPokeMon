@@ -10,12 +10,10 @@
 
 #import "GlobalConstants.h"
 
+@interface BagTableViewCell : UITableViewCell
 
-@interface BagTableViewCell : UITableViewCell {
-  UIImageView * imageView_;
-  UILabel     * labelTitle_;
-}
+- (void)configureCellWithTitle:(NSString *)title
+                          icon:(UIImage *)icon
+                 accessoryType:(UITableViewCellAccessoryType)accessoryType;
 
-@property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * labelTitle;
 @end

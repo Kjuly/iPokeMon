@@ -66,9 +66,11 @@
 
 // Normalize cell
 - (void)normalize {
+  [self.textLabel setBackgroundColor:[UIColor clearColor]];
   [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
   
+  [self.detailTextLabel setBackgroundColor:[UIColor clearColor]];
   [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
   [self.detailTextLabel setTextColor:[GlobalRender textColorOrange]];
 }

@@ -10,31 +10,24 @@
 
 #import "GlobalRender.h"
 
-
 @implementation BagTableViewCell
 
-@synthesize imageView  = imageView_;
-@synthesize labelTitle = labelTitle_;
-
-- (void)dealloc { 
-  self.imageView  = nil;
-  self.labelTitle = nil;
+- (void)dealloc {
   [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    // Constans
-    CGFloat const cellHeight     = kCellHeightOfBagTableView;
-    CGFloat const cellWidth      = kViewWidth;
-    CGFloat const imageWidth     = 30.f; 
-    CGFloat const titleHeight    = 30.f;
-    CGFloat const titleWidth     = cellWidth - imageWidth;
+    // Basic constants
+    CGFloat const cellHeight = kCellHeightOfBagTableView;
+    CGFloat const cellWidth  = kViewWidth;
+    CGRect  const cellFrame  = CGRectMake(0.f, 0.f, cellWidth, cellHeight);
     
     // Set |backgroundView| for Cell
-    UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
+    UIView * backgroundView = [[UIView alloc] initWithFrame:cellFrame];
+    [backgroundView setBackgroundColor:
+      [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellBackground.png"]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
@@ -42,24 +35,10 @@
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:
-     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellSelectedBackground.png"]]];
+      [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagTableViewCellSelectedBackground.png"]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
-    
-    // Set layouts for |contentView|(readonly)
-    // Set Image View
-    imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(25.f, 11.f, imageWidth, imageWidth)];
-    [imageView_ setUserInteractionEnabled:YES];
-    [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
-    [self.contentView addSubview:imageView_];
-    
-    // Set Title Label
-    labelTitle_ = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 50.f, 11.f, titleWidth, titleHeight)];
-    [labelTitle_ setBackgroundColor:[UIColor clearColor]];
-    [labelTitle_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [labelTitle_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [self.contentView addSubview:labelTitle_];
   }
   return self;
 }
@@ -68,6 +47,33 @@
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  
+  // Custom subviews for cell
+  CGFloat imageSize  = 32.f;
+  CGFloat marginLeft = 35.f;
+  CGRect imageViewFrame = CGRectMake(marginLeft, (kCellHeightOfBagTableView - imageSize) / 2, imageSize, imageSize);
+  CGRect textLabelFrame = CGRectMake(marginLeft + imageSize + 20.f, 2.f, 200.f, kCellHeightOfBagTableView - 4.f);
+  
+  [self.textLabel setFrame:textLabelFrame];
+  [self.textLabel setBackgroundColor:[UIColor clearColor]];
+  [self.textLabel setTextColor:[UIColor whiteColor]];
+  [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
+  [self.imageView setFrame:imageViewFrame];
+}
+
+#pragma mark - Public Methods
+
+// Configure cell
+- (void)configureCellWithTitle:(NSString *)title
+                          icon:(UIImage *)icon
+                 accessoryType:(UITableViewCellAccessoryType)accessoryType {
+  [self.textLabel setText:title];
+  [self.imageView setImage:icon];
+  [self setAccessoryType:accessoryType];
 }
 
 @end

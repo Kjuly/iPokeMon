@@ -45,6 +45,7 @@
     [selectedBackgroundView release];
     
     // Custom subviews for cell
+    [self.textLabel setBackgroundColor:[UIColor clearColor]];
     [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
     
