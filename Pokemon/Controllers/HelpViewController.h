@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HelpViewController : UIViewController
+@interface HelpViewController : UIViewController <UIScrollViewDelegate>
+
+- (void)loadViewAnimated:(BOOL)animated;
 
 @end

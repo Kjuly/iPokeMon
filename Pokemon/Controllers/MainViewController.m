@@ -298,6 +298,8 @@
   //   and Notification is also sent at there.
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
+  
+  [self showHelpView:nil];
 }
 
 - (void)viewDidUnload {
@@ -386,7 +388,11 @@
 
 // Show Help view
 - (void)showHelpView:(id)sender {
-  
+  HelpViewController * helpViewController = [[HelpViewController alloc] init];
+  self.helpViewController = helpViewController;
+  [helpViewController release];
+  [self.view addSubview:self.helpViewController.view];
+  [self.helpViewController loadViewAnimated:YES];
 }
 
 // Slide |centerMainButton_| to view bottom when button in center menu is clicked
