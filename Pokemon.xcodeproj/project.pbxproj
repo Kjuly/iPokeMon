@@ -403,6 +403,8 @@
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
 		7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */; };
+		7F58B7AF153FE525000AAB72 /* FullScreenLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AE153FE524000AAB72 /* FullScreenLoadingViewController.m */; };
+		7F58B7B1153FED23000AAB72 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58B7B0153FED23000AAB72 /* Default.png */; };
 		7F58BB4A1504E8DD00640F57 /* GameViewPokemonMoveView.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */; };
 		7F58BB4B1504E8DD00640F57 /* GameViewPokemonMoveView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */; };
 		7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58BB521505239600640F57 /* BagItemTableViewCell.m */; };
@@ -1589,8 +1591,11 @@
 		7F579E701530A37900907A45 /* GameBattleEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEndViewController.m; sourceTree = "<group>"; };
 		7F581F431511D5F500F154FA /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		7F581F441511D5F500F154FA /* Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Move.m; sourceTree = "<group>"; };
-		7F58B7A9153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SettingTableViewCellStyleCenterTitle.h; sourceTree = "<group>"; };
+		7F58B7A9153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCellStyleCenterTitle.h; sourceTree = "<group>"; };
 		7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCellStyleCenterTitle.m; sourceTree = "<group>"; };
+		7F58B7AD153FE523000AAB72 /* FullScreenLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenLoadingViewController.h; sourceTree = "<group>"; };
+		7F58B7AE153FE524000AAB72 /* FullScreenLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenLoadingViewController.m; sourceTree = "<group>"; };
+		7F58B7B0153FED23000AAB72 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7F58BB481504E8DD00640F57 /* GameViewPokemonMoveView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameViewPokemonMoveView.png; sourceTree = "<group>"; };
 		7F58BB491504E8DD00640F57 /* GameViewPokemonMoveView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameViewPokemonMoveView@2x.png"; sourceTree = "<group>"; };
 		7F58BB511505239500640F57 /* BagItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewCell.h; sourceTree = "<group>"; };
@@ -3032,6 +3037,7 @@
 		7F6E6CC114D6CAA600033C65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F58B7B0153FED23000AAB72 /* Default.png */,
 				7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */,
 				7F6E6CC214D6CAA600033C65 /* Pokemon-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
@@ -3076,6 +3082,8 @@
 				7FB412941529CC98003F41F0 /* WildPokemonController.m */,
 				7F9169CD15387EAD0095A8A8 /* LoadingManager.h */,
 				7F9169CE15387EAD0095A8A8 /* LoadingManager.m */,
+				7F58B7AD153FE523000AAB72 /* FullScreenLoadingViewController.h */,
+				7F58B7AE153FE524000AAB72 /* FullScreenLoadingViewController.m */,
 				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7FCEDEF4152ACC9500CE96AB /* GTMOAuth2ViewControllerTouch+Custom.h */,
@@ -4857,6 +4865,7 @@
 				7F50BF9D153F306900B24BC4 /* SocialIconFacebook@2x.png in Resources */,
 				7F50BF9E153F306900B24BC4 /* SocialIconTwitter.png in Resources */,
 				7F50BF9F153F306900B24BC4 /* SocialIconTwitter@2x.png in Resources */,
+				7F58B7B1153FED23000AAB72 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5133,6 +5142,7 @@
 				7F5A4D6B153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m in Sources */,
 				7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */,
 				7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */,
+				7F58B7AF153FE525000AAB72 /* FullScreenLoadingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
