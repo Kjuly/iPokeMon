@@ -68,7 +68,7 @@
   [super viewDidLoad];
   
   // Show navigation bar, but hide back button
-  [self.navigationController setNavigationBarHidden:NO];
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
   CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
   [navigationBar setBackToRootButtonToHidden:YES animated:NO];
   [navigationBar setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:NO];
@@ -301,6 +301,7 @@
                      [self.authenticatingView  removeFromSuperview];
                      [self.authenticatingLabel removeFromSuperview];
                      [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+                     [self.view removeFromSuperview];
                      [self.navigationController.view removeFromSuperview];
                    }];
 }

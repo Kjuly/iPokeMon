@@ -27,6 +27,7 @@
     customNavigationBar.delegate = self;
     [self setValue:customNavigationBar forKey:@"navigationBar"];
     [customNavigationBar release];
+    [self setNavigationBarHidden:YES];
   }
   return self;
 }
@@ -57,8 +58,6 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  [self setNavigationBarHidden:YES];
 }
 
 - (void)viewDidUnload {

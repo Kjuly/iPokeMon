@@ -9,10 +9,12 @@
 #import "SettingTableViewController.h"
 
 #import "GlobalNotificationConstants.h"
+#import "CustomNavigationBar.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
 #import "SettingTableViewCellStyleCenterTitle.h"
 #import "SettingSectionHeaderView.h"
+#import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
 
@@ -345,7 +347,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (buttonIndex == 0) {
-    NSLog(@"LOGOUT...");
+    [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
+    [[OAuthManager sharedInstance] performSelector:@selector(logout) withObject:nil afterDelay:.3f];
   }
 }
 

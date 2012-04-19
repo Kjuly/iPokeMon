@@ -86,9 +86,9 @@ typedef enum {
 
 // For |centerMainButton_| status
 typedef enum {
-  kCenterMainButtonStatusNormal          = 0,
-  kCenterMainButtonStatusAtBottom        = 1,
-  kCenterMainButtonStatusPokemonAppeared = 2,
+  kCenterMainButtonStatusNormal = 0,
+  kCenterMainButtonStatusAtBottom,
+  kCenterMainButtonStatusPokemonAppeared
 }CenterMainButtonStatus;
 
 typedef enum {

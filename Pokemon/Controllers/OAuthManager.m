@@ -150,9 +150,13 @@ static OAuthManager * oauthManager_ = nil;
 
 // Logout
 - (void)logout {
+  NSLog(@"LOGOUT...");
   self.isUserIDSynced = NO;
   self.oauth          = nil;
   [self.operationQueue cancelAllOperations];
+  [self revokeAuthorizedWith:[[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
+  // Session is invalid, so post notification to |MainViewController| to open login view
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid object:self userInfo:nil];
 }
 
 #pragma mark - Private Methods

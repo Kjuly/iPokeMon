@@ -70,6 +70,7 @@
 @property (nonatomic, retain) NSTimer              * longTapTimer;
 
 - (void)releaseSubviews;
+- (void)_resetAll;
 - (void)showLoginTableView:(NSNotification *)notification;
 - (void)showNewbieGuideView:(NSNotification *)notification;
 - (void)showHelpView:(id)sender;
@@ -109,14 +110,14 @@
 @synthesize longTapTimer                    = longTapTimer_;
 
 - (void)dealloc {
-  self.gameMainViewController                    = nil;
-  self.customNavigationController                = nil;
-  self.centerMenuUtilityViewController           = nil;
-  self.centerMenuSixPokemonsViewController       = nil;
-  self.mapViewController                         = nil;
-  self.loginTableViewController                  = nil;
-  self.newbieGuideViewController                 = nil;
-  self.helpViewController                        = nil;
+  self.gameMainViewController              = nil;
+  self.customNavigationController          = nil;
+  self.centerMenuUtilityViewController     = nil;
+  self.centerMenuSixPokemonsViewController = nil;
+  self.mapViewController                   = nil;
+  self.loginTableViewController            = nil;
+  self.newbieGuideViewController           = nil;
+  self.helpViewController                  = nil;
   
   [self releaseSubviews];
   [self.longTapTimer invalidate];
@@ -303,14 +304,35 @@
 
 #pragma mark - Private Methods
 
+// Reset all to original
+- (void)_resetAll {
+  centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
+  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
+  isCenterMenuOpening_                          = NO;
+  isCenterMainButtonTouchDownCircleViewLoading_ = NO;
+  isMapViewOpening_                             = NO;
+  isGameMainViewOpening_                        = NO;
+  for (UIViewController * vc in [self.customNavigationController childViewControllers])
+    [vc.view removeFromSuperview];
+  self.centerMenuUtilityViewController     = nil;
+  self.centerMenuSixPokemonsViewController = nil;
+  self.loginTableViewController            = nil;
+  self.newbieGuideViewController           = nil;
+  self.helpViewController                  = nil;
+  self.customNavigationController          = nil;
+//  self.gameMainViewController              = nil;
+  [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
+}
+
 // Show login table view if user session is invalid
 - (void)showLoginTableView:(NSNotification *)notification {
-  if (self.loginTableViewController == nil) {
-    LoginTableViewController * loginTableViewController;
-    loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.loginTableViewController = loginTableViewController;
-    [loginTableViewController release];
-  }
+  [self _resetAll];
+  
+  // Login table view controller
+  LoginTableViewController * loginTableViewController;
+  loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.loginTableViewController = loginTableViewController;
+  [loginTableViewController release];
   
   // Create custom NVC
   CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
@@ -318,8 +340,16 @@
   self.customNavigationController = customNavigationController;
   [customNavigationController release];
   [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [self.loginTableViewController.view setAlpha:0.f];
   // Insert |utilityNavigationController|'s view
   [self.view addSubview:self.customNavigationController.view];
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationCurveEaseOut
+                   animations:^{
+                     [self.loginTableViewController.view setAlpha:1.f];
+                   }
+                   completion:nil];
 }
 
 // Show guide view for newbie (new trainer)
