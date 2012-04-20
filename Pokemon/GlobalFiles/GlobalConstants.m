@@ -63,7 +63,7 @@ NSString * const kPMINMapButtonNormal       = @"MainViewMapButtonImageNormal.png
 NSString * const kPMINMapButtonDisabled     = @"MainViewMapButtonImageLBSDisabled.png";
 NSString * const kPMINMapButtonHalfCancel   = @"MainViewMapButtonImageHalfCancel.png";
 // TAB BAR
-NSString * const kPMINTabBarXTabsBackground     = @"TabView%dTabsCircleBarBackground.png"; // %d: 2 - 4
+NSString * const kPMINTabBarBackground          = @"TabBarBackground.png";
 NSString * const kPMINTabBarArrow               = @"TabBarArrow.png";
 NSString * const kPMINTabBarItemPMDetailInfo    = @"TabBarItemPMDetailInfo.png";
 NSString * const kPMINTabBarItemPMDetailArea    = @"TabBarItemPMDetailArea.png";

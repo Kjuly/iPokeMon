@@ -15,7 +15,6 @@
 
 @interface CustomTabBar () {
  @private
-  UIImageView * backgroundImageView_;
   UIView      * menuArea_;
   UIImageView * arrow_;
   
@@ -24,7 +23,6 @@
   CGFloat       currArcForArrow_;
 }
 
-@property (nonatomic, retain) UIImageView * backgroundImageView;
 @property (nonatomic, retain) UIView      * menuArea;
 @property (nonatomic, retain) UIImageView * arrow;
 
@@ -50,13 +48,11 @@
 @synthesize buttons           = buttons_;
 @synthesize previousItemIndex = previousItemIndex_;
 
-@synthesize backgroundImageView = backgroundImageView_;
 @synthesize menuArea            = menuArea_;
 @synthesize arrow               = arrow_;
 
 - (void)dealloc {
   self.buttons             = nil;
-  self.backgroundImageView = nil;
   self.menuArea            = nil;
   self.arrow               = nil;
   [super dealloc];
@@ -90,43 +86,13 @@
     delegate_ = tabBarDelegate;
     
     // Set background
-//    UIImageView * backgroundImageView = [UIImageView alloc];
-//    [backgroundImageView initWithImage:
-//      [UIImage imageNamed:[NSString stringWithFormat:kPMINTabBarXTabsBackground, (NSInteger)itemCount]]];
-//    [self addSubview:backgroundImageView];
-//    [backgroundImageView release];
-    CGFloat menuAreaHeight = kTabBarHeight - kTabBarItemSize / 2.f;
+    [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTabBarBackground]]];
+    [self setOpaque:NO];
+    
+    CGFloat menuAreaHeight = kTabBarHeight - kTabBarItemSize / 2.f - 8.f;
     menuArea_ = [UIView alloc];
     [menuArea_ initWithFrame:CGRectMake(0.f, kTabBarHeight - menuAreaHeight, kTabBarWdith, menuAreaHeight)];
     [self addSubview:menuArea_];
-    
-    /*
-    CAKeyframeAnimation *customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
-    NSArray *sizeValues = [NSArray arrayWithObjects:
-                           [NSNumber numberWithFloat:0.0f],
-                           [NSNumber numberWithFloat:200.0f],
-                           [NSNumber numberWithFloat:100.0f], nil];
-    NSArray *times = [NSArray arrayWithObjects:
-                      [NSNumber numberWithFloat:0.0f],
-                      [NSNumber numberWithFloat:0.6f],
-                      [NSNumber numberWithFloat:0.9f], nil]; 
-    NSArray *timingFunctions = [NSArray arrayWithObjects:
-                                [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn],
-                                [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], nil];
-    
-    [customFrameAnimation setValues:sizeValues];
-    [customFrameAnimation setKeyTimes:times];
-    
-    customFrameAnimation.delegate = self;
-    customFrameAnimation.duration=2.0f;
-    customFrameAnimation.repeatCount = 1;
-//    customFrameAnimation.cumulative = YES;
-//    customFrameAnimation.additive = YES;
-    customFrameAnimation.fillMode = kCAFillModeForwards;
-    customFrameAnimation.timingFunctions = timingFunctions;
-    customFrameAnimation.removedOnCompletion = NO;
-    [arrow_.layer addAnimation:customFrameAnimation forKey:nil];
-     */
     
     // Initalize the array to store buttons
     // And iterate through each item
@@ -499,14 +465,6 @@
   CGPathRelease(path);
   currArcForArrow_ = newAngle;
   
-//  NSArray * sizeValues = [NSArray arrayWithObjects:
-//                          [self.arrow valueForKey:@"position"], [NSValue valueWithCGPoint:self.newPositionForArrow], nil];
-//  NSArray * times = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:0.3f], nil];
-//  NSArray * timingFunctions = [NSArray arrayWithObjects:
-//                               [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], nil];
-//  [customFrameAnimation setValues:sizeValues];
-//  [customFrameAnimation setKeyTimes:times];
-  
   customFrameAnimation.delegate = self;
   customFrameAnimation.duration = .3f;
   customFrameAnimation.repeatCount = 1;
@@ -525,7 +483,6 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
   // Update the layer's position so that the layer doesn't snap back when the animation completes
   [self.arrow.layer setPosition:newPositionForArrow_];
-//  [arrow_.layer removeAnimationForKey:@"moveArrow"];
 }
 
 @end

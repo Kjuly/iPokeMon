@@ -73,7 +73,7 @@ extern NSString * const kPMINMapButtonNormal;
 extern NSString * const kPMINMapButtonDisabled;
 extern NSString * const kPMINMapButtonHalfCancel;
 // TAB BAR
-extern NSString * const kPMINTabBarXTabsBackground; // %d: 2 - 4
+extern NSString * const kPMINTabBarBackground;
 extern NSString * const kPMINTabBarArrow;
 extern NSString * const kPMINTabBarItemPMDetailInfo;
 extern NSString * const kPMINTabBarItemPMDetailArea;
