@@ -81,21 +81,18 @@
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
   tabBar_ = [[CustomTabBar alloc] initWithItemCount:self.tabBarItems.count
-                                               size:CGSizeMake(kTabBarWdith / self.tabBarItems.count, kTabBarHeight)
+                                               size:CGSizeMake(kTabBarWdith / [self.tabBarItems count], kTabBarHeight)
                                                 tag:0
                                            delegate:self];
-  
-  [tabBar_ setFrame:CGRectMake((kViewWidth - kTabBarWdith) / 2.f,
-                               self.viewFrame.size.height - kTabBarHeight,
-                               kTabBarWdith,
-                               kTabBarHeight)];
+  [tabBar_ setFrame:
+    CGRectMake((kViewWidth - kTabBarWdith) / 2.f, self.viewFrame.size.height, kTabBarWdith, kTabBarHeight)];
   [self.view addSubview:tabBar_];
   
   // Select the first tab
   [tabBar_ selectItemAtIndex:0];
   [self touchDownAtItemAtIndex:0 withPreviousItemIndex:0];
   
-  isTabBarHide_ = NO;
+  isTabBarHide_ = YES;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -131,7 +128,8 @@
   [super viewWillAppear:animated];
   
   // If |tabBar_| is hidden, show it
-  if (isTabBarHide_) [self toggleTabBar:nil];
+  if (isTabBarHide_)
+    [self performSelector:@selector(toggleTabBar:) withObject:nil afterDelay:.6f];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -231,8 +229,7 @@
 
 #pragma mark - Public Methods
 
-- (void)toggleTabBar:(NSNotification *)notification
-{
+- (void)toggleTabBar:(NSNotification *)notification {
   CGRect tabBarFrame = self.tabBar.frame;
   CGAffineTransform transform = CGAffineTransformIdentity;
   if (isTabBarHide_) {
