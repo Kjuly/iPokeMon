@@ -11,7 +11,9 @@
 #import "AppDelegate.h"
 #import "GlobalNotificationConstants.h"
 #import "NSString+Algorithm.h"
+#import "LoadingManager.h"
 #import "OAuthManager.h"
+#import "ServerAPIClient.h"
 #import "Trainer+DataController.h"
 
 
@@ -102,10 +104,7 @@ static TrainerController * trainerController_ = nil;
   
   // If user has no Pokemon in PokeDEX (newbie),
   //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-  if ([self.entityTrainer.pokedex intValue] == 0) {
-    NSLog(@"!!!|%@| - |initTrainerWithUserID:| - [self.entitySixPokemons count] == 0...", [self class]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
-  }
+  [self newbieChecking];
   
   self.isInitialized = YES;
 }
@@ -155,6 +154,36 @@ static TrainerController * trainerController_ = nil;
   if (flag & kDataModifyTamedPokemon) {
     self.flag &= (0000 << 8);
   }
+}
+
+// Newbie checking
+- (void)newbieChecking {
+  // If user already has Pokemon in PokeDEX (not newbie), just do nothing
+  //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+  if ([self.entityTrainer.pokedex intValue])
+    return;
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverView];
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Checking CONNECTION to SERVER...");
+    // If connection to server succeed, post notification to |MainViewController|,
+    //   to show the view of |NewbieGuideViewController|
+    if ([responseObject valueForKey:@"v"])
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverView];
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
+    // If connection to server faild, post notification to |MainViewController|,
+    //   to show a info of CONNECTION ERROR
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverView];
+  };
+  [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
 }
 
 // Trainer's basic data

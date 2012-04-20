@@ -23,6 +23,7 @@
 - (void)sync;
 - (void)addModifyFlag:(DataModifyFlag)flag;
 - (void)syncDoneWithFlag:(DataModifyFlag)flag;
+- (void)newbieChecking;
 
 // Trainer's Data
 - (NSInteger)UID;                                              // UID
