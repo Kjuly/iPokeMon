@@ -12,7 +12,6 @@
 #import "GlobalRender.h"
 #import "LoadingManager.h"
 #import "ServerAPIClient.h"
-//#import "TrainerController.h"
 #import "OAuthManager.h"
 
 
@@ -151,7 +150,6 @@
                      [self.view setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
-//                     [[TrainerController sharedInstance] newbieChecking];
                      if (! [[OAuthManager sharedInstance] isSessionValid])
                        NSLog(@"!!!ERROR: |%@| - session invalid", [self class]);
                      [self.view removeFromSuperview];

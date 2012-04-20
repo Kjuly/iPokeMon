@@ -19,29 +19,25 @@
 
 @interface TrainerController () {
  @private
+  Trainer        * entityTrainer_;     // Trainer
+  NSMutableArray * entitySixPokemons_; // SixPokemons
+  
   BOOL             isInitialized_;     // Is initialized for current user
   DataModifyFlag   flag_;              // Data modify flag
   NSInteger        userID_;            // User ID, same as Trainer UID
-  Trainer        * entityTrainer_;     // Trainer
-  NSMutableArray * entitySixPokemons_; // SixPokemons
 }
 
-@property (nonatomic, assign) BOOL             isInitialized;
-@property (nonatomic, assign) DataModifyFlag   flag;
-@property (nonatomic, assign) NSInteger        userID;
 @property (nonatomic, retain) Trainer        * entityTrainer;
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
-- (void)updatePokedexWithPokemonID:(NSInteger)pokemonID;
-- (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
+- (void)_newbieChecking;
+- (void)_updatePokedexWithPokemonID:(NSInteger)pokemonID;
+- (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
 @end
 
 @implementation TrainerController
 
-@synthesize isInitialized     = isInitialized_;
-@synthesize flag              = flag_;
-@synthesize userID            = userID_;
 @synthesize entityTrainer     = entityTrainer_;
 @synthesize entitySixPokemons = entitySixPokemons_;
 
@@ -65,14 +61,9 @@ static TrainerController * trainerController_ = nil;
   return trainerController_;
 }
 
-- (void)dealloc
-{
-  [entityTrainer_     release];
-  [entitySixPokemons_ release];
-  
+- (void)dealloc { 
   self.entityTrainer     = nil;
   self.entitySixPokemons = nil;
-  
   [super dealloc];
 }
 
@@ -87,7 +78,7 @@ static TrainerController * trainerController_ = nil;
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
   NSLog(@"......|%@| - INIT......", [self class]);
-  self.userID = userID;
+  userID_ = userID;
   
   // S->C: Initialize Trainer data from Server to Client
   [Trainer initWithUserID:userID];
@@ -104,9 +95,9 @@ static TrainerController * trainerController_ = nil;
   
   // If user has no Pokemon in PokeDEX (newbie),
   //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-  [self newbieChecking];
+  [self _newbieChecking];
   
-  self.isInitialized = YES;
+  isInitialized_ = YES;
 }
 
 // Save Client data to CoreData
@@ -126,75 +117,45 @@ static TrainerController * trainerController_ = nil;
 
 // Sync data between Client & Server
 - (void)sync {
-  if (! self.userID) return;
+  if (! userID_) return;
   
   // C->S: If Client data has initialzied, just do sync Client to Server
-  if (self.isInitialized) {
+  if (isInitialized_) {
     NSLog(@"......|%@| - SYNC.......", [self class]);
-    if (self.flag & kDataModifyTrainer)
-      [self.entityTrainer syncWithFlag:self.flag];
+    if (flag_ & kDataModifyTrainer)
+      [self.entityTrainer syncWithFlag:flag_];
   }
 }
 
 // Add modify flag for |flag_|
 - (void)addModifyFlag:(DataModifyFlag)flag {
-  self.flag |= flag;
+  flag_ |= flag;
 }
 
 // Dispatch this method after Sync done
 // It can be dispatched in URL Request Callback method
 - (void)syncDoneWithFlag:(DataModifyFlag)flag {
-  self.flag -= flag;
+  flag_ -= flag;
   
   // If sync data for Trainer done, set all related flags to 0
   if (flag & kDataModifyTrainer) {
-    self.flag &= (00000000 << 0);
+    flag_ &= (00000000 << 0);
   }
   // If sync data for Tamed Pokemon done, set all related flags to 0
   if (flag & kDataModifyTamedPokemon) {
-    self.flag &= (0000 << 8);
+    flag_ &= (0000 << 8);
   }
 }
 
-// Newbie checking
-- (void)newbieChecking {
-  // If user already has Pokemon in PokeDEX (not newbie), just do nothing
-  //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-  if ([self.entityTrainer.pokedex intValue])
-    return;
-  
-  // Show loading
-  [[LoadingManager sharedInstance] showOverView];
-  // Block: |success| & |failure|
-  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"...Checking CONNECTION to SERVER...");
-    // If connection to server succeed, post notification to |MainViewController|,
-    //   to show the view of |NewbieGuideViewController|
-    if ([responseObject valueForKey:@"v"])
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
-    // Hide loading
-    [[LoadingManager sharedInstance] hideOverView];
-  };
-  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
-    // If connection to server faild, post notification to |MainViewController|,
-    //   to show a info of CONNECTION ERROR
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
-    // Hide loading
-    [[LoadingManager sharedInstance] hideOverView];
-  };
-  [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
-}
-
 // Trainer's basic data
-- (NSInteger) UID         {return self.userID;}
+- (NSInteger) UID         {return userID_;}
 - (NSString *)name        {return self.entityTrainer.name;}
 - (NSInteger) money       {return [self.entityTrainer.money intValue];}
 - (NSArray *) badges      {return [self.entityTrainer.badges componentsSeparatedByString:@","];}
 - (NSDate *)  timeStarted {return self.entityTrainer.adventureStarted;}
 - (NSString *)pokedex     {return self.entityTrainer.pokedex;}
 - (NSInteger) numberOfPokemonsForPokedex {return [self.entityTrainer.pokedex numberOfBinary1];}
-- (NSInteger) numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:self.userID];}
+- (NSInteger) numberOfTamedPokemons      {return [TrainerTamedPokemon numberOfTamedPokemonsWithTraienrUID:userID_];}
 - (NSArray *) sixPokemons {return self.entitySixPokemons;}
 - (NSString *)sixPokemonsUID {return self.entityTrainer.sixPokemonsID;}
 - (NSInteger) numberOfSixPokemons {
@@ -264,7 +225,7 @@ static TrainerController * trainerController_ = nil;
 // Set |name| for Trainer
 - (void)setName:(NSString *)name {
   self.entityTrainer.name = name;
-  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerName;
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerName;
   [self saveWithSync:YES];
 }
 
@@ -288,7 +249,7 @@ static TrainerController * trainerController_ = nil;
   // Add WildPokemon to TrainerTamedPokemon Group
   [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon withMemo:memo toBox:box forTrainer:self.entityTrainer];
   // Update Pokedex
-  [self updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
+  [self _updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|
   if (box == 0)
     [self addPokemonToSixPokemonsWithPokemonUID:[self numberOfTamedPokemons]];
@@ -304,8 +265,8 @@ static TrainerController * trainerController_ = nil;
   
   // Refetch Pokemons for |sixPokemons|
   [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID
-                                                                      trainerUID:self.userID]];
-  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
+                                                                      trainerUID:userID_]];
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
 }
 
 // Replace Pokemon's index order
@@ -321,7 +282,7 @@ static TrainerController * trainerController_ = nil;
   
   // Save & Sync data
   self.entityTrainer.sixPokemonsID = [sixPokemonsID componentsJoinedByString:@","];
-  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
   NSLog(@"Replaced SixPokemons:%@", self.entityTrainer.sixPokemonsID);
   [self saveWithSync:NO];
   
@@ -344,7 +305,7 @@ static TrainerController * trainerController_ = nil;
     [bagItems removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(targetIndex - 1, 2)]];
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
-  [self saveBagItemsFor:targetType withData:bagItemsInString];
+  [self _saveBagItemsFor:targetType withData:bagItemsInString];
   [bagItems release];
 }
 
@@ -364,17 +325,47 @@ static TrainerController * trainerController_ = nil;
 
 #pragma mark - Private Methods
 
+// Newbie checking
+- (void)_newbieChecking {
+  // If user already has Pokemon in PokeDEX (not newbie), just do nothing
+  //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+  if ([self.entityTrainer.pokedex intValue])
+    return;
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverView];
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Checking CONNECTION to SERVER...");
+    // If connection to server succeed, post notification to |MainViewController|,
+    //   to show the view of |NewbieGuideViewController|
+    if ([responseObject valueForKey:@"v"])
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowNewbieGuide object:self userInfo:nil];
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverView];
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
+    // If connection to server faild, post notification to |MainViewController|,
+    //   to show a info of CONNECTION ERROR
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverView];
+  };
+  [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
+}
+
 // Update Pokedex with Pokemon ID
-- (void)updatePokedexWithPokemonID:(NSInteger)pokemonID {
+- (void)_updatePokedexWithPokemonID:(NSInteger)pokemonID {
   // If Pokemon already caught, do nothing
   if ([self.pokedex isBinary1AtIndex:pokemonID])
     return;
   self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBainaryTo1:YES atIndex:pokemonID];
-  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerPokedex;
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerPokedex;
 }
 
 // Save data for bag items
-- (void)saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data {
+- (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data {
   if      (targetType & kBagQueryTargetTypeItem)       self.entityTrainer.bagItems = data;
   else if (targetType & kBagQueryTargetTypeMedicine) {
     if (targetType & kBagQueryTargetTypeMedicineStatus)  self.entityTrainer.bagMedicineStatus = data;
@@ -390,7 +381,7 @@ static TrainerController * trainerController_ = nil;
   else if (targetType & kBagQueryTargetTypeKeyItem)    self.entityTrainer.bagKeyItems = data;
   else return;
   
-  self.flag = self.flag | kDataModifyTrainer | kDataModifyTrainerBag;
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerBag;
   [self saveWithSync:YES];
 }
 
