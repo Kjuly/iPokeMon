@@ -115,8 +115,7 @@ extern NSString * const kPMINBattleMenuMessageViewBackground;
 extern NSString * const kPMINBattleElementPokeball;
 // ICONs
 // Pokemon related icons
-extern NSString * const kPMINIconPMGenderM;
-extern NSString * const kPMINIconPMGenderF; //!!! %d: 0(F) - 1(M)
+extern NSString * const kPMINIconPMGender; // %d: 0(F) - 1(M)
 // bag table view related icons
 extern NSString * const kPMINIconBagTableViewCell; // %d: 1 - 8
 extern NSString * const kPMINIconBagItemUse;

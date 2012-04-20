@@ -126,9 +126,11 @@
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo {
   if ([statusInfo objectForKey:@"name"])
     [self.pokemonName setText:[statusInfo objectForKey:@"name"]];
-  if ([statusInfo objectForKey:@"gender"])
-    [self.pokemonGender setImage:[UIImage imageNamed:[[statusInfo objectForKey:@"gender"] intValue]
-                                  ? kPMINIconPMGenderM : kPMINIconPMGenderF]];
+  if ([statusInfo objectForKey:@"gender"]) {
+    [self.pokemonGender setImage:
+      [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender,
+                           [[statusInfo objectForKey:@"gender"] intValue]]]];
+  }
   if ([statusInfo objectForKey:@"level"])
     [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [[statusInfo objectForKey:@"level"] intValue]]];
   if ([statusInfo objectForKey:@"HP"])

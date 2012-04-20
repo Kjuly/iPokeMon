@@ -149,7 +149,8 @@
   // Data
   [cell.nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                               [pokemonBaseInfo.sid intValue]]), nil)];
-  [cell.genderImageView setImage:[UIImage imageNamed:tamedPokemon.gender ? kPMINIconPMGenderM : kPMINIconPMGenderF]];
+  [cell.genderImageView setImage:
+    [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [tamedPokemon.gender intValue]]]];
   [cell.levelLabel setText:[NSString stringWithFormat:@"Lv.%d", [tamedPokemon.level intValue]]];
   
   // Stats data array

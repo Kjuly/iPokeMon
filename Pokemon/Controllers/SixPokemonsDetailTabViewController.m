@@ -166,7 +166,8 @@
   
   // Gender
   UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
-  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ? kPMINIconPMGenderM : kPMINIconPMGenderF]];
+  [genderImageView setImage:
+    [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [self.pokemon.gender intValue]]]];
   [IDView addSubview:genderImageView];
   [genderImageView release];
   

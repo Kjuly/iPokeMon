@@ -105,8 +105,7 @@ NSString * const kPMINBattleMenuMessageViewBackground = @"GameMessageViewBackgro
 NSString * const kPMINBattleElementPokeball = @"GamePokeball.png";
 // ICONs
 // Pokemon related icons
-NSString * const kPMINIconPMGenderM = @"IconPokemonGenderM.png";
-NSString * const kPMINIconPMGenderF = @"IconPokemonGenderF.png"; //!!! %d: 0(F) - 1(M)
+NSString * const kPMINIconPMGender         = @"IconPokemonGender%d.png"; // %d: 0(F) - 1(M)
 // bag table view related icons
 NSString * const kPMINIconBagTableViewCell = @"BagTableViewCellIcon_%d.png"; // %d: 1 - 8
 NSString * const kPMINIconBagItemUse       = @"BagItemTableViewHiddenCellButtonIconUse.png";

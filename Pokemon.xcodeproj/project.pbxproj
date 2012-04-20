@@ -661,10 +661,6 @@
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
-		7FA1D86F15035DC700E0D2F6 /* IconPokemonGenderF.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA1D86B15035DC700E0D2F6 /* IconPokemonGenderF.png */; };
-		7FA1D87015035DC700E0D2F6 /* IconPokemonGenderF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA1D86C15035DC700E0D2F6 /* IconPokemonGenderF@2x.png */; };
-		7FA1D87115035DC700E0D2F6 /* IconPokemonGenderM.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA1D86D15035DC700E0D2F6 /* IconPokemonGenderM.png */; };
-		7FA1D87215035DC700E0D2F6 /* IconPokemonGenderM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA1D86E15035DC700E0D2F6 /* IconPokemonGenderM@2x.png */; };
 		7FA2656B1505A7B400E2E95E /* PMIcon_000.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA264D41505A7B400E2E95E /* PMIcon_000.png */; };
 		7FA2656C1505A7B400E2E95E /* PMIcon_001.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA264D51505A7B400E2E95E /* PMIcon_001.png */; };
 		7FA2656D1505A7B400E2E95E /* PMIcon_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA264D61505A7B400E2E95E /* PMIcon_002.png */; };
@@ -915,6 +911,10 @@
 		7FDAD52A1541A19E003F9DA6 /* TabBarItemPMDetailSkill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5201541A19D003F9DA6 /* TabBarItemPMDetailSkill@2x.png */; };
 		7FDAD52D1541C187003F9DA6 /* TabBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD52B1541C186003F9DA6 /* TabBarBackground.png */; };
 		7FDAD52E1541C187003F9DA6 /* TabBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD52C1541C186003F9DA6 /* TabBarBackground@2x.png */; };
+		7FDAD5331541C6A5003F9DA6 /* IconPokemonGender0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD52F1541C6A5003F9DA6 /* IconPokemonGender0.png */; };
+		7FDAD5341541C6A5003F9DA6 /* IconPokemonGender0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */; };
+		7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */; };
+		7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
@@ -1845,10 +1845,6 @@
 		7F9F15BA1508B13500795591 /* GameEnemyProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameEnemyProcess.h; path = ../GameModels/GameEnemyProcess.h; sourceTree = "<group>"; };
 		7F9F15BB1508B13500795591 /* GameEnemyProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameEnemyProcess.m; path = ../GameModels/GameEnemyProcess.m; sourceTree = "<group>"; };
 		7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuUtilityViewController.h; sourceTree = "<group>"; };
-		7FA1D86B15035DC700E0D2F6 /* IconPokemonGenderF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGenderF.png; sourceTree = "<group>"; };
-		7FA1D86C15035DC700E0D2F6 /* IconPokemonGenderF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGenderF@2x.png"; sourceTree = "<group>"; };
-		7FA1D86D15035DC700E0D2F6 /* IconPokemonGenderM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGenderM.png; sourceTree = "<group>"; };
-		7FA1D86E15035DC700E0D2F6 /* IconPokemonGenderM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGenderM@2x.png"; sourceTree = "<group>"; };
 		7FA264D41505A7B400E2E95E /* PMIcon_000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMIcon_000.png; sourceTree = "<group>"; };
 		7FA264D51505A7B400E2E95E /* PMIcon_001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMIcon_001.png; sourceTree = "<group>"; };
 		7FA264D61505A7B400E2E95E /* PMIcon_002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMIcon_002.png; sourceTree = "<group>"; };
@@ -2124,6 +2120,10 @@
 		7FDAD5201541A19D003F9DA6 /* TabBarItemPMDetailSkill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarItemPMDetailSkill@2x.png"; sourceTree = "<group>"; };
 		7FDAD52B1541C186003F9DA6 /* TabBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBackground.png; sourceTree = "<group>"; };
 		7FDAD52C1541C186003F9DA6 /* TabBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBackground@2x.png"; sourceTree = "<group>"; };
+		7FDAD52F1541C6A5003F9DA6 /* IconPokemonGender0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGender0.png; sourceTree = "<group>"; };
+		7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender0@2x.png"; sourceTree = "<group>"; };
+		7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGender1.png; sourceTree = "<group>"; };
+		7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender1@2x.png"; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
@@ -3584,10 +3584,10 @@
 				7F6C19211517270F0000682B /* BagItemTableViewHiddenCellButtonIconToss@2x.png */,
 				7F6C19221517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse.png */,
 				7F6C19231517270F0000682B /* BagItemTableViewHiddenCellButtonIconUse@2x.png */,
-				7FA1D86B15035DC700E0D2F6 /* IconPokemonGenderF.png */,
-				7FA1D86C15035DC700E0D2F6 /* IconPokemonGenderF@2x.png */,
-				7FA1D86D15035DC700E0D2F6 /* IconPokemonGenderM.png */,
-				7FA1D86E15035DC700E0D2F6 /* IconPokemonGenderM@2x.png */,
+				7FDAD52F1541C6A5003F9DA6 /* IconPokemonGender0.png */,
+				7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */,
+				7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */,
+				7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -4161,10 +4161,6 @@
 				7F21AA8F14FFC99200F9071A /* MainViewCenterMainButtonTouchDownCircleViewForeground@2x.png in Resources */,
 				7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */,
 				7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */,
-				7FA1D86F15035DC700E0D2F6 /* IconPokemonGenderF.png in Resources */,
-				7FA1D87015035DC700E0D2F6 /* IconPokemonGenderF@2x.png in Resources */,
-				7FA1D87115035DC700E0D2F6 /* IconPokemonGenderM.png in Resources */,
-				7FA1D87215035DC700E0D2F6 /* IconPokemonGenderM@2x.png in Resources */,
 				7FA2656B1505A7B400E2E95E /* PMIcon_000.png in Resources */,
 				7FA2656C1505A7B400E2E95E /* PMIcon_001.png in Resources */,
 				7FA2656D1505A7B400E2E95E /* PMIcon_002.png in Resources */,
@@ -4636,6 +4632,10 @@
 				7FDAD52A1541A19E003F9DA6 /* TabBarItemPMDetailSkill@2x.png in Resources */,
 				7FDAD52D1541C187003F9DA6 /* TabBarBackground.png in Resources */,
 				7FDAD52E1541C187003F9DA6 /* TabBarBackground@2x.png in Resources */,
+				7FDAD5331541C6A5003F9DA6 /* IconPokemonGender0.png in Resources */,
+				7FDAD5341541C6A5003F9DA6 /* IconPokemonGender0@2x.png in Resources */,
+				7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */,
+				7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
