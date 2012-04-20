@@ -299,7 +299,7 @@
 //  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
   
-  [self showHelpView:nil];
+//  [self showHelpView:nil];
 }
 
 - (void)viewDidUnload {
