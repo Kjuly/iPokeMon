@@ -78,9 +78,9 @@
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailArea, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMemo, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailSkill, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMove, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
                         nil];
   }
   return self;

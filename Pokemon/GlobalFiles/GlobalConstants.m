@@ -64,13 +64,13 @@ NSString * const kPMINMapButtonDisabled     = @"MainViewMapButtonImageLBSDisable
 NSString * const kPMINMapButtonHalfCancel   = @"MainViewMapButtonImageHalfCancel.png";
 // TAB BAR
 NSString * const kPMINTabBarXTabsBackground     = @"TabView%dTabsCircleBarBackground.png"; // %d: 2 - 4
-NSString * const kPMINTabBarArrow               = @"TabViewItemArrow.png";
-NSString * const kPMINTabBarItemPMDetailInfo    = @"PokemonDetail_Info.png";
-NSString * const kPMINTabBarItemPMDetailArea    = @"PokemonDetail_Area.png";
-NSString * const kPMINTabBarItemPMDetailSize    = @"PokemonDetail_Size.png";
-NSString * const kPMINTabBarItem6PMsDetailMemo  = @"SixPokemonsDetail_Memo.png";
-NSString * const kPMINTabBarItem6PMsDetailSkill = @"SixPokemonsDetail_Skill.png";
-NSString * const kPMINTabBarItem6PMsDetailMove  = @"SixPokemonsDetail_Move.png";
+NSString * const kPMINTabBarArrow               = @"TabBarArrow.png";
+NSString * const kPMINTabBarItemPMDetailInfo    = @"TabBarItemPMDetailInfo.png";
+NSString * const kPMINTabBarItemPMDetailArea    = @"TabBarItemPMDetailArea.png";
+NSString * const kPMINTabBarItemPMDetailSize    = @"TabBarItemPMDetailSize.png";
+NSString * const kPMINTabBarItem6PMsDetailMemo  = @"TabBarItemPMDetailMemo.png";
+NSString * const kPMINTabBarItem6PMsDetailSkill = @"TabBarItemPMDetailSkill.png";
+NSString * const kPMINTabBarItem6PMsDetailMove  = @"TabBarItemPMDetailMove.png";
 // TABLE VIEW
 // NAV BAR
 NSString * const kPMINNavBarBackground       = @"NavigationBarBackground.png";
