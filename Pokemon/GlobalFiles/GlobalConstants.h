@@ -54,14 +54,19 @@ extern NSString * const kPMINMainMenuButtonBackground;
 extern NSString * const kPMINMainMenuUtilityButton; // %d: 1 - 6
 // center main button
 extern NSString * const kPMINMainButtonBackgoundNormal;
-extern NSString * const kPMINMainButtonBackgoundEnable;//!!!!!
-extern NSString * const kPMINMainButtonBackgoundDisable;//!!
+extern NSString * const kPMINMainButtonBackgoundEnable;
+extern NSString * const kPMINMainButtonBackgoundDisable;
 extern NSString * const kPMINMainButtonNormal;
+extern NSString * const kPMINMainButtonWarning;
 extern NSString * const kPMINMainButtonConfirm;
-extern NSString * const kPMINMainButtonInfo;   //!!!!!!
-extern NSString * const kPMINMainButtonUnknow; //!!!!!!
+extern NSString * const kPMINMainButtonConfirmOpposite;
+extern NSString * const kPMINMainButtonInfo;
+extern NSString * const kPMINMainButtonInfoOpposite;
+extern NSString * const kPMINMainButtonUnknow;
+extern NSString * const kPMINMainButtonUnknowOpposite;
+extern NSString * const kPMINMainButtonCancel;
+extern NSString * const kPMINMainButtonCancelOpposite;
 extern NSString * const kPMINMainButtonHalfCancel;
-extern NSString * const kPMINMainButtonCancel; //!!!!!!
 // map button
 extern NSString * const kPMINMapButtonBackgound;
 extern NSString * const kPMINMapButtonNormal;
@@ -247,9 +252,10 @@ typedef enum {
 #define kTabBarHeight 115.0f
 #define kTabBarWdith  215.0f
 
-#define kNavigationBarHeight 60.f
-#define kNavigationBarBackButtonHeight 60.f
-#define kNavigationBarBackButtonWidth  40.f
+#define kNavigationBarHeight            60.f
+#define kNavigationBarBottomAlphaHegiht 5.f
+#define kNavigationBarBackButtonHeight  60.f
+#define kNavigationBarBackButtonWidth   40.f
 
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10

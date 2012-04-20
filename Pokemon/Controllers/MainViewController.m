@@ -407,7 +407,7 @@
       
     case kCenterMainButtonStatusPokemonAppeared:
       centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled]
+      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonWarning]
                              forState:UIControlStateNormal];
       break;
       

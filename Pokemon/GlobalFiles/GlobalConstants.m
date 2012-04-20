@@ -44,14 +44,19 @@ NSString * const kPMINMainMenuButtonBackground      = @"MainViewCenterMenuButton
 NSString * const kPMINMainMenuUtilityButton         = @"MainViewCenterMenuButton%d.png"; // %d: 1 - 6
 // center main button
 NSString * const kPMINMainButtonBackgoundNormal  = @"MainViewCenterButtonBackground.png";
-NSString * const kPMINMainButtonBackgoundEnable  = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";//!!!!!
-NSString * const kPMINMainButtonBackgoundDisable = @"GameMenuSixPokemonsUnitViewFaintedPokemonButtonBackground.png";//!!
+NSString * const kPMINMainButtonBackgoundEnable  = @"MainViewCenterButtonBackgroundEnable.png";
+NSString * const kPMINMainButtonBackgoundDisable = @"MainViewCenterButtonBackgroundDisable.png";
 NSString * const kPMINMainButtonNormal           = @"MainViewCenterButtonImageNormal.png";
+NSString * const kPMINMainButtonWarning          = @"MainViewCenterButtonImageWarning.png";
 NSString * const kPMINMainButtonConfirm          = @"MainViewCenterButtonImageConfirm.png";
-NSString * const kPMINMainButtonInfo             = @"ButtonIconInfo.png";   //!!!!!!
-NSString * const kPMINMainButtonUnknow           = @"ButtonIconUnknow.png"; //!!!!!!
+NSString * const kPMINMainButtonConfirmOpposite  = @"MainViewCenterButtonImageConfirmOpposite.png";
+NSString * const kPMINMainButtonInfo             = @"MainViewCenterButtonImageInfo.png";
+NSString * const kPMINMainButtonInfoOpposite     = @"MainViewCenterButtonImageInfoOpposite.png";
+NSString * const kPMINMainButtonUnknow           = @"MainViewCenterButtonImageUnknow.png";
+NSString * const kPMINMainButtonUnknowOpposite   = @"MainViewCenterButtonImageUnknowOpposite.png";
+NSString * const kPMINMainButtonCancel           = @"MainViewCenterButtonImageCancel.png";
+NSString * const kPMINMainButtonCancelOpposite   = @"MainViewCenterButtonImageCancelOpposite.png";
 NSString * const kPMINMainButtonHalfCancel       = @"MainViewCenterButtonImageHalfCancel.png";
-NSString * const kPMINMainButtonCancel           = @"ButtonIconCancel.png"; //!!!!!!
 // map button
 NSString * const kPMINMapButtonBackgound    = @"MainViewMapButtonBackground.png";
 NSString * const kPMINMapButtonNormal       = @"MainViewMapButtonImageNormal.png";

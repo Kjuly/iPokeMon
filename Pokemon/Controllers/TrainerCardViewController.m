@@ -379,7 +379,8 @@ typedef enum {
     [nameSettingButton release];
     [self.nameSettingButton setAlpha:0.f];
     [self.nameSettingButton setTag:kTrainerInfoSettingButtonTypeName];
-    [self.nameSettingButton addTarget:self action:@selector(showSettingView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.nameSettingButton addTarget:self action:@selector(showSettingView:)
+                     forControlEvents:UIControlEventTouchUpInside];
     [self.nameLabel addSubview:self.nameSettingButton];
     [self.nameLabel setUserInteractionEnabled:YES];
     
@@ -415,7 +416,8 @@ typedef enum {
     CGFloat buttonSize        = 45.f;
     CGFloat settingViewHeight = 120.f;
     CGRect settingViewFrame = CGRectMake(0.f, -settingViewHeight, kViewWidth, settingViewHeight);
-    CGRect settingViewBackgroundFrame = CGRectMake(0.f, 0.f, kViewWidth, settingViewHeight - buttonSize / 2);
+    CGRect settingViewBackgroundFrame =
+      CGRectMake(0.f, -kNavigationBarBottomAlphaHegiht, kViewWidth, settingViewHeight - buttonSize / 2);
     CGRect doneButtonFrame   = CGRectMake(80.f, settingViewHeight - buttonSize, buttonSize, buttonSize);
     CGRect cancelButtonFrame = CGRectMake(kViewWidth - 80.f - buttonSize, settingViewHeight - buttonSize, buttonSize, buttonSize);
     
@@ -432,14 +434,14 @@ typedef enum {
     
     UIButton * doneButton = [[UIButton alloc] initWithFrame:doneButtonFrame];
     [doneButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
-    [doneButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
+    [doneButton setImage:[UIImage imageNamed:kPMINMainButtonConfirmOpposite] forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(commitSetting) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:doneButton];
     [doneButton release];
     
     UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
     [cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
-    [cancelButton setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:cancelButton];
     [cancelButton release];
@@ -551,25 +553,17 @@ typedef enum {
   
   void (^animations)() = ^{
     CGRect settingViewFrame = self.settingView.frame;
-    settingViewFrame.origin.y = -settingViewFrame.size.height;
+    settingViewFrame.origin.y = -settingViewFrame.size.height - kNavigationBarBottomAlphaHegiht;
     [self.settingView setFrame:settingViewFrame];
     [self.transparentView setAlpha:0.f];
-  };
-  void (^completion)(BOOL) = ^(BOOL finished) {
-    self.avatarSetttingButton = nil;
-    self.nameSettingButton    = nil;
-    self.settingView          = nil;
-    self.nameSettingField     = nil;
-    self.nameSettingMessage   = nil;
-    self.transparentView      = nil;
   };
   
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f
                                     options:UIViewAnimationOptionCurveEaseOut
                                  animations:animations
-                                 completion:completion];
-  else { animations(); completion(YES); }
+                                 completion:nil];
+  else animations();
 }
 
 @end

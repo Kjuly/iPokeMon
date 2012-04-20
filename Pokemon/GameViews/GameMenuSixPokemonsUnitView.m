@@ -89,7 +89,7 @@
     cancelButton_ = [[UIButton alloc] initWithFrame:cancelButtonFrame];
     [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                              forState:UIControlStateNormal];
-    [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
+    [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
     [cancelButton_ addTarget:self action:@selector(cancelUnitAnimated:) forControlEvents:UIControlEventTouchUpInside];
   }
   return self;

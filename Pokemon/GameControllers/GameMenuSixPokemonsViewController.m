@@ -117,7 +117,7 @@
   self.cancelButton = cancelButton;
   [cancelButton release];
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:kPMINBackgroundBlack]
+  [self.cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                forState:UIControlStateNormal];
   [self.cancelButton setImage:[UIImage imageNamed:kPMINMainButtonHalfCancel] forState:UIControlStateNormal];
   [self.cancelButton setOpaque:NO];
