@@ -16,6 +16,7 @@
 @interface CustomTabBar () {
  @private
   UIImageView * backgroundImageView_;
+  UIView      * menuArea_;
   UIImageView * arrow_;
   
   CGFloat       triangleHypotenuse_;
@@ -24,6 +25,7 @@
 }
 
 @property (nonatomic, retain) UIImageView * backgroundImageView;
+@property (nonatomic, retain) UIView      * menuArea;
 @property (nonatomic, retain) UIImageView * arrow;
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
@@ -49,11 +51,13 @@
 @synthesize previousItemIndex = previousItemIndex_;
 
 @synthesize backgroundImageView = backgroundImageView_;
+@synthesize menuArea            = menuArea_;
 @synthesize arrow               = arrow_;
 
 - (void)dealloc {
   self.buttons             = nil;
   self.backgroundImageView = nil;
+  self.menuArea            = nil;
   self.arrow               = nil;
   [super dealloc];
 }
@@ -91,6 +95,10 @@
 //      [UIImage imageNamed:[NSString stringWithFormat:kPMINTabBarXTabsBackground, (NSInteger)itemCount]]];
 //    [self addSubview:backgroundImageView];
 //    [backgroundImageView release];
+    CGFloat menuAreaHeight = kTabBarHeight - kTabBarItemSize / 2.f;
+    menuArea_ = [UIView alloc];
+    [menuArea_ initWithFrame:CGRectMake(0.f, kTabBarHeight - menuAreaHeight, kTabBarWdith, menuAreaHeight)];
+    [self addSubview:menuArea_];
     
     /*
     CAKeyframeAnimation *customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
@@ -136,7 +144,7 @@
       
       // Add the button to |buttons_| array
       [buttons_ addObject:button];
-      [self addSubview:button];
+      [self.menuArea addSubview:button];
     }
     
     // Calculate |triangleHypotenuse_|
@@ -151,7 +159,7 @@
     arrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINTabBarArrow]];
     UIButton * button = [buttons_ objectAtIndex:0];
     [arrow_ setFrame:button.frame];
-    [self addSubview:arrow_];
+    [self.menuArea addSubview:arrow_];
     
     CGFloat radius         = triangleHypotenuse_;
     CGFloat centerOriginY  = triangleHypotenuse_;
@@ -514,8 +522,7 @@
 
 #pragma mark - CAAnimation delegate
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
   // Update the layer's position so that the layer doesn't snap back when the animation completes
   [self.arrow.layer setPosition:newPositionForArrow_];
 //  [arrow_.layer removeAnimationForKey:@"moveArrow"];

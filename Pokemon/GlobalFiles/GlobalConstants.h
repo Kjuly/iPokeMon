@@ -249,8 +249,8 @@ typedef enum {
   kMoveRealTargetPlayer = 1 << 1, // Player
 }MoveRealTarget;
 
-#define kTabBarHeight   64.f
-#define kTabBarWdith    300.f
+#define kTabBarHeight   88.f
+#define kTabBarWdith    320.f
 #define kTabBarItemSize 44.f
 
 #define kNavigationBarHeight            60.f
