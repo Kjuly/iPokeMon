@@ -18,37 +18,33 @@
 
 @interface NewbieGuideViewController () {
  @private
-  ServerAPIClient   * serverAPIClient_;
-  TrainerController * trainer_;
-  
-  UIView   * backgroundView_;
-  UILabel  * textView1_;
-  UILabel  * textView2_;
-  CGRect     textView1Frame_;
-  CGRect     textView2Frame_;
-  UIButton * confirmButton_;
-  
-  BOOL          isProcessing_;
-  NSInteger     guideStep_;
+  UIView      * backgroundView_;
+  UILabel     * textView1_;
+  UILabel     * textView2_;
+  UIButton    * confirmButton_;
   UITextField * nameInputView_;
+  
+  ServerAPIClient                * serverAPIClient_;
+  TrainerController              * trainer_;
   PokemonSelectionViewController * pokemonSelectionViewController_;
+  
+  CGRect    textView1Frame_;
+  CGRect    textView2Frame_;
+  BOOL      isProcessing_;
+  NSInteger guideStep_;
 }
 
-@property (nonatomic, retain) ServerAPIClient   * serverAPIClient;
-@property (nonatomic, retain) TrainerController * trainer;
-
-@property (nonatomic, retain) UIView   * backgroundView;
-@property (nonatomic, retain) UILabel  * textView1;
-@property (nonatomic, retain) UILabel  * textView2;
-@property (nonatomic, assign) CGRect     textView1Frame;
-@property (nonatomic, assign) CGRect     textView2Frame;
-@property (nonatomic, retain) UIButton * confirmButton;
-
-@property (nonatomic, assign) BOOL          isProcessing;
-@property (nonatomic, assign) NSInteger     guideStep;
-@property (nonatomic, retain) UITextField * nameInputView;
+@property (nonatomic, retain) ServerAPIClient                * serverAPIClient;
+@property (nonatomic, retain) TrainerController              * trainer;
 @property (nonatomic, retain) PokemonSelectionViewController * pokemonSelectionViewController;
 
+@property (nonatomic, retain) UIView      * backgroundView;
+@property (nonatomic, retain) UILabel     * textView1;
+@property (nonatomic, retain) UILabel     * textView2;
+@property (nonatomic, retain) UIButton    * confirmButton;
+@property (nonatomic, retain) UITextField * nameInputView;
+
+- (void)releaseSubviews;
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
 - (void)showConfirmButton:(NSNotification *)notification;
@@ -61,34 +57,21 @@
 
 @implementation NewbieGuideViewController
 
-@synthesize serverAPIClient = serverAPIClient_;
-@synthesize trainer         = trainer_;
-
-@synthesize backgroundView  = backgroundView_;
-@synthesize textView1       = textView1_;
-@synthesize textView2       = textView2_;
-@synthesize textView1Frame  = textView1Frame_;
-@synthesize textView2Frame  = textView2Frame_;
-@synthesize confirmButton   = confirmButton_;
-
-@synthesize isProcessing           = isProcessing_;
-@synthesize guideStep              = guideStep_;
-@synthesize nameInputView          = nameInputView_;
+@synthesize serverAPIClient                = serverAPIClient_;
+@synthesize trainer                        = trainer_;
 @synthesize pokemonSelectionViewController = pokemonSelectionViewController_;
 
-- (void)dealloc
-{
-  self.serverAPIClient = nil;
-  self.trainer         = nil;
-  
-  [backgroundView_ release];
-  [textView1_      release];
-  [textView2_      release];
-  [confirmButton_  release];
-  
-  nameInputView_.delegate = nil;
-  [nameInputView_                  release];
-  [pokemonSelectionViewController_ release];
+@synthesize backgroundView = backgroundView_;
+@synthesize textView1      = textView1_;
+@synthesize textView2      = textView2_;
+@synthesize confirmButton  = confirmButton_;
+@synthesize nameInputView  = nameInputView_;
+
+- (void)dealloc {
+  self.serverAPIClient                = nil;
+  self.trainer                        = nil;
+  self.pokemonSelectionViewController = nil;
+  [self releaseSubviews];
   
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -100,13 +83,21 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.backgroundView = nil;
+  self.textView1      = nil;
+  self.textView2      = nil;
+  self.confirmButton  = nil;
+  self.nameInputView.delegate = nil;
+  self.nameInputView  = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     self.serverAPIClient = [ServerAPIClient sharedInstance];
     self.trainer         = [TrainerController sharedInstance];
-    self.isProcessing    = NO;
+    isProcessing_    = NO;
   }
   return self;
 }
@@ -185,14 +176,13 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   [self setTextViewWithText1:@"PMSNewbiewGuide1Text1" text2:@"PMSNewbiewGuide1Text2"];
   [self.nameInputView setText:[self.trainer name]]; // Default name
   [self.view addSubview:self.nameInputView];
-  self.guideStep = 1;
+  guideStep_ = 1;
   
   // Add observer for notification from |PokemonSelectionViewController|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -205,21 +195,12 @@
                                              object:self.pokemonSelectionViewController];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.backgroundView = nil;
-  self.textView1      = nil;
-  self.textView2      = nil;
-  self.confirmButton  = nil;
-  
-  self.nameInputView                  = nil;
-  self.pokemonSelectionViewController = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -293,10 +274,10 @@
 // Action for |confirmButton_|
 - (void)confirm:(id)sender {
   // If is processing, do nothing until processing done
-  if (self.isProcessing)
+  if (isProcessing_)
     return;
   
-  switch (self.guideStep) {
+  switch (guideStep_) {
     case 1: {
       NSString * name = self.nameInputView.text;
       NSLog(@"New Name:%@", name);
@@ -343,14 +324,14 @@
                             options:UIViewAnimationOptionCurveLinear
                          animations:animations
                          completion:completion];
-        self.isProcessing = NO;
+        isProcessing_ = NO;
       };
       void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"!!! |checkUniquenessForName| data failed ERROR: %@", error);
       };
       
       [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
-      self.isProcessing = YES;
+      isProcessing_ = YES;
       break;
     }
       
@@ -412,11 +393,11 @@
 
 // Set text for |textView1_| & |textView2_|
 - (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2 {
-  [self.textView1 setFrame:self.textView1Frame];
+  [self.textView1 setFrame:textView1Frame_];
   [self.textView1 setText:NSLocalizedString(text1, nil)];
   [self.textView1 sizeToFit];
   
-  [self.textView2 setFrame:self.textView2Frame];
+  [self.textView2 setFrame:textView2Frame_];
   [self.textView2 setText:NSLocalizedString(text2, nil)];
   [self.textView2 sizeToFit];
 }
