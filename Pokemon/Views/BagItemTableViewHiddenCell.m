@@ -27,8 +27,7 @@
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Constans
@@ -46,6 +45,7 @@
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [backgroundView setAlpha:.95f];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
@@ -78,8 +78,7 @@
   return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state

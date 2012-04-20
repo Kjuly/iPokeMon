@@ -108,11 +108,11 @@ NSString * const kPMINBattleElementPokeball = @"GamePokeball.png";
 NSString * const kPMINIconPMGender         = @"IconPokemonGender%d.png"; // %d: 0(F) - 1(M)
 // bag table view related icons
 NSString * const kPMINIconBagTableViewCell = @"BagTableViewCellIcon_%d.png"; // %d: 1 - 8
-NSString * const kPMINIconBagItemUse       = @"BagItemTableViewHiddenCellButtonIconUse.png";
-NSString * const kPMINIconBagItemGive      = @"BagItemTableViewHiddenCellButtonIconGive.png";
-NSString * const kPMINIconBagItemInfo      = @"BagItemTableViewHiddenCellButtonIconInfo.png";
-NSString * const kPMINIconBagItemToss      = @"BagItemTableViewHiddenCellButtonIconToss.png";
-NSString * const kPMINIconBagItemCancel    = @"BagItemTableViewHiddenCellButtonIconCancel.png";
+NSString * const kPMINIconBagItemUse       = @"IconBagItemUse.png";
+NSString * const kPMINIconBagItemGive      = @"IconBagItemGive.png";
+NSString * const kPMINIconBagItemInfo      = @"IconBagItemInfo.png";
+NSString * const kPMINIconBagItemToss      = @"IconBagItemToss.png";
+NSString * const kPMINIconBagItemCancel    = @"IconBagItemCancel.png";
 // trainer card related icons
 NSString * const kPMINTrainerAvatarDefault  = @"UserAvatar.png";
 NSString * const kPMINIconBadgeGold         = @"IconBadgeGold.png";

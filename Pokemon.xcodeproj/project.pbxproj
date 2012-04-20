@@ -198,6 +198,16 @@
 		7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA41152180F800D4F5DB /* LoginTableViewController.m */; };
 		7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA441521912F00D4F5DB /* OAuthManager.m */; };
 		7F0AAA7F1539B8BB004BB3B3 /* PMAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */; };
+		7F0BD9D91541CE1800C2CABA /* IconBagItemCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9CF1541CE1800C2CABA /* IconBagItemCancel.png */; };
+		7F0BD9DA1541CE1800C2CABA /* IconBagItemCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D01541CE1800C2CABA /* IconBagItemCancel@2x.png */; };
+		7F0BD9DB1541CE1800C2CABA /* IconBagItemGive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D11541CE1800C2CABA /* IconBagItemGive.png */; };
+		7F0BD9DC1541CE1800C2CABA /* IconBagItemGive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D21541CE1800C2CABA /* IconBagItemGive@2x.png */; };
+		7F0BD9DD1541CE1800C2CABA /* IconBagItemInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D31541CE1800C2CABA /* IconBagItemInfo.png */; };
+		7F0BD9DE1541CE1800C2CABA /* IconBagItemInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D41541CE1800C2CABA /* IconBagItemInfo@2x.png */; };
+		7F0BD9DF1541CE1800C2CABA /* IconBagItemToss.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D51541CE1800C2CABA /* IconBagItemToss.png */; };
+		7F0BD9E01541CE1800C2CABA /* IconBagItemToss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D61541CE1800C2CABA /* IconBagItemToss@2x.png */; };
+		7F0BD9E11541CE1800C2CABA /* IconBagItemUse.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D71541CE1800C2CABA /* IconBagItemUse.png */; };
+		7F0BD9E21541CE1800C2CABA /* IconBagItemUse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0BD9D81541CE1800C2CABA /* IconBagItemUse@2x.png */; };
 		7F0D18CC15072E54009CFDBA /* GameTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D18CB15072E54009CFDBA /* GameTopViewController.m */; };
 		7F0D18D7150745CB009CFDBA /* PokemonHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D18D6150745CB009CFDBA /* PokemonHPBar.m */; };
 		7F0D18DA150748F2009CFDBA /* GamePlayerPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D18D9150748F1009CFDBA /* GamePlayerPokemonStatusViewController.m */; };
@@ -1184,6 +1194,16 @@
 		7F09AA441521912F00D4F5DB /* OAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthManager.m; sourceTree = "<group>"; };
 		7F0AAA7D1539B8BB004BB3B3 /* PMAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMAudioPlayer.h; sourceTree = "<group>"; };
 		7F0AAA7E1539B8BB004BB3B3 /* PMAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMAudioPlayer.m; sourceTree = "<group>"; };
+		7F0BD9CF1541CE1800C2CABA /* IconBagItemCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBagItemCancel.png; sourceTree = "<group>"; };
+		7F0BD9D01541CE1800C2CABA /* IconBagItemCancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBagItemCancel@2x.png"; sourceTree = "<group>"; };
+		7F0BD9D11541CE1800C2CABA /* IconBagItemGive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBagItemGive.png; sourceTree = "<group>"; };
+		7F0BD9D21541CE1800C2CABA /* IconBagItemGive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBagItemGive@2x.png"; sourceTree = "<group>"; };
+		7F0BD9D31541CE1800C2CABA /* IconBagItemInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBagItemInfo.png; sourceTree = "<group>"; };
+		7F0BD9D41541CE1800C2CABA /* IconBagItemInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBagItemInfo@2x.png"; sourceTree = "<group>"; };
+		7F0BD9D51541CE1800C2CABA /* IconBagItemToss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBagItemToss.png; sourceTree = "<group>"; };
+		7F0BD9D61541CE1800C2CABA /* IconBagItemToss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBagItemToss@2x.png"; sourceTree = "<group>"; };
+		7F0BD9D71541CE1800C2CABA /* IconBagItemUse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconBagItemUse.png; sourceTree = "<group>"; };
+		7F0BD9D81541CE1800C2CABA /* IconBagItemUse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBagItemUse@2x.png"; sourceTree = "<group>"; };
 		7F0D18CA15072E54009CFDBA /* GameTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTopViewController.h; sourceTree = "<group>"; };
 		7F0D18CB15072E54009CFDBA /* GameTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameTopViewController.m; sourceTree = "<group>"; };
 		7F0D18D5150745CB009CFDBA /* PokemonHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonHPBar.h; sourceTree = "<group>"; };
@@ -3574,6 +3594,16 @@
 				7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */,
 				7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */,
 				7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */,
+				7F0BD9CF1541CE1800C2CABA /* IconBagItemCancel.png */,
+				7F0BD9D01541CE1800C2CABA /* IconBagItemCancel@2x.png */,
+				7F0BD9D11541CE1800C2CABA /* IconBagItemGive.png */,
+				7F0BD9D21541CE1800C2CABA /* IconBagItemGive@2x.png */,
+				7F0BD9D31541CE1800C2CABA /* IconBagItemInfo.png */,
+				7F0BD9D41541CE1800C2CABA /* IconBagItemInfo@2x.png */,
+				7F0BD9D51541CE1800C2CABA /* IconBagItemToss.png */,
+				7F0BD9D61541CE1800C2CABA /* IconBagItemToss@2x.png */,
+				7F0BD9D71541CE1800C2CABA /* IconBagItemUse.png */,
+				7F0BD9D81541CE1800C2CABA /* IconBagItemUse@2x.png */,
 				7F6C19311517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo.png */,
 				7F6C19321517656D0000682B /* BagItemTableViewHiddenCellButtonIconInfo@2x.png */,
 				7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */,
@@ -4636,6 +4666,16 @@
 				7FDAD5341541C6A5003F9DA6 /* IconPokemonGender0@2x.png in Resources */,
 				7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */,
 				7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */,
+				7F0BD9D91541CE1800C2CABA /* IconBagItemCancel.png in Resources */,
+				7F0BD9DA1541CE1800C2CABA /* IconBagItemCancel@2x.png in Resources */,
+				7F0BD9DB1541CE1800C2CABA /* IconBagItemGive.png in Resources */,
+				7F0BD9DC1541CE1800C2CABA /* IconBagItemGive@2x.png in Resources */,
+				7F0BD9DD1541CE1800C2CABA /* IconBagItemInfo.png in Resources */,
+				7F0BD9DE1541CE1800C2CABA /* IconBagItemInfo@2x.png in Resources */,
+				7F0BD9DF1541CE1800C2CABA /* IconBagItemToss.png in Resources */,
+				7F0BD9E01541CE1800C2CABA /* IconBagItemToss@2x.png in Resources */,
+				7F0BD9E11541CE1800C2CABA /* IconBagItemUse.png in Resources */,
+				7F0BD9E21541CE1800C2CABA /* IconBagItemUse@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
