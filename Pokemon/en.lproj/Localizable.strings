@@ -26,12 +26,15 @@
 "PMSLoginChoice"        = "Login Choice";
 "PMSLoginSigninPage"    = "Loading sign-in page...";
 "PMSAuthenticating"     = "Authenticating...";
-"PMSNewbiewGuide1Text1" = "Welcome to Pokemon world!";
-"PMSNewbiewGuide1Text2" = "What's your name?";
-"PMSNewbiewGuide1TextNameExist" = "Sorry, name exists.";
-"PMSNewbiewGuide1TextERROR"     = "Web service unknown ERROR..";
-"PMSNewbiewGuide2Text1" = "Choose a Pokemon you would like...";
-"PMSNewbiewGuide3Text1" = "Are you ready?";
+"PMSNewbiewGuide1Title"             = "Step 1";
+"PMSNewbiewGuide1Message"           = "Welcome to Pokemon world! What's your name?";
+"PMSNewbiewGuide2Title"             = "Step 2";
+"PMSNewbiewGuide2Message"           = "Choose a Pokemon you would like...";
+"PMSNewbiewGuide3Title"             = "Done";
+"PMSNewbiewGuide3Message"           = "Are you ready?";
+"PMSNewbiewGuideErrorTitle"         = "ERROR";
+"PMSNewbiewGuideErrorTextNameExist" = "Sorry, name exists.";
+"PMSNewbiewGuideErrorUnknow"        = "Web service unknown ERROR..";
 
 // Setting view
 // GENERAL

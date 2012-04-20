@@ -19,8 +19,8 @@
 @interface NewbieGuideViewController () {
  @private
   UIView      * backgroundView_;
-  UILabel     * textView1_;
-  UILabel     * textView2_;
+  UILabel     * title_;
+  UILabel     * message_;
   UIButton    * confirmButton_;
   UITextField * nameInputView_;
   
@@ -28,8 +28,8 @@
   TrainerController              * trainer_;
   PokemonSelectionViewController * pokemonSelectionViewController_;
   
-  CGRect    textView1Frame_;
-  CGRect    textView2Frame_;
+  CGRect    titleFrame_;
+  CGRect    messageFrame_;
   BOOL      isProcessing_;
   NSInteger guideStep_;
 }
@@ -39,8 +39,8 @@
 @property (nonatomic, retain) PokemonSelectionViewController * pokemonSelectionViewController;
 
 @property (nonatomic, retain) UIView      * backgroundView;
-@property (nonatomic, retain) UILabel     * textView1;
-@property (nonatomic, retain) UILabel     * textView2;
+@property (nonatomic, retain) UILabel     * title;
+@property (nonatomic, retain) UILabel     * message;
 @property (nonatomic, retain) UIButton    * confirmButton;
 @property (nonatomic, retain) UITextField * nameInputView;
 
@@ -50,7 +50,7 @@
 - (void)showConfirmButton:(NSNotification *)notification;
 - (void)hideConfirmButton:(NSNotification *)notification;
 - (void)confirm:(id)sender;
-- (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2;
+- (void)setTextViewWithTitle:(NSString *)title message:(NSString *)message;
 
 @end
 
@@ -62,8 +62,8 @@
 @synthesize pokemonSelectionViewController = pokemonSelectionViewController_;
 
 @synthesize backgroundView = backgroundView_;
-@synthesize textView1      = textView1_;
-@synthesize textView2      = textView2_;
+@synthesize title          = title_;
+@synthesize message        = message_;
 @synthesize confirmButton  = confirmButton_;
 @synthesize nameInputView  = nameInputView_;
 
@@ -85,8 +85,8 @@
 
 - (void)releaseSubviews {
   self.backgroundView = nil;
-  self.textView1      = nil;
-  self.textView2      = nil;
+  self.title          = nil;
+  self.message        = nil;
   self.confirmButton  = nil;
   self.nameInputView.delegate = nil;
   self.nameInputView  = nil;
@@ -118,33 +118,40 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
+  [self.view setOpaque:NO];
   [self.view setAlpha:0.f];
 
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
-  [backgroundView_ setBackgroundColor:[UIColor blackColor]];
+  [backgroundView_ setBackgroundColor:[UIColor clearColor]];
   [backgroundView_ setAlpha:.85f];
   [self.view addSubview:backgroundView_];
   
   // Constants
-  textView1Frame_ = CGRectMake(30.f, 60.f, 260.f, 40.f);
-  textView2Frame_ = CGRectMake(30.f, 100.f, 260.f, 40.f);
+//  textView1Frame_ = CGRectMake(30.f, 60.f, 260.f, 40.f);
+//  textView2Frame_ = CGRectMake(30.f, 100.f, 260.f, 40.f);
   
-  textView1_ = [[UILabel alloc] initWithFrame:textView1Frame_];
-  [textView1_ setBackgroundColor:[UIColor clearColor]];
-  [textView1_ setTextColor:[GlobalRender textColorTitleWhite]];
-  [textView1_ setFont:[GlobalRender textFontNormalInSizeOf:18.f]];
-  [textView1_ setLineBreakMode:UILineBreakModeWordWrap];
-  [textView1_ setNumberOfLines:0];
-  [self.view addSubview:textView1_];
+  titleFrame_ = CGRectMake(30.f, 60.f, 260.f, 32.f);
+  messageFrame_ = CGRectMake(30.f, 102.f, 260.f, 64.f);
   
-  textView2_ = [[UILabel alloc] initWithFrame:textView2Frame_];
-  [textView2_ setBackgroundColor:[UIColor clearColor]];
-  [textView2_ setTextColor:[GlobalRender textColorTitleWhite]];
-  [textView2_ setFont:[GlobalRender textFontNormalInSizeOf:18.f]];
-  [textView2_ setLineBreakMode:UILineBreakModeWordWrap];
-  [textView2_ setNumberOfLines:0];
-  [self.view addSubview:textView2_];
+  // Title
+  title_ = [[UILabel alloc] initWithFrame:titleFrame_];
+  [title_ setBackgroundColor:[UIColor clearColor]];
+  [title_ setTextColor:[GlobalRender textColorOrange]];
+  [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+  [self.view addSubview:title_];
   
+  // Message
+  message_ = [[UILabel alloc] initWithFrame:messageFrame_];
+  [message_ setBackgroundColor:[UIColor clearColor]];
+  [message_ setTextColor:[GlobalRender textColorNormal]];
+  [message_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+  [message_ setLineBreakMode:UILineBreakModeWordWrap];
+  [message_ setNumberOfLines:0];
+  [message_ sizeToFit];
+  [self.view addSubview:message_];
+  
+  // confirm button
   confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
@@ -176,7 +183,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self setTextViewWithText1:@"PMSNewbiewGuide1Text1" text2:@"PMSNewbiewGuide1Text2"];
+  [self setTextViewWithTitle:@"PMSNewbiewGuide1Title" message:@"PMSNewbiewGuide1Message"];
   [self.nameInputView setText:[self.trainer name]]; // Default name
   [self.view addSubview:self.nameInputView];
   guideStep_ = 1;
@@ -233,7 +240,7 @@
 - (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated {
   CGRect confirmButtonFrame =
     CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-               toBottom ? kViewHeight - 100.f : (kViewHeight - kCenterMainButtonSize) / 2,
+               toBottom ? kViewHeight - 160.f : (kViewHeight - kCenterMainButtonSize) / 2,
                kCenterMainButtonSize,
                kCenterMainButtonSize);
   void (^animations)() = ^(){[self.confirmButton setFrame:confirmButtonFrame];};
@@ -282,19 +289,22 @@
       void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         // Response:-1:ERROR: 0:Name Exist 1:OK
         NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
-        NSString * newText;
+        NSString * newTitle;
+        NSString * newMessage;
         NSLog(@"...|checkUniquenessForName| data success...response value of |uniqueness|:%d", uniqueness);
         if (uniqueness == 1) {
           [self.trainer setName:name];
-          newText = @"PMSNewbiewGuide2Text1";
+          newTitle   = @"PMSNewbiewGuide2Title";
+          newMessage = @"PMSNewbiewGuide2Message";
           ++guideStep_;
           // Add view for Pokemon Selection
           [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
           [self.pokemonSelectionViewController.view setAlpha:0.f];
         } else {
           [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
-          if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
-          else newText = @"PMSNewbiewGuide1TextNameERROR";
+          newTitle = @"PMSNewbiewGuideErrorTitle";
+          if (uniqueness == 0) newMessage = @"PMSNewbiewGuideErrorTextNameExist";
+          else newMessage = @"PMSNewbiewGuideErrorUnknow";
         }
         
         void (^animations)() = ^() {
@@ -302,19 +312,19 @@
             [self.nameInputView                       setAlpha:0.f];
             [self.pokemonSelectionViewController.view setAlpha:1.f];
           }
-          [self.textView1 setAlpha:0.f];
-          [self.textView2 setAlpha:0.f];
+          [self.title   setAlpha:0.f];
+          [self.message setAlpha:0.f];
         };
         void (^completion)(BOOL) = ^(BOOL finished) {
-          [self setTextViewWithText1:newText text2:nil];
+          [self setTextViewWithTitle:newTitle message:newMessage];
           if (uniqueness == 1)
             [self.nameInputView removeFromSuperview];
           [UIView animateWithDuration:.3f
                                 delay:0.f
                               options:UIViewAnimationOptionCurveLinear
                            animations:^{
-                             [self.textView1 setAlpha:1.f];
-                             [self.textView2 setAlpha:1.f];
+                             [self.title   setAlpha:1.f];
+                             [self.message setAlpha:1.f];
                            }
                            completion:nil];
         };
@@ -354,20 +364,20 @@
                             delay:0.f
                           options:UIViewAnimationOptionCurveLinear
                        animations:^{
-                         [self.textView1 setAlpha:0.f];
-                         [self.textView2 setAlpha:0.f];
+                         [self.title   setAlpha:0.f];
+                         [self.message setAlpha:0.f];
                          [self.pokemonSelectionViewController.view setAlpha:0.f];
                          [self moveConfirmButtonToBottom:NO animated:NO];
                        }
                        completion:^(BOOL finished) {
                          [self.pokemonSelectionViewController.view removeFromSuperview];
-                         [self setTextViewWithText1:@"PMSNewbiewGuide3Text1" text2:nil];
+                         [self setTextViewWithTitle:@"PMSNewbiewGuide3Title" message:@"PMSNewbiewGuide3Message"];
                          [UIView animateWithDuration:.3f
                                                delay:0.f
                                              options:UIViewAnimationOptionCurveLinear
                                           animations:^{
-                                            [self.textView1 setAlpha:1.f];
-                                            [self.textView2 setAlpha:1.f];
+                                            [self.title   setAlpha:1.f];
+                                            [self.message setAlpha:1.f];
                                           }
                                           completion:nil];
                        }];
@@ -391,14 +401,14 @@
 }
 
 // Set text for |textView1_| & |textView2_|
-- (void)setTextViewWithText1:(NSString *)text1 text2:(NSString *)text2 {
-  [self.textView1 setFrame:textView1Frame_];
-  [self.textView1 setText:NSLocalizedString(text1, nil)];
-  [self.textView1 sizeToFit];
+- (void)setTextViewWithTitle:(NSString *)title message:(NSString *)message {
+  [self.title setFrame:titleFrame_];
+  [self.title setText:NSLocalizedString(title, nil)];
+  [self.title sizeToFit];
   
-  [self.textView2 setFrame:textView2Frame_];
-  [self.textView2 setText:NSLocalizedString(text2, nil)];
-  [self.textView2 sizeToFit];
+  [self.message setFrame:messageFrame_];
+  [self.message setText:NSLocalizedString(message, nil)];
+  [self.message sizeToFit];
 }
 
 #pragma mark - UITextView Delegate
