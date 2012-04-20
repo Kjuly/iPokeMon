@@ -15,16 +15,16 @@
 
 @interface CustomTabBar () {
  @private
-  UIImageView      * backgroundImageView_;
-  UIImageView      * arrow_;
-  CGPoint            newPositionForArrow_;
-  CGFloat            currArcForArrow_;
+  UIImageView * backgroundImageView_;
+  UIImageView * arrow_;
+  
+  CGFloat       triangleHypotenuse_;
+  CGPoint       newPositionForArrow_;
+  CGFloat       currArcForArrow_;
 }
 
-@property (nonatomic, retain) UIImageView      * backgroundImageView;
-@property (nonatomic, retain) UIImageView      * arrow;
-@property (nonatomic, assign) CGPoint            newPositionForArrow;
-@property (nonatomic, assign) CGFloat            currArcForArrow;
+@property (nonatomic, retain) UIImageView * backgroundImageView;
+@property (nonatomic, retain) UIImageView * arrow;
 
 - (CGFloat)horizontalLocationFor:(NSUInteger)tabIndex;
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex;
@@ -45,13 +45,11 @@
 
 @implementation CustomTabBar
 
-@synthesize buttons = buttons_;
+@synthesize buttons           = buttons_;
 @synthesize previousItemIndex = previousItemIndex_;
 
 @synthesize backgroundImageView = backgroundImageView_;
 @synthesize arrow               = arrow_;
-@synthesize newPositionForArrow = newPositionForArrow_;
-@synthesize currArcForArrow     = currArcForArrow_;
 
 - (void)dealloc {
   self.buttons             = nil;
@@ -59,7 +57,6 @@
   self.arrow               = nil;
   [super dealloc];
 }
-
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
@@ -142,6 +139,11 @@
       [self addSubview:button];
     }
     
+    // Calculate |triangleHypotenuse_|
+    CGFloat tabAreaHalfHeight = kTabBarHeight / 2.f;
+    CGFloat tabAreaHalfWidth  = kTabBarWdith  / 2.f;
+    triangleHypotenuse_       = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
+    
     // Set frame for button, based on |itemCount|
     [self setFrameForButtonsBasedOnItemCount];
     
@@ -151,18 +153,14 @@
     [arrow_ setFrame:button.frame];
     [self addSubview:arrow_];
     
-    CGFloat tabAreaHalfHeight  = kTabBarHeight / 2.f;
-    CGFloat tabAreaHalfWidth   = kTabBarWdith  / 2.f;
-    CGFloat triangleHypotenuse = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
-    CGFloat radius            = triangleHypotenuse;
-    CGFloat centerOriginY     = triangleHypotenuse;
-    self.newPositionForArrow = CGPointMake(button.frame.origin.x + kTabBarItemSize / 2.f,
-                                           button.frame.origin.y + kTabBarItemSize / 2.f);
-    self.currArcForArrow = M_PI + asinf((centerOriginY - self.newPositionForArrow.y) / radius);
+    CGFloat radius         = triangleHypotenuse_;
+    CGFloat centerOriginY  = triangleHypotenuse_;
+    newPositionForArrow_   = CGPointMake(button.frame.origin.x + kTabBarItemSize / 2.f,
+                                         button.frame.origin.y + kTabBarItemSize / 2.f);
+    currArcForArrow_       = M_PI + asinf((centerOriginY - newPositionForArrow_.y) / radius);
     self.previousItemIndex = 0;
     button = nil;
   }
-  
   return self;
 }
 
@@ -178,7 +176,7 @@
       CGPoint newPosition = button.frame.origin;
       newPosition.x += kTabBarItemSize / 2.f;
       newPosition.y += kTabBarItemSize / 2.f;
-      self.newPositionForArrow = newPosition;
+      newPositionForArrow_ = newPosition;
     }
     else {
       [button setSelected:NO];
@@ -383,17 +381,16 @@
   //   |triangleA| = |fixValue| + <distance from POINT pos Y to bottom of window>
   //   |triangleB| = |distance from POINT pos X to center line|
   //
-  CGFloat tabAreaHalfHeight  = kTabBarHeight / 2.f;
-  CGFloat tabAreaHalfWidth   = kTabBarWdith  / 2.f;
-  CGFloat buttonRadius       = kTabBarItemSize / 2.f;
-  CGFloat triangleHypotenuse = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
-  CGFloat fixValue           = triangleHypotenuse - tabAreaHalfHeight;
+  CGFloat tabAreaHalfHeight = kTabBarHeight / 2.f;
+  CGFloat tabAreaHalfWidth  = kTabBarWdith  / 2.f;
+  CGFloat buttonRadius      = kTabBarItemSize / 2.f;
+  CGFloat fixValue          = triangleHypotenuse_ - tabAreaHalfHeight;
   
   switch ([self.buttons count]) {
     case 2: {
       CGFloat degree    = 12.f * M_PI / 180.f; // = 45 * M_PI / 180
-      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
-      CGFloat triangleB = triangleHypotenuse * sinf(degree);
+      CGFloat triangleA = triangleHypotenuse_ * cosf(degree) - fixValue;
+      CGFloat triangleB = triangleHypotenuse_ * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
@@ -403,12 +400,12 @@
       
     case 3: {
       CGFloat degree    = M_PI / 10.f; // 18.f * M_PI / 180.f
-      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
-      CGFloat triangleB = triangleHypotenuse * sinf(degree);
+      CGFloat triangleA = triangleHypotenuse_ * cosf(degree) - fixValue;
+      CGFloat triangleB = triangleHypotenuse_ * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth - buttonRadius,
-                                                  tabAreaHalfHeight - triangleHypotenuse + fixValue - buttonRadius)];
+                                                  tabAreaHalfHeight - triangleHypotenuse_ + fixValue - buttonRadius)];
       [self setButtonWithTag:2 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       break;
@@ -417,16 +414,16 @@
     case 4:
     default: {
       CGFloat degree    = M_PI / 9.f; // 20.f * M_PI / 180.f
-      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
-      CGFloat triangleB = triangleHypotenuse * sinf(degree);
+      CGFloat triangleA = triangleHypotenuse_ * cosf(degree) - fixValue;
+      CGFloat triangleB = triangleHypotenuse_ * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:3 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       
       degree    = M_PI / 20.f; // 9.f * M_PI / 180.f
-      triangleA = triangleHypotenuse * cosf(degree) - fixValue;
-      triangleB = triangleHypotenuse * sinf(degree);
+      triangleA = triangleHypotenuse_ * cosf(degree) - fixValue;
+      triangleB = triangleHypotenuse_ * sinf(degree);
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:2 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
@@ -469,8 +466,8 @@
   CGFloat radius            = triangleHypotenuse;
   CGFloat centerOriginX     = kTabBarWdith / 2;
   CGFloat centerOriginY     = triangleHypotenuse;
-  CGFloat itemCenterOriginX = self.newPositionForArrow.x;
-  CGFloat itemCenterOriginY = self.newPositionForArrow.y;
+  CGFloat itemCenterOriginX = newPositionForArrow_.x;
+  CGFloat itemCenterOriginY = newPositionForArrow_.y;
   CGFloat arc      = asinf((centerOriginY - itemCenterOriginY) / radius);
   CGFloat newAngle = itemCenterOriginX < centerOriginX ? M_PI + arc : M_PI * 2 - arc;
   
@@ -479,7 +476,7 @@
   CGPathAddArc(path, NULL,
                centerOriginX, centerOriginY,   // Center point
                radius,                         // Radius
-               self.currArcForArrow, newAngle, // New angle for the new point
+               currArcForArrow_, newAngle, // New angle for the new point
                itemCenterOriginX < self.arrow.frame.origin.x ? YES : NO); // Clock wise or not
   CAKeyframeAnimation * customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
   customFrameAnimation.path = path;
@@ -492,7 +489,7 @@
 //	[self.layer addSublayer:pathTrack];
 //#endif
   CGPathRelease(path);
-  self.currArcForArrow = newAngle;
+  currArcForArrow_ = newAngle;
   
 //  NSArray * sizeValues = [NSArray arrayWithObjects:
 //                          [self.arrow valueForKey:@"position"], [NSValue valueWithCGPoint:self.newPositionForArrow], nil];
@@ -520,7 +517,7 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
   // Update the layer's position so that the layer doesn't snap back when the animation completes
-  [self.arrow.layer setPosition:self.newPositionForArrow];
+  [self.arrow.layer setPosition:newPositionForArrow_];
 //  [arrow_.layer removeAnimationForKey:@"moveArrow"];
 }
 
