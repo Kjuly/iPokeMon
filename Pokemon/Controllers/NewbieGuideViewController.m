@@ -146,24 +146,21 @@
   [self.view addSubview:textView2_];
   
   confirmButton_ = [[UIButton alloc] init];
-  [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
-                            forState:UIControlStateNormal];
+  [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
   [self moveConfirmButtonToBottom:YES animated:NO];
   
   // Layouts for different steps
-  // Constants
-  CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f - 50.f, 260.f, 32.f);
-  
   // Name setting input view
+  CGRect nameInputViewFrame = CGRectMake(30.f, (kViewHeight - 32.f) / 2.f - 50.f, 260.f, 32.f);
   nameInputView_ = [[UITextField alloc] initWithFrame:nameInputViewFrame];
   [nameInputView_ setBackgroundColor:[UIColor whiteColor]];
   [nameInputView_ setTextColor:[UIColor blackColor]];
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
-  nameInputView_.delegate = self;
+  [nameInputView_ setDelegate:self];
   
   // Pokemon Selection view
   pokemonSelectionViewController_ = [[PokemonSelectionViewController alloc] init];
@@ -291,12 +288,14 @@
           [self.trainer setName:name];
           newText = @"PMSNewbiewGuide2Text1";
           ++guideStep_;
-          
+          // Add view for Pokemon Selection
           [self.view insertSubview:self.pokemonSelectionViewController.view belowSubview:self.confirmButton];
           [self.pokemonSelectionViewController.view setAlpha:0.f];
+        } else {
+          [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
+          if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
+          else newText = @"PMSNewbiewGuide1TextNameERROR";
         }
-        else if (uniqueness == 0) newText = @"PMSNewbiewGuide1TextNameExist";
-        else newText = @"PMSNewbiewGuide1TextNameERROR";
         
         void (^animations)() = ^() {
           if (uniqueness == 1) {
@@ -405,6 +404,7 @@
 #pragma mark - UITextView Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [self.nameInputView resignFirstResponder];
   return YES;
 }

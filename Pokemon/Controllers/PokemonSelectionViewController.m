@@ -104,9 +104,9 @@
   // Button to show Pokemon choosing view
   pokemonSelectionButton_ = [[UIButton alloc] initWithFrame:pokemonSelectionButtonFrame];
   [pokemonSelectionButton_ setAlpha:1.f];
-  [pokemonSelectionButton_ setBackgroundImage:[UIImage imageNamed:kPMINBackgroundBlack]
+  [pokemonSelectionButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                      forState:UIControlStateNormal];
-  [pokemonSelectionButton_ setImage:[UIImage imageNamed:kPMINMainButtonUnknow] forState:UIControlStateNormal];
+  [pokemonSelectionButton_ setImage:[UIImage imageNamed:kPMINMainButtonUnknowOpposite] forState:UIControlStateNormal];
   [pokemonSelectionButton_ addTarget:self
                               action:@selector(showPokemonSelectionView:)
                     forControlEvents:UIControlEventTouchUpInside];
