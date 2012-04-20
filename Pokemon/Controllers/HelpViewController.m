@@ -115,21 +115,17 @@
   [self.view addSubview:pageControl_];
   
   // Create a fake |mapButton_| as the cancel button
-  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                                       - kMapButtonSize,
-                                                                       kMapButtonSize,
-                                                                       kMapButtonSize)];
-  self.cancelButton = cancelButton;
-  [cancelButton release];
-  [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
-                               forState:UIControlStateNormal];
-  [self.cancelButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
-  [self.cancelButton setOpaque:NO];
-  [self.cancelButton addTarget:self
-                        action:@selector(unloadViewAnimated:)
-              forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:self.cancelButton];
+  cancelButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                             - kMapButtonSize,
+                                                             kMapButtonSize,
+                                                             kMapButtonSize)];
+  [cancelButton_ setContentMode:UIViewContentModeScaleAspectFit];
+  [cancelButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
+                           forState:UIControlStateNormal];
+  [cancelButton_ setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
+  [cancelButton_ setOpaque:NO];
+  [cancelButton_ addTarget:self action:@selector(unloadViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:cancelButton_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
