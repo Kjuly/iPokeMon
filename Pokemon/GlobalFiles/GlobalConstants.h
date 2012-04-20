@@ -39,6 +39,95 @@ extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider 
 ///END UserDefaults
 //////
 
+#pragma mark - Image & Icon name
+
+#pragma mark - Image & Icon name
+// PMIN: PokeMon Image Name
+extern NSString * const kPMINBackgroundBlack;
+extern NSString * const kPMINLaunchViewBackground;
+// center menu
+extern NSString * const kPMINMainMenuBackground;
+extern NSString * const kPMINMainViewCenterCircleBackgound;
+extern NSString * const kPMINMainViewCenterCircle;
+extern NSString * const kPMINMainMenuBackgound;
+extern NSString * const kPMINMainMenuUtilityButton; // %d: 1 - 6
+// center main button
+extern NSString * const kPMINMainButtonBackgoundNormal;
+extern NSString * const kPMINMainButtonBackgoundEnable;//!!!!!
+extern NSString * const kPMINMainButtonBackgoundDisable;//!!
+extern NSString * const kPMINMainButtonNormal;
+extern NSString * const kPMINMainButtonConfirm;
+extern NSString * const kPMINMainButtonInfo;   //!!!!!!
+extern NSString * const kPMINMainButtonUnknow; //!!!!!!
+extern NSString * const kPMINMainButtonHalfCancel;
+extern NSString * const kPMINMainButtonCancel; //!!!!!!
+// map button
+extern NSString * const kPMINMapButtonBackgound;
+extern NSString * const kPMINMapButtonNormal;
+extern NSString * const kPMINMapButtonDisabled;
+extern NSString * const kPMINMapButtonHalfCancel;
+// TAB BAR
+extern NSString * const kPMINTabBarXTabsBackground; // %d: 2 - 4
+extern NSString * const kPMINTabBarArrow;
+extern NSString * const kPMINTabBarItemPMDetailInfo;
+extern NSString * const kPMINTabBarItemPMDetailArea;
+extern NSString * const kPMINTabBarItemPMDetailSize;
+extern NSString * const kPMINTabBarItem6PMsDetailMemo;
+extern NSString * const kPMINTabBarItem6PMsDetailSkill;
+extern NSString * const kPMINTabBarItem6PMsDetailMove;
+// TABLE VIEW
+// NAV BAR
+extern NSString * const kPMINNavBarBackground;
+extern NSString * const kPMINNavBarBackToRootButton;
+extern NSString * const kPMINNavBarBackButton;
+// table view cell
+extern NSString * const kPMINTableViewCellPokedex;
+extern NSString * const kPMINTableViewCellPokedexSelected;
+extern NSString * const kPMINTableViewCellSetting;
+extern NSString * const kPMINTableViewCellSettingSelected;
+extern NSString * const kPMINTableViewCellBag;
+extern NSString * const kPMINTableViewCellBagSelected;
+extern NSString * const kPMINTableViewCellBagItem;
+extern NSString * const kPMINTableViewCell;
+extern NSString * const kPMINTableViewCellBagMedicine;
+// table view other elements
+extern NSString * const kPMINTableViewPokedexDefaultImage;
+// table view detail view elements
+extern NSString * const kPMINPMDetailImageBackgound;
+extern NSString * const kPMINPMDetailDescriptionBackground;
+extern NSString * const kPMINPMHPBarBackground;
+extern NSString * const kPMINPMHPBar;
+extern NSString * const kPMINPMExpBarBackground;
+extern NSString * const kPMINPMExpBar;
+// GAME BATTLE
+extern NSString * const kPMINBattleSceneBackground; // %.2d: 01 - 09
+extern NSString * const kPMINBattleScenePMPoint;
+extern NSString * const kPMINBattleMenuMessageViewBackground;
+extern NSString * const kPMINBattleElementPokeball;
+// ICONs
+// Pokemon related icons
+extern NSString * const kPMINIconPMGenderM;
+extern NSString * const kPMINIconPMGenderF; //!!! %d: 0(F) - 1(M)
+// bag table view related icons
+extern NSString * const kPMINIconBagTableViewCell; // %d: 1 - 8
+extern NSString * const kPMINIconBagItemUse;
+extern NSString * const kPMINIconBagItemGive;
+extern NSString * const kPMINIconBagItemInfo;
+extern NSString * const kPMINIconBagItemToss;
+extern NSString * const kPMINIconBagItemCancel;
+// trainer card related icons
+extern NSString * const kPMINIconBadgeGold;
+extern NSString * const kPMINIconBadgeSilver;
+extern NSString * const kPMINIconBadgeBronze;
+extern NSString * const kPMINIconTrainerCardModify;
+// social media
+extern NSString * const kPMINIconSocialFacebook;
+extern NSString * const kPMINIconSocialGoogle;
+extern NSString * const kPMINIconSocialTwitter;
+// others
+extern NSString * const kPMINIconRefresh;
+/////
+
 #pragma mark -
 
 // View Basic

@@ -438,14 +438,6 @@
 		7F7EF3C6153FFADC0061D82E /* TabView4TabsCircleBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3BE153FFADC0061D82E /* TabView4TabsCircleBarBackground@2x.png */; };
 		7F7EF3C7153FFADC0061D82E /* TabViewItemArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3BF153FFADC0061D82E /* TabViewItemArrow.png */; };
 		7F7EF3C8153FFADC0061D82E /* TabViewItemArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3C0153FFADC0061D82E /* TabViewItemArrow@2x.png */; };
-		7F7EF403153FFCC90061D82E /* BagItemIcon_BattleItems.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3DC153FFCC80061D82E /* BagItemIcon_BattleItems.png */; };
-		7F7EF404153FFCC90061D82E /* BagItemIcon_Berries.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3DD153FFCC80061D82E /* BagItemIcon_Berries.png */; };
-		7F7EF405153FFCC90061D82E /* BagItemIcon_Items.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3DE153FFCC80061D82E /* BagItemIcon_Items.png */; };
-		7F7EF406153FFCC90061D82E /* BagItemIcon_KeyItems.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3DF153FFCC80061D82E /* BagItemIcon_KeyItems.png */; };
-		7F7EF407153FFCC90061D82E /* BagItemIcon_Mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E0153FFCC80061D82E /* BagItemIcon_Mail.png */; };
-		7F7EF408153FFCC90061D82E /* BagItemIcon_Medicine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E1153FFCC80061D82E /* BagItemIcon_Medicine.png */; };
-		7F7EF409153FFCC90061D82E /* BagItemIcon_Pokeballs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E2153FFCC80061D82E /* BagItemIcon_Pokeballs.png */; };
-		7F7EF40A153FFCC90061D82E /* BagItemIcon_TMsHMs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E3153FFCC80061D82E /* BagItemIcon_TMsHMs.png */; };
 		7F7EF40B153FFCC90061D82E /* BagItemTableViewCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E4153FFCC80061D82E /* BagItemTableViewCellBackground.png */; };
 		7F7EF40C153FFCC90061D82E /* BagItemTableViewCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E5153FFCC80061D82E /* BagItemTableViewCellBackground@2x.png */; };
 		7F7EF40D153FFCC90061D82E /* BagItemTableViewCellSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF3E6153FFCC80061D82E /* BagItemTableViewCellSelectedBackground.png */; };
@@ -901,10 +893,6 @@
 		7FB76464150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */; };
 		7FBB60AD14E6A51000C24BA5 /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */; };
 		7FBB60B114E6A6B500C24BA5 /* TrainerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */; };
-		7FBB60B914E6A95F00C24BA5 /* TrainerCardTabIcon_Badges.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */; };
-		7FBB60BA14E6A95F00C24BA5 /* TrainerCardTabIcon_Badges@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */; };
-		7FBB60BB14E6A95F00C24BA5 /* TrainerCardTabIcon_Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */; };
-		7FBB60BC14E6A95F00C24BA5 /* TrainerCardTabIcon_Info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60B814E6A95700C24BA5 /* TrainerCardTabIcon_Info@2x.png */; };
 		7FBB60CD14E6C31700C24BA5 /* gymLeaderImage_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60C514E6C31600C24BA5 /* gymLeaderImage_1.png */; };
 		7FBB60CE14E6C31700C24BA5 /* gymLeaderImage_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60C614E6C31600C24BA5 /* gymLeaderImage_2.png */; };
 		7FBB60CF14E6C31700C24BA5 /* gymLeaderImage_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBB60C714E6C31700C24BA5 /* gymLeaderImage_3.png */; };
@@ -1608,14 +1596,6 @@
 		7F7EF3BE153FFADC0061D82E /* TabView4TabsCircleBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabView4TabsCircleBarBackground@2x.png"; sourceTree = "<group>"; };
 		7F7EF3BF153FFADC0061D82E /* TabViewItemArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabViewItemArrow.png; sourceTree = "<group>"; };
 		7F7EF3C0153FFADC0061D82E /* TabViewItemArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabViewItemArrow@2x.png"; sourceTree = "<group>"; };
-		7F7EF3DC153FFCC80061D82E /* BagItemIcon_BattleItems.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_BattleItems.png; sourceTree = "<group>"; };
-		7F7EF3DD153FFCC80061D82E /* BagItemIcon_Berries.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Berries.png; sourceTree = "<group>"; };
-		7F7EF3DE153FFCC80061D82E /* BagItemIcon_Items.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Items.png; sourceTree = "<group>"; };
-		7F7EF3DF153FFCC80061D82E /* BagItemIcon_KeyItems.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_KeyItems.png; sourceTree = "<group>"; };
-		7F7EF3E0153FFCC80061D82E /* BagItemIcon_Mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Mail.png; sourceTree = "<group>"; };
-		7F7EF3E1153FFCC80061D82E /* BagItemIcon_Medicine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Medicine.png; sourceTree = "<group>"; };
-		7F7EF3E2153FFCC80061D82E /* BagItemIcon_Pokeballs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_Pokeballs.png; sourceTree = "<group>"; };
-		7F7EF3E3153FFCC80061D82E /* BagItemIcon_TMsHMs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemIcon_TMsHMs.png; sourceTree = "<group>"; };
 		7F7EF3E4153FFCC80061D82E /* BagItemTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F7EF3E5153FFCC80061D82E /* BagItemTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F7EF3E6153FFCC80061D82E /* BagItemTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
@@ -2114,10 +2094,6 @@
 		7FBB60AC14E6A51000C24BA5 /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
 		7FBB60AF14E6A6B100C24BA5 /* TrainerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerCardViewController.h; sourceTree = "<group>"; };
 		7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerCardViewController.m; sourceTree = "<group>"; };
-		7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Badges.png; sourceTree = "<group>"; };
-		7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerCardTabIcon_Badges@2x.png"; sourceTree = "<group>"; };
-		7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerCardTabIcon_Info.png; sourceTree = "<group>"; };
-		7FBB60B814E6A95700C24BA5 /* TrainerCardTabIcon_Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerCardTabIcon_Info@2x.png"; sourceTree = "<group>"; };
 		7FBB60C514E6C31600C24BA5 /* gymLeaderImage_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gymLeaderImage_1.png; sourceTree = "<group>"; };
 		7FBB60C614E6C31600C24BA5 /* gymLeaderImage_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gymLeaderImage_2.png; sourceTree = "<group>"; };
 		7FBB60C714E6C31700C24BA5 /* gymLeaderImage_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gymLeaderImage_3.png; sourceTree = "<group>"; };
@@ -3291,14 +3267,6 @@
 			children = (
 				7F7EF3EE153FFCC80061D82E /* NavigationBar */,
 				7F7EF429153FFD4C0061D82E /* DetailView */,
-				7F7EF3DC153FFCC80061D82E /* BagItemIcon_BattleItems.png */,
-				7F7EF3DD153FFCC80061D82E /* BagItemIcon_Berries.png */,
-				7F7EF3DE153FFCC80061D82E /* BagItemIcon_Items.png */,
-				7F7EF3DF153FFCC80061D82E /* BagItemIcon_KeyItems.png */,
-				7F7EF3E0153FFCC80061D82E /* BagItemIcon_Mail.png */,
-				7F7EF3E1153FFCC80061D82E /* BagItemIcon_Medicine.png */,
-				7F7EF3E2153FFCC80061D82E /* BagItemIcon_Pokeballs.png */,
-				7F7EF3E3153FFCC80061D82E /* BagItemIcon_TMsHMs.png */,
 				7F7EF3E4153FFCC80061D82E /* BagItemTableViewCellBackground.png */,
 				7F7EF3E5153FFCC80061D82E /* BagItemTableViewCellBackground@2x.png */,
 				7F7EF3E6153FFCC80061D82E /* BagItemTableViewCellSelectedBackground.png */,
@@ -3386,10 +3354,6 @@
 		7F8EFA9E14D97D9A00FF1055 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				7FBB60B514E6A94B00C24BA5 /* TrainerCardTabIcon_Badges.png */,
-				7FBB60B614E6A94D00C24BA5 /* TrainerCardTabIcon_Badges@2x.png */,
-				7FBB60B714E6A95100C24BA5 /* TrainerCardTabIcon_Info.png */,
-				7FBB60B814E6A95700C24BA5 /* TrainerCardTabIcon_Info@2x.png */,
 				7F90C59E14E5577500147718 /* SixPokemonsDetail_Memo.png */,
 				7F90C59F14E5577500147718 /* SixPokemonsDetail_Memo@2x.png */,
 				7F90C5A014E5577500147718 /* SixPokemonsDetail_Move.png */,
@@ -3992,10 +3956,6 @@
 				7F90C5A814E5577500147718 /* SixPokemonsDetail_Skill.png in Resources */,
 				7F90C5A914E5577500147718 /* SixPokemonsDetail_Skill@2x.png in Resources */,
 				7FBB60AD14E6A51000C24BA5 /* UserAvatar.png in Resources */,
-				7FBB60B914E6A95F00C24BA5 /* TrainerCardTabIcon_Badges.png in Resources */,
-				7FBB60BA14E6A95F00C24BA5 /* TrainerCardTabIcon_Badges@2x.png in Resources */,
-				7FBB60BB14E6A95F00C24BA5 /* TrainerCardTabIcon_Info.png in Resources */,
-				7FBB60BC14E6A95F00C24BA5 /* TrainerCardTabIcon_Info@2x.png in Resources */,
 				7FBB60CD14E6C31700C24BA5 /* gymLeaderImage_1.png in Resources */,
 				7FBB60CE14E6C31700C24BA5 /* gymLeaderImage_2.png in Resources */,
 				7FBB60CF14E6C31700C24BA5 /* gymLeaderImage_3.png in Resources */,
@@ -4612,14 +4572,6 @@
 				7F7EF3C6153FFADC0061D82E /* TabView4TabsCircleBarBackground@2x.png in Resources */,
 				7F7EF3C7153FFADC0061D82E /* TabViewItemArrow.png in Resources */,
 				7F7EF3C8153FFADC0061D82E /* TabViewItemArrow@2x.png in Resources */,
-				7F7EF403153FFCC90061D82E /* BagItemIcon_BattleItems.png in Resources */,
-				7F7EF404153FFCC90061D82E /* BagItemIcon_Berries.png in Resources */,
-				7F7EF405153FFCC90061D82E /* BagItemIcon_Items.png in Resources */,
-				7F7EF406153FFCC90061D82E /* BagItemIcon_KeyItems.png in Resources */,
-				7F7EF407153FFCC90061D82E /* BagItemIcon_Mail.png in Resources */,
-				7F7EF408153FFCC90061D82E /* BagItemIcon_Medicine.png in Resources */,
-				7F7EF409153FFCC90061D82E /* BagItemIcon_Pokeballs.png in Resources */,
-				7F7EF40A153FFCC90061D82E /* BagItemIcon_TMsHMs.png in Resources */,
 				7F7EF40B153FFCC90061D82E /* BagItemTableViewCellBackground.png in Resources */,
 				7F7EF40C153FFCC90061D82E /* BagItemTableViewCellBackground@2x.png in Resources */,
 				7F7EF40D153FFCC90061D82E /* BagItemTableViewCellSelectedBackground.png in Resources */,
