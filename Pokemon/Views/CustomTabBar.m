@@ -151,8 +151,14 @@
     [arrow_ setFrame:button.frame];
     [self addSubview:arrow_];
     
-    self.newPositionForArrow = CGPointMake(button.frame.origin.x + 22.f, button.frame.origin.y + 22.f);
-    self.currArcForArrow = M_PI + asinf((kTabBarHeight - self.newPositionForArrow.y) / (kTabBarHeight - 26.f));
+    CGFloat tabAreaHalfHeight  = kTabBarHeight / 2.f;
+    CGFloat tabAreaHalfWidth   = kTabBarWdith  / 2.f;
+    CGFloat triangleHypotenuse = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
+    CGFloat radius            = triangleHypotenuse;
+    CGFloat centerOriginY     = triangleHypotenuse;
+    self.newPositionForArrow = CGPointMake(button.frame.origin.x + kTabBarItemSize / 2.f,
+                                           button.frame.origin.y + kTabBarItemSize / 2.f);
+    self.currArcForArrow = M_PI + asinf((centerOriginY - self.newPositionForArrow.y) / radius);
     self.previousItemIndex = 0;
     button = nil;
   }
@@ -170,8 +176,8 @@
       
       // Generate new postion for |arrow_|
       CGPoint newPosition = button.frame.origin;
-      newPosition.x += 22.f;
-      newPosition.y += 22.f;
+      newPosition.x += kTabBarItemSize / 2.f;
+      newPosition.y += kTabBarItemSize / 2.f;
       self.newPositionForArrow = newPosition;
     }
     else {
@@ -232,7 +238,7 @@
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex {
   UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINTabBarArrow]];
   [tabBarArrow setTag:kTabArrowImageTag];
-  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.f,
+  [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - kTabBarItemSize / 2.f,
                                    0.f,
                                    tabBarArrow.frame.size.width,
                                    tabBarArrow.frame.size.height)];
@@ -455,9 +461,14 @@
 }
 
 - (void)moveArrowToNewPosition {
-  CGFloat radius            = kTabBarHeight - 26.f; // Distance to Ball Center
+  CGFloat tabAreaHalfHeight  = kTabBarHeight / 2.f;
+  CGFloat tabAreaHalfWidth   = kTabBarWdith  / 2.f;
+  CGFloat triangleHypotenuse = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
+  
+  // Values for |path|
+  CGFloat radius            = triangleHypotenuse;
   CGFloat centerOriginX     = kTabBarWdith / 2;
-  CGFloat centerOriginY     = kTabBarHeight;
+  CGFloat centerOriginY     = triangleHypotenuse;
   CGFloat itemCenterOriginX = self.newPositionForArrow.x;
   CGFloat itemCenterOriginY = self.newPositionForArrow.y;
   CGFloat arc      = asinf((centerOriginY - itemCenterOriginY) / radius);
@@ -472,6 +483,14 @@
                itemCenterOriginX < self.arrow.frame.origin.x ? YES : NO); // Clock wise or not
   CAKeyframeAnimation * customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
   customFrameAnimation.path = path;
+//#ifdef DEBUG
+//  CAShapeLayer * pathTrack = [CAShapeLayer layer];
+//  pathTrack.path = path;
+//	pathTrack.strokeColor = [UIColor blackColor].CGColor;
+//	pathTrack.fillColor = [UIColor clearColor].CGColor;
+//	pathTrack.lineWidth = 10.0;
+//	[self.layer addSublayer:pathTrack];
+//#endif
   CGPathRelease(path);
   self.currArcForArrow = newAngle;
   
