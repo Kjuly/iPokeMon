@@ -66,7 +66,7 @@
 - (void)drawRect:(CGRect)rect {
 //  [super drawRect:rect];
   NSLog(@"*** CustomNavigationBar drawRect:");
-  UIImage * backgroundImage = [UIImage imageNamed:@"NavigationBarBackground.png"];
+  UIImage * backgroundImage = [UIImage imageNamed:kPMINNavBarBackground];
   [backgroundImage drawInRect:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
   // Create custom |backButton_|
   [self _setBackButtonForRoot];
@@ -177,7 +177,7 @@
   
   if (! self.backButton) {
     backButton_ = [[UIButton alloc] initWithFrame:originalFrame];
-    [backButton_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButton.png"] forState:UIControlStateNormal];
+    [backButton_ setImage:[UIImage imageNamed:kPMINNavBarBackButton] forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [backButton_ setAlpha:0.f];
   }
@@ -201,7 +201,7 @@
   if (self.backButtonToRoot == nil) {
     CGRect buttonFrame = CGRectMake((isButtonHidden_ ? 160.f : 10.f), 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
     backButtonToRoot_ = [[UIButton alloc] initWithFrame:buttonFrame];
-    [backButtonToRoot_ setImage:[UIImage imageNamed:@"CustomNavigationBar_backButtonToRoot.png"]
+    [backButtonToRoot_ setImage:[UIImage imageNamed:kPMINNavBarBackToRootButton]
                        forState:UIControlStateNormal];
     [backButtonToRoot_ addTarget:self action:@selector(backToRoot:) forControlEvents:UIControlEventTouchUpInside];
   }

@@ -41,7 +41,8 @@
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BagItemTableViewCellBackground.png"]]];
+    [backgroundView setBackgroundColor:
+      [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellBagItem]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
@@ -49,7 +50,7 @@
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:
-     [UIColor colorWithPatternImage:[UIImage imageNamed:@"BagItemTableViewCellSelectedBackground.png"]]];
+      [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellBagItemSelected]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];

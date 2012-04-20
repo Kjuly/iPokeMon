@@ -146,9 +146,9 @@
   [self.view addSubview:textView2_];
   
   confirmButton_ = [[UIButton alloc] init];
-  [confirmButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterButtonBackground.png"]
+  [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                             forState:UIControlStateNormal];
-  [confirmButton_ setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
+  [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
   [self moveConfirmButtonToBottom:YES animated:NO];
@@ -250,7 +250,7 @@
 
 // Show |confirmButton_|
 - (void)showConfirmButton:(NSNotification *)notification {
-  [self.confirmButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageConfirm.png"]
+  [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm]
                       forState:UIControlStateNormal];
   [self moveConfirmButtonToBottom:YES animated:YES];
 }
@@ -266,7 +266,7 @@
                      [self.confirmButton setFrame:confirmButtonFrame];
                    }
                    completion:^(BOOL finished) {
-                     [self.confirmButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageHalfCancel.png"]
+                     [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonHalfCancel]
                                          forState:UIControlStateNormal];
                    }];
 }

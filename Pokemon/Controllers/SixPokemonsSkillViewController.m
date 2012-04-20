@@ -99,10 +99,10 @@
   
   // HP Bar
   hpBarTotal_ = [[UIImageView alloc] initWithFrame:HPBarFrame];
-  [hpBarTotal_ setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
+  [hpBarTotal_ setImage:[UIImage imageNamed:kPMINPMHPBarBackground]];
   // HP Bar Left Part
   hpBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 0.f, HPBarFrame.size.height)];
-  [hpBarLeft_ setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+  [hpBarLeft_ setImage:[UIImage imageNamed:kPMINPMHPBar]];
   [hpBarTotal_ addSubview:hpBarLeft_];
   [dataView addSubview:hpBarTotal_];
   

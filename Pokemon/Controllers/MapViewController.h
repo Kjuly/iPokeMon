@@ -10,10 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "UtilityViewController.h"
-
-@interface MapViewController : UIViewController <UtilityViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
-{
+@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
   MKMapView         * mapView_;
   CLLocationManager * locationManager_;
   CLLocation        * location_;

@@ -77,10 +77,10 @@
     
     // Add child views as tab bar items
     self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Info.png", @"image", sixPokemonsInfoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Area.png", @"image", sixPokemonsMemoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Size.png", @"image", sixPokemonsSkillViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"PokemonDetail_Size.png", @"image", sixPokemonsMoveViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailArea, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
                         nil];
   }
   return self;
@@ -100,7 +100,7 @@
 - (void)loadView
 {
   [super loadView];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
   // Constants
   CGFloat const imageHeight     = 150.f;
@@ -121,7 +121,7 @@
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:imageContainerFrame];
   [imageContainer setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -166,8 +166,7 @@
   
   // Gender
   UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
-  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ?
-                             @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+  [genderImageView setImage:[UIImage imageNamed:self.pokemon.gender ? kPMINIconPMGenderM : kPMINIconPMGenderF]];
   [IDView addSubview:genderImageView];
   [genderImageView release];
   

@@ -110,9 +110,9 @@
   [dataView addSubview:toNextLevelLabelView_];
   
   expBarTotal_ = [[UIImageView alloc] initWithFrame:expBarTotalFrame];
-  [expBarTotal_ setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
+  [expBarTotal_ setImage:[UIImage imageNamed:kPMINPMExpBarBackground]];
   expBarCurrntPoint_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 0.f, expBarTotalFrame.size.height)];
-  [expBarCurrntPoint_ setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
+  [expBarCurrntPoint_ setImage:[UIImage imageNamed:kPMINPMExpBar]];
   [expBarTotal_ addSubview:expBarCurrntPoint_];
   [dataView addSubview:expBarTotal_];
   

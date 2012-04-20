@@ -21,10 +21,10 @@
   // before the sign-in web page loads
   self.initialHTMLString =
     [NSString stringWithFormat:@"<html><style type=\"text/css\">\
-     body{ background:#000 url('MainViewBackgroundBlack.png'); font-size:20px; color:#fff; font-family:Arial, Helvetica, sans-serif; text-align:center; }\
+     body{ background:#000 url('%@'); font-size:20px; color:#fff; font-family:Arial, Helvetica, sans-serif; text-align:center; }\
      div.main{ margin:160px auto; font-size:20px; font-weight:bold; }</style>\
      <body><div class=\"main\">%@</div></body></html>",
-     NSLocalizedString(@"PMSLoginSigninPage", nil)];
+     kPMINBackgroundBlack, NSLocalizedString(@"PMSLoginSigninPage", nil)];
   NSString * basePath = [[NSBundle mainBundle] bundlePath];
   [self.webView loadHTMLString:self.initialHTMLString
                        baseURL:[NSURL fileURLWithPath:basePath]];

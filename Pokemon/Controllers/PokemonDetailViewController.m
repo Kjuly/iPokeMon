@@ -74,7 +74,7 @@
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.f, 10.f, imageWidth, imageHeight)];
   [imageContainer setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailImageBackground.png"]]];
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -110,8 +110,7 @@
   [nameLabel setBackgroundColor:[UIColor clearColor]];
   [nameLabel setTextColor:[GlobalRender textColorOrange]];
   [nameLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                         [self.pokemon.sid intValue]]), nil)];
+  [nameLabel setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.pokemon.sid intValue]]), nil)];
   [nameLabel.layer setShadowColor:[UIColor blackColor].CGColor];
   [nameLabel.layer setShadowOpacity:1.f];
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];

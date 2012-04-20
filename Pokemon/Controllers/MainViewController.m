@@ -179,7 +179,7 @@
   [view release];
   
   [self.view setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [self.view setOpaque:NO];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -193,9 +193,9 @@
   self.centerMainButton = centerMainButton;
   [centerMainButton release];
   [self.centerMainButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.centerMainButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterButtonBackground.png"]
+  [self.centerMainButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                    forState:UIControlStateNormal];
-  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"] forState:UIControlStateNormal];
+  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
   [self.centerMainButton setTag:kTagMainViewCenterMainButton];
   [self.view addSubview:self.centerMainButton];
@@ -216,11 +216,11 @@
   self.mapButton = mapButton;
   [mapButton release];
   [self.mapButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.mapButton setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
+  [self.mapButton setBackgroundImage:[UIImage imageNamed:kPMINMapButtonBackgound]
                             forState:UIControlStateNormal];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices])
-    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
-  else [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
+  else [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
   [self.mapButton setOpaque:NO];
   [self.mapButton setTag:kTagMainViewMapButton];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
@@ -287,7 +287,7 @@
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-  [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
+  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled]
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
@@ -407,7 +407,7 @@
       
     case kCenterMainButtonStatusPokemonAppeared:
       centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-      [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"]
+      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled]
                              forState:UIControlStateNormal];
       break;
       
@@ -449,7 +449,7 @@
       // The observer is |GameMainViewController|
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleStart object:self userInfo:userInfo];
       [userInfo release];
-      [self.centerMainButton setImage:[UIImage imageNamed:@"MainViewCenterButtonImageNormal.png"]
+      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal]
                              forState:UIControlStateNormal];
       isGameMainViewOpening_  = YES;
       centerMainButtonStatus_ = kCenterMainButtonStatusPokemonAppeared;
@@ -719,10 +719,10 @@
                      isMapViewOpening_ = ! isMapViewOpening_;
                      
                      if (isMapViewOpening_)
-                       [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"]
+                       [self.mapButton setImage:[UIImage imageNamed:kPMINMainButtonHalfCancel]
                                        forState:UIControlStateNormal];
                      else {
-                       [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"]
+                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal]
                                        forState:UIControlStateNormal];
                        [self.mapViewController.view removeFromSuperview];
                      }
@@ -733,11 +733,11 @@
 - (void)updateLocationService:(NSNotification *)notification {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
-    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
   else {
-    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   }
 }
@@ -748,13 +748,13 @@
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:kUDKeyGeneralLocationServices];
-    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageLBSDisabled.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
     // Post notification to |MapViewController| to stop location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   } else {
     NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
-    [self.mapButton setImage:[UIImage imageNamed:@"MainViewMapButtonImageNormal.png"] forState:UIControlStateNormal];
+    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
     // Post notification to |MapViewController| to start location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }

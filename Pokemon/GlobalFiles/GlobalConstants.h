@@ -43,13 +43,14 @@ extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider 
 
 #pragma mark - Image & Icon name
 // PMIN: PokeMon Image Name
-extern NSString * const kPMINBackgroundBlack;
 extern NSString * const kPMINLaunchViewBackground;
+extern NSString * const kPMINBackgroundBlack;
+extern NSString * const kPMINBackgroundEmpty;
 // center menu
 extern NSString * const kPMINMainMenuBackground;
 extern NSString * const kPMINMainViewCenterCircleBackgound;
 extern NSString * const kPMINMainViewCenterCircle;
-extern NSString * const kPMINMainMenuBackgound;
+extern NSString * const kPMINMainMenuButtonBackground;
 extern NSString * const kPMINMainMenuUtilityButton; // %d: 1 - 6
 // center main button
 extern NSString * const kPMINMainButtonBackgoundNormal;
@@ -88,8 +89,11 @@ extern NSString * const kPMINTableViewCellSettingSelected;
 extern NSString * const kPMINTableViewCellBag;
 extern NSString * const kPMINTableViewCellBagSelected;
 extern NSString * const kPMINTableViewCellBagItem;
+extern NSString * const kPMINTableViewCellBagItemSelected;
 extern NSString * const kPMINTableViewCell;
 extern NSString * const kPMINTableViewCellBagMedicine;
+// table view header
+extern NSString * const kPMINTableViewHeaderSetting;
 // table view other elements
 extern NSString * const kPMINTableViewPokedexDefaultImage;
 // table view detail view elements
@@ -116,6 +120,7 @@ extern NSString * const kPMINIconBagItemInfo;
 extern NSString * const kPMINIconBagItemToss;
 extern NSString * const kPMINIconBagItemCancel;
 // trainer card related icons
+extern NSString * const kPMINTrainerAvatarDefault;
 extern NSString * const kPMINIconBadgeGold;
 extern NSString * const kPMINIconBadgeSilver;
 extern NSString * const kPMINIconBadgeBronze;

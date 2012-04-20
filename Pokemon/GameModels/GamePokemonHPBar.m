@@ -8,6 +8,8 @@
 
 #import "GamePokemonHPBar.h"
 
+#import "GlobalConstants.h"
+
 
 @interface GamePokemonHPBar () {
  @private
@@ -42,12 +44,12 @@
     self.oldHP    = hp;
     self.oldHPMax = hpMax;
     
-    self.hpMaxBar = [CCSprite spriteWithFile:@"PokemonHPBarBackground.png"];
+    self.hpMaxBar = [CCSprite spriteWithFile:kPMINPMHPBarBackground];
     [self.hpMaxBar setPosition:ccp(0, 9)];
     [self.hpMaxBar setAnchorPoint:ccp(0, 0)];
     [self addChild:self.hpMaxBar];
     
-    self.hpBar = [CCSprite spriteWithFile:@"PokemonHPBar.png"];
+    self.hpBar = [CCSprite spriteWithFile:kPMINPMHPBar];
     [self.hpBar setScaleX:(float)hp / (float)hpMax];
     [self.hpBar setPosition:ccp(0, 9)];
     [self.hpBar setAnchorPoint:ccp(0, 0)];

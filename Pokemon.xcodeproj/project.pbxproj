@@ -365,7 +365,6 @@
 		7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C3D614D7C4DF0091902D /* MainViewController.m */; };
 		7F51C40814D7D3C60091902D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C40714D7D3C60091902D /* MapViewController.m */; };
 		7F51C41514D7D4E60091902D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51C41414D7D4E60091902D /* MapKit.framework */; };
-		7F51C42014D7E0BF0091902D /* UtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51C41F14D7E0BF0091902D /* UtilityViewController.m */; };
 		7F51CAE1152B3B0200B97249 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CAE0152B3B0200B97249 /* HelpViewController.m */; };
 		7F51CAE3152B3D3700B97249 /* NewbieGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */; };
 		7F52451314FBDACE0019C75A /* WildPokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451214FBDACE0019C75A /* WildPokemon+DataController.m */; };
@@ -954,7 +953,6 @@
 		7FF3E3891514ECEA00F79316 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FF3E3881514ECEA00F79316 /* BagItems.plist */; };
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
-		7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F714F629BF007B7E22 /* SettingViewController.m */; };
 		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
 		7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* GlobalConstants.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
@@ -1492,8 +1490,6 @@
 		7F51C40614D7D3C60091902D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		7F51C40714D7D3C60091902D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		7F51C41414D7D4E60091902D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		7F51C41E14D7E0BF0091902D /* UtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityViewController.h; sourceTree = "<group>"; };
-		7F51C41F14D7E0BF0091902D /* UtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityViewController.m; sourceTree = "<group>"; };
 		7F51CADC152B3AEF00B97249 /* NewbieGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewbieGuideViewController.h; sourceTree = "<group>"; };
 		7F51CADF152B3B0200B97249 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		7F51CAE0152B3B0200B97249 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
@@ -2178,8 +2174,6 @@
 		7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7FF4B3F314F625F0007B7E22 /* SettingSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSectionHeaderView.h; sourceTree = "<group>"; };
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
-		7FF4B3F614F629BF007B7E22 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		7FF4B3F714F629BF007B7E22 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
 		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
 		7FF56402152823E200BA5E28 /* GlobalConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalConstants.m; sourceTree = "<group>"; };
@@ -2948,10 +2942,6 @@
 				7F51C3D614D7C4DF0091902D /* MainViewController.m */,
 				7F51C40614D7D3C60091902D /* MapViewController.h */,
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
-				7F51C41E14D7E0BF0091902D /* UtilityViewController.h */,
-				7F51C41F14D7E0BF0091902D /* UtilityViewController.m */,
-				7FF4B3F614F629BF007B7E22 /* SettingViewController.h */,
-				7FF4B3F714F629BF007B7E22 /* SettingViewController.m */,
 				7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */,
 				7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
@@ -4669,7 +4659,6 @@
 				7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */,
 				7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */,
 				7F51C40814D7D3C60091902D /* MapViewController.m in Sources */,
-				7F51C42014D7E0BF0091902D /* UtilityViewController.m in Sources */,
 				7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */,
 				7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */,
 				7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */,
@@ -4716,7 +4705,6 @@
 				7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */,
 				7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */,
 				7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */,
-				7FF4B3F814F629BF007B7E22 /* SettingViewController.m in Sources */,
 				7F7C88FA14F74FEA0023D079 /* GameMainViewController.m in Sources */,
 				7F7C890214F755170023D079 /* GlobalNotificationConstants.m in Sources */,
 				7F50B7A714F93B8F00883412 /* CCAction.m in Sources */,

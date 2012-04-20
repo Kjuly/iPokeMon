@@ -71,7 +71,7 @@
     NSInteger i = -1;
     for (UIButton * button in [self.centerMenu subviews]) {
       TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:++i];
-      [button setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+      [button setBackgroundImage:[UIImage imageNamed:kPMINMainMenuButtonBackground]
                         forState:UIControlStateNormal];
       [button setImage:tamedPokemon.pokemon.imageIcon forState:UIControlStateNormal];
       tamedPokemon = nil;

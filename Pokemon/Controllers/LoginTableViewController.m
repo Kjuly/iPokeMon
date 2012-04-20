@@ -75,7 +75,7 @@
   navigationBar = nil;
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
   // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -145,15 +145,15 @@
   NSString * iconName;
   switch (row) {
     //case kOAuthServiceProviderChoiceFacebook:
-      //iconName = @"SocialIconFacebook.png";
+      //iconName = kPMINIconSocialFacebook;
       //break;
       
     case kOAuthServiceProviderChoiceGoogle:
-      iconName = @"SocialIconGoogle.png";
+      iconName = kPMINIconSocialGoogle;
       break;
       
     //case kOAuthServiceProviderChoiceTwitter:
-      //iconName = @"SocialIconTwitter.png";
+      //iconName = kPMINIconSocialTwitter;
       //break;
       
     default:

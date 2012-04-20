@@ -188,14 +188,14 @@
   
   // Game battle scene's background
   NSString * backgroundImageName =
-    [NSString stringWithFormat:@"GameBattleSceneBackground_%.2d.png", [enemyPokemon.pokemon.habitat intValue]];
+    [NSString stringWithFormat:kPMINBattleSceneBackground, [enemyPokemon.pokemon.habitat intValue]];
   self.background = [CCSprite spriteWithFile:backgroundImageName];
   [self.background setPosition:ccp(kViewWidth / 2, kGameBattleSceneBackgroundHeight / 2 + kGameMenuMessageViewHeight)];
   [self addChild:self.background];
   
   // Pokemons' Points
-  self.playerPokemonPoint = [CCSprite spriteWithFile:@"GameBattleScenePMPoint.png"];
-  self.enemyPokemonPoint  = [CCSprite spriteWithFile:@"GameBattleScenePMPoint.png"];
+  self.playerPokemonPoint = [CCSprite spriteWithFile:kPMINBattleScenePMPoint];
+  self.enemyPokemonPoint  = [CCSprite spriteWithFile:kPMINBattleScenePMPoint];
   [self.playerPokemonPoint setPosition:ccp(kGameBattlePlayerPMPointPosX, kGameBattlePlayerPMPointPosY)];
   [self.enemyPokemonPoint  setPosition:ccp(kGameBattleEnemyPMPointPosX,  kGameBattleEnemyPMPointPosY)];
   [self addChild:self.playerPokemonPoint];

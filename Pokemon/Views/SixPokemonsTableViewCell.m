@@ -56,7 +56,8 @@
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-    [backgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokedexTableViewCellBackground.png"]]];
+    [backgroundView setBackgroundColor:
+      [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellPokedex]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
@@ -112,10 +113,10 @@
     
     // HP Bar
     HPBarTotal_ = [[UIImageView alloc] initWithFrame:HPBarFrame];
-    [HPBarTotal_ setImage:[UIImage imageNamed:@"PokemonHPBarBackground.png"]];
+    [HPBarTotal_ setImage:[UIImage imageNamed:kPMINPMHPBarBackground]];
     // HP Bar Left Part
     HPBarLeft_ = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 0.f, HPBarFrame.size.height)];
-    [HPBarLeft_ setImage:[UIImage imageNamed:@"PokemonHPBar.png"]];
+    [HPBarLeft_ setImage:[UIImage imageNamed:kPMINPMHPBar]];
     [HPBarTotal_ addSubview:HPBarLeft_];
     [dataView addSubview:HPBarTotal_];
     

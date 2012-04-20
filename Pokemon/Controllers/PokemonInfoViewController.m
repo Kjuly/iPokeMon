@@ -8,10 +8,11 @@
 
 #import "PokemonInfoViewController.h"
 
+#import "GlobalConstants.h"
+
 @implementation PokemonInfoViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
@@ -73,7 +74,8 @@
   
   ///Description
   UITextView * descriptionField = [[UITextView alloc] initWithFrame:descriptionFrame];
-  [descriptionField setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+  [descriptionField setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
   [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];

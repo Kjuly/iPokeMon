@@ -292,7 +292,7 @@ typedef enum {
   isSetttingButtonsHidden_ = YES;
   
   [self.imageView setImageWithURL:[self.trainer avatarURL]
-                 placeholderImage:[UIImage imageNamed:@"UserAvatar.png"]];
+                 placeholderImage:[UIImage imageNamed:kPMINTrainerAvatarDefault]];
   [self.IDLabel setText:[NSString stringWithFormat:@"ID: #%.8d", [self.trainer UID]]];
   [self.moneyLabel   setText:NSLocalizedString(@"PMSLabelMoney", nil)];
   [self.pokedexLabel setText:NSLocalizedString(@"PMSLabelPokedex", nil)];
@@ -431,15 +431,15 @@ typedef enum {
     [settingViewBackground release];
     
     UIButton * doneButton = [[UIButton alloc] initWithFrame:doneButtonFrame];
-    [doneButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"] forState:UIControlStateNormal];
-    [doneButton setImage:[UIImage imageNamed:@"ButtonIconConfirm.png"] forState:UIControlStateNormal];
+    [doneButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
+    [doneButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(commitSetting) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:doneButton];
     [doneButton release];
     
     UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"] forState:UIControlStateNormal];
-    [cancelButton setImage:[UIImage imageNamed:@"ButtonIconCancel.png"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:cancelButton];
     [cancelButton release];

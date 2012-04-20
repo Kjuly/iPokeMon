@@ -69,7 +69,8 @@
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
-  [self.tableAreaView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.tableAreaView setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   [self.tableAreaView setOpaque:NO];
   [self.view addSubview:self.tableAreaView];
 }

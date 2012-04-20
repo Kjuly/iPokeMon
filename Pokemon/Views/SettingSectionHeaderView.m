@@ -8,6 +8,7 @@
 
 #import "SettingSectionHeaderView.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 
 @implementation SettingSectionHeaderView
@@ -23,7 +24,7 @@
   self = [super initWithFrame:frame];
   if (self) {
     [self setBackgroundColor:
-     [UIColor colorWithPatternImage:[UIImage imageNamed:@"SettingTableViewSectionHeaderBackground.png"]]];
+     [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewHeaderSetting]]];
     [self setOpaque:NO];
     title_ = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 5.f, 300.f, 22.f)];
     [title_ setBackgroundColor:[UIColor clearColor]];

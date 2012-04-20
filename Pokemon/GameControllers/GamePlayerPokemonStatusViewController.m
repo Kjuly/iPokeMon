@@ -125,7 +125,7 @@
   [self.pokemonName setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                                 [playerPokemon.sid intValue]]), nil)];
   [self.pokemonGender setImage:[UIImage imageNamed:[playerPokemon.gender intValue]
-                                ? @"IconPokemonGenderM.png" : @"IconPokemonGenderF.png"]];
+                                ? kPMINIconPMGenderM : kPMINIconPMGenderF]];
   [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];
   NSInteger hp    = [playerPokemon.hp intValue];
   NSInteger hpMax = [[[playerPokemon maxStatsInArray] objectAtIndex:0] intValue];

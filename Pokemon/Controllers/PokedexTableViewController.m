@@ -48,7 +48,7 @@
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
     
     self.trainer = [TrainerController sharedInstance];
     
@@ -136,7 +136,7 @@
     [self configureCell:cell atIndexPath:indexPath];
   else {
     [cell.labelTitle setText:@"? ? ?"];
-    [cell.imageView setImage:[UIImage imageNamed:@"PokedexDefaultImage.png"]];
+    [cell.imageView setImage:[UIImage imageNamed:kPMINTableViewPokedexDefaultImage]];
   }
   // Set Pokemon ID as subtitle
   [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];

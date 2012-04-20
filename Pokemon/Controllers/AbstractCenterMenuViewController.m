@@ -78,7 +78,7 @@
   UIView * centerMenu = [[UIView alloc] initWithFrame:centerMenuFrame];
   self.centerMenu = centerMenu;
   [centerMenu release];
-  [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewCenterCircle.png"]]];
+  [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINMainMenuBackground]]];
   [self.centerMenu setOpaque:NO];
   [self.centerMenu setAlpha:0.f];
   [self.view addSubview:self.centerMenu];

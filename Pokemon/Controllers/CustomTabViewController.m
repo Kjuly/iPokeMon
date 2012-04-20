@@ -76,7 +76,7 @@
   UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate

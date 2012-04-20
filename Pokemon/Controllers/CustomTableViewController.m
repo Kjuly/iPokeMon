@@ -8,6 +8,9 @@
 
 #import "CustomTableViewController.h"
 
+#import "GlobalConstants.h"
+
+
 @implementation CustomTableViewController
 
 - (void)dealloc {
@@ -35,7 +38,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlack.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
 }
 
 - (void)viewDidUnload {

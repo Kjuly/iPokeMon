@@ -91,7 +91,7 @@
     // Set background
     UIImageView * backgroundImageView = [UIImageView alloc];
     [backgroundImageView initWithImage:
-      [UIImage imageNamed:[NSString stringWithFormat:@"TabView%dTabsCircleBarBackground.png", (NSInteger)itemCount]]];
+      [UIImage imageNamed:[NSString stringWithFormat:kPMINTabBarXTabsBackground, (NSInteger)itemCount]]];
     [self addSubview:backgroundImageView];
     [backgroundImageView release];
     
@@ -146,7 +146,7 @@
     [self setFrameForButtonsBasedOnItemCount];
     
     // Top Circle Arrow
-    arrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabViewItemArrow.png"]];
+    arrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINTabBarArrow]];
     UIButton * button = [buttons_ objectAtIndex:0];
     [arrow_ setFrame:button.frame];
     [self addSubview:arrow_];
@@ -230,7 +230,7 @@
 
 // Add TabBar Arrow Image
 - (void)addTabBarArrowAtIndex:(NSUInteger)itemIndex {
-  UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TabBarSelectedArrow.png"]];
+  UIImageView * tabBarArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINTabBarArrow]];
   [tabBarArrow setTag:kTabArrowImageTag];
   [tabBarArrow setFrame:CGRectMake([self horizontalLocationFor:itemIndex] - 22.f,
                                    0.f,

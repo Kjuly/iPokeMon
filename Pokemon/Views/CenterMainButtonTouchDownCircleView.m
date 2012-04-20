@@ -69,12 +69,12 @@
     // Set background & foreground image
     // Background
     backgroundImageView_ = [[UIImageView alloc] initWithImage:
-                            [UIImage imageNamed:@"MainViewCenterMainButtonTouchDownCircleViewBackground.png"]];
+                            [UIImage imageNamed:kPMINMainViewCenterCircleBackgound]];
     [backgroundImageView_ setAlpha:0.0f];
     [self addSubview:backgroundImageView_];
     // Foreground
     foregroundImageView_ = [[UIImageView alloc] initWithImage:
-                            [UIImage imageNamed:@"MainViewCenterMainButtonTouchDownCircleViewForeground.png"]];
+                            [UIImage imageNamed:kPMINMainViewCenterCircle]];
     [foregroundImageView_ setAlpha:0.0f];
     foregroundImageView_.layer.mask = circle_;
     [self addSubview:foregroundImageView_];

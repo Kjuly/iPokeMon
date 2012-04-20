@@ -51,27 +51,27 @@
     
     // Buttons
     use_ = [[UIButton alloc] initWithFrame:useFrame];
-    [use_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconUse.png"] forState:UIControlStateNormal];
+    [use_ setImage:[UIImage imageNamed:kPMINIconBagItemUse] forState:UIControlStateNormal];
     [use_ addTarget:self.delegate action:@selector(useItem:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:use_];
     
     give_ = [[UIButton alloc] initWithFrame:giveFrame];
-    [give_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconGive.png"] forState:UIControlStateNormal];
+    [give_ setImage:[UIImage imageNamed:kPMINIconBagItemGive] forState:UIControlStateNormal];
     [give_ addTarget:self.delegate action:@selector(giveItem:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:give_];
     
     toss_ = [[UIButton alloc] initWithFrame:tossFrame];
-    [toss_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconToss.png"] forState:UIControlStateNormal];
+    [toss_ setImage:[UIImage imageNamed:kPMINIconBagItemToss] forState:UIControlStateNormal];
     [toss_ addTarget:self.delegate action:@selector(tossItem:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:toss_];
     
     info_ = [[UIButton alloc] initWithFrame:infoFrame];
-    [info_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconInfo.png"] forState:UIControlStateNormal];
+    [info_ setImage:[UIImage imageNamed:kPMINIconBagItemInfo] forState:UIControlStateNormal];
     [info_ addTarget:self.delegate action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:info_];
     
     cancel_ = [[UIButton alloc] initWithFrame:cancelFrame];
-    [cancel_ setImage:[UIImage imageNamed:@"BagItemTableViewHiddenCellButtonIconCancel.png"] forState:UIControlStateNormal];
+    [cancel_ setImage:[UIImage imageNamed:kPMINIconBagItemCancel] forState:UIControlStateNormal];
     [cancel_ addTarget:self.delegate action:@selector(cancelHiddenCell:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:cancel_];
   }

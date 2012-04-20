@@ -33,14 +33,15 @@ NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider"; 
 
 #pragma mark - Image & Icon name
 // PMIN: PokeMon Image Name
-NSString * const kPMINBackgroundBlack       = @"MainViewBackgroundBlack.png";
 NSString * const kPMINLaunchViewBackground  = @"MainViewBackgroundBlackWithFog.png";
+NSString * const kPMINBackgroundBlack       = @"MainViewBackgroundBlack.png";
+NSString * const kPMINBackgroundEmpty       = @"EmptyTableViewBackground.png";
 // center menu
-NSString * const kPMINMainMenuBackground    = @"MainViewCenterCircle.png";
+NSString * const kPMINMainMenuBackground            = @"MainViewCenterCircle.png";
 NSString * const kPMINMainViewCenterCircleBackgound = @"MainViewCenterMainButtonTouchDownCircleViewBackground.png";
-NSString * const kPMINMainViewCenterCircle  = @"MainViewCenterMainButtonTouchDownCircleViewForeground.png";
-NSString * const kPMINMainMenuBackgound     = @"MainViewCenterMenuButtonBackground.png";
-NSString * const kPMINMainMenuUtilityButton = @"MainViewCenterMenuButton%d.png"; // %d: 1 - 6
+NSString * const kPMINMainViewCenterCircle          = @"MainViewCenterMainButtonTouchDownCircleViewForeground.png";
+NSString * const kPMINMainMenuButtonBackground      = @"MainViewCenterMenuButtonBackground.png";
+NSString * const kPMINMainMenuUtilityButton         = @"MainViewCenterMenuButton%d.png"; // %d: 1 - 6
 // center main button
 NSString * const kPMINMainButtonBackgoundNormal  = @"MainViewCenterButtonBackground.png";
 NSString * const kPMINMainButtonBackgoundEnable  = @"GameMenuSixPokemonsUnitViewCurrPokemonButtonBackground.png";//!!!!!
@@ -78,8 +79,11 @@ NSString * const kPMINTableViewCellSettingSelected = @"SettingTableViewSectionHe
 NSString * const kPMINTableViewCellBag             = @"BagTableViewCellBackground.png";
 NSString * const kPMINTableViewCellBagSelected     = @"BagTableViewCellSelectedBackground.png";
 NSString * const kPMINTableViewCellBagItem         = @"BagItemTableViewCellBackground.png";
+NSString * const kPMINTableViewCellBagItemSelected = @"BagItemTableViewCellSelectedBackground.png";
 NSString * const kPMINTableViewCell                = @"BagItemTableViewCellSelectedBackground.png";
 NSString * const kPMINTableViewCellBagMedicine     = @"BagMedicineTableViewCellBackground.png";
+// table view header
+NSString * const kPMINTableViewHeaderSetting       = @"SettingTableViewSectionHeaderBackground.png";
 // table view other elements
 NSString * const kPMINTableViewPokedexDefaultImage = @"PokedexDefaultImage.png";
 // table view detail view elements
@@ -106,6 +110,7 @@ NSString * const kPMINIconBagItemInfo      = @"BagItemTableViewHiddenCellButtonI
 NSString * const kPMINIconBagItemToss      = @"BagItemTableViewHiddenCellButtonIconToss.png";
 NSString * const kPMINIconBagItemCancel    = @"BagItemTableViewHiddenCellButtonIconCancel.png";
 // trainer card related icons
+NSString * const kPMINTrainerAvatarDefault  = @"UserAvatar.png";
 NSString * const kPMINIconBadgeGold         = @"IconBadgeGold.png";
 NSString * const kPMINIconBadgeSilver       = @"IconBadgeSilver.png";
 NSString * const kPMINIconBadgeBronze       = @"IconBadgeBronze.png";

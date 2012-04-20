@@ -8,6 +8,7 @@
 
 #import "TrainerBadgeView.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 
 
@@ -79,15 +80,15 @@
     
     // Badges Icon
     badgeGoldIcon_ = [[UIImageView alloc] initWithFrame:badgeGoldIconFrame];
-    [badgeGoldIcon_ setImage:[UIImage imageNamed:@"IconBadgeGold.png"]];
+    [badgeGoldIcon_ setImage:[UIImage imageNamed:kPMINIconBadgeGold]];
     [self.badgesContainer addSubview:badgeGoldIcon_];
     
     badgeSilverIcon_ = [[UIImageView alloc] initWithFrame:badgeSilverIconFrame];
-    [badgeSilverIcon_ setImage:[UIImage imageNamed:@"IconBadgeSilver.png"]];
+    [badgeSilverIcon_ setImage:[UIImage imageNamed:kPMINIconBadgeSilver]];
     [self.badgesContainer addSubview:badgeSilverIcon_];
     
     badgeBronzeIcon_ = [[UIImageView alloc] initWithFrame:badgeBronzeIconFrame];
-    [badgeBronzeIcon_ setImage:[UIImage imageNamed:@"IconBadgeBronze.png"]];
+    [badgeBronzeIcon_ setImage:[UIImage imageNamed:kPMINIconBadgeBronze]];
     [self.badgesContainer addSubview:badgeBronzeIcon_];
     
     // Badges Count label

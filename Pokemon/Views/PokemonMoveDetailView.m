@@ -8,6 +8,7 @@
 
 #import "PokemonMoveDetailView.h"
 
+#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "PokemonMoveView.h"
 #import "PokemonInfoLabelView.h"
@@ -64,7 +65,7 @@
     // Move Infomation View
     infoTextView_ = [[UITextView alloc] initWithFrame:infoTextViewFrame];
     [infoTextView_ setBackgroundColor:[UIColor colorWithPatternImage:
-                                       [UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+                                       [UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
     [infoTextView_ setOpaque:NO];
     [infoTextView_ setEditable:NO];
     [infoTextView_ setFont:[GlobalRender textFontNormalInSizeOf:14.0f]];

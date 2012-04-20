@@ -82,29 +82,29 @@
   CGRect cancelButtonFrame  = mainButtonFrame;
   
   mainButton_ = [[UIButton alloc] initWithFrame:mainButtonFrame];
-  [mainButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+  [mainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                          forState:UIControlStateNormal];
   [mainButton_ addTarget:self action:@selector(open) forControlEvents:UIControlEventTouchUpInside];
   [self.view  addSubview:mainButton_];
   
   confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
-  [confirmButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+  [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                             forState:UIControlStateNormal];
-  [confirmButton_ setImage:[UIImage imageNamed:@"ButtonIconConfirm.png"] forState:UIControlStateNormal];
+  [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [confirmButton_ setAlpha:0.f];
   [self.view addSubview:confirmButton_];
   
   infoButton_ = [[UIButton alloc] initWithFrame:infoButtonFrame];
-  [infoButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+  [infoButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                          forState:UIControlStateNormal];
-  [infoButton_ setImage:[UIImage imageNamed:@"ButtonIconInfo.png"] forState:UIControlStateNormal];
+  [infoButton_ setImage:[UIImage imageNamed:kPMINMainButtonInfo] forState:UIControlStateNormal];
   [infoButton_ setAlpha:0.f];
   [self.view addSubview:infoButton_];
   
   cancelButton_ = [[UIButton alloc] initWithFrame:cancelButtonFrame];
-  [cancelButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewCenterMenuButtonBackground.png"]
+  [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
-  [cancelButton_ setImage:[UIImage imageNamed:@"ButtonIconCancel.png"] forState:UIControlStateNormal];
+  [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancel] forState:UIControlStateNormal];
   [cancelButton_ addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
 }
 

@@ -76,7 +76,7 @@
   
   // Set Buttons' style in center menu view
   for (UIButton * button in [self.centerMenu subviews]) {
-    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"MainViewCenterMenuButton%d", button.tag]]
+    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINMainMenuUtilityButton, button.tag]]
             forState:UIControlStateNormal];
     [button setAlpha:.95f];
   }

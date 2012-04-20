@@ -76,7 +76,7 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainViewBackgroundBlackWithFog.png"]]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [self.view setOpaque:NO];
   [self.view setAlpha:0.f];
 //  [self.view setBackgroundColor:[UIColor colorWithRed:(30.f / 255.f)
@@ -108,7 +108,7 @@
   [self.view addSubview:message_];
   
   refreshButton_ = [[UIButton alloc] initWithFrame:refreshButtonFrame];
-  [refreshButton_ setImage:[UIImage imageNamed:@"IconRefresh.png"] forState:UIControlStateNormal];
+  [refreshButton_ setImage:[UIImage imageNamed:kPMINIconRefresh] forState:UIControlStateNormal];
   [refreshButton_ addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:refreshButton_];
 }

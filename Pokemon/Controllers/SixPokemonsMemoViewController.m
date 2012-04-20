@@ -35,7 +35,7 @@
   ///Memo
   UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [memoField setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:@"PokemonDetailDescriptionBackground.png"]]];
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
   [memoField setOpaque:NO];
   [memoField setEditable:NO];
   [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];

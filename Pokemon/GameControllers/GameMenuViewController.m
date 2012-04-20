@@ -241,7 +241,7 @@ typedef enum {
   self.messageView = messageView;
   [messageView release];
   [self.messageView setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameMessageViewBackground.png"]]];
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBattleMenuMessageViewBackground]]];
   [self.messageView setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
   [self.messageView setEditable:NO];
@@ -263,7 +263,7 @@ typedef enum {
   self.pokeball = pokeball;
   [pokeball release];
   [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
-  [self.pokeball setImage:[UIImage imageNamed:@"GamePokeball.png"]];
+  [self.pokeball setImage:[UIImage imageNamed:kPMINBattleElementPokeball]];
   [self.view addSubview:self.pokeball];
 }
 

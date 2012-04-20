@@ -120,9 +120,9 @@
                                                              kMapButtonSize,
                                                              kMapButtonSize)];
   [cancelButton_ setContentMode:UIViewContentModeScaleAspectFit];
-  [cancelButton_ setBackgroundImage:[UIImage imageNamed:@"MainViewMapButtonBackground.png"]
+  [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINBackgroundBlack]
                            forState:UIControlStateNormal];
-  [cancelButton_ setImage:[UIImage imageNamed:@"MainViewMapButtonImageHalfCancel.png"] forState:UIControlStateNormal];
+  [cancelButton_ setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel] forState:UIControlStateNormal];
   [cancelButton_ setOpaque:NO];
   [cancelButton_ addTarget:self action:@selector(unloadViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:cancelButton_];
