@@ -264,16 +264,16 @@
   CGFloat degree;
   switch ([self.tabBarItems count]) {
     case 2:
-      degree = 45;
+      degree = 12;
       break;
       
     case 3:
-      degree = 35;
+      degree = 10;
       break;
       
     case 4:
     default:
-      degree = 25;
+      degree = 8;
       break;
   }
   return degree * (NSInteger)(previousItemIndex - itemIndex) * M_PI / 180;
