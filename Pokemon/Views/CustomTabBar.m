@@ -89,11 +89,11 @@
     delegate_ = tabBarDelegate;
     
     // Set background
-    UIImageView * backgroundImageView = [UIImageView alloc];
-    [backgroundImageView initWithImage:
-      [UIImage imageNamed:[NSString stringWithFormat:kPMINTabBarXTabsBackground, (NSInteger)itemCount]]];
-    [self addSubview:backgroundImageView];
-    [backgroundImageView release];
+//    UIImageView * backgroundImageView = [UIImageView alloc];
+//    [backgroundImageView initWithImage:
+//      [UIImage imageNamed:[NSString stringWithFormat:kPMINTabBarXTabsBackground, (NSInteger)itemCount]]];
+//    [self addSubview:backgroundImageView];
+//    [backgroundImageView release];
     
     /*
     CAKeyframeAnimation *customFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
@@ -360,30 +360,49 @@
 #pragma mark - Private Methods
 
 - (void)setFrameForButtonsBasedOnItemCount {
-  CGFloat tabAreaHalfHeight      = kTabBarHeight;
-  CGFloat tabAreaHalfWidth       = kTabBarWdith  / 2;
-  CGFloat buttonRadius           = 22.f;
-  CGFloat triangleHypotenuse     = tabAreaHalfHeight - 26.f; // Distance to Ball Center
+  //
+  //    ______|tabAreaHalfWidth|
+  //    |
+  //    |  |
+  //    v  | <- |tabBarHalfHeight|
+  // ---a--------- <- bottom of window (kViewHeight)
+  // \     |
+  //  c <---|triangleHypotenuse|: distance to Ball Center
+  //   \   |b: <- |fixValue|
+  //    \ ß|
+  //     \/|
+  //      \|
+  //
+  //   |degree|    = |ß|
+  //   |triangleA| = |fixValue| + <distance from POINT pos Y to bottom of window>
+  //   |triangleB| = |distance from POINT pos X to center line|
+  //
+  CGFloat tabAreaHalfHeight  = kTabBarHeight / 2.f;
+  CGFloat tabAreaHalfWidth   = kTabBarWdith  / 2.f;
+  CGFloat buttonRadius       = kTabBarItemSize / 2.f;
+  CGFloat triangleHypotenuse = (pow(tabAreaHalfHeight, 2) + pow(tabAreaHalfWidth, 2)) / kTabBarHeight;
+  CGFloat fixValue           = triangleHypotenuse - tabAreaHalfHeight;
   
   switch ([self.buttons count]) {
     case 2: {
-      CGFloat degree    = M_PI / 4.f; // = 45 * M_PI / 180
+      CGFloat degree    = 12.f * M_PI / 180.f; // = 45 * M_PI / 180
+      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
-                                                  tabAreaHalfHeight - triangleB - buttonRadius)];
+                                                  tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
-                                                  tabAreaHalfHeight - triangleB - buttonRadius)];
+                                                  tabAreaHalfHeight - triangleA - buttonRadius)];
       break;
     }
       
-    case 3: {      
-      CGFloat degree    = 65 * M_PI / 180;
-      CGFloat triangleA = triangleHypotenuse * cosf(degree);
+    case 3: {
+      CGFloat degree    = M_PI / 10.f; // 18.f * M_PI / 180.f
+      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth - buttonRadius,
-                                                  tabAreaHalfHeight - triangleHypotenuse - buttonRadius)];
+                                                  tabAreaHalfHeight - triangleHypotenuse + fixValue - buttonRadius)];
       [self setButtonWithTag:2 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       break;
@@ -391,16 +410,16 @@
       
     case 4:
     default: {
-      CGFloat degree    = 65 * M_PI / 180;
-      CGFloat triangleA = triangleHypotenuse * cosf(degree);
+      CGFloat degree    = M_PI / 9.f; // 20.f * M_PI / 180.f
+      CGFloat triangleA = triangleHypotenuse * cosf(degree) - fixValue;
       CGFloat triangleB = triangleHypotenuse * sinf(degree);
       [self setButtonWithTag:0 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       [self setButtonWithTag:3 origin:CGPointMake(tabAreaHalfWidth + triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
       
-      degree    = 24 * M_PI / 180;
-      triangleA = triangleHypotenuse * cosf(degree);
+      degree    = M_PI / 20.f; // 9.f * M_PI / 180.f
+      triangleA = triangleHypotenuse * cosf(degree) - fixValue;
       triangleB = triangleHypotenuse * sinf(degree);
       [self setButtonWithTag:1 origin:CGPointMake(tabAreaHalfWidth - triangleB - buttonRadius,
                                                   tabAreaHalfHeight - triangleA - buttonRadius)];
@@ -414,7 +433,7 @@
 // Set Frame for button with special tag
 - (void)setButtonWithTag:(NSInteger)buttonTag origin:(CGPoint)origin {
   UIButton * button = [self.buttons objectAtIndex:buttonTag];
-  [button setFrame:CGRectMake(origin.x, origin.y, 44.f, 44.f)];
+  [button setFrame:CGRectMake(origin.x, origin.y, kTabBarItemSize, kTabBarItemSize)];
   button = nil;
 }
 
