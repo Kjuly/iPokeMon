@@ -25,6 +25,7 @@ typedef enum {
 @interface TrainerCardViewController () {
  @private
   UIView            * mainView_;
+  UIView            * avatarArea_;
   UIImageView       * imageView_;
   UIView            * IDView_;
   UILabel           * IDLabel_;
@@ -51,6 +52,7 @@ typedef enum {
 }
 
 @property (nonatomic, retain) UIView            * mainView;
+@property (nonatomic, retain) UIView            * avatarArea;
 @property (nonatomic, retain) UIImageView       * imageView;
 @property (nonatomic, retain) UIView            * IDView;
 @property (nonatomic, retain) UILabel           * IDLabel;
@@ -86,6 +88,7 @@ typedef enum {
 @implementation TrainerCardViewController
 
 @synthesize mainView     = mainView_;
+@synthesize avatarArea   = avatarArea_;
 @synthesize imageView    = imageView_;
 @synthesize IDView       = IDView_;
 @synthesize IDLabel      = IDLabel_;
@@ -118,6 +121,7 @@ typedef enum {
 
 - (void)releaseSubviews {
   self.mainView                  = nil;
+  self.avatarArea                = nil;
   self.imageView                 = nil;
   self.IDView                    = nil;
   self.IDLabel                   = nil;
@@ -139,8 +143,7 @@ typedef enum {
   self.transparentView      = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -167,21 +170,21 @@ typedef enum {
   [view release];
   
   // Constants
-  CGFloat const imageHeight       = 100.f;
-  CGFloat const imageWidth        = 100.f;
+  CGFloat const avatarAreaSize    = 112.f;
+  CGFloat const imageSize         = 100.f;
   CGFloat const labelHeight       = 30.f;
   CGFloat const labelWidth        = 105.f;
   CGFloat const valueHeight       = 30.f;
   CGFloat const valueWidth        = 290.f - labelWidth;
-  CGFloat const nameLabelWidth    = 290.f - imageWidth;
-  CGFloat const nameLabelHeight   = imageHeight / 2 - labelHeight;
+  CGFloat const nameLabelWidth    = 290.f - imageSize;
+  CGFloat const nameLabelHeight   = imageSize / 2 - labelHeight;
   
-  CGRect  const mainViewFrame     = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - kTopBarHeight);
-  CGRect  const IDViewFrame       = CGRectMake(imageWidth + 30.f, 30.f, 290.f - imageWidth, imageHeight - 50.f);
-  CGRect  const dataViewFrame     = CGRectMake(15.f, imageHeight + 35.f, 290.f, 195.f);
-  CGRect  const IDLabelFrame      = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
-  CGRect  const nameLabelFrame    = CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight);
-  CGRect  const badgeViewFrame    = CGRectMake(0.f, labelHeight * 2, 290.f, labelHeight);
+  CGRect  const mainViewFrame  = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - kTopBarHeight);
+  CGRect  const IDViewFrame    = CGRectMake(avatarAreaSize + 20.f, 30.f, 290.f - avatarAreaSize, avatarAreaSize - 50.f);
+  CGRect  const dataViewFrame  = CGRectMake(15.f, avatarAreaSize + 35.f, 290.f, 195.f);
+  CGRect  const IDLabelFrame   = CGRectMake(0.f, 0.f, IDViewFrame.size.width, labelHeight);
+  CGRect  const nameLabelFrame = CGRectMake(10.f, labelHeight, nameLabelWidth, nameLabelHeight);
+  CGRect  const badgeViewFrame = CGRectMake(0.f, labelHeight * 2, 290.f, labelHeight);
   CGRect  const adventureStartedTimeLabelFrame =
     CGRectMake(0.f, dataViewFrame.size.height - 50.f, 150.f, labelHeight);
   CGRect  const adventureStartedTimeValueFrame =
@@ -192,14 +195,21 @@ typedef enum {
   mainView_ = [[UIView alloc] initWithFrame:mainViewFrame];
   [self.view addSubview:mainView_];
   
-  ///Left Image View
-  imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(15.f, 20.f, imageWidth, imageHeight)];
+  ///Left avatar area
+  avatarArea_ = [[UIView alloc] initWithFrame:CGRectMake(15.f, 20.f, avatarAreaSize, avatarAreaSize)];
+  [avatarArea_ setBackgroundColor:[UIColor whiteColor]];
+  [avatarArea_.layer setCornerRadius:(avatarAreaSize / 2.f)];
+  [self.mainView addSubview:avatarArea_];
+  
+  // Image View
+  imageView_ = [[UIImageView alloc] initWithFrame:
+                  CGRectMake(avatarAreaSize - imageSize - 2.f, avatarAreaSize - imageSize - 2.f, imageSize, imageSize)];
   [imageView_ setUserInteractionEnabled:YES];
   [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
   [imageView_ setBackgroundColor:[UIColor clearColor]];
   [imageView_.layer setMasksToBounds:YES];
-  [imageView_.layer setCornerRadius:5.f];
-  [self.mainView addSubview:imageView_];
+  [imageView_.layer setCornerRadius:(imageSize / 2.f)];
+  [self.avatarArea addSubview:imageView_];
   
   
   ///Right ID View
@@ -209,7 +219,7 @@ typedef enum {
   IDLabel_ = [[UILabel alloc] initWithFrame:IDLabelFrame];
   [IDLabel_ setBackgroundColor:[UIColor clearColor]];
   [IDLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
-  [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+  [IDLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
   [IDLabel_.layer setShadowColor:[UIColor blackColor].CGColor];
   [IDLabel_.layer setShadowOpacity:1.f];
   [IDLabel_.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
