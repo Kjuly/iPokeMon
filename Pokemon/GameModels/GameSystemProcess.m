@@ -1287,6 +1287,12 @@ static GameSystemProcess * gameSystemProcess = nil;
 //    5 levels: 350%
 //    6 levels: 400%
 //
+//
+//  !!!TODO:
+//     (1) effect on stat is not involved.
+//     (2) PM's status is not involved.
+//  REFERENCE: http://www.serebii.net/games/damage.shtml
+//
 - (NSInteger)calculateDamageForMove:(Move *)move {
   if ([move.baseDamage intValue] == 0)
     return 0;
@@ -1555,9 +1561,10 @@ static GameSystemProcess * gameSystemProcess = nil;
 // Catching Wild Pokemon
 - (void)catchingWildPokemon {
   NSLog(@"|%@| - |catchingWildPokemon|", [self class]);
-  // Only 3 times for checking catching succeed or not
+  // Only 3 times for checking catching succeed or not,
+  //   the end of third time means caught the Wild PM
   if (++catchingWildPokemonTimeCounter_ > 3) {
-    [self caughtWildPokemonSucceed:NO];
+    [self caughtWildPokemonSucceed:YES];
     return;
   }
   
@@ -1573,21 +1580,106 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Return YES if caught Wild Pokemon succeed or failed.
+//
+//  There are many deciding factors to the capture of the Pokémon. These include that Pokémon's Maximum HP, Current HP, Status Ailment and it's Catch Rate. The Pokémon's Catch Rate is a number between 0 and 255, the higher the better. You can see the Catch Rates for the Pokémon in our Pokédex.
+//
+//  The formula for determining the capture of the Pokémon is as follows:
+//
+//    CatchValue = ((( 3 * Max HP - 2 * HP ) * (Catch Rate * Ball Modifier ) / (3 * Max HP) ) * Status Modifier
+//
+//  The Capture Value for that is then put through another equation to determine whether or not the Pokémon is to be captured.
+//
+//    Catch = 1048560 / √(√(16711680 / CatchValue)) = (220 - 24) / √(√((224 - 216) / CatchValue))
+//
+//  If |CatchValue| is 255, then capture is guaranteed. However, if not, then the second formula is taken into account. When you throw the Pokéball, and whenever the Pokéball shakes, a random number is generated and if the random number is greater than the value output through the above formula, then capture fails. If however, the random number is lower, then it will go to the next attempt and generate another random number. This is done for three shakes until the capture is complete.
+//
+//  Now the Maximum HP and Current HP of the Pokémon that you are about to catch are obviously not known by you, however that is what the colour coding is for and really the lower the hit points the better the chance
+//
+//
+//  Status Ailments are a completely different amount however. Here is a small table stating the Values that each of the Status Ailments is given:
+//
+//    |STATUS    |FIGURE
+//     Frozen:    2
+//     Sleep:     2
+//     Paralysis: 1.5
+//     Burn:      1.5
+//     Poison:    1.5
+//     None:      1
+//
+//  Now this does have a major effect on the capture and could definately be the difference between capturing the Pokémon.
+//
+//
+//  !!!TODO:
+//     [[POKEBALL]] & [[CRITICAL CAPTURE]] is not involved.
+//
+//  REFERENCE: http://www.serebii.net/games/capture.shtml
+//
+//  [[POKEBALL]]
+//  The final element of capturing Pokémon is the type of Pokéball that is used. Each of the Pokéballs either multiply or add to the figure before the final division of 256 is done in order to determine the final amount. Below are the Pokéballs and their effects and the amount they actually alter. The Pokéballs from Johto made from apricorns do not give boosts in the Ball Modifier, but rather the actual Capture Rate of the Pokémon, leading up to a maximum possible of 255. Click the Pokéball's icon or name to go to the ItemDex page for locations and more details
+//
+//
+//  [[CRITICAL CAPTURE]]
+//
+//
+//  !!!TODO:
+//     |ballModifier| & |statusModifier| is not involved.
+//
+//
 - (BOOL)hasDoneForCatchingWildPokemonResult {
   NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
-  // 0 <= |rareness| <= 255, the higher the number, the more likely a capture
+  // Formula effects
+  // max & current HP values
+  double maxHP = [[[self.enemyPokemon maxStatsInArray] objectAtIndex:0] doubleValue];
+  double HP    = [self.enemyPokemon.hp doubleValue];
+  // 0 <= |catchRate|(|rareness|) <= 255, the higher the number, the more likely a capture
   //   (0 means it cannot be caught by anything except a Master Ball).
-  if (arc4random() % 255 > [self.enemyPokemon.pokemon.rareness intValue])
-    return NO;
+  double catchRate      = [self.enemyPokemon.pokemon.rareness doubleValue];
+  // effect of the type of Pokéball that is used
+  double ballModifier   = 1;
+  // effect of PM's current |status| (frozen:2, sleep:2, paralysis:1.5, burn:1.5, poison:1.5, none:1)
+  double statusModifier = 1;
   
-  // Calculation for catching WildPokemon result,
-  //   based on Pokemon |status|, |hp|, etc.
+  // If CatchValue is 255, then capture is guaranteed.
+  // However, if not, then the second formula is taken into account.
+  // When you throw the Pokéball, and whenever the Pokéball shakes,
+  //   a random number is generated and if the random number is greater than
+  //   the value output through the above formula, then capture fails.
+  // If however, the random number is lower, then it will go to the next attempt
+  //   and generate another random number.
+  // This is done for THREE shakes until the capture is complete.
+  //
   BOOL succeed = NO;
-  if (arc4random() % 2 == 1) {
-    succeed = YES;
-  }
-  [self caughtWildPokemonSucceed:succeed];
   
+  // FORMULA for |catchValue|
+  //   CatchValue = ((( 3 * Max HP - 2 * HP ) * (Catch Rate * Ball Modifier)) / (3 * Max HP)) * Status Modifier
+  double catchValue;
+  catchValue = (((3 * maxHP - 2 * HP) * (catchRate * ballModifier)) / (3 * maxHP)) * statusModifier;
+  NSLog(@"...catchValue:%f", catchValue);
+  
+  // if |catchValue| is 255, then capture is guaranteed, the bigger, the better
+  if (round(catchValue) >= 255)
+    succeed = YES;
+  // if not, the second formula is taken into account
+  else {
+    // FORMULA for |catch|
+    //   Catch = 1048560 / √(√(16711680 / CatchValue))
+    double catch = 1048560 / sqrt(sqrt(16711680 / catchValue));
+    NSLog(@"...catch:%f", catch);
+    
+    // if the random number is greater than |catchValue|, capture fails
+    int randomNumber = arc4random();
+    NSLog(@"...randomNumber:%d", randomNumber);
+    if (randomNumber > catch)
+      succeed = NO;
+    // otherwise (the random number is lower), go to the next attempt
+    //   and generate another random number.
+    // if this case last to the 3rd time, the wild PM is caught
+    else return NO;
+  }
+  
+  // if |catchValue >= 255|(SUCCEED) or |randomeNumber > catch|(FAILED)
+  //   run this method to show the capture result
+  [self caughtWildPokemonSucceed:succeed];
   return YES;
 }
 
