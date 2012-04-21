@@ -27,7 +27,7 @@
 - (NSArray *)fourMovesPPInArray;
 - (NSArray *)maxStatsInArray;
 
-// Set
-- (void)initMaxStatsAndHP;
+// Update data for different |level|
+- (void)update;
 
 @end

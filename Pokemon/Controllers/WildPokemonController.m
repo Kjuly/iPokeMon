@@ -39,8 +39,6 @@
 - (void)cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
 - (NSInteger)calculateLevel;
-- (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
-- (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
 
 - (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
 - (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType;
@@ -333,29 +331,14 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.sid    = [NSNumber numberWithInt:SID];
   wildPokemon.status = [NSNumber numberWithInt:kPokemonStatusNormal];
   
-  // Fetch Pokemon entity with |sid|
-  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:SID];
-  wildPokemon.pokemon = pokemon; // Relationship betweent Pokemon & WildPokemon
+  // Calculate |level| based on Trainer's related data
+  //   then, update data for current level.
+  // datas included:|gender|, |fourMoves|, |maxStats|, |hp|, |exp|, |toNextLevel|
+  wildPokemon.level = [NSNumber numberWithInt:[self calculateLevel]];
+  [wildPokemon update];
   
-  // |level|
-  NSInteger level = [self calculateLevel];
-  wildPokemon.level = [NSNumber numberWithInt:level];
-  
-  // |gender|
-  wildPokemon.gender = [self calculateGenderWithPokemonGenderRate:[pokemon.genderRate intValue]];
-  
-  // |fourMoves|
-  wildPokemon.fourMoves = [self calculateFourMovesWithMoves:[pokemon.moves componentsSeparatedByString:@","] level:level];
-  
-  // |maxStats| & |hp|
-  [wildPokemon initMaxStatsAndHP];
-  
-  // |exp| & |toNextLevel|
-  // Calculate EXP based on Level Formular with value:|level|
-  wildPokemon.exp         = [NSNumber numberWithInt:[pokemon expAtLevel:level]];
-  wildPokemon.toNextLevel = [NSNumber numberWithInt:[pokemon expToNextLevel:(level + 1)]];
-  
-  pokemon = nil;
+  // Relationship betweent Pokemon & WildPokemon
+  wildPokemon.pokemon = [Pokemon queryPokemonDataWithID:SID];
 }
 
 // Calculate |level| based on Trainer's "level"
@@ -365,53 +348,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 //
 - (NSInteger)calculateLevel {
   return 10;
-}
-
-// Calculate |gender| based on |pokemonGenderRate|
-// 0:Female 1:Male 2:Genderless
-- (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate {
-  NSInteger gender;
-  if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
-  else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
-  else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
-  else {
-    float randomValue = arc4random() % 1000 / 10; // Random value for calculating
-    float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
-    gender = randomValue < genderRate ? 0 : 1;
-  }
-  return [NSNumber numberWithInt:gender];
-}
-
-// Calculate |fourMoves| based on |moves| & |leve|
-- (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level {
-  NSInteger moveCount = [moves count];
-  // Get the last learned Move index
-  NSInteger lastLearnedMoveIndex = 0;
-  NSMutableArray * fourMovesID = [[NSMutableArray alloc] init];
-  for (int i = 0; i < moveCount - 1; i += 2) {
-    if ([[moves objectAtIndex:i] intValue] > level)
-      break;
-    // Remove the first Move when there're four Moves learned
-    if ([fourMovesID count] == 4)
-      [fourMovesID removeObjectAtIndex:0];
-    // Push new Move ID
-    [fourMovesID addObject:[moves objectAtIndex:(i + 1)]];
-    ++lastLearnedMoveIndex;
-  }
-  // Fetch |fourMoves| with |fourMovesID|
-  NSArray * fourMoves = [Move queryFourMovesDataWithIDs:fourMovesID];
-  [fourMovesID release];
-  
-  NSMutableString * fourMovesInString = [NSMutableString string];
-  moveCount = 0;
-  for (Move * move in fourMoves) {
-    if (moveCount != 0) [fourMovesInString appendString:@","];
-    ++moveCount;
-    [fourMovesInString appendString:[NSString stringWithFormat:@"%d,%d,%d",
-                                     [move.sid intValue], [move.basePP intValue], [move.basePP intValue]]];
-  }
-  fourMoves = nil;
-  return fourMovesInString;
 }
 
 #pragma mark - For Generating

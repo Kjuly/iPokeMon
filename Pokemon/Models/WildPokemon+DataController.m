@@ -14,13 +14,21 @@
 
 #import "AFJSONRequestOperation.h"
 
+@interface WildPokemon ()
+
+- (void)_calculateMaxStatsAndHP;
+- (void)_calculateGender;
+- (void)_calculateFourMovesAtLevel:(NSInteger)level;
+- (void)_calculateExpAndToNextLevelWithCurrentLevel:(NSInteger)level;
+
+@end
+
 @implementation WildPokemon (DataController)
 
 // Query a Wild Pokemon Data with UID
-+ (WildPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID
-{
++ (WildPokemon *)queryPokemonDataWithUID:(NSInteger)pokemonUID {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
@@ -166,6 +174,17 @@
 
 #pragma mark - SET Base data
 
+// Update data for different |level|
+- (void)update {
+  NSInteger level = [self.level intValue];
+  [self _calculateGender];
+  [self _calculateMaxStatsAndHP];
+  [self _calculateFourMovesAtLevel:level];
+  [self _calculateExpAndToNextLevelWithCurrentLevel:level];
+}
+
+#pragma mark - Private Methods
+
 // Calculation FORMULA
 //
 //   Health Points:
@@ -176,7 +195,7 @@
 //
 //     (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
 //
-- (void)initMaxStatsAndHP {
+- (void)_calculateMaxStatsAndHP {
   // Formula effects
   double IV          = 0; // IV.(Individual Values) TODO!!!!!!
   double EV          = 1; // EV.(Effort Values)     TODO!!!!!!
@@ -208,6 +227,61 @@
   self.maxStats = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
                    statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
   self.hp       = [NSNumber numberWithInt:statHP];
+}
+
+// Calculate |gender| based on |pokemonGenderRate|
+// 0:Female 1:Male 2:Genderless
+- (void)_calculateGender {
+  PokemonGenderRate pokemonGenderRate = [self.pokemon.genderRate intValue];
+  NSInteger gender;
+  if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
+  else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
+  else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
+  else {
+    float randomValue = arc4random() % 1000 / 10; // Random value for calculating
+    float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
+    gender = randomValue < genderRate ? 0 : 1;
+  }
+  self.gender = [NSNumber numberWithInt:gender];
+}
+
+// Calculate |fourMoves| based on |moves| & |leve|
+- (void)_calculateFourMovesAtLevel:(NSInteger)level {
+  NSArray * moves = [self.pokemon.moves componentsSeparatedByString:@","];
+  NSInteger moveCount = [moves count];
+  // Get the last learned Move index
+  NSInteger lastLearnedMoveIndex = 0;
+  NSMutableArray * fourMovesID = [[NSMutableArray alloc] init];
+  for (int i = 0; i < moveCount - 1; i += 2) {
+    if ([[moves objectAtIndex:i] intValue] > level)
+      break;
+    // Remove the first Move when there're four Moves learned
+    if ([fourMovesID count] == 4)
+      [fourMovesID removeObjectAtIndex:0];
+    // Push new Move ID
+    [fourMovesID addObject:[moves objectAtIndex:(i + 1)]];
+    ++lastLearnedMoveIndex;
+  }
+  // Fetch |fourMoves| with |fourMovesID|
+  NSArray * fourMoves = [Move queryFourMovesDataWithIDs:fourMovesID];
+  [fourMovesID release];
+  
+  NSMutableString * fourMovesInString = [NSMutableString string];
+  moveCount = 0;
+  for (Move * move in fourMoves) {
+    if (moveCount != 0) [fourMovesInString appendString:@","];
+    ++moveCount;
+    [fourMovesInString appendString:[NSString stringWithFormat:@"%d,%d,%d",
+                                     [move.sid intValue], [move.basePP intValue], [move.basePP intValue]]];
+  }
+  fourMoves = nil;
+  self.fourMoves = fourMovesInString;
+}
+
+// Calculate |exp| & |toNextLevel| for current |level|
+- (void)_calculateExpAndToNextLevelWithCurrentLevel:(NSInteger)level {
+  self.exp         = [NSNumber numberWithInt:[self.pokemon expAtLevel:level]];
+  self.toNextLevel = [NSNumber numberWithInt:[self.pokemon expToNextLevel:(level + 1)]];
 }
 
 @end
