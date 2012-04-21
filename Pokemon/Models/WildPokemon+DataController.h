@@ -27,4 +27,7 @@
 - (NSArray *)fourMovesPPInArray;
 - (NSArray *)maxStatsInArray;
 
+// Set
+- (void)initMaxStatsAndHP;
+
 @end

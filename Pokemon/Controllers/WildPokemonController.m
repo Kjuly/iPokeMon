@@ -41,8 +41,6 @@
 - (NSInteger)calculateLevel;
 - (NSNumber *)calculateGenderWithPokemonGenderRate:(PokemonGenderRate)pokemonGenderRate;
 - (NSString *)calculateFourMovesWithMoves:(NSArray *)moves level:(NSInteger)level;
-- (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level;
-- (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level;
 
 - (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
 - (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType;
@@ -350,10 +348,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.fourMoves = [self calculateFourMovesWithMoves:[pokemon.moves componentsSeparatedByString:@","] level:level];
   
   // |maxStats| & |hp|
-  NSString * maxStats  = [self calculateStatsWithBaseStats:[pokemon.baseStats componentsSeparatedByString:@","] level:level];
-  wildPokemon.maxStats = maxStats;
-  wildPokemon.hp       = [NSNumber numberWithInt:[[[maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
-  maxStats = nil;
+  [wildPokemon initMaxStatsAndHP];
   
   // |exp| & |toNextLevel|
   // Calculate EXP based on Level Formular with value:|level|
@@ -417,52 +412,6 @@ static WildPokemonController * wildPokemonController_ = nil;
   }
   fourMoves = nil;
   return fourMovesInString;
-}
-
-// Calculate |stats| based on |baseStats|
-//
-//   HP:
-//     HP = ((IV + Base + (√(EV) / 8) * Level ) / 50) + 10
-//
-//   All other stats:
-//     S  = ((IV + Base + (√(EV)/8) * Level ) / 50) + 5
-//
-// |IV|:    Individual Values
-// |Base|:  Base Stat for pokemon
-// |EV|:    Effort Values, up to 256 (but only get points for up to 252)
-// |Level|: Pokemon's current level
-//
-- (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level {
-  NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
-  NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
-  NSInteger statDefense   = [[baseStats objectAtIndex:2] intValue];
-  NSInteger statSpAttack  = [[baseStats objectAtIndex:3] intValue];
-  NSInteger statSpDefense = [[baseStats objectAtIndex:4] intValue];
-  NSInteger statSpeed     = [[baseStats objectAtIndex:5] intValue];
-  
-  // Calculate the stats
-  statHP        += 3 * level;
-  statAttack    += level;
-  statDefense   += level;
-  statSpAttack  += level;
-  statSpDefense += level;
-  statSpeed     += level;
-  
-  return [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
-          statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
-}
-
-// Calculate EXP based on |baseEXP| with |level|
-// y:return value:|result|
-// x:|level|
-//
-// TODO:
-//   The formular is not suit now!!
-//
-- (NSInteger)calculateEXPWithBaseEXP:(NSInteger)baseEXP level:(NSInteger)level {
-  NSInteger result;
-  result = (100000 - 100) / (100 - 1) * level + baseEXP;
-  return result;
 }
 
 #pragma mark - For Generating

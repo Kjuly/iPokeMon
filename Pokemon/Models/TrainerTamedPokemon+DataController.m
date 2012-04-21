@@ -431,32 +431,75 @@
 
 // Add stats with number of levels up
 //   return an array to show detail of stats added
+//
+// [[STAT CALCULATION]]
+//    [[BASE STATS]]
+//      Base stats are the core of the whole stats. Each Pokémon species has their own unique set of base stats. These stats help determine the total stats when the Pokémon is at a specific level. However, as each species has a different, this means that if say you have two Meganium, their stats will not be radically different if untrained.
+//
+//    [[INDIVIDUAL VALUES]]
+//      Individual Values are a specific value that each Pokémon has one each of its six stats. The value ranges from 0 to 31 and each value corresponds to one single stat point at Level 100. Technically, apart from seeing their effect, they are a hidden value which you have little to no control over. If you have a Pokémon with a high IV, you will have the ability to pass it down via breeding, however that means is pretty much random. As there are six stats and thirty one possible values for each stat, there are 1,073,741,824 different IV combinations making sure that you will pretty much never have a Pokémon exactly the same as another one of the same species. To calculate IVs, use our IV Calculator.
+//
+//    [[EFFORT VALUES]]
+//      Effort Values are another set of values utilised to determine a Pokémon's stat. However, unlike IVs and Base Stats, EVs are totally customisable. You earn Effort Values by battling Pokémon, with each Pokémon giving a different set of EVs to the Pokémon that defeats it. For every 4 EVs earned in a particular stat, you get 1 extra stat point at Level 100. However, there are limits on the Effort Values you can have. You can only have 510 Effort Values on any one Pokémon, corresponding to a maximum of 255 on two stats. However, as that is not divisable by four, it's best to take it to 252 when maxing a stat. This corresponds to 63 more stat points at Level 100. The dispersal of these values is completely up to you so it can help you make the most out of your Pokémon.
+//
+//    [[LEVEL]]
+//      The Level of your Pokémon is also vital in the calculation of the Pokémon stats. As you increase in level, the stats get increased by 2% of the Base Stat value and 1% of the combined IV and current EV value. This means that even if you have maxed out a stat in EVs but it's still say Level 10, you'll only notice a minimal stat increase.
+//
+//    [[NATURES]]
+//      Finally, Natures are the other attribute which have a permanent affect on the stats. Each nature raises one stat while lowering another (the neutral natures raise and lower the same stat rendering them inert). At the end of the calculation, the nature is taken into account. If it raises the stat, then the stat's value becomes 110% of what it would normally be and if it lowers the stat, the value becomes 90% of what it would normally be.
+//
+//
+// Calculation FORMULA
+//
+//   Health Points:
+//
+//     ((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 10 + Level
+//
+//   Attack, Defense, Speed, Sp. Attack, Sp. Defense:
+//
+//     (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
+//
 - (NSArray *)addStatsWithLevelsUp:(NSInteger)levelsUp {
-  NSInteger statDeltaHP;
-  NSInteger statDeltaAttack;
-  NSInteger statDeltaDefense;
-  NSInteger statDeltaSpAttack;
-  NSInteger statDeltaSpDefense;
-  NSInteger statDeltaSpeed;
+  // Formula effects
+  double IV          = 0; // IV.(Individual Values) TODO!!!!!!
+  double EV          = 1; // EV.(Effort Values)     TODO!!!!!!
+  double level       = [self.level doubleValue] + (double)levelsUp;
+  double natureValue = 1; // Natures.               TODO!!!!
+  // base stats
+  NSArray * baseStats = [self.pokemon.baseStats componentsSeparatedByString:@","];
+  NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
+  NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
+  NSInteger statDefense   = [[baseStats objectAtIndex:2] intValue];
+  NSInteger statSpAttack  = [[baseStats objectAtIndex:3] intValue];
+  NSInteger statSpDefense = [[baseStats objectAtIndex:4] intValue];
+  NSInteger statSpeed     = [[baseStats objectAtIndex:5] intValue];
+  baseStats = nil;
   
-  // Calculate the stats
-  statDeltaHP        = 3 * levelsUp;
-  statDeltaAttack    = levelsUp;
-  statDeltaDefense   = levelsUp;
-  statDeltaSpAttack  = levelsUp;
-  statDeltaSpDefense = levelsUp;
-  statDeltaSpeed     = levelsUp;
+  // Do calculation
+  //   FORMULA
+  //   Health Points: ((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 10 + Level
+  statHP = ((IV + 2.f * statHP + (EV / 4.f)) * level / 100.f) + 10.f + level;
+  //   Attack, Defense, Speed, Sp. Attack, Sp. Defense:
+  //     (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
+  statAttack    = round((((IV + 2 * statAttack    + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statDefense   = round((((IV + 2 * statDefense   + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpAttack  = round((((IV + 2 * statSpAttack  + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpDefense = round((((IV + 2 * statSpDefense + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpeed     = round((((IV + 2 * statSpeed     + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  
+  // get the <delta stats> (<new value> minus the <original value>)
+  NSArray * originalStats = [self maxStatsInArray];
+  NSInteger statDeltaHP        = statHP        - [[originalStats objectAtIndex:0] intValue];
+  NSInteger statDeltaAttack    = statAttack    - [[originalStats objectAtIndex:1] intValue];
+  NSInteger statDeltaDefense   = statDefense   - [[originalStats objectAtIndex:2] intValue];
+  NSInteger statDeltaSpAttack  = statSpAttack  - [[originalStats objectAtIndex:3] intValue];
+  NSInteger statDeltaSpDefense = statSpDefense - [[originalStats objectAtIndex:4] intValue];
+  NSInteger statDeltaSpeed     = statSpeed     - [[originalStats objectAtIndex:5] intValue];
+  originalStats = nil;
   
   // Save stats
-  NSArray * stats = [self maxStatsInArray];
   self.maxStats = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
-                   [[stats objectAtIndex:0] intValue] + statDeltaHP,
-                   [[stats objectAtIndex:1] intValue] + statDeltaAttack,
-                   [[stats objectAtIndex:2] intValue] + statDeltaDefense,
-                   [[stats objectAtIndex:3] intValue] + statDeltaSpAttack,
-                   [[stats objectAtIndex:4] intValue] + statDeltaSpDefense,
-                   [[stats objectAtIndex:5] intValue] + statDeltaSpeed];
-  stats = nil;
+                   statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
   
   // Return delta stats
   return [NSArray arrayWithObjects:

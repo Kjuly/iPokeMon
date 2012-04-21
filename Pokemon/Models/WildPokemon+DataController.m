@@ -166,4 +166,48 @@
 
 #pragma mark - SET Base data
 
+// Calculation FORMULA
+//
+//   Health Points:
+//
+//     ((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 10 + Level
+//
+//   Attack, Defense, Speed, Sp. Attack, Sp. Defense:
+//
+//     (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
+//
+- (void)initMaxStatsAndHP {
+  // Formula effects
+  double IV          = 0; // IV.(Individual Values) TODO!!!!!!
+  double EV          = 1; // EV.(Effort Values)     TODO!!!!!!
+  double level       = [self.level doubleValue];
+  double natureValue = 1; // Natures.               TODO!!!!
+  // base stats
+  NSArray * baseStats = [self.pokemon.baseStats componentsSeparatedByString:@","];
+  NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
+  NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
+  NSInteger statDefense   = [[baseStats objectAtIndex:2] intValue];
+  NSInteger statSpAttack  = [[baseStats objectAtIndex:3] intValue];
+  NSInteger statSpDefense = [[baseStats objectAtIndex:4] intValue];
+  NSInteger statSpeed     = [[baseStats objectAtIndex:5] intValue];
+  baseStats = nil;
+  
+  // Do calculation
+  //   FORMULA
+  //   Health Points: ((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 10 + Level
+  statHP = ((IV + 2.f * statHP + (EV / 4.f)) * level / 100.f) + 10.f + level;
+  //   Attack, Defense, Speed, Sp. Attack, Sp. Defense:
+  //     (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
+  statAttack    = round((((IV + 2 * statAttack    + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statDefense   = round((((IV + 2 * statDefense   + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpAttack  = round((((IV + 2 * statSpAttack  + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpDefense = round((((IV + 2 * statSpDefense + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  statSpeed     = round((((IV + 2 * statSpeed     + (EV / 4.f)) * level / 100.f) + 5.f) * natureValue);
+  
+  // Save stats
+  self.maxStats = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
+                   statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
+  self.hp       = [NSNumber numberWithInt:statHP];
+}
+
 @end
