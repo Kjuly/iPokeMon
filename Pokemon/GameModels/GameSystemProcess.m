@@ -1254,21 +1254,90 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Calculate the move damage
+//
+///FORMULA on DAMAGE:
+//   Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) 
+//            * STAB * Weakness/Resistance * RandomNumber / 100
+//
+//   |Level|:       pokemon's current level.
+//   |AttackStat|:  pokemon's Attack/Special Attack stat, whichever one is being used at the moment.
+//   |DefenseStat|: opponents Defense/SpecialDefense stat, depending on the attack the pokemon is using.
+//   |AttackPower|: the power of the specific move you're using.
+//   |STAB|:        the same type attack bonus. If you're using a move that coordinates with your own type,
+//                  you get a 1.5 bonus here. Otherwise, this variable is equal to 1.
+//   |Weakness/Resistance|: depends on if your move was super-effective or otherwise.
+//                          This variable could be 0.25, 0.5, 1, 2, or 4 depending on how effective your attack was.
+//   |RandomNumber|: simply a Random Number between 85 and 100.
+//
+///MOVE in/decrease stage:
+//
+//   Each of the moves like that will up your stat or decrease your stats depending on the move a number of levels, maximum is six. Say you used Howl and upped your Attack stat by 1 level. What does that translate to? Well depending how many levels you have, those moves will up either your Attack, Defense, Speed, Special Attack, or Special Defense stats by a certain percentage.
+//
+//   -6 levels: 25%
+//   -5 levels: 29%
+//   -4 levels: 33%
+//   -3 levels: 40%
+//   -2 levels: 50%
+//   -1 level:  66%
+//    0 levels: 100%
+//    1 level:  150%
+//    2 levels: 200%
+//    3 levels: 250%
+//    4 levels: 300%
+//    5 levels: 350%
+//    6 levels: 400%
+//
 - (NSInteger)calculateDamageForMove:(Move *)move {
   if ([move.baseDamage intValue] == 0)
     return 0;
   
-  //
-  // TODO:
-  //   Add more elements into the formular
-  //
-  NSInteger damage
-  = round(
-          [move.baseDamage intValue] // Base damage
-          * (abs([self.playerPokemon.level intValue] - [self.enemyPokemon.level intValue]) + 1) // Delta level + 1
-          );
+  // Basic values
+  double level;        // pokemon's current level
+  double attackStat;   // pokemon's Attack/Special Attack stat, whichever one is being used at the moment
+  double defenseStat;  // opponents Defense/SpecialDefense stat, depending on the attack the pokemon is using
+  double attackPower;  // the power of the specific move you're using
+  double stab;         // the same type attack bonus
+  double status;       // depends on if your move was super-effective or otherwise (could be 0.25, 0.5, 1, 2, or 4)
+  double randomNumber; // simply a Random Number between 85 and 100
   
-  NSLog(@"|%@| - |calculateDamageForMove:| - damage:%d", [self class], damage);
+  // Set values
+  if (user_ == kGameSystemProcessUserPlayer) {
+    stab = [self.playerPokemon.pokemon moveDamageEffectOnOpponentPokemon:self.enemyPokemon.pokemon];
+    if (stab == 0)
+      return 0;
+    level       = [self.playerPokemon.level doubleValue];
+    attackStat  = [[[self.playerPokemon maxStatsInArray] objectAtIndex:1] doubleValue];
+    defenseStat = [[[self.enemyPokemon maxStatsInArray] objectAtIndex:2] doubleValue];
+    status      = 1; // TODO!!!!
+    /*switch (enemyPokemonStatus_) {
+      case :
+        break;
+        
+      default:
+        break;
+    }*/
+  }
+  else if (user_ == kGameSystemProcessUserEnemy) {
+    stab = [self.enemyPokemon.pokemon moveDamageEffectOnOpponentPokemon:self.playerPokemon.pokemon];
+    if (stab == 0)
+      return 0;
+    level       = [self.enemyPokemon.level doubleValue];
+    attackStat  = [[[self.enemyPokemon maxStatsInArray] objectAtIndex:1] doubleValue];
+    defenseStat = [[[self.playerPokemon maxStatsInArray] objectAtIndex:2] doubleValue];
+    status      = 1; // TODO!!!
+  }
+  else return 0;
+  attackPower = [move.baseDamage doubleValue];
+  randomNumber = arc4random() % 16 + 85;
+  
+  ///FORMULA on DAMAGE:
+  //   Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) 
+  //            * STAB * Weakness/Resistance * RandomNumber / 100
+  NSInteger damage;
+  damage = ((((2.f * level / 5.f + 2.f) * attackStat * attackPower / defenseStat) / 50.f) + 2.f) * stab * status * randomNumber / 100.f;
+  NSLog(@"|%@| - |calculateDamageForMove:| - DAMAGE:%d", [self class], damage);
+  NSLog(@"------ level:%f / attackStat:%f / defenseStat:%f / attackPower:%f / stab:%f / status:%f / randomNumber:%f",
+        level, attackStat, defenseStat, attackPower, stab, status, randomNumber);
   return damage;
 }
 
@@ -1295,16 +1364,74 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Calculate the EXP. points gained
+//
+// [[[GENERATION V]]]
+// *** In Generation V, the experience calculation has changed drastically, taking a lot of the calculation from both your level, their level and the difference in the level. This allows for faster level ups when you're under the level of the Pokémon and smaller ones when you're over the level of the Pokémon. This equation is as follows:
+//
+//    floor(floor(√(A)*(A*A))*B/floor(√(C)*(C*C)))+1  (formula 1)
+//
+//    |A| is equal to the (OpponentLevel * 2) + 10
+//    |B| is a more complicated variable and is where things start seeing changes. Normally, Value B is a simple (OpponentBaseExperience * OpponentLevel / 5). However, there are multiple additions and are calculated in order.
+//    |C| is (OpponentLevel + UserLevel + 10)
+//
+//  * In trainer battles, value B is multiplied by 1.5
+//
+//  * If a Pokémon has <EXP. Share>, then B is halved.
+//    Value |B| is then divided by the amount of team members who have been in battle against the Pokémon that has been defeated.
+//
+//  Once this is calculated, there are more means to boost the experience gained. These means are all different and are even stackable, allowing massive Experience gains
+//
+//    MEANS                                     |INCREASE
+//    Pokémon is holding the Lucky Egg:          * 1.5
+//    Pokémon is from a different game:          * 1.5
+//    Pokémon is from a different language game: * 1.7
+//    Exp. Point Power ↓↓↓:                      * 0.8
+//    Exp. Point Power ↓↓:                       * 0.66
+//    Exp. Point Power ↓:                        * 0.5
+//    Exp. Point Power ↑:                        * 1.2
+//    Exp. Point Power ↑↑:                       * 1.5
+//    Exp. Point Power ↑↑↑:                      * 2
+//    Exp. Point Power S:                        * 2
+//    Exp. Point Power MAX:                      * 2
+//
+//
+// [[[GENERATION V]]]
+//  So now that you know about the different growth rates, let me explain how actual Experience is gained. There's an equation for how much Experience you gain of course, it may not be exact however since it's from Gold and Silver. Regardless, it's very similar.
+//
+//    Experience = ((Base Experience * Level) * Trainer * Wild) / 7  (formula 2)
+//
+//    |Base Experience|: a lot like they have Base Stats, e.g., Bulbasaur has a Base Experience of 64.
+//    |Level|:           It's what level the pokemon you're fighting is at.
+//    |Trainer|:         If your Trainer ID matches that of the Original Trainer of your own pokemon,
+//                       then |Trainer| is going to equal 1. If it doesn't, it is 1.5 instead.
+//                       This is how your pokemon gets 1.5 more Experience Points after you trade it to someone else.
+//    |Wild|:            tells if the pokemon you're fighting is wild or not.
+//                       If it is wild, then this variable is equal to 1.
+//                       If you're fighting a trainers pokemon, then it equals 1.5.
+//
+//  * One more thing.
+//    <Exp. Share> is an item that will always give half of the experience points gained in the battle to the pokemon with the item equipped, regardless of if it participated or not. This makes leveling up young pokemon easy.
+//
 - (NSInteger)calculateExpGained {
-  NSInteger expGained;
-  
+  //
+  // NOTE: use (formula 2) now
+  //
+  double expGained;
   // Basic parameters
-  NSInteger enemyPokemonLevel = [self.enemyPokemon.level intValue];
+  //
+  // !!!TODO:
+  //    |trainer| & |wild| is not calculated now
+  //
+  //
+  double baseExp = [self.playerPokemon.pokemon.baseEXP doubleValue]; // PM's base EXP
+  double enemyPokemonLevel = [self.enemyPokemon.level doubleValue];
+  double trainer = 1; // original trainer 1; if not, 1.5 (Pokemon Exchange)
+  double wild = 1;    // wild PM, 1; fighting to a trainer's PM, 1.5
   
   // Caclute the result of EXP
-  expGained = 10 * enemyPokemonLevel;
-  
-  return expGained;
+  //   Experience = ((Base Experience * Level) * Trainer * Wild) / 7  (formula 2)
+  expGained = (baseExp * enemyPokemonLevel * trainer * wild) / 7.f;
+  return (NSInteger)round(expGained);
 }
 
 // Check Pokemon Faint or not

@@ -31,6 +31,16 @@ typedef enum {
   kPokemonTypeSteel
 }PokemonType;
 
+// Move damage effect base on two PM's type
+typedef enum {
+  kMoveDamageEffectNo      = 0,      // no damage
+  kMoveDamageEffectQuarter = 1 << 0, // quarter damage
+  kMoveDamageEffectHalf    = 1 << 1, // half damage
+  kMoveDamageEffect1x      = 1 << 2, // 1x damage
+  kMoveDamageEffect2x      = 1 << 3, // 2x damage
+  kMoveDamageEffect4x      = 1 << 4  // 4x damage
+}MoveDamageEffect;
+
 ///
 // Pokemon Species
 //

@@ -11,6 +11,15 @@
 #import "AppDelegate.h"
 #import "PListParser.h"
 
+@interface Pokemon ()
+
+- (MoveDamageEffect)_combineMoveDamageEffect:(MoveDamageEffect)moveDamageEffect
+                 withAnotherMoveDamageEffect:(MoveDamageEffect)anotherMoveDamageEffect;
+- (MoveDamageEffect)_moveDamageEffectBetweenType:(PokemonType)type
+                                 andOpponentType:(PokemonType)opponentType;
+
+@end
+
 @implementation Pokemon (DataController)
 
 #pragma mark - Hard Initialize the DB data
@@ -171,17 +180,53 @@
 
 #pragma mark - Basic Data
 
-// Calculate EXP based on |baseEXP| with |level|
+// Calculate EXP
+//
 // y:return value:|result|
 // x:|level|
 //
-// TODO:
-//   The formular is not suit now!!
+// following numbers are for pokemon at level 100.
+//   
+//    |TYPE        |MAX           |FORMULAR
+//    Fast:        800,000   EXP  0.8(Current Level)^3
+//    Medium-Fast: 1,000,000 EXP  (Current Level)^3
+//    Slow:        1,250,000 EXP  1.25(Current Level)^3
+//    Medium-Slow: 1,059,860 EXP  1.2(Current Level)^3 - 15(Current Level)^2 + 100(Current Level) - 140
+//    Erratic:     600,000   EXP  unknown
+//    Fluctuating: 1,640,000 EXP  unknown
 //
 - (NSInteger)expAtLevel:(NSInteger)level {
-  NSInteger result;
-  result = (10000000 - 100) / (100 - 1) * level + [self.baseEXP intValue];
-  return result;
+  double result;
+  
+  switch ([self.growthRate intValue]) {
+    case kPokemonGrowthRateFast:
+      result = .8f * pow(level, 3);
+      break;
+      
+    case kPokemonGrowthRateMedium:
+      result = pow(level, 3);
+      break;
+      
+    case kPokemonGrowthRateSlow:
+      result = 1.25f * pow(level, 3);
+      break;
+      
+    case kPokemonGrowthRateParabolic:
+      result = 1.2f * pow(level, 3) - 15.f * pow(level, 2) + 100.f * level - 140.f;
+      break;
+      
+    case kPokemonGrowthRateErratic:     // UNKNOWN TODO!!!
+      result = 1.25f * pow(level, 3);
+      break;
+      
+    case kPokemonGrouthRateFluctuating: // UNKNOWN TDOO!!!
+      result = 1.25f * pow(level, 3);
+      break;
+      
+    default:
+      break;
+  }
+  return (NSInteger)round(result);
 }
 
 // EXP to next level
@@ -189,6 +234,345 @@
   NSInteger result;
   result = [self expAtLevel:nextLevel] - [self expAtLevel:(nextLevel - 1)];
   return result;
+}
+
+// Move damage effect on opponent's type
+- (double)moveDamageEffectOnOpponentPokemon:(Pokemon *)opponentPokemon {
+  MoveDamageEffect moveDamageEffect;
+  PokemonType type1 = [self.type1 intValue];
+  PokemonType type2 = [self.type2 intValue];
+  PokemonType opponentType1 = [opponentPokemon.type1 intValue];
+  PokemonType opponentType2 = [opponentPokemon.type2 intValue];
+  
+  moveDamageEffect = [self _moveDamageEffectBetweenType:type1 andOpponentType:opponentType1];
+  if (type2)
+    moveDamageEffect = [self _combineMoveDamageEffect:moveDamageEffect
+                          withAnotherMoveDamageEffect:[self _moveDamageEffectBetweenType:type2
+                                                                         andOpponentType:opponentType1]];
+  // If opponent PM has |type2|, do calculation for it
+  if (opponentType2) {
+    moveDamageEffect = [self _combineMoveDamageEffect:moveDamageEffect
+                          withAnotherMoveDamageEffect:[self _moveDamageEffectBetweenType:type1
+                                                                         andOpponentType:opponentType2]];
+    if (type2)
+      moveDamageEffect = [self _combineMoveDamageEffect:moveDamageEffect
+                            withAnotherMoveDamageEffect:[self _moveDamageEffectBetweenType:type2
+                                                                           andOpponentType:opponentType2]];
+  }
+  
+  // Fix value
+  if (moveDamageEffect < kMoveDamageEffectQuarter)
+    moveDamageEffect = kMoveDamageEffectNo;
+  if (moveDamageEffect > kMoveDamageEffect4x)
+    moveDamageEffect = kMoveDamageEffect4x;
+  
+  // Get the STAB based on move damage effect
+  double stab;
+  switch (moveDamageEffect) {
+    case kMoveDamageEffectNo:
+      return 0;
+      break;
+      
+    case kMoveDamageEffectQuarter:
+      stab = .25f;
+      break;
+      
+    case kMoveDamageEffectHalf:
+      stab = .5f;
+      break;
+      
+    case kMoveDamageEffect2x:
+      stab = 2;
+      break;
+      
+    case kMoveDamageEffect4x:
+      stab = 4;
+      break;
+      
+    case kMoveDamageEffect1x:
+    default:
+      stab = 1;
+      break;
+  }
+  return stab;
+}
+
+#pragma mark - Private Methods
+
+// Combine two move damage effects
+- (MoveDamageEffect)_combineMoveDamageEffect:(MoveDamageEffect)moveDamageEffect
+                 withAnotherMoveDamageEffect:(MoveDamageEffect)anotherMoveDamageEffect {
+  switch (anotherMoveDamageEffect) {
+    case kMoveDamageEffectNo:
+      moveDamageEffect = kMoveDamageEffectNo;
+      break;
+      
+    case kMoveDamageEffectQuarter:
+      moveDamageEffect >>= 2;
+      break;
+      
+    case kMoveDamageEffectHalf:
+      moveDamageEffect >>= 1;
+      break;
+      
+    case kMoveDamageEffect2x:
+      moveDamageEffect <<= 1;
+      break;
+      
+    case kMoveDamageEffect4x:
+      moveDamageEffect <<= 2;
+      break;
+      
+    case kMoveDamageEffect1x:
+    default:
+      break;
+  }
+  return moveDamageEffect;
+}
+
+// Move damage effect between two type of Pokemon
+- (MoveDamageEffect)_moveDamageEffectBetweenType:(PokemonType)type
+                                 andOpponentType:(PokemonType)opponentType {
+  switch (type) {
+    case kPokemonTypeNormal:
+      if (opponentType == kPokemonTypeGhost)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypeRock || opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeFire:
+      if (opponentType == kPokemonTypeFire  ||
+          opponentType == kPokemonTypeWater ||
+          opponentType == kPokemonTypeRock  ||
+          opponentType == kPokemonTypeDragon)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeGrass ||
+               opponentType == kPokemonTypeIce   ||
+               opponentType == kPokemonTypeBug   ||
+               opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeWater:
+      if (opponentType == kPokemonTypeWater ||
+          opponentType == kPokemonTypeGrass ||
+          opponentType == kPokemonTypeDragon)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeFire   ||
+               opponentType == kPokemonTypeGround ||
+               opponentType == kPokemonTypeRock)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeElectric:
+      if (opponentType == kPokemonTypeGround)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypeFire) {
+      }
+      else if (opponentType == kPokemonTypeElectric ||
+               opponentType == kPokemonTypeGrass    ||
+               opponentType == kPokemonTypeDragon)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeWater ||
+               opponentType == kPokemonTypeFlying)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeGrass:
+      if (opponentType == kPokemonTypeFire   ||
+          opponentType == kPokemonTypeGrass  ||
+          opponentType == kPokemonTypePoison ||
+          opponentType == kPokemonTypeFlying ||
+          opponentType == kPokemonTypeBug    ||
+          opponentType == kPokemonTypeDragon ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeWater  ||
+               opponentType == kPokemonTypeGround ||
+               opponentType == kPokemonTypeRock)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeIce:
+      if (opponentType == kPokemonTypeFire  ||
+          opponentType == kPokemonTypeWater ||
+          opponentType == kPokemonTypeIce   ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeGrass  ||
+               opponentType == kPokemonTypeGround ||
+               opponentType == kPokemonTypeFlying ||
+               opponentType == kPokemonTypeDragon)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeFighting:
+      if (opponentType == kPokemonTypeGhost)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypePoison  ||
+               opponentType == kPokemonTypeFlying  ||
+               opponentType == kPokemonTypePsychic ||
+               opponentType == kPokemonTypeBug)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeNormal ||
+               opponentType == kPokemonTypeIce    ||
+               opponentType == kPokemonTypeRock   ||
+               opponentType == kPokemonTypeDark   ||
+               opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypePoison:
+      if (opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectNo;
+      else if(opponentType == kPokemonTypePoison ||
+              opponentType == kPokemonTypeGround ||
+              opponentType == kPokemonTypeRock   ||
+              opponentType == kPokemonTypeGhost)
+        return kMoveDamageEffectHalf;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeGround:
+      if (opponentType == kPokemonTypeFlying)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypeGrass ||
+               opponentType == kPokemonTypeBug)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeFire     ||
+               opponentType == kPokemonTypeElectric ||
+               opponentType == kPokemonTypePoison   ||
+               opponentType == kPokemonTypeRock     ||
+               opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeFlying:
+      if (opponentType == kPokemonTypeElectric ||
+          opponentType == kPokemonTypeRock     ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeGrass    ||
+               opponentType == kPokemonTypeFighting ||
+               opponentType == kPokemonTypeBug)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypePsychic:
+      if (opponentType == kPokemonTypeDark)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypePsychic ||
+               opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeFighting ||
+               opponentType == kPokemonTypePoison)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeBug:
+      if (opponentType == kPokemonTypeFire     ||
+          opponentType == kPokemonTypeFighting ||
+          opponentType == kPokemonTypePoison   ||
+          opponentType == kPokemonTypeFlying   ||
+          opponentType == kPokemonTypeGhost    ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeGrass   ||
+               opponentType == kPokemonTypePsychic ||
+               opponentType == kPokemonTypeDark)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeRock:
+      if (opponentType == kPokemonTypeFighting ||
+          opponentType == kPokemonTypeGround   ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeFire   ||
+               opponentType == kPokemonTypeIce    ||
+               opponentType == kPokemonTypeFlying ||
+               opponentType == kPokemonTypeBug)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeGhost:
+      if (opponentType == kPokemonTypeNormal)
+        return kMoveDamageEffectNo;
+      else if (opponentType == kPokemonTypeDark ||
+               opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypePsychic ||
+               opponentType == kPokemonTypeGhost)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeDragon:
+      if (opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeDragon)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeDark:
+      if (opponentType == kPokemonTypeFighting ||
+          opponentType == kPokemonTypeDark     ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypePsychic ||
+               opponentType == kPokemonTypeGhost)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    case kPokemonTypeSteel:
+      if (opponentType == kPokemonTypeFire     ||
+          opponentType == kPokemonTypeWater    ||
+          opponentType == kPokemonTypeElectric ||
+          opponentType == kPokemonTypeSteel)
+        return kMoveDamageEffectHalf;
+      else if (opponentType == kPokemonTypeIce ||
+               opponentType == kPokemonTypeRock)
+        return kMoveDamageEffect2x;
+      else
+        return kMoveDamageEffect1x;
+      break;
+      
+    default:
+      return kMoveDamageEffect1x;
+      break;
+  }
+  return kMoveDamageEffect1x;
 }
 
 @end

@@ -20,5 +20,6 @@
 // Basic Data
 - (NSInteger)expAtLevel:(NSInteger)level;
 - (NSInteger)expToNextLevel:(NSInteger)nextLevel;
+- (double)moveDamageEffectOnOpponentPokemon:(Pokemon *)opponentPokemon;
 
 @end

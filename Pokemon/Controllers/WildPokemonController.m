@@ -420,6 +420,18 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Calculate |stats| based on |baseStats|
+//
+//   HP:
+//     HP = ((IV + Base + (√(EV) / 8) * Level ) / 50) + 10
+//
+//   All other stats:
+//     S  = ((IV + Base + (√(EV)/8) * Level ) / 50) + 5
+//
+// |IV|:    Individual Values
+// |Base|:  Base Stat for pokemon
+// |EV|:    Effort Values, up to 256 (but only get points for up to 252)
+// |Level|: Pokemon's current level
+//
 - (NSString *)calculateStatsWithBaseStats:(NSArray *)baseStats level:(NSInteger)level {
   NSInteger statHP        = [[baseStats objectAtIndex:0] intValue];
   NSInteger statAttack    = [[baseStats objectAtIndex:1] intValue];
