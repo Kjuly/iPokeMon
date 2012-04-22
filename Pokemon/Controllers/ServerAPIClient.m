@@ -14,7 +14,12 @@
 
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
-NSString * const kServerAPIRoot            = @"http://localhost:8080";
+#ifdef LOCAL_SERVER
+NSString * const kServerAPIRoot = @"http://localhost:8080";
+#else
+NSString * const kServerAPIRoot = @"http://ec2-184-169-155-41.us-west-1.compute.amazonaws.com:8080";
+//NSString * const kServerAPIRoot = @"http://184.169.155.41:8080";
+#endif
 // Connection Checking
 NSString * const kServerAPICheckConnection = @"/cc";     // /cc:Check Connection
 // User
@@ -108,7 +113,7 @@ static ServerAPIClient * client_;
   
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://localhost:8080"]];
+    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kServerAPIRoot]];
   });
   return client_;
 }
