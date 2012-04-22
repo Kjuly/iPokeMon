@@ -18,7 +18,8 @@
 @implementation TrainerTamedPokemon (DataController)
 
 // Update |TrainerTamedPokemon|
-+ (void)initWithTrainer:(Trainer *)trainer {
++ (void)initWithTrainer:(Trainer *)trainer
+             completion:(void (^)())completion {
   if (trainer == nil)
     return;
   
@@ -97,6 +98,9 @@
     
     // Hide loading
     [[LoadingManager sharedInstance] hideOverBar];
+    
+    // Execute the |completion| block
+    completion();
   };
   
   // Failure Block Method

@@ -36,17 +36,14 @@
 @synthesize sixPokemons          = sixPokemons_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.trainer              = nil;
   self.sixPokemons          = nil;
-  self.tapGestureRecognizer = nil;
-  
+  self.tapGestureRecognizer = nil;  
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -64,8 +61,7 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Basic setting
@@ -92,7 +88,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  
   self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
   [self.tableView reloadData];
 }
@@ -128,8 +123,8 @@
   return kCellHeightOfSixPokemonsTableView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
   
   SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

@@ -80,24 +80,32 @@ static TrainerController * trainerController_ = nil;
   NSLog(@"......|%@| - INIT......", [self class]);
   userID_ = userID;
   
+  // |completion| block that will be executed after |Trainer|'s data initialized
+  void (^completion)() = ^{
+    // Fetch Trainer data from Client (CoreData)
+    self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
+    
+    // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
+    void (^completion)() = ^{
+      // Fetch Trainer's Six Pokemons data from Client (CoreData)
+      self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
+      if (self.entitySixPokemons == nil) {
+        NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
+        self.entitySixPokemons = [NSMutableArray array];
+      }
+    };
+    // S->C: Initialize TrainerTamedPokemon data from Server to Client
+    [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
+    
+    // If user has no Pokemon in PokeDEX (newbie),
+    //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+    [self _newbieChecking];
+    
+    isInitialized_ = YES;
+  };
+  
   // S->C: Initialize Trainer data from Server to Client
-  [Trainer initWithUserID:userID];
-  // Fetch Trainer data from Client (CoreData)
-  self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
-  // S->C: Initialize TrainerTamedPokemon data from Server to Client
-  [TrainerTamedPokemon initWithTrainer:self.entityTrainer];
-  // Fetch Trainer's Six Pokemons data from Client (CoreData)
-  self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
-  if (self.entitySixPokemons == nil) {
-    NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
-    self.entitySixPokemons = [NSMutableArray array];
-  }
-  
-  // If user has no Pokemon in PokeDEX (newbie),
-  //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-  [self _newbieChecking];
-  
-  isInitialized_ = YES;
+  [Trainer initWithUserID:userID completion:completion];
 }
 
 // Save Client data to CoreData

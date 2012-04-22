@@ -27,36 +27,39 @@
 @implementation Trainer (DataController)
 
 // Update Data
-+ (void)initWithUserID:(NSInteger)userID {
-  if (userID <= 0) return;
++ (void)initWithUserID:(NSInteger)userID
+            completion:(void (^)())completion {
+  if (userID <= 0)
+    return;
+  NSLog(@"......|%@| - INIT......SERVER to CLIENT.", [self class]);
   
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
   
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  
-  // Get |trainer| entity with |userID|
-  // If failed (i.e. No data for current user), insert new one for user
-  __block Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
-  if (! trainer) {
-    NSLog(@"!!! No data for Trainer, insert new one");
-    trainer = nil;
-    trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                            inManagedObjectContext:managedObjectContext];
-    trainer.uid  = [NSNumber numberWithInt:userID];
-    trainer.name = [NSString stringWithFormat:@"Trainer%d", userID];
-    
-    NSError * error;
-    if (! [managedObjectContext save:&error])
-      NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
-  }
-  
   ///Fetch Data from server & update the date for |trainer|
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
+    // Get |trainer| entity with |userID|
+    // If failed (i.e. No data for current user), insert new one for user
+    Trainer * trainer = [Trainer queryTrainerWithUserID:userID];
+    if (! trainer) {
+      NSLog(@"!!! No data for Trainer, insert new one");
+      trainer = nil;
+      trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                              inManagedObjectContext:managedObjectContext];
+      trainer.uid  = [NSNumber numberWithInt:userID];
+      
+      NSError * error;
+      if (! [managedObjectContext save:&error])
+        NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
+    }
+    
     // Set data for |Trainer|
-    trainer.uid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
+    //trainer.uid               = [NSNumber numberWithInt:[[JSON valueForKey:@"id"] intValue]];
+    // |uid| should not be update every time
     trainer.name              = [JSON valueForKey:@"name"];
     trainer.money             = [NSNumber numberWithInt:[[JSON valueForKey:@"money"] intValue]];
     trainer.badges            = [JSON valueForKey:@"badges"];
@@ -68,7 +71,6 @@
     //        :<bagPokeballs>:<bagTMsHMs>:<bagBerries>:<bagBattleItems>:<bagKeyItems>
     // "0:0:0:0:0:0:0:0:0"
     NSArray * bagItems = [[JSON valueForKey:@"bag"] componentsSeparatedByString:@":"];
-    NSLog(@"BagItems:%@", bagItems);
     trainer.bagItems          = [bagItems objectAtIndex:0];
     trainer.bagMedicineStatus = [bagItems objectAtIndex:1];
     trainer.bagMedicineHP     = [bagItems objectAtIndex:2];
@@ -87,6 +89,9 @@
     
     // Hide loading
     [[LoadingManager sharedInstance] hideOverBar];
+    
+    // Execute the |completion| block
+    completion();
   };
   
   // Failure Block Method

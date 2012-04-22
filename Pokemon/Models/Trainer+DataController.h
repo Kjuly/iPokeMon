@@ -13,7 +13,7 @@
 @interface Trainer (DataController)
 
 // Class Methods
-+ (void)initWithUserID:(NSInteger)userID;
++ (void)initWithUserID:(NSInteger)userID completion:(void (^)())completion;
 + (void)addData;
 + (NSArray *)queryAllData;
 + (Trainer *)queryTrainerWithUserID:(NSInteger)userID;
