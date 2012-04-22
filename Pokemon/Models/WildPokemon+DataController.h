@@ -28,6 +28,6 @@
 - (NSArray *)maxStatsInArray;
 
 // Update data for different |level|
-- (void)update;
+- (void)updateToLevel:(NSInteger)level;
 
 @end

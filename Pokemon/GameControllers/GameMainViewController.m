@@ -140,6 +140,7 @@
   CCScene * blankScene = [CCScene node];
   [[CCDirector sharedDirector] runWithScene:blankScene];
   blankScene = nil;
+//  [[CCDirector sharedDirector] enableRetinaDisplay:YES];
   [[CCDirector sharedDirector] pause];
   
   // Audio Player

@@ -175,8 +175,8 @@
 #pragma mark - SET Base data
 
 // Update data for different |level|
-- (void)update {
-  NSInteger level = [self.level intValue];
+- (void)updateToLevel:(NSInteger)level {
+  self.level = [NSNumber numberWithInt:level];
   [self _calculateGender];
   [self _calculateMaxStatsAndHP];
   [self _calculateFourMovesAtLevel:level];
@@ -184,6 +184,22 @@
 }
 
 #pragma mark - Private Methods
+
+// Calculate |gender| based on |pokemonGenderRate|
+// 0:Female 1:Male 2:Genderless
+- (void)_calculateGender {
+  PokemonGenderRate pokemonGenderRate = [self.pokemon.genderRate intValue];
+  NSInteger gender;
+  if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
+  else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
+  else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
+  else {
+    float randomValue = arc4random() % 1000 / 10; // Random value for calculating
+    float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
+    gender = randomValue < genderRate ? 0 : 1;
+  }
+  self.gender = [NSNumber numberWithInt:gender];
+}
 
 // Calculation FORMULA
 //
@@ -227,22 +243,6 @@
   self.maxStats = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d",
                    statHP, statAttack, statDefense, statSpAttack, statSpDefense, statSpeed];
   self.hp       = [NSNumber numberWithInt:statHP];
-}
-
-// Calculate |gender| based on |pokemonGenderRate|
-// 0:Female 1:Male 2:Genderless
-- (void)_calculateGender {
-  PokemonGenderRate pokemonGenderRate = [self.pokemon.genderRate intValue];
-  NSInteger gender;
-  if      (pokemonGenderRate == kPokemonGenderRateAlwaysFemale) gender = 0;
-  else if (pokemonGenderRate == kPokemonGenderRateAlwaysMale)   gender = 1;
-  else if (pokemonGenderRate == kPokemonGenderRateGenderless)   gender = 2;
-  else {
-    float randomValue = arc4random() % 1000 / 10; // Random value for calculating
-    float genderRate = 25 * ((pokemonGenderRate == kPokemonGenderRateFemaleOneEighth) ? .5f : (pokemonGenderRate - 2));
-    gender = randomValue < genderRate ? 0 : 1;
-  }
-  self.gender = [NSNumber numberWithInt:gender];
 }
 
 // Calculate |fourMoves| based on |moves| & |leve|
