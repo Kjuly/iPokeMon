@@ -223,15 +223,12 @@ static OAuthManager * oauthManager_ = nil;
   // Success Block Method
   void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
     ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-      self.isUserIDSynced = YES;
       NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
       NSLog(@"|syncUserID| - Get |userID| for current user succeed... userID:%d", userID);
-      TrainerController * trainer = [TrainerController sharedInstance];
-      [trainer initTrainerWithUserID:userID];
-      [trainer sync];
-      
+      [[TrainerController sharedInstance] initTrainerWithUserID:userID];
       // Hide loading
       [self.loadingManager hideOverBar];
+      self.isUserIDSynced = YES;
     };
   // Failure Block Method
   void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
@@ -239,7 +236,6 @@ static OAuthManager * oauthManager_ = nil;
       NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
       // Hide loading
       [self.loadingManager hideOverBar];
-      
 #ifndef DEBUG_NO_SESSION_MOED
       // Post notification to |MainViewController| to warn Network not available view
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
