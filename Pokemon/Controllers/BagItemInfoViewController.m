@@ -15,12 +15,13 @@
 
 @interface BagItemInfoViewController () {
  @private
-  BOOL                     isDuringBattle_;
   UIView                 * backgroundView_;
   UILabel                * name_;
   UILabel                * price_;
   UILabel                * info_;
   UITapGestureRecognizer * tapGestureRecognizer_;
+  
+  BOOL                     isDuringBattle_;
 }
 
 @property (nonatomic, retain) UIView                 * backgroundView;
@@ -81,9 +82,9 @@
   [view release];
   
   // Constants
-  CGRect nameFrame  = CGRectMake(30.f, 60.f, 260.f, 32.f);
-  CGRect priceFrame = CGRectMake(30.f, 92.f, 260.f, 32.f);
-  CGRect infoFrame  = CGRectMake(30.f, 150.f, 260.f, 32.f);
+  CGRect nameFrame  = CGRectMake(30.f, 80.f, 260.f, 32.f);
+  CGRect priceFrame = CGRectMake(30.f, 112.f, 260.f, 32.f);
+  CGRect infoFrame  = CGRectMake(30.f, 170.f, 260.f, 32.f);
   
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
@@ -92,13 +93,13 @@
   
   name_ = [[UILabel alloc] initWithFrame:nameFrame];
   [name_ setBackgroundColor:[UIColor clearColor]];
-  [name_ setTextColor:[GlobalRender textColorTitleWhite]];
-  [name_ setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
+  [name_ setTextColor:[GlobalRender textColorOrange]];
+  [name_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [self.view addSubview:name_];
   
   price_ = [[UILabel alloc] initWithFrame:priceFrame];
   [price_ setBackgroundColor:[UIColor clearColor]];
-  [price_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [price_ setTextColor:[GlobalRender textColorBlue]];
   [price_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [self.view addSubview:price_];
   
