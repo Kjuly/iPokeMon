@@ -20,19 +20,18 @@
 @interface MapViewController () {
  @private
   WildPokemonController * wildPokemonController_;
-  BOOL                    hasSettedUp_;
-  BOOL                    isUpdatingLocation_;
-  BOOL                    isPokemonAppeared_;
   NSTimer               * eventTimer_;
-  CLLocationDistance      moveDistance_;
+  
+  BOOL               hasSettedUp_;
+  BOOL               isUpdatingLocation_;
+  BOOL               isPokemonAppeared_;
+  CLLocationDistance moveDistance_;
 }
 
 @property (nonatomic, retain) WildPokemonController * wildPokemonController;
-@property (nonatomic, assign) BOOL                    isUpdatingLocation;
-@property (nonatomic, assign) BOOL                    isPokemonAppeared;
 @property (nonatomic, retain) NSTimer               * eventTimer;
-@property (nonatomic, assign) CLLocationDistance      moveDistance;
 
+- (void)releaseSubviews;
 - (void)_setup;
 - (void)enableTracking:(NSNotification *)notification;
 - (void)disableTracking:(NSNotification *)notification;
@@ -50,23 +49,24 @@
 @synthesize location        = location_;
 
 @synthesize wildPokemonController = wildPokemonController_;
-@synthesize isUpdatingLocation    = isUpdatingLocation_;
-@synthesize isPokemonAppeared     = isPokemonAppeared_;
 @synthesize eventTimer            = eventTimer_;
-@synthesize moveDistance          = moveDistance_;
 
 - (void)dealloc { 
-  self.mapView               = nil;
   self.locationManager       = nil;
   self.location              = nil;
   self.wildPokemonController = nil;
   self.eventTimer            = nil;
+  [self releaseSubviews];
   
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNDisableTracking object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd       object:nil];
   [super dealloc];
+}
+
+- (void)releaseSubviews {
+  self.mapView = nil;
 }
 
 - (id)initWithLocationTracking {
@@ -85,8 +85,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -118,7 +117,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  self.mapView = nil;
+  [self releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -165,16 +164,16 @@
 //  NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
   // If |moveDistance == 0|, set a base distance:10,
   //   this'll fix the bug after restart tracking, the result of |distanceFromLocation:| will much big
-  if (self.moveDistance == 0) self.moveDistance = 10;
-  else self.moveDistance += [newLocation distanceFromLocation:oldLocation];
-  NSLog(@"|||Move Distance: %f", self.moveDistance);
+  if (moveDistance_ == 0) moveDistance_ = 10;
+  else moveDistance_ += [newLocation distanceFromLocation:oldLocation];
+  NSLog(@"|||Move Distance: %f", moveDistance_);
   
   // If there's no Wild Pokemon Arreared yet, and got the basic required move distance,
   //   Generate a Wild Pokemon for player
 #ifdef DEBUG_NO_MOVE
-  if (! self.isPokemonAppeared && arc4random() % 10 > 5) {
+  if (! isPokemonAppeared_ && arc4random() % 10 > 5) {
 #else
-  if (! self.isPokemonAppeared && self.moveDistance > 3000.0f && arc4random() % 2) {
+  if (! isPokemonAppeared_ && moveDistance_ > 3000.0f && arc4random() % 2) {
 #endif
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
@@ -211,7 +210,7 @@
     [userInfo release];
     
     // Mark as a Wild Pokemon appeared & stop tracking
-    self.isPokemonAppeared = YES;
+    isPokemonAppeared_ = YES;
     [self disableTracking:nil];
   }
 
@@ -221,7 +220,7 @@
     // When |horizontalAccuracy| of location is smaller than 100, stop updating location
     if (self.location.horizontalAccuracy < 100 && self.location.verticalAccuracy < 100) {
       [self.locationManager stopUpdatingLocation];
-      self.isUpdatingLocation = NO;
+      isUpdatingLocation_ = NO;
     }
   }
 }
@@ -342,30 +341,30 @@
 - (void)disableTracking:(NSNotification *)notification {
   NSLog(@"|%@| - DISABLING TRACKING...", [self class]);
   // Stop updating Location
-  self.isUpdatingLocation = NO;
+  isUpdatingLocation_ = NO;
   [self.locationManager stopUpdatingLocation];
   
   // Reset basic settings
-  self.isPokemonAppeared = NO;
+  isPokemonAppeared_ = NO;
   [self setEventTimerStatusToRunning:NO];
   
   // Reset |moveDistance_|
-  self.moveDistance = 0;
+  moveDistance_ = 0;
 }
 
 // Continue updating location after some time interval
 - (void)continueUpdatingLocation {
-  if (! self.isUpdatingLocation) {
+  if (! isUpdatingLocation_) {
     // Standard Location Service
     [self.locationManager startUpdatingLocation];
-    self.isUpdatingLocation = YES;
+    isUpdatingLocation_ = YES;
   }
 }
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification {
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"|resetIsPokemonAppeared|");
-    self.isPokemonAppeared = NO;
+    isPokemonAppeared_ = NO;
     [self setEventTimerStatusToRunning:YES];
   }
 }

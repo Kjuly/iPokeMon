@@ -10,7 +10,6 @@
 
 #import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
-//#import "TrainerController.h"
 #import "WildPokemonController.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon.h"
@@ -21,23 +20,25 @@
 
 @interface PokemonSelectionViewController () {
  @private
-  UIButton  * pokemonSelectionButton_; // Button to show Pokemon Selection View
+  UIButton * pokemonSelectionButton_; // Button to show Pokemon Selection View
+  UIView   * backgroundView_;
+  
+  NSArray                        * pokemons_;
+  PokemonDetailTabViewController * pokemonDetailTabViewController_;
+  CAAnimationGroup               * animationGroupForNotReplacing_;
+  
   NSInteger   currOpeningUnitViewTag_;
   NSInteger   currSelectedPokemon_;
-  UIView    * backgroundView_;
-  NSArray   * pokemons_;
-  PokemonDetailTabViewController     * pokemonDetailTabViewController_;
-  CAAnimationGroup                   * animationGroupForNotReplacing_;
 }
 
-@property (nonatomic, retain) UIButton  * pokemonSelectionButton;
-@property (nonatomic, assign) NSInteger   currOpeningUnitViewTag;
-@property (nonatomic, assign) NSInteger   currSelectedPokemon;
-@property (nonatomic, retain) UIView    * backgroundView;
-@property (nonatomic, copy)   NSArray   * pokemons;
+@property (nonatomic, retain) UIButton * pokemonSelectionButton;
+@property (nonatomic, retain) UIView   * backgroundView;
+
+@property (nonatomic, copy)   NSArray                        * pokemons;
 @property (nonatomic, retain) PokemonDetailTabViewController * pokemonDetailTabViewController;
 @property (nonatomic, retain) CAAnimationGroup               * animationGroupForNotReplacing;
 
+- (void)releaseSubviews;
 - (void)loadPokemonSelectionViewAnimated:(BOOL)animated;
 - (void)showPokemonSelectionView:(id)sender;
 
@@ -50,36 +51,33 @@
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
 
 @synthesize pokemonSelectionButton = pokemonSelectionButton_;
-@synthesize currOpeningUnitViewTag = currOpeningUnitViewTag_;
-@synthesize currSelectedPokemon    = currSelectedPokemon_;
 @synthesize backgroundView         = backgroundView_;
-@synthesize pokemons               = pokemons_;
+
+@synthesize pokemons                       = pokemons_;
 @synthesize pokemonDetailTabViewController = pokemonDetailTabViewController_;
 @synthesize animationGroupForNotReplacing  = animationGroupForNotReplacing_;
 
-- (void)dealloc
-{
-  [pokemonSelectionButton_         release];
-  [backgroundView_                 release];
-  [pokemons_                       release];
-  [pokemonDetailTabViewController_ release];
-  
+- (void)dealloc {
+  self.pokemons                       = nil;
   self.pokemonDetailTabViewController = nil;
   self.animationGroupForNotReplacing  = nil;
-  
+  [self releaseSubviews];
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (void)releaseSubviews {
+  self.pokemonSelectionButton = nil;
+  self.backgroundView         = nil;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -120,55 +118,46 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
-  
   // Basic Setting
   selectedPokemonUID_     = 0;
   currOpeningUnitViewTag_ = 0;
   currSelectedPokemon_    = 0;
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemonSelectionButton         = nil;
-  self.backgroundView                 = nil;
-  self.pokemons                       = nil;
-  self.pokemonDetailTabViewController = nil;
+  [self releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - GameMenuSixPokemonsUnitViewDelegate
 
-- (void)checkUnit:(id)sender
-{
-  if (self.currOpeningUnitViewTag) {
+- (void)checkUnit:(id)sender {
+  if (currOpeningUnitViewTag_) {
     GameMenuSixPokemonsUnitView * unitView =
-      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+      (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:currOpeningUnitViewTag_];
     [unitView cancelUnitAnimated:YES];
     unitView = nil;
   }
-  self.currOpeningUnitViewTag = ((UIButton *)sender).tag;
+  currOpeningUnitViewTag_ = ((UIButton *)sender).tag;
 }
 
 - (void)resetUnit {
-  self.currOpeningUnitViewTag = 0;
+  currOpeningUnitViewTag_ = 0;
 }
 
 // Button action to confirm selected Pokemon
 - (void)confirm:(id)sender {
   [self unloadPokemonSelectionViewAnimated:YES];
   
-  self.currSelectedPokemon = ((UIButton *)sender).tag;
-  WildPokemon * pokemon = [self.pokemons objectAtIndex:(self.currSelectedPokemon - 1)];
+  currSelectedPokemon_ = ((UIButton *)sender).tag;
+  WildPokemon * pokemon = [self.pokemons objectAtIndex:(currSelectedPokemon_ - 1)];
   self.selectedPokemonUID = [pokemon.uid intValue];
   [self.pokemonSelectionButton setImage:pokemon.pokemon.image forState:UIControlStateNormal];
 }
@@ -241,7 +230,7 @@
     [unitView setAsNormal];
     
     // Set as current selecetd one
-    if (self.currSelectedPokemon == i)
+    if (currSelectedPokemon_ == i)
       [unitView setAsCurrentBattleOne:YES];
     
     unitView = nil;
@@ -268,17 +257,17 @@
   };
   
   // If there's a unit view opening, close it first
-  if (self.currOpeningUnitViewTag != 0) {
-    GameMenuSixPokemonsUnitView * unitView
-    = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:self.currOpeningUnitViewTag];
+  if (currOpeningUnitViewTag_ != 0) {
+    GameMenuSixPokemonsUnitView * unitView;
+    unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:currOpeningUnitViewTag_];
     [unitView cancelUnitAnimated:animated];
     unitView = nil;
-    self.currOpeningUnitViewTag = 0;
+    currOpeningUnitViewTag_ = 0;
   }
   
   if (! animated) { animation(); }
   else [UIView animateWithDuration:.3f
-                             delay:(self.currOpeningUnitViewTag != 0 ? .6f : 0.f)
+                             delay:(currOpeningUnitViewTag_ != 0 ? .6f : 0.f)
                            options:UIViewAnimationCurveEaseInOut
                         animations:animation
                         completion:nil];
@@ -337,7 +326,7 @@
     
     for (int i = [self.pokemons count]; i > 0; --i) {
       GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:i];
-      if (self.currSelectedPokemon == i) [unitView setAsCurrentBattleOne:YES];
+      if (currSelectedPokemon_ == i) [unitView setAsCurrentBattleOne:YES];
       else                               [unitView setAsCurrentBattleOne:NO];
       [unitView setAlpha:1.f];
       [unitView.layer addAnimation:self.animationGroupForNotReplacing forKey:@"animationToShow"];

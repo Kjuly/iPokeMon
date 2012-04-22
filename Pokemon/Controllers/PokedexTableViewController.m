@@ -43,15 +43,9 @@
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
-    
-    self.trainer = [TrainerController sharedInstance];
-    
     // Get a handle to our fetchedResultsController (which implicitly creates it as well)
     // and call |performFetch:| to retrieve the first batch of data
     NSError * error;
@@ -64,8 +58,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -76,6 +69,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  self.trainer = [TrainerController sharedInstance];
 }
 
 - (void)viewDidUnload {

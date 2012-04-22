@@ -89,8 +89,7 @@
   self.hiddenCellAreaView = nil;
 }
 
-- (id)initWithBagItem:(BagQueryTargetType)targetType
-{
+- (id)initWithBagItem:(BagQueryTargetType)targetType {
   self = [self initWithStyle:UITableViewStylePlain];
   if (self) [self setBagItem:targetType];
   return self;
@@ -130,9 +129,6 @@
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
-    
     // Basic setting
     selectedCellIndex_    = 0;
     targetType_           = 0;
@@ -156,8 +152,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -168,6 +163,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  
   // Add observer for notification from |GameMenuSixPokemonsViewController|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(useItemForSelectedPokemon:)

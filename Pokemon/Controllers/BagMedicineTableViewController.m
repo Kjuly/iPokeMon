@@ -19,15 +19,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  }
-  return self;
+  return [super initWithStyle:style];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -38,6 +33,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)viewDidUnload {
