@@ -719,7 +719,7 @@
                      isMapViewOpening_ = ! isMapViewOpening_;
                      
                      if (isMapViewOpening_)
-                       [self.mapButton setImage:[UIImage imageNamed:kPMINMainButtonHalfCancel]
+                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
                                        forState:UIControlStateNormal];
                      else {
                        [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal]
