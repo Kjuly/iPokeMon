@@ -154,7 +154,7 @@
   // confirm button
   confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
-  [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
+  [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
   [self moveConfirmButtonToBottom:YES animated:NO];
