@@ -58,6 +58,7 @@
 	<array>
 		<string>armv7</string>
 		<string>location-services</string>
+		<string>wifi</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
