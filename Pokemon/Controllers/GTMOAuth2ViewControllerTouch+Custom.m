@@ -26,6 +26,9 @@
      <body><div class=\"main\">%@</div></body></html>",
      kPMINBackgroundBlack, NSLocalizedString(@"PMSLoginSigninPage", nil)];
   NSString * basePath = [[NSBundle mainBundle] bundlePath];
+  CGRect webViewFrame = self.webView.frame;
+  webViewFrame.origin.y = -kNavigationBarBottomAlphaHegiht;
+  [self.webView setFrame:webViewFrame];
   [self.webView loadHTMLString:self.initialHTMLString
                        baseURL:[NSURL fileURLWithPath:basePath]];
   
