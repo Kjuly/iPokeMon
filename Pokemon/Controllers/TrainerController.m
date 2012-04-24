@@ -111,11 +111,7 @@ static TrainerController * trainerController_ = nil;
 // Save Client data to CoreData
 -(void)saveWithSync:(BOOL)withSync {
   NSLog(@"......|%@| - SVEING DATA......", [self class]);
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  NSError * error;
-  if (! [managedObjectContext save:&error])
-    NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
+  [(AppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
   
   // Sync data to Server
   if (withSync) [self sync];
