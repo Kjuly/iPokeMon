@@ -8,6 +8,9 @@
 
 #import "PokemonAreaViewController.h"
 
+#import "GlobalConstants.h"
+
+
 @implementation PokemonAreaViewController
 
 @synthesize mapView = mapView_;
@@ -54,7 +57,7 @@
   
   // Google Map View
   CGRect mapViewFrame = self.view.frame;
-  mapViewFrame.origin.y = 0.f;
+  mapViewFrame.origin.y = -kNavigationBarBottomAlphaHegiht;
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:mapViewFrame];
   self.mapView = mapView;
   [mapView release];
