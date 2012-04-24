@@ -12,8 +12,7 @@
 
 @class GameMenuViewController;
 
-@interface GameMainViewController : UIViewController <GameMenuViewControllerDelegate>
-{
+@interface GameMainViewController : UIViewController <GameMenuViewControllerDelegate> {
   GameMenuViewController * gameMenuViewController_;
 }
 

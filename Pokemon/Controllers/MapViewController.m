@@ -95,17 +95,17 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
   
   // Google Map View
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
   self.mapView = mapView;
   [mapView release];
-  [self.view addSubview:self.mapView];
+  [view addSubview:self.mapView];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -25,9 +25,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGRect  const descriptionFrame  = CGRectMake(10.f, 10.f, 300.f, 190.f);
@@ -35,7 +39,7 @@
   ///Memo
   UITextView * memoField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [memoField setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
+   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
   [memoField setOpaque:NO];
   [memoField setEditable:NO];
   [memoField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
@@ -43,11 +47,6 @@
   [memoField setText:NSLocalizedString(self.pokemon.memo, nil)];
   [self.view addSubview:memoField];
   [memoField release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

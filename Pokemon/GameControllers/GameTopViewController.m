@@ -65,29 +65,29 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 85.f)];
-  self.view = view;
-  [view release];
   
   backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0.f, -55.f, kViewWidth, 115.f)];
   [backgroundView_ setBackgroundColor:
    [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewTopBarBackground.png"]]];
   [backgroundView_ setOpaque:NO];
-  [self.view addSubview:backgroundView_];
+  [view addSubview:backgroundView_];
   
   avatarBottomView_ = [[UIImageView alloc] initWithFrame:CGRectMake(10.f, -10.f, 65.f, 90.f)];
   [avatarBottomView_ setImage:[UIImage imageNamed:@"GameBattleViewTopBarAvatarBottom.png"]];
   [avatarBottomView_ setAlpha:0.f];
-  [self.view addSubview:avatarBottomView_];
+  [view addSubview:avatarBottomView_];
   
   avatarTopButton_ = [[UIButton alloc] initWithFrame:CGRectMake(10.f, 0.f, 65.f, 90.f)];
   [avatarTopButton_ setBackgroundColor:
    [UIColor colorWithPatternImage:[UIImage imageNamed:@"GameBattleViewTopBarAvatarTop.png"]]];
   [avatarTopButton_ setOpaque:NO];
   [avatarTopButton_ addTarget:self action:@selector(toggleTrainerView:) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:avatarTopButton_];
+  [view addSubview:avatarTopButton_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

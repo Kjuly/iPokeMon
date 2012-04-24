@@ -8,29 +8,23 @@
 
 #import "PokemonAreaViewController.h"
 
-#import "GlobalConstants.h"
-
-
 @implementation PokemonAreaViewController
 
 @synthesize mapView = mapView_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.mapView = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemonSID:(NSInteger)pokemonSID
-{
+- (id)initWithPokemonSID:(NSInteger)pokemonSID {
   self = [self init];
   if (self) {
   }
   return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -50,9 +44,12 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
+  [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Google Map View
@@ -60,12 +57,6 @@
   self.mapView = mapView;
   [mapView release];
   [self.view addSubview:self.mapView];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload

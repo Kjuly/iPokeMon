@@ -76,9 +76,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat const labelHeight = 30.f;
@@ -146,17 +150,12 @@
   // Ability
   abilityLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:abilityLabelViewFrame hasValueLabel:YES];
   [abilityLabelView_.name setText:NSLocalizedString(@"PMSLabelAbility", nil)];
-//  [dataView addSubview:abilityLabelView_];
+  //  [dataView addSubview:abilityLabelView_];
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
   [dataView release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
+  
   
   NSArray * statsMax = [self.pokemon maxStatsInArray];
   NSInteger hpLeft = [self.pokemon.hp intValue];

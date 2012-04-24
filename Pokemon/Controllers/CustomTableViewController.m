@@ -17,8 +17,7 @@
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     // Custom initialization

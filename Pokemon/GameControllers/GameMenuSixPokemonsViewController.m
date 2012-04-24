@@ -98,11 +98,15 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
   [view release];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
@@ -112,7 +116,7 @@
   
   // Create a fake |mapButton_| as the cancel button
   CGRect cancelButtonFrame =
-    CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, kCenterMainButtonSize, kCenterMainButtonSize);
+  CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, kCenterMainButtonSize, kCenterMainButtonSize);
   UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
   self.cancelButton = cancelButton;
   [cancelButton release];
@@ -124,11 +128,7 @@
   [self.cancelButton setTag:0];
   [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
+  
   self.trainer = [TrainerController sharedInstance];
 }
 

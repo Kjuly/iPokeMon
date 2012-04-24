@@ -64,9 +64,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-  [super loadView];
+//- (void)loadView {
+//  [super loadView];
+//}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Base Setting
   isSelectedItemViewOpening_ = NO;
@@ -104,11 +108,7 @@
                         action:@selector(unloadSelcetedItemTalbeView:)
               forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
+  
   
   // Swipte to RIGHT, close bag view
   UISwipeGestureRecognizer * swipeRightGestureRecognizer

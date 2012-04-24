@@ -54,10 +54,14 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [view setBackgroundColor:[UIColor clearColor]];
   self.view = view;
   [view release];
-  
-  [self.view setBackgroundColor:[UIColor clearColor]];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat const imageHeight     = 150.f;
@@ -74,7 +78,7 @@
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:CGRectMake(10.f, 10.f, imageWidth, imageHeight)];
   [imageContainer setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
+   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -121,11 +125,6 @@
   // Add Right ID View to |self.view| & Release it
   [self.view addSubview:IDView];
   [IDView release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

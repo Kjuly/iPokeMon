@@ -17,8 +17,7 @@
   [super dealloc];
 }
 
-- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
-{
+- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon {
   self = [self init];
   if (self) {
     self.pokemon = pokemon;
@@ -26,8 +25,7 @@
   return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -46,8 +44,7 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f,
                                                            kTopBarHeight + kTopIDViewHeight,
                                                            kViewWidth,
@@ -57,20 +54,15 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
   [super viewDidUnload];
-  
-  self.pokemon = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

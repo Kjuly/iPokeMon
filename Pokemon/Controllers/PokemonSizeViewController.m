@@ -10,8 +10,7 @@
 
 @implementation PokemonSizeViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
@@ -28,6 +27,11 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat const imageHeight = 150.f;
@@ -60,11 +64,6 @@
   // Add Size View to |self.view| & Release it
   [self.view addSubview:sizeView];
   [sizeView release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

@@ -27,9 +27,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat const imageHeight = 150.f;
@@ -75,20 +79,15 @@
   ///Description
   UITextView * descriptionField = [[UITextView alloc] initWithFrame:descriptionFrame];
   [descriptionField setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
+   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailDescriptionBackground]]];
   [descriptionField setOpaque:NO];
   [descriptionField setEditable:NO];
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [descriptionField setTextColor:[GlobalRender textColorNormal]];
   [descriptionField setText:
-    NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
+   NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
   [self.view addSubview:descriptionField];
   [descriptionField release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

@@ -69,9 +69,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Set Buttons' style in center menu view
   for (UIButton * button in [self.centerMenu subviews]) {
@@ -79,11 +83,6 @@
             forState:UIControlStateNormal];
     [button setAlpha:.95f];
   }
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

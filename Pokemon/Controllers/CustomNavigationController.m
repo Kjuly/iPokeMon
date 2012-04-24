@@ -52,12 +52,12 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   [super loadView];
-  [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
 }
 
 - (void)viewDidUnload {

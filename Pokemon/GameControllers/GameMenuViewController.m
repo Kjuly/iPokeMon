@@ -195,11 +195,8 @@ typedef enum {
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
   
   // Constants
   CGRect messageViewFrame             = CGRectMake(0.f,
@@ -221,18 +218,18 @@ typedef enum {
   // Wild Pokemon Status View
   enemyPokemonStatusViewController_ = [[GameEnemyPokemonStatusViewController alloc] init];
   [enemyPokemonStatusViewController_.view setFrame:enemyPokemonStatusViewFrame];
-  [self.view addSubview:enemyPokemonStatusViewController_.view];
+  [view addSubview:enemyPokemonStatusViewController_.view];
   
   // My Pokemon Status View
   playerPokemonStatusViewController_ = [[GamePlayerPokemonStatusViewController alloc] init];
   [playerPokemonStatusViewController_.view setFrame:playerPokemonStatusViewFrame];
-  [self.view addSubview:playerPokemonStatusViewController_.view];
+  [view addSubview:playerPokemonStatusViewController_.view];
   
   //
   // Top Bar
   //
   //gameTopViewController_ = [[GameTopViewController alloc] init];
-  //[self.view addSubview:gameTopViewController_.view];
+  //[view addSubview:gameTopViewController_.view];
   
   //
   // Message View
@@ -240,19 +237,18 @@ typedef enum {
   UITextView * messageView = [[UITextView alloc] initWithFrame:messageViewFrame];
   self.messageView = messageView;
   [messageView release];
-  [self.messageView setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBattleMenuMessageViewBackground]]];
+  [self.messageView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBattleMenuMessageViewBackground]]];
   [self.messageView setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
   [self.messageView setEditable:NO];
-  [self.view addSubview:self.messageView];
+  [view addSubview:self.messageView];
   
   // Pokemon Image View (for animation of getting back pokemon)
   UIImageView * pokemonImageView =
     [[UIImageView alloc] initWithFrame:CGRectMake(70.f, kViewHeight, kGameBattlePMSize, kGameBattlePMSize)];
   self.pokemonImageView = pokemonImageView;
   [pokemonImageView release];
-  [self.view addSubview:self.pokemonImageView];
+  [view addSubview:self.pokemonImageView];
   
   // Pokeball
   UIImageView * pokeball =
@@ -264,7 +260,10 @@ typedef enum {
   [pokeball release];
   [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
   [self.pokeball setImage:[UIImage imageNamed:kPMINBattleElementPokeball]];
-  [self.view addSubview:self.pokeball];
+  [view addSubview:self.pokeball];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

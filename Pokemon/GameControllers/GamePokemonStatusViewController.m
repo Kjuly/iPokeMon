@@ -61,13 +61,10 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 64.f)];
-  self.view = view;
-  [view release];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
-  [self.view setAlpha:0.f];
+  [view setBackgroundColor:[UIColor whiteColor]];
+  [view setAlpha:0.f];
   
   // Constants
   CGRect pokemonGenderFrame = CGRectMake(10.f, 22.f, 20.f, 20.f);
@@ -78,25 +75,28 @@
   // Pokemon Gender
   pokemonGender_ = [[UIImageView alloc] initWithFrame:pokemonGenderFrame];
   [pokemonGender_ setBackgroundColor:[UIColor clearColor]];
-  [self.view addSubview:pokemonGender_];
+  [view addSubview:pokemonGender_];
   
   // Name
   pokemonName_ = [[UILabel alloc] initWithFrame:pokemonNameFrame];
   [pokemonName_ setBackgroundColor:[UIColor clearColor]];
   [pokemonName_ setTextColor:[GlobalRender textColorOrange]];
   [pokemonName_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [self.view addSubview:pokemonName_];
+  [view addSubview:pokemonName_];
   
   // Lv.
   pokemonLevel_ = [[UILabel alloc] initWithFrame:pokemonLevelFrame];
   [pokemonLevel_ setBackgroundColor:[UIColor clearColor]];
   [pokemonLevel_ setTextColor:[UIColor blackColor]];
   [pokemonLevel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [self.view addSubview:pokemonLevel_];
+  [view addSubview:pokemonLevel_];
   
   // HP bar
   pokemonHPBar_ = [[PokemonHPBar alloc] initWithFrame:pokemonHPBarFrame];
-  [self.view addSubview:pokemonHPBar_];
+  [view addSubview:pokemonHPBar_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

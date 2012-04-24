@@ -170,15 +170,10 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
-  
-  [self.view setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
-  [self.view setOpaque:NO];
+  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
+  [view setOpaque:NO];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   
@@ -196,7 +191,7 @@
   [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
   [self.centerMainButton setTag:kTagMainViewCenterMainButton];
-  [self.view addSubview:self.centerMainButton];
+  [view addSubview:self.centerMainButton];
   
   // Register touch events for |centerMainButton_|
   [self.centerMainButton addTarget:self
@@ -223,12 +218,15 @@
   [self.mapButton setTag:kTagMainViewMapButton];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
-  [self.view addSubview:self.mapButton];
+  [view addSubview:self.mapButton];
   
   // Init |mapViewController_| to run location tracking,
   //   if enable location tracking, it'll do tracking
   //   otherwise, just add observer for notification when enable trakcing
   mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

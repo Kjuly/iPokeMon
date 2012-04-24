@@ -163,11 +163,8 @@ typedef enum {
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
   
   // Constants
   CGFloat const avatarAreaSize    = 112.f;
@@ -193,7 +190,7 @@ typedef enum {
   
   // Main View
   mainView_ = [[UIView alloc] initWithFrame:mainViewFrame];
-  [self.view addSubview:mainView_];
+  [view addSubview:mainView_];
   
   ///Left avatar area
   avatarArea_ = [[UIView alloc] initWithFrame:CGRectMake(15.f, 20.f, avatarAreaSize, avatarAreaSize)];
@@ -292,6 +289,9 @@ typedef enum {
   [dataView_ addSubview:adventureStartedTimeValue_];
   
   [self.mainView addSubview:dataView_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

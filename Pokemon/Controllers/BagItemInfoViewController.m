@@ -75,11 +75,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 480.f)];
-  self.view = view;
-  [view release];
   
   // Constants
   CGRect nameFrame  = CGRectMake(30.f, 80.f, 260.f, 32.f);
@@ -89,19 +86,19 @@
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
-  [self.view addSubview:backgroundView_];
+  [view addSubview:backgroundView_];
   
   name_ = [[UILabel alloc] initWithFrame:nameFrame];
   [name_ setBackgroundColor:[UIColor clearColor]];
   [name_ setTextColor:[GlobalRender textColorOrange]];
   [name_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [self.view addSubview:name_];
+  [view addSubview:name_];
   
   price_ = [[UILabel alloc] initWithFrame:priceFrame];
   [price_ setBackgroundColor:[UIColor clearColor]];
   [price_ setTextColor:[GlobalRender textColorBlue]];
   [price_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  [self.view addSubview:price_];
+  [view addSubview:price_];
   
   info_ = [[UILabel alloc] initWithFrame:infoFrame];
   [info_ setBackgroundColor:[UIColor clearColor]];
@@ -109,7 +106,10 @@
   [info_ setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
   [info_ setLineBreakMode:UILineBreakModeWordWrap];
   [info_ setNumberOfLines:0];
-  [self.view addSubview:info_];
+  [view addSubview:info_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

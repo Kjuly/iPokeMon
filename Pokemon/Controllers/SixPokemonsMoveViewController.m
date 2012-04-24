@@ -73,9 +73,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat const moveViewHeight = (self.view.frame.size.height - 80.f) / 4.f;
@@ -123,12 +127,7 @@
   [fourMovesView_ addSubview:moveThreeView_];
   [fourMovesView_ addSubview:moveFourView_];
   [self.view addSubview:fourMovesView_];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
+  
   
   // PP for four moves
   self.fourMovesPP = [self.pokemon fourMovesPPInArray];

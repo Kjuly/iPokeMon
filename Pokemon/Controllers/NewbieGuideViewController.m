@@ -113,24 +113,18 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
-  [self.view setOpaque:NO];
-  [self.view setAlpha:0.f];
+  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
+  [view setOpaque:NO];
+  [view setAlpha:0.f];
 
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor clearColor]];
   [backgroundView_ setAlpha:.85f];
-  [self.view addSubview:backgroundView_];
+  [view addSubview:backgroundView_];
   
-  // Constants
-//  textView1Frame_ = CGRectMake(30.f, 60.f, 260.f, 40.f);
-//  textView2Frame_ = CGRectMake(30.f, 100.f, 260.f, 40.f);
-  
+  // Constants  
   titleFrame_ = CGRectMake(30.f, 60.f, 260.f, 32.f);
   messageFrame_ = CGRectMake(30.f, 102.f, 260.f, 64.f);
   
@@ -139,7 +133,7 @@
   [title_ setBackgroundColor:[UIColor clearColor]];
   [title_ setTextColor:[GlobalRender textColorOrange]];
   [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [self.view addSubview:title_];
+  [view addSubview:title_];
   
   // Message
   message_ = [[UILabel alloc] initWithFrame:messageFrame_];
@@ -149,14 +143,14 @@
   [message_ setLineBreakMode:UILineBreakModeWordWrap];
   [message_ setNumberOfLines:0];
   [message_ sizeToFit];
-  [self.view addSubview:message_];
+  [view addSubview:message_];
   
   // confirm button
   confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:confirmButton_];
+  [view addSubview:confirmButton_];
   [self moveConfirmButtonToBottom:YES animated:NO];
   
   // Layouts for different steps
@@ -177,6 +171,9 @@
                            [NSNumber numberWithInt:7], nil];
   [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
   [pokemonSIDs release];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

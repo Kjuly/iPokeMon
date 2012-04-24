@@ -97,9 +97,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   [super loadView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
   // Constants
@@ -121,7 +126,7 @@
   ///Left Image View
   UIView * imageContainer = [[UIView alloc] initWithFrame:imageContainerFrame];
   [imageContainer setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
+   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINPMDetailImageBackgound]]];
   [imageContainer setOpaque:NO];
   
   // Image
@@ -167,18 +172,13 @@
   // Gender
   UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
   [genderImageView setImage:
-    [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [self.pokemon.gender intValue]]]];
+   [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [self.pokemon.gender intValue]]]];
   [IDView addSubview:genderImageView];
   [genderImageView release];
   
   // Add Right ID View to |self.view| & Release it
   [self.view addSubview:IDView];
   [IDView release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

@@ -87,11 +87,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
   
   // Constants
   CGRect pokemonSelectionButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
@@ -108,13 +105,16 @@
   [pokemonSelectionButton_ addTarget:self
                               action:@selector(showPokemonSelectionView:)
                     forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:pokemonSelectionButton_];
+  [view addSubview:pokemonSelectionButton_];
   
   // Background view
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
-  [self.view addSubview:backgroundView_];
+  [view addSubview:backgroundView_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

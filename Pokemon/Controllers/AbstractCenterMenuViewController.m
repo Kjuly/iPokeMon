@@ -66,11 +66,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
   
   // Center Menu View
   CGRect centerMenuFrame = CGRectMake((kViewWidth - kCenterMenuSize) / 2, (kViewHeight - kCenterMenuSize) / 2, kCenterMenuSize, kCenterMenuSize);
@@ -80,7 +77,7 @@
   [self.centerMenu setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINMainMenuBackground]]];
   [self.centerMenu setOpaque:NO];
   [self.centerMenu setAlpha:0.f];
-  [self.view addSubview:self.centerMenu];
+  [view addSubview:self.centerMenu];
   
   // Add buttons to |ballMenu_|, set it's origin frame to center
   buttonOriginFrame_ = CGRectMake((kCenterMenuSize - kCenterMainButtonSize) / 2,
@@ -95,6 +92,9 @@
     [self.centerMenu addSubview:button];
     [button release];
   }
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -79,9 +79,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-  [super loadView];
+//- (void)loadView {
+//  [super loadView];
+//}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGFloat moveViewHeight = (kViewHeight - 20.f) / 4.f;
@@ -115,11 +119,7 @@
   [self.tableAreaView addSubview:move2View_];
   [self.tableAreaView addSubview:move3View_];
   [self.tableAreaView addSubview:move4View_];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
+  
   
   [self updateFourMoves];
   

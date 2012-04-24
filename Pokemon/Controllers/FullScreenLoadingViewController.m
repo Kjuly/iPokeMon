@@ -71,18 +71,11 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
-  [self.view setOpaque:NO];
-  [self.view setAlpha:0.f];
-//  [self.view setBackgroundColor:[UIColor colorWithRed:(30.f / 255.f)
-//                                                green:(33.f / 255.f)
-//                                                 blue:(32.f / 255.f)
-//                                                alpha:1.f]];
+  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
+  [view setOpaque:NO];
+  [view setAlpha:0.f];
   
   CGRect titleFrame = CGRectMake(30.f, 100.f, 260.f, 32.f);
   CGRect messageFrame = CGRectMake(30.f, 142.f, 260.f, 96.f);
@@ -94,7 +87,7 @@
   [title_ setTextColor:[GlobalRender textColorOrange]];
   [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [title_ setText:NSLocalizedString(@"PMSConnectErrorTitle", nil)];
-  [self.view addSubview:title_];
+  [view addSubview:title_];
   
   // Message
   message_ = [[UILabel alloc] initWithFrame:messageFrame];
@@ -105,12 +98,15 @@
   [message_ setNumberOfLines:0];
   [message_ setText:NSLocalizedString(@"PMSConnectErrorMessage", nil)];
   [message_ sizeToFit];
-  [self.view addSubview:message_];
+  [view addSubview:message_];
   
   refreshButton_ = [[UIButton alloc] initWithFrame:refreshButtonFrame];
   [refreshButton_ setImage:[UIImage imageNamed:kPMINIconRefresh] forState:UIControlStateNormal];
   [refreshButton_ addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:refreshButton_];
+  [view addSubview:refreshButton_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

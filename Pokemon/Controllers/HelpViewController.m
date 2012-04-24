@@ -64,13 +64,10 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
-  [self.view setBackgroundColor:[UIColor blackColor]];
-  [self.view setAlpha:0.f];
+  [view setBackgroundColor:[UIColor blackColor]];
+  [view setAlpha:0.f];
   
   // |scrollView_|
   scrollView_ = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, kViewWidth, kViewHeight)];
@@ -83,7 +80,7 @@
   [scrollView_ setDelegate:self];
   [scrollView_ setContentMode:UIViewContentModeTop];
   [scrollView_ setPagingEnabled:YES];
-  [self.view addSubview:scrollView_];
+  [view addSubview:scrollView_];
   
   ///Add subviews
   CGRect viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
@@ -112,7 +109,7 @@
   [pageControl_ setNumberOfPages:3];
   [pageControl_ setCurrentPage:0];
   [pageControl_ addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-  [self.view addSubview:pageControl_];
+  [view addSubview:pageControl_];
   
   // Create a fake |mapButton_| as the cancel button
   cancelButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
@@ -125,7 +122,10 @@
   [cancelButton_ setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel] forState:UIControlStateNormal];
   [cancelButton_ setOpaque:NO];
   [cancelButton_ addTarget:self action:@selector(unloadViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:cancelButton_];
+  [view addSubview:cancelButton_];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -64,9 +64,13 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-  [super loadView];
+//- (void)loadView {
+//  [super loadView];
+//}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Constants
   CGRect pokemonHPBarFrame   = CGRectMake(0.f, 0.f, kViewWidth, kGameMenuPMStatusHPBarHeight);
@@ -89,11 +93,6 @@
   
   // Add a transparent button for toggling status view
   isStatusBarOpening_ = NO;
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
 }
 
 - (void)viewDidUnload {

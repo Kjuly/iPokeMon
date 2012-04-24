@@ -69,11 +69,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 60.f)];
-  self.view = view;
-  [view release];
   
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((kViewWidth - buttonSize) / 2, 0.f, buttonSize, buttonSize);
@@ -85,27 +82,30 @@
   [mainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                          forState:UIControlStateNormal];
   [mainButton_ addTarget:self action:@selector(open) forControlEvents:UIControlEventTouchUpInside];
-  [self.view  addSubview:mainButton_];
+  [view  addSubview:mainButton_];
   
   confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                             forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [confirmButton_ setAlpha:0.f];
-  [self.view addSubview:confirmButton_];
+  [view addSubview:confirmButton_];
   
   infoButton_ = [[UIButton alloc] initWithFrame:infoButtonFrame];
   [infoButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                          forState:UIControlStateNormal];
   [infoButton_ setImage:[UIImage imageNamed:kPMINMainButtonInfo] forState:UIControlStateNormal];
   [infoButton_ setAlpha:0.f];
-  [self.view addSubview:infoButton_];
+  [view addSubview:infoButton_];
   
   cancelButton_ = [[UIButton alloc] initWithFrame:cancelButtonFrame];
   [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
   [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
   [cancelButton_ addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -71,12 +71,16 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:self.viewFrame];
+  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   self.view = view;
   [view release];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   // Create a custom tab bar passing in the number of items,
   // the size of each item and setting ourself as the delegate
@@ -85,7 +89,7 @@
                                                 tag:0
                                            delegate:self];
   [tabBar_ setFrame:
-    CGRectMake((kViewWidth - kTabBarWdith) / 2.f, self.viewFrame.size.height, kTabBarWdith, kTabBarHeight)];
+   CGRectMake((kViewWidth - kTabBarWdith) / 2.f, self.viewFrame.size.height, kTabBarWdith, kTabBarHeight)];
   [self.view addSubview:tabBar_];
   
   // Select the first tab
@@ -93,11 +97,7 @@
   [self touchDownAtItemAtIndex:0 withPreviousItemIndex:0];
   
   isTabBarHide_ = YES;
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
+  
   
   // Place the layout for view's layer
   for (int i = 0; i < [self.tabBarItems count]; ++i) {

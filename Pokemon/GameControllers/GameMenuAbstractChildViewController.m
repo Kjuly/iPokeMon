@@ -57,22 +57,22 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
+- (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  self.view = view;
-  [view release];
-  [self.view setBackgroundColor:[UIColor whiteColor]];
+  [view setBackgroundColor:[UIColor whiteColor]];
   
-  // Create Move Area View
+  // Create Table Area View
   CGRect tableAreaViewFrame  = CGRectMake(0.f, 8.f, 312.f, kViewHeight - 16.f);
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
   [self.tableAreaView setBackgroundColor:
-    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   [self.tableAreaView setOpaque:NO];
-  [self.view addSubview:self.tableAreaView];
+  [view addSubview:self.tableAreaView];
+  
+  self.view = view;
+  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
