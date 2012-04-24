@@ -53,7 +53,9 @@
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // Google Map View
-  MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+  CGRect mapViewFrame = self.view.frame;
+  mapViewFrame.origin.y = 0.f;
+  MKMapView * mapView = [[MKMapView alloc] initWithFrame:mapViewFrame];
   self.mapView = mapView;
   [mapView release];
   [self.view addSubview:self.mapView];
