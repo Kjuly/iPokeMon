@@ -8,16 +8,12 @@
 
 #import "AppDelegate.h"
 
+#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "MainViewController.h"
 
 #import "cocos2d.h"
 #import <CoreLocation/CoreLocation.h>
-
-#ifdef DEBUG
-#import "GlobalConstants.h"
-#import "Pokemon+DataController.h"
-#endif
 
 
 @interface AppDelegate ()
