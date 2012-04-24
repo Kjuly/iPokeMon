@@ -169,7 +169,7 @@
         NSString * bandwidthUsageName =
           NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d",
                               [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]]), nil);
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralBandWidthUsage", nil)
+        [cell configureCellWithTitle:NSLocalizedString(@"Bandwidth Usage", nil)
                                value:bandwidthUsageName
                        accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
         return cell;

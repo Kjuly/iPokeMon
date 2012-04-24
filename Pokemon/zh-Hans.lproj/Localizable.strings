@@ -58,7 +58,6 @@
 "PMSSettingSection2" = "关于";
 "PMSSettingGeneralLocationServices" = "位置服务";
 // Bandwidth useage
-"PMSSettingGeneralBandWidthUsage"   = "带宽使用率";
 "PMSSettingGeneralBandWidthUsage0"  = "最低";
 "PMSSettingGeneralBandWidthUsage1"  = "标准";
 // Game settings
