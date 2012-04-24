@@ -37,7 +37,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:style];
+  if (self = [super initWithStyle:style]) {
+    [self setTitle:NSLocalizedString(@"Setting", nil)];
+  }
+  return self;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -19,6 +19,24 @@
 "PMSYes" = "Yes";
 "PMSNo"  = "No";
 
+"Pokemon"      = "Pokemon";
+"Pokedex"      = "PokeDEX";
+"Info"         = "Info";
+"Bag"          = "Bag";
+"Items"        = "Items";
+"Medicine"     = "Medicine";
+"Pokeballs"    = "PokeBalls";
+"TMsHMs"       = "TMs & HMs";
+"Berries"      = "Berries";
+"Mail"         = "Mail";
+"Battle Items" = "Battle Items";
+"Key Items"    = "Key Items";
+"Trainer Card" = "Trainer Card";
+"Setting"      = "Setting";
+"Bandwidth Usage" = "Bandwidth Usage";
+"Game Setting"    = "Game Setting";
+
+
 // Full screen view text
 "PMSConnectErrorTitle"  = "Connect Error";
 "PMSConnectErrorMessage"= "Sorry, try to connect to the server failed. Please check the network and refresh.";

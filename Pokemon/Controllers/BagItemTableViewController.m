@@ -91,7 +91,9 @@
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType {
   self = [self initWithStyle:UITableViewStylePlain];
-  if (self) [self setBagItem:targetType];
+  if (self) {
+    [self setBagItem:targetType];
+  }
   return self;
 }
 

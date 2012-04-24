@@ -16,13 +16,13 @@
 
 @interface CustomNavigationBar () {
  @private  
-  UILabel  * title_;
+//  UILabel  * title_;
   UIButton * backButtonToRoot_;
   UIButton * backButton_;
   BOOL       isButtonHidden_;
 }
 
-@property (nonatomic, retain) UILabel  * title;
+//@property (nonatomic, retain) UILabel  * title;
 @property (nonatomic, retain) UIButton * backButtonToRoot;
 @property (nonatomic, retain) UIButton * backButton;
 
@@ -37,13 +37,13 @@
 @synthesize delegate         = delegate_;
 @synthesize viewCount        = viewCount_;
 
-@synthesize title            = title_;
+//@synthesize title            = title_;
 @synthesize backButtonToRoot = backButtonToRoot_;
 @synthesize backButton       = backButton_;
 
 -(void)dealloc {
   self.delegate         = nil;
-  self.title            = nil;
+//  self.title            = nil;
   self.backButtonToRoot = nil;
   self.backButton       = nil;
   [super dealloc];
@@ -90,8 +90,8 @@
 
 // Set title for navigation bar
 - (void)setTitleWithText:(NSString *)text animated:(BOOL)animated {
-  if (self.title == nil) {
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(100.f, 0.f, 120.f, self.frame.size.height - 10.f)];
+  /*if (self.title == nil) {
+    UILabel * title = [[UILabel alloc] init];
     self.title = title;
     [title release];
     [self.title setBackgroundColor:[UIColor clearColor]];
@@ -100,7 +100,41 @@
     [self.title setTextAlignment:UITextAlignmentCenter];
     [self addSubview:self.title];
   }
+  
+  CGRect titleFrame = CGRectMake(100.f, -10.f, 120.f, self.frame.size.height - 10.f);
+  [self.title setFrame:titleFrame];
+  [self.title setAlpha:0.f];
   [self.title setText:text];
+  titleFrame.origin.y = 0.f;
+  // animation block
+  void (^animations)() = ^{
+    [self.title setFrame:titleFrame];
+    [self.title setAlpha:1.f];
+  };
+  
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:nil];
+  else animations();*/
+}
+
+// Remove title
+- (void)removeTitleAnimated:(BOOL)animated {
+  /*CGRect titleFrame = CGRectMake(100.f, -10.f, 120.f, self.frame.size.height - 10.f);
+  // animation block
+  void (^animations)() = ^{
+    [self.title setFrame:titleFrame];
+    [self.title setAlpha:0.f];
+  };
+  
+  if (animated) [UIView animateWithDuration:.3f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:nil];
+  else animations();*/
 }
 
 // Settings for |backButton|
@@ -147,8 +181,11 @@
   // Remove the |backButton| if needed
   if (self.viewCount >= 2 && --self.viewCount < 2)
     [self _removeBackButtonForPreviousView];
-  
   [self.delegate backToPreviousViewAnimated:YES];
+  
+  // When pop view, the |titleView| will over the |backButtonToRoot_|,
+  //   so bring it to front
+  [self bringSubviewToFront:self.backButtonToRoot];
 }
 
 // Set |backButtonToRoot_| to hidden or not

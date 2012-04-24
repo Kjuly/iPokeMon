@@ -9,6 +9,7 @@
 #import "CustomNavigationController.h"
 
 #import "GlobalConstants.h"
+#import "GlobalRender.h"
 
 
 @implementation CustomNavigationController
@@ -81,6 +82,20 @@
   // If |viewCount| == 2, add |backButton| for previous view
   if (++((CustomNavigationBar *)self.navigationBar).viewCount == 2)
     [(CustomNavigationBar *)self.navigationBar addBackButtonForPreviousView];
+  
+  if (viewController.title) {
+    UIView * titleView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 300.f, 32.f)];
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(300.f - 210.f, -15.f, 200.f, 32.f)];
+    [title setBackgroundColor:[UIColor clearColor]];
+    [title setTextColor:[GlobalRender textColorOrange]];
+    [title setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
+    [title setTextAlignment:UITextAlignmentRight];
+    [title setText:viewController.title];
+    [titleView addSubview:title];
+    [title release];
+    [viewController.navigationItem setTitleView:titleView];
+    [titleView release];
+  }
   
   // Dispatch |UINavigationController|'s |pushViewController:animated:| method
   [super pushViewController:viewController animated:animated];

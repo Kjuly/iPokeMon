@@ -17,6 +17,24 @@
 "PMSYes" = "是的";
 "PMSNo"  = "取消";
 
+"Pokemon"      = "精灵";
+"Pokedex"      = "图鉴";
+"Info"         = "信息";
+"Bag"          = "背包";
+"Items"        = "道具";
+"Medicine"     = "回复类";
+"Pokeballs"    = "精灵球";
+"TMsHMs"       = "技能训练机";
+"Berries"      = "树果";
+"Mail"         = "信件";
+"Battle Items" = "战斗辅助";
+"Key Items"    = "重要物品";
+"Trainer Card" = "训练员卡片";
+"Setting"      = "设置";
+"Bandwidth Usage" = "带宽使用率";
+"Game Setting"    = "游戏设置";
+
+
 // Full screen view text
 "PMSConnectErrorTitle"  = "网络连接错误";
 "PMSConnectErrorMessage"= "对不起，连接服务器失败。请尝试检查网络，然后刷新。";

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CustomNavigationBar.h"
+
 @interface CustomTableViewController : UITableViewController
 
 @end

@@ -44,7 +44,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:style];
+  if (self = [super initWithStyle:style]) {
+    [self setTitle:NSLocalizedString(@"Pokemon", nil)];
+  }
+  return self;
 }
 
 - (void)didReceiveMemoryWarning {

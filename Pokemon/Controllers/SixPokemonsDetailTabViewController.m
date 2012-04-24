@@ -56,6 +56,10 @@
            withTopbar:(BOOL)withTopbar {
   self = [super init];
   if (self) {
+    [self setTitle:[NSString stringWithFormat:@"%@ %@",
+                    NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil),
+                    NSLocalizedString(@"Info", nil)]];
+    
     // Set View Frame
     CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
     self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);

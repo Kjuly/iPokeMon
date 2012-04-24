@@ -46,6 +46,8 @@
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
+    [self setTitle:NSLocalizedString(@"Pokedex", nil)];
+    
     // Get a handle to our fetchedResultsController (which implicitly creates it as well)
     // and call |performFetch:| to retrieve the first batch of data
     NSError * error;
@@ -80,6 +82,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  
+//  UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(100.f, 0.f, 120.f, kNavigationBarHeight)];
+//  //  [title setBackgroundColor:[UIColor clearColor]];
+//  [title setTextColor:[GlobalRender textColorTitleWhite]];
+//  [title setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+//  [title setTextAlignment:UITextAlignmentCenter];
+//  [self.navigationItem setTitleView:title];
+//  [title release];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

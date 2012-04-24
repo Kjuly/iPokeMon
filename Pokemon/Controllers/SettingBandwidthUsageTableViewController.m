@@ -35,6 +35,7 @@
 {
   self = [super initWithStyle:style];
   if (self) {
+    [self setTitle:NSLocalizedString(@"Bandwidth Usage", nil)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
 //    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);

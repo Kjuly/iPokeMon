@@ -147,6 +147,7 @@ typedef enum {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    [self setTitle:NSLocalizedString(@"Trainer Card", nil)];
     self.trainer = [TrainerController sharedInstance];
   }
   return self;

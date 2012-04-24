@@ -20,7 +20,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:style];
+  if (self = [super initWithStyle:style]) {
+    [self setTitle:NSLocalizedString(@"Bag", nil)];
+  }
+  return self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,6 +142,7 @@
   if (row != 1) { // Not Bag Medicine, as it has three sub types
     BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
     [bagItemTableViewController initWithBagItem:(1 << row)];
+    [bagItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
     [self.navigationController pushViewController:bagItemTableViewController animated:YES];
     [bagItemTableViewController release];
   } else {

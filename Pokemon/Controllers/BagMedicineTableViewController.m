@@ -19,7 +19,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:style];
+  if (self = [super initWithStyle:style]) {
+    [self setTitle:NSLocalizedString(@"Medicine", nil)];
+  }
+  return self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,9 +136,11 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << ([indexPath row] + 8));
+  NSInteger row = indexPath.row;
+  BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << (row + 8));
   BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
   [bagItemTableViewController initWithBagItem:targetType];
+  [bagItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", row + 1]), nil)];
   [self.navigationController pushViewController:bagItemTableViewController animated:YES];
   [bagItemTableViewController release];
 }
