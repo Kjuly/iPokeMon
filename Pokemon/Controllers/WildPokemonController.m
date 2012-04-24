@@ -8,7 +8,6 @@
 
 #import "WildPokemonController.h"
 
-#import "GlobalConstants.h"
 #import "PokemonConstants.h"
 #import "PokemonServerAPI.h"
 #import "AppDelegate.h"

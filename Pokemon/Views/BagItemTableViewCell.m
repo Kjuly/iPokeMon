@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation BagItemTableViewCell
 
 @synthesize imageView = imageView_;

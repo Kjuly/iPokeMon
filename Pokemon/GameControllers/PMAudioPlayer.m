@@ -8,7 +8,6 @@
 
 #import "PMAudioPlayer.h"
 
-#import "GlobalConstants.h"
 #import "LoadingManager.h"
 
 typedef enum {

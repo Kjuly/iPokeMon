@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @protocol BagItemTableViewHiddenCellDelegate
 
 - (void)useItem:(id)sender;

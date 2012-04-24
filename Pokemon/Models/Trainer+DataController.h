@@ -8,8 +8,6 @@
 
 #import "Trainer.h"
 
-#import "GlobalConstants.h"
-
 @interface Trainer (DataController)
 
 // Class Methods

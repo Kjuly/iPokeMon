@@ -8,7 +8,6 @@
 
 #import "GameAbstractPokemon.h"
 
-
 @implementation GameAbstractPokemon
 
 @synthesize pokemonID     = pokemonID_;

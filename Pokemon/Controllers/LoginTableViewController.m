@@ -8,7 +8,6 @@
 
 #import "LoginTableViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "CustomNavigationBar.h"

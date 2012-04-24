@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @interface SettingTableViewCellStyleSwitch : UITableViewCell {
   UISwitch * switchButton_;
 }

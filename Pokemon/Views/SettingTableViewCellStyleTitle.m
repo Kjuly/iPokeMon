@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation SettingTableViewCellStyleTitle
 
 - (void)dealloc {

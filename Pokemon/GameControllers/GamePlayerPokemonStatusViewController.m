@@ -8,7 +8,6 @@
 
 #import "GamePlayerPokemonStatusViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"

@@ -8,8 +8,6 @@
 
 #import "CenterMainButtonTouchDownCircleView.h"
 
-#import "GlobalConstants.h"
-
 #import <QuartzCore/QuartzCore.h>
 
 @interface CenterMainButtonTouchDownCircleView () {

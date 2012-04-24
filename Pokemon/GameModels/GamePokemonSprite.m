@@ -8,7 +8,6 @@
 
 #import "GamePokemonSprite.h"
 
-
 @implementation GamePokemonSprite
 
 @synthesize status = status_;

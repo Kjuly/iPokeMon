@@ -8,7 +8,6 @@
 
 #import "SettingSectionHeaderView.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 
 @implementation SettingSectionHeaderView

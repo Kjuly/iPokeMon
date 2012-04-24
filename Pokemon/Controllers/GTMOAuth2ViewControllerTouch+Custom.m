@@ -8,7 +8,6 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "CustomNavigationBar.h"
 

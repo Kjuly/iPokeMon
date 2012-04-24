@@ -8,7 +8,6 @@
 
 #import "PokemonSelectionViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "WildPokemonController.h"
 #import "WildPokemon+DataController.h"

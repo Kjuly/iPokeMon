@@ -8,9 +8,7 @@
 
 #import "SettingTableViewCellStyleCenterTitle.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
-
 
 @implementation SettingTableViewCellStyleCenterTitle
 

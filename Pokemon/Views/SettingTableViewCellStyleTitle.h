@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @interface SettingTableViewCellStyleTitle : UITableViewCell
 
 - (void)configureCellWithTitle:(NSString *)title

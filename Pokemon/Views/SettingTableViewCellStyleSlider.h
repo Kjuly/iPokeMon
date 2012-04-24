@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @interface SettingTableViewCellStyleSlider : UITableViewCell {
   UISlider * slider_;
 }

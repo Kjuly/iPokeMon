@@ -8,7 +8,6 @@
 
 #import "BagItemInfoViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 

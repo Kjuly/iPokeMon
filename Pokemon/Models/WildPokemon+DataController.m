@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "Pokemon+DataController.h"
 
-#import "AFJSONRequestOperation.h"
 
 @interface WildPokemon ()
 

@@ -8,9 +8,6 @@
 
 #import "PokemonAreaViewController.h"
 
-#import "GlobalConstants.h"
-
-
 @implementation PokemonAreaViewController
 
 @synthesize mapView = mapView_;

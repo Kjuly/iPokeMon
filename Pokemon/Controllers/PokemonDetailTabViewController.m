@@ -8,7 +8,6 @@
 
 #import "PokemonDetailTabViewController.h"
 
-#import "GlobalConstants.h"
 #import "Pokemon+DataController.h"
 #import "PokemonInfoViewController.h"
 #import "PokemonAreaViewController.h"

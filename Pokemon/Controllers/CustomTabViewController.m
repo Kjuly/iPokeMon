@@ -8,7 +8,6 @@
 
 #import "CustomTabViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalNotificationConstants.h"
 
 #import <QuartzCore/QuartzCore.h>

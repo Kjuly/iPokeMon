@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation BagMedicineTableViewCell
 
 @synthesize name = name_;

@@ -8,10 +8,7 @@
 
 #import "PokemonDetailViewController.h"
 
-#import "GlobalConstants.h"
-
 #import <QuartzCore/QuartzCore.h>
-
 
 @implementation PokemonDetailViewController
 

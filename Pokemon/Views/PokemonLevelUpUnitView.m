@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation PokemonLevelUpUnitView
 
 @synthesize name       = name_;

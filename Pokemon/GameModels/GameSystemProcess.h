@@ -8,7 +8,6 @@
 
 #import "cocos2d.h"
 
-#import "GlobalConstants.h"
 #import "GameBattleEventViewController.h"
 #import "GameBattleEndViewController.h"
 

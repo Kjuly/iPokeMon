@@ -8,9 +8,6 @@
 
 #import "HelpViewController.h"
 
-#import "GlobalConstants.h"
-
-
 @interface HelpViewController () {
  @private
   UIButton      * cancelButton_;

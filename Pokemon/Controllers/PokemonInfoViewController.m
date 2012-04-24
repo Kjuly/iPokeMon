@@ -8,8 +8,6 @@
 
 #import "PokemonInfoViewController.h"
 
-#import "GlobalConstants.h"
-
 @implementation PokemonInfoViewController
 
 - (void)dealloc {

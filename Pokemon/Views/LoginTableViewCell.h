@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @interface LoginTableViewCell : UITableViewCell
 
 - (void)configureCellWithTitle:(NSString *)title

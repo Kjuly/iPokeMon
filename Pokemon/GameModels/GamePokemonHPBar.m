@@ -8,9 +8,6 @@
 
 #import "GamePokemonHPBar.h"
 
-#import "GlobalConstants.h"
-
-
 @interface GamePokemonHPBar () {
  @private
   int oldHP_;

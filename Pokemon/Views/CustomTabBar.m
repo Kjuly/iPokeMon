@@ -8,10 +8,7 @@
 
 #import "CustomTabBar.h"
 
-#import "GlobalConstants.h"
-
 #import <QuartzCore/QuartzCore.h>
-
 
 @interface CustomTabBar () {
  @private

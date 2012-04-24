@@ -8,7 +8,6 @@
 
 #import "GameBattleEndViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "GameSystemProcess.h"

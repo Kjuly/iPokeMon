@@ -8,9 +8,7 @@
 
 #import "TrainerBadgeView.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
-
 
 @interface TrainerBadgeView () {
  @private

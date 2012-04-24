@@ -8,10 +8,10 @@
 
 #import "PokemonMoveDetailView.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "PokemonMoveView.h"
 #import "PokemonInfoLabelView.h"
+
 
 @implementation PokemonMoveDetailView
 

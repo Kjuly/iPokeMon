@@ -12,6 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import "GlobalConstants.h" // Constants
 #endif
 
 // Disable logging when not in debug

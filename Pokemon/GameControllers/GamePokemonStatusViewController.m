@@ -8,7 +8,6 @@
 
 #import "GamePokemonStatusViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 

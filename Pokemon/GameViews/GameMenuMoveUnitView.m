@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation GameMenuMoveUnitView
 
 @synthesize name  = name_;
@@ -18,13 +17,11 @@
 @synthesize pp    = pp_;
 @synthesize viewButton = viewButton_;
 
--(void)dealloc
-{
+-(void)dealloc {
   self.name  = nil;
   self.type1 = nil;
   self.pp    = nil;
   self.viewButton = nil;
-  
   [super dealloc];
 }
 

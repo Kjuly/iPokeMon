@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
-
 @interface BagMedicineTableViewCell : UITableViewCell {
   UILabel * name_;
 }

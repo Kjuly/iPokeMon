@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GlobalConstants.h"
 #import "BagItem.h"
 #import "BagMedicine.h"
 #import "BagPokeball.h"

@@ -8,9 +8,6 @@
 
 #import "GameMenuSixPokemonsUnitView.h"
 
-#import "GlobalConstants.h"
-
-
 @interface GameMenuSixPokemonsUnitView () {
  @private
   UIButton * mainButton_;

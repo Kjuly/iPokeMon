@@ -8,9 +8,6 @@
 
 #import "CustomTableViewController.h"
 
-#import "GlobalConstants.h"
-
-
 @implementation CustomTableViewController
 
 - (void)dealloc {

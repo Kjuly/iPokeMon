@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation SettingTableViewCellStyleSwitch
 
 @synthesize switchButton = switchButton_;

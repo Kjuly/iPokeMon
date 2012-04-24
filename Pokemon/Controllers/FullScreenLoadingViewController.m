@@ -8,7 +8,6 @@
 
 #import "FullScreenLoadingViewController.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "LoadingManager.h"
 #import "ServerAPIClient.h"

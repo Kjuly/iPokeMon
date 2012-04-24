@@ -10,7 +10,6 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
-
 typedef enum {
 //  kOAuthServiceProviderChoiceFacebook = 0,
 //  kOAuthServiceProviderChoiceGithub,

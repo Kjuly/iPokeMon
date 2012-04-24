@@ -8,7 +8,6 @@
 
 #import "TrainerTamedPokemon.h"
 
-#import "GlobalConstants.h"
 #import "Move+DataController.h"
 #import "Pokemon+DataController.h"
 

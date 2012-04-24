@@ -8,9 +8,6 @@
 
 #import "GameTopViewController.h"
 
-#import "GlobalConstants.h"
-
-
 @interface GameTopViewController () {
  @private
   UIView      * backgroundView_;
@@ -36,8 +33,7 @@
 @synthesize avatarBottomView     = avatarBottomView_;
 @synthesize isTrainerViewOpening = isTrainerViewOpening_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   [backgroundView_   release];
   [avatarTopButton_  release];
   [avatarBottomView_ release];

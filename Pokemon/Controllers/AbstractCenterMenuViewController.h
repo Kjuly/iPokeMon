@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GlobalConstants.h"
-
 @interface AbstractCenterMenuViewController : UIViewController {
   UIView * centerMenu_;
   BOOL      isOpening_;

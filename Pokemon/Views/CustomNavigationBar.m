@@ -8,7 +8,6 @@
 
 #import "CustomNavigationBar.h"
 
-#import "GlobalConstants.h"
 #import "GlobalRender.h"
 #import "GlobalNotificationConstants.h"
 #import "AbstractCenterMenuViewController.h"

@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation SettingTableViewCellStyleSlider
 
 @synthesize slider = slider_;

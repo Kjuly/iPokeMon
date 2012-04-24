@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameMenuMoveUnitView : UIView
-{
+@interface GameMenuMoveUnitView : UIView {
   UILabel  * type1_;
   UILabel  * name_;
   UILabel  * pp_;

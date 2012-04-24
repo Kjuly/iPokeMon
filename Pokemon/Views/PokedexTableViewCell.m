@@ -10,7 +10,6 @@
 
 #import "GlobalRender.h"
 
-
 @implementation PokedexTableViewCell
 
 @synthesize imageView     = imageView_;
