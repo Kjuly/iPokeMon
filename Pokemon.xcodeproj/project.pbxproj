@@ -853,7 +853,6 @@
 		7FAC497214DEE701008BAB45 /* SixPokemonsMoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497114DEE701008BAB45 /* SixPokemonsMoveViewController.m */; };
 		7FAC497514DEE725008BAB45 /* SixPokemonsSkillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497414DEE725008BAB45 /* SixPokemonsSkillViewController.m */; };
 		7FAC497814DEE74E008BAB45 /* SixPokemonsMemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497714DEE74E008BAB45 /* SixPokemonsMemoViewController.m */; };
-		7FAD1796151DA8F600A2EC92 /* AWSiOSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAD1795151DA8F600A2EC92 /* AWSiOSSDK.framework */; };
 		7FAD69A514EFD7BF00B3E2F9 /* Ability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69A414EFD7BF00B3E2F9 /* Ability.m */; };
 		7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */; };
 		7FAD69CC14EFF8F400B3E2F9 /* BagBattleItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69C214EFF8F400B3E2F9 /* BagBattleItems.plist */; };
@@ -2054,7 +2053,6 @@
 		7FAC497414DEE725008BAB45 /* SixPokemonsSkillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsSkillViewController.m; sourceTree = "<group>"; };
 		7FAC497614DEE74E008BAB45 /* SixPokemonsMemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsMemoViewController.h; sourceTree = "<group>"; };
 		7FAC497714DEE74E008BAB45 /* SixPokemonsMemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsMemoViewController.m; sourceTree = "<group>"; };
-		7FAD1795151DA8F600A2EC92 /* AWSiOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSiOSSDK.framework; path = "../../../lib/aws-ios-sdk-1.2.1/AWSiOSSDK.framework"; sourceTree = "<group>"; };
 		7FAD69A314EFD7BF00B3E2F9 /* Ability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ability.h; sourceTree = "<group>"; };
 		7FAD69A414EFD7BF00B3E2F9 /* Ability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ability.m; sourceTree = "<group>"; };
 		7FAD69BB14EFE64800B3E2F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2226,7 +2224,6 @@
 				7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */,
 				7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */,
 				7F6E6CBF14D6CAA600033C65 /* CoreData.framework in Frameworks */,
-				7FAD1796151DA8F600A2EC92 /* AWSiOSSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2864,7 +2861,6 @@
 			isa = PBXGroup;
 			children = (
 				7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */,
-				7FAD1795151DA8F600A2EC92 /* AWSiOSSDK.framework */,
 				7F84C2BB151C678800E8D27E /* Security.framework */,
 				7F50B81414F9410700883412 /* QuartzCore.framework */,
 				7F50B81214F940B100883412 /* AudioToolbox.framework */,
