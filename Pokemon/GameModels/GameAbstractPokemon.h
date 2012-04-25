@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-#import "GamePokemonHPBar.h"
-
 typedef enum {
   kPokemonBattleStatusNormal    = 0,
   kPokemonBattleStatusPoisoning = 1 << 0,
