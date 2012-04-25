@@ -553,7 +553,7 @@
     };
   }
   else {
-    isCenterMenuOpening_ = NO; // !!! Need to be remove
+    [self closeCenterMenuView];
     return;
   }
   
@@ -575,6 +575,8 @@
 // Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
 // Close the |centerMenu_| when necessary
 - (void)activateCenterMenuOpenStatusTimer {
+  if (! isCenterMenuOpening_)
+    return;
   centerMenuOpenStatusTimeCounter_ = 0;
   self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.f
                                                                     target:self
@@ -586,6 +588,7 @@
 // Stop |centerMenuOpenStatusTimer_| when button clicked
 - (void)deactivateCenterMenuOpenStatusTimer {
   [self.centerMenuOpenStatusTimer invalidate];
+  self.centerMenuOpenStatusTimer = nil;
 }
 
 // Close |centerMenu_| when long time no operation 
