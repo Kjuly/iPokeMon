@@ -229,8 +229,7 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
   
   // Base iVar Settings
@@ -291,9 +290,7 @@
   //   Else, post notification to show login table view to choose OAuth Service Provider
   // Session is checked at |TrainerCoreDataController|'s class method:|sharedInstance|,
   //   and Notification is also sent at there.
-//  [[OAuthManager sharedInstance] revokeAuthorizedWith:kOAuthServiceProviderChoiceGoogle];
   [[TrainerController sharedInstance] sync];
-  
 //  [self showHelpView:nil];
 }
 
@@ -502,23 +499,29 @@
   // Do action based on tap down keepped time
   // Utility Menu
   if (timeCounter_ < 3.f) {
+    // Reset |centerMenuSixPokemonsViewController_|
+    if (self.centerMenuSixPokemonsViewController != nil)
+      self.centerMenuSixPokemonsViewController = nil;
+    
+    // Create |centerMenuUtilityViewController_|
     if (self.centerMenuUtilityViewController == nil) {
       // Center menu utility view controller
       CenterMenuUtilityViewController * centerMenuUtilityViewController;
       centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
       [centerMenuUtilityViewController release];
+      
+      if (self.customNavigationController != nil)
+        [self.customNavigationController.view removeFromSuperview];
+      
+      // Create custom NVC
+      CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
+      [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
+      self.customNavigationController = customNavigationController;
+      [customNavigationController release];
+      [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     }
     
-    if (self.customNavigationController != nil)
-      [self.customNavigationController.view removeFromSuperview];
-    
-    // Create custom NVC
-    CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
-    [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
-    self.customNavigationController = customNavigationController;
-    [customNavigationController release];
-    [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     // Insert |utilityNavigationController|'s view
     [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
     
@@ -530,6 +533,10 @@
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
+    // Reset |centerMenuUtilityViewController_|
+    if (self.centerMenuUtilityViewController != nil)
+      self.centerMenuUtilityViewController = nil;
+    
     // Create VC for Six Pokemons
     NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
     CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
