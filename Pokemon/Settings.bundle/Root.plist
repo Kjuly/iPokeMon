@@ -44,11 +44,11 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Game Settings</string>
+			<string>Game Setting</string>
 			<key>Key</key>
 			<string>keyGeneralGameSettings</string>
 			<key>File</key>
-			<string>GameSettings</string>
+			<string>GameSetting</string>
 		</dict>
 		<dict>
 			<key>Type</key>

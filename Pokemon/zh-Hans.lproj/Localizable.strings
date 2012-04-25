@@ -54,7 +54,7 @@
 
 // Setting view
 // GENERAL
-"PMSSettingSection1" = "游戏设置";
+"PMSSettingSection1" = "基本设置";
 "PMSSettingSection2" = "关于";
 "PMSSettingGeneralLocationServices" = "位置服务";
 // Bandwidth useage

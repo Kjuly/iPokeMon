@@ -56,7 +56,7 @@
 
 // Setting view
 // GENERAL
-"PMSSettingSection1" = "App Settings";
+"PMSSettingSection1" = "General";
 "PMSSettingSection2" = "About";
 "PMSSettingGeneralLocationServices" = "Location Services";
 // Bandwidth useage

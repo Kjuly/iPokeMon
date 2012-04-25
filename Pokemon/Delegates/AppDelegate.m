@@ -290,7 +290,7 @@
 
 - (void)_registerDefaultsFromSettingsBundle {
   [self _registerDefaultsFromSettingsBundleWithPlistName:@"Root.plist"];
-  [self _registerDefaultsFromSettingsBundleWithPlistName:@"GameSettings.plist"];
+  [self _registerDefaultsFromSettingsBundleWithPlistName:@"GameSetting.plist"];
 }
 
 - (void)_registerDefaultsFromSettingsBundleWithPlistName:(NSString *)plistName {
