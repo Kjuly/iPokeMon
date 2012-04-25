@@ -507,10 +507,10 @@
 		7F86B598154539EA00FD62DD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86B594154539EA00FD62DD /* Icon-Small@2x.png */; };
 		7F86B599154539EA00FD62DD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86B595154539EA00FD62DD /* Icon.png */; };
 		7F86B59A154539EA00FD62DD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86B596154539EA00FD62DD /* Icon@2x.png */; };
-		7F86B59D15453C8C00FD62DD /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 7F86B59C15453C8C00FD62DD /* iTunesArtwork */; };
 		7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
+		7F8DEE771547C8E00048B28C /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DEE761547C8E00048B28C /* iTunesArtwork.png */; };
 		7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
@@ -1685,12 +1685,12 @@
 		7F86B594154539EA00FD62DD /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		7F86B595154539EA00FD62DD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		7F86B596154539EA00FD62DD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		7F86B59C15453C8C00FD62DD /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleScenePMPoint.png; sourceTree = "<group>"; };
 		7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewCell.h; sourceTree = "<group>"; };
 		7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewCell.m; sourceTree = "<group>"; };
 		7F8C15CB15091B94004BE083 /* GameEnemyPokemonStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEnemyPokemonStatusViewController.h; sourceTree = "<group>"; };
 		7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEnemyPokemonStatusViewController.m; sourceTree = "<group>"; };
+		7F8DEE761547C8E00048B28C /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCenterMenuViewController.h; sourceTree = "<group>"; };
 		7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractCenterMenuViewController.m; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
@@ -2904,7 +2904,7 @@
 				7F86B594154539EA00FD62DD /* Icon-Small@2x.png */,
 				7F86B595154539EA00FD62DD /* Icon.png */,
 				7F86B596154539EA00FD62DD /* Icon@2x.png */,
-				7F86B59C15453C8C00FD62DD /* iTunesArtwork */,
+				7F8DEE761547C8E00048B28C /* iTunesArtwork.png */,
 				7F58B7B2153FF0BF000AAB72 /* Default.png */,
 				7F58B7B0153FED23000AAB72 /* Default@2x.png */,
 				7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */,
@@ -4663,7 +4663,7 @@
 				7F86B598154539EA00FD62DD /* Icon-Small@2x.png in Resources */,
 				7F86B599154539EA00FD62DD /* Icon.png in Resources */,
 				7F86B59A154539EA00FD62DD /* Icon@2x.png in Resources */,
-				7F86B59D15453C8C00FD62DD /* iTunesArtwork in Resources */,
+				7F8DEE771547C8E00048B28C /* iTunesArtwork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
