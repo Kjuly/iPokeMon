@@ -14,7 +14,6 @@
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerController.h"
-//#import "GameTopViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
 #import "GameMenuSixPokemonsViewController.h"
@@ -42,7 +41,6 @@ typedef enum {
   PMAudioPlayer                         * audioPlayer_;
   TrainerController                     * trainer_;
   GameStatusMachine                     * gameStatusMachine_;
-//  GameTopViewController                 * gameTopViewController_;
   GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
   GamePlayerPokemonStatusViewController * playerPokemonStatusViewController_;
   GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController_;
@@ -69,7 +67,6 @@ typedef enum {
 @property (nonatomic, retain) PMAudioPlayer                         * audioPlayer;
 @property (nonatomic, retain) TrainerController                     * trainer;
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
-//@property (nonatomic, retain) GameTopViewController                 * gameTopViewController;
 @property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
 @property (nonatomic, retain) GamePlayerPokemonStatusViewController * playerPokemonStatusViewController;
 @property (nonatomic, retain) GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController;
@@ -121,7 +118,6 @@ typedef enum {
 @synthesize audioPlayer                       = audioPlayer_;
 @synthesize trainer                           = trainer_;
 @synthesize gameStatusMachine                 = gameStatusMachine_;
-//@synthesize gameTopViewController             = gameTopViewController_;
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
 @synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
@@ -142,7 +138,6 @@ typedef enum {
   self.audioPlayer                        = nil;
   self.trainer                            = nil;
   self.gameStatusMachine                  = nil;
-//  self.gameTopViewController             = nil;
   self.enemyPokemonStatusViewController   = nil;
   self.playerPokemonStatusViewController  = nil;
   self.gameMenuSixPokemonsViewController  = nil;
@@ -223,12 +218,6 @@ typedef enum {
   playerPokemonStatusViewController_ = [[GamePlayerPokemonStatusViewController alloc] init];
   [playerPokemonStatusViewController_.view setFrame:playerPokemonStatusViewFrame];
   [view addSubview:playerPokemonStatusViewController_.view];
-  
-  //
-  // Top Bar
-  //
-  //gameTopViewController_ = [[GameTopViewController alloc] init];
-  //[view addSubview:gameTopViewController_.view];
   
   //
   // Message View
