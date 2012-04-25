@@ -121,7 +121,7 @@ static ServerAPIClient * client_;
   if (self = [super initWithBaseURL:url]) {
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setDefaultHeader:@"key"    value:@"123456"];
+    [self setDefaultHeader:@"key"    value:kClientIdentifier];
   }
   return self;
 }

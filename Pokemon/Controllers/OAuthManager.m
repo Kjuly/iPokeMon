@@ -21,6 +21,7 @@
 #pragma mark - OAuthManager Constants
 // TODO:
 //   Encrypt them!!!
+NSString * const kClientIdentifier = @"iPokemonClient"; // Client Identifier to match C/S
 static NSString * const kOAuthGoogleClientID         = @"890704274988.apps.googleusercontent.com";
 static NSString * const kOAuthGoogleClientSecret     = @"skqxc_5MysvtBsFFhIXqADr2";
 static NSString * const kOAuthGoogleKeychainItemName = @"PMOAuth2_Google";
@@ -246,7 +247,7 @@ static OAuthManager * oauthManager_ = nil;
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getURLForUserID]];
   NSString * provider = [NSString stringWithFormat:@"%d",
                          [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
-  [request setValue:@"123456" forHTTPHeaderField:@"key"];
+  [request setValue:kClientIdentifier forHTTPHeaderField:@"key"];
   [request setValue:provider forHTTPHeaderField:@"provider"];
   [request setValue:[self userEmailInMD5] forHTTPHeaderField:@"identity"];
   [request setHTTPMethod:@"GET"];
