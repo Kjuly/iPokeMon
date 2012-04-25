@@ -47,15 +47,6 @@
   self = [super initWithStyle:style];
   if (self) {
     [self setTitle:NSLocalizedString(@"Pokedex", nil)];
-    
-    // Get a handle to our fetchedResultsController (which implicitly creates it as well)
-    // and call |performFetch:| to retrieve the first batch of data
-    NSError * error;
-    if (! [[self fetchedResultsController] performFetch:&error]) {
-      // Update to handle the error appropriately.
-      NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
-      exit(-1);  // Fail
-    }
   }
   return self;
 }
@@ -73,7 +64,18 @@
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  
   self.trainer = [TrainerController sharedInstance];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    // Get a handle to our fetchedResultsController (which implicitly creates it as well)
+    // and call |performFetch:| to retrieve the first batch of data
+    NSError * error;
+    if (! [[self fetchedResultsController] performFetch:&error]) {
+      // Update to handle the error appropriately.
+      NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
+      exit(-1);  // Fail
+    }
+  });
 }
 
 - (void)viewDidUnload {
@@ -82,14 +84,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  
-//  UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(100.f, 0.f, 120.f, kNavigationBarHeight)];
-//  //  [title setBackgroundColor:[UIColor clearColor]];
-//  [title setTextColor:[GlobalRender textColorTitleWhite]];
-//  [title setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-//  [title setTextAlignment:UITextAlignmentCenter];
-//  [self.navigationItem setTitleView:title];
-//  [title release];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -119,6 +113,7 @@
 //  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:section];
 //  return [sectionInfo numberOfObjects];
   return [self.trainer.pokedex length] * 4;
+//  return 151;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,8 +189,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSInteger rowID = [indexPath row];
   if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)]) {
-    PokemonDetailTabViewController * pokemonDetailTabViewController =
-      [[PokemonDetailTabViewController alloc] initWithPokemonSID:++rowID withTopbar:YES];
+    PokemonDetailTabViewController * pokemonDetailTabViewController;
+    pokemonDetailTabViewController = [PokemonDetailTabViewController alloc];
+    [pokemonDetailTabViewController initWithPokemonSID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
     [pokemonDetailTabViewController release];
   }
@@ -212,13 +208,10 @@
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (NSFetchedResultsController *)fetchedResultsController {
-  if (fetchedResultsController_ != nil) {
-    NSLog(@"PokedexTableViewController fetchedResultsController_ != nil");
+  if (fetchedResultsController_ != nil)
     return fetchedResultsController_;
-  }
   
   NSLog(@"PokedexTableViewController fetchedResultsController_ == nil, generating a new one...");
-  
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSManagedObjectContext * context = [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([Pokemon class])
@@ -228,25 +221,24 @@
   // Set Sort Descriptors
   NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"sid" ascending:YES];
   [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+  [sort release];
   
   // Set Batch Size
   // The fetched results controller will only retrieve a subset of objects at a time from the underlying database,
-  // and automatically fetch mroe as we scroll
+  // and automatically fetch more as we scroll
   [fetchRequest setFetchBatchSize:20];
   
   // Create the |NSFetchedRequestController| instance
-  NSFetchedResultsController *theFetchedResultsController = [NSFetchedResultsController alloc];
-  [theFetchedResultsController initWithFetchRequest:fetchRequest
-                               managedObjectContext:context
-                                 sectionNameKeyPath:nil   // sort the data into sections in table view
-                                          cacheName:nil]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
-  self.fetchedResultsController = theFetchedResultsController;
+  NSFetchedResultsController * fetchedResultsController = [NSFetchedResultsController alloc];
+  [fetchedResultsController initWithFetchRequest:fetchRequest
+                            managedObjectContext:context
+                              sectionNameKeyPath:nil   // sort the data into sections in table view
+                                       cacheName:nil]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
+  [fetchRequest release];
+  
+  self.fetchedResultsController = fetchedResultsController;
+  [fetchedResultsController release];
   fetchedResultsController_.delegate = self;
-  
-  [sort                        release];
-  [fetchRequest                release];
-  [theFetchedResultsController release];
-  
   return fetchedResultsController_;  
 }
 
@@ -265,22 +257,25 @@
   UITableView * tableView = self.tableView;
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeDelete:
-      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
       break;
       
     case NSFetchedResultsChangeUpdate:
-      [self configureCell:(PokedexTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+      [self configureCell:(PokedexTableViewCell *)[tableView cellForRowAtIndexPath:indexPath]
+              atIndexPath:indexPath];
       break;
       
     case NSFetchedResultsChangeMove:
-      [tableView deleteRowsAtIndexPaths:
-        [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      [tableView insertRowsAtIndexPaths:
-        [NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
 }
