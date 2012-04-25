@@ -56,7 +56,7 @@
     CGFloat const badgeCountWidth = 32.f;
     
     CGRect badgesLabelFrame      = CGRectMake(0.f,  0.f, labelWidth, labelHeight);
-    CGRect badgesContainerFrame  = CGRectMake(labelWidth, 0.f, frame.size.width, valueHeight);
+    CGRect badgesContainerFrame  = CGRectMake(labelWidth, 0.f, frame.size.width - labelWidth, valueHeight);
     CGRect badgeGoldIconFrame    = CGRectMake(0.f, iconMarginTop, iconSize, iconSize);
     CGRect badgeGoldCountFrame   = CGRectMake(iconSize + 3.f, 0.f, labelHeight, badgeCountWidth);
     CGRect badgeSilverIconFrame  = CGRectMake(iconSize + 3.f + badgeCountWidth, iconMarginTop, iconSize, iconSize);
