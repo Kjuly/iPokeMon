@@ -270,8 +270,9 @@ static OAuthManager * oauthManager_ = nil;
     NSData * responseData = [[error userInfo] objectForKey:@"data"]; // kGTMHTTPFetcherStatusDataKey
     if ([responseData length] > 0) {
       // show the body of the server's authentication failure response
-      NSString * str = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
+      NSString * str = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
       NSLog(@"%@", str);
+      [str release];
     }
     self.oauth = nil;
     self.selectedServiceProvider =
