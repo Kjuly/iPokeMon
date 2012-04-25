@@ -156,10 +156,6 @@
   return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-  return YES;
-}
-
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
            editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
   return UITableViewCellEditingStyleNone;
@@ -169,39 +165,11 @@
   return 0;
 }
 
-// Can move rows
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-  return YES;
-}
-
-// Move row
-- (void) tableView:(UITableView *)tableView
-moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-       toIndexPath:(NSIndexPath *)destinationIndexPath {
-  NSInteger sourceRow      = [sourceIndexPath row];
-  NSInteger destinationRow = [destinationIndexPath row];
-  [self.trainer replacePokemonAtIndex:sourceRow toIndex:destinationRow];
-  
-  // Retch data
-  self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
-  [tableView reloadData];
-  
-  /*
-  id object = [self.sixPokemons objectAtIndex:sourceRow];
-  
-  [self.sixPokemons removeObjectAtIndex:sourceRow];
-  [self.sixPokemons insertObject:object atIndex:destinationRow];
-   */
-}
-
-/*
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
   // Return NO if you do not want the specified item to be editable.
   return YES;
 }
-*/
 
 /*
 // Override to support editing the table view.
@@ -217,21 +185,31 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 }
 */
 
-/*
 // Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+- (void) tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
+       toIndexPath:(NSIndexPath *)toIndexPath {
+  NSInteger sourceRow      = [fromIndexPath row];
+  NSInteger destinationRow = [toIndexPath   row];
+  [self.trainer replacePokemonAtIndex:sourceRow toIndex:destinationRow];
+  
+  // Retch data
+  self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
+  [tableView reloadData];
+  
+  /*
+   id object = [self.sixPokemons objectAtIndex:sourceRow];
+   
+   [self.sixPokemons removeObjectAtIndex:sourceRow];
+   [self.sixPokemons insertObject:object atIndex:destinationRow];
+   */
 }
-*/
 
-/*
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
   // Return NO if you do not want the item to be re-orderable.
   return YES;
 }
-*/
 
 #pragma mark - Table view delegate
 
