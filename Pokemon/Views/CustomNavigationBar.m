@@ -15,13 +15,11 @@
 
 @interface CustomNavigationBar () {
  @private  
-//  UILabel  * title_;
   UIButton * backButtonToRoot_;
   UIButton * backButton_;
   BOOL       isButtonHidden_;
 }
 
-//@property (nonatomic, retain) UILabel  * title;
 @property (nonatomic, retain) UIButton * backButtonToRoot;
 @property (nonatomic, retain) UIButton * backButton;
 
@@ -87,55 +85,6 @@
   return CGSizeMake(kViewWidth, kNavigationBarHeight);
 }
 
-// Set title for navigation bar
-- (void)setTitleWithText:(NSString *)text animated:(BOOL)animated {
-  /*if (self.title == nil) {
-    UILabel * title = [[UILabel alloc] init];
-    self.title = title;
-    [title release];
-    [self.title setBackgroundColor:[UIColor clearColor]];
-    [self.title setTextColor:[GlobalRender textColorTitleWhite]];
-    [self.title setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [self.title setTextAlignment:UITextAlignmentCenter];
-    [self addSubview:self.title];
-  }
-  
-  CGRect titleFrame = CGRectMake(100.f, -10.f, 120.f, self.frame.size.height - 10.f);
-  [self.title setFrame:titleFrame];
-  [self.title setAlpha:0.f];
-  [self.title setText:text];
-  titleFrame.origin.y = 0.f;
-  // animation block
-  void (^animations)() = ^{
-    [self.title setFrame:titleFrame];
-    [self.title setAlpha:1.f];
-  };
-  
-  if (animated) [UIView animateWithDuration:.3f
-                                      delay:0.f
-                                    options:UIViewAnimationOptionCurveEaseOut
-                                 animations:animations
-                                 completion:nil];
-  else animations();*/
-}
-
-// Remove title
-- (void)removeTitleAnimated:(BOOL)animated {
-  /*CGRect titleFrame = CGRectMake(100.f, -10.f, 120.f, self.frame.size.height - 10.f);
-  // animation block
-  void (^animations)() = ^{
-    [self.title setFrame:titleFrame];
-    [self.title setAlpha:0.f];
-  };
-  
-  if (animated) [UIView animateWithDuration:.3f
-                                      delay:0.f
-                                    options:UIViewAnimationOptionCurveEaseOut
-                                 animations:animations
-                                 completion:nil];
-  else animations();*/
-}
-
 // Settings for |backButton|
 // Back to Root(TopViewController)
 - (void)backToRoot:(id)sender {
@@ -152,10 +101,7 @@
       [self setFrame:CGRectMake(0.f, -kNavigationBarHeight, kViewWidth, kNavigationBarHeight)];
     }
     // For Login view
-    else {
-      [self setBackToRootButtonToHidden:YES animated:YES];
-      [self setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:YES];
-    }
+    else [self setBackToRootButtonToHidden:YES animated:YES];
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
     if ([[self.delegate rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
