@@ -46,7 +46,10 @@
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:style];
+  if (self = [super initWithStyle:style]) {
+    [self setTitle:NSLocalizedString(@"PMSLoginChoice", nil)];
+  }
+  return self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +68,6 @@
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
   [navigationBar setBackToRootButtonToHidden:YES animated:NO];
-  [navigationBar setTitleWithText:NSLocalizedString(@"PMSLoginChoice", nil) animated:NO];
   navigationBar = nil;
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -206,10 +208,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
   [navigationBar setBackToRootButtonToHidden:NO animated:YES];
-  [navigationBar setTitleWithText:[self nameForProvider:[indexPath row]] animated:YES];
-  [self.navigationController pushViewController:[[OAuthManager sharedInstance] loginWith:[indexPath row]]
+  id loginViewController = [[OAuthManager sharedInstance] loginWith:[indexPath row]];
+  [loginViewController setTitle:[self nameForProvider:[indexPath row]]];
+  [self.navigationController pushViewController:loginViewController
                                        animated:YES];
-  navigationBar = nil;
+  navigationBar       = nil;
+  loginViewController = nil;
 }
 
 #pragma mark - Private Methods

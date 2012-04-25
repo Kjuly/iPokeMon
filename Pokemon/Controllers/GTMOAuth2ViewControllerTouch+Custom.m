@@ -27,6 +27,7 @@
   NSString * basePath = [[NSBundle mainBundle] bundlePath];
   CGRect webViewFrame = self.webView.frame;
   webViewFrame.origin.y = -kNavigationBarBottomAlphaHegiht;
+  webViewFrame.size.height += kNavigationBarBottomAlphaHegiht;
   [self.webView setFrame:webViewFrame];
   [self.webView loadHTMLString:self.initialHTMLString
                        baseURL:[NSURL fileURLWithPath:basePath]];
