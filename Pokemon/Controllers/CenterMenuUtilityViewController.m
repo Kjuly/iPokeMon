@@ -16,20 +16,7 @@
 #import "SettingTableViewController.h"
 
 
-@interface CenterMenuUtilityViewController () {
- @private
-  PokedexTableViewController     * pokedexTableViewController_;
-  SixPokemonsTableViewController * sixPokemonsTableViewController_;
-  BagTableViewController         * bagTableViewController_;
-  TrainerCardViewController      * trainerCardViewController_;
-  SettingTableViewController     * settingTableViewController_;
-}
-
-@property (nonatomic, retain) PokedexTableViewController     * pokedexTableViewController;
-@property (nonatomic, retain) SixPokemonsTableViewController * sixPokemonsTableViewController;
-@property (nonatomic, retain) BagTableViewController         * bagTableViewController;
-@property (nonatomic, retain) TrainerCardViewController      * trainerCardViewController;
-@property (nonatomic, retain) SettingTableViewController     * settingTableViewController;
+@interface CenterMenuUtilityViewController ()
 
 // Buttons' Action
 - (void)showPokedex:(id)sender;
@@ -44,18 +31,7 @@
 
 @implementation CenterMenuUtilityViewController
 
-@synthesize pokedexTableViewController     = pokedexTableViewController_;
-@synthesize sixPokemonsTableViewController = sixPokemonsTableViewController_;
-@synthesize bagTableViewController         = bagTableViewController_;
-@synthesize trainerCardViewController      = trainerCardViewController;
-@synthesize settingTableViewController     = settingTableViewController_;
-
 -(void)dealloc {
-  self.pokedexTableViewController     = nil;
-  self.sixPokemonsTableViewController = nil;
-  self.bagTableViewController         = nil;
-  self.trainerCardViewController      = nil;
-  self.settingTableViewController     = nil;
   [super dealloc];
 }
 
@@ -140,31 +116,32 @@
 
 #pragma mark - Private Methods
 
-//
-// Buttons' Action
-//
+///Buttons' Action
 - (void)showPokedex:(id)sender {  
-  if (self.pokedexTableViewController == nil)
-    pokedexTableViewController_ = [[PokedexTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self pushViewController:self.pokedexTableViewController];
+  PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
+  [pokedexTableViewController initWithStyle:UITableViewStylePlain];
+  [self pushViewController:pokedexTableViewController];
+  [pokedexTableViewController release];
 }
 
 - (void)showPokemon:(id)sender {
-  if (self.sixPokemonsTableViewController == nil)
-    sixPokemonsTableViewController_ = [[SixPokemonsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self pushViewController:self.sixPokemonsTableViewController];
+  SixPokemonsTableViewController * sixPokemonsTableViewController = [SixPokemonsTableViewController alloc];
+  [sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
+  [self pushViewController:sixPokemonsTableViewController];
+  [sixPokemonsTableViewController release];
 }
 
 - (void)showBag:(id)sender {
-  if (! self.bagTableViewController)
-    bagTableViewController_ = [[BagTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self pushViewController:self.bagTableViewController];
+  BagTableViewController * bagTableViewController = [BagTableViewController alloc];
+  [bagTableViewController initWithStyle:UITableViewStylePlain];
+  [self pushViewController:bagTableViewController];
+  [bagTableViewController release];
 }
 
 - (void)showTrainerCard:(id)sender {
-  if (self.trainerCardViewController == nil)
-    trainerCardViewController = [[TrainerCardViewController alloc] initWithNibName:nil bundle:nil];
-  [self pushViewController:self.trainerCardViewController];
+  TrainerCardViewController * trainerCardViewController = [[TrainerCardViewController alloc] init];
+  [self pushViewController:trainerCardViewController];
+  [trainerCardViewController release];
 }
 
 - (void)runHotkey:(id)sender {
@@ -172,9 +149,9 @@
 }
 
 - (void)setGame:(id)sender {
-  if (self.settingTableViewController == nil)
-    settingTableViewController_ = [[SettingTableViewController alloc] init];
-  [self pushViewController:self.settingTableViewController];
+  SettingTableViewController * settingTableViewController = [[SettingTableViewController alloc] init];
+  [self pushViewController:settingTableViewController];
+  [settingTableViewController release];
 }
 
 @end
