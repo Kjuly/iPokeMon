@@ -34,13 +34,11 @@
 @synthesize delegate         = delegate_;
 @synthesize viewCount        = viewCount_;
 
-//@synthesize title            = title_;
 @synthesize backButtonToRoot = backButtonToRoot_;
 @synthesize backButton       = backButton_;
 
 -(void)dealloc {
   self.delegate         = nil;
-//  self.title            = nil;
   self.backButtonToRoot = nil;
   self.backButton       = nil;
   [super dealloc];
@@ -122,7 +120,6 @@
 // Provide the action for the custom |backButton|
 - (void)back:(id)sender {
   NSLog(@"popViewController");
-  
   // Remove the |backButton| if needed
   if (self.viewCount >= 2 && --self.viewCount < 2)
     [self _removeBackButtonForPreviousView];
@@ -155,21 +152,19 @@
 
 // Add |backButton| for previous view
 - (void)addBackButtonForPreviousView {
-  __block CGRect originalFrame = CGRectMake(160.f, 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
-  
-  if (! self.backButton) {
+  CGRect originalFrame = CGRectMake(160.f, 0.f, kNavigationBarBackButtonWidth, kNavigationBarBackButtonHeight);
+  if (self.backButton == nil) {
     backButton_ = [[UIButton alloc] initWithFrame:originalFrame];
     [backButton_ setImage:[UIImage imageNamed:kPMINNavBarBackButton] forState:UIControlStateNormal];
     [backButton_ addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [backButton_ setAlpha:0.f];
   }
   [self addSubview:self.backButton];
-  
+  originalFrame.origin.x = kNavigationBarBackButtonWidth + 10.f;
   [UIView animateWithDuration:.2f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseIn
                    animations:^{
-                     originalFrame.origin.x = kNavigationBarBackButtonWidth + 10.f;
                      [self.backButton setFrame:originalFrame];
                      [self.backButton setAlpha:1.0f];
                    }
@@ -193,12 +188,12 @@
 
 // Remove |backButton| for previous view
 - (void)_removeBackButtonForPreviousView {
-  __block CGRect originalFrame = self.backButton.frame;
+  CGRect originalFrame = self.backButton.frame;
+  originalFrame.origin.x = 160.f;
   [UIView animateWithDuration:.2f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     originalFrame.origin.x = 160.f;
                      [self.backButton setFrame:originalFrame];
                      [self.backButton setAlpha:0.f];
                    }
