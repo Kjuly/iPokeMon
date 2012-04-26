@@ -12,8 +12,6 @@
 #import "PMAudioPlayer.h"
 #import "GameStatusMachine.h"
 #import "TrainerController.h"
-#import "WildPokemon+DataController.h"
-
 
 // System Process Type
 typedef enum {

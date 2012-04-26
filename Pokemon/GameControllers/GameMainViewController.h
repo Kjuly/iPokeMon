@@ -10,8 +10,6 @@
 
 #import "GameMenuViewController.h"
 
-@class GameMenuViewController;
-
 @interface GameMainViewController : UIViewController <GameMenuViewControllerDelegate> {
   GameMenuViewController * gameMenuViewController_;
 }

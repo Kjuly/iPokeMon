@@ -1,4 +1,4 @@
-//
+
 //  GameMainViewController.m
 //  Pokemon
 //
@@ -12,27 +12,21 @@
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "GameBattleLayer.h"
-#import "GameMenuViewController.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
-#import "WildPokemonController.h"
-#import "GameBattleEventViewController.h"
-#import "GameBattleEndViewController.h"
-
-#import "cocos2d.h"
 
 
 @interface GameMainViewController () {
  @private
   PMAudioPlayer                 * audioPlayer_;
-  CenterMainButtonStatus previousCenterMainButtonStatus_;
   GameBattleEventViewController * gameBattleEventViewController_;
   GameBattleEndViewController   * gameBattleEndViewController_;
-  BOOL                            isLoadingResourceForBattle_;
+  
+  CenterMainButtonStatus previousCenterMainButtonStatus_;
+  BOOL                   isLoadingResourceForBattle_;
 }
 
 @property (nonatomic, retain) PMAudioPlayer                 * audioPlayer;
-@property (nonatomic, assign) CenterMainButtonStatus previousCenterMainButtonStatus;
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
@@ -46,18 +40,18 @@
 
 @implementation GameMainViewController
 
-@synthesize gameMenuViewController         = gameMenuViewController_;
+@synthesize gameMenuViewController        = gameMenuViewController_;
 
-@synthesize audioPlayer                    = audioPlayer_;
-@synthesize previousCenterMainButtonStatus = previousCenterMainButtonStatus_;
-@synthesize gameBattleEventViewController  = gameBattleEventViewController_;
-@synthesize gameBattleEndViewController    = gameBattleEndViewController_;
+@synthesize audioPlayer                   = audioPlayer_;
+@synthesize gameBattleEventViewController = gameBattleEventViewController_;
+@synthesize gameBattleEndViewController   = gameBattleEndViewController_;
 
-- (void)dealloc
-{
-  [audioPlayer_                 release];
-  [gameMenuViewController_      release];
-  [gameBattleEndViewController_ release];
+- (void)dealloc {
+  self.gameMenuViewController        = nil;
+  
+  self.audioPlayer                   = nil;
+  self.gameBattleEventViewController = nil;
+  self.gameBattleEndViewController   = nil;
   
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];
@@ -66,8 +60,7 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
@@ -165,7 +158,7 @@
 
 - (void)unloadBattleScene {
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             [NSNumber numberWithInt:self.previousCenterMainButtonStatus],
+                             [NSNumber numberWithInt:previousCenterMainButtonStatus_],
                              @"previousCenterMainButtonStatus", nil];
   
   [UIView animateWithDuration:.3f
@@ -194,7 +187,7 @@
 - (void)startBattle:(NSNotification *)notification {
   // Remember previous |centerMainButton_|'s status
   NSLog(@"Pokemon Info: %@", notification.userInfo);
-  self.previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+  previousCenterMainButtonStatus_ = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
   
   // If Trainer has no battle available Pokemon, don't load Battle Scene,
   //   load |gameBattleEventView| instead
