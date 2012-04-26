@@ -46,6 +46,7 @@
 - (void)setName:(NSString *)name; // Set trainer name
 //- (void)earnMoney:(NSInteger)money; // Earn money when WIN from another trainer
 //- (void)loseMoney:(NSInteger)money; // Lose money when LOSE
+- (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID;
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
 - (void)replacePokemonAtIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex; // Replace Pokemon's index

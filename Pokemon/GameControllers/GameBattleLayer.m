@@ -22,6 +22,7 @@
 @interface GameBattleLayer () {
  @private
   PMAudioPlayer     * audioPlayer_;
+  TrainerController * trainer_;
   GameStatusMachine * gameStatusMachine_;
   GameSystemProcess * gameSystemProcess_;
   GamePlayerProcess * playerProcess_;
@@ -34,6 +35,7 @@
 }
 
 @property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
+@property (nonatomic, retain) TrainerController * trainer;
 @property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
 @property (nonatomic, retain) GameSystemProcess * gameSystemProcess;
 @property (nonatomic, retain) GamePlayerProcess * playerProcess;
@@ -63,6 +65,7 @@
 @synthesize gameMoveEffect  = gameMoveEffect_;
 
 @synthesize audioPlayer         = audioPlayer_;
+@synthesize trainer             = trainer_;
 @synthesize gameStatusMachine   = gameStatusMachine_;
 @synthesize gameSystemProcess   = gameSystemProcess_;
 @synthesize playerProcess       = playerProcess_;
@@ -86,11 +89,11 @@
 	return scene;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.gameMoveEffect  = nil;
   
   self.audioPlayer         = nil;
+  self.trainer             = nil;
   self.gameStatusMachine   = nil;
   self.playerProcess       = nil;
   self.enemyProcess        = nil;
@@ -108,13 +111,13 @@
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super initWithColor:ccc4(0,0,0,0)]) {
     [self setIsTouchEnabled:YES];
     
     // Status Machine for Game
     self.audioPlayer       = [PMAudioPlayer     sharedInstance];
+    self.trainer           = [TrainerController sharedInstance];
     self.gameStatusMachine = [GameStatusMachine sharedInstance];
     self.gameSystemProcess = [GameSystemProcess sharedInstance];
     
@@ -169,13 +172,14 @@
 // Generate a new scene
 - (void)createNewSceneWithWildPokemonUID:(NSInteger)wildPokemonUID {
   NSLog(@"Generating a new scene......");
-  TrainerController * trainer = [TrainerController sharedInstance];
-  NSInteger currentBattleAblePokemonIndex = [trainer battleAvailablePokemonIndex];
-  TrainerTamedPokemon * playerPokemon = [trainer pokemonOfSixAtIndex:currentBattleAblePokemonIndex];
+  NSInteger currentBattleAblePokemonIndex = [self.trainer battleAvailablePokemonIndex];
+  TrainerTamedPokemon * playerPokemon = [self.trainer pokemonOfSixAtIndex:currentBattleAblePokemonIndex];
   WildPokemon * enemyPokemon          = [WildPokemon queryPokemonDataWithUID:wildPokemonUID];
-  trainer = nil;
   
-  NSLog(@"~~~~~~~~~~~~~~~~~WILD POKEMON:moves:%@, hp:%@, exp:%@, stats:%@",
+  // Update PokeDEX for trainer
+  [self.trainer updatePokedexWithPokemonSID:[enemyPokemon.sid intValue]];
+  
+  NSLog(@"New WILD POKEMON:moves:%@, hp:%@, exp:%@, stats:%@",
         enemyPokemon.fourMoves, enemyPokemon.hp, enemyPokemon.exp, enemyPokemon.maxStats);
   
   // Set pokemon for |gameSystemProcess_|
@@ -318,8 +322,7 @@
   self.playerPokemonSprite = nil;
   
   NSInteger newPokemon = [[notification.userInfo objectForKey:@"newPokemon"] intValue];
-  TrainerTamedPokemon * playerPokemon =
-    [[[TrainerController sharedInstance] sixPokemons] objectAtIndex:newPokemon];
+  TrainerTamedPokemon * playerPokemon = [[self.trainer sixPokemons] objectAtIndex:newPokemon];
   [self.gameSystemProcess replacePokemon:playerPokemon forUser:kGameSystemProcessUserPlayer];
   
   NSString * spriteKeyPlayerPokemon = [NSString stringWithFormat:@"SpriteKeyPlayerPokemon%.3d",

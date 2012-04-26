@@ -3,7 +3,7 @@ iPokemon
 
 # Description:
 
-> iPokemon is a PokéMon game for iPhone with Location Based Service, i.e. Pokemons are distributed in the real world. You'll met different Pokemons in different cities, or even countries.
+> iPokemon is a PokéMon game for iPhone with Location Based Service, i.e. Pokemons are distributed in the real world. You'll find different Pokemons in different cities, or even countries.
 
 Imagine that we live with Pokemon. ;)
 

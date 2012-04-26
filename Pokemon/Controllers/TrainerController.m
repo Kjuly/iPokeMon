@@ -31,7 +31,6 @@
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
 - (void)_newbieChecking;
-- (void)_updatePokedexWithPokemonID:(NSInteger)pokemonID;
 - (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
 @end
@@ -233,6 +232,15 @@ static TrainerController * trainerController_ = nil;
   [self saveWithSync:YES];
 }
 
+// Update Pokedex with Pokemon ID
+- (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID {
+  // If Pokemon already caught, do nothing
+  if ([self.pokedex isBinary1AtIndex:pokemonSID])
+    return;
+  self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBainaryTo1:YES atIndex:pokemonSID];
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerPokedex;
+}
+
 // Transfer WildPokemon to TamedPokemon
 // Add new TamedPokemon, 
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo {
@@ -253,7 +261,7 @@ static TrainerController * trainerController_ = nil;
   // Add WildPokemon to TrainerTamedPokemon Group
   [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon withMemo:memo toBox:box forTrainer:self.entityTrainer];
   // Update Pokedex
-  [self _updatePokedexWithPokemonID:[wildPokemon.sid intValue]];
+  [self updatePokedexWithPokemonSID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|
   if (box == 0)
     [self addPokemonToSixPokemonsWithPokemonUID:[self numberOfTamedPokemons]];
@@ -357,15 +365,6 @@ static TrainerController * trainerController_ = nil;
     [[LoadingManager sharedInstance] hideOverView];
   };
   [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
-}
-
-// Update Pokedex with Pokemon ID
-- (void)_updatePokedexWithPokemonID:(NSInteger)pokemonID {
-  // If Pokemon already caught, do nothing
-  if ([self.pokedex isBinary1AtIndex:pokemonID])
-    return;
-  self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBainaryTo1:YES atIndex:pokemonID];
-  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerPokedex;
 }
 
 // Save data for bag items
