@@ -21,7 +21,7 @@
 #import "MapViewController.h"
 #import "GameMainViewController.h"
 
-#ifdef DEBUG
+#ifdef DEBUG_PREINIT_POPULATE_DATA
 #import "OriginalDataManager.h"
 #endif
 
@@ -281,7 +281,7 @@
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled]
+  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonWarning]
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
