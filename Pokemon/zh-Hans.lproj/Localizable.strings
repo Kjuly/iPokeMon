@@ -37,7 +37,7 @@
 
 // Full screen view text
 "PMSConnectErrorTitle"  = "网络连接错误";
-"PMSConnectErrorMessage"= "对不起，连接服务器失败。请尝试检查网络，然后刷新。";
+"PMSConnectErrorMessage"= "对不起，服务器连接失败。请尝试检查网络，然后刷新。如果还是相同错误，请您联系我，谢谢。 :)";
 // Login & Newbie guide
 "PMSLoginChoice"        = "选择登录服务";
 "PMSLoginSigninPage"    = "加载登录页面中...";

@@ -38,8 +38,8 @@
 
 
 // Full screen view text
-"PMSConnectErrorTitle"  = "Connect Error";
-"PMSConnectErrorMessage"= "Sorry, try to connect to the server failed. Please check the network and refresh.";
+"PMSConnectErrorTitle"  = "Connection Error";
+"PMSConnectErrorMessage"= "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
 // Login & Newbie guide
 "PMSLoginChoice"        = "Login Choice";
 "PMSLoginSigninPage"    = "Loading sign-in page...";
