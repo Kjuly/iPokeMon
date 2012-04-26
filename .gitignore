@@ -26,5 +26,4 @@ build/
 *~.xib
 
 # Temp files
-Pokemon/Resources/Images/tmp/
-Pokemon/Resources/PLists/tmp/
+Pokemon/Resources/tmp/*
