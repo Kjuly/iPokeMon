@@ -277,6 +277,10 @@ static OAuthManager * oauthManager_ = nil;
     self.oauth = nil;
     self.selectedServiceProvider =
       [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
+    
+    // Post notification to |MainViewController| to show view of |FullScreenLoadingViewController|
+    //   that the authentication failed.
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
   } else {
     NSLog(@"Authentication succeeded..");
     // Authentication succeeded
