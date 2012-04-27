@@ -13,9 +13,6 @@
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
 #import "LoadingManager.h"
-#import "FullScreenLoadingViewController.h"
-
-#import "AFJSONRequestOperation.h"
 
 
 #pragma mark - OAuthManager Constants
@@ -215,42 +212,27 @@ static OAuthManager * oauthManager_ = nil;
   // Show loading
   [self.loadingManager showOverBar];
   
-  // Success Block Method
-  void (^success)(NSURLRequest *, NSHTTPURLResponse *, id) =
-    ^(NSURLRequest * request, NSHTTPURLResponse * response, id JSON) {
-      NSInteger userID = [[JSON valueForKey:@"userID"] intValue];
-      NSLog(@"|syncUserID| - Get |userID| for current user succeed... userID:%d", userID);
-      [[TrainerController sharedInstance] initTrainerWithUserID:userID];
-      // Hide loading
-      [self.loadingManager hideOverBar];
-      isUserIDSynced_ = YES;
-    };
-  // Failure Block Method
-  void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id) =
-    ^(NSURLRequest *request, NSHTTPURLResponse * response, NSError * error, id JSON) {
-      NSLog(@"!!! |syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
-      // Hide loading
-      [self.loadingManager hideOverBar];
+  // Block: |success| & |failure|
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@"...Checking CONNECTION to SERVER...");
+    // Init data from SERVER to CLIENT for Trainer, including TrainerTamedPokemon, six PMs, etc
+    [[TrainerController sharedInstance] initTrainerWithUserID:[[responseObject valueForKey:@"userID"] intValue]];
+    // Hide loading
+    [self.loadingManager hideOverBar];
+    isUserIDSynced_ = YES;
+  };
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! |_syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
+    // Hide loading
+    [self.loadingManager hideOverBar];
 #ifndef DEBUG_NO_SESSION_MOED
-      // Post notification to |MainViewController| to warn Network not available view
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    // Post notification to |MainViewController| to warn Network not available view
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
 #endif
-    };
+  };
   
-  // Fetch data for Trainer
-  NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:[ServerAPI getURLForUserID]];
-  NSString * provider = [NSString stringWithFormat:@"%d",
-                         [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
-  [request setValue:kClientIdentifier forHTTPHeaderField:@"key"];
-  [request setValue:provider forHTTPHeaderField:@"provider"];
-  [request setValue:[self userEmailInMD5] forHTTPHeaderField:@"identity"];
-  [request setHTTPMethod:@"GET"];
-  NSLog(@"|syncUserID| - Request URL:%@ --- HTTPHeader:%@", [ServerAPI getURLForUserID], [request allHTTPHeaderFields]);
-  AFJSONRequestOperation * operation;
-  operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:success failure:failure];
-  [request release];
-  [operation start];
-  [self.operationQueue addOperation:operation];
+  // Fetch userID for current user
+  [[ServerAPIClient sharedInstance] fetchUserIDSuccess:success failure:failure];
 }
 
 // Callback for method:|loginWith:|
