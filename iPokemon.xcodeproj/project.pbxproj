@@ -2461,9 +2461,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F6E6CB314D6CAA600033C65 /* ipokemon */ = {
+		7F6E6CB314D6CAA600033C65 /* iPokemon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "ipokemon" */;
+			buildConfigurationList = 7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemon" */;
 			buildPhases = (
 				7F6E6CB014D6CAA600033C65 /* Sources */,
 				7F6E6CB114D6CAA600033C65 /* Frameworks */,
@@ -2473,14 +2473,14 @@
 			);
 			dependencies = (
 			);
-			name = ipokemon;
+			name = iPokemon;
 			productName = Pokemon;
 			productReference = 7F6E6CB414D6CAA600033C65 /* iPokemon.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7F6E6CD314D6CAA700033C65 /* ipokemonTests */ = {
+		7F6E6CD314D6CAA700033C65 /* iPokemonTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "ipokemonTests" */;
+			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemonTests" */;
 			buildPhases = (
 				7F6E6CCF14D6CAA700033C65 /* Sources */,
 				7F6E6CD014D6CAA700033C65 /* Frameworks */,
@@ -2492,7 +2492,7 @@
 			dependencies = (
 				7F6E6CDB14D6CAA700033C65 /* PBXTargetDependency */,
 			);
-			name = ipokemonTests;
+			name = iPokemonTests;
 			productName = PokemonTests;
 			productReference = 7F6E6CD414D6CAA700033C65 /* ipokemonTests.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -2519,8 +2519,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F6E6CB314D6CAA600033C65 /* ipokemon */,
-				7F6E6CD314D6CAA700033C65 /* ipokemonTests */,
+				7F6E6CB314D6CAA600033C65 /* iPokemon */,
+				7F6E6CD314D6CAA700033C65 /* iPokemonTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3053,7 +3053,7 @@
 /* Begin PBXTargetDependency section */
 		7F6E6CDB14D6CAA700033C65 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7F6E6CB314D6CAA600033C65 /* ipokemon */;
+			target = 7F6E6CB314D6CAA600033C65 /* iPokemon */;
 			targetProxy = 7F6E6CDA14D6CAA700033C65 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -3143,7 +3143,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
@@ -3165,7 +3165,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
@@ -3223,7 +3223,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "ipokemon" */ = {
+		7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CE814D6CAA700033C65 /* Debug */,
@@ -3232,7 +3232,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "ipokemonTests" */ = {
+		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemonTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CEB14D6CAA700033C65 /* Debug */,
