@@ -13,6 +13,7 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "GlobalConstants.h" // Constants
+    #import "TestFlight.h"      // TestFlight
 #endif
 
 // Disable logging when not in debug

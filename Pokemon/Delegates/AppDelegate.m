@@ -47,6 +47,10 @@
   }
   [self saveContext];
   
+  ///TestFlight
+  [TestFlight takeOff:@"d96adcb0fdd736768e392c55cc9f66b1_ODUxNTMyMDEyLTA0LTI3IDA5OjIyOjMwLjA2MjMxNQ"];
+  ///END TestFlight
+  
   // Set View
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   MainViewController * mainViewController = [[MainViewController alloc] init];
