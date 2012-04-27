@@ -2506,7 +2506,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = Kjuly;
 			};
-			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "ipokemon" */;
+			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemonnnn" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -3214,7 +3214,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "ipokemon" */ = {
+		7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemonnnn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CE514D6CAA700033C65 /* Debug */,

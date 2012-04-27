@@ -16,7 +16,7 @@
                BlueprintIdentifier = "7F6E6CB314D6CAA600033C65"
                BuildableName = "ipokemon.app"
                BlueprintName = "ipokemon"
-               ReferencedContainer = "container:ipokemon.xcodeproj">
+               ReferencedContainer = "container:iPokemonnnn.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,7 +34,7 @@
                BlueprintIdentifier = "7F6E6CD314D6CAA700033C65"
                BuildableName = "ipokemonTests.octest"
                BlueprintName = "ipokemonTests"
-               ReferencedContainer = "container:ipokemon.xcodeproj">
+               ReferencedContainer = "container:iPokemonnnn.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,7 +44,7 @@
             BlueprintIdentifier = "7F6E6CB314D6CAA600033C65"
             BuildableName = "ipokemon.app"
             BlueprintName = "ipokemon"
-            ReferencedContainer = "container:ipokemon.xcodeproj">
+            ReferencedContainer = "container:iPokemonnnn.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -55,6 +55,7 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       debugDocumentVersioning = "YES"
+      enablesOpenGLESFrameCapture = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
@@ -62,7 +63,7 @@
             BlueprintIdentifier = "7F6E6CB314D6CAA600033C65"
             BuildableName = "ipokemon.app"
             BlueprintName = "ipokemon"
-            ReferencedContainer = "container:ipokemon.xcodeproj">
+            ReferencedContainer = "container:iPokemonnnn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,7 +81,7 @@
             BlueprintIdentifier = "7F6E6CB314D6CAA600033C65"
             BuildableName = "ipokemon.app"
             BlueprintName = "ipokemon"
-            ReferencedContainer = "container:ipokemon.xcodeproj">
+            ReferencedContainer = "container:iPokemonnnn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
