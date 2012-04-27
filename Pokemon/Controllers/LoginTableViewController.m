@@ -285,31 +285,31 @@
 - (void)hideView:(NSNotification *)notification {
   BOOL succeed = [[notification.userInfo valueForKey:@"succeed"] boolValue];
   void (^animations)() = ^{
-    if (! succeed) {
-      CGRect authenticatingViewFrame = self.authenticatingView.frame;
-      authenticatingViewFrame.origin.x = kViewWidth;
-      [self.authenticatingView setFrame:authenticatingViewFrame];
-    }
-    else {
+    if (succeed) {
       [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
       // Slide up the Navigation bar to hide it
       CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
       navigationBarFrame.origin.y = - navigationBarFrame.size.height;
       [self.navigationController.navigationBar setFrame:navigationBarFrame];
     }
+    else {
+      CGRect authenticatingViewFrame = self.authenticatingView.frame;
+      authenticatingViewFrame.origin.x = kViewWidth;
+      [self.authenticatingView setFrame:authenticatingViewFrame];
+    }
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
-    if (! succeed) {
-      [self.authenticatingView  removeFromSuperview];
-      [self.authenticatingLabel removeFromSuperview];
-    }
-    else {
+    if (succeed) {
       [self.navigationController setNavigationBarHidden:YES];
       [self.authenticatingView  removeFromSuperview];
       [self.authenticatingLabel removeFromSuperview];
       [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
       [self.view removeFromSuperview];
       [self.navigationController.view removeFromSuperview];
+    }
+    else {
+      [self.authenticatingView  removeFromSuperview];
+      [self.authenticatingLabel removeFromSuperview];
     }
   };
   

@@ -289,7 +289,10 @@ static OAuthManager * oauthManager_ = nil;
     // Current authticated User's ID (Trainer's |uid|)
     [self _syncUserID];
     // Post notification to |LoginTableViewController| to hide login view
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:nil];
+    NSDictionary * userInfo =
+      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"succeed", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:userInfo];
+    [userInfo release];
   }
 }
 
