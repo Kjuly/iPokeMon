@@ -47,9 +47,13 @@
   }
   [self saveContext];
   
-  ///TestFlight
+#ifdef DEBUG_TEST_FLIGHT
   [TestFlight takeOff:@"d96adcb0fdd736768e392c55cc9f66b1_ODUxNTMyMDEyLTA0LTI3IDA5OjIyOjMwLjA2MjMxNQ"];
-  ///END TestFlight
+  [TestFlight passCheckpoint:@"Launch App"];
+#ifdef DEBUG_TEST_FLIGHT_TESTING
+  [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+#endif
   
   // Set View
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
