@@ -260,6 +260,7 @@ typedef enum {
   
   // Base Settings
   self.audioPlayer       = [PMAudioPlayer     sharedInstance];
+  self.trainer           = [TrainerController sharedInstance];
   self.gameStatusMachine = [GameStatusMachine sharedInstance];
   gameMenuKeyView_       = kGameMenuKeyViewNone;
   
@@ -400,14 +401,17 @@ typedef enum {
 
 // Replace the battle pokemon
 - (void)replacePokemon:(NSNotification *)notification {
+  NSLog(@"!!!replace PM");
   gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   CGFloat baseDalay = 0.f;
   // If player's current battle Pokemon not fainted, get back it with animation first
   TrainerTamedPokemon * pokemon = [[self.trainer sixPokemons] objectAtIndex:currPokemon_];
+   NSLog(@"!!!currPokemon_%d, %@", currPokemon_, [self.trainer sixPokemons]);
   if ([pokemon.hp intValue] != 0) {
+    NSLog(@"!!!currPokemon_%d, hp != 0", currPokemon_);
     // Get current battling pokemon back from scene animated
-    baseDalay = 1.f;
+    baseDalay = .3f;
     [self performSelector:@selector(getPokemonBack) withObject:nil afterDelay:baseDalay];
   }
   // Update for new Pokemon
@@ -425,6 +429,7 @@ typedef enum {
 
 // Get current battling pokemon back from scene
 - (void)getPokemonBack {
+  NSLog(@"!!!get PM back");
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(70.f, 230.f)];
   [path addCurveToPoint:CGPointMake(100.f, 250.f)
