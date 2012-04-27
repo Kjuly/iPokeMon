@@ -36,8 +36,9 @@
 @property (nonatomic, copy)   NSArray                  * fourMovesPP;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 
-- (void)releaseSubviews;
-- (void)useSelectedMove:(id)sender;
+- (void)_releaseSubviews;
+- (void)_useSelectedMove:(id)sender;
+- (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex;
 
 @end
 
@@ -57,11 +58,11 @@
   self.playerPokemon = nil;
   self.fourMovesPP   = nil;
   self.swipeLeftGestureRecognizer = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.move1View = nil;
   self.move2View = nil;
   self.move3View = nil;
@@ -100,19 +101,23 @@
   move2View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveTwoViewFrame];
   move3View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveThreeViewFrame];
   move4View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveFourViewFrame];
+  [move1View_ setTag:101];
+  [move2View_ setTag:102];
+  [move3View_ setTag:103];
+  [move4View_ setTag:104];
   
   [move1View_.viewButton setTag:1];
   [move2View_.viewButton setTag:2];
   [move3View_.viewButton setTag:3];
   [move4View_.viewButton setTag:4];
   
-  [move1View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+  [move1View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
                   forControlEvents:UIControlEventTouchUpInside];
-  [move2View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+  [move2View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
                   forControlEvents:UIControlEventTouchUpInside];
-  [move3View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+  [move3View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
                   forControlEvents:UIControlEventTouchUpInside];
-  [move4View_.viewButton addTarget:self action:@selector(useSelectedMove:)
+  [move4View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
                   forControlEvents:UIControlEventTouchUpInside];
   
   [self.tableAreaView addSubview:move1View_];
@@ -134,12 +139,28 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
+}
+
+#pragma mark - Public Methods
+
+// update four Moves
+- (void)updateFourMoves {
+  // refetch data
+  self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
+  self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
+  
+  // update Move Unit View
+  [self _updateMoveUnitViewWithMoveIndex:1];
+  [self _updateMoveUnitViewWithMoveIndex:2];
+  [self _updateMoveUnitViewWithMoveIndex:3];
+  [self _updateMoveUnitViewWithMoveIndex:4];
 }
 
 #pragma mark - Private Methods
 
-- (void)useSelectedMove:(id)sender {
+// use the Move selected
+- (void)_useSelectedMove:(id)sender {
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserPlayer
@@ -149,104 +170,38 @@
   [[GameStatusMachine sharedInstance] endStatus:kGameStatusPlayerTurn];
 }
 
-#pragma mark - Public Methods
-
-- (void)updateFourMoves {
-  self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
-  self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
-  
-  // Four moves
-  Move * move1 = [self.playerPokemon move1];
-  if (move1 != nil) {
-    [self.move1View.type1 setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move1.type intValue]]), nil)];
-    [self.move1View.name setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move1.sid intValue]]), nil)];
-    [self.move1View.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:0] intValue],
-                                [[fourMovesPP_ objectAtIndex:1] intValue]]];
-    move1 = nil;
-    
-    // Change Text color if needed
-    if ([[fourMovesPP_ objectAtIndex:0] intValue] == 0) {
-      [self.move1View.name setTextColor:[GlobalRender textColorDisabled]];
-      [self.move1View.viewButton setEnabled:NO];
-    }
-    else {
-      [self.move1View.name setTextColor:[GlobalRender textColorTitleWhite]];
-      [self.move1View.viewButton setEnabled:YES];
-    }
+// update Move Unit View data
+- (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex {
+  // get the Move Unit View at index
+  GameMenuMoveUnitView * moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
+  Move * move = [self.playerPokemon moveWithIndex:moveIndex];
+  if (move == nil) {
+    [moveUnitView.type1 setText:nil];
+    [moveUnitView.name  setText:nil];
+    [moveUnitView.pp    setText:nil];
+    [moveUnitView.viewButton setEnabled:NO];
+    moveUnitView = nil;
+    return;
   }
-  else [self.move1View.viewButton setEnabled:NO];
   
-  Move * move2 = [self.playerPokemon move2];
-  if (move2 != nil) {
-    [self.move2View.type1 setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move2.type intValue]]), nil)];
-    [self.move2View.name setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move2.sid intValue]]), nil)];
-    [self.move2View.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:2] intValue],
-                                [[fourMovesPP_ objectAtIndex:3] intValue]]];
-    move2 = nil;
-    
-    // Change Text color if needed
-    if ([[fourMovesPP_ objectAtIndex:2] intValue] == 0) {
-      [self.move2View.name setTextColor:[GlobalRender textColorDisabled]];
-      [self.move2View.viewButton setEnabled:NO];
-    }
-    else {
-      [self.move2View.name setTextColor:[GlobalRender textColorTitleWhite]];
-      [self.move2View.viewButton setEnabled:YES];
-    }
-  }
-  else [self.move2View.viewButton setEnabled:NO];
+  [moveUnitView.type1 setText:
+   NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
+  [moveUnitView.name setText:
+   NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
+  [moveUnitView.pp setText:[NSString stringWithFormat:@"%d / %d",
+                              [[fourMovesPP_ objectAtIndex:0] intValue],
+                              [[fourMovesPP_ objectAtIndex:1] intValue]]];
+  move = nil;
   
-  Move * move3 = [self.playerPokemon move3];
-  if (move3 != nil) {
-    [self.move3View.type1 setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move3.type intValue]]), nil)];
-    [self.move3View.name setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move3.sid intValue]]), nil)];
-    [self.move3View.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:4] intValue],
-                                [[fourMovesPP_ objectAtIndex:5] intValue]]];
-    move3 = nil;
-    
-    // Change Text color if needed
-    if ([[fourMovesPP_ objectAtIndex:4] intValue] == 0) {
-      [self.move3View.name setTextColor:[GlobalRender textColorDisabled]];
-      [self.move3View.viewButton setEnabled:NO];
-    }
-    else {
-      [self.move3View.name setTextColor:[GlobalRender textColorTitleWhite]];
-      [self.move3View.viewButton setEnabled:YES];
-    }
+  // Change Text color if needed
+  if ([[fourMovesPP_ objectAtIndex:0] intValue] == 0) {
+    [moveUnitView.name setTextColor:[GlobalRender textColorDisabled]];
+    [moveUnitView.viewButton setEnabled:NO];
+  } else {
+    [moveUnitView.name setTextColor:[GlobalRender textColorTitleWhite]];
+    [moveUnitView.viewButton setEnabled:YES];
   }
-  else [self.move3View.viewButton setEnabled:NO];
-  
-  Move * move4 = [self.playerPokemon move4];
-  if (move4 != nil) {
-    [self.move4View.type1 setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move4.type intValue]]), nil)];
-    [self.move4View.name setText:
-     NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move4.sid intValue]]), nil)];
-    [self.move4View.pp setText:[NSString stringWithFormat:@"%d / %d",
-                                [[fourMovesPP_ objectAtIndex:6] intValue],
-                                [[fourMovesPP_ objectAtIndex:7] intValue]]];
-    move4 = nil;
-    
-    // Change Text color if needed
-    if ([[fourMovesPP_ objectAtIndex:6] intValue] == 0) {
-      [self.move4View.name setTextColor:[GlobalRender textColorDisabled]];
-      [self.move4View.viewButton setEnabled:NO];
-    }
-    else {
-      [self.move4View.name setTextColor:[GlobalRender textColorTitleWhite]];
-      [self.move4View.viewButton setEnabled:YES];
-    }
-  }
-  else [self.move4View.viewButton setEnabled:NO];
+  moveUnitView = nil;
 }
 
 @end
