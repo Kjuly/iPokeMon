@@ -45,6 +45,7 @@
     NSLog(@"Register Defaults From Settings.bundle...");
     [self _registerDefaultsFromSettingsBundle];
   }
+  [self saveContext];
   
   // Set View
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

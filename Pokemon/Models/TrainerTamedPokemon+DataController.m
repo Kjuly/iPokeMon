@@ -34,6 +34,8 @@
       NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
       // Hide loading
       [[LoadingManager sharedInstance] hideOverBar];
+      // Execute the |completion| block
+      completion();
       return;
     }
     
@@ -107,6 +109,8 @@
     NSLog(@"!!! ERROR: %@", error);
     // Hide loading
     [[LoadingManager sharedInstance] hideOverBar];
+    // Execute the |completion| block
+    completion();
   };
   
   // Fetch data from server & populate the |teamedPokemon|
@@ -130,7 +134,7 @@
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
   
-  NSLog(@"......|%@| - SVEING DATA......", [self class]);
+  NSLog(@"......|%@| - SAVING DATA......", [self class]);
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSError * error;

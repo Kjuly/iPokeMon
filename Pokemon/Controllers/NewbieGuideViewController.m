@@ -378,12 +378,9 @@
                                           completion:nil];
                        }];
       // Add Selected Wild Pokemon as one of Tamed Pokemon
-      WildPokemon * wildPokemon =
-        [WildPokemon queryPokemonDataWithSID:self.pokemonSelectionViewController.selectedPokemonSID];
-//        [WildPokemon queryPokemonDataWithUID:self.pokemonSelectionViewController.selectedPokemonUID];
-      [self.trainer caughtNewWildPokemon:wildPokemon memo:@"PMSMemo001"];
-      wildPokemon = nil;
-      
+      NSInteger pokemonSID = self.pokemonSelectionViewController.selectedPokemonSID;
+      [self.trainer caughtNewWildPokemon:[WildPokemon queryPokemonDataWithSID:pokemonSID]
+                                    memo:@"PMSMemo001"];
       ++guideStep_;
       break;
     }

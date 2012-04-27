@@ -88,6 +88,8 @@
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
+  NSLog(@"%@, %@, %@", [self.trainer sixPokemonsUID], [self.trainer sixPokemons], self.trainer);
+  NSLog(@"%@", self.sixPokemons);
   [self.tableView reloadData];
 }
 

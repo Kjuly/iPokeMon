@@ -91,17 +91,17 @@ static TrainerController * trainerController_ = nil;
     void (^completion)() = ^{
       // Fetch Trainer's Six Pokemons data from Client (CoreData)
       self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
-      if (self.entitySixPokemons == nil) {
+      if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
         NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
+        self.entitySixPokemons = nil;
         self.entitySixPokemons = [NSMutableArray array];
       }
+      // If user has no Pokemon in PokeDEX (newbie),
+      //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+      [self _newbieChecking];
     };
     // S->C: Initialize TrainerTamedPokemon data from Server to Client
     [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
-    
-    // If user has no Pokemon in PokeDEX (newbie),
-    //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-    [self _newbieChecking];
   };
   
   // S->C: Initialize Trainer data from Server to Client
@@ -110,7 +110,7 @@ static TrainerController * trainerController_ = nil;
 
 // Save Client data to CoreData
 -(void)saveWithSync:(BOOL)withSync {
-  NSLog(@"......|%@| - SVEING DATA......", [self class]);
+  NSLog(@"......|%@| - SAVING DATA......", [self class]);
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
   
   // Sync data to Server
@@ -260,7 +260,10 @@ static TrainerController * trainerController_ = nil;
   }
   
   // Add WildPokemon to TrainerTamedPokemon Group
-  [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon withMemo:memo toBox:box forTrainer:self.entityTrainer];
+  [TrainerTamedPokemon addPokemonWithWildPokemon:wildPokemon
+                                        withMemo:memo
+                                           toBox:box
+                                      forTrainer:self.entityTrainer];
   // Update Pokedex
   [self updatePokedexWithPokemonSID:[wildPokemon.sid intValue]];
   // If |box == 0|, add new Pokemon to |sixPokemons|
@@ -273,12 +276,12 @@ static TrainerController * trainerController_ = nil;
 
 // Add Pokemon to |sixPokemons|
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
-  // Add new |pokemonUID| to |sixPokemons|
+  // add new |pokemonUID| to |sixPokemons|
   [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
-  
-  // Refetch Pokemons for |sixPokemons|
-  [self.entitySixPokemons addObject:[TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID
-                                                                      trainerUID:userID_]];
+  // append new Pokemon to |sixPokemons|
+  [self.entitySixPokemons addObject:
+    [TrainerTamedPokemon queryPokemonDataWithUID:pokemonUID trainerUID:userID_]];
+  // set flag for updating
   flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerSixPokemons;
 }
 
