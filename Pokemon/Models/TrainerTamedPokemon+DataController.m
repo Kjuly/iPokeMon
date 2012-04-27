@@ -28,18 +28,17 @@
   
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
-    NSManagedObjectContext * managedObjectContext =
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    
     // Get JSON Data Array from HTTP Response
     // {'pd':[...]} // pd:PokeDex
     if ([[JSON valueForKey:@"pd"] isKindOfClass:[NSNull class]]) {
       NSLog(@"...Update |%@| data done...NO Pokemon Data", [self class]);
-      
       // Hide loading
       [[LoadingManager sharedInstance] hideOverBar];
       return;
     }
+    
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
     // Parse data from JSON
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pd"];
