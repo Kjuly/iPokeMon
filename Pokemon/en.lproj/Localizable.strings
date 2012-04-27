@@ -37,9 +37,15 @@
 "Game Setting"    = "Game Setting";
 
 
-// Full screen view text
-"PMSConnectErrorTitle"  = "Connection Error";
-"PMSConnectErrorMessage"= "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
+// ERROR: Full screen view text: T:Title, M:Message
+"PMSError00T" = "Unknow Error";          // unkown error
+"PMSError01T" = "Connection Error";      // connection error
+"PMSError02T" = "Authentication Failed"; // authentication failed
+"PMSError04T" = "";
+"PMSError00M" = "If you receive this message, it means that 'Unkown Error Occured', please contact me. :)";
+"PMSError01M" = "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
+"PMSError02M" = "Sorry, authentication failed, please try again. If you still cannot be authenticated, please contace me. :)";
+
 // Login & Newbie guide
 "PMSLoginChoice"        = "Login Choice";
 "PMSLoginSigninPage"    = "Loading sign-in page...";

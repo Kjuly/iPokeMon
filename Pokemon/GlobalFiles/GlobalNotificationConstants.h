@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kPMNError; // notification for ERROR
+
 // Notification for UserDefaults changed
 extern NSString * const kPMNUDGeneralLocationServices;  // general - location service
 extern NSString * const kPMNUDGeneralBandwidthUsage;    // general - bandwidth useage
@@ -15,7 +17,6 @@ extern NSString * const kPMNUDGameSettingsVolumeMaster; // game settings - maste
 extern NSString * const kPMNUDGameSettingsVolumeMusic;  // game settings - music volume
 extern NSString * const kPMNUDGameSettingsVolumeSounds; // game settings - sounds volume
 
-extern NSString * const kPMNNetworkNotAvailable; // Network NOT available
 extern NSString * const kPMNSessionIsInvalid;
 extern NSString * const kPMNAuthenticating;
 extern NSString * const kPMNLoginSucceed;

@@ -15,6 +15,13 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#pragma mark - ERROR
+
+typedef enum {
+  kPMErrorUnknow               = 0,
+  kPMErrorNetworkNotAvailable  = 1 << 0, // network NOT available
+  kPMErrorAuthenticationFailed = 1 << 1  // authentication failed
+}PMError;
 
 #pragma mark - User Defaults
 

@@ -77,7 +77,6 @@
   [view setAlpha:0.f];
   
   CGRect titleFrame = CGRectMake(30.f, 100.f, 260.f, 32.f);
-  CGRect messageFrame = CGRectMake(30.f, 142.f, 260.f, 96.f);
   CGRect refreshButtonFrame = CGRectMake((kViewWidth - 64.f) / 2.f, 280.f, 64.f, 64.f);
   
   // Title
@@ -85,18 +84,16 @@
   [title_ setBackgroundColor:[UIColor clearColor]];
   [title_ setTextColor:[GlobalRender textColorOrange]];
   [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [title_ setText:NSLocalizedString(@"PMSConnectErrorTitle", nil)];
   [view addSubview:title_];
   
   // Message
-  message_ = [[UILabel alloc] initWithFrame:messageFrame];
+  message_ = [[UILabel alloc] init];
   [message_ setBackgroundColor:[UIColor clearColor]];
   [message_ setTextColor:[GlobalRender textColorNormal]];
   [message_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
   [message_ setLineBreakMode:UILineBreakModeWordWrap];
   [message_ setNumberOfLines:0];
-  [message_ setText:NSLocalizedString(@"PMSConnectErrorMessage", nil)];
-  [message_ sizeToFit];
+  
   [view addSubview:message_];
   
   refreshButton_ = [[UIButton alloc] initWithFrame:refreshButtonFrame];
@@ -119,20 +116,25 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+  // Return YES for supported orientations
+  return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Public Methods
 
 // Load view animated
-- (void)loadViewAnimated:(BOOL)animated {
+- (void)loadViewForError:(PMError)error
+                animated:(BOOL)animated {
+  NSLog(@"!!!ERROR: %d", error);
+  // set text for |title_| & |message_|
+  [self.title   setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dT", error]), nil)];
+  [self.message setFrame:CGRectMake(30.f, 142.f, 260.f, 96.f)];
+  [self.message setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dM", error]), nil)];
+  [self.message sizeToFit];
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationCurveEaseIn
-                   animations:^{
-                     [self.view setAlpha:1.f];
-                   }
+                   animations:^{ [self.view setAlpha:1.f]; }
                    completion:nil];
 }
 

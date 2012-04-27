@@ -10,7 +10,7 @@
 
 @interface FullScreenLoadingViewController : UIViewController
 
-- (void)loadViewAnimated:(BOOL)animated;
+- (void)loadViewForError:(PMError)error animated:(BOOL)animated;
 - (void)unloadViewAnimated:(BOOL)animated;
 
 @end

@@ -227,7 +227,10 @@ static OAuthManager * oauthManager_ = nil;
     [self.loadingManager hideOverBar];
 #ifndef DEBUG_NO_SESSION_MOED
     // Post notification to |MainViewController| to warn Network not available view
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    NSDictionary * userInfo =
+      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
+    [userInfo release];
 #endif
   };
   
@@ -254,7 +257,10 @@ static OAuthManager * oauthManager_ = nil;
     selectedServiceProvider_ = [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
     // Post notification to |MainViewController| to show view of |FullScreenLoadingViewController|
     //   that the authentication failed.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    NSDictionary * userInfo =
+      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorAuthenticationFailed], @"error", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
+    [userInfo release];
   } else {
     NSLog(@"Authentication succeeded..");
     // Authentication succeeded

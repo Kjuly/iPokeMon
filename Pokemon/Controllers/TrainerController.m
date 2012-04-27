@@ -363,7 +363,10 @@ static TrainerController * trainerController_ = nil;
     NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
     // If connection to server faild, post notification to |MainViewController|,
     //   to show a info of CONNECTION ERROR
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNNetworkNotAvailable object:self userInfo:nil];
+    NSDictionary * userInfo =
+      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
+    [userInfo release];
     // Hide loading
     [[LoadingManager sharedInstance] hideOverView];
   };

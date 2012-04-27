@@ -130,7 +130,7 @@
   self.longTapTimer              = nil;
   
   // Remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNNetworkNotAvailable object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNError object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNSessionIsInvalid object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
@@ -244,7 +244,7 @@
   // Notification from |OAuthManager| when cannot connet to server
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(showFullScreenLoadingView:)
-                                               name:kPMNNetworkNotAvailable
+                                               name:kPMNError
                                              object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(showLoginTableView:)
@@ -333,12 +333,17 @@
 
 // Show full screen loading view
 - (void)showFullScreenLoadingView:(NSNotification *)notification {
+  PMError error = [[notification.userInfo valueForKey:@"error"] intValue];
+  if (! error)
+    return;
+  
+  // Load view for different ERROR
   FullScreenLoadingViewController * fullScreenLoadingViewController;
   fullScreenLoadingViewController = [[FullScreenLoadingViewController alloc] init];
   self.fullScreenLoadingViewController = fullScreenLoadingViewController;
   [fullScreenLoadingViewController release];
   [self.view addSubview:self.fullScreenLoadingViewController.view];
-  [self.fullScreenLoadingViewController loadViewAnimated:YES];
+  [self.fullScreenLoadingViewController loadViewForError:error animated:YES];
 }
 
 // Show login table view if user session is invalid
