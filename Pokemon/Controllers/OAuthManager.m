@@ -214,12 +214,12 @@ static OAuthManager * oauthManager_ = nil;
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"...Checking CONNECTION to SERVER...");
+    NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer with UserID...");
+    isUserIDSynced_ = YES;
     // Init data from SERVER to CLIENT for Trainer, including TrainerTamedPokemon, six PMs, etc
     [[TrainerController sharedInstance] initTrainerWithUserID:[[responseObject valueForKey:@"userID"] intValue]];
     // Hide loading
     [self.loadingManager hideOverBar];
-    isUserIDSynced_ = YES;
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! |_syncUserID| - Get |userID| for current user failed. ERROR: %@", error);

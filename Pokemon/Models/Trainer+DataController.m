@@ -50,11 +50,7 @@
       trainer = nil;
       trainer = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                               inManagedObjectContext:managedObjectContext];
-      trainer.uid  = [NSNumber numberWithInt:userID];
-      
-      NSError * error;
-      if (! [managedObjectContext save:&error])
-        NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
+      trainer.uid = [NSNumber numberWithInt:userID];
     }
     
     // Set data for |Trainer|

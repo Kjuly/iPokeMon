@@ -76,6 +76,8 @@ static TrainerController * trainerController_ = nil;
 
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
+  if (isInitialized_)
+    return;
   NSLog(@"......|%@| - INIT......", [self class]);
   userID_ = userID;
   
@@ -83,6 +85,7 @@ static TrainerController * trainerController_ = nil;
   void (^completion)() = ^{
     // Fetch Trainer data from Client (CoreData)
     self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
+    isInitialized_ = YES;
     
     // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
     void (^completion)() = ^{
@@ -99,8 +102,6 @@ static TrainerController * trainerController_ = nil;
     // If user has no Pokemon in PokeDEX (newbie),
     //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
     [self _newbieChecking];
-    
-    isInitialized_ = YES;
   };
   
   // S->C: Initialize Trainer data from Server to Client
@@ -339,10 +340,12 @@ static TrainerController * trainerController_ = nil;
 
 // Newbie checking
 - (void)_newbieChecking {
+  NSLog(@"|_newbieChecking|");
   // If user already has Pokemon in PokeDEX (not newbie), just do nothing
   //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
   if ([self.entityTrainer.pokedex intValue])
     return;
+  NSLog(@"NEWBIE CHECKING......");
   
   // Show loading
   [[LoadingManager sharedInstance] showOverView];
