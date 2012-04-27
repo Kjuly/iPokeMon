@@ -16,7 +16,7 @@
 		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.kjuly.${PRODUCT_NAME:identifier}</string>
+	<string>com.kjuly.iPokemon</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
