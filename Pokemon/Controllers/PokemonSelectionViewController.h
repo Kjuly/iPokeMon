@@ -11,11 +11,11 @@
 #import "GameMenuSixPokemonsUnitView.h"
 
 @interface PokemonSelectionViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate> {
-  NSInteger selectedPokemonUID_;
+  NSInteger selectedPokemonSID_;
   BOOL      isSelectedPokemonInfoViewOpening_;
 }
 
-@property (nonatomic, assign) NSInteger selectedPokemonUID;
+@property (nonatomic, assign) NSInteger selectedPokemonSID;
 @property (nonatomic, assign) BOOL      isSelectedPokemonInfoViewOpening;
 
 - (void)initWithPokemonsWithSIDs:(NSArray *)pokemonSIDs;

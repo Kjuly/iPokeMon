@@ -46,7 +46,7 @@
 
 @implementation PokemonSelectionViewController
 
-@synthesize selectedPokemonUID               = selectedPokemonUID_;
+@synthesize selectedPokemonSID               = selectedPokemonSID_;
 @synthesize isSelectedPokemonInfoViewOpening = isSelectedPokemonInfoViewOpening_;
 
 @synthesize pokemonSelectionButton = pokemonSelectionButton_;
@@ -96,7 +96,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Basic Setting
-  selectedPokemonUID_     = 0;
+  selectedPokemonSID_     = 0;
   currOpeningUnitViewTag_ = 0;
   currSelectedPokemon_    = 0;
   
@@ -156,15 +156,13 @@
   
   currSelectedPokemon_ = ((UIButton *)sender).tag;
   WildPokemon * pokemon = [self.pokemons objectAtIndex:(currSelectedPokemon_ - 1)];
-  self.selectedPokemonUID = [pokemon.uid intValue];
+  self.selectedPokemonSID = [pokemon.sid intValue];
   [self.pokemonSelectionButton setImage:pokemon.pokemon.image forState:UIControlStateNormal];
 }
 
 // Button action to open |pokemonDetailTabViewController|'s view
-- (void)openInfoView:(id)sender
-{
+- (void)openInfoView:(id)sender {
   WildPokemon * pokemon = [self.pokemons objectAtIndex:((UIButton *)sender).tag - 1];
-  NSLog(@"!!!%@", pokemon.sid);
   NSInteger pokemonSID = [pokemon.sid intValue];
   
   PokemonDetailTabViewController * pokemonDetailTabViewController =

@@ -352,7 +352,7 @@
         return;
       }
       // If no Pokemon selected, do nothing
-      if (self.pokemonSelectionViewController.selectedPokemonUID == 0)
+      if (self.pokemonSelectionViewController.selectedPokemonSID == 0)
         return;
       
       // Go next step & save Pokemon 
@@ -379,7 +379,8 @@
                        }];
       // Add Selected Wild Pokemon as one of Tamed Pokemon
       WildPokemon * wildPokemon =
-        [WildPokemon queryPokemonDataWithUID:self.pokemonSelectionViewController.selectedPokemonUID];
+        [WildPokemon queryPokemonDataWithSID:self.pokemonSelectionViewController.selectedPokemonSID];
+//        [WildPokemon queryPokemonDataWithUID:self.pokemonSelectionViewController.selectedPokemonUID];
       [self.trainer caughtNewWildPokemon:wildPokemon memo:@"PMSMemo001"];
       wildPokemon = nil;
       

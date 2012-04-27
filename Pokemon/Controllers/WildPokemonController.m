@@ -19,7 +19,7 @@
 
 #import "AFJSONRequestOperation.h"
 
-#define kPokemonDefaultCount 0
+#define kPokemonDefaultCount 0 // This number of PMs are defaults for every users
 
 @interface WildPokemonController () {
  @private
@@ -315,8 +315,12 @@ static WildPokemonController * wildPokemonController_ = nil;
   NSArray * wildPokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
   [fetchRequest release];
   
-  for (WildPokemon *wildPokemon in wildPokemons)
+  for (WildPokemon *wildPokemon in wildPokemons) {
+    // Keey default PMs
+    if ([wildPokemon.uid intValue] <= kPokemonDefaultCount)
+      return;
     [managedObjectContext deleteObject:wildPokemon];
+  }
   
   if (! [managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));

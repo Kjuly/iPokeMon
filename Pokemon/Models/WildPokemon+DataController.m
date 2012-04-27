@@ -45,8 +45,7 @@
 }
 
 // Query a Wild Pokemon Data wit SID
-+ (WildPokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID
-{
++ (WildPokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
