@@ -16,8 +16,7 @@
 #ifdef LOCAL_SERVER
 NSString * const kServerAPIRoot = @"http://localhost:8080";
 #else
-NSString * const kServerAPIRoot = @"http://ec2-184-169-155-41.us-west-1.compute.amazonaws.com:8080";
-//NSString * const kServerAPIRoot = @"http://184.169.155.41:8080";
+NSString * const kServerAPIRoot = @"http://184.169.146.32:8080";
 #endif
 // Connection Checking
 NSString * const kServerAPICheckConnection = @"/cc";     // /cc:Check Connection

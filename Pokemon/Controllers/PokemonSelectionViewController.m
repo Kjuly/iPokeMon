@@ -88,6 +88,17 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  self.view = view;
+  [view release];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  // Basic Setting
+  selectedPokemonUID_     = 0;
+  currOpeningUnitViewTag_ = 0;
+  currSelectedPokemon_    = 0;
   
   // Constants
   CGRect pokemonSelectionButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
@@ -104,25 +115,13 @@
   [pokemonSelectionButton_ addTarget:self
                               action:@selector(showPokemonSelectionView:)
                     forControlEvents:UIControlEventTouchUpInside];
-  [view addSubview:pokemonSelectionButton_];
+  [self.view addSubview:pokemonSelectionButton_];
   
   // Background view
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
-  [view addSubview:backgroundView_];
-  
-  self.view = view;
-  [view release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  // Basic Setting
-  selectedPokemonUID_     = 0;
-  currOpeningUnitViewTag_ = 0;
-  currSelectedPokemon_    = 0;
+  [self.view addSubview:backgroundView_];
 }
 
 - (void)viewDidUnload {

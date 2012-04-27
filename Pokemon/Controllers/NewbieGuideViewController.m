@@ -116,12 +116,19 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
-  [view setAlpha:0.f];
+  [view setAlpha:0.f];  
+  self.view = view;
+  [view release];
+}
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor clearColor]];
   [backgroundView_ setAlpha:.85f];
-  [view addSubview:backgroundView_];
+  [self.view addSubview:backgroundView_];
   
   // Constants  
   titleFrame_ = CGRectMake(30.f, 60.f, 260.f, 32.f);
@@ -132,7 +139,7 @@
   [title_ setBackgroundColor:[UIColor clearColor]];
   [title_ setTextColor:[GlobalRender textColorOrange]];
   [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [view addSubview:title_];
+  [self.view addSubview:title_];
   
   // Message
   message_ = [[UILabel alloc] initWithFrame:messageFrame_];
@@ -142,14 +149,14 @@
   [message_ setLineBreakMode:UILineBreakModeWordWrap];
   [message_ setNumberOfLines:0];
   [message_ sizeToFit];
-  [view addSubview:message_];
+  [self.view addSubview:message_];
   
   // confirm button
   confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
-  [view addSubview:confirmButton_];
+  [self.view addSubview:confirmButton_];
   [self moveConfirmButtonToBottom:YES animated:NO];
   
   // Layouts for different steps
@@ -171,13 +178,6 @@
   [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
   [pokemonSIDs release];
   
-  self.view = view;
-  [view release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
   
   [self setTextViewWithTitle:@"PMSNewbiewGuide1Title" message:@"PMSNewbiewGuide1Message"];
   [self.nameInputView setText:[self.trainer name]]; // Default name
