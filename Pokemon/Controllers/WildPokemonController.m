@@ -19,6 +19,7 @@
 
 #import "AFJSONRequestOperation.h"
 
+#define kPokemonDefaultCount 0
 
 @interface WildPokemonController () {
  @private
@@ -79,7 +80,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     isReady_            = NO;
     isPokemonAppeared_  = NO;
     UID_                = 0;
-    pokemonCounter_     = 0;
+    pokemonCounter_     = kPokemonDefaultCount;
   }
   return self;
 }
@@ -97,7 +98,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
     [self cleanDataWithManagedObjectContext:managedObjectContext];
-    pokemonCounter_ = 0;
+    pokemonCounter_ = kPokemonDefaultCount;
     
     // Get JSON Data Array from HTTP Response
     NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
