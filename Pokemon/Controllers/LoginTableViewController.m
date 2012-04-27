@@ -255,7 +255,6 @@
     self.authenticatingView = authenticatingView;
     [authenticatingView release];
     [self.authenticatingView setBackgroundColor:[UIColor blackColor]];
-    [self.authenticatingView setAlpha:0.f];
   }
   if (self.authenticatingLabel == nil) {
     UILabel * authenticatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 160.f, 290.f, 32.f)];
@@ -266,9 +265,10 @@
     [self.authenticatingLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
     [self.authenticatingLabel setTextAlignment:UITextAlignmentCenter];
     [self.authenticatingLabel setText:NSLocalizedString(@"PMSAuthenticating", nil)];
-    [self.authenticatingLabel setAlpha:0.f];
   }
   
+  [self.authenticatingView  setAlpha:0.f];
+  [self.authenticatingLabel setAlpha:0.f];
   [self.view addSubview:self.authenticatingView];
   [self.view addSubview:self.authenticatingLabel];
   [UIView animateWithDuration:.3f
@@ -283,25 +283,41 @@
 
 // Hide self view
 - (void)hideView:(NSNotification *)notification {
+  BOOL succeed = [[notification.userInfo valueForKey:@"succeed"] boolValue];
+  void (^animations)() = ^{
+    if (! succeed) {
+      CGRect authenticatingViewFrame = self.authenticatingView.frame;
+      authenticatingViewFrame.origin.x = kViewWidth;
+      [self.authenticatingView setFrame:authenticatingViewFrame];
+    }
+    else {
+      [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
+      // Slide up the Navigation bar to hide it
+      CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+      navigationBarFrame.origin.y = - navigationBarFrame.size.height;
+      [self.navigationController.navigationBar setFrame:navigationBarFrame];
+    }
+  };
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    if (! succeed) {
+      [self.authenticatingView  removeFromSuperview];
+      [self.authenticatingLabel removeFromSuperview];
+    }
+    else {
+      [self.navigationController setNavigationBarHidden:YES];
+      [self.authenticatingView  removeFromSuperview];
+      [self.authenticatingLabel removeFromSuperview];
+      [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+      [self.view removeFromSuperview];
+      [self.navigationController.view removeFromSuperview];
+    }
+  };
+  
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
-                     
-                     // Slide up the Navigation bar to hide it
-                     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
-                     navigationBarFrame.origin.y = - navigationBarFrame.size.height;
-                     [self.navigationController.navigationBar setFrame:navigationBarFrame];
-                   }
-                   completion:^(BOOL finished) {
-                     [self.navigationController setNavigationBarHidden:YES];
-                     [self.authenticatingView  removeFromSuperview];
-                     [self.authenticatingLabel removeFromSuperview];
-                     [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-                     [self.view removeFromSuperview];
-                     [self.navigationController.view removeFromSuperview];
-                   }];
+                   animations:animations
+                   completion:completion];
 }
 
 @end

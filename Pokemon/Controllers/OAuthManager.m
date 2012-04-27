@@ -245,7 +245,7 @@ static OAuthManager * oauthManager_ = nil;
   if (error != nil) {
     // Authentication failed (perhaps the user denied access, or closed the
     // window before granting access)
-    NSLog(@"Authentication error: %@", error);
+    NSLog(@"Authentication FAILED. ERROR: %@", error);
     NSData * responseData = [[error userInfo] objectForKey:@"data"]; // kGTMHTTPFetcherStatusDataKey
     if ([responseData length] > 0) {
       // show the body of the server's authentication failure response
@@ -262,7 +262,7 @@ static OAuthManager * oauthManager_ = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
     [userInfo release];
   } else {
-    NSLog(@"Authentication succeeded..");
+    NSLog(@"Authentication SUCCEED...");
     // Authentication succeeded
     //
     // At this point, we either use the authentication object to explicitly

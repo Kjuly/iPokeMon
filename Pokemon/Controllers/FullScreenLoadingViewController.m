@@ -8,6 +8,7 @@
 
 #import "FullScreenLoadingViewController.h"
 
+#import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
 #import "LoadingManager.h"
 #import "ServerAPIClient.h"
@@ -20,7 +21,8 @@
   UILabel  * message_;
   UIButton * refreshButton_;
   
-  BOOL isCheckingConnection_;
+  PMError error_;                // error type
+  BOOL    isCheckingConnection_; // prevent press fresh button continuously
 }
 
 @property (nonatomic, retain) UILabel  * title;
@@ -54,6 +56,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    error_                = kPMErrorUnknow;
     isCheckingConnection_ = NO;
   }
   return self;
@@ -126,6 +129,7 @@
 - (void)loadViewForError:(PMError)error
                 animated:(BOOL)animated {
   NSLog(@"!!!ERROR: %d", error);
+  error_ = error;
   // set text for |title_| & |message_|
   [self.title   setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dT", error]), nil)];
   [self.message setFrame:CGRectMake(30.f, 142.f, 260.f, 96.f)];
@@ -158,30 +162,48 @@
 - (void)refresh {
   if (isCheckingConnection_)
     return;
-  
-  // Show loading
-  [[LoadingManager sharedInstance] showOverBar];
-  
-  // Block: |success| & |failure|
-  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"...Checking CONNECTION to SERVER...");
-    // If connection to server succeed, unload view
-    if ([responseObject valueForKey:@"v"])
-      [self unloadViewAnimated:YES];
-    
-    // Hide loading
-    [[LoadingManager sharedInstance] hideOverBar];
-    isCheckingConnection_ = NO;
-  };
-  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
-    // Hide loading
-    [[LoadingManager sharedInstance] hideOverBar];
-    isCheckingConnection_ = NO;
-  };
-  
-  [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
   isCheckingConnection_ = YES;
+  
+  // if the error is 'network not available', check connection to server
+  if (error_ & kPMErrorNetworkNotAvailable) {
+    // Show loading
+    [[LoadingManager sharedInstance] showOverBar];
+    
+    // Block: |success| & |failure|
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+      NSLog(@"...Checking CONNECTION to SERVER...");
+      // If connection to server succeed, unload view
+      if ([responseObject valueForKey:@"v"])
+        [self unloadViewAnimated:YES];
+      
+      // Hide loading
+      [[LoadingManager sharedInstance] hideOverBar];
+      isCheckingConnection_ = NO;
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+      NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);
+      // Hide loading
+      [[LoadingManager sharedInstance] hideOverBar];
+      isCheckingConnection_ = NO;
+    };
+    
+    [[ServerAPIClient sharedInstance] checkConnectionToServerSuccess:success failure:failure];
+  }
+  // if the error is 'authentication failed',
+  //   post notification with 'loagin faild' info to |LoginTableViewController| to hide authentication view
+  else if (error_ & kPMErrorAuthenticationFailed) {
+    NSDictionary * userInfo =
+      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"succeed", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:userInfo];
+    [userInfo release];
+    isCheckingConnection_ = NO;
+    [self unloadViewAnimated:YES];
+  }
+  // if unknow error occurred, go back to main view
+  else {
+    isCheckingConnection_ = NO;
+    [self unloadViewAnimated:YES];
+  }
 }
 
 @end
