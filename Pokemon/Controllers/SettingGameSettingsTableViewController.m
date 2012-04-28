@@ -243,9 +243,6 @@
 
 // Update value when Slider value changed
 - (void)updateValueWithSlider:(UIControl *)button event:(UIEvent *)event {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Change Value of Game Volume"];
-#endif
   UISlider * slider = (UISlider *)button;
   UITableViewCell * cell = (UITableViewCell *)slider.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -281,9 +278,6 @@
 
 // Update value when Switch button changed value
 - (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Toggle Switch Button on Game Animations"];
-#endif
   UISwitch * switchButton = (UISwitch *)button;
   UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
