@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>keyAboutVersion</string>
 			<key>DefaultValue</key>
-			<string>0.1</string>
+			<string>1</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

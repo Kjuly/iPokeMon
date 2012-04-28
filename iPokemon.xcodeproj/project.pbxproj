@@ -2468,6 +2468,7 @@
 				7F6E6CB014D6CAA600033C65 /* Sources */,
 				7F6E6CB114D6CAA600033C65 /* Frameworks */,
 				7F6E6CB214D6CAA600033C65 /* Resources */,
+				7FA22C96154BBB63007E2339 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2792,6 +2793,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		7FA22C96154BBB63007E2339 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\ncd $PROJECT_DIR\nBUILD_VERSION=`git rev-parse --short HEAD`\ncd $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app\nRELEASE_VERSION=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Info.plist)\n/usr/libexec/PlistBuddy -c \"Set CFBundleVersion $BUILD_VERSION\" Info.plist\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:5:DefaultValue $RELEASE_VERSION ($BUILD_VERSION)\" Settings.bundle/Root.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 

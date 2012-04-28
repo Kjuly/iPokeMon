@@ -206,7 +206,7 @@
                                               reuseIdentifier:CellIdentifier] autorelease];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
-                               value:[NSString stringWithFormat:@"%.2f", [userDefaults floatForKey:kUDKeyAboutVersion]]
+                               value:[userDefaults stringForKey:kUDKeyAboutVersion]
                        accessoryType:UITableViewCellAccessoryNone];
         return cell;
         break;
