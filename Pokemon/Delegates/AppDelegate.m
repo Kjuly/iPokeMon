@@ -52,7 +52,6 @@
 #ifdef DEBUG_TEST_FLIGHT_TESTING
   [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-  [TestFlight passCheckpoint:@"CHECK_POINT: Launch App"];
 #endif
   
   // Set View

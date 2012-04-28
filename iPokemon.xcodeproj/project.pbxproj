@@ -373,6 +373,7 @@
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
+		7FA22C99154BDCED007E2339 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA22C98154BDCE3007E2339 /* FeedbackViewController.m */; };
 		7FA7BAA11540209600DF6377 /* IconRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BA9F1540209600DF6377 /* IconRefresh.png */; };
 		7FA7BAA21540209600DF6377 /* IconRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */; };
 		7FA7BAA61540324000DF6377 /* BagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA51540323F00DF6377 /* BagTableViewCell.m */; };
@@ -1095,6 +1096,8 @@
 		7F9F15BA1508B13500795591 /* GameEnemyProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameEnemyProcess.h; path = ../GameModels/GameEnemyProcess.h; sourceTree = "<group>"; };
 		7F9F15BB1508B13500795591 /* GameEnemyProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameEnemyProcess.m; path = ../GameModels/GameEnemyProcess.m; sourceTree = "<group>"; };
 		7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuUtilityViewController.h; sourceTree = "<group>"; };
+		7FA22C97154BDCDA007E2339 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		7FA22C98154BDCE3007E2339 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		7FA7BA9F1540209600DF6377 /* IconRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconRefresh.png; sourceTree = "<group>"; };
 		7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconRefresh@2x.png"; sourceTree = "<group>"; };
 		7FA7BAA41540323F00DF6377 /* BagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewCell.h; sourceTree = "<group>"; };
@@ -1879,6 +1882,8 @@
 				7F2B58A3152C2B700071AAD5 /* PokemonSelectionViewController.m */,
 				7F51CADF152B3B0200B97249 /* HelpViewController.h */,
 				7F51CAE0152B3B0200B97249 /* HelpViewController.m */,
+				7FA22C97154BDCDA007E2339 /* FeedbackViewController.h */,
+				7FA22C98154BDCE3007E2339 /* FeedbackViewController.m */,
 				7F51C3D514D7C4DF0091902D /* MainViewController.h */,
 				7F51C3D614D7C4DF0091902D /* MainViewController.m */,
 				7F51C40614D7D3C60091902D /* MapViewController.h */,
@@ -3051,6 +3056,7 @@
 				7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */,
 				7F58B7AF153FE525000AAB72 /* FullScreenLoadingViewController.m in Sources */,
 				7FA7BAA61540324000DF6377 /* BagTableViewCell.m in Sources */,
+				7FA22C99154BDCED007E2339 /* FeedbackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
