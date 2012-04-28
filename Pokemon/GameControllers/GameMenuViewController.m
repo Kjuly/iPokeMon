@@ -597,7 +597,7 @@ typedef enum {
 
 // Try to throw a Pokeball to cathch WildPokemon
 - (void)throwPokeballToCatchPokemon {
-  NSLog(@"|%@| - |throwPokeballToCatchPokemon|", [self class]);
+  NSLog(@"throw Pokeball to Catch Pokemon");
   
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];
@@ -671,7 +671,7 @@ typedef enum {
 
 // Check Pokeball whether the Wild Pokemon caught with animations
 - (void)checkPokeball:(NSNotification *)notification {
-  NSLog(@"|%@| - |checkPokeball|......", [self class]);
+  NSLog(@"check Pokeball......");
   
   // Basic Settings
   CGFloat duration = .3f;

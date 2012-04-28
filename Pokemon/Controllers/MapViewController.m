@@ -312,7 +312,6 @@
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
   
-  NSLog(@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUDKeyGeneralLocationServices]);
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
       NSLog(@"Significant Location Change Monitoring Available");
@@ -332,13 +331,13 @@
 
 // Enable tracking
 - (void)enableTracking:(NSNotification *)notification {
-  NSLog(@"|%@| - ENABLING TRACKING...", [self class]);
+  NSLog(@"ENABLING TRACKING...");
   [self setEventTimerStatusToRunning:YES];
 }
 
 // Disable tracking
 - (void)disableTracking:(NSNotification *)notification {
-  NSLog(@"|%@| - DISABLING TRACKING...", [self class]);
+  NSLog(@"DISABLING TRACKING...");
   // Stop updating Location
   isUpdatingLocation_ = NO;
   [self.locationManager stopUpdatingLocation];
@@ -362,7 +361,7 @@
 
 - (void)resetIsPokemonAppeared:(NSNotification *)notification {
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
-    NSLog(@"|resetIsPokemonAppeared|");
+    NSLog(@"resetIsPokemonAppeared..");
     isPokemonAppeared_ = NO;
     [self setEventTimerStatusToRunning:YES];
   }

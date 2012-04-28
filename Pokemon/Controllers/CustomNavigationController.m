@@ -20,7 +20,7 @@
 - (id)init {
   self = [super initWithNibName:nil bundle:nil];
   if (self) {
-    NSLog(@"|%@| - INIT......", [self class]);
+    NSLog(@"......INIT......");
     CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
     [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
     customNavigationBar.delegate = self;

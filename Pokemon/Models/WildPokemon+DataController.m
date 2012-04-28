@@ -111,7 +111,7 @@
   // If fetch Pokemons number is less than |fetchLimit|,
   //   no need to filter the array, just return nil
   if ([pokemons count] < fetchLimit) {
-    NSLog(@"|%@| - |queryUniquePokemonsWithSIDs:fetchLimit:| - [pokemons count] < fetchLimit", [self class]);
+    NSLog(@"[pokemons count] < fetchLimit");
     pokemons = nil;
     return nil;
   }

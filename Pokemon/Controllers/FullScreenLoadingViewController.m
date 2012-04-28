@@ -152,7 +152,7 @@
                    }
                    completion:^(BOOL finished) {
                      if (! [[OAuthManager sharedInstance] isSessionValid])
-                       NSLog(@"!!!ERROR: |%@| - session invalid", [self class]);
+                       NSLog(@"!!!ERROR: session invalid");
                      [self.view removeFromSuperview];
                    }];
 }

@@ -78,7 +78,7 @@ static TrainerController * trainerController_ = nil;
 - (void)initTrainerWithUserID:(NSInteger)userID {
   if (isInitialized_)
     return;
-  NSLog(@"......|%@| - INIT......", [self class]);
+  NSLog(@"......INIT......");
   userID_ = userID;
   
   // |completion| block that will be executed after |Trainer|'s data initialized
@@ -92,7 +92,7 @@ static TrainerController * trainerController_ = nil;
       // Fetch Trainer's Six Pokemons data from Client (CoreData)
       self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
       if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
-        NSLog(@"!!!|%@| - |initTrainerWithUserID:| - self.entitySixPokemons == nil...", [self class]);
+        NSLog(@"!!! self.entitySixPokemons == nil...");
         self.entitySixPokemons = nil;
         self.entitySixPokemons = [NSMutableArray array];
       }
@@ -110,7 +110,7 @@ static TrainerController * trainerController_ = nil;
 
 // Save Client data to CoreData
 -(void)saveWithSync:(BOOL)withSync {
-  NSLog(@"......|%@| - SAVING DATA......", [self class]);
+  NSLog(@"......SAVING DATA......");
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
   
   // Sync data to Server
@@ -125,7 +125,7 @@ static TrainerController * trainerController_ = nil;
   
   // C->S: If Client data has initialzied, just do sync Client to Server
   if (isInitialized_) {
-    NSLog(@"......|%@| - SYNC.......", [self class]);
+    NSLog(@"......SYNC.......");
     if (flag_ & kDataModifyTrainer)
       [self.entityTrainer syncWithFlag:flag_];
   }
@@ -245,7 +245,7 @@ static TrainerController * trainerController_ = nil;
 // Transfer WildPokemon to TamedPokemon
 // Add new TamedPokemon, 
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo {
-  NSLog(@"|%@| - |caughtNewWildPokemon:| :: %@", [self class], wildPokemon);
+  NSLog(@"Wild Pokemon:%@", wildPokemon);
   NSInteger box;
   // If count of |sixPokemons| is not |6|, add it there instead of |box|
   if ([self numberOfSixPokemons] < 6)

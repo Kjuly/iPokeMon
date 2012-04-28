@@ -44,7 +44,7 @@
     
     // Parse data from JSON
     NSArray * tamedPokemonGroup = [JSON valueForKey:@"pd"];
-    NSLog(@"|%@| - |tamedPokemonGroup| - Server=>Client::%@", [self class], tamedPokemonGroup);
+    NSLog(@"|tamedPokemonGroup| SERVER => CLIENT::%@", tamedPokemonGroup);
     
     NSError * error;
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
@@ -134,7 +134,7 @@
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
   
-  NSLog(@"......|%@| - SAVING DATA......", [self class]);
+  NSLog(@"......SAVING DATA......");
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSError * error;
@@ -142,7 +142,7 @@
     NSLog(@"Couldn't save data to |%@|", NSStringFromClass([self class]));
   
   
-  NSLog(@"......|%@| - |syncWithFlag:| - SYNC......", [self class]);
+  NSLog(@"......SYNC......");
   NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   
   // UID
@@ -275,7 +275,6 @@
                          withMemo:(NSString *)memo
                             toBox:(NSInteger)box
                        forTrainer:(Trainer *)trainer {
-  NSLog(@"|%@| - |addPokemonWithWildPokemon:withMemo:toBox:forTrainer:|", [self class]);
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   TrainerTamedPokemon * tamedPokemon;
@@ -363,7 +362,7 @@
   NSInteger ppInOne = 0;
   for (NSInteger i = 0; i < fourMovesCount; ++i)
     ppInOne += [[fourMoves objectAtIndex:(i * 3 + 1)] intValue] * pow(1000, i);
-  NSLog(@"|%@| - |fourMovesPPInOne| - ppInOne:%d", [self class], ppInOne);
+  NSLog(@"ppInOne:%d", ppInOne);
   return ppInOne;
 }
 

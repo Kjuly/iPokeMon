@@ -195,13 +195,13 @@
   //   add new Pokemons to |WildPokemon| with the |pokemonSIDs|
   //   and set added Pokemons as the |pokemons|
   if ([self.pokemons count] < pokemonsCount || self.pokemons == nil) {
-    NSLog(@"!!!|%@| - |initWithPokemonsWithSIDs| - |[self.pokemons count] < pokemonsCount|", [self class]);
+    NSLog(@"!!! |[self.pokemons count] < pokemonsCount|");
     self.pokemons = [[WildPokemonController sharedInstance] pokemonsAddedWithSIDs:pokemonSIDs];
   }
   
   // If the number of |pokemons_| is still less than |pokemonsCount|, throw an ERROR
   if ([self.pokemons count] < pokemonsCount)
-    NSLog(@"!!!ERROR: |%@| - |initWithPokemonsWithSIDs:| - pokemons < [pokemonSIDs count]", [self class]);
+    NSLog(@"!!!ERROR: pokemons < [pokemonSIDs count]");
   
   // Constants
   CGFloat buttonSize  = kCenterMainButtonSize;
@@ -214,7 +214,7 @@
     WildPokemon * pokemon = [self.pokemons objectAtIndex:i];
     GameMenuSixPokemonsUnitView * unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:++i];
     if (unitView == nil) {
-      NSLog(@"|%@|: unitView == nil, create new one...", [self class]);
+      NSLog(@"unitView == nil, create new one...");
       unitView = [[GameMenuSixPokemonsUnitView alloc] initWithFrame:originFrame image:pokemon.pokemon.image tag:i];
       unitView.delegate = self;
       [unitView setTag:i];

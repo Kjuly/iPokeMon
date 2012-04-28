@@ -31,7 +31,7 @@
             completion:(void (^)())completion {
   if (userID <= 0)
     return;
-  NSLog(@"......|%@| - INIT......SERVER to CLIENT.", [self class]);
+  NSLog(@"......INIT......SERVER to CLIENT.");
   
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
@@ -92,7 +92,7 @@
   
   // Failure Block Method
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
-    NSLog(@"!!! |%@| data fetch ERROR: %@", [self class], error);
+    NSLog(@"!!! data fetch ERROR: %@", error);
     // Hide loading
     [[LoadingManager sharedInstance] hideOverBar];
   };

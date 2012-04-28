@@ -343,13 +343,13 @@
 
 // Get WildPokemon into Pokeball
 - (void)getWildPokemonIntoPokeball:(NSNotification *)notification {
-  NSLog(@"|%@| - |getWildPokemonIntoPokeball:|", [self class]);
+  NSLog(@"get Wild Pokemon into Pokeball");
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
 }
 
 // Get WildPokemon out of Pokeball
 - (void)getWildPokemonOutOfPokeball:(NSNotification *)notification {
-  NSLog(@"|%@| - |getWildPokemonOutOfPokeball:|", [self class]);
+  NSLog(@"get Wild Pokemon out of Pokeball");
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
 }
 

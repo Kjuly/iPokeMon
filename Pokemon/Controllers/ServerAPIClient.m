@@ -131,7 +131,7 @@ static ServerAPIClient * client_;
 - (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                                failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"|checkConnectionToServerSuccess:failure:| - Request URL Description:%@", [self description]);
+  NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:[ServerAPI checkConnection] parameters:nil success:success failure:failure];
 }
 
@@ -141,7 +141,7 @@ static ServerAPIClient * client_;
 - (void)fetchUserIDSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"|fetchUserIDSuccess:failure:| - Request URL Description:%@", [self description]);
+  NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:[ServerAPI getUserID] parameters:nil success:success failure:failure];
 }
 
@@ -157,7 +157,7 @@ static ServerAPIClient * client_;
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"|fetchDataFor:success:failure:| - Request URL Description:%@", [self description]);
+  NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:path parameters:nil success:success failure:failure];
   
   /*/ *** Legacy ***
@@ -197,7 +197,7 @@ static ServerAPIClient * client_;
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"|checkUniquenessForName:success:failure:| - Request URL Description:%@", [self description]);
+  NSLog(@"Request URL Description:%@", [self description]);
   [self postPath:[ServerAPI checkUniquenessForName]
       parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
          success:success

@@ -145,7 +145,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   isPokemonAppeared_ = YES;
   isReady_           = NO;
   
-  NSLog(@"......|%@| - UPDATING AT LOCATION......", [self class]);
+  NSLog(@"......UPDATING AT LOCATION......");
   ///Fetch Data from server
   // Success Block
   void (^success)(NSURLRequest *, NSHTTPURLResponse *, id);
@@ -357,7 +357,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Generate Wild Pokemon with location info
 - (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo {
-  NSLog(@"|%@| - |generateWildPokemonWithLocationInfo:| - locationInfo::%@", [self class], locationInfo);
+  NSLog("locationInfo::%@", locationInfo);
   
   // Parse the habitat type from current location type
   PokemonHabitat habitat = [self parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];

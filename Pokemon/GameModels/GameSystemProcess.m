@@ -1239,8 +1239,8 @@ static GameSystemProcess * gameSystemProcess = nil;
                                 self.playerPokemon.hp,                         @"playerPokemonHP",
                                 [NSNumber numberWithInt:enemyPokemonStatus_],  @"enemyPokemonStatus",
                                 self.enemyPokemon.hp,                          @"enemyPokemonHP", nil];
-  NSLog(@"|%@| - |calculateEffectForMove:| - MoveRealTarget:%@ - Notification Info:%@",
-        [self class], moveRealTarget_ == kMoveRealTargetEnemy ? @"Enemy" : @"Player", newUserInfo);
+  NSLog(@"MoveRealTarget:%@ - Notification Info:%@",
+        moveRealTarget_ == kMoveRealTargetEnemy ? @"Enemy" : @"Player", newUserInfo);
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
   [newUserInfo release];
   
@@ -1356,8 +1356,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   //            * STAB * Weakness/Resistance * RandomNumber / 100
   NSInteger damage;
   damage = ((((2.f * level / 5.f + 2.f) * attackStat * attackPower / defenseStat) / 50.f) + 2.f) * stab * status * randomNumber / 100.f;
-  NSLog(@"|%@| - |calculateDamageForMove:| - DAMAGE:%d", [self class], damage);
-  NSLog(@"------ level:%f / attackStat:%f / defenseStat:%f / attackPower:%f / stab:%f / status:%f / randomNumber:%f",
+  NSLog(@"DAMAGE:%d", damage);
+  NSLog(@"level:%f / attackStat:%f / defenseStat:%f / attackPower:%f / stab:%f / status:%f / randomNumber:%f",
         level, attackStat, defenseStat, attackPower, stab, status, randomNumber);
   return damage;
 }
@@ -1575,7 +1575,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Catching Wild Pokemon
 - (void)catchingWildPokemon {
-  NSLog(@"|%@| - |catchingWildPokemon|", [self class]);
+  NSLog(@"catching Wild Pokemon...");
   // Only 3 times for checking catching succeed or not,
   //   the end of third time means caught the Wild PM
   if (++catchingWildPokemonTimeCounter_ > 3) {
@@ -1641,7 +1641,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //
 //
 - (BOOL)hasDoneForCatchingWildPokemonResult {
-  NSLog(@"|%@| - |hasDoneForCatchingWildPokemonResult|", [self class]);
+  NSLog(@"has Done For Catching Wild Pokemon Result");
   // Formula effects
   // max & current HP values
   double maxHP = [[[self.enemyPokemon maxStatsInArray] objectAtIndex:0] doubleValue];
@@ -1700,7 +1700,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Caught Wild Pokemon succeed or not
 - (void)caughtWildPokemonSucceed:(BOOL)succeed {
-  NSLog(@"|%@| - Caught Wild Pokemon %@!!!", [self class], succeed ? @"SUCCEED" : @"FAILED");
+  NSLog(@"Caught Wild Pokemon %@!!!", succeed ? @"SUCCEED" : @"FAILED");
   catchingWildPokemonTimeCounter_ = 0;
   
   // If caught Wild Pokemon succeed, show Pokemon Info view
@@ -1844,8 +1844,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       NSDictionary * newUserInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                     [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
                                     [NSNumber numberWithInt:expInBar],              @"EXP", nil];
-      NSLog(@"|%@| - |postMessageForProcessType:withMessageInfo:| - update Pokemon EXP - Notification Info:%@",
-            [self class], newUserInfo);
+      NSLog(@"update Pokemon EXP - Notification Info:%@", newUserInfo);
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
       [newUserInfo release];
       

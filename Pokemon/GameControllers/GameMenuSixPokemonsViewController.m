@@ -230,7 +230,7 @@
   self.isSelectedPokemonInfoViewOpening = NO;
   isForReplacing_                       = forReplacing;
   self.currBattlePokemon                = forReplacing ? currBattlePokemon_ : 0;
-  NSLog(@"|%@| - |initWithSixPokemonsForReplacing:| - |currBattlePokemon_|:%d", [self class], self.currBattlePokemon);
+  NSLog(@"|currBattlePokemon_|:%d", self.currBattlePokemon);
   
   // Create Pokemon unit views
   self.sixPokemons       = [self.trainer sixPokemons];
@@ -399,7 +399,7 @@
   
   // If six Pokemons' UID changed, reload data for Six Pokemons
   if (! [self.sixPokemonsUID isEqualToString:[self.trainer sixPokemonsUID]]) {
-    NSLog(@"|%@| - Six PokemonsUID changed...Reload Six Pokemons......", [self class]);
+    NSLog(@"Six PokemonsUID changed...Reload Six Pokemons......");
     for (UIView *view in [self.view subviews]) {
       if (view.tag == 0)
         continue;
