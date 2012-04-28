@@ -62,6 +62,9 @@ NSString * const kPMINMapButtonBackgound    = @"MainViewMapButtonBackground.png"
 NSString * const kPMINMapButtonNormal       = @"MainViewMapButtonImageNormal.png";
 NSString * const kPMINMapButtonDisabled     = @"MainViewMapButtonImageLBSDisabled.png";
 NSString * const kPMINMapButtonHalfCancel   = @"MainViewMapButtonImageHalfCancel.png";
+// other buttons
+NSString * const kPMINRectButtonConfirm = @"RectButtonConfirm.png";
+NSString * const kPMINRectButtonUndo    = @"RectButtonUndo.png";
 // TAB BAR
 NSString * const kPMINTabBarBackground          = @"TabBarBackground.png";
 NSString * const kPMINTabBarArrow               = @"TabBarArrow.png";
@@ -91,6 +94,7 @@ NSString * const kPMINTableViewCellBagMedicine     = @"BagMedicineTableViewCellB
 NSString * const kPMINTableViewHeaderSetting       = @"SettingTableViewSectionHeaderBackground.png";
 // table view other elements
 NSString * const kPMINTableViewPokedexDefaultImage = @"PokedexDefaultImage.png";
+NSString * const kPMINFeedbackTextFieldBackground  = @"FeedbackTextFieldBackground.png";
 // table view detail view elements
 NSString * const kPMINPMDetailImageBackgound        = @"PokemonDetailImageBackground.png";
 NSString * const kPMINPMDetailDescriptionBackground = @"PokemonDetailDescriptionBackground.png";

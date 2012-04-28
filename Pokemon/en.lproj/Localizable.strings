@@ -77,7 +77,8 @@
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "Sounds";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "Animations";
 // ABOUT
-"PMSSettingAboutVersion" = "Version";
+"PMSSettingAboutVersion"      = "Version";
+"PMSSettingFeedback"          = "Feedback";
 "PMSSettingLogout"            = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";
 

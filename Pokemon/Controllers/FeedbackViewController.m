@@ -8,39 +8,47 @@
 
 #import "FeedbackViewController.h"
 
-#import "GlobalRender.h"
-
-
 @interface FeedbackViewController () {
  @private
+  UIImageView * textFieldBackground_;
   UITextField * textField_;
   UIButton    * submitButton_;
   UIButton    * cleanButton_;
 }
 
+@property (nonatomic, retain) UIImageView * textFieldBackground;
 @property (nonatomic, retain) UITextField * textField;
 @property (nonatomic, retain) UIButton    * submitButton;
 @property (nonatomic, retain) UIButton    * cleanButton;
 
 - (void)releaseSubviews;
+- (void)_submit:(id)sender;
+- (void)_clean:(id)sender;
+- (void)_cancel;
+- (void)_setMenuHidden:(BOOL)hidden;
 
 @end
 
 @implementation FeedbackViewController
 
-@synthesize textField    = textField_;
-@synthesize submitButton = submitButton_;
-@synthesize cleanButton  = cleanButton_;
+@synthesize delegate = delegate_;
+
+@synthesize textFieldBackground = textFieldBackground_;
+@synthesize textField           = textField_;
+@synthesize submitButton        = submitButton_;
+@synthesize cleanButton         = cleanButton_;
 
 - (void)dealloc {
+  self.delegate = nil;
   [self releaseSubviews];
   [super dealloc];
 }
 
 - (void)releaseSubviews {
-  self.textField    = nil;
-  self.submitButton = nil;
-  self.cleanButton  = nil;
+  self.textFieldBackground = nil;
+  self.textField           = nil;
+  self.submitButton        = nil;
+  self.cleanButton         = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -64,6 +72,9 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
+  [view setOpaque:NO];
+  [view setUserInteractionEnabled:YES];
   self.view = view;
   [view release];
 }
@@ -72,29 +83,48 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  CGRect textFieldFrame    = CGRectMake(10.f, 15.f, 300.f, 32.f);
-  CGRect submitButtonFrame = CGRectMake(30.f, 335.f, 64.f, 64.f);
-  CGRect cleanButtonFrame  = CGRectMake(100.f, 335.f, 64., 64.);
+  CGFloat marginTop        = 15.f;
+  CGFloat marginLeft       = 15.f;
+  CGFloat textFieldHeight  = kFeedbackTextFieldBackgroundHeight - 30.f;
+  CGFloat textFieldWidth   = kViewWidth - 2 * marginLeft;
+  CGRect textFieldBackgroundFrame = CGRectMake(0.f, 0.f, kViewWidth, kFeedbackTextFieldBackgroundHeight);
+  CGRect textFieldFrame    = CGRectMake(marginLeft, marginTop, textFieldWidth, textFieldHeight);
+  CGRect submitButtonFrame = CGRectMake(0.f, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+  CGRect cleanButtonFrame  = CGRectMake(kRectButtonWidth, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+  
+  // text input field background
+  UIImageView * textFieldBackground = [[UIImageView alloc] initWithFrame:textFieldBackgroundFrame];
+  [textFieldBackground setImage:[UIImage imageNamed:kPMINFeedbackTextFieldBackground]];
+  [textFieldBackground setUserInteractionEnabled:YES];
+  self.textFieldBackground = textFieldBackground;
+  [textFieldBackground release];
+  [self.view addSubview:self.textFieldBackground];
   
   // text input field
   UITextField * textField = [[UITextField alloc] initWithFrame:textFieldFrame];
-  [textField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
+  [textField setBackgroundColor:[UIColor clearColor]];
+  [textField setTextColor:[UIColor whiteColor]];
   [textField setKeyboardType:UIKeyboardTypeDefault];
+  [textField setDelegate:self];
   self.textField = textField;
   [textField release];
-  [self.view addSubview:self.textField];
+  [self.textFieldBackground addSubview:self.textField];
   
   // submit button
   UIButton * submitButton = [[UIButton alloc] initWithFrame:submitButtonFrame];
+  [submitButton setImage:[UIImage imageNamed:kPMINRectButtonConfirm] forState:UIControlStateNormal];
+  [submitButton addTarget:self action:@selector(_submit:) forControlEvents:UIControlEventTouchUpInside];
   self.submitButton = submitButton;
   [submitButton release];
-  [self.view addSubview:self.submitButton];
+  [self.view insertSubview:self.submitButton belowSubview:self.textFieldBackground];
   
   // clean button
   UIButton * cleanButton = [[UIButton alloc] initWithFrame:cleanButtonFrame];
+  [cleanButton setImage:[UIImage imageNamed:kPMINRectButtonUndo] forState:UIControlStateNormal];
+  [cleanButton addTarget:self action:@selector(_clean:) forControlEvents:UIControlEventTouchUpInside];
   self.cleanButton = cleanButton;
   [cleanButton release];
-  [self.view addSubview:self.cleanButton];
+  [self.view insertSubview:self.cleanButton belowSubview:self.textFieldBackground];
 }
 
 - (void)viewDidUnload {
@@ -107,10 +137,52 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Private Methods
+
+// Submit feedback content & cancel
+- (void)_submit:(id)sender {
+  [TestFlight submitFeedback:self.textField.text];
+  [self _cancel];
+}
+
+// Clean the content
+- (void)_clean:(id)sender {
+  [self.textField setText:nil];
+}
+
+// Cancel
+- (void)_cancel {
+  [self.delegate cancelFeedbackView];
+}
+
+// toggle menu
+- (void)_setMenuHidden:(BOOL)hidden {
+  CGRect submitButtonFrame = CGRectMake(0.f, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+  CGRect cleanButtonFrame  = CGRectMake(kRectButtonWidth, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+  if (hidden) {
+    CGFloat deltaHeight = kRectButtonHeight - kRectButtonBottomLineHeight;
+    submitButtonFrame.origin.y -= deltaHeight;
+    cleanButtonFrame.origin.y  -= deltaHeight;
+  }
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:^{
+                     [self.submitButton setFrame:submitButtonFrame];
+                     [self.cleanButton setFrame:cleanButtonFrame];
+                   }
+                   completion:nil];
+}
+
 #pragma mark - UITextView Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+  [self _setMenuHidden:YES];
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
   [self.textField resignFirstResponder];
+  [self _setMenuHidden:NO];
   return YES;
 }
 

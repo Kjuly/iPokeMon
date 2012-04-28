@@ -374,6 +374,12 @@
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
 		7FA22C99154BDCED007E2339 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA22C98154BDCE3007E2339 /* FeedbackViewController.m */; };
+		7FA22CA0154BFAF6007E2339 /* FeedbackTextFieldBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9A154BFAF3007E2339 /* FeedbackTextFieldBackground.png */; };
+		7FA22CA1154BFAF6007E2339 /* FeedbackTextFieldBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9B154BFAF4007E2339 /* FeedbackTextFieldBackground@2x.png */; };
+		7FA22CA2154BFAF6007E2339 /* RectButtonConfirm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9C154BFAF4007E2339 /* RectButtonConfirm.png */; };
+		7FA22CA3154BFAF6007E2339 /* RectButtonConfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9D154BFAF5007E2339 /* RectButtonConfirm@2x.png */; };
+		7FA22CA4154BFAF6007E2339 /* RectButtonUndo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9E154BFAF5007E2339 /* RectButtonUndo.png */; };
+		7FA22CA5154BFAF6007E2339 /* RectButtonUndo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */; };
 		7FA7BAA11540209600DF6377 /* IconRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BA9F1540209600DF6377 /* IconRefresh.png */; };
 		7FA7BAA21540209600DF6377 /* IconRefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */; };
 		7FA7BAA61540324000DF6377 /* BagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA7BAA51540323F00DF6377 /* BagTableViewCell.m */; };
@@ -1098,6 +1104,12 @@
 		7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuUtilityViewController.h; sourceTree = "<group>"; };
 		7FA22C97154BDCDA007E2339 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		7FA22C98154BDCE3007E2339 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		7FA22C9A154BFAF3007E2339 /* FeedbackTextFieldBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FeedbackTextFieldBackground.png; sourceTree = "<group>"; };
+		7FA22C9B154BFAF4007E2339 /* FeedbackTextFieldBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FeedbackTextFieldBackground@2x.png"; sourceTree = "<group>"; };
+		7FA22C9C154BFAF4007E2339 /* RectButtonConfirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RectButtonConfirm.png; sourceTree = "<group>"; };
+		7FA22C9D154BFAF5007E2339 /* RectButtonConfirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RectButtonConfirm@2x.png"; sourceTree = "<group>"; };
+		7FA22C9E154BFAF5007E2339 /* RectButtonUndo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RectButtonUndo.png; sourceTree = "<group>"; };
+		7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RectButtonUndo@2x.png"; sourceTree = "<group>"; };
 		7FA7BA9F1540209600DF6377 /* IconRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconRefresh.png; sourceTree = "<group>"; };
 		7FA7BAA01540209600DF6377 /* IconRefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconRefresh@2x.png"; sourceTree = "<group>"; };
 		7FA7BAA41540323F00DF6377 /* BagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagTableViewCell.h; sourceTree = "<group>"; };
@@ -2459,6 +2471,12 @@
 				7FEAE82014FD03FC003679C1 /* MainViewCenterMenuButton4@2x.png */,
 				7FEAE82114FD03FC003679C1 /* MainViewCenterMenuButton5@2x.png */,
 				7FEAE82214FD03FC003679C1 /* MainViewCenterMenuButton6@2x.png */,
+				7FA22C9A154BFAF3007E2339 /* FeedbackTextFieldBackground.png */,
+				7FA22C9B154BFAF4007E2339 /* FeedbackTextFieldBackground@2x.png */,
+				7FA22C9C154BFAF4007E2339 /* RectButtonConfirm.png */,
+				7FA22C9D154BFAF5007E2339 /* RectButtonConfirm@2x.png */,
+				7FA22C9E154BFAF5007E2339 /* RectButtonUndo.png */,
+				7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -2772,6 +2790,12 @@
 				7F8DEE771547C8E00048B28C /* iTunesArtwork in Resources */,
 				7F50FD00154AD3DC00F44FD1 /* README.txt in Resources */,
 				7F50FD01154AD3DC00F44FD1 /* release_notes.txt in Resources */,
+				7FA22CA0154BFAF6007E2339 /* FeedbackTextFieldBackground.png in Resources */,
+				7FA22CA1154BFAF6007E2339 /* FeedbackTextFieldBackground@2x.png in Resources */,
+				7FA22CA2154BFAF6007E2339 /* RectButtonConfirm.png in Resources */,
+				7FA22CA3154BFAF6007E2339 /* RectButtonConfirm@2x.png in Resources */,
+				7FA22CA4154BFAF6007E2339 /* RectButtonUndo.png in Resources */,
+				7FA22CA5154BFAF6007E2339 /* RectButtonUndo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

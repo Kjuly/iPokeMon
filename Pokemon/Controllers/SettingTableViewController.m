@@ -212,6 +212,18 @@
         break;
       }
         
+      case kSectionAboutRowFeedback: {
+        static NSString *CellIdentifier = @"CellStyleLogout";
+        SettingTableViewCellStyleCenterTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+          cell = [[[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
+                                                              reuseIdentifier:CellIdentifier] autorelease];
+        }
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingFeedback", nil)];
+        return cell;
+        break;
+      }
+        
       case kSectionAboutRowLogout: {
         static NSString *CellIdentifier = @"CellStyleLogout";
         SettingTableViewCellStyleCenterTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -296,6 +308,17 @@
     }
   }
   else if (section == kSectionAbout) {
+    // Feedback
+    if (row == kSectionAboutRowFeedback) {
+      FeedbackViewController * feedbackViewController;
+      feedbackViewController = [[FeedbackViewController alloc] init];
+      feedbackViewController.delegate = self;
+      [self setModalPresentationStyle:UIModalPresentationFullScreen];
+      [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+      [self presentModalViewController:feedbackViewController animated:YES];
+      [feedbackViewController release];
+    }
+    // Logout
     if (row == kSectionAboutRowLogout)
       [self openLogoutConfirmView];
   }
@@ -348,6 +371,12 @@
     [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
     [[OAuthManager sharedInstance] performSelector:@selector(logout) withObject:nil afterDelay:.3f];
   }
+}
+
+#pragma mark - FeedbackViewController Delegate
+
+- (void)cancelFeedbackView {
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

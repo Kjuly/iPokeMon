@@ -79,6 +79,9 @@ extern NSString * const kPMINMapButtonBackgound;
 extern NSString * const kPMINMapButtonNormal;
 extern NSString * const kPMINMapButtonDisabled;
 extern NSString * const kPMINMapButtonHalfCancel;
+// other buttons
+extern NSString * const kPMINRectButtonConfirm;
+extern NSString * const kPMINRectButtonUndo;
 // TAB BAR
 extern NSString * const kPMINTabBarBackground;
 extern NSString * const kPMINTabBarArrow;
@@ -106,6 +109,7 @@ extern NSString * const kPMINTableViewCell;
 extern NSString * const kPMINTableViewCellBagMedicine;
 // table view header
 extern NSString * const kPMINTableViewHeaderSetting;
+extern NSString * const kPMINFeedbackTextFieldBackground;
 // table view other elements
 extern NSString * const kPMINTableViewPokedexDefaultImage;
 // table view detail view elements
@@ -157,6 +161,10 @@ extern NSString * const kPMINIconRefresh;
 #define kCenterMenuButtonSize 64.0f
 
 #define kMapButtonSize 64.0f
+#define kRectButtonHeight 44.f
+#define kRectButtonWidth  160.f
+#define kRectButtonBottomLineHeight 10.f
+#define kFeedbackTextFieldBackgroundHeight 210.f
 
 #define kMapViewHeight      200.0f
 #define kUtilityBarHeight  40.0f

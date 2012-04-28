@@ -77,7 +77,8 @@
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "音效";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
 // ABOUT
-"PMSSettingAboutVersion" = "版本";
+"PMSSettingAboutVersion"      = "版本";
+"PMSSettingFeedback"          = "反馈";
 "PMSSettingLogout"            = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";
 
