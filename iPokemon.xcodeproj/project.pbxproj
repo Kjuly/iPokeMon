@@ -3143,7 +3143,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
@@ -3165,7 +3165,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",

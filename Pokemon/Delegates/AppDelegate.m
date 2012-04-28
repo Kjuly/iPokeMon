@@ -49,10 +49,10 @@
   
 #ifdef DEBUG_TEST_FLIGHT
   [TestFlight takeOff:@"d96adcb0fdd736768e392c55cc9f66b1_ODUxNTMyMDEyLTA0LTI3IDA5OjIyOjMwLjA2MjMxNQ"];
-  [TestFlight passCheckpoint:@"Launch App"];
 #ifdef DEBUG_TEST_FLIGHT_TESTING
   [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
+  [TestFlight passCheckpoint:@"Launch App"];
 #endif
   
   // Set View
@@ -131,6 +131,9 @@
    Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
    Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
    */
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"App Resign Active"];
+#endif
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -140,6 +143,9 @@
    */
   NSLog(@"Application entered background state...");
   [self saveContext];
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"App Enter Background"];
+#endif
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

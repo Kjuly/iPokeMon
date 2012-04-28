@@ -132,7 +132,9 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
         }
         @catch(NSException *e) { caughtException = e; }
         if(caughtException) { 
-            NSLog(NSLocalizedString(@"Unhandled exception on %@ networking thread: %@, userInfo: %@", nil), NSStringFromClass([self class]), caughtException, [caughtException userInfo]); 
+//            NSLog(NSLocalizedString(@"Unhandled exception on %@ networking thread: %@, userInfo: %@", nil), NSStringFromClass([self class]), caughtException, [caughtException userInfo]);
+          ;
+          NSLog(@"Unhandled exception on %@ networking thread: %@, userInfo: %@", NSStringFromClass([self class]), caughtException, [caughtException userInfo]);
         }
         [exceptionPool drain];
     } while (YES);
