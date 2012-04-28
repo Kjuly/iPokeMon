@@ -348,6 +348,9 @@
 
 // Show login table view if user session is invalid
 - (void)showLoginTableView:(NSNotification *)notification {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Open Login Table View"];
+#endif
   [self _resetAll];
   
   // Login table view controller
@@ -376,6 +379,9 @@
 
 // Show guide view for newbie (new trainer)
 - (void)showNewbieGuideView:(NSNotification *)notification {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Open Newbie Guide View"];
+#endif
   NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
   self.newbieGuideViewController = newbieGuideViewController;
   [newbieGuideViewController release];
@@ -538,6 +544,9 @@
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: Open Center Six PMs Menu (long press)"];
+#endif
     // Reset |centerMenuUtilityViewController_|
     if (self.centerMenuUtilityViewController != nil)
       self.centerMenuUtilityViewController = nil;
@@ -634,12 +643,14 @@
   NSLog(@"Touch Keep Time: %d", timeCounter_);
   
   NSInteger buttonTag = self.currentKeyButton.tag;
-  
   ///TARGET:|centerMainButton_|
   // If the target is |centerMainButton_|, and |timeCounter_ >= 1.0|, loading it
   // Time: delay 1.0 second, then every 2.0 second got a new point
   if (! isCenterMainButtonTouchDownCircleViewLoading_ && buttonTag == kTagMainViewCenterMainButton
       && ! isCenterMenuOpening_ && timeCounter_ >= 1.f) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: Long Time Press on Center Main Button"];
+#endif
     // Run this block after |mapButton_| moved to view top
     void (^completionBlock)(BOOL) = ^(BOOL finished) {
       NSLog(@"increaseTimeWithAction - Start loading |centerMainButtonTouchDownCircleView|...");
@@ -667,6 +678,9 @@
   ///TARGET:|mapButton_|
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
   else if (buttonTag == kTagMainViewMapButton && timeCounter_ > 2.f) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: Long Time Press on Map Button"];
+#endif
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }

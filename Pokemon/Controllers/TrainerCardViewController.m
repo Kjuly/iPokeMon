@@ -511,6 +511,9 @@ typedef enum {
 
 // Commit settings done by user
 - (void)commitSetting {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Commit Setting for Trainer Card"];
+#endif
   NSLog(@"|commitSetting| - InputText:%@", self.nameSettingField.text);
   // If user changed name, reset |trainer_.name| & |nameLabel_.text|
   NSString * name = self.nameSettingField.text;

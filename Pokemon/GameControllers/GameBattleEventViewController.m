@@ -142,6 +142,9 @@
   
   // NO Pokemon Available to battle
   if (eventType & kGameBattleEventTypeNoPMAvailable) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: All PMs Fainted"];
+#endif
     // Message Label
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
@@ -173,6 +176,9 @@
   }
   // LEVEL UP
   else if (eventType & kGameBattleEventTypeLevelUp) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: PM Level Up"];
+#endif
     // Message Label
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
@@ -230,10 +236,15 @@
   //   Evolution for Pokemon
   //
   else if (eventType & kGameBattleEventTypeEvolution) {
-    
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: PM Evolution Occurred"];
+#endif
   }
   // Caught a Wild Pokemon
   else if (eventType & kGameBattleEventTypeCaughtWPM) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: Wild PM Caught"];
+#endif
     WildPokemon * wildPokemon = self.systemProcess.enemyPokemon;
     
     // Save WildPokemon to TraienrTamedPokemon groupd

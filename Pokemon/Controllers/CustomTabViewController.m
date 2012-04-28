@@ -229,6 +229,9 @@
 #pragma mark - Public Methods
 
 - (void)toggleTabBar:(NSNotification *)notification {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Toggle Tab Bar"];
+#endif
   CGRect tabBarFrame = self.tabBar.frame;
   CGAffineTransform transform = CGAffineTransformIdentity;
   if (isTabBarHide_) {

@@ -166,6 +166,10 @@
   if ([self.selectedCellIndexPath row] == [indexPath row])
     return;
   
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Change Bandwidth Usage"];
+#endif
+  
   // Normalize original selected cell
   [((SettingTableViewCellStyleTitle *)[tableView cellForRowAtIndexPath:self.selectedCellIndexPath]) normalize];
   

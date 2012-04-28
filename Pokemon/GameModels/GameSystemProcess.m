@@ -1549,6 +1549,9 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Replace pokemon
 - (void)replacePokemon {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Replaced a PM"];
+#endif
   // Post to |GameMenuViewController| to update pokemon status view
   NSDictionary * pokemonStatus = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:kMoveRealTargetPlayer], @"target",
@@ -1950,6 +1953,9 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
+#ifdef DEBUG_TEST_FLIGHT
+    [TestFlight passCheckpoint:@"CHECK_POINT: ESCAPE Battle"];
+#endif
     BOOL isRunSucceed = [self isRunSucceed];
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -1992,11 +1998,17 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // WIN
 - (void)playerWin {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: WIN Battle"];
+#endif
   [self endBattleWithEventType:kGameBattleEndEventTypeWin];
 }
 
 // LOSE
 - (void)playerLose {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: LOSE Battle"];
+#endif
   [self endBattleWithEventType:kGameBattleEndEventTypeLose];
 }
 

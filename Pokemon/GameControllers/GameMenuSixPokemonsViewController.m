@@ -266,6 +266,9 @@
 }
 
 - (void)loadSixPokemonsAnimated:(BOOL)animated {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Load Special Six PMs View"];
+#endif
   if (! isForReplacing_) [self.view setFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
   
   // Set new position for six pokemons' unit

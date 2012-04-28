@@ -185,6 +185,9 @@
 #pragma mark - Private Methods
 
 - (void)startBattle:(NSNotification *)notification {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Start Game Battle"];
+#endif
   // Remember previous |centerMainButton_|'s status
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   previousCenterMainButtonStatus_ = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];

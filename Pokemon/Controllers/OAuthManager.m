@@ -146,6 +146,9 @@ static OAuthManager * oauthManager_ = nil;
 
 // Logout
 - (void)logout {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: LOGOUT"];
+#endif
   NSLog(@"LOGOUT...");
   [self.operationQueue cancelAllOperations];
   [self revokeAuthorizedWith:[[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];

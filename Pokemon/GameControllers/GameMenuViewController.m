@@ -838,6 +838,9 @@ typedef enum {
   
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight: {
+#ifdef DEBUG_TEST_FLIGHT
+      [TestFlight passCheckpoint:@"CHECK_POINT: Open Move View"];
+#endif
       NSLog(@"Swipe to Right");
       if (gameMenuKeyView_ == kGameMenuKeyViewNone) [self openMoveView];
       else [self cancelKeyViewExcept:kGameMenuKeyViewMoveView];
@@ -846,6 +849,9 @@ typedef enum {
     }
       
     case UISwipeGestureRecognizerDirectionLeft: {
+#ifdef DEBUG_TEST_FLIGHT
+      [TestFlight passCheckpoint:@"CHECK_POINT: Open Bag View"];
+#endif
       NSLog(@"Swipe to Left");
       if (gameMenuKeyView_ == kGameMenuKeyViewNone) [self openBagView];
       else [self cancelKeyViewExcept:kGameMenuKeyViewBagView];
@@ -854,6 +860,9 @@ typedef enum {
     }
       
     case UISwipeGestureRecognizerDirectionUp: {
+#ifdef DEBUG_TEST_FLIGHT
+      [TestFlight passCheckpoint:@"CHECK_POINT: Open Player PM Status View"];
+#endif
       NSLog(@"Swipe to Up");
       if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
@@ -871,6 +880,9 @@ typedef enum {
     }
       
     case UISwipeGestureRecognizerDirectionDown: {
+#ifdef DEBUG_TEST_FLIGHT
+      [TestFlight passCheckpoint:@"CHECK_POINT: Open Enemy PM Status View"];
+#endif
       NSLog(@"Swipe to Down");
       if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
         CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
@@ -898,6 +910,9 @@ typedef enum {
 
 // Action for tap gesture recognizer
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
+#ifdef DEBUG_TEST_FLIGHT
+  [TestFlight passCheckpoint:@"CHECK_POINT: Open Run Confirm Alert View"];
+#endif
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2)
     [self openRunConfirmView];
 }

@@ -52,7 +52,7 @@
 #ifdef DEBUG_TEST_FLIGHT_TESTING
   [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-  [TestFlight passCheckpoint:@"Launch App"];
+  [TestFlight passCheckpoint:@"CHECK_POINT: Launch App"];
 #endif
   
   // Set View
@@ -132,7 +132,7 @@
    Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
    */
 #ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"App Resign Active"];
+  [TestFlight passCheckpoint:@"CHECK_POINT: App Resign Active"];
 #endif
 }
 
@@ -144,7 +144,7 @@
   NSLog(@"Application entered background state...");
   [self saveContext];
 #ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"App Enter Background"];
+  [TestFlight passCheckpoint:@"CHECK_POINT: App Enter Background"];
 #endif
 }
 
