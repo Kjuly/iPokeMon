@@ -48,10 +48,10 @@
   [self saveContext];
   
 #ifdef DEBUG_TEST_FLIGHT
-  [TestFlight takeOff:@"d96adcb0fdd736768e392c55cc9f66b1_ODUxNTMyMDEyLTA0LTI3IDA5OjIyOjMwLjA2MjMxNQ"];
+  [TestFlight takeOff:@"e8b3641f3cc7071dbbb44760f8591843_ODU0NjMyMDEyLTA0LTI4IDE0OjExOjM2LjE1ODAxMw"];
+#endif
 #ifdef DEBUG_TEST_FLIGHT_TESTING
   [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif
 #endif
   
   // Set View

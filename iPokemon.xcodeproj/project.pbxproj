@@ -981,7 +981,7 @@
 		7F6E6CC614D6CAA600033C65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7F6E6CC814D6CAA600033C65 /* iPokemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPokemon-Prefix.pch"; sourceTree = "<group>"; };
 		7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pokemon.xcdatamodel; sourceTree = "<group>"; };
-		7F6E6CD414D6CAA700033C65 /* ipokemonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ipokemonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPokemonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1784,7 +1784,7 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CB414D6CAA600033C65 /* iPokemon.app */,
-				7F6E6CD414D6CAA700033C65 /* ipokemonTests.octest */,
+				7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2518,7 +2518,7 @@
 			);
 			name = iPokemonTests;
 			productName = PokemonTests;
-			productReference = 7F6E6CD414D6CAA700033C65 /* ipokemonTests.octest */;
+			productReference = 7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2528,7 +2528,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = Kjuly;
+				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemon" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3150,7 +3150,8 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = iPokemon;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3168,8 +3169,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = iPokemon;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3180,10 +3182,7 @@
 		7F6E6CE814D6CAA700033C65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../lib/aws-ios-sdk-1.2.1\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
@@ -3202,10 +3201,7 @@
 		7F6E6CE914D6CAA700033C65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../lib/aws-ios-sdk-1.2.1\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
@@ -3224,15 +3220,15 @@
 		7F6E6CEB14D6CAA700033C65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pokemon.app/Pokemon";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Pokemon";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/Pokemon-Prefix.pch";
+				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
-				PRODUCT_NAME = ipokemonTests;
+				PRODUCT_NAME = iPokemonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3241,15 +3237,15 @@
 		7F6E6CEC14D6CAA700033C65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pokemon.app/Pokemon";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Pokemon";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/Pokemon-Prefix.pch";
+				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
-				PRODUCT_NAME = ipokemonTests;
+				PRODUCT_NAME = iPokemonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3265,7 +3261,7 @@
 				7F6E6CE614D6CAA700033C65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemon" */ = {
 			isa = XCConfigurationList;
@@ -3274,7 +3270,7 @@
 				7F6E6CE914D6CAA700033C65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemonTests" */ = {
 			isa = XCConfigurationList;
@@ -3283,7 +3279,7 @@
 				7F6E6CEC14D6CAA700033C65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
