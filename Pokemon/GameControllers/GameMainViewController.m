@@ -29,7 +29,6 @@
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
-//- (void)startBattle:(NSNotification *)notification;
 - (void)loadBattleScene:(NSNotification *)notification;
 - (void)loadViewForEvent:(NSNotification *)notification;
 - (void)endGameBattleWithEvent:(NSNotification *)notification;
@@ -212,38 +211,6 @@
 }
 
 #pragma mark - Private Methods
-
-/*- (void)startBattle:(NSNotification *)notification {
-  NSLog (@"START GAME BATTLE...");
-  // Remember previous |centerMainButton_|'s status
-  NSLog(@"Pokemon Info: %@", notification.userInfo);
-  previousCenterMainButtonStatus_ = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
-  
-  // If Trainer has no battle available Pokemon, don't load Battle Scene,
-  //   load |gameBattleEventView| instead
-  if ([[TrainerController sharedInstance] battleAvailablePokemonIndex] == 0) {
-    if (self.gameBattleEventViewController == nil) {
-      GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
-      self.gameBattleEventViewController = gameBattleEventViewController;
-      [gameBattleEventViewController release];
-    }
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
-    [self.gameBattleEventViewController loadViewWithEventType:kGameBattleEventTypeNoPMAvailable
-                                                         info:nil
-                                                     animated:YES
-                                                   afterDelay:0];
-    return;
-  }
-  
-  // Mark now is loading resources for battle,
-  //   so it can load battle scene when receives the notification from |LoadingManageer|
-  isLoadingResourceForBattle_ = YES;
-  
-  // Preload audio resources for battle scene
-  if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0)
-    [self loadBattleScene:nil];
-  else [self.audioPlayer preloadForBattleVSWildPokemon];
-}*/
 
 // Load battle scene
 - (void)loadBattleScene:(NSNotification *)notification {
