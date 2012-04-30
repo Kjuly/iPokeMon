@@ -8,7 +8,6 @@
 
 #import "WildPokemon+DataController.h"
 
-#import "PokemonServerAPI.h"
 #import "AppDelegate.h"
 #import "Pokemon+DataController.h"
 

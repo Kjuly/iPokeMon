@@ -73,7 +73,6 @@
 		7F27D085152749A60092DD68 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D07E152749A60092DD68 /* DataDecoder.m */; };
 		7F27D086152749A60092DD68 /* GlobalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D080152749A60092DD68 /* GlobalRender.m */; };
 		7F27D087152749A60092DD68 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D082152749A60092DD68 /* PListParser.m */; };
-		7F27D088152749A60092DD68 /* PokemonServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D084152749A60092DD68 /* PokemonServerAPI.m */; };
 		7F27D08E152749F30092DD68 /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D08D152749F30092DD68 /* PokemonConstants.m */; };
 		7F27D09515274FAC0092DD68 /* NSString+Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F27D09415274FAC0092DD68 /* NSString+Algorithm.m */; };
 		7F2B58A4152C2B710071AAD5 /* PokemonSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B58A3152C2B700071AAD5 /* PokemonSelectionViewController.m */; };
@@ -616,8 +615,6 @@
 		7F27D080152749A60092DD68 /* GlobalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalRender.m; sourceTree = "<group>"; };
 		7F27D081152749A60092DD68 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F27D082152749A60092DD68 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
-		7F27D083152749A60092DD68 /* PokemonServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonServerAPI.h; sourceTree = "<group>"; };
-		7F27D084152749A60092DD68 /* PokemonServerAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonServerAPI.m; sourceTree = "<group>"; };
 		7F27D08C152749F30092DD68 /* PokemonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonConstants.h; sourceTree = "<group>"; };
 		7F27D08D152749F30092DD68 /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F27D09315274FAC0092DD68 /* NSString+Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Algorithm.h"; sourceTree = "<group>"; };
@@ -1004,7 +1001,7 @@
 		7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveUnitView.m; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
-		7F7C88FF14F755170023D079 /* PMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMConstants.h; sourceTree = "<group>"; };
+		7F7C88FF14F755170023D079 /* PMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMConstants.h; sourceTree = "<group>"; };
 		7F7EF3E4153FFCC80061D82E /* BagItemTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F7EF3E5153FFCC80061D82E /* BagItemTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F7EF3E6153FFCC80061D82E /* BagItemTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
@@ -2188,8 +2185,6 @@
 			children = (
 				7F7C88FF14F755170023D079 /* PMConstants.h */,
 				7FF56402152823E200BA5E28 /* PMConstants.m */,
-				7F27D083152749A60092DD68 /* PokemonServerAPI.h */,
-				7F27D084152749A60092DD68 /* PokemonServerAPI.m */,
 				7F27D07D152749A60092DD68 /* DataDecoder.h */,
 				7F27D07E152749A60092DD68 /* DataDecoder.m */,
 				7F27D081152749A60092DD68 /* PListParser.h */,
@@ -3044,7 +3039,6 @@
 				7F27D085152749A60092DD68 /* DataDecoder.m in Sources */,
 				7F27D086152749A60092DD68 /* GlobalRender.m in Sources */,
 				7F27D087152749A60092DD68 /* PListParser.m in Sources */,
-				7F27D088152749A60092DD68 /* PokemonServerAPI.m in Sources */,
 				7F27D08E152749F30092DD68 /* PokemonConstants.m in Sources */,
 				7F27D09515274FAC0092DD68 /* NSString+Algorithm.m in Sources */,
 				7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */,

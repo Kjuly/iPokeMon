@@ -9,7 +9,6 @@
 #import "WildPokemonController.h"
 
 #import "PokemonConstants.h"
-#import "PokemonServerAPI.h"
 #import "AppDelegate.h"
 #import "LoadingManager.h"
 #import "WildPokemon+DataController.h"
