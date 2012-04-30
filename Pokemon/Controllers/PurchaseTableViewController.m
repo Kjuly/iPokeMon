@@ -49,7 +49,7 @@
   self = [super initWithStyle:style];
   if (self) {
     // Custom initialization
-    [self setTitle:NSLocalizedString(@"PMSPMStore", nil)];
+    [self setTitle:NSLocalizedString(@"PMSStoreCurrencyTransactions", nil)];
     self.loadingManager  = [LoadingManager sharedInstance];
     self.purchaseManager = [PMPurchaseManager sharedInstance];
   }

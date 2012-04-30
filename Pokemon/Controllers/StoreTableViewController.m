@@ -73,7 +73,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 6;
+  return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,7 +91,7 @@
   
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
-  if (index == 6) {
+  if (index == 4) {
     [cell configureCellWithTitle:NSLocalizedString(@"PMSStoreCurrencyTransactions", nil)
                             icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyTransactions, index]]
                    accessoryType:UITableViewCellAccessoryNone];
@@ -148,7 +148,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSInteger row = [indexPath row];
   // currency transactions
-  if (row == 5) {
+  if (row == 3) {
     PurchaseTableViewController * purchaseTableViewController;
     purchaseTableViewController = [[PurchaseTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:purchaseTableViewController animated:YES];
