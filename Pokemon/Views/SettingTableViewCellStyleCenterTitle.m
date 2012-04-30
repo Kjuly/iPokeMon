@@ -20,13 +20,15 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     // Basic constants
-    CGFloat const cellHeight = kCellHeightOfSettingTableView;
+    CGFloat const cellHeight = kCellHeightOfSettingTableViewCenterTitleStyle;
     CGFloat const cellWidth  = kViewWidth;
     CGRect  const cellFrame  = CGRectMake(0.f, 0.f, cellWidth, cellHeight);
     
     // Set |backgroundView| for Cell
     UIView * backgroundView = [[UIView alloc] initWithFrame:cellFrame];
-    [backgroundView setBackgroundColor:[UIColor clearColor]];
+    [backgroundView setBackgroundColor:
+      [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellSettingCenterTitleStyle]]];
+    [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
     [backgroundView release];
     
@@ -35,7 +37,6 @@
     [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self setSelectedBackgroundView:selectedBackgroundView];
     [selectedBackgroundView release];
-    
     
     // Custom subviews for cell
   }

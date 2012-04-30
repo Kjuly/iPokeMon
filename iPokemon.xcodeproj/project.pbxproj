@@ -464,6 +464,8 @@
 		7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */; };
 		7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */; };
 		7FDF10E91543F5580052DDF9 /* GameBattleScenePMPoint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint@2x.png */; };
+		7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */; };
+		7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
@@ -1217,6 +1219,8 @@
 		7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGender1.png; sourceTree = "<group>"; };
 		7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender1@2x.png"; sourceTree = "<group>"; };
 		7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleScenePMPoint@2x.png"; sourceTree = "<group>"; };
+		7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellCenterTitleStyleBackground.png; sourceTree = "<group>"; };
+		7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellCenterTitleStyleBackground@2x.png"; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
@@ -2222,6 +2226,8 @@
 				7F7EF400153FFCC80061D82E /* SettingTableViewCellBackground@2x.png */,
 				7F7EF401153FFCC80061D82E /* SettingTableViewSectionHeaderBackground.png */,
 				7F7EF402153FFCC80061D82E /* SettingTableViewSectionHeaderBackground@2x.png */,
+				7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */,
+				7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -2785,6 +2791,8 @@
 				7FA22CA3154BFAF6007E2339 /* RectButtonConfirm@2x.png in Resources */,
 				7FA22CA4154BFAF6007E2339 /* RectButtonUndo.png in Resources */,
 				7FA22CA5154BFAF6007E2339 /* RectButtonUndo@2x.png in Resources */,
+				7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */,
+				7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

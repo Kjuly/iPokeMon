@@ -114,8 +114,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section == kSectionAbout)
-    if (indexPath.row == kSectionAboutRowLogout)
-      return kCellHeightOfSettingTableViewLogout;
+    if (indexPath.row == kSectionAboutRowFeedback || indexPath.row == kSectionAboutRowLogout)
+      return kCellHeightOfSettingTableViewCenterTitleStyle;
   return kCellHeightOfSettingTableView;
 }
 

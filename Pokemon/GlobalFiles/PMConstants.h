@@ -153,6 +153,7 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINTableViewCellPokedexSelected @"PokedexTableViewCellSelectedBackground.png"
 #define kPMINTableViewCellSetting         @"SettingTableViewCellBackground.png"
 #define kPMINTableViewCellSettingSelected @"SettingTableViewCellSelectedBackground.png"
+#define kPMINTableViewCellSettingCenterTitleStyle @"SettingTableViewCellCenterTitleStyleBackground.png"
 #define kPMINTableViewCellBag             @"BagTableViewCellBackground.png"
 #define kPMINTableViewCellBagSelected     @"BagTableViewCellSelectedBackground.png"
 #define kPMINTableViewCellBagItem         @"BagItemTableViewCellBackground.png"
@@ -356,7 +357,7 @@ typedef enum {
 #define kCellHeightOfBagMedicineTableView   128.f //(kViewHeight - 60.f) / 3.f
 #define kCellHeightOfBagItemTableView       64.f
 #define kCellHeightOfSettingTableView       44.f
-#define kCellHeightOfSettingTableViewLogout 64.f // Logout
+#define kCellHeightOfSettingTableViewCenterTitleStyle 64.f // center title style: feedback, logout
 // Header
 #define kSectionHeaderHeightOfSettingTableView 32.f
 
