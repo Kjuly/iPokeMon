@@ -89,6 +89,8 @@
   
   // Basic settings
   isLoadingResourceForBattle_ = NO;
+  // Audio Player
+  self.audioPlayer = [PMAudioPlayer sharedInstance];
   
   // Add Notification Observer
   // Notification from |LoadingManageer| when loading done
@@ -124,9 +126,6 @@
 //  [[CCDirector sharedDirector] enableRetinaDisplay:YES];
   [[CCDirector sharedDirector] pause];
   
-  // Audio Player
-  self.audioPlayer = [PMAudioPlayer sharedInstance];
-  
   // Game Menu View Controller
   gameMenuViewController_ = [[GameMenuViewController alloc] init];
   gameMenuViewController_.delegate = self;
@@ -135,9 +134,6 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  self.gameMenuViewController = nil;
-  self.gameBattleEndViewController = nil;
-  
   // Unload |director|
   [[CCDirector sharedDirector] end];
 }
