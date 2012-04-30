@@ -48,104 +48,103 @@ extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider 
 
 #pragma mark - Image & Icon name
 
-#pragma mark - Image & Icon name
 // PMIN: PokeMon Image Name
-extern NSString * const kPMINLaunchViewBackground;
-extern NSString * const kPMINBackgroundBlack;
-extern NSString * const kPMINBackgroundEmpty;
+#define kPMINLaunchViewBackground  @"MainViewBackgroundBlackWithFog.png"
+#define kPMINBackgroundBlack       @"MainViewBackgroundBlack.png"
+#define kPMINBackgroundEmpty       @"EmptyTableViewBackground.png"
 // center menu
-extern NSString * const kPMINMainMenuBackground;
-extern NSString * const kPMINMainViewCenterCircleBackgound;
-extern NSString * const kPMINMainViewCenterCircle;
-extern NSString * const kPMINMainMenuButtonBackground;
-extern NSString * const kPMINMainMenuUtilityButton; // %d: 1 - 6
+#define kPMINMainMenuBackground            @"MainViewCenterCircle.png"
+#define kPMINMainViewCenterCircleBackgound @"MainViewCenterMainButtonTouchDownCircleViewBackground.png"
+#define kPMINMainViewCenterCircle          @"MainViewCenterMainButtonTouchDownCircleViewForeground.png"
+#define kPMINMainMenuButtonBackground      @"MainViewCenterMenuButtonBackground.png"
+#define kPMINMainMenuUtilityButton         @"MainViewCenterMenuButton%d.png" // %d: 1 - 6
 // center main button
-extern NSString * const kPMINMainButtonBackgoundNormal;
-extern NSString * const kPMINMainButtonBackgoundEnable;
-extern NSString * const kPMINMainButtonBackgoundDisable;
-extern NSString * const kPMINMainButtonNormal;
-extern NSString * const kPMINMainButtonWarning;
-extern NSString * const kPMINMainButtonConfirm;
-extern NSString * const kPMINMainButtonConfirmOpposite;
-extern NSString * const kPMINMainButtonInfo;
-extern NSString * const kPMINMainButtonInfoOpposite;
-extern NSString * const kPMINMainButtonUnknow;
-extern NSString * const kPMINMainButtonUnknowOpposite;
-extern NSString * const kPMINMainButtonCancel;
-extern NSString * const kPMINMainButtonCancelOpposite;
-extern NSString * const kPMINMainButtonHalfCancel;
+#define kPMINMainButtonBackgoundNormal  @"MainViewCenterButtonBackground.png"
+#define kPMINMainButtonBackgoundEnable  @"MainViewCenterButtonBackgroundEnable.png"
+#define kPMINMainButtonBackgoundDisable @"MainViewCenterButtonBackgroundDisable.png"
+#define kPMINMainButtonNormal           @"MainViewCenterButtonImageNormal.png"
+#define kPMINMainButtonWarning          @"MainViewCenterButtonImageWarning.png"
+#define kPMINMainButtonConfirm          @"MainViewCenterButtonImageConfirm.png"
+#define kPMINMainButtonConfirmOpposite  @"MainViewCenterButtonImageConfirmOpposite.png"
+#define kPMINMainButtonInfo             @"MainViewCenterButtonImageInfo.png"
+#define kPMINMainButtonInfoOpposite     @"MainViewCenterButtonImageInfoOpposite.png"
+#define kPMINMainButtonUnknow           @"MainViewCenterButtonImageUnknow.png"
+#define kPMINMainButtonUnknowOpposite   @"MainViewCenterButtonImageUnknowOpposite.png"
+#define kPMINMainButtonCancel           @"MainViewCenterButtonImageCancel.png"
+#define kPMINMainButtonCancelOpposite   @"MainViewCenterButtonImageCancelOpposite.png"
+#define kPMINMainButtonHalfCancel       @"MainViewCenterButtonImageHalfCancel.png"
 // map button
-extern NSString * const kPMINMapButtonBackgound;
-extern NSString * const kPMINMapButtonNormal;
-extern NSString * const kPMINMapButtonDisabled;
-extern NSString * const kPMINMapButtonHalfCancel;
+#define kPMINMapButtonBackgound    @"MainViewMapButtonBackground.png"
+#define kPMINMapButtonNormal       @"MainViewMapButtonImageNormal.png"
+#define kPMINMapButtonDisabled     @"MainViewMapButtonImageLBSDisabled.png"
+#define kPMINMapButtonHalfCancel   @"MainViewMapButtonImageHalfCancel.png"
 // other buttons
-extern NSString * const kPMINRectButtonConfirm;
-extern NSString * const kPMINRectButtonUndo;
+#define kPMINRectButtonConfirm @"RectButtonConfirm.png"
+#define kPMINRectButtonUndo    @"RectButtonUndo.png"
 // TAB BAR
-extern NSString * const kPMINTabBarBackground;
-extern NSString * const kPMINTabBarArrow;
-extern NSString * const kPMINTabBarItemPMDetailInfo;
-extern NSString * const kPMINTabBarItemPMDetailArea;
-extern NSString * const kPMINTabBarItemPMDetailSize;
-extern NSString * const kPMINTabBarItem6PMsDetailMemo;
-extern NSString * const kPMINTabBarItem6PMsDetailSkill;
-extern NSString * const kPMINTabBarItem6PMsDetailMove;
+#define kPMINTabBarBackground          @"TabBarBackground.png"
+#define kPMINTabBarArrow               @"TabBarArrow.png"
+#define kPMINTabBarItemPMDetailInfo    @"TabBarItemPMDetailInfo.png"
+#define kPMINTabBarItemPMDetailArea    @"TabBarItemPMDetailArea.png"
+#define kPMINTabBarItemPMDetailSize    @"TabBarItemPMDetailSize.png"
+#define kPMINTabBarItem6PMsDetailMemo  @"TabBarItemPMDetailMemo.png"
+#define kPMINTabBarItem6PMsDetailSkill @"TabBarItemPMDetailSkill.png"
+#define kPMINTabBarItem6PMsDetailMove  @"TabBarItemPMDetailMove.png"
 // TABLE VIEW
 // NAV BAR
-extern NSString * const kPMINNavBarBackground;
-extern NSString * const kPMINNavBarBackToRootButton;
-extern NSString * const kPMINNavBarBackButton;
+#define kPMINNavBarBackground       @"NavigationBarBackground.png"
+#define kPMINNavBarBackToRootButton @"CustomNavigationBar_backButtonToRoot.png"
+#define kPMINNavBarBackButton       @"CustomNavigationBar_backButton.png"
 // table view cell
-extern NSString * const kPMINTableViewCellPokedex;
-extern NSString * const kPMINTableViewCellPokedexSelected;
-extern NSString * const kPMINTableViewCellSetting;
-extern NSString * const kPMINTableViewCellSettingSelected;
-extern NSString * const kPMINTableViewCellBag;
-extern NSString * const kPMINTableViewCellBagSelected;
-extern NSString * const kPMINTableViewCellBagItem;
-extern NSString * const kPMINTableViewCellBagItemSelected;
-extern NSString * const kPMINTableViewCell;
-extern NSString * const kPMINTableViewCellBagMedicine;
+#define kPMINTableViewCellPokedex         @"PokedexTableViewCellBackground.png"
+#define kPMINTableViewCellPokedexSelected @"PokedexTableViewCellSelectedBackground.png"
+#define kPMINTableViewCellSetting         @"SettingTableViewCellBackground.png"
+#define kPMINTableViewCellSettingSelected @"SettingTableViewCellSelectedBackground.png"
+#define kPMINTableViewCellBag             @"BagTableViewCellBackground.png"
+#define kPMINTableViewCellBagSelected     @"BagTableViewCellSelectedBackground.png"
+#define kPMINTableViewCellBagItem         @"BagItemTableViewCellBackground.png"
+#define kPMINTableViewCellBagItemSelected @"BagItemTableViewCellSelectedBackground.png"
+#define kPMINTableViewCell                @"BagItemTableViewCellSelectedBackground.png"
+#define kPMINTableViewCellBagMedicine     @"BagMedicineTableViewCellBackground.png"
 // table view header
-extern NSString * const kPMINTableViewHeaderSetting;
-extern NSString * const kPMINFeedbackTextFieldBackground;
+#define kPMINTableViewHeaderSetting       @"SettingTableViewSectionHeaderBackground.png"
 // table view other elements
-extern NSString * const kPMINTableViewPokedexDefaultImage;
+#define kPMINTableViewPokedexDefaultImage @"PokedexDefaultImage.png"
+#define kPMINFeedbackTextFieldBackground  @"FeedbackTextFieldBackground.png"
 // table view detail view elements
-extern NSString * const kPMINPMDetailImageBackgound;
-extern NSString * const kPMINPMDetailDescriptionBackground;
-extern NSString * const kPMINPMHPBarBackground;
-extern NSString * const kPMINPMHPBar;
-extern NSString * const kPMINPMExpBarBackground;
-extern NSString * const kPMINPMExpBar;
+#define kPMINPMDetailImageBackgound        @"PokemonDetailImageBackground.png"
+#define kPMINPMDetailDescriptionBackground @"PokemonDetailDescriptionBackground.png"
+#define kPMINPMHPBarBackground             @"PokemonHPBarBackground.png"
+#define kPMINPMHPBar                       @"PokemonHPBar.png"
+#define kPMINPMExpBarBackground            @"PokemonExpBarBackground.png"
+#define kPMINPMExpBar                      @"PokemonExpBar.png"
 // GAME BATTLE
-extern NSString * const kPMINBattleSceneBackground; // %.2d: 01 - 09
-extern NSString * const kPMINBattleScenePMPoint;
-extern NSString * const kPMINBattleMenuMessageViewBackground;
-extern NSString * const kPMINBattleElementPokeball;
+#define kPMINBattleSceneBackground           @"GameBattleSceneBackground_%.2d.png" // %.2d: 01 - 09
+#define kPMINBattleScenePMPoint              @"GameBattleScenePMPoint.png"
+#define kPMINBattleMenuMessageViewBackground @"GameMessageViewBackground.png"
+#define kPMINBattleElementPokeball @"GamePokeball.png"
 // ICONs
 // Pokemon related icons
-extern NSString * const kPMINIconPMGender; // %d: 0(F) - 1(M)
+#define kPMINIconPMGender         @"IconPokemonGender%d.png" // %d: 0(F) - 1(M)
 // bag table view related icons
-extern NSString * const kPMINIconBagTableViewCell; // %d: 1 - 8
-extern NSString * const kPMINIconBagItemUse;
-extern NSString * const kPMINIconBagItemGive;
-extern NSString * const kPMINIconBagItemInfo;
-extern NSString * const kPMINIconBagItemToss;
-extern NSString * const kPMINIconBagItemCancel;
+#define kPMINIconBagTableViewCell @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
+#define kPMINIconBagItemUse       @"IconBagItemUse.png"
+#define kPMINIconBagItemGive      @"IconBagItemGive.png"
+#define kPMINIconBagItemInfo      @"IconBagItemInfo.png"
+#define kPMINIconBagItemToss      @"IconBagItemToss.png"
+#define kPMINIconBagItemCancel    @"IconBagItemCancel.png"
 // trainer card related icons
-extern NSString * const kPMINTrainerAvatarDefault;
-extern NSString * const kPMINIconBadgeGold;
-extern NSString * const kPMINIconBadgeSilver;
-extern NSString * const kPMINIconBadgeBronze;
-extern NSString * const kPMINIconTrainerCardModify;
+#define kPMINTrainerAvatarDefault  @"UserAvatar.png"
+#define kPMINIconBadgeGold         @"IconBadgeGold.png"
+#define kPMINIconBadgeSilver       @"IconBadgeSilver.png"
+#define kPMINIconBadgeBronze       @"IconBadgeBronze.png"
+#define kPMINIconTrainerCardModify @"IconSettingModify.png"
 // social media
-extern NSString * const kPMINIconSocialFacebook;
-extern NSString * const kPMINIconSocialGoogle;
-extern NSString * const kPMINIconSocialTwitter;
+#define kPMINIconSocialFacebook @"SocialIconFacebook.png"
+#define kPMINIconSocialGoogle   @"SocialIconGoogle.png"
+#define kPMINIconSocialTwitter  @"SocialIconTwitter.png"
 // others
-extern NSString * const kPMINIconRefresh;
+#define kPMINIconRefresh @"IconRefresh.png"
 /////
 
 #pragma mark -

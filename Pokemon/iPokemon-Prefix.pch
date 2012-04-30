@@ -27,12 +27,12 @@
 #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 // Debug Settings
-//#define LOCAL_SERVER 1
+#define LOCAL_SERVER 1
 
 //#define DEBUG_PREINIT_POPULATE_DATA 1
 //#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
 //#define DEBUG_NO_SESSION_MOED 1
 #define DEBUG_NO_MOVE 1
 
-#define DEBUG_TEST_FLIGHT         1 // TestFlight, can leave it
-#define DEBUG_TEST_FLIGHT_TESTING 1 // TestFlight, should be comment out when release the app
+//#define DEBUG_TEST_FLIGHT         1 // TestFlight, can leave it
+//#define DEBUG_TEST_FLIGHT_TESTING 1 // TestFlight, should be comment out when release the app
