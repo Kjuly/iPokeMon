@@ -8,16 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol FeedbackViewControllerDelegate <NSObject>
-
-- (void)cancelFeedbackView;
-
-@end
-
-@interface FeedbackViewController : UIViewController <UITextFieldDelegate> {
-  id <FeedbackViewControllerDelegate> delegate_;
-}
-
-@property (nonatomic, assign) id <FeedbackViewControllerDelegate> delegate;
+@interface FeedbackViewController : UIViewController <UITextFieldDelegate>
 
 @end

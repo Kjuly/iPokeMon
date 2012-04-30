@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "FeedbackViewController.h"
-
 typedef enum {
   kSectionGeneral = 0,
   kSectionAbout,
@@ -30,6 +28,6 @@ typedef enum {
   kNumberOfSectionAboutRows
 }SectionAboutRow;
 
-@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate, FeedbackViewControllerDelegate>
+@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate>
 
 @end

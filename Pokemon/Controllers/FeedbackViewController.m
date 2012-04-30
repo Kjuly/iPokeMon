@@ -24,14 +24,11 @@
 - (void)releaseSubviews;
 - (void)_submit:(id)sender;
 - (void)_clean:(id)sender;
-- (void)_cancel;
 - (void)_setMenuHidden:(BOOL)hidden;
 
 @end
 
 @implementation FeedbackViewController
-
-@synthesize delegate = delegate_;
 
 @synthesize textFieldBackground = textFieldBackground_;
 @synthesize textField           = textField_;
@@ -39,7 +36,6 @@
 @synthesize cleanButton         = cleanButton_;
 
 - (void)dealloc {
-  self.delegate = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -72,8 +68,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
-  [view setOpaque:NO];
+  [view setBackgroundColor:[UIColor clearColor]];
   [view setUserInteractionEnabled:YES];
   self.view = view;
   [view release];
@@ -142,17 +137,11 @@
 // Submit feedback content & cancel
 - (void)_submit:(id)sender {
   [TestFlight submitFeedback:self.textField.text];
-  [self _cancel];
 }
 
 // Clean the content
 - (void)_clean:(id)sender {
   [self.textField setText:nil];
-}
-
-// Cancel
-- (void)_cancel {
-  [self.delegate cancelFeedbackView];
 }
 
 // toggle menu
@@ -177,10 +166,12 @@
 #pragma mark - UITextView Delegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
   [self _setMenuHidden:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
   [self.textField resignFirstResponder];
   [self _setMenuHidden:NO];
   return YES;

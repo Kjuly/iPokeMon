@@ -16,6 +16,7 @@
 #import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
+#import "FeedbackViewController.h"
 
 
 @interface SettingTableViewController ()
@@ -311,10 +312,7 @@
     if (row == kSectionAboutRowFeedback) {
       FeedbackViewController * feedbackViewController;
       feedbackViewController = [[FeedbackViewController alloc] init];
-      feedbackViewController.delegate = self;
-      [self setModalPresentationStyle:UIModalPresentationFullScreen];
-      [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-      [self presentModalViewController:feedbackViewController animated:YES];
+      [self.navigationController pushViewController:feedbackViewController animated:YES];
       [feedbackViewController release];
     }
     // Logout
