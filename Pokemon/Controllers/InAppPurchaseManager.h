@@ -16,13 +16,11 @@
 @interface InAppPurchaseManager : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver> {
   NSSet             * productIdentifiers_;
   NSArray           * products_;
-  NSMutableSet      * purchasedProducts_;
   SKProductsRequest * request_;
 }
 
 @property (nonatomic, copy)   NSSet             * productIdentifiers;
 @property (nonatomic, copy)   NSArray           * products;
-@property (nonatomic, copy)   NSMutableSet      * purchasedProducts;
 @property (nonatomic, retain) SKProductsRequest * request;
 
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;

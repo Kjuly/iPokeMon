@@ -38,6 +38,10 @@
 - (void)dealloc {
   self.loadingManager  = nil;
   self.purchaseManager = nil;
+  // remove notification observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductsLoadedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductPurchasedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductPurchaseFailedNotification object:nil];
   [super dealloc];
 }
 
@@ -64,17 +68,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-}
-
-- (void)viewDidUnload {
-  [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  
-  self.tableView.hidden = TRUE;
-  
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(productsLoaded:)
                                                name:kPMNProductsLoadedNotification
@@ -87,7 +80,15 @@
                                            selector:@selector(productPurchaseFailed:)
                                                name:kPMNProductPurchaseFailedNotification
                                              object:nil];
-  
+  [self.tableView setHidden:YES];
+}
+
+- (void)viewDidUnload {
+  [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
   Reachability *reach = [Reachability reachabilityForInternetConnection];	
   NetworkStatus netStatus = [reach currentReachabilityStatus];    
   if (netStatus == NotReachable) {        
@@ -139,29 +140,25 @@
   }
     
   // Configure the cell...
-  SKProduct *product = [self.purchaseManager.products objectAtIndex:indexPath.row];
+  SKProduct * product = [self.purchaseManager.products objectAtIndex:indexPath.row];
   
-  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+  NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
   [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
   [numberFormatter setLocale:product.priceLocale];
-  NSString *formattedString = [numberFormatter stringFromNumber:product.price];
+  NSString * formattedString = [numberFormatter stringFromNumber:product.price];
+  [numberFormatter release];
   
   cell.textLabel.text = product.localizedTitle;
   cell.detailTextLabel.text = formattedString;
   
-  if ([self.purchaseManager.purchasedProducts containsObject:product.productIdentifier]) {
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    cell.accessoryView = nil;
-  } else {        
-    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buyButton.frame = CGRectMake(0, 0, 72, 37);
-    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
-    buyButton.tag = indexPath.row;
-    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = buyButton;     
-  }
+  UIButton * buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  buyButton.frame = CGRectMake(0.f, 0.f, 72.f, 37.f);
+  [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+  buyButton.tag = indexPath.row;
+  [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+  cell.accessoryType = UITableViewCellAccessoryNone;
+  cell.accessoryView = buyButton;
   
   return cell;
 }

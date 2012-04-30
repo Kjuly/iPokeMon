@@ -12,7 +12,6 @@
 
 @synthesize productIdentifiers = productIdentifiers_;
 @synthesize products           = products_;
-@synthesize purchasedProducts  = purchasedProducts_;
 @synthesize request            = request_;
 
 - (void)dealloc {
@@ -20,8 +19,6 @@
   self.productIdentifiers = nil;
   [products_ release];
   self.products = nil;
-  [purchasedProducts_ release];
-  self.purchasedProducts = nil;
   [request_ release];
   self.request = nil;
   [super dealloc];
@@ -31,18 +28,6 @@
   if ((self = [super init])) {
     // Store product identifiers
     productIdentifiers_ = [productIdentifiers retain];
-    
-    // Check for previously purchased products
-    NSMutableSet * purchasedProducts = [NSMutableSet set];
-    for (NSString * productIdentifier in productIdentifiers_) {
-      BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
-      if (productPurchased) {
-        [purchasedProducts addObject:productIdentifier];
-        NSLog(@"Previously purchased: %@", productIdentifier);
-      }
-      NSLog(@"Not purchased: %@", productIdentifier);
-    }
-    self.purchasedProducts = purchasedProducts;
   }
   return self;
 }
@@ -68,10 +53,10 @@
 
 - (void)provideContent:(NSString *)productIdentifier {
   NSLog(@"Toggling flag for: %@", productIdentifier);
-  [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-  [purchasedProducts_ addObject:productIdentifier];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNProductPurchasedNotification object:productIdentifier];
+//  [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
+//  [[NSUserDefaults standardUserDefaults] synchronize];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNProductPurchasedNotification
+                                                      object:productIdentifier];
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
