@@ -52,7 +52,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 - (void)dealloc {
-  self.audioPlayers = nil;
+  self.audioPlayers   = nil;
+  self.loadingManager = nil;
   [super dealloc];
 }
 
@@ -371,11 +372,13 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 // Audio finished playing
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
   NSLog(@"...Playing Audio Finished...");
+  [player stop];
 }
 
 // Audio playing ERROR
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
   NSLog(@"!!!ERROR::Playing Audio Decode Error Occurred");
+  [player stop];
 }
 
 @end

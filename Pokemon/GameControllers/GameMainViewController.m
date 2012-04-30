@@ -196,7 +196,7 @@
                      // Reset all status
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
-                     [self.audioPlayer cleanForBattleVSWildPokemon]; // Clean AUDIO resources for Battle VS. Wild Pokemon
+                     [self.audioPlayer cleanForBattle]; // Clean AUDIO resources for battle scene
                      [self.gameMenuViewController reset];
                      [self.view removeFromSuperview];
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
