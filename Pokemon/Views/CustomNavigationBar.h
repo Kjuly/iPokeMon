@@ -24,6 +24,7 @@
 @property (nonatomic, assign) id <CustomNavigationBarDelegate> delegate;
 @property (nonatomic, assign) NSInteger viewCount;
 
+- (void)back:(id)sender;
 - (void)backToRoot:(id)sender;
 - (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)addBackButtonForPreviousView;

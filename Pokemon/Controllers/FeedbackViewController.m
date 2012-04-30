@@ -8,6 +8,8 @@
 
 #import "FeedbackViewController.h"
 
+#import "CustomNavigationBar.h"
+
 @interface FeedbackViewController () {
  @private
   UIImageView * textFieldBackground_;
@@ -137,6 +139,9 @@
 // Submit feedback content & cancel
 - (void)_submit:(id)sender {
   [TestFlight submitFeedback:self.textField.text];
+  if ([self.navigationController isNavigationBarHidden])
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+  [(CustomNavigationBar *)self.navigationController.navigationBar back:nil];
 }
 
 // Clean the content
