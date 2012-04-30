@@ -8,7 +8,6 @@
 
 #import "SettingTableViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "CustomNavigationBar.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"

@@ -8,8 +8,6 @@
 
 #import "AbstractCenterMenuViewController.h"
 
-#import "GlobalNotificationConstants.h"
-
 @interface AbstractCenterMenuViewController () {
  @private
   NSInteger buttonCount_;

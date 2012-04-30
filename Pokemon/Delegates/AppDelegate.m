@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "GlobalNotificationConstants.h"
 #import "MainViewController.h"
 
 #import "cocos2d.h"

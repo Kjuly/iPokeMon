@@ -9,7 +9,6 @@
 #import "LoadingManager.h"
 
 #import "GlobalRender.h"
-#import "GlobalNotificationConstants.h"
 
 #pragma mark - LoadingBar
 

@@ -8,7 +8,6 @@
 
 #import "MapViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "AFJSONRequestOperation.h"
 #import "WildPokemonController.h"
 #import "Pokemon+DataController.h"

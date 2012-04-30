@@ -8,7 +8,6 @@
 
 #import "OAuthManager.h"
 
-#import "GlobalNotificationConstants.h"
 #import "NSString+Algorithm.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"

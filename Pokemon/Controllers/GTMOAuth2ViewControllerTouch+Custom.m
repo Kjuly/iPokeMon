@@ -8,9 +8,7 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
-#import "GlobalNotificationConstants.h"
 #import "CustomNavigationBar.h"
-
 
 @implementation GTMOAuth2ViewControllerTouch (Custom)
 

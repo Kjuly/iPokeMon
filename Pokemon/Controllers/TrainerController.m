@@ -9,7 +9,6 @@
 #import "TrainerController.h"
 
 #import "AppDelegate.h"
-#import "GlobalNotificationConstants.h"
 #import "NSString+Algorithm.h"
 #import "LoadingManager.h"
 #import "OAuthManager.h"

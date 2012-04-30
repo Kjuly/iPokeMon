@@ -8,7 +8,6 @@
 
 #import "BagItemTableViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "BagItemTableViewCell.h"

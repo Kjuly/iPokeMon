@@ -8,7 +8,6 @@
 
 #import "GameMenuSixPokemonsViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "TrainerController.h"
 #import "SixPokemonsDetailTabViewController.h"
 

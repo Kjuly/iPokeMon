@@ -9,7 +9,6 @@
 #import "GameMenuBagViewController.h"
 
 #import "GlobalRender.h"
-#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "BagItemTableViewController.h"

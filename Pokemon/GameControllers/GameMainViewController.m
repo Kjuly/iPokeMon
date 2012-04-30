@@ -8,7 +8,6 @@
 
 #import "GameMainViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "GameBattleLayer.h"

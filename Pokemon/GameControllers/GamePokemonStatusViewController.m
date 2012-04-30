@@ -9,8 +9,6 @@
 #import "GamePokemonStatusViewController.h"
 
 #import "GlobalRender.h"
-#import "GlobalNotificationConstants.h"
-
 
 @interface GamePokemonStatusViewController ()
 

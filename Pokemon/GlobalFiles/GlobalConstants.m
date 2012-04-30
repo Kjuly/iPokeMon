@@ -31,6 +31,62 @@ NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider"; 
 ///END UserDefaults
 //////
 
+#pragma mark - Notifications
+
+NSString * const kPMNError = @"PMNError"; // notification for ERROR
+
+// Notification for UserDefaults changed
+NSString * const kPMNUDGeneralLocationServices  = @"PMNUDGeneralLocationServices";  // general - location service
+NSString * const kPMNUDGeneralBandwidthUsage    = @"PMNUDGeneralBandwidthUsage";    // general - bandwidth useage
+NSString * const kPMNUDGameSettingsVolumeMaster = @"PMNUDGameSettingsVolumeMaster"; // game settings - master volume
+NSString * const kPMNUDGameSettingsVolumeMusic  = @"PMNUDGameSettingsVolumeMusic";  // game settings - music volume
+NSString * const kPMNUDGameSettingsVolumeSounds = @"PMNUDGameSettingsVolumeSounds"; // game settings - sounds volume
+
+// PMN: PokeMon Notification
+NSString * const kPMNSessionIsInvalid               = @"PMNSessionIsInvalid";
+NSString * const kPMNAuthenticating                 = @"PMNAuthenticating";
+NSString * const kPMNLoginSucceed                   = @"PMNLoginSucceed";
+NSString * const kPMNShowNewbieGuide                = @"PMNShowNewbiewGuide";
+NSString * const kPMNShowConfirmButtonInNebbieGuide = @"PMNShowConfirmButtonInNebbieGuide";
+NSString * const kPMNHideConfirmButtonInNebbieGuide = @"PMNHideConfirmButtonInNebbieGuide";
+
+NSString * const kPMNEnableTracking               = @"PMNEnableTracking";  // enable  tracking
+NSString * const kPMNDisableTracking              = @"PMNDisableTracking"; // disable tracking
+NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
+NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
+//NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
+NSString * const kPMNToggleTabBar                 = @"PMNToggleTabBar";
+
+NSString * const kPMNPokemonAppeared   = @"PMNPokemonAppeared";
+NSString * const kPMNBattleStart       = @"PMNBattleStart";
+NSString * const kPMNBattleEnd         = @"PMNBattleEnd";
+NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
+
+NSString * const kPMNUpdateGameMenuKeyView     = @"PMNUpdateGameMenuKeyView";
+NSString * const kPMNReplacePokemon            = @"PMNReplacePokemon";
+NSString * const kPMNReplacePlayerPokemon      = @"PMNReplacePlayerPokemon";
+NSString * const kPMNCatchWildPokemon          = @"PMNCatchWildPokemon";        // Try to throw Pokeball to catch WildPokemon
+NSString * const kPMNPokeballGetWildPokemon    = @"PMNPokeballGetWildPokemon";  // Pokeball get WildPokemon
+NSString * const kPMNPokeballLossWildPokemon   = @"PMNPokeballLossWildPokemon"; // Pokeball loss WildPokemon
+NSString * const kPMNPokeballChecking          = @"kPMNPokeballChecking";       // Pokeball checking for WildPokemon
+NSString * const kPMNUseItemForSelectedPokemon = @"PMNUseItemForSelectedPokemon";
+NSString * const kPMNUseBagItemDone            = @"PMNUseBagItemDone";
+//NSString * const kPMNMoveEffect = @"PMNMoveEffect";
+NSString * const kPMNUpdateGameBattleMessage   = @"PMNUpdateGameBattleMessage";
+//NSString * const kPMNInitializePokemonStatus = @"PMNInitializePokemonStatus";
+NSString * const kPMNUpdatePokemonStatus       = @"PMNUpdatePokemonStatus";
+NSString * const kPMNShowPokemonStatus         = @"PMNShowPokemonStatus";
+NSString * const kPMNToggleTopCancelButton     = @"PMNToggleTopCancelButton";
+NSString * const kPMNPlayerPokemonFaint        = @"PMNPlayerPokemonFaint"; // Player Pokemon FAINT
+NSString * const kPMNEnemyPokemonFaint         = @"PMNEnemyPokemonFaint";  // Enemy Pokemon FAINT
+
+// Game Battle END
+NSString * const kPMNGameBattleRunEvent     = @"PMNGameBattleRunEvent";     // Run EVENT for game battle
+NSString * const kPMNGameBattleEnd          = @"PMNGameBattleEnd";          // END Game Battle
+NSString * const kPMNGameBattleEndWithEvent = @"PMNGameBattleEndWithEvent"; // Battle END with Event
+
+NSString * const kPMNLoadingDone = @"PMNLoadingDone"; // Loading done
+
 @implementation GlobalConstants
 
 @end

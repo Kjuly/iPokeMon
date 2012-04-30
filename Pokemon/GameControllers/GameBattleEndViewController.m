@@ -9,7 +9,6 @@
 #import "GameBattleEndViewController.h"
 
 #import "GlobalRender.h"
-#import "GlobalNotificationConstants.h"
 #import "GameSystemProcess.h"
 #import "PokemonInfoViewController.h"
 #import "TrainerController.h"

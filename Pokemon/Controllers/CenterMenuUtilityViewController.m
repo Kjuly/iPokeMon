@@ -8,7 +8,6 @@
 
 #import "CenterMenuUtilityViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "PokedexTableViewController.h"
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"

@@ -8,9 +8,7 @@
 
 #import "BagItemInfoViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "GlobalRender.h"
-
 
 @interface BagItemInfoViewController () {
  @private

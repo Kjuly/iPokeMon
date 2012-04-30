@@ -8,7 +8,6 @@
 
 #import "MainViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "TrainerController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "FullScreenLoadingViewController.h"

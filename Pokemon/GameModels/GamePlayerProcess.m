@@ -8,7 +8,6 @@
 
 #import "GamePlayerProcess.h"
 
-#import "GlobalNotificationConstants.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon.h"

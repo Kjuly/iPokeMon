@@ -8,7 +8,6 @@
 
 #import "SettingBandwidthUsageTableViewController.h"
 
-#import "GlobalNotificationConstants.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingSectionHeaderView.h"
 

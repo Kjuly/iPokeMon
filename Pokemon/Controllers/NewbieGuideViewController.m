@@ -9,7 +9,6 @@
 #import "NewbieGuideViewController.h"
 
 #import "GlobalRender.h"
-#import "GlobalNotificationConstants.h"
 #import "ServerAPIClient.h"
 #import "TrainerController.h"
 #import "PokemonSelectionViewController.h"
