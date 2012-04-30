@@ -433,6 +433,8 @@
 		7FC0897A151654B2009FA14B /* BagMedicineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC08979151654B2009FA14B /* BagMedicineTableViewController.m */; };
 		7FC5B154154EC6F6001CECBA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC5B153154EC6F6001CECBA /* StoreKit.framework */; };
 		7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */; };
+		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
+		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
 		7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */; };
 		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
 		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
@@ -1175,6 +1177,10 @@
 		7FC5B153154EC6F6001CECBA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7FC5B162154ED7FB001CECBA /* InAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseManager.h; sourceTree = "<group>"; };
 		7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseManager.m; sourceTree = "<group>"; };
+		7FC5B166154EDA41001CECBA /* PMPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPurchaseManager.h; sourceTree = "<group>"; };
+		7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPurchaseManager.m; sourceTree = "<group>"; };
+		7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewController.h; sourceTree = "<group>"; };
+		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
 		7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlackWithFog.png; sourceTree = "<group>"; };
@@ -1920,6 +1926,10 @@
 				7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */,
 				7FC5B162154ED7FB001CECBA /* InAppPurchaseManager.h */,
 				7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */,
+				7FC5B166154EDA41001CECBA /* PMPurchaseManager.h */,
+				7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */,
+				7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */,
+				7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */,
 				7FEED5C214E4E8F10010F7F2 /* SettingTableViewController.h */,
 				7FEED5C314E4E8F10010F7F2 /* SettingTableViewController.m */,
 				7F5A4D69153DE81100F55F23 /* SettingBandwidthUsageTableViewController.h */,
@@ -3051,6 +3061,8 @@
 				7FA7BAA61540324000DF6377 /* BagTableViewCell.m in Sources */,
 				7FA22C99154BDCED007E2339 /* FeedbackViewController.m in Sources */,
 				7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */,
+				7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */,
+				7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

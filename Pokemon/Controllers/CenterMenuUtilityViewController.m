@@ -12,6 +12,7 @@
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
 #import "TrainerCardViewController.h"
+#import "PurchaseTableViewController.h"
 #import "SettingTableViewController.h"
 
 
@@ -77,12 +78,10 @@
 - (void)runButtonActions:(id)sender {
   [super runButtonActions:sender];
   
+  // Change |centerMainButton_|'s status
+  [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
+  
   NSInteger buttonTag = ((UIButton *)sender).tag;
-  
-  if (buttonTag != 5)
-    // Change |centerMainButton_|'s status
-    [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
-  
   switch (buttonTag) {
     case 1://kTagUtilityBallButtonShowPokedex:
       [self showPokedex:sender];
@@ -144,7 +143,11 @@
 }
 
 - (void)runHotkey:(id)sender {
-  NSLog(@"--- Button Clicked: runHotKey");
+  /////TEMP
+  PurchaseTableViewController * purchaseTableViewController;
+  purchaseTableViewController = [[PurchaseTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  [self pushViewController:purchaseTableViewController];
+  [purchaseTableViewController release];
 }
 
 - (void)setGame:(id)sender {

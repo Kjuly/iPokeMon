@@ -116,6 +116,9 @@
 "PMSLabelNameSettingMessage2" = "对不起，用户名已存在，请输入另一个用户名。";
 "PMSLabelNameSettingMessage3" = "对不起，网络异常，请重试。";
 
+// Purchase
+"PMSPMStore" = "iPokemon 商店";
+
 // Bag Tableview
 "Bag1"         = "道具";
 "Bag2"         = "回复类";

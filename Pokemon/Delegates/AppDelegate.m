@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "MainViewController.h"
+#import "PMPurchaseManager.h"
 
 #import "cocos2d.h"
 #import <CoreLocation/CoreLocation.h>
@@ -85,6 +86,9 @@
 //    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyGeneralLocationServices];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
   }
+  
+  // In-App Purchase
+  [[SKPaymentQueue defaultQueue] addTransactionObserver:[PMPurchaseManager sharedInstance]];
   
   ///
   // Create Cocos2D Director

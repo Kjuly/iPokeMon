@@ -115,6 +115,9 @@
 "PMSLabelNameSettingMessage2" = "Sorry, the name is already exists, please enter another one.";
 "PMSLabelNameSettingMessage3" = "Sorry, name checking faild, please try again.";
 
+// Purchase
+"PMSPMStore" = "iPokemon Store";
+
 // Bag Tableview
 "Bag1"         = "Items";
 "Bag2"         = "Medicine";
