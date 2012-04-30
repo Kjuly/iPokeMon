@@ -55,7 +55,7 @@
   
   // Set View
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-  MainViewController * mainViewController = [[MainViewController alloc] init];
+  MainViewController * mainViewController = [[MainViewController alloc] initWithNibName:nil bundle:nil];
   self.window.rootViewController = mainViewController;
   [mainViewController release];
   [self.window makeKeyAndVisible];

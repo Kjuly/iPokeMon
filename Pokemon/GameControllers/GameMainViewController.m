@@ -29,7 +29,7 @@
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
-- (void)startBattle:(NSNotification *)notification;
+//- (void)startBattle:(NSNotification *)notification;
 - (void)loadBattleScene:(NSNotification *)notification;
 - (void)loadViewForEvent:(NSNotification *)notification;
 - (void)endGameBattleWithEvent:(NSNotification *)notification;
@@ -53,7 +53,6 @@
   self.gameBattleEndViewController   = nil;
   
   // Remove observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleStart object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleRunEvent object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleEndWithEvent object:nil];
   [super dealloc];
@@ -93,10 +92,6 @@
   isLoadingResourceForBattle_ = NO;
   
   // Add Notification Observer
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(startBattle:)
-                                               name:kPMNBattleStart
-                                             object:nil];
   // Notification from |LoadingManageer| when loading done
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(loadBattleScene:)
@@ -153,6 +148,39 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Public Methods
+
+- (void)startBattleWithPreviousCenterMainButtonStatus:(CenterMainButtonStatus)previousCenterMainButtonStatus {
+  NSLog (@"START GAME BATTLE...");
+  // Remember previous |centerMainButton_|'s status
+  previousCenterMainButtonStatus_ = previousCenterMainButtonStatus;
+  
+  // If Trainer has no battle available Pokemon, don't load Battle Scene,
+  //   load |gameBattleEventView| instead
+  if ([[TrainerController sharedInstance] battleAvailablePokemonIndex] == 0) {
+    if (self.gameBattleEventViewController == nil) {
+      GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
+      self.gameBattleEventViewController = gameBattleEventViewController;
+      [gameBattleEventViewController release];
+    }
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
+    [self.gameBattleEventViewController loadViewWithEventType:kGameBattleEventTypeNoPMAvailable
+                                                         info:nil
+                                                     animated:YES
+                                                   afterDelay:0];
+    return;
+  }
+  
+  // Mark now is loading resources for battle,
+  //   so it can load battle scene when receives the notification from |LoadingManageer|
+  isLoadingResourceForBattle_ = YES;
+  
+  // Preload audio resources for battle scene
+  if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0)
+    [self loadBattleScene:nil];
+  else [self.audioPlayer preloadForBattleVSWildPokemon];
+}
+
 #pragma mark - GameMenuViewControllerDelegate
 
 - (void)unloadBattleScene {
@@ -168,25 +196,25 @@
                    }
                    completion:^(BOOL finished) {
                      [self.view setFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
-                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
-                                                                         object:self
-                                                                       userInfo:userInfo];
-                     [userInfo release];
-                     [[CCDirector sharedDirector] pause];
+//                     [[CCDirector sharedDirector] pause];
+                     [[CCDirector sharedDirector] end];
                      // Reset all status
                      [[GameStatusMachine sharedInstance] resetStatus];
                      [[GameSystemProcess sharedInstance] reset];
                      [self.audioPlayer cleanForBattleVSWildPokemon]; // Clean AUDIO resources for Battle VS. Wild Pokemon
                      [self.gameMenuViewController reset];
+                     [self.view removeFromSuperview];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
+                                                                         object:self
+                                                                       userInfo:userInfo];
+                     [userInfo release];
                    }];
 }
 
 #pragma mark - Private Methods
 
-- (void)startBattle:(NSNotification *)notification {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Start Game Battle"];
-#endif
+/*- (void)startBattle:(NSNotification *)notification {
+  NSLog (@"START GAME BATTLE...");
   // Remember previous |centerMainButton_|'s status
   NSLog(@"Pokemon Info: %@", notification.userInfo);
   previousCenterMainButtonStatus_ = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
@@ -215,7 +243,7 @@
   if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0)
     [self loadBattleScene:nil];
   else [self.audioPlayer preloadForBattleVSWildPokemon];
-}
+}*/
 
 // Load battle scene
 - (void)loadBattleScene:(NSNotification *)notification {

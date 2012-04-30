@@ -40,9 +40,6 @@
 		7F09AA27152178B200D4F5DB /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA03152178B100D4F5DB /* GTMReadMonitorInputStream.m */; };
 		7F09AA28152178B200D4F5DB /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F09AA04152178B100D4F5DB /* ReleaseNotes.txt */; };
 		7F09AA34152178B200D4F5DB /* UnitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F09AA14152178B100D4F5DB /* UnitTests-Info.plist */; };
-		7F09AA35152178B200D4F5DB /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA18152178B200D4F5DB /* NSObject+SBJSON.m */; };
-		7F09AA36152178B200D4F5DB /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA1A152178B200D4F5DB /* NSString+SBJSON.m */; };
-		7F09AA37152178B200D4F5DB /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA1C152178B200D4F5DB /* SBJSON.m */; };
 		7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */; };
 		7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA41152180F800D4F5DB /* LoginTableViewController.m */; };
 		7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA441521912F00D4F5DB /* OAuthManager.m */; };
@@ -565,13 +562,6 @@
 		7F09AA03152178B100D4F5DB /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
 		7F09AA04152178B100D4F5DB /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
 		7F09AA14152178B100D4F5DB /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		7F09AA16152178B200D4F5DB /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		7F09AA17152178B200D4F5DB /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		7F09AA18152178B200D4F5DB /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		7F09AA19152178B200D4F5DB /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		7F09AA1A152178B200D4F5DB /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		7F09AA1B152178B200D4F5DB /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		7F09AA1C152178B200D4F5DB /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7F09AA40152180F800D4F5DB /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		7F09AA41152180F800D4F5DB /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
@@ -1350,7 +1340,6 @@
 				7F09A9E51521786100D4F5DB /* GTMOAuth2SignIn.h */,
 				7F09A9E61521786100D4F5DB /* GTMOAuth2SignIn.m */,
 				7F09A9F0152178B100D4F5DB /* HTTPFetcher */,
-				7F09AA15152178B100D4F5DB /* JSON */,
 				7F09A9E71521786100D4F5DB /* Touch */,
 			);
 			path = GTMOAuth2;
@@ -1389,20 +1378,6 @@
 				7F09AA14152178B100D4F5DB /* UnitTests-Info.plist */,
 			);
 			path = HTTPFetcher;
-			sourceTree = "<group>";
-		};
-		7F09AA15152178B100D4F5DB /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				7F09AA16152178B200D4F5DB /* JSON.h */,
-				7F09AA17152178B200D4F5DB /* NSObject+SBJSON.h */,
-				7F09AA18152178B200D4F5DB /* NSObject+SBJSON.m */,
-				7F09AA19152178B200D4F5DB /* NSString+SBJSON.h */,
-				7F09AA1A152178B200D4F5DB /* NSString+SBJSON.m */,
-				7F09AA1B152178B200D4F5DB /* SBJSON.h */,
-				7F09AA1C152178B200D4F5DB /* SBJSON.m */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		7F27D08F15274AB20092DD68 /* Categories */ = {
@@ -3031,9 +3006,6 @@
 				7F09AA25152178B200D4F5DB /* GTMHTTPUploadFetcher.m in Sources */,
 				7F09AA26152178B200D4F5DB /* GTMMIMEDocument.m in Sources */,
 				7F09AA27152178B200D4F5DB /* GTMReadMonitorInputStream.m in Sources */,
-				7F09AA35152178B200D4F5DB /* NSObject+SBJSON.m in Sources */,
-				7F09AA36152178B200D4F5DB /* NSString+SBJSON.m in Sources */,
-				7F09AA37152178B200D4F5DB /* SBJSON.m in Sources */,
 				7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */,
 				7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */,
 				7F27D085152749A60092DD68 /* DataDecoder.m in Sources */,

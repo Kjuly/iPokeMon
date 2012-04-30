@@ -16,4 +16,6 @@
 
 @property (nonatomic, retain) GameMenuViewController * gameMenuViewController;
 
+- (void)startBattleWithPreviousCenterMainButtonStatus:(CenterMainButtonStatus)previousCenterMainButtonStatus;
+
 @end

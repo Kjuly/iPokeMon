@@ -86,6 +86,7 @@
 - (void)countLongTapTimeWithAction:(id)sender;
 - (void)increaseTimeWithAction;
 - (void)toggleMapView:(id)sender;
+- (void)unloadGameBattleScene:(NSNotification *)notification;
 - (void)updateLocationService:(NSNotification *)notification;
 - (void)toggleLocationService;
 - (void)setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts withCompletionBlock:(void (^)(BOOL finished))completion;
@@ -135,7 +136,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNChangeCenterMainButtonStatus object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil]; // self.mapViewController
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:self.gameMainViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:nil];
   [super dealloc];
 }
 
@@ -154,6 +155,13 @@
     // Hard Initialize the Core Data
     [OriginalDataManager initData];
 #endif
+    // Base iVar Settings
+    centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
+    centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
+    isCenterMenuOpening_    = NO;
+    isCenterMainButtonTouchDownCircleViewLoading_ = NO;
+    isMapViewOpening_       = NO;
+    isGameMainViewOpening_  = NO;
   }
   return self;
 }
@@ -172,6 +180,13 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
+  self.view = view;
+  [view release];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   
@@ -189,7 +204,7 @@
   [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
   [self.centerMainButton setOpaque:NO];
   [self.centerMainButton setTag:kTagMainViewCenterMainButton];
-  [view addSubview:self.centerMainButton];
+  [self.view addSubview:self.centerMainButton];
   
   // Register touch events for |centerMainButton_|
   [self.centerMainButton addTarget:self
@@ -216,28 +231,13 @@
   [self.mapButton setTag:kTagMainViewMapButton];
   [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
-  [view addSubview:self.mapButton];
+  [self.view addSubview:self.mapButton];
   
   // Init |mapViewController_| to run location tracking,
   //   if enable location tracking, it'll do tracking
   //   otherwise, just add observer for notification when enable trakcing
   mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
   
-  self.view = view;
-  [view release];
-}
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  
-  // Base iVar Settings
-  centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
-  centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
-  isCenterMenuOpening_    = NO;
-  isCenterMainButtonTouchDownCircleViewLoading_ = NO;
-  isMapViewOpening_       = NO;
-  isGameMainViewOpening_  = NO;
   
   // Add self as Notification observer
   // Notification from |OAuthManager| when cannot connet to server
@@ -268,15 +268,15 @@
                                                name:kPMNPokemonAppeared
                                              object:nil]; // self.mapViewController
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
+                                           selector:@selector(unloadGameBattleScene:)
                                                name:kPMNBattleEnd
-                                             object:self.gameMainViewController];
+                                             object:nil];
   
-#ifndef DEBUG_PREINIT_POPULATE_DATA
-  // Game Main View
-  gameMainViewController_ = [[GameMainViewController alloc] init];
-  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
-#endif
+//#ifndef DEBUG_PREINIT_POPULATE_DATA
+//  // Game Main View
+//  gameMainViewController_ = [[GameMainViewController alloc] init];
+//  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
+//#endif
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
@@ -326,7 +326,7 @@
   self.newbieGuideViewController           = nil;
   self.helpViewController                  = nil;
   self.customNavigationController          = nil;
-//  self.gameMainViewController              = nil;
+  self.gameMainViewController              = nil;
   [self setButtonLayoutTo:kMainViewButtonLayoutNormal withCompletionBlock:nil];
 }
 
@@ -347,9 +347,6 @@
 
 // Show login table view if user session is invalid
 - (void)showLoginTableView:(NSNotification *)notification {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Open Login Table View"];
-#endif
   [self _resetAll];
   
   // Login table view controller
@@ -442,19 +439,21 @@
 // |centerMainButton_| touch up inside action
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender {
   // If Pokemon Appeared, and got a message, deal with it
-  if (centerMainButtonMessageSignal_ == kCenterMainButtonMessageSignalPokemonAppeared
-      && centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared) {
+  if (centerMainButtonMessageSignal_ == kCenterMainButtonMessageSignalPokemonAppeared &&
+      centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared) {
+    // Create |gameMainViewController_|
+    GameMainViewController * gameMainViewController = [[GameMainViewController alloc] init];
+    self.gameMainViewController = gameMainViewController;
+    [gameMainViewController release];
+    [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
+    
+    // completion block to be executed after buttons' animation done
     void (^completionBlock)(BOOL) = ^(BOOL finished) {
-      NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 [NSNumber numberWithInt:centerMainButtonStatus_],
-                                 @"previousCenterMainButtonStatus", nil];
-      // The observer is |GameMainViewController|
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleStart object:self userInfo:userInfo];
-      [userInfo release];
+      [self.gameMainViewController startBattleWithPreviousCenterMainButtonStatus:centerMainButtonStatus_];
+      centerMainButtonStatus_ = kCenterMainButtonStatusPokemonAppeared;
+      isGameMainViewOpening_  = YES;
       [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal]
                              forState:UIControlStateNormal];
-      isGameMainViewOpening_  = YES;
-      centerMainButtonStatus_ = kCenterMainButtonStatusPokemonAppeared;
       [self deactivateCenterMenuOpenStatusTimer];
     };
     // If |centerMainButton_| is not at view bottom, move it to bottom
@@ -533,7 +532,8 @@
     }
     
     // Insert |utilityNavigationController|'s view
-    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
+//    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
+    [self.view insertSubview:self.customNavigationController.view belowSubview:self.centerMainButton];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {
@@ -565,7 +565,8 @@
     [customNavigationController release];
     [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     // Insert |utilityNavigationController|'s view
-    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
+//    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
+    [self.view insertSubview:self.customNavigationController.view belowSubview:self.centerMainButton];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {
@@ -750,6 +751,15 @@
                        [self.mapViewController.view removeFromSuperview];
                      }
                    }];
+}
+
+// Unload game battle scene
+- (void)unloadGameBattleScene:(NSNotification *)notification {
+  [self changeCenterMainButtonStatus:notification];
+  if (self.gameMainViewController == nil)
+    return;
+//  [gameMainViewController_ release];
+  self.gameMainViewController = nil;
 }
 
 // Toggle tracking
