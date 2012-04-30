@@ -191,47 +191,42 @@
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   
   // Ball menu which locate at center
-  UIButton * centerMainButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+  centerMainButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                                                                            (kViewHeight - kCenterMainButtonSize) / 2,
                                                                            kCenterMainButtonSize,
                                                                            kCenterMainButtonSize)];
-  
-  self.centerMainButton = centerMainButton;
-  [centerMainButton release];
-  [self.centerMainButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.centerMainButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
-                                   forState:UIControlStateNormal];
-  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
-  [self.centerMainButton setOpaque:NO];
-  [self.centerMainButton setTag:kTagMainViewCenterMainButton];
-  [self.view addSubview:self.centerMainButton];
+  [centerMainButton_ setContentMode:UIViewContentModeScaleAspectFit];
+  [centerMainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
+                               forState:UIControlStateNormal];
+  [centerMainButton_ setImage:[UIImage imageNamed:kPMINMainButtonNormal] forState:UIControlStateNormal];
+  [centerMainButton_ setOpaque:NO];
+  [centerMainButton_ setTag:kTagMainViewCenterMainButton];
+  [self.view addSubview:centerMainButton_];
   
   // Register touch events for |centerMainButton_|
-  [self.centerMainButton addTarget:self
-                            action:@selector(runCenterMainButtonTouchUpInsideAction:)
-                  forControlEvents:UIControlEventTouchUpInside];
-  [self.centerMainButton addTarget:self
-                            action:@selector(countLongTapTimeWithAction:)
-                  forControlEvents:UIControlEventTouchDown];
+  [centerMainButton_ addTarget:self
+                        action:@selector(runCenterMainButtonTouchUpInsideAction:)
+              forControlEvents:UIControlEventTouchUpInside];
+  [centerMainButton_ addTarget:self
+                        action:@selector(countLongTapTimeWithAction:)
+              forControlEvents:UIControlEventTouchDown];
   
   // Map Button
-  UIButton * mapButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                                    100.f,
-                                                                    kMapButtonSize,
-                                                                    kMapButtonSize)];
-  self.mapButton = mapButton;
-  [mapButton release];
-  [self.mapButton setContentMode:UIViewContentModeScaleAspectFit];
-  [self.mapButton setBackgroundImage:[UIImage imageNamed:kPMINMapButtonBackgound]
-                            forState:UIControlStateNormal];
+  mapButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                                          100.f,
+                                                          kMapButtonSize,
+                                                          kMapButtonSize)];
+  [mapButton_ setContentMode:UIViewContentModeScaleAspectFit];
+  [mapButton_ setBackgroundImage:[UIImage imageNamed:kPMINMapButtonBackgound]
+                        forState:UIControlStateNormal];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices])
-    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
-  else [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
-  [self.mapButton setOpaque:NO];
-  [self.mapButton setTag:kTagMainViewMapButton];
-  [self.mapButton addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
-  [self.mapButton addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
-  [self.view addSubview:self.mapButton];
+    [mapButton_ setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
+  else [mapButton_ setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
+  [mapButton_ setOpaque:NO];
+  [mapButton_ setTag:kTagMainViewMapButton];
+  [mapButton_ addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
+  [mapButton_ addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
+  [self.view addSubview:mapButton_];
   
   // Init |mapViewController_| to run location tracking,
   //   if enable location tracking, it'll do tracking
@@ -272,11 +267,6 @@
                                                name:kPMNBattleEnd
                                              object:nil];
   
-//#ifndef DEBUG_PREINIT_POPULATE_DATA
-//  // Game Main View
-//  gameMainViewController_ = [[GameMainViewController alloc] init];
-//  [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
-//#endif
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
@@ -290,7 +280,6 @@
   // Session is checked at |TrainerCoreDataController|'s class method:|sharedInstance|,
   //   and Notification is also sent at there.
   [[TrainerController sharedInstance] sync];
-//  [self showHelpView:nil];
 }
 
 - (void)viewDidUnload {
