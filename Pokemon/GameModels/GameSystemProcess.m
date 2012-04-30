@@ -1777,6 +1777,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       else if (targetType_ & kBagQueryTargetTypeMail)       localizedNameHeader = @"PMSBagMail";
       else if (targetType_ & kBagQueryTargetTypeBattleItem) localizedNameHeader = @"PMSBagBattleItem";
       else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
+      else localizedNameHeader = @"";
       
       if (targetType_ & kBagQueryTargetTypePokeball) {
         // Message: (You throwed a <ItemName>!)

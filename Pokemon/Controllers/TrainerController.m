@@ -289,7 +289,8 @@ static TrainerController * trainerController_ = nil;
                       toIndex:(NSInteger)destinationIndex {
   NSLog(@"Original SixPokemons:%@", self.entityTrainer.sixPokemonsID);
   NSLog(@"Moved sourceIndex:%d -> destinationIndex:%d", sourceIndex + 1, destinationIndex + 1);
-  NSMutableArray * sixPokemonsID = [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] mutableCopy];
+  NSMutableArray * sixPokemonsID =
+    [[NSMutableArray alloc] initWithArray:[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","]];
   id sourceObject      = [sixPokemonsID objectAtIndex:sourceIndex];
   id destinationObject = [sixPokemonsID objectAtIndex:destinationIndex];
   [sixPokemonsID replaceObjectAtIndex:sourceIndex withObject:destinationObject];
@@ -301,7 +302,7 @@ static TrainerController * trainerController_ = nil;
   NSLog(@"Replaced SixPokemons:%@", self.entityTrainer.sixPokemonsID);
   [self saveWithSync:NO];
   
-  sixPokemonsID = nil;
+  [sixPokemonsID release];
   // Refetch data of Six Pokemons
   self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
 }

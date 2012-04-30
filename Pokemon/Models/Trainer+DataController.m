@@ -188,14 +188,12 @@
 
 // Sync data between Client & Server
 - (void)syncWithFlag:(DataModifyFlag)flag {
-  //  Trainer * trainer = [self queryTrainerWithUserID:userID];
-  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   if (! (flag & kDataModifyTrainer))
     return;
-  
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
   
+  NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
   if (flag & kDataModifyTrainerName)        [data setValue:self.name                  forKey:@"name"];
   if (flag & kDataModifyTrainerMoney)       [data setValue:self.money                 forKey:@"money"];
   if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges                forKey:@"badges"];

@@ -196,7 +196,7 @@
 //    Fluctuating: 1,640,000 EXP  unknown
 //
 - (NSInteger)expAtLevel:(NSInteger)level {
-  double result;
+  double result = 0;
   
   switch ([self.growthRate intValue]) {
     case kPokemonGrowthRateFast:

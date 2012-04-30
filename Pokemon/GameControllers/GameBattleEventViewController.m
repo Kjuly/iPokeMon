@@ -136,8 +136,8 @@
                   afterDelay:(NSTimeInterval)delay {
   eventType_ = eventType;
   
-  void (^animations)();
-  void (^completion)(BOOL);
+  void (^animations)() = ^{};
+  void (^completion)(BOOL) = ^(BOOL finished) {};
   
   // NO Pokemon Available to battle
   if (eventType & kGameBattleEventTypeNoPMAvailable) {

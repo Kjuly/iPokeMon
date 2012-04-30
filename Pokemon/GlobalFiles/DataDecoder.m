@@ -63,9 +63,8 @@ const NSRange kRangePokemonName = {0, 4};
 }
 
 // Decode Binary Data for Pokedex
-+ (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary
-{
-  NSMutableArray * pokedex = [[PListParser pokedex] mutableCopy];
++ (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary {
+  NSMutableArray * pokedex = [NSMutableArray arrayWithArray:[PListParser pokedex]];
   return pokedex;
 }
 

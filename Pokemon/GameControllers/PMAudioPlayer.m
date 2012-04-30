@@ -348,6 +348,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       break;
       
     default:
+      resourceName = nil;
       break;
   }
   return resourceName;

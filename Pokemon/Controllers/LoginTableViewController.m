@@ -152,6 +152,7 @@
       //break;
       
     default:
+      iconName = kPMINIconSocialGoogle;
       break;
   }
   
@@ -242,6 +243,7 @@
       //break;
       
     default:
+      providerName = @"";
       break;
   }
   return providerName;

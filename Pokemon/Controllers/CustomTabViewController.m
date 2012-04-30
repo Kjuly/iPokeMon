@@ -226,30 +226,15 @@
 #pragma mark - Public Methods
 
 - (void)toggleTabBar:(NSNotification *)notification {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Toggle Tab Bar"];
-#endif
   CGRect tabBarFrame = self.tabBar.frame;
-  CGAffineTransform transform = CGAffineTransformIdentity;
-  if (isTabBarHide_) {
-    tabBarFrame.origin.y = self.viewFrame.size.height - kTabBarHeight;
-    transform = CGAffineTransformScale(transform, 1.f, 1.f);
-  }
-  else {
-    tabBarFrame.origin.y = self.viewFrame.size.height;
-    transform = CGAffineTransformScale(transform, .28f, .28f);
-  }
+  if (isTabBarHide_) tabBarFrame.origin.y = self.viewFrame.size.height - kTabBarHeight;
+  else               tabBarFrame.origin.y = self.viewFrame.size.height;
   
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     [self.tabBar setFrame:tabBarFrame];
-//                     [self.tabBar setTransform:transform];
-                   }
-                   completion:^(BOOL finished) {
-                     isTabBarHide_ = ! isTabBarHide_;
-                   }];
+                   animations:^{ [self.tabBar setFrame:tabBarFrame]; }
+                   completion:^(BOOL finished) { isTabBarHide_ = ! isTabBarHide_; }];
 }
 
 #pragma mark - Private Methods

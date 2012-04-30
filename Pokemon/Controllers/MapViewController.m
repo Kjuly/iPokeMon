@@ -186,8 +186,10 @@
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
       UILocalNotification * localNotification = [[UILocalNotification alloc] init];
       // |UILocalNotification| only works on iOS4.0 and later
-      if (! localNotification)
+      if (! localNotification) {
+        [userInfo release];
         return;
+      }
       
       // Set data for Local Notification
       localNotification.fireDate = [NSData data];

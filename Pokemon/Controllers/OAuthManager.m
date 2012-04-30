@@ -200,6 +200,10 @@ static OAuthManager * oauthManager_ = nil;
       //break;
       
     default:
+      clientID         = kOAuthGoogleClientID;
+      clientSecret     = kOAuthGoogleClientSecret;
+      keychainItemName = kOAuthGoogleKeychainItemName;
+      scope            = kOAuthGoogleScope;
       break;
   }
   return [NSDictionary dictionaryWithObjectsAndKeys:

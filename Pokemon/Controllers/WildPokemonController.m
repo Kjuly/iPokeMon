@@ -380,7 +380,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   // If no Wild Pokemon data matched, update all data for current region
   if (wildPokemon == nil) {
     // Save location info data
-    self.locationInfo = [locationInfo mutableCopy];
+    self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:locationInfo];
     [self updateForCurrentRegion];
     return;
   }

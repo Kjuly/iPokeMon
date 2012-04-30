@@ -164,7 +164,7 @@
     case 4: targetType = kBagQueryTargetTypeBerry;                                        break;
     case 5: targetType = kBagQueryTargetTypePokeball;                                     break;
     case 6: targetType = kBagQueryTargetTypeBattleItem;                                   break;
-    default: break;
+    default: targetType = 0; break;
   }
   
   if (self.bagItemTableViewController == nil) {
