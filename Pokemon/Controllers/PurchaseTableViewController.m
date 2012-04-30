@@ -80,7 +80,6 @@
                                            selector:@selector(productPurchaseFailed:)
                                                name:kPMNProductPurchaseFailedNotification
                                              object:nil];
-  [self.tableView setHidden:YES];
 }
 
 - (void)viewDidUnload {
@@ -223,10 +222,10 @@
 }
 
 - (void)productsLoaded:(NSNotification *)notification {
+  NSLog(@"Products Loaded");
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
-  self.tableView.hidden = FALSE;
   [self.tableView reloadData];
 }
 
