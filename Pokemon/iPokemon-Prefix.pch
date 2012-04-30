@@ -12,7 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-    #import "GlobalConstants.h" // Constants
+    #import "PMConstants.h" // Constants
     #import "TestFlight.h"      // TestFlight
 #endif
 

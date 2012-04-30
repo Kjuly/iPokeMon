@@ -505,7 +505,7 @@
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
-		7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* GlobalConstants.m */; };
+		7FF56403152823E200BA5E28 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* PMConstants.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -1004,7 +1004,7 @@
 		7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuMoveUnitView.m; sourceTree = "<group>"; };
 		7F7C88F814F74FEA0023D079 /* GameMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMainViewController.h; sourceTree = "<group>"; };
 		7F7C88F914F74FEA0023D079 /* GameMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMainViewController.m; sourceTree = "<group>"; };
-		7F7C88FF14F755170023D079 /* GlobalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalConstants.h; sourceTree = "<group>"; };
+		7F7C88FF14F755170023D079 /* PMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PMConstants.h; sourceTree = "<group>"; };
 		7F7EF3E4153FFCC80061D82E /* BagItemTableViewCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellBackground.png; sourceTree = "<group>"; };
 		7F7EF3E5153FFCC80061D82E /* BagItemTableViewCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagItemTableViewCellBackground@2x.png"; sourceTree = "<group>"; };
 		7F7EF3E6153FFCC80061D82E /* BagItemTableViewCellSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewCellSelectedBackground.png; sourceTree = "<group>"; };
@@ -1275,7 +1275,7 @@
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
 		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
 		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
-		7FF56402152823E200BA5E28 /* GlobalConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalConstants.m; sourceTree = "<group>"; };
+		7FF56402152823E200BA5E28 /* PMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMConstants.m; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
@@ -2186,8 +2186,8 @@
 		7F7C88FE14F755170023D079 /* GlobalFiles */ = {
 			isa = PBXGroup;
 			children = (
-				7F7C88FF14F755170023D079 /* GlobalConstants.h */,
-				7FF56402152823E200BA5E28 /* GlobalConstants.m */,
+				7F7C88FF14F755170023D079 /* PMConstants.h */,
+				7FF56402152823E200BA5E28 /* PMConstants.m */,
 				7F27D083152749A60092DD68 /* PokemonServerAPI.h */,
 				7F27D084152749A60092DD68 /* PokemonServerAPI.m */,
 				7F27D07D152749A60092DD68 /* DataDecoder.h */,
@@ -3048,7 +3048,7 @@
 				7F27D08E152749F30092DD68 /* PokemonConstants.m in Sources */,
 				7F27D09515274FAC0092DD68 /* NSString+Algorithm.m in Sources */,
 				7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */,
-				7FF56403152823E200BA5E28 /* GlobalConstants.m in Sources */,
+				7FF56403152823E200BA5E28 /* PMConstants.m in Sources */,
 				7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */,
 				7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */,
 				7FB412B4152A0469003F41F0 /* TrainerBadgeView.m in Sources */,
