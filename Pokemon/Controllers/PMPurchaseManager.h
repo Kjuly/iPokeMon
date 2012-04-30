@@ -10,6 +10,6 @@
 
 @interface PMPurchaseManager : InAppPurchaseManager
 
-+ (InAppPurchaseManager *)sharedInstance;
++ (PMPurchaseManager *)sharedInstance;
 
 @end

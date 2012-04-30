@@ -53,11 +53,13 @@
   [request_ start];
 }
 
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+- (void)productsRequest:(SKProductsRequest *)request
+     didReceiveResponse:(SKProductsResponse *)response {
   NSLog(@"Received products results...");
   self.products = response.products;
   self.request = nil;
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNProductsLoadedNotification object:products_];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNProductsLoadedNotification
+                                                      object:products_];
 }
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {

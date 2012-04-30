@@ -8,14 +8,46 @@
 
 #import "PurchaseTableViewController.h"
 
+#import "Reachability.h"
+#import "LoadingManager.h"
+#import "PMPurchaseManager.h"
+
+
+@interface PurchaseTableViewController () {
+ @private
+  LoadingManager    * loadingManager_;
+  PMPurchaseManager * purchaseManager_;
+}
+
+@property (nonatomic, retain) LoadingManager    * loadingManager;
+@property (nonatomic, retain) PMPurchaseManager * purchaseManager;
+
+- (void)timeOut:(id)sender;
+- (void)productsLoaded:(NSNotification *)notification;
+- (void)productPurchased:(NSNotification *)notification;
+- (void)productPurchaseFailed:(NSNotification *)notification;
+- (void)buyButtonTapped:(id)sender;
+
+@end
 
 @implementation PurchaseTableViewController
+
+@synthesize loadingManager  = loadingManager_;
+@synthesize purchaseManager = purchaseManager_;
+
+- (void)dealloc {
+  self.loadingManager  = nil;
+  self.purchaseManager = nil;
+  [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     // Custom initialization
     [self setTitle:NSLocalizedString(@"PMSPMStore", nil)];
+    self.loadingManager  = [LoadingManager sharedInstance];
+    self.purchaseManager = [PMPurchaseManager sharedInstance];
   }
   return self;
 }
@@ -32,22 +64,42 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-  
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  
+  self.tableView.hidden = TRUE;
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(productsLoaded:)
+                                               name:kPMNProductsLoadedNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(productPurchased:)
+                                               name:kPMNProductPurchasedNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(productPurchaseFailed:)
+                                               name:kPMNProductPurchaseFailedNotification
+                                             object:nil];
+  
+  Reachability *reach = [Reachability reachabilityForInternetConnection];	
+  NetworkStatus netStatus = [reach currentReachabilityStatus];    
+  if (netStatus == NotReachable) {        
+    NSLog(@"No internet connection!");        
+  } else {        
+    if (self.purchaseManager.products == nil) {
+      [self.purchaseManager requestProducts];
+      // Loaidng start
+      [self.loadingManager showOverView];
+      [self performSelector:@selector(timeout) withObject:nil afterDelay:30.0];
+    }        
+  }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,21 +126,44 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return [self.purchaseManager.products count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+  static NSString *CellIdentifier = @"Cell";
+  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil) {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+  }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Configure the cell...
-    
-    return cell;
+  // Configure the cell...
+  SKProduct *product = [self.purchaseManager.products objectAtIndex:indexPath.row];
+  
+  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+  [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+  [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+  [numberFormatter setLocale:product.priceLocale];
+  NSString *formattedString = [numberFormatter stringFromNumber:product.price];
+  
+  cell.textLabel.text = product.localizedTitle;
+  cell.detailTextLabel.text = formattedString;
+  
+  if ([self.purchaseManager.purchasedProducts containsObject:product.productIdentifier]) {
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    cell.accessoryView = nil;
+  } else {        
+    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buyButton.frame = CGRectMake(0, 0, 72, 37);
+    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+    buyButton.tag = indexPath.row;
+    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = buyButton;     
+  }
+  
+  return cell;
 }
 
 /*
@@ -141,6 +216,60 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+#pragma mark - Private Methods
+
+- (void)timeOut:(id)sender {
+  NSLog(@"!!!ERROR: TIMEOUT");
+  [self.loadingManager hideOverView];
+}
+
+- (void)productsLoaded:(NSNotification *)notification {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  // loading done
+  [self.loadingManager hideOverView];
+  self.tableView.hidden = FALSE;
+  [self.tableView reloadData];
+}
+
+- (void)productPurchased:(NSNotification *)notification {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  // loading done
+  [self.loadingManager hideOverView];
+  
+  NSString * productIdentifier = (NSString *)notification.object;
+  NSLog(@"Purchased: %@", productIdentifier);
+  
+  [self.tableView reloadData];
+}
+
+- (void)productPurchaseFailed:(NSNotification *)notification {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  // loading done
+  [self.loadingManager hideOverView];
+  
+  SKPaymentTransaction * transaction = (SKPaymentTransaction *) notification.object;
+  if (transaction.error.code != SKErrorPaymentCancelled) {
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Error!"
+                                                     message:transaction.error.localizedDescription 
+                                                    delegate:nil 
+                                           cancelButtonTitle:nil 
+                                           otherButtonTitles:@"OK", nil] autorelease];
+    [alert show];
+  }
+}
+
+- (void)buyButtonTapped:(id)sender {
+  UIButton * buyButton = (UIButton *)sender;
+  SKProduct * product = [self.purchaseManager.products objectAtIndex:buyButton.tag];
+  
+  NSLog(@"Buying %@...", product.productIdentifier);
+  [self.purchaseManager buyProductIdentifier:product.productIdentifier];
+  
+  // loading
+  [self.loadingManager showOverView];
+  [self performSelector:@selector(timeout) withObject:nil afterDelay:60*5];
 }
 
 @end

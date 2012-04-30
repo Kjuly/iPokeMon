@@ -435,6 +435,7 @@
 		7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */; };
 		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
+		7FC5B16E154EE00F001CECBA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16D154EE00F001CECBA /* Reachability.m */; };
 		7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */; };
 		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
 		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
@@ -1181,6 +1182,8 @@
 		7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPurchaseManager.m; sourceTree = "<group>"; };
 		7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewController.h; sourceTree = "<group>"; };
 		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
+		7FC5B16C154EE00F001CECBA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		7FC5B16D154EE00F001CECBA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlackWithFog.png; sourceTree = "<group>"; };
@@ -2179,6 +2182,8 @@
 			children = (
 				7F7C88FF14F755170023D079 /* PMConstants.h */,
 				7FF56402152823E200BA5E28 /* PMConstants.m */,
+				7FC5B16C154EE00F001CECBA /* Reachability.h */,
+				7FC5B16D154EE00F001CECBA /* Reachability.m */,
 				7F27D07D152749A60092DD68 /* DataDecoder.h */,
 				7F27D07E152749A60092DD68 /* DataDecoder.m */,
 				7F27D081152749A60092DD68 /* PListParser.h */,
@@ -3063,6 +3068,7 @@
 				7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */,
 				7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */,
 				7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */,
+				7FC5B16E154EE00F001CECBA /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
