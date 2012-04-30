@@ -466,6 +466,9 @@
 		7FDF10E91543F5580052DDF9 /* GameBattleScenePMPoint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint@2x.png */; };
 		7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */; };
 		7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */; };
+		7FE0570E154F110000B72688 /* StoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0570D154F10FF00B72688 /* StoreTableViewController.m */; };
+		7FE05711154F151500B72688 /* CurrencyTransactionsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0570F154F151500B72688 /* CurrencyTransactionsIcon.png */; };
+		7FE05712154F151500B72688 /* CurrencyTransactionsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05710154F151500B72688 /* CurrencyTransactionsIcon@2x.png */; };
 		7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */; };
 		7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */; };
 		7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2BAA314DABCD900419825 /* CustomTableViewController.m */; };
@@ -1221,6 +1224,10 @@
 		7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleScenePMPoint@2x.png"; sourceTree = "<group>"; };
 		7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellCenterTitleStyleBackground.png; sourceTree = "<group>"; };
 		7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellCenterTitleStyleBackground@2x.png"; sourceTree = "<group>"; };
+		7FE0570C154F10FF00B72688 /* StoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreTableViewController.h; sourceTree = "<group>"; };
+		7FE0570D154F10FF00B72688 /* StoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewController.m; sourceTree = "<group>"; };
+		7FE0570F154F151500B72688 /* CurrencyTransactionsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyTransactionsIcon.png; sourceTree = "<group>"; };
+		7FE05710154F151500B72688 /* CurrencyTransactionsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyTransactionsIcon@2x.png"; sourceTree = "<group>"; };
 		7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		7FE2BA9914DAA44000419825 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
@@ -1931,6 +1938,8 @@
 				7F6C193715176BAA0000682B /* BagItemInfoViewController.m */,
 				7FBB60AF14E6A6B100C24BA5 /* TrainerCardViewController.h */,
 				7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */,
+				7FE0570C154F10FF00B72688 /* StoreTableViewController.h */,
+				7FE0570D154F10FF00B72688 /* StoreTableViewController.m */,
 				7FC5B162154ED7FB001CECBA /* InAppPurchaseManager.h */,
 				7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */,
 				7FC5B166154EDA41001CECBA /* PMPurchaseManager.h */,
@@ -2359,6 +2368,8 @@
 				7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */,
 				7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */,
 				7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */,
+				7FE0570F154F151500B72688 /* CurrencyTransactionsIcon.png */,
+				7FE05710154F151500B72688 /* CurrencyTransactionsIcon@2x.png */,
 				7F0BD9CF1541CE1800C2CABA /* IconBagItemCancel.png */,
 				7F0BD9D01541CE1800C2CABA /* IconBagItemCancel@2x.png */,
 				7F0BD9D11541CE1800C2CABA /* IconBagItemGive.png */,
@@ -2793,6 +2804,8 @@
 				7FA22CA5154BFAF6007E2339 /* RectButtonUndo@2x.png in Resources */,
 				7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */,
 				7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */,
+				7FE05711154F151500B72688 /* CurrencyTransactionsIcon.png in Resources */,
+				7FE05712154F151500B72688 /* CurrencyTransactionsIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3077,6 +3090,7 @@
 				7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */,
 				7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */,
 				7FC5B16E154EE00F001CECBA /* Reachability.m in Sources */,
+				7FE0570E154F110000B72688 /* StoreTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -115,8 +115,9 @@
 "PMSLabelNameSettingMessage2" = "Sorry, the name is already exists, please enter another one.";
 "PMSLabelNameSettingMessage3" = "Sorry, name checking faild, please try again.";
 
-// Purchase
-"PMSPMStore" = "iPokemon Store";
+// Store
+"PMSStore"                     = "iPokemon Store";
+"PMSStoreCurrencyTransactions" = "Currency Transactions";
 
 // Bag Tableview
 "Bag1"         = "Items";
@@ -125,7 +126,7 @@
 "Bag4"         = "TMs & HMs";
 "Bag5"         = "Berries";
 "Bag6"         = "Mail";
-"Bag7"         = "BattleItems";
+"Bag7"         = "Battle Items";
 "Bag8"         = "KeyItems";
 "BagMedicine1" = "Status Healers";
 "BagMedicine2" = "HP Restore";

@@ -12,7 +12,7 @@
 #import "SixPokemonsTableViewController.h"
 #import "BagTableViewController.h"
 #import "TrainerCardViewController.h"
-#import "PurchaseTableViewController.h"
+#import "StoreTableViewController.h"
 #import "SettingTableViewController.h"
 
 
@@ -143,11 +143,10 @@
 }
 
 - (void)runHotkey:(id)sender {
-  /////TEMP
-  PurchaseTableViewController * purchaseTableViewController;
-  purchaseTableViewController = [[PurchaseTableViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self pushViewController:purchaseTableViewController];
-  [purchaseTableViewController release];
+  StoreTableViewController * storeTableViewController;
+  storeTableViewController = [[StoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
+  [self pushViewController:storeTableViewController];
+  [storeTableViewController release];
 }
 
 - (void)setGame:(id)sender {
