@@ -373,6 +373,7 @@
 		7F91D0A514EE3BC400476AFB /* Pokemon.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */; };
 		7F91D0A814EE3D4500476AFB /* Pokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */; };
 		7F999750155045160081D781 /* StoreItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F99974F155045160081D781 /* StoreItemTableViewCell.m */; };
+		7F999754155053D70081D781 /* StoreMedicineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F999753155053D70081D781 /* StoreMedicineTableViewController.m */; };
 		7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */; };
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
@@ -1109,6 +1110,8 @@
 		7F91D0A714EE3D4500476AFB /* Pokemon+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pokemon+DataController.m"; sourceTree = "<group>"; };
 		7F99974E155045160081D781 /* StoreItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreItemTableViewCell.h; sourceTree = "<group>"; };
 		7F99974F155045160081D781 /* StoreItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreItemTableViewCell.m; sourceTree = "<group>"; };
+		7F999752155053D70081D781 /* StoreMedicineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreMedicineTableViewController.h; sourceTree = "<group>"; };
+		7F999753155053D70081D781 /* StoreMedicineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreMedicineTableViewController.m; sourceTree = "<group>"; };
 		7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlingVSWildPM.mp3; sourceTree = "<group>"; };
 		7F9F15B415089F8800795591 /* GamePokemonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePokemonSprite.h; sourceTree = "<group>"; };
 		7F9F15B515089F8900795591 /* GamePokemonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonSprite.m; sourceTree = "<group>"; };
@@ -1961,6 +1964,8 @@
 				7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */,
 				7FE0570C154F10FF00B72688 /* StoreTableViewController.h */,
 				7FE0570D154F10FF00B72688 /* StoreTableViewController.m */,
+				7F999752155053D70081D781 /* StoreMedicineTableViewController.h */,
+				7F999753155053D70081D781 /* StoreMedicineTableViewController.m */,
 				7F4A7B78155014D500F3BFB0 /* StoreItemTableViewController.h */,
 				7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */,
 				7FC5B162154ED7FB001CECBA /* InAppPurchaseManager.h */,
@@ -3133,6 +3138,7 @@
 				7F8E063C154F9D3100AB8CB4 /* PurchaseTableViewCell.m in Sources */,
 				7F4A7B7A155014D500F3BFB0 /* StoreItemTableViewController.m in Sources */,
 				7F999750155045160081D781 /* StoreItemTableViewCell.m in Sources */,
+				7F999754155053D70081D781 /* StoreMedicineTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

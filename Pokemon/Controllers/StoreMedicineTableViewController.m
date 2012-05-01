@@ -6,15 +6,13 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "StoreTableViewController.h"
-
-#import "BagTableViewCell.h"
 #import "StoreMedicineTableViewController.h"
+
+#import "BagMedicineTableViewCell.h"
 #import "StoreItemTableViewController.h"
-#import "PurchaseTableViewController.h"
 
 
-@implementation StoreTableViewController
+@implementation StoreMedicineTableViewController
 
 - (void)dealloc {
   [super dealloc];
@@ -22,7 +20,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
   if (self = [super initWithStyle:style]) {
-    [self setTitle:NSLocalizedString(@"PMSStore", nil)];
+    [self setTitle:NSLocalizedString(@"Medicine", nil)];
   }
   return self;
 }
@@ -73,34 +71,26 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return 4;
+  return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return kCellHeightOfBagTableView;
+  return kCellHeightOfBagMedicineTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                    reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
-  if (index == 4) {
-    [cell configureCellWithTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)
-                            icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchange, index]]
-                   accessoryType:UITableViewCellAccessoryNone];
-  }
-  else {
-    [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", index]), nil)
-                            icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconBagTableViewCell, index]]
-                   accessoryType:UITableViewCellAccessoryNone];
-  }
+  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", index]), nil)];
+  
   return cell;
 }
 
@@ -146,26 +136,13 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSInteger row = [indexPath row];
-  // currency transactions
-  if (row == 3) {
-    PurchaseTableViewController * purchaseTableViewController;
-    purchaseTableViewController = [[PurchaseTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:purchaseTableViewController animated:YES];
-    [purchaseTableViewController release];
-  }
-  else if (row != 1) { // Not Bag Medicine, as it has three sub types
-    StoreItemTableViewController * storeItemTableViewController = [StoreItemTableViewController alloc];
-    [storeItemTableViewController initWithBagItem:(1 << row)];
-    [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
-    [self.navigationController pushViewController:storeItemTableViewController animated:YES];
-    [storeItemTableViewController release];
-  } else {
-    StoreMedicineTableViewController * storeMedicineTableViewController = [StoreMedicineTableViewController alloc];
-    [storeMedicineTableViewController initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:storeMedicineTableViewController animated:YES];
-    [storeMedicineTableViewController release];
-  }
+  NSInteger row = indexPath.row;
+  BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << (row + 8));
+  StoreItemTableViewController * storeItemTableViewController = [StoreItemTableViewController alloc];
+  [storeItemTableViewController initWithBagItem:targetType];
+  [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", row + 1]), nil)];
+  [self.navigationController pushViewController:storeItemTableViewController animated:YES];
+  [storeItemTableViewController release];
 }
 
 @end
