@@ -10,7 +10,7 @@
 
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
-#import "BagItemTableViewCell.h"
+#import "StoreItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
 
 
@@ -21,7 +21,7 @@
   NSInteger          selectedCellIndex_; // For querying data
   NSInteger          selectedPokemonIndex_;
   
-  BagItemTableViewCell              * selectedCell_;
+  StoreItemTableViewCell            * selectedCell_;
   BagItemTableViewHiddenCell        * hiddenCell_;
   UIView                            * hiddenCellAreaView_;
   PMAudioPlayer                     * audioPlayer_;
@@ -35,15 +35,15 @@
 @property (nonatomic, assign) NSInteger          selectedPokemonIndex;
 
 @property (nonatomic, retain) UIView                            * hiddenCellAreaView;
-@property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
+@property (nonatomic, retain) StoreItemTableViewCell            * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
 @property (nonatomic, retain) PMAudioPlayer                     * audioPlayer;
 @property (nonatomic, retain) TrainerController                 * trainer;
 @property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
 
 - (void)releaseSubviews;
-- (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-- (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
+- (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell;
 - (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
 - (NSString *)localizedNameHeader;
 
@@ -88,8 +88,27 @@
 }
 
 - (void)setBagItem:(BagQueryTargetType)targetType {
-  self.items = [NSMutableArray arrayWithArray:[self.trainer bagItemsFor:targetType]];
+//  self.items = [NSMutableArray arrayWithArray:[self.trainer bagItemsFor:targetType]];
   self.targetType = targetType;
+  
+  // TODO:
+  //   Hard code now. need to fetch from web server
+  if (targetType & kBagQueryTargetTypeItem) {
+    self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+  }
+  else if (targetType & kBagQueryTargetTypeMedicine) {
+    if (targetType & kBagQueryTargetTypeMedicineStatus)
+      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+    else if (targetType & kBagQueryTargetTypeMedicineHP)
+      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+    else if (targetType & kBagQueryTargetTypeMedicinePP)
+      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+    else self.items = nil;
+  }
+  else if (targetType & kBagQueryTargetTypePokeball) {
+    self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+  }
+  else self.items = nil;
   
   if ([self.items count] <= 1)
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundEmpty]]];
@@ -179,16 +198,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return round([self.items count] / 2); // <ID, Quantity>
+  return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  StoreItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                        reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[StoreItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                          reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell
@@ -238,7 +257,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  BagItemTableViewCell * cell = (BagItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+  StoreItemTableViewCell * cell = (StoreItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self showHiddenCellToReplaceCell:cell];
   self.selectedCellIndex = [indexPath row];
 }
@@ -256,22 +275,20 @@
 
 #pragma mark - Private Methods
 
-- (void)configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
   NSString * localizedNameHeader = [self localizedNameHeader];
   if (localizedNameHeader == nil) return;
-  
-  NSInteger row            = [indexPath row];
-  NSInteger entityID       = [[self.items objectAtIndex:(row * 2)] intValue];
-  NSInteger entityQuantity = [[self.items objectAtIndex:(row * 2 + 1)] intValue];
-  
+  NSInteger row      = indexPath.row;
+  NSInteger entityID = [[self.items objectAtIndex:row] intValue];
   // Set the data for cell to display
-  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)];
-  [cell.quantity setText:[NSString stringWithFormat:@"%d", entityQuantity]];
+  [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)
+                         price:@"112"
+                          icon:nil];
   localizedNameHeader = nil;
 }
 
 // Show |hiddenCell_|
-- (void)showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell {
+- (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell {
   void (^showHiddenCellAnimationBlock)(BOOL) = ^(BOOL finished) {
     __block CGRect cellFrame = cell.frame;
     cellFrame.origin.x = kViewWidth;
@@ -350,14 +367,10 @@
 }
 
 // Hidden Cell Button Action: Give Item
-- (void)giveItem:(id)sender
-{
-}
+- (void)giveItem:(id)sender {}
 
 // Hidden Cell Button Action: Toss Item
-- (void)tossItem:(id)sender
-{
-}
+- (void)tossItem:(id)sender {}
 
 // Hidden Cell Button Action: Show Info
 - (void)showInfo:(id)sender {
@@ -368,7 +381,7 @@
   }
   
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
-  NSInteger itemID = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
+  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
   id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
                                                                  withID:itemID];
   NSInteger entityID;
