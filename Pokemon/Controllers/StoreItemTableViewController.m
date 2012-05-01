@@ -424,8 +424,10 @@
   }
   
   // consume money for bought items
+  if (price > 0) {
 //  [self.trainer consumeMoney:(price * quantity_)];
-  [self.trainer consumeMoney:price];
+    [self.trainer consumeMoney:price];
+  }
   
   // cancel hidden cell & show message that purchase succeed
   [self cancelHiddenCell:nil];
