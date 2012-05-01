@@ -181,13 +181,13 @@ extern NSString * const kPMNLoadingDone;
 // Pokemon related icons
 #define kPMINIconPMGender         @"IconPokemonGender%d.png" // %d: 0(F) - 1(M)
 // bag table view related icons
-#define kPMINIconBagTableViewCell     @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
-#define kPMINIconCurrencyTransactions @"CurrencyTransactionsIcon.png"
-#define kPMINIconBagItemUse           @"IconBagItemUse.png"
-#define kPMINIconBagItemGive          @"IconBagItemGive.png"
-#define kPMINIconBagItemInfo          @"IconBagItemInfo.png"
-#define kPMINIconBagItemToss          @"IconBagItemToss.png"
-#define kPMINIconBagItemCancel        @"IconBagItemCancel.png"
+#define kPMINIconBagTableViewCell @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
+#define kPMINIconCurrencyExchange @"CurrencyExchangeIcon.png"
+#define kPMINIconBagItemUse       @"IconBagItemUse.png"
+#define kPMINIconBagItemGive      @"IconBagItemGive.png"
+#define kPMINIconBagItemInfo      @"IconBagItemInfo.png"
+#define kPMINIconBagItemToss      @"IconBagItemToss.png"
+#define kPMINIconBagItemCancel    @"IconBagItemCancel.png"
 // trainer card related icons
 #define kPMINTrainerAvatarDefault  @"UserAvatar.png"
 #define kPMINIconBadgeGold         @"IconBadgeGold.png"
@@ -357,6 +357,7 @@ typedef enum {
 #define kCellHeightOfBagTableView           52.f
 #define kCellHeightOfBagMedicineTableView   128.f //(kViewHeight - 60.f) / 3.f
 #define kCellHeightOfBagItemTableView       64.f
+#define kCellHeightOfCurrencyExchange       128.f
 #define kCellHeightOfSettingTableView       44.f
 #define kCellHeightOfSettingTableViewCenterTitleStyle 64.f // center title style: feedback, logout
 // Header

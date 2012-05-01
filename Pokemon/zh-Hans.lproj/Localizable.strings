@@ -117,8 +117,8 @@
 "PMSLabelNameSettingMessage3" = "对不起，网络异常，请重试。";
 
 // Store
-"PMSStore"                     = "iPokemon 商店";
-"PMSStoreCurrencyTransactions" = "货币交易";
+"PMSStore"                 = "iPokemon 商店";
+"PMSStoreCurrencyExchange" = "货币兑换";
 
 // Bag Tableview
 "Bag1"         = "道具";

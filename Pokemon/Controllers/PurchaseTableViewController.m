@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "LoadingManager.h"
 #import "PMPurchaseManager.h"
+#import "PurchaseTableViewCell.h"
 
 
 @interface PurchaseTableViewController () {
@@ -26,7 +27,7 @@
 - (void)productsLoaded:(NSNotification *)notification;
 - (void)productPurchased:(NSNotification *)notification;
 - (void)productPurchaseFailed:(NSNotification *)notification;
-- (void)buyButtonTapped:(id)sender;
+- (void)exchangeCurrency:(id)sender;
 
 @end
 
@@ -49,7 +50,7 @@
   self = [super initWithStyle:style];
   if (self) {
     // Custom initialization
-    [self setTitle:NSLocalizedString(@"PMSStoreCurrencyTransactions", nil)];
+    [self setTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)];
     self.loadingManager  = [LoadingManager sharedInstance];
     self.purchaseManager = [PMPurchaseManager sharedInstance];
   }
@@ -130,13 +131,18 @@
     return [self.purchaseManager.products count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kCellHeightOfCurrencyExchange;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  PurchaseTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[PurchaseTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                         reuseIdentifier:CellIdentifier] autorelease];
   }
     
   // Configure the cell...
@@ -146,20 +152,16 @@
   [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
   [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
   [numberFormatter setLocale:product.priceLocale];
-  NSString * formattedString = [numberFormatter stringFromNumber:product.price];
+  [cell configureCellWithTitle:product.localizedTitle
+                         price:[numberFormatter stringFromNumber:product.price]
+                          icon:nil
+                           odd:(indexPath.row % 2 == 0 ? YES : NO)];
   [numberFormatter release];
-  
-  cell.textLabel.text = product.localizedTitle;
-  cell.detailTextLabel.text = formattedString;
-  
-  UIButton * buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  buyButton.frame = CGRectMake(0.f, 0.f, 72.f, 37.f);
-  [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
-  buyButton.tag = indexPath.row;
-  [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-  cell.accessoryType = UITableViewCellAccessoryNone;
-  cell.accessoryView = buyButton;
-  
+  [cell.exchangeButton setTag:indexPath.row];
+  [cell.exchangeButton addTarget:self
+                          action:@selector(exchangeCurrency:)
+                forControlEvents:UIControlEventTouchUpInside];
+  product = nil;
   return cell;
 }
 
@@ -257,7 +259,8 @@
   }
 }
 
-- (void)buyButtonTapped:(id)sender {
+// exchange the currency
+- (void)exchangeCurrency:(id)sender {
   UIButton * buyButton = (UIButton *)sender;
   SKProduct * product = [self.purchaseManager.products objectAtIndex:buyButton.tag];
   

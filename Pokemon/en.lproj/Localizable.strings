@@ -116,8 +116,8 @@
 "PMSLabelNameSettingMessage3" = "Sorry, name checking faild, please try again.";
 
 // Store
-"PMSStore"                     = "iPokemon Store";
-"PMSStoreCurrencyTransactions" = "Currency Transactions";
+"PMSStore"                 = "iPokemon Store";
+"PMSStoreCurrencyExchange" = "Currency Exchange";
 
 // Bag Tableview
 "Bag1"         = "Items";
