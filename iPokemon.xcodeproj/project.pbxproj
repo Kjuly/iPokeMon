@@ -356,6 +356,12 @@
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
 		7F8DEE771547C8E00048B28C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 7F8DEE761547C8E00048B28C /* iTunesArtwork */; };
 		7F8E063C154F9D3100AB8CB4 /* PurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E063B154F9D3100AB8CB4 /* PurchaseTableViewCell.m */; };
+		7F8E0648154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0642154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon.png */; };
+		7F8E0649154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0643154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png */; };
+		7F8E064A154FB15E00AB8CB4 /* CurrencyExchangeTier2Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0644154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon.png */; };
+		7F8E064B154FB15E00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0645154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png */; };
+		7F8E064C154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0646154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png */; };
+		7F8E064D154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0647154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png */; };
 		7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
@@ -1075,6 +1081,12 @@
 		7F8DEE761547C8E00048B28C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		7F8E063A154F9D3100AB8CB4 /* PurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewCell.h; sourceTree = "<group>"; };
 		7F8E063B154F9D3100AB8CB4 /* PurchaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewCell.m; sourceTree = "<group>"; };
+		7F8E0642154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyExchangeTier1Icon.png; sourceTree = "<group>"; };
+		7F8E0643154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyExchangeTier1Icon@2x.png"; sourceTree = "<group>"; };
+		7F8E0644154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyExchangeTier2Icon.png; sourceTree = "<group>"; };
+		7F8E0645154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyExchangeTier2Icon@2x.png"; sourceTree = "<group>"; };
+		7F8E0646154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyExchangeTier3Icon.png; sourceTree = "<group>"; };
+		7F8E0647154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyExchangeTier3Icon@2x.png"; sourceTree = "<group>"; };
 		7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCenterMenuViewController.h; sourceTree = "<group>"; };
 		7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractCenterMenuViewController.m; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
@@ -2375,6 +2387,12 @@
 				7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */,
 				7FE0570F154F151500B72688 /* CurrencyExchangeIcon.png */,
 				7FE05710154F151500B72688 /* CurrencyExchangeIcon@2x.png */,
+				7F8E0642154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon.png */,
+				7F8E0643154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png */,
+				7F8E0644154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon.png */,
+				7F8E0645154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png */,
+				7F8E0646154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png */,
+				7F8E0647154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png */,
 				7F0BD9CF1541CE1800C2CABA /* IconBagItemCancel.png */,
 				7F0BD9D01541CE1800C2CABA /* IconBagItemCancel@2x.png */,
 				7F0BD9D11541CE1800C2CABA /* IconBagItemGive.png */,
@@ -2811,6 +2829,12 @@
 				7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */,
 				7FE05711154F151500B72688 /* CurrencyExchangeIcon.png in Resources */,
 				7FE05712154F151500B72688 /* CurrencyExchangeIcon@2x.png in Resources */,
+				7F8E0648154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon.png in Resources */,
+				7F8E0649154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png in Resources */,
+				7F8E064A154FB15E00AB8CB4 /* CurrencyExchangeTier2Icon.png in Resources */,
+				7F8E064B154FB15E00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png in Resources */,
+				7F8E064C154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png in Resources */,
+				7F8E064D154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

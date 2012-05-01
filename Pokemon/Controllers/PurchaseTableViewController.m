@@ -147,6 +147,7 @@
     
   // Configure the cell...
   SKProduct * product = [self.purchaseManager.products objectAtIndex:indexPath.row];
+  NSInteger row = indexPath.row;
   
   NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -154,10 +155,10 @@
   [numberFormatter setLocale:product.priceLocale];
   [cell configureCellWithTitle:product.localizedTitle
                          price:[numberFormatter stringFromNumber:product.price]
-                          icon:nil
-                           odd:(indexPath.row % 2 == 0 ? YES : NO)];
+                          icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchangeIcon, row + 1]]
+                           odd:(row % 2 == 0 ? YES : NO)];
   [numberFormatter release];
-  [cell.exchangeButton setTag:indexPath.row];
+  [cell.exchangeButton setTag:row];
   [cell.exchangeButton addTarget:self
                           action:@selector(exchangeCurrency:)
                 forControlEvents:UIControlEventTouchUpInside];

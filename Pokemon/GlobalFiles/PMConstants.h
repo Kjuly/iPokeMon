@@ -181,13 +181,14 @@ extern NSString * const kPMNLoadingDone;
 // Pokemon related icons
 #define kPMINIconPMGender         @"IconPokemonGender%d.png" // %d: 0(F) - 1(M)
 // bag table view related icons
-#define kPMINIconBagTableViewCell @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
-#define kPMINIconCurrencyExchange @"CurrencyExchangeIcon.png"
-#define kPMINIconBagItemUse       @"IconBagItemUse.png"
-#define kPMINIconBagItemGive      @"IconBagItemGive.png"
-#define kPMINIconBagItemInfo      @"IconBagItemInfo.png"
-#define kPMINIconBagItemToss      @"IconBagItemToss.png"
-#define kPMINIconBagItemCancel    @"IconBagItemCancel.png"
+#define kPMINIconBagTableViewCell     @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
+#define kPMINIconCurrencyExchange     @"CurrencyExchangeIcon.png"
+#define kPMINIconCurrencyExchangeIcon @"CurrencyExchangeTier%dIcon.png" // %d: 1- 3
+#define kPMINIconBagItemUse           @"IconBagItemUse.png"
+#define kPMINIconBagItemGive          @"IconBagItemGive.png"
+#define kPMINIconBagItemInfo          @"IconBagItemInfo.png"
+#define kPMINIconBagItemToss          @"IconBagItemToss.png"
+#define kPMINIconBagItemCancel        @"IconBagItemCancel.png"
 // trainer card related icons
 #define kPMINTrainerAvatarDefault  @"UserAvatar.png"
 #define kPMINIconBadgeGold         @"IconBadgeGold.png"

@@ -65,10 +65,10 @@
   [super layoutSubviews];
   
   // Custom subviews for cell
-  CGFloat imageSize  = 32.f;
-  CGFloat marginLeft = 35.f;
+  CGFloat imageSize  = 64.f;
+  CGFloat marginLeft = 15.f;
   CGFloat marginTop  = self.accessoryView.frame.origin.y;
-  CGRect imageViewFrame  = CGRectMake(marginLeft, (kCellHeightOfBagTableView - imageSize) / 2, imageSize, imageSize);
+  CGRect imageViewFrame  = CGRectMake(marginLeft, (kCellHeightOfCurrencyExchange - imageSize) / 2, imageSize, imageSize);
   CGRect textLabelFrame  = CGRectMake(marginLeft + imageSize + 20.f, marginTop, 200.f, 32.f);
   CGRect priceLabelFrame = CGRectMake(textLabelFrame.origin.x, marginTop + textLabelFrame.size.height, 200.f, 32.f);
   
