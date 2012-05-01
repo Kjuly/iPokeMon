@@ -10,13 +10,14 @@
 
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
+#import "BagDataController.h"
 #import "StoreItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
 
 
 @interface StoreItemTableViewController () {
  @private
-  NSMutableArray   * items_;
+  NSArray          * items_;
   BagQueryTargetType targetType_;
   NSInteger          selectedCellIndex_; // For querying data
   NSInteger          selectedPokemonIndex_;
@@ -26,20 +27,22 @@
   UIView                            * hiddenCellAreaView_;
   PMAudioPlayer                     * audioPlayer_;
   TrainerController                 * trainer_;
+  BagDataController                 * bagDataController_;
   BagItemInfoViewController         * bagItemInfoViewController_;
 }
 
-@property (nonatomic, copy)   NSMutableArray   * items;
+@property (nonatomic, copy)   NSArray          * items;
 @property (nonatomic, assign) BagQueryTargetType targetType;
 @property (nonatomic, assign) NSInteger          selectedCellIndex;
 @property (nonatomic, assign) NSInteger          selectedPokemonIndex;
 
-@property (nonatomic, retain) UIView                            * hiddenCellAreaView;
-@property (nonatomic, retain) StoreItemTableViewCell            * selectedCell;
-@property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
-@property (nonatomic, retain) PMAudioPlayer                     * audioPlayer;
-@property (nonatomic, retain) TrainerController                 * trainer;
-@property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
+@property (nonatomic, retain) UIView                     * hiddenCellAreaView;
+@property (nonatomic, retain) StoreItemTableViewCell     * selectedCell;
+@property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
+@property (nonatomic, retain) PMAudioPlayer              * audioPlayer;
+@property (nonatomic, retain) TrainerController          * trainer;
+@property (nonatomic, retain) BagDataController          * bagDataController;
+@property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
 
 - (void)releaseSubviews;
 - (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -57,17 +60,19 @@
 @synthesize selectedCellIndex    = selectedCellIndex_;
 @synthesize selectedPokemonIndex = selectedPokemonIndex_;
 
-@synthesize selectedCell                      = selectedCell_;
-@synthesize hiddenCell                        = hiddenCell_;
-@synthesize hiddenCellAreaView                = hiddenCellAreaView_;
-@synthesize audioPlayer                       = audioPlayer_;
-@synthesize trainer                           = trainer_;
-@synthesize bagItemInfoViewController         = bagItemInfoViewController_;
+@synthesize selectedCell              = selectedCell_;
+@synthesize hiddenCell                = hiddenCell_;
+@synthesize hiddenCellAreaView        = hiddenCellAreaView_;
+@synthesize audioPlayer               = audioPlayer_;
+@synthesize trainer                   = trainer_;
+@synthesize bagDataController         = bagDataController_;
+@synthesize bagItemInfoViewController = bagItemInfoViewController_;
 
 -(void)dealloc {
   self.items                     = nil;
   self.audioPlayer               = nil;
   self.trainer                   = nil;
+  self.bagDataController         = nil;
   self.bagItemInfoViewController = nil;
   self.selectedCell              = nil;
   [self releaseSubviews];
@@ -91,24 +96,26 @@
 //  self.items = [NSMutableArray arrayWithArray:[self.trainer bagItemsFor:targetType]];
   self.targetType = targetType;
   
+  NSString * itemIDsInString;
   // TODO:
   //   Hard code now. need to fetch from web server
   if (targetType & kBagQueryTargetTypeItem) {
-    self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+    itemIDsInString = @"1,2,3";
   }
   else if (targetType & kBagQueryTargetTypeMedicine) {
     if (targetType & kBagQueryTargetTypeMedicineStatus)
-      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+      itemIDsInString = @"1,2,3";
     else if (targetType & kBagQueryTargetTypeMedicineHP)
-      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+      itemIDsInString = @"1,2,3";
     else if (targetType & kBagQueryTargetTypeMedicinePP)
-      self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
-    else self.items = nil;
+      itemIDsInString = @"1,2,3";
+    else itemIDsInString = nil;
   }
   else if (targetType & kBagQueryTargetTypePokeball) {
-    self.items = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", nil];
+    itemIDsInString = @"1,2,3";
   }
-  else self.items = nil;
+  else itemIDsInString = nil;
+  self.items = [self.bagDataController queryDataFor:targetType withIDsInString:itemIDsInString];
   
   if ([self.items count] <= 1)
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundEmpty]]];
@@ -125,11 +132,12 @@
   self = [super initWithStyle:style];
   if (self) {
     // Basic setting
-    selectedCellIndex_    = 0;
-    targetType_           = 0;
-    selectedPokemonIndex_ = 0;
-    self.audioPlayer      = [PMAudioPlayer sharedInstance];
-    self.trainer          = [TrainerController sharedInstance];
+    selectedCellIndex_     = 0;
+    targetType_            = 0;
+    selectedPokemonIndex_  = 0;
+    self.audioPlayer       = [PMAudioPlayer sharedInstance];
+    self.trainer           = [TrainerController sharedInstance];
+    self.bagDataController = [BagDataController sharedInstance];
     
     // Cell Area View
     CGRect hiddenCellAreaViewFrame = CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView);
@@ -278,11 +286,35 @@
 - (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
   NSString * localizedNameHeader = [self localizedNameHeader];
   if (localizedNameHeader == nil) return;
-  NSInteger row      = indexPath.row;
-  NSInteger entityID = [[self.items objectAtIndex:row] intValue];
+  NSInteger row  = indexPath.row;
+  id item = [self.items objectAtIndex:row];
+  NSInteger  itemID;
+  NSString * price;
+  if (targetType_ & kBagQueryTargetTypeItem) {
+    BagItem * bagItem = (BagItem *)item;
+    itemID = [bagItem.sid   intValue];
+    price  = [bagItem.price stringValue];
+    bagItem = nil;
+  }
+  else if (targetType_ & kBagQueryTargetTypeMedicine) {
+    BagMedicine * bagMedicine = (BagMedicine *)item;
+    itemID = [bagMedicine.sid   intValue];
+    price  = [bagMedicine.price stringValue];
+    bagMedicine = nil;
+  }
+  else if (targetType_ & kBagQueryTargetTypePokeball) {
+    BagPokeball * bagPokeball = (BagPokeball *)item;
+    itemID = [bagPokeball.sid   intValue];
+    price  = [bagPokeball.price stringValue];
+    bagPokeball = nil;
+  }
+  else {
+    itemID = 0;
+    price  = nil;
+  }
   // Set the data for cell to display
-  [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)
-                         price:@"112"
+  [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemID]), nil)
+                         price:price
                           icon:nil];
   localizedNameHeader = nil;
 }
@@ -381,9 +413,10 @@
   }
   
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
-  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
-  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
-                                                                 withID:itemID];
+//  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
+//  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
+//                                                                 withID:itemID];
+  id anonymousEntity = [self.items objectAtIndex:self.selectedCellIndex];
   NSInteger entityID;
   NSInteger price;
   if (targetType_ & kBagQueryTargetTypeItem) {

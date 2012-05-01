@@ -80,6 +80,10 @@
 - (void)configureCellWithTitle:(NSString *)title
                          price:(NSString *)price
                           icon:(UIImage *)icon {
+  if (price == nil)
+    return;
+  if ([price isEqualToString:@"0"])
+    price = @"- - -";
   [self.textLabel setText:title];
   [self.detailTextLabel setText:price];
   [self.imageView setImage:icon];

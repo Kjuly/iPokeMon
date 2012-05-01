@@ -34,13 +34,11 @@ static BagDataController * bagDataController = nil;
   return bagDataController;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
-- (id)init
-{
+- (id)init {
   if (self = [super init]) {
   }
   return self;
@@ -48,9 +46,10 @@ static BagDataController * bagDataController = nil;
 
 #pragma mark - Public Methods
 
+// Query all data for one type
 - (NSArray *)queryAllDataFor:(BagQueryTargetType)targetType {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
                                              inManagedObjectContext:managedObjectContext];
@@ -62,9 +61,36 @@ static BagDataController * bagDataController = nil;
   return fetchedObjects;
 }
 
-- (id)queryDataFor:(BagQueryTargetType)targetType withID:(NSInteger)targetID {
+// Query data for one type, multiple item IDs
+- (NSArray *)queryDataFor:(BagQueryTargetType)targetType
+          withIDsInString:(NSString *)targetIDsInString {
+  NSArray * targetIDs = [targetIDsInString componentsSeparatedByString:@","];
+  NSInteger count = [targetIDs count];
+  if (count == 0) {
+    targetIDs = nil;
+    return nil;
+  }
+  
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:[NSEntityDescription entityForName:[self entityNameFor:targetType]
+                                      inManagedObjectContext:managedObjectContext]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid IN %@", targetIDs]];
+  [fetchRequest setFetchLimit:count];
+  
+  NSError * error;
+  NSArray * items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  [fetchRequest release];
+  
+  return items;
+}
+
+// Query data for one type, one item ID
+- (id)queryDataFor:(BagQueryTargetType)targetType
+            withID:(NSInteger)targetID {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
                                              inManagedObjectContext:managedObjectContext];

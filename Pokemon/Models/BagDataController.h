@@ -22,6 +22,7 @@
 
 + (BagDataController *)sharedInstance;
 - (NSArray *)queryAllDataFor:(BagQueryTargetType)targetType;
+- (NSArray *)queryDataFor:(BagQueryTargetType)targetType withIDsInString:(NSString *)targetIDsInString;
 - (id)queryDataFor:(BagQueryTargetType)targetType withID:(NSInteger)targetID;
 
 @end
