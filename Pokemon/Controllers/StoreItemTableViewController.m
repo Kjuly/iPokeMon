@@ -138,7 +138,7 @@
     selectedCellIndex_     = 0;
     targetType_            = 0;
     selectedPokemonIndex_  = 0;
-    quantity_              = 0;
+    quantity_              = 1;
     self.audioPlayer       = [PMAudioPlayer sharedInstance];
     self.trainer           = [TrainerController sharedInstance];
     self.bagDataController = [BagDataController sharedInstance];
@@ -399,8 +399,8 @@
 
 // Hidden Cell Button Action: Use Item | acturally, just buy this item
 - (void)useItem:(id)sender {
-//  if (quantity_ <= 0)
-//    return;
+  if (quantity_ <= 0)
+    return;
   
   id item = [self.items objectAtIndex:selectedCellIndex_];
   NSInteger price;
@@ -425,8 +425,7 @@
   
   // consume money for bought items
   if (price > 0) {
-//  [self.trainer consumeMoney:(price * quantity_)];
-    [self.trainer consumeMoney:price];
+    [self.trainer consumeMoney:(price * quantity_)];
   }
   
   // cancel hidden cell & show message that purchase succeed
