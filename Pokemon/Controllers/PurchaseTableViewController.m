@@ -238,6 +238,10 @@
   SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
   [[TrainerController sharedInstance] earnMoney:[product.localizedTitle intValue]];
   product = nil;
+  
+  // show message over view
+  [self.loadingManager showMessage:NSLocalizedString(@"Exchange Done", nil)
+                      withDuration:1.f];
 }
 
 - (void)productPurchaseFailed:(NSNotification *)notification {

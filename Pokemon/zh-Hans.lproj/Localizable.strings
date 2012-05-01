@@ -119,6 +119,7 @@
 // Store
 "PMSStore"                 = "iPokemon 商店";
 "PMSStoreCurrencyExchange" = "货币兑换";
+"Exchange Done"            = "兑换换成";
 
 // Bag Tableview
 "Bag1"         = "道具";

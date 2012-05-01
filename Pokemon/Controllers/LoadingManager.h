@@ -36,6 +36,9 @@
 - (void)hideOverBar;
 - (void)cleanOverBar;
 
+// show message over view
+- (void)showMessage:(NSString *)message withDuration:(NSTimeInterval)duration;
+
 // Progress Bar's resource unit management
 - (void)addResourceToLoadingQueue;
 - (void)popResourceFromLoadingQueue;

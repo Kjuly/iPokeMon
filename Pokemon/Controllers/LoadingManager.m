@@ -194,6 +194,25 @@ static LoadingManager * loadingManager_ = nil;
   }
 }
 
+#pragma mark - Show Message
+
+- (void)showMessage:(NSString *)message
+       withDuration:(NSTimeInterval)duration {
+  MBProgressHUD * HUD = [[[MBProgressHUD alloc] initWithView:
+                          [[[UIApplication sharedApplication] delegate] window]] autorelease];
+	[[[[UIApplication sharedApplication] delegate] window] addSubview:HUD];
+	
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonConfirm]] autorelease];
+	// Set custom view mode
+	HUD.mode = MBProgressHUDModeCustomView;
+	
+	HUD.delegate = self;
+	HUD.labelText = message;
+	
+	[HUD show:YES];
+	[HUD hide:YES afterDelay:duration];
+}
+
 #pragma mark - Progress Bar's resource unit Management
 
 // New resource wait to be loaded
