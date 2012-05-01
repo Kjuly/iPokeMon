@@ -68,6 +68,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(productsLoaded:)
                                                name:kPMNProductsLoadedNotification
