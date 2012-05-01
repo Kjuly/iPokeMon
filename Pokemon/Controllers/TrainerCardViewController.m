@@ -201,7 +201,7 @@ typedef enum {
   
   // Image View
   imageView_ = [[UIImageView alloc] initWithFrame:
-                  CGRectMake(avatarAreaSize - imageSize - 2.f, avatarAreaSize - imageSize - 2.f, imageSize, imageSize)];
+                  CGRectMake((avatarAreaSize - imageSize) / 2.f, (avatarAreaSize - imageSize) / 2.f, imageSize, imageSize)];
   [imageView_ setUserInteractionEnabled:YES];
   [imageView_ setContentMode:UIViewContentModeScaleAspectFit];
   [imageView_ setBackgroundColor:[UIColor clearColor]];
