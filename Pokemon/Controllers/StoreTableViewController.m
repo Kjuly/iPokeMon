@@ -10,7 +10,7 @@
 
 #import "BagTableViewCell.h"
 #import "BagMedicineTableViewController.h"
-#import "BagItemTableViewController.h"
+#import "StoreItemTableViewController.h"
 #import "PurchaseTableViewController.h"
 
 
@@ -155,11 +155,11 @@
     [purchaseTableViewController release];
   }
   else if (row != 1) { // Not Bag Medicine, as it has three sub types
-    BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
-    [bagItemTableViewController initWithBagItem:(1 << row)];
-    [bagItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
-    [self.navigationController pushViewController:bagItemTableViewController animated:YES];
-    [bagItemTableViewController release];
+    StoreItemTableViewController * storeItemTableViewController = [StoreItemTableViewController alloc];
+    [storeItemTableViewController initWithBagItem:(1 << row)];
+    [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
+    [self.navigationController pushViewController:storeItemTableViewController animated:YES];
+    [storeItemTableViewController release];
   } else {
     BagMedicineTableViewController * bagMedicineTableViewController = [BagMedicineTableViewController alloc];
     [bagMedicineTableViewController initWithStyle:UITableViewStylePlain];

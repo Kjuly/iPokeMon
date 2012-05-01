@@ -110,6 +110,7 @@
 		7F3B669C154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
+		7F4A7B7A155014D500F3BFB0 /* StoreItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */; };
 		7F4AC7FF14E7FBE500A10434 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */; };
 		7F50B7A714F93B8F00883412 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F50B6CD14F93B8F00883412 /* CCAction.m */; };
 		7F50B7A814F93B8F00883412 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F50B6CF14F93B8F00883412 /* CCActionCamera.m */; };
@@ -671,6 +672,8 @@
 		7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailViewController.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
 		7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailTabViewController.m; sourceTree = "<group>"; };
+		7F4A7B78155014D500F3BFB0 /* StoreItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = StoreItemTableViewController.h; sourceTree = "<group>"; };
+		7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreItemTableViewController.m; sourceTree = "<group>"; };
 		7F4AC7FE14E7FBE500A10434 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7F50B6CC14F93B8F00883412 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		7F50B6CD14F93B8F00883412 /* CCAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAction.m; sourceTree = "<group>"; };
@@ -1955,6 +1958,8 @@
 				7FBB60B014E6A6B300C24BA5 /* TrainerCardViewController.m */,
 				7FE0570C154F10FF00B72688 /* StoreTableViewController.h */,
 				7FE0570D154F10FF00B72688 /* StoreTableViewController.m */,
+				7F4A7B78155014D500F3BFB0 /* StoreItemTableViewController.h */,
+				7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */,
 				7FC5B162154ED7FB001CECBA /* InAppPurchaseManager.h */,
 				7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */,
 				7FC5B166154EDA41001CECBA /* PMPurchaseManager.h */,
@@ -3121,6 +3126,7 @@
 				7FC5B16E154EE00F001CECBA /* Reachability.m in Sources */,
 				7FE0570E154F110000B72688 /* StoreTableViewController.m in Sources */,
 				7F8E063C154F9D3100AB8CB4 /* PurchaseTableViewCell.m in Sources */,
+				7F4A7B7A155014D500F3BFB0 /* StoreItemTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
