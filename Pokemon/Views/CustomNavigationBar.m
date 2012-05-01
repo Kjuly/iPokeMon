@@ -127,6 +127,7 @@
   // When pop view, the |titleView| will over the |backButtonToRoot_|,
   //   so bring it to front
   [self bringSubviewToFront:self.backButtonToRoot];
+  [self bringSubviewToFront:self.backButton];
 }
 
 // Set |backButtonToRoot_| to hidden or not
