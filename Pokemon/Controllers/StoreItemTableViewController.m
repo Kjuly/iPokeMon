@@ -8,6 +8,7 @@
 
 #import "StoreItemTableViewController.h"
 
+#import "LoadingManager.h"
 #import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "BagDataController.h"
@@ -29,6 +30,8 @@
   TrainerController                 * trainer_;
   BagDataController                 * bagDataController_;
   BagItemInfoViewController         * bagItemInfoViewController_;
+  
+  NSInteger quantity_;
 }
 
 @property (nonatomic, copy)   NSArray          * items;
@@ -135,6 +138,7 @@
     selectedCellIndex_     = 0;
     targetType_            = 0;
     selectedPokemonIndex_  = 0;
+    quantity_              = 0;
     self.audioPlayer       = [PMAudioPlayer sharedInstance];
     self.trainer           = [TrainerController sharedInstance];
     self.bagDataController = [BagDataController sharedInstance];
@@ -395,7 +399,37 @@
 
 // Hidden Cell Button Action: Use Item | acturally, just buy this item
 - (void)useItem:(id)sender {
+//  if (quantity_ <= 0)
+//    return;
   
+  id item = [self.items objectAtIndex:selectedCellIndex_];
+  NSInteger price;
+  if (targetType_ & kBagQueryTargetTypeItem) {
+    BagItem * bagItem = (BagItem *)item;
+    price  = [bagItem.price intValue];
+    bagItem = nil;
+  }
+  else if (targetType_ & kBagQueryTargetTypeMedicine) {
+    BagMedicine * bagMedicine = (BagMedicine *)item;
+    price  = [bagMedicine.price intValue];
+    bagMedicine = nil;
+  }
+  else if (targetType_ & kBagQueryTargetTypePokeball) {
+    BagPokeball * bagPokeball = (BagPokeball *)item;
+    price  = [bagPokeball.price intValue];
+    bagPokeball = nil;
+  }
+  else {
+    price  = 0;
+  }
+  
+  // consume money for bought items
+//  [self.trainer consumeMoney:(price * quantity_)];
+  [self.trainer consumeMoney:price];
+  
+  // cancel hidden cell & show message that purchase succeed
+  [self cancelHiddenCell:nil];
+  [[LoadingManager sharedInstance] showMessage:nil withDuration:1.f];
 }
 
 // Hidden Cell Button Action: Give Item
