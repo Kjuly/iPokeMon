@@ -12,12 +12,15 @@
 #import "LoadingManager.h"
 #import "PMPurchaseManager.h"
 #import "PurchaseTableViewCell.h"
+#import "TrainerController.h"
 
 
 @interface PurchaseTableViewController () {
  @private
   LoadingManager    * loadingManager_;
   PMPurchaseManager * purchaseManager_;
+  
+  NSInteger selectedRowIndex_;
 }
 
 @property (nonatomic, retain) LoadingManager    * loadingManager;
@@ -53,6 +56,7 @@
     [self setTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)];
     self.loadingManager  = [LoadingManager sharedInstance];
     self.purchaseManager = [PMPurchaseManager sharedInstance];
+    selectedRowIndex_    = -1;
   }
   return self;
 }
@@ -138,7 +142,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  
   PurchaseTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[PurchaseTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
@@ -146,8 +149,8 @@
   }
     
   // Configure the cell...
-  SKProduct * product = [self.purchaseManager.products objectAtIndex:indexPath.row];
   NSInteger row = indexPath.row;
+  SKProduct * product = [self.purchaseManager.products objectAtIndex:row];
   
   NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -207,16 +210,7 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {}
 
 #pragma mark - Private Methods
 
@@ -237,11 +231,13 @@
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
-  
   NSString * productIdentifier = (NSString *)notification.object;
   NSLog(@"Purchased: %@", productIdentifier);
   
-  [self.tableView reloadData];
+  // earn money for purchased product
+  SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
+  [[TrainerController sharedInstance] earnMoney:[product.localizedTitle intValue]];
+  product = nil;
 }
 
 - (void)productPurchaseFailed:(NSNotification *)notification {
@@ -260,17 +256,16 @@
   }
 }
 
-// exchange the currency
+// Button Action: exchange the currency
 - (void)exchangeCurrency:(id)sender {
-  UIButton * buyButton = (UIButton *)sender;
-  SKProduct * product = [self.purchaseManager.products objectAtIndex:buyButton.tag];
-  
+  selectedRowIndex_ = ((UIButton *)sender).tag;
+  SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
   NSLog(@"Buying %@...", product.productIdentifier);
   [self.purchaseManager buyProductIdentifier:product.productIdentifier];
-  
   // loading
   [self.loadingManager showOverView];
   [self performSelector:@selector(timeout) withObject:nil afterDelay:60*5];
+  product = nil;
 }
 
 @end

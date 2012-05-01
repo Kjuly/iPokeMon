@@ -232,6 +232,29 @@ static TrainerController * trainerController_ = nil;
   [self saveWithSync:YES];
 }
 
+// earn money when WIN from another trainer or exchange between currency
+- (void)earnMoney:(NSInteger)money {
+  // cannot earn more than 10000 at once
+  if (money <= 0 || money > 10000)
+    return;
+  NSInteger currMoney = [self.entityTrainer.money intValue];
+  currMoney += money;
+  self.entityTrainer.money = [NSNumber numberWithInt:currMoney];
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerMoney;
+  [self saveWithSync:YES];
+}
+
+// consume money when LOSE or buy items in Store
+- (void)consumeMoney:(NSInteger)money {
+  if (money <= 0)
+    return;
+  NSInteger currMoney = [self.entityTrainer.money intValue];
+  currMoney -= money;
+  self.entityTrainer.money = [NSNumber numberWithInt:currMoney];
+  flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerMoney;
+  [self saveWithSync:YES];
+}
+
 // Update Pokedex with Pokemon ID
 - (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID {
   // If Pokemon already caught, do nothing

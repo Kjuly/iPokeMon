@@ -8,6 +8,10 @@
 
 #import "PMPurchaseManager.h"
 
+#define kPMCurrencyTier1ID @"com.kjuly.iPokemon.coin.tier1"
+#define kPMCurrencyTier2ID @"com.kjuly.iPokemon.coin.tier2"
+#define kPMCurrencyTier3ID @"com.kjuly.iPokemon.coin.tier3"
+
 @implementation PMPurchaseManager
 
 // singleton
@@ -25,9 +29,9 @@ static PMPurchaseManager * purchaseManager_ = nil;
 
 - (id)init {
   NSSet * productIdentifiers = [[NSSet alloc] initWithObjects:
-                                @"com.kjuly.iPokemon.coin.tier1",
-                                @"com.kjuly.iPokemon.coin.tier2",
-                                @"com.kjuly.iPokemon.coin.tier3", nil];
+                                kPMCurrencyTier1ID,
+                                kPMCurrencyTier2ID,
+                                kPMCurrencyTier3ID, nil];
   if (self = [super initWithProductIdentifiers:productIdentifiers]) {
   }
   [productIdentifiers release];

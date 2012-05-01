@@ -44,8 +44,8 @@
 
 // Setting
 - (void)setName:(NSString *)name; // Set trainer name
-//- (void)earnMoney:(NSInteger)money; // Earn money when WIN from another trainer
-//- (void)loseMoney:(NSInteger)money; // Lose money when LOSE
+- (void)earnMoney:(NSInteger)money; // earn money when WIN from another trainer or exchange between currency
+- (void)consumeMoney:(NSInteger)money; // consume money when LOSE or buy items in Store
 - (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID;
 - (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo;
 - (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID;
