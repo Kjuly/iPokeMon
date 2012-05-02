@@ -272,7 +272,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Audio resource name for the audio type
 - (NSString *)_resourceNameForAudioType:(PMAudioType)audioType {
-  NSString * resourceName;
+  NSString * resourceName = nil;
   
   switch (audioType) {
     ///
@@ -349,7 +349,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       break;
       
     default:
-      resourceName = nil;
       break;
   }
   return resourceName;

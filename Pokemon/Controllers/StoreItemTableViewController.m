@@ -82,7 +82,7 @@
   self.trainer                   = nil;
   self.bagDataController         = nil;
   self.bagItemInfoViewController = nil;
-  self.storeItemQuantityChangeViewController = nil;
+//  self.storeItemQuantityChangeViewController = nil; // !!!TODO: why cannot release it???!!!
   [self releaseSubviews];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
   [super dealloc];
