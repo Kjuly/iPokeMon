@@ -112,15 +112,15 @@
   }
   else if (targetType & kBagQueryTargetTypeMedicine) {
     if (targetType & kBagQueryTargetTypeMedicineStatus)
-      itemIDsInString = @"1,2,3";
+      itemIDsInString = nil;
     else if (targetType & kBagQueryTargetTypeMedicineHP)
-      itemIDsInString = @"1,2,3";
+      itemIDsInString = @"23,6,20,12,18,25";
     else if (targetType & kBagQueryTargetTypeMedicinePP)
-      itemIDsInString = @"1,2,3";
+      itemIDsInString = nil;
     else itemIDsInString = nil;
   }
   else if (targetType & kBagQueryTargetTypePokeball) {
-    itemIDsInString = @"1,2,3";
+    itemIDsInString = @"11";
   }
   else itemIDsInString = nil;
   self.items = [self.bagDataController queryDataFor:targetType withIDsInString:itemIDsInString];
