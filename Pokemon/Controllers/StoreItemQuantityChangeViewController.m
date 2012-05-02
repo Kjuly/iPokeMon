@@ -69,7 +69,6 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    itemQuantity_ = 1;
   }
   return self;
 }
@@ -95,15 +94,15 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  itemQuantity_ = 1;
+  
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
-  [backgroundView_ setAlpha:0.f];
   [self.view addSubview:backgroundView_];
   
   // subviews
   // constants
-  CGRect itemQuantityLabelFrame = CGRectMake(0.f, (self.view.frame.size.height - kCellHeightOfStoreItemTableView) / 2.f,
-                                             kViewWidth, kCellHeightOfStoreItemTableView);
+  CGRect itemQuantityLabelFrame = CGRectMake(0.f, (self.view.frame.size.height - kCellHeightOfStoreItemTableView) / 2.f, kViewWidth, kCellHeightOfStoreItemTableView);
   CGRect increaseButtonFrame = CGRectMake((kViewWidth - kStoreItemQuantityI_DcreaseButtonWidth) / 2.f,
                                           itemQuantityLabelFrame.origin.y - kStoreItemQuantityI_DcreaseButtonHeight,
                                           kStoreItemQuantityI_DcreaseButtonWidth,
@@ -155,10 +154,12 @@
   [cancelButton_ addTarget:self action:@selector(_cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:cancelButton_];
    
-  [increaseButton_ setAlpha:0.f];
-  [decreaseButton_ setAlpha:0.f];
-  [confirmButton_  setAlpha:0.f];
-  [cancelButton_   setAlpha:0.f];
+  [backgroundView_    setAlpha:0.f];
+  [itemQuantityLabel_ setAlpha:0.f];
+  [increaseButton_    setAlpha:0.f];
+  [decreaseButton_    setAlpha:0.f];
+  [confirmButton_     setAlpha:0.f];
+  [cancelButton_      setAlpha:0.f];
 }
 
 - (void)viewDidUnload {
@@ -180,11 +181,12 @@
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
-                     [self.backgroundView setAlpha:.85f];
-                     [self.increaseButton setAlpha:1.f];
-                     [self.decreaseButton setAlpha:1.f];
-                     [self.confirmButton  setAlpha:1.f];
-                     [self.cancelButton   setAlpha:1.f];
+                     [self.backgroundView    setAlpha:.9f];
+                     [self.itemQuantityLabel setAlpha:1.f];
+                     [self.increaseButton    setAlpha:1.f];
+                     [self.decreaseButton    setAlpha:1.f];
+                     [self.confirmButton     setAlpha:1.f];
+                     [self.cancelButton      setAlpha:1.f];
                    }
                    completion:nil];
 }
@@ -197,15 +199,16 @@
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      [self.view setAlpha:0.f];
-                     [self.increaseButton setAlpha:0.f];
-                     [self.decreaseButton setAlpha:0.f];
-                     [self.confirmButton  setAlpha:0.f];
-                     [self.cancelButton   setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
                      [self.view removeFromSuperview];
                      [self.view setAlpha:1.f];
-                     [self.backgroundView setAlpha:0.f];
+                     [self.backgroundView    setAlpha:0.f];
+                     [self.itemQuantityLabel setAlpha:0.f];
+                     [self.increaseButton    setAlpha:0.f];
+                     [self.decreaseButton    setAlpha:0.f];
+                     [self.confirmButton     setAlpha:0.f];
+                     [self.cancelButton      setAlpha:0.f];
                    }];
 }
 

@@ -24,9 +24,9 @@
   NSInteger          selectedCellIndex_; // For querying data
   NSInteger          selectedPokemonIndex_;
   
+  UIView                            * hiddenCellAreaView_;
   StoreItemTableViewCell            * selectedCell_;
   BagItemTableViewHiddenCell        * hiddenCell_;
-  UIView                            * hiddenCellAreaView_;
   PMAudioPlayer                     * audioPlayer_;
   TrainerController                 * trainer_;
   BagDataController                 * bagDataController_;
@@ -67,9 +67,9 @@
 @synthesize selectedCellIndex    = selectedCellIndex_;
 @synthesize selectedPokemonIndex = selectedPokemonIndex_;
 
+@synthesize hiddenCellAreaView        = hiddenCellAreaView_;
 @synthesize selectedCell              = selectedCell_;
 @synthesize hiddenCell                = hiddenCell_;
-@synthesize hiddenCellAreaView        = hiddenCellAreaView_;
 @synthesize audioPlayer               = audioPlayer_;
 @synthesize trainer                   = trainer_;
 @synthesize bagDataController         = bagDataController_;
@@ -82,7 +82,6 @@
   self.trainer                   = nil;
   self.bagDataController         = nil;
   self.bagItemInfoViewController = nil;
-  self.selectedCell              = nil;
   self.storeItemQuantityChangeViewController = nil;
   [self releaseSubviews];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
@@ -90,8 +89,9 @@
 }
 
 - (void)releaseSubviews {
-  self.hiddenCell         = nil;
   self.hiddenCellAreaView = nil;
+  self.selectedCell       = nil;
+  self.hiddenCell         = nil;
 }
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType {
@@ -103,9 +103,7 @@
 }
 
 - (void)setBagItem:(BagQueryTargetType)targetType {
-//  self.items = [NSMutableArray arrayWithArray:[self.trainer bagItemsFor:targetType]];
   self.targetType = targetType;
-  
   NSString * itemIDsInString;
   // TODO:
   //   Hard code now. need to fetch from web server
@@ -149,19 +147,6 @@
     self.audioPlayer       = [PMAudioPlayer sharedInstance];
     self.trainer           = [TrainerController sharedInstance];
     self.bagDataController = [BagDataController sharedInstance];
-    
-    // Cell Area View
-    CGRect hiddenCellAreaViewFrame = CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView);
-    hiddenCellAreaView_ = [[UIView alloc] initWithFrame:hiddenCellAreaViewFrame];
-    [self.view addSubview:hiddenCellAreaView_];
-    
-    // Hidden Cell
-    hiddenCell_ = [BagItemTableViewHiddenCell alloc];
-    [hiddenCell_ initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
-    [hiddenCell_ setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
-    hiddenCell_.delegate = self;
-    [hiddenCell_ addQuantity:1 withOffsetX:64.f];
-    [hiddenCellAreaView_ addSubview:self.hiddenCell];
   }
   return self;
 }
@@ -179,6 +164,19 @@
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  
+  // Cell Area View
+  CGRect hiddenCellAreaViewFrame = CGRectMake(kViewWidth, 0.f, kViewWidth, kCellHeightOfBagItemTableView);
+  hiddenCellAreaView_ = [[UIView alloc] initWithFrame:hiddenCellAreaViewFrame];
+  [self.view addSubview:hiddenCellAreaView_];
+  
+  // Hidden Cell
+  hiddenCell_ = [BagItemTableViewHiddenCell alloc];
+  [hiddenCell_ initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
+  [hiddenCell_ setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
+  hiddenCell_.delegate = self;
+  [hiddenCell_ addQuantity:1 withOffsetX:64.f];
+  [self.hiddenCellAreaView addSubview:hiddenCell_];
   
   // add observer for notification from |StoreItemQuantityChangeViewController| when quantity changed
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -292,20 +290,15 @@
   if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
 }
 
-#pragma mark - Public Methods
-
-// Reset the view status
-- (void)reset {
-  if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
-}
-
 #pragma mark - Private Methods
 
-- (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+// configure cell
+- (void)configureCell:(StoreItemTableViewCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath {
   NSString * localizedNameHeader = [self localizedNameHeader];
-  if (localizedNameHeader == nil) return;
-  NSInteger row  = indexPath.row;
-  id item = [self.items objectAtIndex:row];
+  if (localizedNameHeader == nil)
+    return;
+  id item = [self.items objectAtIndex:indexPath.row];
   NSInteger  itemID;
   NSString * price;
   if (targetType_ & kBagQueryTargetTypeItem) {
@@ -464,11 +457,8 @@
     self.bagItemInfoViewController = bagItemInfoViewController;
     [bagItemInfoViewController release];
   }
+  [self.view.window addSubview:self.bagItemInfoViewController.view];
   
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
-//  NSInteger itemID = [[self.items objectAtIndex:self.selectedCellIndex] intValue];
-//  id anonymousEntity = [[BagDataController sharedInstance] queryDataFor:self.targetType
-//                                                                 withID:itemID];
   id anonymousEntity = [self.items objectAtIndex:self.selectedCellIndex];
   NSInteger entityID;
   NSInteger price;
@@ -535,7 +525,7 @@
     self.storeItemQuantityChangeViewController = storeItemQuantityChangeViewController;
     [storeItemQuantityChangeViewController release];
   }
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.storeItemQuantityChangeViewController.view];
+  [self.view.window addSubview:self.storeItemQuantityChangeViewController.view];
   [self.storeItemQuantityChangeViewController loadViewWithItemQuantity:quantity_ animated:YES];
 }
 

@@ -10,6 +10,15 @@
 
 #import "GlobalRender.h"
 
+@interface BagItemTableViewHiddenCell () {
+ @private
+  UIButton * quantityButton_;
+}
+
+@property (nonatomic, retain) UIButton * quantityButton;
+
+@end
+
 @implementation BagItemTableViewHiddenCell
 
 @synthesize delegate = delegate_;
@@ -19,6 +28,8 @@
 @synthesize info     = info_;
 @synthesize cancel   = cancel_;
 
+@synthesize quantityButton = quantityButton_;
+
 - (void)dealloc {
   self.delegate = nil;
   self.use      = nil;
@@ -26,6 +37,7 @@
   self.toss     = nil;
   self.info     = nil;
   self.cancel   = nil;
+  self.quantityButton = nil;
   [super dealloc];
 }
 
@@ -97,20 +109,19 @@
   [quantityButton setOpaque:NO];
   [quantityButton setTitleColor:[GlobalRender textColorOrange] forState:UIControlStateNormal];
   [quantityButton.titleLabel setFont:[GlobalRender textFontBoldInSizeOf:24.f]];
-  [quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
-                  forState:UIControlStateNormal];
   [quantityButton addTarget:self.delegate
                      action:@selector(changeItemQuantity:)
            forControlEvents:UIControlEventTouchUpInside];
-  [quantityButton setTag:999];
-  [self addSubview:quantityButton];
+  self.quantityButton = quantityButton;
   [quantityButton release];
+  [self addSubview:self.quantityButton];
+  
+  [self updateQuantity:quantity];
 }
 
 - (void)updateQuantity:(NSInteger)quantity {
-  UIButton * quantityButton = (UIButton *)[self viewWithTag:999];
-  [quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
-                  forState:UIControlStateNormal];
+  [self.quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
+                       forState:UIControlStateNormal];
 }
 
 @end
