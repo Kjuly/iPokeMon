@@ -95,8 +95,8 @@
   [quantityButton setBackgroundColor:
     [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINStoreItemQuantityButtonBackground]]];
   [quantityButton setOpaque:NO];
-  [quantityButton setTitleColor:[GlobalRender textColorTitleWhite] forState:UIControlStateNormal];
-  [quantityButton.titleLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+  [quantityButton setTitleColor:[GlobalRender textColorOrange] forState:UIControlStateNormal];
+  [quantityButton.titleLabel setFont:[GlobalRender textFontBoldInSizeOf:24.f]];
   [quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
                   forState:UIControlStateNormal];
   [quantityButton addTarget:self.delegate

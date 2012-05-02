@@ -10,6 +10,9 @@
 
 #import "GlobalRender.h"
 
+#define kStoreMaxItemQuantity 99
+#define kStoreMinItemQuantity 1
+
 @interface StoreItemQuantityChangeViewController () {
  @private
   UIView   * backgroundView_;
@@ -31,8 +34,11 @@
 
 - (void)releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
+- (void)_increase:(id)sender;
+- (void)_decrease:(id)sender;
 - (void)_confirm:(id)sender;
 - (void)_cancel:(id)sender;
+- (void)_updateItemQuantity:(NSInteger)quantity;
 
 @end
 
@@ -115,17 +121,19 @@
   [itemQuantityLabel_ setTextAlignment:UITextAlignmentCenter];
   [itemQuantityLabel_ setTextColor:[GlobalRender textColorOrange]];
   [itemQuantityLabel_ setFont:[GlobalRender textFontBoldInSizeOf:36.f]];
-  [itemQuantityLabel_ setText:[NSString stringWithFormat:@"%d", itemQuantity_]];
   [self.view addSubview:itemQuantityLabel_];
+  [self _updateItemQuantity:itemQuantity_];
   
   // increase & decrease buttons
   increaseButton_ = [[UIButton alloc] initWithFrame:increaseButtonFrame];
   [increaseButton_ setImage:[UIImage imageNamed:kPMINStoreItemQuantityIcreaseButton]
                    forState:UIControlStateNormal];
+  [increaseButton_ addTarget:self action:@selector(_increase:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:increaseButton_];
   decreaseButton_ = [[UIButton alloc] initWithFrame:decreaseButtonFrame];
   [decreaseButton_ setImage:[UIImage imageNamed:kPMINStoreItemQuantityDcreaseButton]
                    forState:UIControlStateNormal];
+  [decreaseButton_ addTarget:self action:@selector(_decrease:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:decreaseButton_];
   
   // confirm button
@@ -165,7 +173,9 @@
 
 #pragma mark - Public Methods
 
-- (void)loadViewAnimated:(BOOL)animated {
+- (void)loadViewWithItemQuantity:(NSInteger)itemQuantity
+                        animated:(BOOL)animated {
+  [self _updateItemQuantity:itemQuantity];
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -199,6 +209,17 @@
                    }];
 }
 
+// increase item quantity
+- (void)_increase:(id)sender {
+  [self _updateItemQuantity:++itemQuantity_];
+}
+
+// decrease item quantity
+- (void)_decrease:(id)sender {
+  [self _updateItemQuantity:--itemQuantity_];
+}
+
+// confirm
 - (void)_confirm:(id)sender {
   // post notification to |StoreItemTableViewController| to update item quantity
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateStoreItemQuantity
@@ -206,8 +227,17 @@
   [self _unloadViewAnimated:YES];
 }
 
+// cancel
 - (void)_cancel:(id)sender {
   [self _unloadViewAnimated:YES];
+}
+
+// update item quantity
+- (void)_updateItemQuantity:(NSInteger)quantity {
+  if (quantity < kStoreMinItemQuantity) quantity = kStoreMinItemQuantity;
+  if (quantity > kStoreMaxItemQuantity) quantity = kStoreMaxItemQuantity;
+  itemQuantity_ = quantity;
+  [self.itemQuantityLabel setText:[NSString stringWithFormat:@"%d", quantity]];
 }
 
 @end

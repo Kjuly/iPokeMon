@@ -339,6 +339,10 @@
 
 // Show |hiddenCell_|
 - (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell {
+  // reset item quantity
+  quantity_ = 1;
+  [self.hiddenCell updateQuantity:quantity_];
+  
   void (^showHiddenCellAnimationBlock)(BOOL) = ^(BOOL finished) {
     __block CGRect cellFrame = cell.frame;
     cellFrame.origin.x = kViewWidth;
@@ -411,7 +415,8 @@
 
 // update selected item quantity
 - (void)_updateSelectedItemQuantity:(NSNotification *)notification {
-  [self.hiddenCell updateQuantity:[notification.object intValue]];
+  quantity_ = [notification.object intValue];
+  [self.hiddenCell updateQuantity:quantity_];
 }
 
 #pragma mark - BagItemTableViewHiddenCell Delegate
@@ -531,7 +536,7 @@
     [storeItemQuantityChangeViewController release];
   }
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.storeItemQuantityChangeViewController.view];
-  [self.storeItemQuantityChangeViewController loadViewAnimated:YES];
+  [self.storeItemQuantityChangeViewController loadViewWithItemQuantity:quantity_ animated:YES];
 }
 
 @end

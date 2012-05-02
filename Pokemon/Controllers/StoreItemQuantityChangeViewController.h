@@ -10,6 +10,7 @@
 
 @interface StoreItemQuantityChangeViewController : UIViewController
 
-- (void)loadViewAnimated:(BOOL)animated;
+- (void)loadViewWithItemQuantity:(NSInteger)itemQuantity
+                        animated:(BOOL)animated;
 
 @end
