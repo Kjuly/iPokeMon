@@ -73,7 +73,7 @@
   
   // subviews
   CGRect confirmButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2.f,
-                                         300.f, kCenterMainButtonSize, kCenterMainButtonSize);
+                                         kViewHeight - 100.f, kCenterMainButtonSize, kCenterMainButtonSize);
   confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                             forState:UIControlStateNormal];

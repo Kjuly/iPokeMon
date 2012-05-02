@@ -10,11 +10,15 @@
 
 @protocol BagItemTableViewHiddenCellDelegate
 
+ @required
 - (void)useItem:(id)sender;
-- (void)giveItem:(id)sender;
-- (void)tossItem:(id)sender;
 - (void)showInfo:(id)sender;
 - (void)cancelHiddenCell:(id)sender;
+
+ @optional
+- (void)giveItem:(id)sender;
+- (void)tossItem:(id)sender;
+- (void)changeItemQuantity:(id)sender;
 
 @end
 
@@ -35,5 +39,8 @@
 @property (nonatomic, retain) UIButton * toss;
 @property (nonatomic, retain) UIButton * info;
 @property (nonatomic, retain) UIButton * cancel;
+
+- (void)addQuantity:(NSInteger)quantity withOffsetX:(CGFloat)offsetX;
+- (void)updateQuantity:(NSInteger)quantity;
 
 @end

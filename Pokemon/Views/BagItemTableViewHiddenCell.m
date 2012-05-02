@@ -8,6 +8,8 @@
 
 #import "BagItemTableViewHiddenCell.h"
 
+#import "GlobalRender.h"
+
 @implementation BagItemTableViewHiddenCell
 
 @synthesize delegate = delegate_;
@@ -82,6 +84,33 @@
   [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state
+}
+
+#pragma mark - Public Methods
+
+- (void)addQuantity:(NSInteger)quantity
+        withOffsetX:(CGFloat)offsetX {
+  CGRect quantityFrame = CGRectMake(offsetX, 0.f, 98.f, kCellHeightOfBagItemTableView);
+  UIButton * quantityButton = [[UIButton alloc] initWithFrame:quantityFrame];
+  [quantityButton setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINStoreItemQuantityButtonBackground]]];
+  [quantityButton setOpaque:NO];
+  [quantityButton setTitleColor:[GlobalRender textColorTitleWhite] forState:UIControlStateNormal];
+  [quantityButton.titleLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+  [quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
+                  forState:UIControlStateNormal];
+  [quantityButton addTarget:self.delegate
+                     action:@selector(changeItemQuantity:)
+           forControlEvents:UIControlEventTouchUpInside];
+  [quantityButton setTag:999];
+  [self addSubview:quantityButton];
+  [quantityButton release];
+}
+
+- (void)updateQuantity:(NSInteger)quantity {
+  UIButton * quantityButton = (UIButton *)[self viewWithTag:999];
+  [quantityButton setTitle:[NSString stringWithFormat:@"%d", quantity]
+                  forState:UIControlStateNormal];
 }
 
 @end

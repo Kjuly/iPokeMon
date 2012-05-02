@@ -14,6 +14,7 @@
 #import "BagDataController.h"
 #import "StoreItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
+#import "StoreItemQuantityChangeViewController.h"
 
 
 @interface StoreItemTableViewController () {
@@ -30,6 +31,7 @@
   TrainerController                 * trainer_;
   BagDataController                 * bagDataController_;
   BagItemInfoViewController         * bagItemInfoViewController_;
+  StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController_;
   
   NSInteger quantity_;
 }
@@ -46,6 +48,7 @@
 @property (nonatomic, retain) TrainerController          * trainer;
 @property (nonatomic, retain) BagDataController          * bagDataController;
 @property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
+@property (nonatomic, retain) StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
 
 - (void)releaseSubviews;
 - (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -70,6 +73,7 @@
 @synthesize trainer                   = trainer_;
 @synthesize bagDataController         = bagDataController_;
 @synthesize bagItemInfoViewController = bagItemInfoViewController_;
+@synthesize storeItemQuantityChangeViewController = storeItemQuantityChangeViewController_;
 
 -(void)dealloc {
   self.items                     = nil;
@@ -78,6 +82,7 @@
   self.bagDataController         = nil;
   self.bagItemInfoViewController = nil;
   self.selectedCell              = nil;
+  self.storeItemQuantityChangeViewController = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -151,8 +156,9 @@
     // Hidden Cell
     hiddenCell_ = [BagItemTableViewHiddenCell alloc];
     [hiddenCell_ initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
-    [self.hiddenCell setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
-    self.hiddenCell.delegate = self;
+    [hiddenCell_ setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
+    hiddenCell_.delegate = self;
+    [hiddenCell_ addQuantity:1 withOffsetX:64.f];
     [hiddenCellAreaView_ addSubview:self.hiddenCell];
   }
   return self;
@@ -433,12 +439,6 @@
   [[LoadingManager sharedInstance] showMessage:nil withDuration:1.f];
 }
 
-// Hidden Cell Button Action: Give Item
-- (void)giveItem:(id)sender {}
-
-// Hidden Cell Button Action: Toss Item
-- (void)tossItem:(id)sender {}
-
 // Hidden Cell Button Action: Show Info
 - (void)showInfo:(id)sender {
   if (self.bagItemInfoViewController == nil) {
@@ -507,6 +507,18 @@
 // Hidden Cell Button Action: Cancel Hidden Cell
 - (void)cancelHiddenCell:(id)sender {
   [self cancelHiddenCellWithCompletionBlock:nil];
+}
+
+// Change item quantity
+- (void)changeItemQuantity:(id)sender {
+  if (self.storeItemQuantityChangeViewController == nil) {
+    StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
+    storeItemQuantityChangeViewController = [[StoreItemQuantityChangeViewController alloc] init];
+    self.storeItemQuantityChangeViewController = storeItemQuantityChangeViewController;
+    [storeItemQuantityChangeViewController release];
+  }
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.storeItemQuantityChangeViewController.view];
+  [self.storeItemQuantityChangeViewController loadViewAnimated:YES];
 }
 
 @end

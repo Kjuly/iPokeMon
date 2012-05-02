@@ -160,6 +160,7 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINTableViewCellBagItemSelected @"BagItemTableViewCellSelectedBackground.png"
 #define kPMINTableViewCell                @"BagItemTableViewCellSelectedBackground.png"
 #define kPMINTableViewCellBagMedicine     @"BagMedicineTableViewCellBackground.png"
+#define kPMINStoreItemQuantityButtonBackground @"StoreItemQuantityButtonBackground.png"
 // table view header
 #define kPMINTableViewHeaderSetting       @"SettingTableViewSectionHeaderBackground.png"
 // table view other elements
