@@ -8,24 +8,42 @@
 
 #import "StoreItemQuantityChangeViewController.h"
 
+#import "GlobalRender.h"
+
 @interface StoreItemQuantityChangeViewController () {
  @private
   UIView   * backgroundView_;
-  UIButton * confirmButton_;
+  UILabel  * itemQuantityLabel_;
+  UIButton * increaseButton_; // increase quantity
+  UIButton * decreaseButton_; // decrease ...
+  UIButton * confirmButton_;  // confirm
+  UIButton * cancelButton_;   // cancel
+  
+  NSInteger itemQuantity_;
 }
 
 @property (nonatomic, retain) UIView   * backgroundView;
+@property (nonatomic, retain) UILabel  * itemQuantityLabel;
+@property (nonatomic, retain) UIButton * increaseButton;
+@property (nonatomic, retain) UIButton * decreaseButton;
 @property (nonatomic, retain) UIButton * confirmButton;
+@property (nonatomic, retain) UIButton * cancelButton;
 
 - (void)releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
+- (void)_confirm:(id)sender;
+- (void)_cancel:(id)sender;
 
 @end
 
 @implementation StoreItemQuantityChangeViewController
 
-@synthesize backgroundView = backgroundView_;
-@synthesize confirmButton  = confirmButton_;
+@synthesize backgroundView    = backgroundView_;
+@synthesize itemQuantityLabel = itemQuantityLabel_;
+@synthesize increaseButton    = increaseButton_;
+@synthesize decreaseButton    = decreaseButton_;
+@synthesize confirmButton     = confirmButton_;
+@synthesize cancelButton      = cancelButton_;
 
 - (void)dealloc {
   [self releaseSubviews];
@@ -33,14 +51,19 @@
 }
 
 - (void)releaseSubviews {
-  self.backgroundView = nil;
-  self.confirmButton  = nil;
+  self.backgroundView    = nil;
+  self.itemQuantityLabel = nil;
+  self.increaseButton    = nil;
+  self.decreaseButton    = nil;
+  self.confirmButton     = nil;
+  self.cancelButton      = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    itemQuantity_ = 1;
   }
   return self;
 }
@@ -72,15 +95,62 @@
   [self.view addSubview:backgroundView_];
   
   // subviews
+  // constants
+  CGRect itemQuantityLabelFrame = CGRectMake(0.f, (self.view.frame.size.height - kCellHeightOfStoreItemTableView) / 2.f,
+                                             kViewWidth, kCellHeightOfStoreItemTableView);
+  CGRect increaseButtonFrame = CGRectMake((kViewWidth - kStoreItemQuantityI_DcreaseButtonWidth) / 2.f,
+                                          itemQuantityLabelFrame.origin.y - kStoreItemQuantityI_DcreaseButtonHeight,
+                                          kStoreItemQuantityI_DcreaseButtonWidth,
+                                          kStoreItemQuantityI_DcreaseButtonHeight);
+  CGRect decreaseButtonFrame = increaseButtonFrame;
+  decreaseButtonFrame.origin.y = itemQuantityLabelFrame.origin.y + itemQuantityLabelFrame.size.height;
   CGRect confirmButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2.f,
-                                         kViewHeight - 100.f, kCenterMainButtonSize, kCenterMainButtonSize);
+                                         self.view.frame.size.height - 120.f, kCenterMainButtonSize, kCenterMainButtonSize);
+  CGRect cancelButtonFrame  = confirmButtonFrame;
+  cancelButtonFrame.origin.y = 60.f;
+  
+  // item quantity label
+  itemQuantityLabel_ = [[UILabel alloc] initWithFrame:itemQuantityLabelFrame];
+  [itemQuantityLabel_ setBackgroundColor:[UIColor clearColor]];
+  [itemQuantityLabel_ setTextAlignment:UITextAlignmentCenter];
+  [itemQuantityLabel_ setTextColor:[GlobalRender textColorOrange]];
+  [itemQuantityLabel_ setFont:[GlobalRender textFontBoldInSizeOf:36.f]];
+  [itemQuantityLabel_ setText:[NSString stringWithFormat:@"%d", itemQuantity_]];
+  [self.view addSubview:itemQuantityLabel_];
+  
+  // increase & decrease buttons
+  increaseButton_ = [[UIButton alloc] initWithFrame:increaseButtonFrame];
+  [increaseButton_ setImage:[UIImage imageNamed:kPMINStoreItemQuantityIcreaseButton]
+                   forState:UIControlStateNormal];
+  [self.view addSubview:increaseButton_];
+  decreaseButton_ = [[UIButton alloc] initWithFrame:decreaseButtonFrame];
+  [decreaseButton_ setImage:[UIImage imageNamed:kPMINStoreItemQuantityDcreaseButton]
+                   forState:UIControlStateNormal];
+  [self.view addSubview:decreaseButton_];
+  
+  // confirm button
   confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                             forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm]
                   forState:UIControlStateNormal];
-  [confirmButton_ setAlpha:0.f];
+  [confirmButton_ addTarget:self action:@selector(_confirm:)
+           forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
+  
+  // cancel button
+  cancelButton_ = [[UIButton alloc] initWithFrame:cancelButtonFrame];
+  [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
+                           forState:UIControlStateNormal];
+  [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancel]
+                 forState:UIControlStateNormal];
+  [cancelButton_ addTarget:self action:@selector(_cancel:) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:cancelButton_];
+   
+  [increaseButton_ setAlpha:0.f];
+  [decreaseButton_ setAlpha:0.f];
+  [confirmButton_  setAlpha:0.f];
+  [cancelButton_   setAlpha:0.f];
 }
 
 - (void)viewDidUnload {
@@ -101,7 +171,10 @@
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      [self.backgroundView setAlpha:.85f];
-                     [self.confirmButton setAlpha:1.f];
+                     [self.increaseButton setAlpha:1.f];
+                     [self.decreaseButton setAlpha:1.f];
+                     [self.confirmButton  setAlpha:1.f];
+                     [self.cancelButton   setAlpha:1.f];
                    }
                    completion:nil];
 }
@@ -114,13 +187,27 @@
                       options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      [self.view setAlpha:0.f];
-                     [self.confirmButton setAlpha:0.f];
+                     [self.increaseButton setAlpha:0.f];
+                     [self.decreaseButton setAlpha:0.f];
+                     [self.confirmButton  setAlpha:0.f];
+                     [self.cancelButton   setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
                      [self.view removeFromSuperview];
                      [self.view setAlpha:1.f];
                      [self.backgroundView setAlpha:0.f];
                    }];
+}
+
+- (void)_confirm:(id)sender {
+  // post notification to |StoreItemTableViewController| to update item quantity
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateStoreItemQuantity
+                                                      object:[NSNumber numberWithInt:itemQuantity_]];
+  [self _unloadViewAnimated:YES];
+}
+
+- (void)_cancel:(id)sender {
+  [self _unloadViewAnimated:YES];
 }
 
 @end

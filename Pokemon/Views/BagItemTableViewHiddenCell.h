@@ -19,6 +19,7 @@
 - (void)giveItem:(id)sender;
 - (void)tossItem:(id)sender;
 - (void)changeItemQuantity:(id)sender;
+- (void)updateItemQuantity:(id)sender;
 
 @end
 

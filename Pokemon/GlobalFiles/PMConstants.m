@@ -50,6 +50,8 @@ NSString * const kPMNShowNewbieGuide                = @"PMNShowNewbiewGuide";
 NSString * const kPMNShowConfirmButtonInNebbieGuide = @"PMNShowConfirmButtonInNebbieGuide";
 NSString * const kPMNHideConfirmButtonInNebbieGuide = @"PMNHideConfirmButtonInNebbieGuide";
 
+NSString * const kPMNUpdateStoreItemQuantity = @"PMNUpdateStoreItemQuantity";
+
 NSString * const kPMNEnableTracking               = @"PMNEnableTracking";  // enable  tracking
 NSString * const kPMNDisableTracking              = @"PMNDisableTracking"; // disable tracking
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";

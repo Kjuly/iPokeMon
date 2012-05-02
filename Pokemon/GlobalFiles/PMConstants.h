@@ -64,6 +64,8 @@ extern NSString * const kPMNShowNewbieGuide;
 extern NSString * const kPMNShowConfirmButtonInNebbieGuide;
 extern NSString * const kPMNHideConfirmButtonInNebbieGuide;
 
+extern NSString * const kPMNUpdateStoreItemQuantity;
+
 extern NSString * const kPMNEnableTracking;  // enable  tracking
 extern NSString * const kPMNDisableTracking; // disable tracking
 extern NSString * const kPMNCloseCenterMenu;
@@ -160,7 +162,10 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINTableViewCellBagItemSelected @"BagItemTableViewCellSelectedBackground.png"
 #define kPMINTableViewCell                @"BagItemTableViewCellSelectedBackground.png"
 #define kPMINTableViewCellBagMedicine     @"BagMedicineTableViewCellBackground.png"
+// table veew cell related - Store
 #define kPMINStoreItemQuantityButtonBackground @"StoreItemQuantityButtonBackground.png"
+#define kPMINStoreItemQuantityIcreaseButton    @"StoreItemQuantityIcreaseButton.png"
+#define kPMINStoreItemQuantityDcreaseButton    @"StoreItemQuantityDcreaseButton.png"
 // table view header
 #define kPMINTableViewHeaderSetting       @"SettingTableViewSectionHeaderBackground.png"
 // table view other elements
@@ -365,6 +370,9 @@ typedef enum {
 #define kCellHeightOfSettingTableViewCenterTitleStyle 64.f // center title style: feedback, logout
 // Header
 #define kSectionHeaderHeightOfSettingTableView 32.f
+// Others
+#define kStoreItemQuantityI_DcreaseButtonHeight 44.f
+#define kStoreItemQuantityI_DcreaseButtonWidth  128.f
 
 // Others
 #define kTabArrowImageTag   2394859

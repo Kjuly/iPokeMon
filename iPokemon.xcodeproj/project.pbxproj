@@ -110,6 +110,10 @@
 		7F3B669C154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */; };
 		7F44F727155103770052678F /* StoreItemQuantityButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */; };
 		7F44F728155103770052678F /* StoreItemQuantityButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */; };
+		7F44F72E155115F50052678F /* StoreItemQuantityDcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */; };
+		7F44F72F155115F50052678F /* StoreItemQuantityDcreaseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72B155115F40052678F /* StoreItemQuantityDcreaseButton@2x.png */; };
+		7F44F730155115F50052678F /* StoreItemQuantityIcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72C155115F50052678F /* StoreItemQuantityIcreaseButton.png */; };
+		7F44F731155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72D155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
 		7F4A7B7A155014D500F3BFB0 /* StoreItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */; };
@@ -675,6 +679,10 @@
 		7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageUnknowOpposite@2x.png"; sourceTree = "<group>"; };
 		7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityButtonBackground.png; sourceTree = "<group>"; };
 		7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityButtonBackground@2x.png"; sourceTree = "<group>"; };
+		7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityDcreaseButton.png; sourceTree = "<group>"; };
+		7F44F72B155115F40052678F /* StoreItemQuantityDcreaseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityDcreaseButton@2x.png"; sourceTree = "<group>"; };
+		7F44F72C155115F50052678F /* StoreItemQuantityIcreaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityIcreaseButton.png; sourceTree = "<group>"; };
+		7F44F72D155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityIcreaseButton@2x.png"; sourceTree = "<group>"; };
 		7F4570FE14F225EB0031A8F5 /* PokemonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailViewController.h; sourceTree = "<group>"; };
 		7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailViewController.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
@@ -2274,6 +2282,10 @@
 				7F7EF3FA153FFCC80061D82E /* PokedexTableViewCellSelectedBackground@2x.png */,
 				7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */,
 				7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */,
+				7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */,
+				7F44F72B155115F40052678F /* StoreItemQuantityDcreaseButton@2x.png */,
+				7F44F72C155115F50052678F /* StoreItemQuantityIcreaseButton.png */,
+				7F44F72D155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png */,
 				7F7EF3FF153FFCC80061D82E /* SettingTableViewCellBackground.png */,
 				7F7EF400153FFCC80061D82E /* SettingTableViewCellBackground@2x.png */,
 				7F7EF401153FFCC80061D82E /* SettingTableViewSectionHeaderBackground.png */,
@@ -2863,6 +2875,10 @@
 				7F8E064D154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png in Resources */,
 				7F44F727155103770052678F /* StoreItemQuantityButtonBackground.png in Resources */,
 				7F44F728155103770052678F /* StoreItemQuantityButtonBackground@2x.png in Resources */,
+				7F44F72E155115F50052678F /* StoreItemQuantityDcreaseButton.png in Resources */,
+				7F44F72F155115F50052678F /* StoreItemQuantityDcreaseButton@2x.png in Resources */,
+				7F44F730155115F50052678F /* StoreItemQuantityIcreaseButton.png in Resources */,
+				7F44F731155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

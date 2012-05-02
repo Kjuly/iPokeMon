@@ -55,6 +55,7 @@
 - (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell;
 - (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
 - (NSString *)localizedNameHeader;
+- (void)_updateSelectedItemQuantity:(NSNotification *)notification;
 
 @end
 
@@ -84,6 +85,7 @@
   self.selectedCell              = nil;
   self.storeItemQuantityChangeViewController = nil;
   [self releaseSubviews];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
   [super dealloc];
 }
 
@@ -177,6 +179,12 @@
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  
+  // add observer for notification from |StoreItemQuantityChangeViewController| when quantity changed
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(_updateSelectedItemQuantity:)
+                                               name:kPMNUpdateStoreItemQuantity
+                                             object:nil];
 }
 
 - (void)viewDidUnload {
@@ -399,6 +407,11 @@
   else if (targetType_ & kBagQueryTargetTypeKeyItem)    localizedNameHeader = @"PMSBagKeyItem";
   else return nil;
   return localizedNameHeader;
+}
+
+// update selected item quantity
+- (void)_updateSelectedItemQuantity:(NSNotification *)notification {
+  [self.hiddenCell updateQuantity:[notification.object intValue]];
 }
 
 #pragma mark - BagItemTableViewHiddenCell Delegate
