@@ -78,6 +78,7 @@
 - (void)showHelpView:(id)sender;
 - (void)changeCenterMainButtonStatus:(NSNotification *)notification;
 - (void)runCenterMainButtonTouchUpInsideAction:(id)sender;
+- (void)runCenterMainButtonTouchUpOutsideAction:(id)sender;
 - (void)openCenterMenuView;
 - (void)closeCenterMenuView;
 - (void)activateCenterMenuOpenStatusTimer;
@@ -205,11 +206,20 @@
   
   // Register touch events for |centerMainButton_|
   [centerMainButton_ addTarget:self
+                        action:@selector(countLongTapTimeWithAction:)
+              forControlEvents:UIControlEventTouchDown];
+  [centerMainButton_ addTarget:self
                         action:@selector(runCenterMainButtonTouchUpInsideAction:)
               forControlEvents:UIControlEventTouchUpInside];
   [centerMainButton_ addTarget:self
-                        action:@selector(countLongTapTimeWithAction:)
-              forControlEvents:UIControlEventTouchDown];
+                        action:@selector(runCenterMainButtonTouchUpOutsideAction:)
+              forControlEvents:UIControlEventTouchUpOutside];
+  [centerMainButton_ addTarget:self
+                        action:@selector(runCenterMainButtonTouchUpOutsideAction:)
+              forControlEvents:UIControlEventTouchDragInside];
+  [centerMainButton_ addTarget:self
+                        action:@selector(runCenterMainButtonTouchUpOutsideAction:)
+              forControlEvents:UIControlEventTouchDragOutside];
   
   // Map Button
   mapButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
@@ -426,10 +436,11 @@
 }
 
 // |centerMainButton_| touch up inside action
-- (void)runCenterMainButtonTouchUpInsideAction:(id)sender {
+- (void)runCenterMainButtonTouchUpInsideAction:(id)sender {  
   // If Pokemon Appeared, and got a message, deal with it
   if (centerMainButtonMessageSignal_ == kCenterMainButtonMessageSignalPokemonAppeared &&
-      centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared) {
+      centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared &&
+      ! isCenterMainButtonTouchDownCircleViewLoading_) {
     // Create |gameMainViewController_|
     GameMainViewController * gameMainViewController = [[GameMainViewController alloc] init];
     self.gameMainViewController = gameMainViewController;
@@ -471,8 +482,8 @@
         return;
       
       if (isCenterMenuOpening_) {
-        if (self.centerMenuUtilityViewController.isOpening
-            || self.centerMenuSixPokemonsViewController.isOpening)
+        if (self.centerMenuUtilityViewController.isOpening ||
+            self.centerMenuSixPokemonsViewController.isOpening)
           [self closeCenterMenuView];
       } else {
         [self openCenterMenuView];
@@ -480,6 +491,16 @@
         [self activateCenterMenuOpenStatusTimer];
       }
       break;
+  }
+}
+
+// |centerMainButton_| touch up outside action
+- (void)runCenterMainButtonTouchUpOutsideAction:(id)sender {
+  [self.longTapTimer invalidate];
+  if (isCenterMainButtonTouchDownCircleViewLoading_) {
+    // Stop |centerMainButtonTouchDownCircleView_| loading
+    [self.centerMainButtonTouchDownCircleView stopAnimation];
+    isCenterMainButtonTouchDownCircleViewLoading_ = NO;
   }
 }
 
@@ -588,11 +609,12 @@
   if (! isCenterMenuOpening_)
     return;
   centerMenuOpenStatusTimeCounter_ = 0;
-  self.centerMenuOpenStatusTimer = [NSTimer scheduledTimerWithTimeInterval:5.f
-                                                                    target:self
-                                                                  selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
-                                                                  userInfo:nil
-                                                                   repeats:YES];
+  self.centerMenuOpenStatusTimer =
+    [NSTimer scheduledTimerWithTimeInterval:5.f
+                                     target:self
+                                   selector:@selector(closeCenterMenuWhenLongTimeNoOperation)
+                                   userInfo:nil
+                                    repeats:YES];
 }
 
 // Stop |centerMenuOpenStatusTimer_| when button clicked
@@ -613,16 +635,18 @@
 
 // |centerMainButton_| touch down action
 - (void)countLongTapTimeWithAction:(id)sender {
-  if (! isCenterMenuOpening_ && centerMainButtonMessageSignal_ != kCenterMainButtonMessageSignalPokemonAppeared) {
+  if (! isCenterMenuOpening_ &&
+      centerMainButtonMessageSignal_ != kCenterMainButtonMessageSignalPokemonAppeared) {
     // Start time counting
     self.currentKeyButton = (UIButton *)sender;
     timeCounter_  = 0;
     [self.longTapTimer invalidate];
-    self.longTapTimer = [NSTimer scheduledTimerWithTimeInterval:1.f
-                                                         target:self
-                                                       selector:@selector(increaseTimeWithAction)
-                                                       userInfo:nil
-                                                        repeats:YES];
+    self.longTapTimer =
+      [NSTimer scheduledTimerWithTimeInterval:1.f
+                                       target:self
+                                     selector:@selector(increaseTimeWithAction)
+                                     userInfo:nil
+                                      repeats:YES];
   }
 }
 
@@ -635,41 +659,45 @@
   ///TARGET:|centerMainButton_|
   // If the target is |centerMainButton_|, and |timeCounter_ >= 1.0|, loading it
   // Time: delay 1.0 second, then every 2.0 second got a new point
-  if (! isCenterMainButtonTouchDownCircleViewLoading_ && buttonTag == kTagMainViewCenterMainButton
-      && ! isCenterMenuOpening_ && timeCounter_ >= 1.f) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: Long Time Press on Center Main Button"];
-#endif
+  if (buttonTag == kTagMainViewCenterMainButton &&
+      ! isCenterMainButtonTouchDownCircleViewLoading_ &&
+      ! isCenterMenuOpening_ &&
+      timeCounter_ >= 1.f) {
+    // Loading |centerMainButtonTouchDownCircleView_|
     // Run this block after |mapButton_| moved to view top
     void (^completionBlock)(BOOL) = ^(BOOL finished) {
-      NSLog(@"increaseTimeWithAction - Start loading |centerMainButtonTouchDownCircleView|...");
-      isCenterMainButtonTouchDownCircleViewLoading_ = YES;
-      
-      // Loading |centerMainButtonTouchDownCircleView_|
-      if (! self.centerMainButtonTouchDownCircleView) {
-        CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView
-        = [[CenterMainButtonTouchDownCircleView alloc]
-           initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
-                                    CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2 - 20.f,
-                                    kCenterMainButtonTouchDownCircleViewSize,
-                                    kCenterMainButtonTouchDownCircleViewSize)];
+      // Sometimes, tap moves outside of button,
+      //   then the |longTapTimer_| will invalid, then no need to run animation
+      // It is a potential animation bug, not solved perfect now.
+      if (! [self.longTapTimer isValid]) {
+        [self openCenterMenuView];
+        return;
+      }
+      // run animation for |centerCircleView_|
+      if (self.centerMainButtonTouchDownCircleView == nil) {
+        CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
+        centerMainButtonTouchDownCircleView = [CenterMainButtonTouchDownCircleView alloc];
+        [centerMainButtonTouchDownCircleView initWithFrame:
+          CGRectMake(CGRectGetMidX(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
+                     CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2 - 20.f,
+                     kCenterMainButtonTouchDownCircleViewSize,
+                     kCenterMainButtonTouchDownCircleViewSize)];
         self.centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView;
         [centerMainButtonTouchDownCircleView release];
       }
-      [self.view insertSubview:self.centerMainButtonTouchDownCircleView belowSubview:self.centerMainButton];
+      [self.view insertSubview:self.centerMainButtonTouchDownCircleView
+                  belowSubview:self.centerMainButton];
       [self.centerMainButtonTouchDownCircleView startAnimation];
+      isCenterMainButtonTouchDownCircleViewLoading_ = YES;
     };
-    
     // Move |mapButton_| to view top
-    [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop withCompletionBlock:completionBlock];
+    [self setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop
+        withCompletionBlock:completionBlock];
   }
   
   ///TARGET:|mapButton_|
   // If keep tapping the |mapButton_| long time until... do |toggleLocationService|
   else if (buttonTag == kTagMainViewMapButton && timeCounter_ > 2.f) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: Long Time Press on Map Button"];
-#endif
     [self toggleLocationService];
     [self.longTapTimer invalidate];
   }

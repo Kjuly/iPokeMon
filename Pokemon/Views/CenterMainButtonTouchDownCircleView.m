@@ -47,9 +47,9 @@
     [self setBackgroundColor:[UIColor clearColor]];
     
     CGFloat radius = kCenterMainButtonTouchDownCircleViewSize / 2;
-    CGFloat startAngle = 0.0f;
+    CGFloat startAngle = 0.f;
 //    CGFloat byAngle    = 0.01f;
-    CGFloat endAngle   = 1.0f;
+    CGFloat endAngle   = 1.f;
     CGFloat pathStartAngle = 2.965f;
     
     self.circle = [CAShapeLayer layer];
@@ -58,22 +58,22 @@
                                                 startAngle:pathStartAngle
                                                   endAngle:M_PI * 2 + pathStartAngle
                                                  clockwise:YES].CGPath];
-    [circle_ setPosition:CGPointMake(0.0f, 0.0f)];
+    [circle_ setPosition:CGPointMake(0.f, 0.f)];
     [circle_ setFillColor:[UIColor clearColor].CGColor];
     [circle_ setStrokeColor:[UIColor blueColor].CGColor];
-    [circle_ setLineWidth:100.0f];
+    [circle_ setLineWidth:100.f];
 //    [self.layer addSublayer:circle_];
     
     // Set background & foreground image
     // Background
     backgroundImageView_ = [[UIImageView alloc] initWithImage:
                             [UIImage imageNamed:kPMINMainViewCenterCircleBackgound]];
-    [backgroundImageView_ setAlpha:0.0f];
+    [backgroundImageView_ setAlpha:0.f];
     [self addSubview:backgroundImageView_];
     // Foreground
     foregroundImageView_ = [[UIImageView alloc] initWithImage:
                             [UIImage imageNamed:kPMINMainViewCenterCircle]];
-    [foregroundImageView_ setAlpha:0.0f];
+    [foregroundImageView_ setAlpha:0.f];
     foregroundImageView_.layer.mask = circle_;
     [self addSubview:foregroundImageView_];
     
@@ -82,8 +82,8 @@
     circle_.strokeEnd = endAngle;
     // Draw animation
     self.drawAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    [drawAnimation_ setDuration:5.0f];
-    [drawAnimation_ setRepeatCount:1.0f];
+    [drawAnimation_ setDuration:5.f];
+    [drawAnimation_ setRepeatCount:1.f];
     //  [drawAnimation setRemovedOnCompletion:NO];
     [drawAnimation_ setFromValue:[NSNumber numberWithFloat:startAngle]];
 //    [drawAnimation_ setByValue:[NSNumber numberWithFloat:byAngle]];
@@ -102,25 +102,27 @@
 #pragma mark - Public Methods
 
 - (void)startAnimation {
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  NSLog(@"START LOADING");
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
-                     [self.backgroundImageView setAlpha:1.0f];
+                     [self.backgroundImageView setAlpha:1.f];
                    }
                    completion:^(BOOL finished) {
                      [self.circle addAnimation:self.drawAnimation forKey:@"DrawCircleAnimation"];
-                     [self.foregroundImageView setAlpha:1.0f];
+                     [self.foregroundImageView setAlpha:1.f];
                    }];
 }
 
 - (void)stopAnimation {
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  NSLog(@"STOP LOADING");
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationCurveEaseInOut
                    animations:^{
-                     [self.foregroundImageView setAlpha:0.0f];
-                     [self.backgroundImageView setAlpha:0.0f];
+                     [self.foregroundImageView setAlpha:0.f];
+                     [self.backgroundImageView setAlpha:0.f];
                    }
                    completion:^(BOOL finished) {
                      [self.circle removeAnimationForKey:@"DrawCircleAnimation"];
