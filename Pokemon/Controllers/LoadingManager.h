@@ -11,6 +11,14 @@
 
 #import "MBProgressHUD.h"
 
+typedef enum {
+  kProgressMessageTypeNone = 0,
+  kProgressMessageTypeSucceed,
+  kProgressMessageTypeInfo,
+  kProgressMessageTypeWarn,
+  kProgressMessageTypeError
+}ProgressMessageType;
+
 // Loading bar
 @interface LoadingBar : UIWindow
 
@@ -37,7 +45,9 @@
 - (void)cleanOverBar;
 
 // show message over view
-- (void)showMessage:(NSString *)message withDuration:(NSTimeInterval)duration;
+- (void)showMessage:(NSString *)message
+               type:(ProgressMessageType)type
+       withDuration:(NSTimeInterval)duration;
 
 // Progress Bar's resource unit management
 - (void)addResourceToLoadingQueue;

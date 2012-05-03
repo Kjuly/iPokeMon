@@ -439,6 +439,14 @@
     price  = 0;
   }
   
+  // if money is not enough, show warning
+  if (price * quantity_ > [self.trainer money]) {
+    [[LoadingManager sharedInstance] showMessage:NSLocalizedString(@"Cash Shortage", nil)
+                                            type:kProgressMessageTypeWarn
+                                    withDuration:1.f];
+    return;
+  }
+  
   // consume money for bought items
   if (price > 0)
     [self.trainer consumeMoney:(price * quantity_)];
@@ -449,7 +457,9 @@
   
   // cancel hidden cell & show message that purchase succeed
   [self cancelHiddenCell:nil];
-  [[LoadingManager sharedInstance] showMessage:nil withDuration:1.f];
+  [[LoadingManager sharedInstance] showMessage:nil
+                                          type:kProgressMessageTypeSucceed
+                                  withDuration:1.f];
 }
 
 // Hidden Cell Button Action: Show Info

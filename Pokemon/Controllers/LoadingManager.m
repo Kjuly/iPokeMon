@@ -197,12 +197,36 @@ static LoadingManager * loadingManager_ = nil;
 #pragma mark - Show Message
 
 - (void)showMessage:(NSString *)message
+               type:(ProgressMessageType)type
        withDuration:(NSTimeInterval)duration {
   MBProgressHUD * HUD = [[[MBProgressHUD alloc] initWithView:
                           [[[UIApplication sharedApplication] delegate] window]] autorelease];
 	[[[[UIApplication sharedApplication] delegate] window] addSubview:HUD];
 	
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonConfirm]] autorelease];
+  NSString * iconName;
+  switch (type) {
+    case kProgressMessageTypeSucceed:
+      iconName = kPMINMainButtonConfirm;
+      break;
+      
+    case kProgressMessageTypeInfo:
+      iconName = kPMINMainButtonInfo;
+      break;
+      
+    case kProgressMessageTypeWarn:
+      iconName = kPMINMainButtonWarning;
+      break;
+      
+    case kProgressMessageTypeError:
+      iconName = kPMINMainButtonCancel;
+      break;
+      
+    case kProgressMessageTypeNone:
+    default:
+      iconName = nil;
+      break;
+  }
+	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:iconName]] autorelease];
 	// Set custom view mode
 	HUD.mode = MBProgressHUDModeCustomView;
 	
