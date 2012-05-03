@@ -212,19 +212,20 @@ static PMLocationManager * locationManager_ = nil;
     }
     
     /*
-    @property (nonatomic, readonly) NSString *name; // eg. Apple Inc.
-    @property (nonatomic, readonly) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
-    @property (nonatomic, readonly) NSString *subThoroughfare; // eg. 1
-    @property (nonatomic, readonly) NSString *locality; // city, eg. Cupertino
-    @property (nonatomic, readonly) NSString *subLocality; // neighborhood, common name, eg. Mission District
-    @property (nonatomic, readonly) NSString *administrativeArea; // state, eg. CA
-    @property (nonatomic, readonly) NSString *subAdministrativeArea; // county, eg. Santa Clara
-    @property (nonatomic, readonly) NSString *postalCode; // zip code, eg. 95014
-    @property (nonatomic, readonly) NSString *ISOcountryCode; // eg. US
-    @property (nonatomic, readonly) NSString *country; // eg. United States
-    @property (nonatomic, readonly) NSString *inlandWater; // eg. Lake Tahoe
-    @property (nonatomic, readonly) NSString *ocean; // eg. Pacific Ocean
-    @property (nonatomic, readonly) NSArray *areasOfInterest; // eg. Golden Gate Park
+    NSDictionary *addressDictionary  // A dictionary containing the Address Book keys and values for the placemark
+    NSString *name;                  // eg. Apple Inc.
+    NSString *thoroughfare;          // street address, eg. 1 Infinite Loop
+    NSString *subThoroughfare;       // eg. 1
+    NSString *locality;              // city, eg. Cupertino
+    NSString *subLocality;           // neighborhood, common name, eg. Mission District
+    NSString *administrativeArea;    // state, eg. CA
+    NSString *subAdministrativeArea; // county, eg. Santa Clara
+    NSString *postalCode;            // zip code, eg. 95014
+    NSString *ISOcountryCode;        // eg. US
+    NSString *country;               // eg. United States
+    NSString *inlandWater;           // eg. Lake Tahoe
+    NSString *ocean;                 // eg. Pacific Ocean
+    NSArray *areasOfInterest;        // eg. Golden Gate Park
     */
     CLPlacemark * placemark = [placemarks objectAtIndex:0];
     NSLog(@"placemark:::%@", placemark);
