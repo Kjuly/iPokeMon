@@ -168,7 +168,7 @@
 #ifdef DEBUG_NO_MOVE
   if (! isPokemonAppeared_ && arc4random() % 10 > 5) {
 #else
-  if (! isPokemonAppeared_ && moveDistance_ > 30.0f && arc4random() % 2) {
+  if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2) {
 #endif
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
