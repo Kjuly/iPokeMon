@@ -457,6 +457,7 @@
 		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
 		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
 		7FCEDEF6152ACC9700CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCEDEF5152ACC9600CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m */; };
+		7FD037D015526242001A7C34 /* PMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD037CF15526242001A7C34 /* PMLocationManager.m */; };
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
@@ -1234,6 +1235,8 @@
 		7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewBackgroundBlackWithFog@2x.png"; sourceTree = "<group>"; };
 		7FCEDEF4152ACC9500CE96AB /* GTMOAuth2ViewControllerTouch+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMOAuth2ViewControllerTouch+Custom.h"; sourceTree = "<group>"; };
 		7FCEDEF5152ACC9600CE96AB /* GTMOAuth2ViewControllerTouch+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMOAuth2ViewControllerTouch+Custom.m"; sourceTree = "<group>"; };
+		7FD037CE15526242001A7C34 /* PMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMLocationManager.h; sourceTree = "<group>"; };
+		7FD037CF15526242001A7C34 /* PMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMLocationManager.m; sourceTree = "<group>"; };
 		7FD14F0B14F4C4DC00082330 /* Move+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Move+DataController.h"; sourceTree = "<group>"; };
 		7FD14F0C14F4C4DC00082330 /* Move+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Move+DataController.m"; sourceTree = "<group>"; };
 		7FD14F0E14F4DB5000082330 /* PokemonMoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveView.h; sourceTree = "<group>"; };
@@ -1911,6 +1914,8 @@
 				7F09AA441521912F00D4F5DB /* OAuthManager.m */,
 				7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */,
 				7FF56400152817AB00BA5E28 /* ServerAPIClient.m */,
+				7FD037CE15526242001A7C34 /* PMLocationManager.h */,
+				7FD037CF15526242001A7C34 /* PMLocationManager.m */,
 				7FB4128C1529C979003F41F0 /* TrainerController.h */,
 				7FB4128D1529C979003F41F0 /* TrainerController.m */,
 				7FB412931529CC98003F41F0 /* WildPokemonController.h */,
@@ -3169,6 +3174,7 @@
 				7F999750155045160081D781 /* StoreItemTableViewCell.m in Sources */,
 				7F999754155053D70081D781 /* StoreMedicineTableViewController.m in Sources */,
 				7F99975A155059B40081D781 /* StoreItemQuantityChangeViewController.m in Sources */,
+				7FD037D015526242001A7C34 /* PMLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
