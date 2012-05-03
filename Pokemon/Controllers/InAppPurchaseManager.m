@@ -56,9 +56,9 @@
 //   and add it to the payment queue.
 // If your store offers the ability to purchase more than one of a product,
 //   you can create a single payment and set the quantity property.
-- (void)buyProductIdentifier:(NSString *)productIdentifier {
-  NSLog(@"Buying %@...", productIdentifier);
-  SKPayment * payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
+- (void)buyProduct:(SKProduct *)product {
+  NSLog(@"Buying %@...", product);
+  SKPayment * payment = [SKPayment paymentWithProduct:product];
   // payment.quantity = 3;
   [[SKPaymentQueue defaultQueue] addPayment:payment];
 }

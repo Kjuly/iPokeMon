@@ -264,8 +264,8 @@
 - (void)exchangeCurrency:(id)sender {
   selectedRowIndex_ = ((UIButton *)sender).tag;
   SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
-  NSLog(@"Buying %@...", product.productIdentifier);
-  [self.purchaseManager buyProductIdentifier:product.productIdentifier];
+  NSLog(@"Buying %@...", product);
+  [self.purchaseManager buyProduct:product];
   // loading
   [self.loadingManager showOverView];
   [self performSelector:@selector(timeout) withObject:nil afterDelay:60*5];
