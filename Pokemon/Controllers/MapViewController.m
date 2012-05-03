@@ -12,9 +12,6 @@
 #import "WildPokemonController.h"
 #import "Pokemon+DataController.h"
 
-#define kLocationServiceLowBatteryMode 0
-
-
 @interface MapViewController () {
  @private
   WildPokemonController * wildPokemonController_;
@@ -171,7 +168,7 @@
 #ifdef DEBUG_NO_MOVE
   if (! isPokemonAppeared_ && arc4random() % 10 > 5) {
 #else
-  if (! isPokemonAppeared_ && moveDistance_ > 3000.0f && arc4random() % 2) {
+  if (! isPokemonAppeared_ && moveDistance_ > 30.0f && arc4random() % 2) {
 #endif
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
@@ -216,13 +213,13 @@
 
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
   // Stop updating location when needed
-  if (! kLocationServiceLowBatteryMode) {
-    // When |horizontalAccuracy| of location is smaller than 100, stop updating location
-    if (self.location.horizontalAccuracy < 100 && self.location.verticalAccuracy < 100) {
-      [self.locationManager stopUpdatingLocation];
-      isUpdatingLocation_ = NO;
-    }
+#ifndef LOCATION_SERVICE_LOW_BATTERY_MODE
+  // When |horizontalAccuracy| of location is smaller than 100, stop updating location
+  if (self.location.horizontalAccuracy < 100 && self.location.verticalAccuracy < 100) {
+    [self.locationManager stopUpdatingLocation];
+    isUpdatingLocation_ = NO;
   }
+#endif
 }
 
 // Tells the delegate that the location manager received updated heading information.
@@ -313,18 +310,20 @@
   // Create the CLLocation Object
   location_ = [[CLLocation alloc] init];
   
+  // if low battery mode, use |startMonitoringSignificantLocationChanges|
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
-    if (kLocationServiceLowBatteryMode && [CLLocationManager significantLocationChangeMonitoringAvailable]) {
+#ifdef LOCATION_SERVICE_LOW_BATTERY_MODE
+    // check whether Significant-Change Location Service is available & use it
+    if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
       NSLog(@"Significant Location Change Monitoring Available");
-      // Significant-Change Location Service
       [self.locationManager startMonitoringSignificantLocationChanges];
     }
-    else {
-      NSLog(@"Start Tracking Location...");
-      isUpdatingLocation_ = NO;
-      // Check whether it is updating location after some time interval
-      [self setEventTimerStatusToRunning:YES];
-    }
+#else
+    NSLog(@"Start Tracking Location...");
+    isUpdatingLocation_ = NO;
+    // Check whether it is updating location after some time interval
+    [self setEventTimerStatusToRunning:YES];
+#endif
   }
   
   hasSettedUp_ = YES;
