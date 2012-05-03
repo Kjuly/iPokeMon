@@ -119,7 +119,7 @@
   else itemIDsInString = nil;
   self.items = [self.bagDataController queryDataFor:targetType withIDsInString:itemIDsInString];
   
-  if ([self.items count] <= 1)
+  if ([self.items count] < 1)
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundEmpty]]];
   else
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
