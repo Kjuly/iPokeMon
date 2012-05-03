@@ -30,11 +30,11 @@
 @property (nonatomic, retain) NSTimer               * eventTimer;
 
 - (void)_setup;
-- (void)enableTracking:(NSNotification *)notification;
-- (void)disableTracking:(NSNotification *)notification;
-- (void)continueUpdatingLocation;
-- (void)resetIsPokemonAppeared:(NSNotification *)notification;
-- (void)setEventTimerStatusToRunning:(BOOL)running;
+- (void)_enableTracking:(NSNotification *)notification;
+- (void)_disableTracking:(NSNotification *)notification;
+- (void)_continueUpdatingLocation;
+- (void)_resetIsPokemonAppeared:(NSNotification *)notification;
+- (void)_setEventTimerStatusToRunning:(BOOL)running;
 
 @end
 
@@ -85,16 +85,16 @@ static PMLocationManager * locationManager_ = nil;
   // Add observers for notification
   // Notification from |MainViewController| when |mapButton_| pressed
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(enableTracking:)
+                                           selector:@selector(_enableTracking:)
                                                name:kPMNEnableTracking
                                              object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(disableTracking:)
+                                           selector:@selector(_disableTracking:)
                                                name:kPMNDisableTracking
                                              object:nil];
   // When game battle END
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(resetIsPokemonAppeared:)
+                                           selector:@selector(_resetIsPokemonAppeared:)
                                                name:kPMNBattleEnd
                                              object:nil];
   
@@ -129,19 +129,19 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"Start Tracking Location...");
     isUpdatingLocation_ = NO;
     // Check whether it is updating location after some time interval
-    [self setEventTimerStatusToRunning:YES];
+    [self _setEventTimerStatusToRunning:YES];
 #endif
   }
 }
 
 // Enable tracking
-- (void)enableTracking:(NSNotification *)notification {
+- (void)_enableTracking:(NSNotification *)notification {
   NSLog(@"ENABLING TRACKING...");
-  [self setEventTimerStatusToRunning:YES];
+  [self _setEventTimerStatusToRunning:YES];
 }
 
 // Disable tracking
-- (void)disableTracking:(NSNotification *)notification {
+- (void)_disableTracking:(NSNotification *)notification {
   NSLog(@"DISABLING TRACKING...");
   // Stop updating Location
   isUpdatingLocation_ = NO;
@@ -149,14 +149,14 @@ static PMLocationManager * locationManager_ = nil;
   
   // Reset basic settings
   isPokemonAppeared_ = NO;
-  [self setEventTimerStatusToRunning:NO];
+  [self _setEventTimerStatusToRunning:NO];
   
   // Reset |moveDistance_|
   moveDistance_ = 0;
 }
 
 // Continue updating location after some time interval
-- (void)continueUpdatingLocation {
+- (void)_continueUpdatingLocation {
   if (! isUpdatingLocation_) {
     // Standard Location Service
     [self.locationManager startUpdatingLocation];
@@ -164,20 +164,20 @@ static PMLocationManager * locationManager_ = nil;
   }
 }
 
-- (void)resetIsPokemonAppeared:(NSNotification *)notification {
+- (void)_resetIsPokemonAppeared:(NSNotification *)notification {
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"resetIsPokemonAppeared..");
     isPokemonAppeared_ = NO;
-    [self setEventTimerStatusToRunning:YES];
+    [self _setEventTimerStatusToRunning:YES];
   }
 }
 
-- (void)setEventTimerStatusToRunning:(BOOL)running {
+- (void)_setEventTimerStatusToRunning:(BOOL)running {
   if (running) {
     if (! self.eventTimer)
       self.eventTimer = [NSTimer scheduledTimerWithTimeInterval:3
                                                          target:self
-                                                       selector:@selector(continueUpdatingLocation)
+                                                       selector:@selector(_continueUpdatingLocation)
                                                        userInfo:nil
                                                         repeats:YES];
   } else {
@@ -248,7 +248,7 @@ static PMLocationManager * locationManager_ = nil;
       
       // Mark as a Wild Pokemon appeared & stop tracking
       isPokemonAppeared_ = YES;
-      [self disableTracking:nil];
+      [self _disableTracking:nil];
     }
   
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
