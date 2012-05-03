@@ -53,7 +53,7 @@
 
 - (void)dealloc {
   [self releaseSubviews];
-  [self dealloc];
+  [super dealloc];
 }
 
 - (void)releaseSubviews {
