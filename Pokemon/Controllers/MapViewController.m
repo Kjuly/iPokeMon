@@ -8,9 +8,7 @@
 
 #import "MapViewController.h"
 
-#import "AFJSONRequestOperation.h"
 #import "WildPokemonController.h"
-#import "Pokemon+DataController.h"
 
 @interface MapViewController () {
  @private
@@ -166,10 +164,11 @@
   // If there's no Wild Pokemon Arreared yet, and got the basic required move distance,
   //   Generate a Wild Pokemon for player
 #ifdef DEBUG_NO_MOVE
-  if (! isPokemonAppeared_ && arc4random() % 10 > 5) {
+  if (! isPokemonAppeared_ && arc4random() % 10 > 5)
 #else
-  if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2) {
+  if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2)
 #endif
+  {
     // Update data for Wild Pokemon at current location
     [self.wildPokemonController updateAtLocation:newLocation];
     
