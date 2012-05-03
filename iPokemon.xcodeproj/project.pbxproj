@@ -2599,7 +2599,7 @@
 		7F6E6CAB14D6CAA600033C65 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemon" */;
