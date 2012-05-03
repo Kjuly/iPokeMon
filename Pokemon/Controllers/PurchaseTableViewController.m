@@ -241,6 +241,7 @@
   
   // show message over view
   [self.loadingManager showMessage:NSLocalizedString(@"Exchange Done", nil)
+                              type:kProgressMessageTypeSucceed
                       withDuration:1.f];
 }
 
@@ -257,6 +258,10 @@
                                            cancelButtonTitle:nil 
                                            otherButtonTitles:@"OK", nil] autorelease];
     [alert show];
+    // show message to warn user the Exchange Failed
+//    [self.loadingManager showMessage:NSLocalizedString(@"Exchange Failed", nil)
+//                                type:kProgressMessageTypeError
+//                        withDuration:1.f];
   }
 }
 

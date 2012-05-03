@@ -120,6 +120,7 @@
 "PMSStore"                 = "iPokemon 商店";
 "PMSStoreCurrencyExchange" = "货币兑换";
 "Cash Shortage" = "对不起，现金不足";
+"Exchange Failed" = "对不起，兑换失败";
 "Exchange Done"            = "兑换换成";
 
 // Bag Tableview

@@ -119,6 +119,7 @@
 "PMSStore"                 = "iPokemon Store";
 "PMSStoreCurrencyExchange" = "Currency Exchange";
 "Cash Shortage" = "Sorry, Cash Shortage";
+"Exchange Failed" = "Sorry, Exchange Failed";
 "Exchange Done" = "Exchange Done";
 
 // Bag Tableview
