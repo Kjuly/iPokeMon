@@ -19,10 +19,7 @@
 
 @interface StoreItemTableViewController () {
  @private
-  NSArray          * items_;
-  BagQueryTargetType targetType_;
-  NSInteger          selectedCellIndex_; // For querying data
-  NSInteger          selectedPokemonIndex_;
+  NSArray * items_;
   
   UIView                            * hiddenCellAreaView_;
   StoreItemTableViewCell            * selectedCell_;
@@ -33,13 +30,13 @@
   BagItemInfoViewController         * bagItemInfoViewController_;
   StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController_;
   
-  NSInteger quantity_;
+  BagQueryTargetType targetType_;
+  NSInteger          selectedCellIndex_; // For querying data
+  NSInteger          selectedPokemonIndex_;
+  NSInteger          quantity_;
 }
 
-@property (nonatomic, copy)   NSArray          * items;
-@property (nonatomic, assign) BagQueryTargetType targetType;
-@property (nonatomic, assign) NSInteger          selectedCellIndex;
-@property (nonatomic, assign) NSInteger          selectedPokemonIndex;
+@property (nonatomic, copy)   NSArray * items;
 
 @property (nonatomic, retain) UIView                     * hiddenCellAreaView;
 @property (nonatomic, retain) StoreItemTableViewCell     * selectedCell;
@@ -62,10 +59,7 @@
 
 @implementation StoreItemTableViewController
 
-@synthesize items                = items_;
-@synthesize targetType           = targetType_;
-@synthesize selectedCellIndex    = selectedCellIndex_;
-@synthesize selectedPokemonIndex = selectedPokemonIndex_;
+@synthesize items = items_;
 
 @synthesize hiddenCellAreaView        = hiddenCellAreaView_;
 @synthesize selectedCell              = selectedCell_;
@@ -103,7 +97,7 @@
 }
 
 - (void)setBagItem:(BagQueryTargetType)targetType {
-  self.targetType = targetType;
+  targetType_ = targetType;
   NSString * itemIDsInString;
   // TODO:
   //   Hard code now. need to fetch from web server
@@ -283,7 +277,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   StoreItemTableViewCell * cell = (StoreItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self showHiddenCellToReplaceCell:cell];
-  self.selectedCellIndex = [indexPath row];
+  selectedCellIndex_ = [indexPath row];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -420,30 +414,38 @@
     return;
   
   id item = [self.items objectAtIndex:selectedCellIndex_];
+  NSInteger SID;
   NSInteger price;
   if (targetType_ & kBagQueryTargetTypeItem) {
     BagItem * bagItem = (BagItem *)item;
-    price  = [bagItem.price intValue];
+    SID     = [bagItem.sid intValue];
+    price   = [bagItem.price intValue];
     bagItem = nil;
   }
   else if (targetType_ & kBagQueryTargetTypeMedicine) {
     BagMedicine * bagMedicine = (BagMedicine *)item;
-    price  = [bagMedicine.price intValue];
+    SID         = [bagMedicine.sid intValue];
+    price       = [bagMedicine.price intValue];
     bagMedicine = nil;
   }
   else if (targetType_ & kBagQueryTargetTypePokeball) {
     BagPokeball * bagPokeball = (BagPokeball *)item;
-    price  = [bagPokeball.price intValue];
+    SID         = [bagPokeball.sid intValue];
+    price       = [bagPokeball.price intValue];
     bagPokeball = nil;
   }
   else {
+    SID    = 0;
     price  = 0;
   }
   
   // consume money for bought items
-  if (price > 0) {
+  if (price > 0)
     [self.trainer consumeMoney:(price * quantity_)];
-  }
+  // add new bought item to bag
+  [self.trainer addBagItemsForType:targetType_
+                       withItemSID:SID
+                          quantity:quantity_];
   
   // cancel hidden cell & show message that purchase succeed
   [self cancelHiddenCell:nil];
@@ -459,7 +461,7 @@
   }
   [self.view.window addSubview:self.bagItemInfoViewController.view];
   
-  id anonymousEntity = [self.items objectAtIndex:self.selectedCellIndex];
+  id anonymousEntity = [self.items objectAtIndex:selectedCellIndex_];
   NSInteger entityID;
   NSInteger price;
   if (targetType_ & kBagQueryTargetTypeItem) {

@@ -350,9 +350,36 @@ static TrainerController * trainerController_ = nil;
 
 // BagItem - Add new
 - (void)addBagItemsForType:(BagQueryTargetType)targetType
-             withItemIndex:(NSInteger)itemIndex
+               withItemSID:(NSInteger)itemSID
                   quantity:(NSInteger)quantity {
+  NSMutableArray * bagItems = [[NSMutableArray alloc] initWithArray:[self bagItemsFor:targetType]];
+  NSLog(@"BagItem: ORIGINAL:::%@ NEW ITEM SID:%d", bagItems, itemSID);
+  // check whether the item exists, if exists, increase the quantity,
+  //   otherwise, append new item with quantity
+  BOOL itemExists = NO;
+  NSInteger targetIndex = 0;
+  for (NSInteger i = 0; i < [bagItems count]; i += 2) {
+    if ([[bagItems objectAtIndex:i] intValue] != itemSID)
+      continue;
+    itemExists  = YES;
+    targetIndex = ++i;
+    break;
+  }
+  if (itemExists) {
+    NSInteger currQuantity = [[bagItems objectAtIndex:targetIndex] intValue];
+    [bagItems replaceObjectAtIndex:targetIndex withObject:
+      [NSString stringWithFormat:@"%d", (currQuantity + quantity)]];
+  }
+  else {
+    [bagItems addObject:[NSString stringWithFormat:@"%d", itemSID]];
+    [bagItems addObject:[NSString stringWithFormat:@"%d", quantity]];
+  }
   
+  // save
+  NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
+  NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
+  [self _saveBagItemsFor:targetType withData:bagItemsInString];
+  [bagItems release];
 }
 
 // BagItem - Toss
