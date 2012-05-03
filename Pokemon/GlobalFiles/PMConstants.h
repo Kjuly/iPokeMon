@@ -18,9 +18,9 @@
 #pragma mark - ERROR
 
 typedef enum {
-  kPMErrorUnknow               = 0,
-  kPMErrorNetworkNotAvailable  = 1 << 0, // network NOT available
-  kPMErrorAuthenticationFailed = 1 << 1  // authentication failed
+  kPMErrorUnknow               = 1 << 0,
+  kPMErrorNetworkNotAvailable  = 1 << 1, // network NOT available
+  kPMErrorAuthenticationFailed = 1 << 2  // authentication failed
 }PMError;
 
 #pragma mark - User Defaults

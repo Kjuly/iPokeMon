@@ -38,13 +38,12 @@
 
 
 // ERROR: Full screen view text: T:Title, M:Message
-"PMSError00T" = "Unknow Error";          // unkown error
-"PMSError01T" = "Connection Error";      // connection error
-"PMSError02T" = "Authentication Failed"; // authentication failed
-"PMSError04T" = "";
-"PMSError00M" = "If you receive this message, it means that 'Unkown Error Occurred', please contact me. :)";
-"PMSError01M" = "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
-"PMSError02M" = "Sorry, authentication failed, please try again. If you still cannot be authenticated, please contace me. :)";
+"PMSError01T" = "Unknow Error";          // unkown error
+"PMSError02T" = "Connection Error";      // connection error
+"PMSError04T" = "Authentication Failed"; // authentication failed
+"PMSError01M" = "If you receive this message, it means that 'Unkown Error Occurred', please contact me. :)";
+"PMSError02M" = "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
+"PMSError04M" = "Sorry, authentication failed, please try again. If you still cannot be authenticated, please contace me. :)";
 
 // Login & Newbie guide
 "PMSLoginChoice"        = "Login Choice";
