@@ -201,6 +201,7 @@ static PMLocationManager * locationManager_ = nil;
   
   CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
+    //if([error code] == kCLErrorLocationUnknown) {}
     if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
       NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -210,10 +211,38 @@ static PMLocationManager * locationManager_ = nil;
       return;
     }
     
-    if ([placemarks count] > 0) {
-      CLPlacemark * placemark = [placemarks objectAtIndex:0];
-      NSLog(@"~~~~~~~~~~~~~:::%@", placemark);
-    }
+    /*
+    @property (nonatomic, readonly) NSString *name; // eg. Apple Inc.
+    @property (nonatomic, readonly) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
+    @property (nonatomic, readonly) NSString *subThoroughfare; // eg. 1
+    @property (nonatomic, readonly) NSString *locality; // city, eg. Cupertino
+    @property (nonatomic, readonly) NSString *subLocality; // neighborhood, common name, eg. Mission District
+    @property (nonatomic, readonly) NSString *administrativeArea; // state, eg. CA
+    @property (nonatomic, readonly) NSString *subAdministrativeArea; // county, eg. Santa Clara
+    @property (nonatomic, readonly) NSString *postalCode; // zip code, eg. 95014
+    @property (nonatomic, readonly) NSString *ISOcountryCode; // eg. US
+    @property (nonatomic, readonly) NSString *country; // eg. United States
+    @property (nonatomic, readonly) NSString *inlandWater; // eg. Lake Tahoe
+    @property (nonatomic, readonly) NSString *ocean; // eg. Pacific Ocean
+    @property (nonatomic, readonly) NSArray *areasOfInterest; // eg. Golden Gate Park
+    */
+    CLPlacemark * placemark = [placemarks objectAtIndex:0];
+    NSLog(@"placemark:::%@", placemark);
+    NSLog(@"addressDictionary:::%@", [placemark addressDictionary]);
+    NSLog(@"name:::%@", [placemark name]);
+    NSLog(@"thoroughfare:::%@", [placemark thoroughfare]);
+    NSLog(@"subThoroughfare:::%@", [placemark subThoroughfare]);
+    NSLog(@"locality:::%@", [placemark locality]);
+    NSLog(@"subLocality:::%@", [placemark subLocality]);
+    NSLog(@"administrativeArea:::%@", [placemark administrativeArea]);
+    NSLog(@"subAdministrativeArea:::%@", [placemark subAdministrativeArea]);
+    NSLog(@"postalCode:::%@", [placemark postalCode]);
+    NSLog(@"ISOcountryCode:::%@", [placemark ISOcountryCode]);
+    NSLog(@"country:::%@", [placemark country]);
+    NSLog(@"inlandWater:::%@", [placemark inlandWater]);
+    NSLog(@"ocean:::%@", [placemark ocean]);
+    NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
+    [locationInfo setObject:placemark forKey:@"placemark"];
   };
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
   
