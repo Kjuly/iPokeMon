@@ -8,15 +8,12 @@
 
 #import "PMLocationManager.h"
 
-#import "WildPokemonController.h"
-
 @interface PMLocationManager () {
  @private
   CLLocationManager * locationManager_;
   CLLocation        * location_;
-  
-  WildPokemonController * wildPokemonController_;
-  NSTimer               * eventTimer_;
+  NSDictionary      * locationInfo_;
+  NSTimer           * eventTimer_;
   
   BOOL               isUpdatingLocation_;
   BOOL               isPokemonAppeared_;
@@ -25,26 +22,25 @@
 
 @property (nonatomic, retain) CLLocationManager * locationManager;
 @property (nonatomic, retain) CLLocation        * location;
-
-@property (nonatomic, retain) WildPokemonController * wildPokemonController;
-@property (nonatomic, retain) NSTimer               * eventTimer;
+@property (nonatomic, copy)   NSDictionary      * locationInfo;
+@property (nonatomic, retain) NSTimer           * eventTimer;
 
 - (void)_setup;
-- (void)_enableTracking:(NSNotification *)notification;
-- (void)_disableTracking:(NSNotification *)notification;
-- (void)_continueUpdatingLocation;
-- (void)_resetIsPokemonAppeared:(NSNotification *)notification;
-- (void)_setEventTimerStatusToRunning:(BOOL)running;
+- (void)_enableTracking:(NSNotification *)notification;          // enable tracking
+- (void)_disableTracking:(NSNotification *)notification;         // disable ...
+- (void)_continueUpdatingLocation;                               // continue updating location after stop for a while
+- (void)_resetIsPokemonAppeared:(NSNotification *)notification;  // reset after battle END
+- (void)_setEventTimerStatusToRunning:(BOOL)running;             // |eventTimer_| related method
+- (void)_generateLocationInfoForLocation:(CLLocation *)location; // generate location info
 
 @end
 
 @implementation PMLocationManager
 
+@synthesize locationInfo    = locationInfo_;
 @synthesize locationManager = locationManager_;
 @synthesize location        = location_;
-
-@synthesize wildPokemonController = wildPokemonController_;
-@synthesize eventTimer            = eventTimer_;
+@synthesize eventTimer      = eventTimer_;
 
 // singleton
 static PMLocationManager * locationManager_ = nil;
@@ -60,10 +56,11 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 - (void)dealloc {
-  self.locationManager       = nil;
-  self.location              = nil;
-  self.wildPokemonController = nil;
-  self.eventTimer            = nil;
+  self.locationInfo    = nil;
+  
+  self.locationManager = nil;
+  self.location        = nil;
+  self.eventTimer      = nil;
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNDisableTracking object:nil];
@@ -78,10 +75,10 @@ static PMLocationManager * locationManager_ = nil;
   return self;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Public Methods
 
-// Setup
-- (void)_setup {
+// listen for notifications
+- (void)listen {
   // Add observers for notification
   // Notification from |MainViewController| when |mapButton_| pressed
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -97,11 +94,20 @@ static PMLocationManager * locationManager_ = nil;
                                            selector:@selector(_resetIsPokemonAppeared:)
                                                name:kPMNBattleEnd
                                              object:nil];
-  
+}
+
+// return location info for current location
+- (NSDictionary *)currLocationInfo {
+  return self.locationInfo;
+}
+
+#pragma mark - Private Methods
+
+// Setup
+- (void)_setup {
   // Basic settings
-  self.wildPokemonController = [WildPokemonController sharedInstance];
-  isPokemonAppeared_         = NO;
-  moveDistance_              = 0;
+  isPokemonAppeared_ = NO;
+  moveDistance_      = 0;
   
   // Core Location
   // Create the Manager Object
@@ -155,7 +161,7 @@ static PMLocationManager * locationManager_ = nil;
   moveDistance_ = 0;
 }
 
-// Continue updating location after some time interval
+// Continue updating location after stop for a while
 - (void)_continueUpdatingLocation {
   if (! isUpdatingLocation_) {
     // Standard Location Service
@@ -164,6 +170,7 @@ static PMLocationManager * locationManager_ = nil;
   }
 }
 
+// Reset after battle END
 - (void)_resetIsPokemonAppeared:(NSNotification *)notification {
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"resetIsPokemonAppeared..");
@@ -172,6 +179,7 @@ static PMLocationManager * locationManager_ = nil;
   }
 }
 
+// |eventTimer_| related method
 - (void)_setEventTimerStatusToRunning:(BOOL)running {
   if (running) {
     if (! self.eventTimer)
@@ -185,6 +193,33 @@ static PMLocationManager * locationManager_ = nil;
     [self.eventTimer invalidate];
     self.eventTimer = nil;
   }
+}
+
+// Generate location info
+- (void)_generateLocationInfoForLocation:(CLLocation *)location {
+  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
+  
+  CLGeocoder * geocoder = [[CLGeocoder alloc] init];
+  void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
+    if (error) {
+      NSLog(@"!!!ERROR: %@", [error localizedDescription]);
+      NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 [NSNumber numberWithInt:kPMErrorUnknow], @"error", nil];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
+      [userInfo release];
+      return;
+    }
+    
+    if ([placemarks count] > 0) {
+      CLPlacemark * placemark = [placemarks objectAtIndex:0];
+      NSLog(@"~~~~~~~~~~~~~:::%@", placemark);
+    }
+  };
+  [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
+  
+  self.locationInfo = locationInfo;
+  [locationInfo release];
+  [geocoder release];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -210,8 +245,9 @@ static PMLocationManager * locationManager_ = nil;
   if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2)
 #endif
   {
-    // Update data for Wild Pokemon at current location
-    [self.wildPokemonController updateAtLocation:newLocation];
+    // Calculate the info for current location,
+    //   so |WildPokemonController| can use the latest data to generate a Wild PM
+    [self _generateLocationInfoForLocation:newLocation];
     
     // Generate the Info Dictionary for Appeared Pokemon
     NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:

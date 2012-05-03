@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 
 #import "TrainerController.h"
+#import "PMLocationManager.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "FullScreenLoadingViewController.h"
 #import "LoginTableViewController.h"
@@ -241,7 +242,7 @@
   // Init |mapViewController_| to run location tracking,
   //   if enable location tracking, it'll do tracking
   //   otherwise, just add observer for notification when enable trakcing
-  mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
+//  mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
   
   
   // Add self as Notification observer
@@ -284,6 +285,11 @@
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
+  
+  // Init |PMLocationManager| singleton to run location tracking,
+  //   if enable location tracking, it'll do tracking
+  //   otherwise, just add observer for notification when enable trakcing
+  [[PMLocationManager sharedInstance] listen];
   
   // If the user has logged in (Session is Invalid), sync data between Client & Server.
   //   Else, post notification to show login table view to choose OAuth Service Provider

@@ -13,4 +13,7 @@
 
 + (PMLocationManager *)sharedInstance;
 
+- (void)listen;
+- (NSDictionary *)currLocationInfo; // return location info for current location
+
 @end
