@@ -207,49 +207,49 @@ static PMLocationManager * locationManager_ = nil;
 #ifdef DEBUG_NO_MOVE
   if (! isPokemonAppeared_ && arc4random() % 10 > 5)
 #else
-    if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2)
+  if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2)
 #endif
-    {
-      // Update data for Wild Pokemon at current location
-      [self.wildPokemonController updateAtLocation:newLocation];
-      
-      // Generate the Info Dictionary for Appeared Pokemon
-      NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],
-                                 @"centerMainButtonStatus", nil];
-      
-      ///Send Corresponding Notification: Pokemon Appeared!!!
-      // Use |Local Notification| if in Background Mode
-      if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-        // |UILocalNotification| only works on iOS4.0 and later
-        if (! localNotification) {
-          [userInfo release];
-          return;
-        }
-        
-        // Set data for Local Notification
-        localNotification.fireDate = [NSData data];
-        //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
-        localNotification.timeZone = [NSTimeZone defaultTimeZone];
-        localNotification.alertBody = @"Pokemon Appeared!!!";
-        localNotification.alertAction = @"Go";
-        localNotification.applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
-        localNotification.userInfo = userInfo;
-        //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        [localNotification release];
+  {
+    // Update data for Wild Pokemon at current location
+    [self.wildPokemonController updateAtLocation:newLocation];
+    
+    // Generate the Info Dictionary for Appeared Pokemon
+    NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],
+                               @"centerMainButtonStatus", nil];
+    
+    ///Send Corresponding Notification: Pokemon Appeared!!!
+    // Use |Local Notification| if in Background Mode
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+      UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+      // |UILocalNotification| only works on iOS4.0 and later
+      if (! localNotification) {
+        [userInfo release];
+        return;
       }
-      // Use Post Notification if in Foreground Mode
-      else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil userInfo:userInfo];
-      }
-      [userInfo release];
       
-      // Mark as a Wild Pokemon appeared & stop tracking
-      isPokemonAppeared_ = YES;
-      [self _disableTracking:nil];
+      // Set data for Local Notification
+      localNotification.fireDate = [NSData data];
+      //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+      localNotification.timeZone = [NSTimeZone defaultTimeZone];
+      localNotification.alertBody = @"Pokemon Appeared!!!";
+      localNotification.alertAction = @"Go";
+      localNotification.applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
+      localNotification.userInfo = userInfo;
+      //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+      [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+      [localNotification release];
     }
+    // Use Post Notification if in Foreground Mode
+    else {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil userInfo:userInfo];
+    }
+    [userInfo release];
+    
+    // Mark as a Wild Pokemon appeared & stop tracking
+    isPokemonAppeared_ = YES;
+    [self _disableTracking:nil];
+  }
   
   // If not in Low Battery Mode, need to check |horizontalAccuracy|
   // Stop updating location when needed
