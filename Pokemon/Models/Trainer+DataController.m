@@ -16,10 +16,10 @@
 #import "AFJSONRequestOperation.h"
 
 
-@interface Trainer ()
+@interface Trainer (Private)
 
-- (NSString *)bagItemsInStringFor:(BagQueryTargetType)targetType;
-- (NSString *)allBagItemsInString;
+- (NSString *)_bagItemsInStringFor:(BagQueryTargetType)targetType;
+- (NSString *)_allBagItemsInString;
 
 @end
 
@@ -199,7 +199,7 @@
   if (flag & kDataModifyTrainerBadges)      [data setValue:self.badges                forKey:@"badges"];
   if (flag & kDataModifyTrainerPokedex)     [data setValue:self.pokedex               forKey:@"pokedex"];
   if (flag & kDataModifyTrainerSixPokemons) [data setValue:self.sixPokemonsID         forKey:@"sixPokemons"];
-  if (flag & kDataModifyTrainerBag)         [data setValue:[self allBagItemsInString] forKey:@"bag"];
+  if (flag & kDataModifyTrainerBag)         [data setValue:[self _allBagItemsInString] forKey:@"bag"];
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -255,7 +255,7 @@
 #pragma mark - Private Methods
 
 // Bag Items in String
-- (NSString *)bagItemsInStringFor:(BagQueryTargetType)targetType {
+- (NSString *)_bagItemsInStringFor:(BagQueryTargetType)targetType {
   id bagItems = nil;
   if      (targetType & kBagQueryTargetTypeItem)       bagItems = self.bagItems;
   else if (targetType & kBagQueryTargetTypeMedicine) {
@@ -281,17 +281,17 @@
 }
 
 // All bag items in one String
-- (NSString *)allBagItemsInString {
+- (NSString *)_allBagItemsInString {
   return [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@:%@:%@:%@",
-          [self bagItemsInStringFor:kBagQueryTargetTypeItem],
-          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus],
-          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP],
-          [self bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP],
-          [self bagItemsInStringFor:kBagQueryTargetTypePokeball],
-          [self bagItemsInStringFor:kBagQueryTargetTypeTMHM],
-          [self bagItemsInStringFor:kBagQueryTargetTypeBerry],
-          [self bagItemsInStringFor:kBagQueryTargetTypeBattleItem],
-          [self bagItemsInStringFor:kBagQueryTargetTypeKeyItem]];
+          [self _bagItemsInStringFor:kBagQueryTargetTypeItem],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineHP],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicinePP],
+          [self _bagItemsInStringFor:kBagQueryTargetTypePokeball],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeTMHM],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeBerry],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeBattleItem],
+          [self _bagItemsInStringFor:kBagQueryTargetTypeKeyItem]];
 }
 
 @end

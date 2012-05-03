@@ -12,7 +12,7 @@
 #import "Pokemon+DataController.h"
 
 
-@interface WildPokemon ()
+@interface WildPokemon (Private)
 
 - (void)_calculateMaxStatsAndHP;
 - (void)_calculateGender;

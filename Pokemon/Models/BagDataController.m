@@ -11,9 +11,9 @@
 #import "AppDelegate.h"
 
 
-@interface BagDataController ()
+@interface BagDataController (Private)
 
-- (NSString *)entityNameFor:(BagQueryTargetType)targetType;
+- (NSString *)_entityNameFor:(BagQueryTargetType)targetType;
 
 @end
 
@@ -51,7 +51,7 @@ static BagDataController * bagDataController = nil;
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
+  NSEntityDescription * entity = [NSEntityDescription entityForName:[self _entityNameFor:targetType]
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
   NSError * error;
@@ -74,7 +74,7 @@ static BagDataController * bagDataController = nil;
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  [fetchRequest setEntity:[NSEntityDescription entityForName:[self entityNameFor:targetType]
+  [fetchRequest setEntity:[NSEntityDescription entityForName:[self _entityNameFor:targetType]
                                       inManagedObjectContext:managedObjectContext]];
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid IN %@", targetIDs]];
   [fetchRequest setFetchLimit:count];
@@ -92,7 +92,7 @@ static BagDataController * bagDataController = nil;
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription * entity = [NSEntityDescription entityForName:[self entityNameFor:targetType]
+  NSEntityDescription * entity = [NSEntityDescription entityForName:[self _entityNameFor:targetType]
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
   NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", targetID];
@@ -108,7 +108,7 @@ static BagDataController * bagDataController = nil;
 
 #pragma mark - Private Methods
 
-- (NSString *)entityNameFor:(BagQueryTargetType)targetType {
+- (NSString *)_entityNameFor:(BagQueryTargetType)targetType {
   NSString * entityName;
   if      (targetType & kBagQueryTargetTypeItem)       entityName = NSStringFromClass([BagItem class]);
   else if (targetType & kBagQueryTargetTypeMedicine)   entityName = NSStringFromClass([BagMedicine class]);

@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "PListParser.h"
 
-@interface Pokemon ()
+@interface Pokemon (Private)
 
 - (MoveDamageEffect)_combineMoveDamageEffect:(MoveDamageEffect)moveDamageEffect
                  withAnotherMoveDamageEffect:(MoveDamageEffect)anotherMoveDamageEffect;
