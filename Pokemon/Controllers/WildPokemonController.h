@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class WildPokemon;
+
 @interface WildPokemonController : NSObject
 
 + (WildPokemonController *)sharedInstance;
@@ -18,6 +20,6 @@
 - (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs;
 - (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs;
 - (BOOL)isReady;
-- (NSInteger)appearedPokemonUID;
+- (WildPokemon *)appearedPokemon;
 
 @end

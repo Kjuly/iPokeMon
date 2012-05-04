@@ -296,9 +296,9 @@ static WildPokemonController * wildPokemonController_ = nil;
   return isReady_;
 }
 
-// Return UID for appeared Pokemon to generate Wild Pokemon for Game Battle Scene
-- (NSInteger)appearedPokemonUID {
-  return UID_;
+// Return a Wild Pokemon for user's current location to generate a game battle scene
+- (WildPokemon *)appearedPokemon {
+  return [WildPokemon queryPokemonDataWithUID:UID_];
 }
 
 #pragma mark - Private Methods
