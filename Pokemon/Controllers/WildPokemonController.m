@@ -329,6 +329,8 @@ static WildPokemonController * wildPokemonController_ = nil;
     NSLog(@"WildPM SIDs:%@", datas);
     // Update the data for |WildPokePokemon|
     for (NSString * data in datas) {
+      if ([data isEqualToString:@""])
+        continue;
       WildPokemon * wildPokemon;
       wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                   inManagedObjectContext:managedObjectContext];
