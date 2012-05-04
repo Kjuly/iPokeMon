@@ -199,6 +199,9 @@ static PMLocationManager * locationManager_ = nil;
 - (void)_generateLocationInfoForLocation:(CLLocation *)location {
   NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
   
+#ifdef DEBUG_NO_CORELOCATION
+  [locationInfo setValue:@"Hangzhou City" forKey:@"city"];
+#else
   CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
     //if([error code] == kCLErrorLocationUnknown) {}
@@ -246,10 +249,10 @@ static PMLocationManager * locationManager_ = nil;
     [locationInfo setObject:placemark forKey:@"placemark"];
   };
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
-  
+  [geocoder release];
+#endif
   self.locationInfo = locationInfo;
   [locationInfo release];
-  [geocoder release];
 }
 
 #pragma mark - CLLocationManagerDelegate
