@@ -199,25 +199,25 @@ static PMLocationManager * locationManager_ = nil;
 
 // Generate location info
 - (void)_generateLocationInfoForLocation:(CLLocation *)location {
-#ifdef DEBUG_NO_CORELOCATION
-  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
-  [locationInfo setValue:@"street_address" forKey:@"type"];
-  [locationInfo setValue:@"Hangzhou City" forKey:@"city"];
-  self.locationInfo = locationInfo;
-  [locationInfo release];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
-#else
+//#ifdef DEBUG_NO_CORELOCATION
+//  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
+//  [locationInfo setValue:@"street_address" forKey:@"type"];
+//  [locationInfo setValue:@"Hangzhou City" forKey:@"city"];
+//  self.locationInfo = locationInfo;
+//  [locationInfo release];
+//  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
+//#else
   CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
     //if([error code] == kCLErrorLocationUnknown) {}
-    if (error) {
+    /*if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
       NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  [NSNumber numberWithInt:kPMErrorUnknow], @"error", nil];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
       [userInfo release];
       return;
-    }
+    }*/
     
     /*
     NSDictionary *addressDictionary  // A dictionary containing the Address Book keys and values for the placemark
@@ -263,7 +263,7 @@ static PMLocationManager * locationManager_ = nil;
   [[LoadingManager sharedInstance] showOverBar];
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
   [geocoder release];
-#endif
+//#endif
 }
 
 #pragma mark - CLLocationManagerDelegate
