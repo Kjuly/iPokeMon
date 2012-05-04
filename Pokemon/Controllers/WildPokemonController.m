@@ -326,6 +326,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     // Get JSON Data Array from HTTP Response
     NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
+    NSLog(@"WildPM SIDs:%@", datas);
     // Update the data for |WildPokePokemon|
     for (NSString * data in datas) {
       WildPokemon * wildPokemon;
@@ -379,8 +380,11 @@ static WildPokemonController * wildPokemonController_ = nil;
   // !!!TODO
   //   More data needed!
   // t:Type
+  CLPlacemark * placemark = [locationInfo objectForKey:@"placemark"];
   self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                      [NSNumber numberWithInt:habitat], @"t", nil];
+                      [NSNumber numberWithInt:habitat], @"t",
+                      placemark.ISOcountryCode, @"country_code", nil];
+  placemark = nil;
   
   // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
   NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
