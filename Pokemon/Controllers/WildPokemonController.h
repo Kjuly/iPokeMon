@@ -16,11 +16,8 @@
 + (WildPokemonController *)sharedInstance;
 
 - (void)listen;
-- (void)updateForCurrentRegion;
-//- (void)updateAtLocation:(CLLocation *)location;
 - (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs;
 - (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs;
-//- (BOOL)isReady;
 - (WildPokemon *)appearedPokemon;
 
 @end

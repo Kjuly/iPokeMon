@@ -10,6 +10,7 @@
 
 #import "PokemonConstants.h"
 #import "AppDelegate.h"
+#import "PMLocationManager.h"
 #import "LoadingManager.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon+DataController.h"
@@ -23,22 +24,23 @@
 @interface WildPokemonController () {
  @private
   LoadingManager      * loadingManager_;
-//  BOOL                  isReady_;
+  NSMutableDictionary * locationInfo_;
+  NSMutableDictionary * regionInfo_;
+  
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
   NSInteger             pokemonCounter_;
-  NSMutableDictionary * locationInfo_;
-  NSMutableDictionary * regionInfo_;
 }
 
 @property (nonatomic, retain) LoadingManager      * loadingManager;
 @property (nonatomic, copy)   NSMutableDictionary * locationInfo;
 @property (nonatomic, copy)   NSMutableDictionary * regionInfo;
 
-- (void)cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-- (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
-- (NSInteger)calculateLevel;
+- (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+- (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
+- (NSInteger)_calculateLevel;
 
+- (void)_updateForCurrentRegion;
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification;
 - (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
 - (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
@@ -77,7 +79,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (id)init {
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
-//    isReady_            = NO;
     isPokemonAppeared_  = NO;
     UID_                = 0;
     pokemonCounter_     = kPokemonDefaultCount;
@@ -96,57 +97,68 @@ static WildPokemonController * wildPokemonController_ = nil;
                                              object:nil];
 }
 
-- (void)updateForCurrentRegion {
-  // Show loading process view
-  [self.loadingManager showOverBar];
+// Add more Wild Pokemons with SID array
+- (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
-  // Success Block Method
-  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
-    NSManagedObjectContext * managedObjectContext =
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  // Add the data to |WildPokePokemon| with SID array
+  for (id data in pokemonSIDs) {
+    // Transfer NSNumber to NSString if it is NSNumber type
+    if ([data isKindOfClass:[NSNumber class]])
+      data = [data stringValue];
     
-    // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
-    [self cleanDataWithManagedObjectContext:managedObjectContext];
-    pokemonCounter_ = kPokemonDefaultCount;
-    
-    // Get JSON Data Array from HTTP Response
-    NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
-    // Update the data for |WildPokePokemon|
-    for (NSString * data in datas) {
-      WildPokemon * wildPokemon;
-      wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                  inManagedObjectContext:managedObjectContext];
-      // Update data for current |wildPokemon|
-      [self updateWildPokemon:wildPokemon withData:data];
-    }
-    
-    NSError * error;
-    if (! [managedObjectContext save:&error])
-      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
-    NSLog(@"...Update |%@| data done...", [WildPokemon class]);
-    
-    // If a Wild Pokemon Appeared already, fetch data for it
-    if (isPokemonAppeared_)
-      [self _generateWildPokemonWithLocationInfo:self.locationInfo];
-    
-    // Hide loading process view
-    [self.loadingManager hideOverBar];
-  };
+    WildPokemon * wildPokemon;
+    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                inManagedObjectContext:managedObjectContext];
+    // Update data for current |wildPokemon|
+    [self _updateWildPokemon:wildPokemon withData:data];
+  }
   
-  // Failure Block Method
-  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"!!! ERROR: %@", error);
-    // Hide loading process view
-    [self.loadingManager hideOverBar];
-  };
-  
-  // Update data via |ServerAPIClient|
-  [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:self.regionInfo
-                                                               success:success
-                                                               failure:failure];
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
 }
 
-/*/ Update data for Wild Pokemon at current location
+// Add more Wild Pokemons with SID array
+//   return added Pokemons as an array
+- (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
+  NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+  
+  // Add the data to |WildPokePokemon| with SID array
+  NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
+  for (id data in pokemonSIDs) {
+    // Transfer NSNumber to NSString if it is NSNumber type
+    if ([data isKindOfClass:[NSNumber class]])
+      data = [data stringValue];
+    
+    WildPokemon * wildPokemon;
+    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                inManagedObjectContext:managedObjectContext];
+    // Update data for current |wildPokemon|
+    [self _updateWildPokemon:wildPokemon withData:data];
+    
+    // Add Pokemon to array
+    [pokemons addObject:wildPokemon];
+  }
+  
+  NSError * error;
+  if (! [managedObjectContext save:&error])
+    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
+  
+  return pokemons;
+}
+
+// Return a Wild Pokemon for user's current location to generate a game battle scene
+- (WildPokemon *)appearedPokemon {
+  return [WildPokemon queryPokemonDataWithUID:UID_];
+}
+
+/*/ LEGACY: Use Google Maps API
+// Update data for Wild Pokemon at current location
 - (void)updateAtLocation:(CLLocation *)location {
   // Show loading process view
   [self.loadingManager showOverBar];
@@ -203,7 +215,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     NSDictionary * locationInfo;
     locationInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                     [[results valueForKey:@"types"] objectAtIndex:0], @"type", nil];
+                    [[results valueForKey:@"types"] objectAtIndex:0], @"type", nil];
     
     // Generate Wild Pokemon with the data of |locationInfo|
     [self _generateWildPokemonWithLocationInfo:locationInfo];
@@ -224,14 +236,14 @@ static WildPokemonController * wildPokemonController_ = nil;
   
   // Fetch Data from server
   NSString * requestURL =
-    [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",
-      location.coordinate.latitude, location.coordinate.longitude];
+  [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",
+   location.coordinate.latitude, location.coordinate.longitude];
   NSURL * url = [[NSURL alloc] initWithString:requestURL];
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
   [url release];
-//  NSString * body = @"sensor=true";
+  //  NSString * body = @"sensor=true";
   [request setHTTPMethod:@"POST"];
-//  [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+  //  [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
   //
   // !!!TODO
   //   When network is not available, timeout not works!!!
@@ -239,83 +251,18 @@ static WildPokemonController * wildPokemonController_ = nil;
   [request setTimeoutInterval:10.f];
   NSLog(@"%@", request.URL);
   AFJSONRequestOperation * operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:success
-                                                    failure:failure];
+  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                  success:success
+                                                  failure:failure];
   [request release];
   [operation start];
 }*/
-
-// Add more Wild Pokemons with SID array
-- (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  
-  // Add the data to |WildPokePokemon| with SID array
-  for (id data in pokemonSIDs) {
-    // Transfer NSNumber to NSString if it is NSNumber type
-    if ([data isKindOfClass:[NSNumber class]])
-      data = [data stringValue];
-    
-    WildPokemon * wildPokemon;
-    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                inManagedObjectContext:managedObjectContext];
-    // Update data for current |wildPokemon|
-    [self updateWildPokemon:wildPokemon withData:data];
-  }
-  
-  NSError * error;
-  if (! [managedObjectContext save:&error])
-    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
-  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
-}
-
-// Add more Wild Pokemons with SID array
-//   return added Pokemons as an array
-- (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  
-  // Add the data to |WildPokePokemon| with SID array
-  NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
-  for (id data in pokemonSIDs) {
-    // Transfer NSNumber to NSString if it is NSNumber type
-    if ([data isKindOfClass:[NSNumber class]])
-      data = [data stringValue];
-    
-    WildPokemon * wildPokemon;
-    wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                inManagedObjectContext:managedObjectContext];
-    // Update data for current |wildPokemon|
-    [self updateWildPokemon:wildPokemon withData:data];
-    
-    // Add Pokemon to array
-    [pokemons addObject:wildPokemon];
-  }
-  
-  NSError * error;
-  if (! [managedObjectContext save:&error])
-    NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
-  NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
-  
-  return pokemons;
-}
-
-// Only YES if data for new appeared Pokemon generated done
-/*- (BOOL)isReady {
-  return isReady_;
-}*/
-
-// Return a Wild Pokemon for user's current location to generate a game battle scene
-- (WildPokemon *)appearedPokemon {
-  return [WildPokemon queryPokemonDataWithUID:UID_];
-}
 
 #pragma mark - Private Methods
 #pragma mark - For updating
 
 // Clean Wild Pokemon's data
-- (void)cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+- (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
                                              inManagedObjectContext:managedObjectContext];
@@ -337,7 +284,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Update data for WildPokemon entity
-- (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data {
+- (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data {
   // Update basic data fetched from server
   NSInteger SID = [data intValue];
   wildPokemon.uid    = [NSNumber numberWithInt:++pokemonCounter_];
@@ -350,7 +297,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   // Calculate |level| based on Trainer's related data
   //   then, update data for current level.
   // datas included:|gender|, |fourMoves|, |maxStats|, |hp|, |exp|, |toNextLevel|
-  [wildPokemon updateToLevel:[self calculateLevel]];
+  [wildPokemon updateToLevel:[self _calculateLevel]];
 }
 
 // Calculate |level| based on Trainer's "level"
@@ -358,48 +305,67 @@ static WildPokemonController * wildPokemonController_ = nil;
 // !!!TODO
 //   Need a formular
 //
-- (NSInteger)calculateLevel {
+- (NSInteger)_calculateLevel {
   return 10;
 }
 
 #pragma mark - For Generating
 
+- (void)_updateForCurrentRegion {
+  // Show loading process view
+  [self.loadingManager showOverBar];
+  
+  // Success Block Method
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    NSManagedObjectContext * managedObjectContext =
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
+    // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
+    [self _cleanDataWithManagedObjectContext:managedObjectContext];
+    pokemonCounter_ = kPokemonDefaultCount;
+    
+    // Get JSON Data Array from HTTP Response
+    NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
+    // Update the data for |WildPokePokemon|
+    for (NSString * data in datas) {
+      WildPokemon * wildPokemon;
+      wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                  inManagedObjectContext:managedObjectContext];
+      // Update data for current |wildPokemon|
+      [self _updateWildPokemon:wildPokemon withData:data];
+    }
+    
+    NSError * error;
+    if (! [managedObjectContext save:&error])
+      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
+    NSLog(@"...Update |%@| data done...", [WildPokemon class]);
+    
+    // If a Wild Pokemon Appeared already, fetch data for it
+    if (isPokemonAppeared_)
+      [self _generateWildPokemonWithLocationInfo:[[PMLocationManager sharedInstance] currLocationInfo]];
+    
+    // Hide loading process view
+    [self.loadingManager hideOverBar];
+  };
+  
+  // Failure Block Method
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@"!!! ERROR: %@", error);
+    // Hide loading process view
+    [self.loadingManager hideOverBar];
+  };
+  
+  // Update data via |ServerAPIClient|
+  [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:self.regionInfo
+                                                               success:success
+                                                               failure:failure];
+}
+
 // Generate Wild Pokemon with current location info
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
   NSDictionary * locationInfo = notification.object;
-  NSLog("locationInfo::%@", locationInfo);
-  
-  // Parse the habitat type from current location type
-  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
-  
-  // Set data for |regionInfo_|
-  // !!!TODO
-  //   More data needed!
-  // t:Type
-  self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                     [NSNumber numberWithInt:habitat], @"t", nil];
-  
-  // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
-  NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
-  // Generate a random SID for fetching the related Wild Pokemon
-  NSInteger randomIndex = arc4random() % [pokemonSIDs count];
-  WildPokemon * wildPokemon =
-  [WildPokemon queryPokemonDataWithSID:[[pokemonSIDs objectAtIndex:randomIndex] intValue]];
-  NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
-        habitat, [pokemonSIDs componentsJoinedByString:@","], wildPokemon);
-  
-  // If no Wild Pokemon data matched, update all data for current region
-  if (wildPokemon == nil) {
-    // Save location info data
-    self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:locationInfo];
-    [self updateForCurrentRegion];
-    return;
-  }
-  
-  // Set data
-  UID_               = [wildPokemon.uid intValue];
-  //  isReady_           = YES;
-  isPokemonAppeared_ = NO;
+  [self _generateWildPokemonWithLocationInfo:locationInfo];
+  locationInfo = nil;
 }
 
 // Generate Wild Pokemon with location info
@@ -429,7 +395,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   if (wildPokemon == nil) {
     // Save location info data
     self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:locationInfo];
-    [self updateForCurrentRegion];
+    [self _updateForCurrentRegion];
     return;
   }
   
