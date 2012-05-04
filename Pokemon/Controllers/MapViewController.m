@@ -170,7 +170,7 @@
 #endif
   {
     // Update data for Wild Pokemon at current location
-    [self.wildPokemonController updateAtLocation:newLocation];
+//    [self.wildPokemonController updateAtLocation:newLocation];
     
     // Generate the Info Dictionary for Appeared Pokemon
     NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:

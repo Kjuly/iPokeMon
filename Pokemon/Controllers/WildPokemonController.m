@@ -23,7 +23,7 @@
 @interface WildPokemonController () {
  @private
   LoadingManager      * loadingManager_;
-  BOOL                  isReady_;
+//  BOOL                  isReady_;
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
   NSInteger             pokemonCounter_;
@@ -39,8 +39,9 @@
 - (void)updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
 - (NSInteger)calculateLevel;
 
-- (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
-- (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType;
+- (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification;
+- (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
+- (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
 //- (NSArray *)filterSIDs:(NSArray *)SIDs;
 
 @end
@@ -65,18 +66,18 @@ static WildPokemonController * wildPokemonController_ = nil;
   return wildPokemonController_;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.locationInfo = nil;
   self.regionInfo   = nil;
-  
+  // remove notification observers
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
   [super dealloc];
 }
 
 - (id)init {
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
-    isReady_            = NO;
+//    isReady_            = NO;
     isPokemonAppeared_  = NO;
     UID_                = 0;
     pokemonCounter_     = kPokemonDefaultCount;
@@ -85,6 +86,15 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 #pragma mark - Public Methods
+
+// listen for notification, etc.
+- (void)listen {
+  // add observer for notfication from |PMLocationManager| when it's time to generate a new Wild PM
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(_generateWildPokemonForCurrentLocation:)
+                                               name:kPMNGenerateNewWildPokemon
+                                             object:nil];
+}
 
 - (void)updateForCurrentRegion {
   // Show loading process view
@@ -117,7 +127,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     // If a Wild Pokemon Appeared already, fetch data for it
     if (isPokemonAppeared_)
-      [self generateWildPokemonWithLocationInfo:self.locationInfo];
+      [self _generateWildPokemonWithLocationInfo:self.locationInfo];
     
     // Hide loading process view
     [self.loadingManager hideOverBar];
@@ -136,7 +146,7 @@ static WildPokemonController * wildPokemonController_ = nil;
                                                                failure:failure];
 }
 
-// Update data for Wild Pokemon at current location
+/*/ Update data for Wild Pokemon at current location
 - (void)updateAtLocation:(CLLocation *)location {
   // Show loading process view
   [self.loadingManager showOverBar];
@@ -196,7 +206,7 @@ static WildPokemonController * wildPokemonController_ = nil;
                      [[results valueForKey:@"types"] objectAtIndex:0], @"type", nil];
     
     // Generate Wild Pokemon with the data of |locationInfo|
-    [self generateWildPokemonWithLocationInfo:locationInfo];
+    [self _generateWildPokemonWithLocationInfo:locationInfo];
     [locationInfo release];
     results = nil;
     
@@ -234,7 +244,7 @@ static WildPokemonController * wildPokemonController_ = nil;
                                                     failure:failure];
   [request release];
   [operation start];
-}
+}*/
 
 // Add more Wild Pokemons with SID array
 - (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
@@ -292,9 +302,9 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Only YES if data for new appeared Pokemon generated done
-- (BOOL)isReady {
+/*- (BOOL)isReady {
   return isReady_;
-}
+}*/
 
 // Return a Wild Pokemon for user's current location to generate a game battle scene
 - (WildPokemon *)appearedPokemon {
@@ -354,12 +364,50 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 #pragma mark - For Generating
 
-// Generate Wild Pokemon with location info
-- (void)generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo {
+// Generate Wild Pokemon with current location info
+- (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
+  NSDictionary * locationInfo = notification.object;
   NSLog("locationInfo::%@", locationInfo);
   
   // Parse the habitat type from current location type
-  PokemonHabitat habitat = [self parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
+  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
+  
+  // Set data for |regionInfo_|
+  // !!!TODO
+  //   More data needed!
+  // t:Type
+  self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithInt:habitat], @"t", nil];
+  
+  // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
+  NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
+  // Generate a random SID for fetching the related Wild Pokemon
+  NSInteger randomIndex = arc4random() % [pokemonSIDs count];
+  WildPokemon * wildPokemon =
+  [WildPokemon queryPokemonDataWithSID:[[pokemonSIDs objectAtIndex:randomIndex] intValue]];
+  NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
+        habitat, [pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+  
+  // If no Wild Pokemon data matched, update all data for current region
+  if (wildPokemon == nil) {
+    // Save location info data
+    self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:locationInfo];
+    [self updateForCurrentRegion];
+    return;
+  }
+  
+  // Set data
+  UID_               = [wildPokemon.uid intValue];
+  //  isReady_           = YES;
+  isPokemonAppeared_ = NO;
+}
+
+// Generate Wild Pokemon with location info
+- (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo {
+  NSLog("locationInfo::%@", locationInfo);
+  
+  // Parse the habitat type from current location type
+  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
   
   // Set data for |regionInfo_|
   // !!!TODO
@@ -387,7 +435,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   
   // Set data
   UID_               = [wildPokemon.uid intValue];
-  isReady_           = YES;
+//  isReady_           = YES;
   isPokemonAppeared_ = NO;
 }
 
@@ -433,7 +481,7 @@ static WildPokemonController * wildPokemonController_ = nil;
                      airport: indicates an airport.
                         park: indicates a named park.
  */
-- (PokemonHabitat)parseHabitatWithLocationType:(NSString *)locationType {
+- (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType {
   NSLog(@"locationType:%@", locationType);
   PokemonHabitat habitat;
   if ([locationType isEqualToString:@"premise"] || [locationType isEqualToString:@"subpremise"])

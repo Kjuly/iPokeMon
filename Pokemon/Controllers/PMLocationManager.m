@@ -8,6 +8,8 @@
 
 #import "PMLocationManager.h"
 
+#import "LoadingManager.h"
+
 @interface PMLocationManager () {
  @private
   CLLocationManager * locationManager_;
@@ -197,10 +199,13 @@ static PMLocationManager * locationManager_ = nil;
 
 // Generate location info
 - (void)_generateLocationInfoForLocation:(CLLocation *)location {
-  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
-  
 #ifdef DEBUG_NO_CORELOCATION
+  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
+  [locationInfo setValue:@"street_address" forKey:@"type"];
   [locationInfo setValue:@"Hangzhou City" forKey:@"city"];
+  self.locationInfo = locationInfo;
+  [locationInfo release];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
 #else
   CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
@@ -230,6 +235,7 @@ static PMLocationManager * locationManager_ = nil;
     NSString *ocean;                 // eg. Pacific Ocean
     NSArray *areasOfInterest;        // eg. Golden Gate Park
     */
+    NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
     CLPlacemark * placemark = [placemarks objectAtIndex:0];
     NSLog(@"placemark:::%@", placemark);
     NSLog(@"addressDictionary:::%@", [placemark addressDictionary]);
@@ -247,12 +253,17 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"ocean:::%@", [placemark ocean]);
     NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
     [locationInfo setObject:placemark forKey:@"placemark"];
+    self.locationInfo = locationInfo;
+    [locationInfo release];
+    // loading done & post notification to |WildPokemonController| to generate a new Wild PM
+    [[LoadingManager sharedInstance] hideOverBar];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
   };
+  // loading start
+  [[LoadingManager sharedInstance] showOverBar];
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
   [geocoder release];
 #endif
-  self.locationInfo = locationInfo;
-  [locationInfo release];
 }
 
 #pragma mark - CLLocationManagerDelegate

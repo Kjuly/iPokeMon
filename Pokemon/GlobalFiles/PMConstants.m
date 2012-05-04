@@ -59,9 +59,10 @@ NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonS
 //NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
 NSString * const kPMNToggleTabBar                 = @"PMNToggleTabBar";
 
-NSString * const kPMNPokemonAppeared   = @"PMNPokemonAppeared";
-NSString * const kPMNBattleEnd         = @"PMNBattleEnd";
-NSString * const kPMNToggleSixPokemons = @"kPMNToggleSixPokemons";
+NSString * const kPMNGenerateNewWildPokemon = @"PMNGenerateNewWildPokemon";
+NSString * const kPMNPokemonAppeared        = @"PMNPokemonAppeared";
+NSString * const kPMNBattleEnd              = @"PMNBattleEnd";
+NSString * const kPMNToggleSixPokemons      = @"kPMNToggleSixPokemons";
 
 NSString * const kPMNUpdateGameMenuKeyView     = @"PMNUpdateGameMenuKeyView";
 NSString * const kPMNReplacePokemon            = @"PMNReplacePokemon";

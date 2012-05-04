@@ -73,6 +73,7 @@ extern NSString * const kPMNChangeCenterMainButtonStatus;
 //extern NSString * const kPMNBackToMainView;
 extern NSString * const kPMNToggleTabBar;
 
+extern NSString * const kPMNGenerateNewWildPokemon;
 extern NSString * const kPMNPokemonAppeared;
 extern NSString * const kPMNBattleEnd;
 extern NSString * const kPMNToggleSixPokemons;

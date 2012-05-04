@@ -10,6 +10,7 @@
 
 #import "TrainerController.h"
 #import "PMLocationManager.h"
+#import "WildPokemonController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "FullScreenLoadingViewController.h"
 #import "LoginTableViewController.h"
@@ -285,6 +286,9 @@
                          forState:UIControlStateNormal];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
+  
+  // Init |WildPokemonController| singleton to listen notfications
+  [[WildPokemonController sharedInstance] listen];
   
   // Init |PMLocationManager| singleton to run location tracking,
   //   if enable location tracking, it'll do tracking
