@@ -11,10 +11,11 @@
 
 @implementation Region
 
+@dynamic administrativeArea;
 @dynamic code;
 @dynamic countryCode;
-@dynamic administrativeArea;
 @dynamic locality;
 @dynamic subLocality;
+@dynamic flag;
 
 @end

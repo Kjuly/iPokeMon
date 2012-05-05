@@ -25,6 +25,7 @@
 		7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */; };
 		7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */; };
 		7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */; };
+		7F05964C1555331800E5428C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05964B1555331800E5428C /* Region.m */; };
 		7F072F4D15348E5E0085E1DD /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F072F4C15348E5E0085E1DD /* Pokemon.m */; };
 		7F09A9EB1521786100D4F5DB /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09A9E41521786100D4F5DB /* GTMOAuth2Authentication.m */; };
 		7F09A9EC1521786100D4F5DB /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09A9E61521786100D4F5DB /* GTMOAuth2SignIn.m */; };
@@ -527,7 +528,6 @@
 		7F11D3D51555116D0067B1F3 /* Moves.plist_backup in Resources */ = {isa = PBXBuildFile; fileRef = 7F11D2011555116C0067B1F3 /* Moves.plist_backup */; };
 		7F11D3D61555116D0067B1F3 /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F11D2021555116C0067B1F3 /* Pokedex.plist */; };
 		7F11D3D71555116D0067B1F3 /* Pokedex.plist_backup_3-14 in Resources */ = {isa = PBXBuildFile; fileRef = 7F11D2031555116C0067B1F3 /* Pokedex.plist_backup_3-14 */; };
-		7F11D3DB155518230067B1F3 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11D3DA155518230067B1F3 /* Region.m */; };
 		7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11D3DD15551A720067B1F3 /* Region+DataController.m */; };
 		7F199EDF150A6B55004CE84E /* GamePokeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDD150A6B54004CE84E /* GamePokeball.png */; };
 		7F199EE0150A6B55004CE84E /* GamePokeball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */; };
@@ -1033,6 +1033,8 @@
 		7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_07@2x.png"; sourceTree = "<group>"; };
 		7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_08.png; sourceTree = "<group>"; };
 		7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_08@2x.png"; sourceTree = "<group>"; };
+		7F05964A1555331800E5428C /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
+		7F05964B1555331800E5428C /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		7F072F4B15348E5E0085E1DD /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
 		7F072F4C15348E5E0085E1DD /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
 		7F09A9E31521786100D4F5DB /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
@@ -1555,8 +1557,6 @@
 		7F11D2011555116C0067B1F3 /* Moves.plist_backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Moves.plist_backup; sourceTree = "<group>"; };
 		7F11D2021555116C0067B1F3 /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
 		7F11D2031555116C0067B1F3 /* Pokedex.plist_backup_3-14 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Pokedex.plist_backup_3-14"; sourceTree = "<group>"; };
-		7F11D3D9155518230067B1F3 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
-		7F11D3DA155518230067B1F3 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		7F11D3DC15551A720067B1F3 /* Region+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+DataController.h"; sourceTree = "<group>"; };
 		7F11D3DD15551A720067B1F3 /* Region+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+DataController.m"; sourceTree = "<group>"; };
 		7F199EDD150A6B54004CE84E /* GamePokeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GamePokeball.png; sourceTree = "<group>"; };
@@ -3475,8 +3475,8 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
-				7F11D3D9155518230067B1F3 /* Region.h */,
-				7F11D3DA155518230067B1F3 /* Region.m */,
+				7F05964A1555331800E5428C /* Region.h */,
+				7F05964B1555331800E5428C /* Region.m */,
 				7F34876C1532A16400A5244F /* Trainer.h */,
 				7F34876D1532A16500A5244F /* Trainer.m */,
 				7F3487661532A0DD00A5244F /* TrainerTamedPokemon.h */,
@@ -5105,8 +5105,8 @@
 				7F999754155053D70081D781 /* StoreMedicineTableViewController.m in Sources */,
 				7F99975A155059B40081D781 /* StoreItemQuantityChangeViewController.m in Sources */,
 				7FD037D015526242001A7C34 /* PMLocationManager.m in Sources */,
-				7F11D3DB155518230067B1F3 /* Region.m in Sources */,
 				7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */,
+				7F05964C1555331800E5428C /* Region.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

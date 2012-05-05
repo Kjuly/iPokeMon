@@ -114,6 +114,7 @@
         <attribute name="administrativeArea" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countryCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flag" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locality" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subLocality" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -178,9 +179,9 @@
         <element name="BagTMHM" positionX="144" positionY="378" width="128" height="90"/>
         <element name="Move" positionX="160" positionY="192" width="128" height="255"/>
         <element name="Pokemon" positionX="252" positionY="135" width="128" height="495"/>
+        <element name="Region" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="300"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
         <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="Region" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>
