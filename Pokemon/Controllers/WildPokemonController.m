@@ -26,6 +26,7 @@
   LoadingManager      * loadingManager_;
   NSMutableDictionary * locationInfo_;
   NSMutableString     * regionCode_;
+  NSArray             * pokemonSIDs_;
   
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) LoadingManager      * loadingManager;
 @property (nonatomic, copy)   NSMutableDictionary * locationInfo;
 @property (nonatomic, copy)   NSMutableString     * regionCode;
+@property (nonatomic, copy)   NSArray             * pokemonSIDs;
 
 - (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
@@ -55,6 +57,7 @@
 @synthesize loadingManager = loadingManager_;
 @synthesize locationInfo   = locationInfo_;
 @synthesize regionCode     = regionCode_;
+@synthesize pokemonSIDs    = pokemonSIDs_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -70,8 +73,10 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 - (void)dealloc {
-  self.locationInfo = nil;
-  self.regionCode   = nil;
+  self.loadingManager = nil;
+  self.locationInfo   = nil;
+  self.regionCode     = nil;
+  self.pokemonSIDs    = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
   [super dealloc];
@@ -80,6 +85,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (id)init {
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
+    self.pokemonSIDs    = [NSArray array];
     isPokemonAppeared_  = NO;
     UID_                = 0;
     pokemonCounter_     = kPokemonDefaultCount;
@@ -313,13 +319,10 @@ static WildPokemonController * wildPokemonController_ = nil;
 #pragma mark - For Generating
 
 - (void)_updateForCurrentRegion {
-  // Show loading process view
-  [self.loadingManager showOverBar];
-  
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     
     // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
     [self _cleanDataWithManagedObjectContext:managedObjectContext];
@@ -328,6 +331,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     // Get JSON Data Array from HTTP Response
     NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
     NSLog(@"WildPM SIDs:%@", datas);
+    self.pokemonSIDs = datas;
     // Update the data for |WildPokePokemon|
     for (NSString * data in datas) {
       if ([data isEqualToString:@""])
@@ -359,6 +363,8 @@ static WildPokemonController * wildPokemonController_ = nil;
     [self.loadingManager hideOverBar];
   };
   
+  // Show loading process view
+  [self.loadingManager showOverBar];
   // Update data via |ServerAPIClient|
   NSDictionary * regionInfo = [[NSDictionary alloc] initWithObjectsAndKeys:self.regionCode, @"code", nil];
   [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:regionInfo
@@ -384,14 +390,17 @@ static WildPokemonController * wildPokemonController_ = nil;
   // update |regionCode_| with |placemark|
   [self _updateRegionCodeWithPlacemark:[locationInfo objectForKey:@"placemark"]];
   
-  // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
-  NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
-  // Generate a random SID for fetching the related Wild Pokemon
-  NSInteger randomIndex = arc4random() % [pokemonSIDs count];
-  WildPokemon * wildPokemon =
-    [WildPokemon queryPokemonDataWithSID:[[pokemonSIDs objectAtIndex:randomIndex] intValue]];
-  NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
-        habitat, [pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+  
+  WildPokemon * wildPokemon = nil;
+  NSInteger pokemonSIDsCount = [self.pokemonSIDs count];
+  NSLog(@"pokemonSIDs:%@", self.pokemonSIDs);
+  if (pokemonSIDsCount > 0) {
+    // Generate a random SID for fetching the related Wild Pokemon
+    NSInteger randomIndex = arc4random() % pokemonSIDsCount;
+    wildPokemon = [WildPokemon queryPokemonDataWithSID:[[self.pokemonSIDs objectAtIndex:randomIndex] intValue]];
+    NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
+          habitat, [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+  }
   
   // If no Wild Pokemon data matched, update all data for current region
   if (wildPokemon == nil) {
