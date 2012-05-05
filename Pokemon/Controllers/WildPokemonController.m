@@ -28,6 +28,7 @@
   NSMutableDictionary    * locationInfo_;
   NSMutableString        * regionCode_;
   NSArray                * pokemonSIDs_;
+  WildPokemon            * wildPokemon_;
   
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
@@ -39,6 +40,7 @@
 @property (nonatomic, copy)   NSMutableDictionary    * locationInfo;
 @property (nonatomic, copy)   NSMutableString        * regionCode;
 @property (nonatomic, copy)   NSArray                * pokemonSIDs;
+@property (nonatomic, retain) WildPokemon            * wildPokemon;
 
 - (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withSID:(NSInteger)SID;
@@ -61,6 +63,7 @@
 @synthesize locationInfo         = locationInfo_;
 @synthesize regionCode           = regionCode_;
 @synthesize pokemonSIDs          = pokemonSIDs_;
+@synthesize wildPokemon          = wildPokemon_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -81,6 +84,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   self.locationInfo         = nil;
   self.regionCode           = nil;
   self.pokemonSIDs          = nil;
+  self.wildPokemon          = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
   [super dealloc];
@@ -153,7 +157,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Return a Wild Pokemon for user's current location to generate a game battle scene
 - (WildPokemon *)appearedPokemon {
-  return [WildPokemon queryPokemonDataWithUID:UID_];
+  return self.wildPokemon;
 }
 
 /*/ LEGACY: Use Google Maps API
@@ -400,6 +404,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   }
   
   // Set data
+  self.wildPokemon   = wildPokemon;
   UID_               = [wildPokemon.uid intValue];
   isPokemonAppeared_ = NO;
 }
