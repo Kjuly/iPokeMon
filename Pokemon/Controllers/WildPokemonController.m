@@ -23,20 +23,22 @@
 
 @interface WildPokemonController () {
  @private
-  LoadingManager      * loadingManager_;
-  NSMutableDictionary * locationInfo_;
-  NSMutableString     * regionCode_;
-  NSArray             * pokemonSIDs_;
+  NSManagedObjectContext * managedObjectContext_;
+  LoadingManager         * loadingManager_;
+  NSMutableDictionary    * locationInfo_;
+  NSMutableString        * regionCode_;
+  NSArray                * pokemonSIDs_;
   
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
   NSInteger             pokemonCounter_;
 }
 
-@property (nonatomic, retain) LoadingManager      * loadingManager;
-@property (nonatomic, copy)   NSMutableDictionary * locationInfo;
-@property (nonatomic, copy)   NSMutableString     * regionCode;
-@property (nonatomic, copy)   NSArray             * pokemonSIDs;
+@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
+@property (nonatomic, retain) LoadingManager         * loadingManager;
+@property (nonatomic, copy)   NSMutableDictionary    * locationInfo;
+@property (nonatomic, copy)   NSMutableString        * regionCode;
+@property (nonatomic, copy)   NSArray                * pokemonSIDs;
 
 - (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
@@ -54,10 +56,11 @@
 
 @implementation WildPokemonController
 
-@synthesize loadingManager = loadingManager_;
-@synthesize locationInfo   = locationInfo_;
-@synthesize regionCode     = regionCode_;
-@synthesize pokemonSIDs    = pokemonSIDs_;
+@synthesize managedObjectContext = managedObjectContext_;
+@synthesize loadingManager       = loadingManager_;
+@synthesize locationInfo         = locationInfo_;
+@synthesize regionCode           = regionCode_;
+@synthesize pokemonSIDs          = pokemonSIDs_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -73,10 +76,11 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 - (void)dealloc {
-  self.loadingManager = nil;
-  self.locationInfo   = nil;
-  self.regionCode     = nil;
-  self.pokemonSIDs    = nil;
+  self.managedObjectContext = nil;
+  self.loadingManager       = nil;
+  self.locationInfo         = nil;
+  self.regionCode           = nil;
+  self.pokemonSIDs          = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
   [super dealloc];
@@ -84,6 +88,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 - (id)init {
   if (self = [super init]) {
+    self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     self.loadingManager = [LoadingManager sharedInstance];
     self.pokemonSIDs    = [NSArray array];
     isPokemonAppeared_  = NO;
@@ -106,9 +111,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Add more Wild Pokemons with SID array
 - (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  
   // Add the data to |WildPokePokemon| with SID array
   for (id data in pokemonSIDs) {
     // Transfer NSNumber to NSString if it is NSNumber type
@@ -117,13 +119,13 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     WildPokemon * wildPokemon;
     wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                inManagedObjectContext:managedObjectContext];
+                                                inManagedObjectContext:self.managedObjectContext];
     // Update data for current |wildPokemon|
     [self _updateWildPokemon:wildPokemon withData:data];
   }
   
   NSError * error;
-  if (! [managedObjectContext save:&error])
+  if (! [self.managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
   NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
 }
@@ -131,9 +133,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Add more Wild Pokemons with SID array
 //   return added Pokemons as an array
 - (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  
   // Add the data to |WildPokePokemon| with SID array
   NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
   for (id data in pokemonSIDs) {
@@ -143,7 +142,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     
     WildPokemon * wildPokemon;
     wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                inManagedObjectContext:managedObjectContext];
+                                                inManagedObjectContext:self.managedObjectContext];
     // Update data for current |wildPokemon|
     [self _updateWildPokemon:wildPokemon withData:data];
     
@@ -152,7 +151,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   }
   
   NSError * error;
-  if (! [managedObjectContext save:&error])
+  if (! [self.managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
   NSLog(@"...|addWildPokemonsWithSIDs:| - Add |%@| data done...", [WildPokemon class]);
   
@@ -321,11 +320,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (void)_updateForCurrentRegion {
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
-    NSManagedObjectContext * managedObjectContext =
-      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    
     // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
-    [self _cleanDataWithManagedObjectContext:managedObjectContext];
+    [self _cleanDataWithManagedObjectContext:self.managedObjectContext];
     pokemonCounter_ = kPokemonDefaultCount;
     
     // Get JSON Data Array from HTTP Response
@@ -338,13 +334,13 @@ static WildPokemonController * wildPokemonController_ = nil;
         continue;
       WildPokemon * wildPokemon;
       wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                  inManagedObjectContext:managedObjectContext];
+                                                  inManagedObjectContext:self.managedObjectContext];
       // Update data for current |wildPokemon|
       [self _updateWildPokemon:wildPokemon withData:data];
     }
     
     NSError * error;
-    if (! [managedObjectContext save:&error])
+    if (! [self.managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
     NSLog(@"...Update |%@| data done...", [WildPokemon class]);
     
