@@ -25,7 +25,7 @@
  @private
   LoadingManager      * loadingManager_;
   NSMutableDictionary * locationInfo_;
-  NSMutableDictionary * regionInfo_;
+  NSMutableString     * regionCode_;
   
   BOOL                  isPokemonAppeared_;
   NSInteger             UID_;
@@ -34,7 +34,7 @@
 
 @property (nonatomic, retain) LoadingManager      * loadingManager;
 @property (nonatomic, copy)   NSMutableDictionary * locationInfo;
-@property (nonatomic, copy)   NSMutableDictionary * regionInfo;
+@property (nonatomic, copy)   NSMutableString     * regionCode;
 
 - (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
@@ -44,7 +44,7 @@
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification;
 - (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
 - (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
-- (NSString *)_codeForPlacemark:(CLPlacemark *)placemark;
+- (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark;
 //- (NSArray *)filterSIDs:(NSArray *)SIDs;
 
 @end
@@ -54,7 +54,7 @@
 
 @synthesize loadingManager = loadingManager_;
 @synthesize locationInfo   = locationInfo_;
-@synthesize regionInfo     = regionInfo_;
+@synthesize regionCode     = regionCode_;
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
@@ -71,7 +71,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 - (void)dealloc {
   self.locationInfo = nil;
-  self.regionInfo   = nil;
+  self.regionCode   = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
   [super dealloc];
@@ -360,9 +360,11 @@ static WildPokemonController * wildPokemonController_ = nil;
   };
   
   // Update data via |ServerAPIClient|
-  [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:self.regionInfo
+  NSDictionary * regionInfo = [[NSDictionary alloc] initWithObjectsAndKeys:self.regionCode, @"code", nil];
+  [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:regionInfo
                                                                success:success
                                                                failure:failure];
+  [regionInfo release];
 }
 
 // Generate Wild Pokemon with current location info
@@ -379,14 +381,8 @@ static WildPokemonController * wildPokemonController_ = nil;
   // Parse the habitat type from current location type
   PokemonHabitat habitat = [self _parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
   
-  // Set data for |regionInfo_|
-  // !!!TODO
-  //   More data needed!
-  // t:Type
-  CLPlacemark * placemark = [locationInfo objectForKey:@"placemark"];
-  self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                     [self _codeForPlacemark:placemark], @"code", nil];
-  placemark = nil;
+  // update |regionCode_| with |placemark|
+  [self _updateRegionCodeWithPlacemark:[locationInfo objectForKey:@"placemark"]];
   
   // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
   NSArray * pokemonSIDs = [Pokemon SIDsForHabitat:habitat];
@@ -487,15 +483,15 @@ static WildPokemonController * wildPokemonController_ = nil;
   return habitat;
 }
 
-// location code that parsed from |placemark|
-- (NSString *)_codeForPlacemark:(CLPlacemark *)placemark {
+// Update |regionCode_| that parsed from |placemark|
+- (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark {
   NSString * codeCountry            = @"CN"; //placemark.ISOcountryCode ? placemark.ISOcountryCode : @"XX";
   NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
   NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
   NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
   NSString * codeSpecail            = @"X";
-  return [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
-          codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecail, nil];
+  self.regionCode = [NSMutableString stringWithFormat:@"%@:%@:%@:%@:%@",
+                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecail, nil];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
