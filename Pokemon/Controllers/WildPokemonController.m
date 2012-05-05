@@ -42,7 +42,7 @@
 @property (nonatomic, copy)   NSArray                * pokemonSIDs;
 @property (nonatomic, retain) WildPokemon            * wildPokemon;
 
-- (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+- (void)_cleanWildPokemonData;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withSID:(NSInteger)SID;
 - (NSInteger)_calculateLevel;
 
@@ -265,25 +265,28 @@ static WildPokemonController * wildPokemonController_ = nil;
 #pragma mark - For updating
 
 // Clean Wild Pokemon's data
-- (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+- (void)_cleanWildPokemonData {
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
-                                             inManagedObjectContext:managedObjectContext];
+                                             inManagedObjectContext:self.managedObjectContext];
   [fetchRequest setEntity:entity];
   NSError * error;
-  NSArray * wildPokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  NSArray * wildPokemons = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
   [fetchRequest release];
   
   for (WildPokemon *wildPokemon in wildPokemons) {
     // Keey default PMs
     if ([wildPokemon.uid intValue] <= kPokemonDefaultCount)
       return;
-    [managedObjectContext deleteObject:wildPokemon];
+    [self.managedObjectContext deleteObject:wildPokemon];
   }
   
-  if (! [managedObjectContext save:&error])
+  if (! [self.managedObjectContext save:&error])
     NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
   NSLog(@"...Clean |%@| data done...", [WildPokemon class]);
+  
+  // reset pokemonCounter to 0
+  pokemonCounter_ = kPokemonDefaultCount;
 }
 
 // Update data for WildPokemon entity
@@ -318,8 +321,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
-    [self _cleanDataWithManagedObjectContext:self.managedObjectContext];
-    pokemonCounter_ = kPokemonDefaultCount;
+    [self _cleanWildPokemonData];
     
     // Get JSON Data Array from HTTP Response
     NSArray * SIDs = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
@@ -329,13 +331,10 @@ static WildPokemonController * wildPokemonController_ = nil;
     for (NSString * SID in SIDs) {
       if ([SID isEqualToString:@""])
         continue;
-      WildPokemon * wildPokemon;
-      wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
-                                                  inManagedObjectContext:self.managedObjectContext];
-      // Update data for current |wildPokemon|
-      [self _updateWildPokemon:wildPokemon withSID:[SID intValue]];
+      [self _updateWildPokemon:[NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
+                                                             inManagedObjectContext:self.managedObjectContext]
+                       withSID:[SID intValue]];
     }
-    
     NSError * error;
     if (! [self.managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([WildPokemon class]));
@@ -347,7 +346,6 @@ static WildPokemonController * wildPokemonController_ = nil;
                            [[PMLocationManager sharedInstance] currLocationInfo]];
       [self _generateWildPokemon];
     }
-    
     // Hide loading process view
     [self.loadingManager hideOverBar];
   };
@@ -372,7 +370,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Generate Wild Pokemon with current location info
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
   isPokemonAppeared_ = YES;
-  self.locationInfo = notification.object;
+  self.locationInfo  = notification.object;
   NSLog("new locationInfo::%@", self.locationInfo);
   [self _generateWildPokemon];
 }
@@ -391,14 +389,12 @@ static WildPokemonController * wildPokemonController_ = nil;
     // Generate a random SID for fetching the related Wild Pokemon
     NSInteger randomIndex = arc4random() % pokemonSIDsCount;
     wildPokemon = [WildPokemon queryPokemonDataWithSID:[[self.pokemonSIDs objectAtIndex:randomIndex] intValue]];
-    NSLog(@"PokemonSIDs:<< %@ >> - WildPokemon:%@", [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
-//    NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
-//          habitat, [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+    NSLog(@"PokemonSIDs:<< %@ >> - WildPM:%@", [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
   }
   
   // If no Wild Pokemon data matched, update all data for current region
   if (wildPokemon == nil) {
-    NSLog(@"!!!NO PM Available! Do Updating For Curent Region...");
+    NSLog(@"!!!NO WildPM Available! Do Updating For Curent Region...");
     [self _updateForCurrentRegion];
     return;
   }
@@ -491,9 +487,9 @@ static WildPokemonController * wildPokemonController_ = nil;
   NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
   NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
   NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
-  NSString * codeSpecail            = @"X";
+  NSString * codeSpecial            = @"XX"; // special
   self.regionCode = [NSMutableString stringWithFormat:@"%@:%@:%@:%@:%@",
-                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecail, nil];
+                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecial, nil];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
