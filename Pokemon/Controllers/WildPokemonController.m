@@ -41,7 +41,7 @@
 @property (nonatomic, copy)   NSArray                * pokemonSIDs;
 
 - (void)_cleanDataWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-- (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data;
+- (void)_updateWildPokemon:(WildPokemon *)wildPokemon withSID:(NSInteger)SID;
 - (NSInteger)_calculateLevel;
 
 - (void)_updateForCurrentRegion;
@@ -112,16 +112,13 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Add more Wild Pokemons with SID array
 - (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
   // Add the data to |WildPokePokemon| with SID array
-  for (id data in pokemonSIDs) {
-    // Transfer NSNumber to NSString if it is NSNumber type
-    if ([data isKindOfClass:[NSNumber class]])
-      data = [data stringValue];
-    
+  for (id SID in pokemonSIDs) {
     WildPokemon * wildPokemon;
     wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                 inManagedObjectContext:self.managedObjectContext];
     // Update data for current |wildPokemon|
-    [self _updateWildPokemon:wildPokemon withData:data];
+    [self _updateWildPokemon:wildPokemon withSID:[SID intValue]];
+    wildPokemon = nil;
   }
   
   NSError * error;
@@ -135,19 +132,15 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
   // Add the data to |WildPokePokemon| with SID array
   NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
-  for (id data in pokemonSIDs) {
-    // Transfer NSNumber to NSString if it is NSNumber type
-    if ([data isKindOfClass:[NSNumber class]])
-      data = [data stringValue];
-    
+  for (id SID in pokemonSIDs) {
     WildPokemon * wildPokemon;
     wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                 inManagedObjectContext:self.managedObjectContext];
     // Update data for current |wildPokemon|
-    [self _updateWildPokemon:wildPokemon withData:data];
-    
+    [self _updateWildPokemon:wildPokemon withSID:[SID intValue]];
     // Add Pokemon to array
     [pokemons addObject:wildPokemon];
+    wildPokemon = nil;
   }
   
   NSError * error;
@@ -290,9 +283,9 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Update data for WildPokemon entity
-- (void)_updateWildPokemon:(WildPokemon *)wildPokemon withData:(NSString *)data {
+- (void)_updateWildPokemon:(WildPokemon *)wildPokemon
+                   withSID:(NSInteger)SID {
   // Update basic data fetched from server
-  NSInteger SID = [data intValue];
   wildPokemon.uid    = [NSNumber numberWithInt:++pokemonCounter_];
   wildPokemon.sid    = [NSNumber numberWithInt:SID];
   wildPokemon.status = [NSNumber numberWithInt:kPokemonStatusNormal];
@@ -325,18 +318,18 @@ static WildPokemonController * wildPokemonController_ = nil;
     pokemonCounter_ = kPokemonDefaultCount;
     
     // Get JSON Data Array from HTTP Response
-    NSArray * datas = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
-    NSLog(@"WildPM SIDs:%@", datas);
-    self.pokemonSIDs = datas;
+    NSArray * SIDs = [[JSON valueForKey:@"wpm"] componentsSeparatedByString:@","];
+    NSLog(@"WildPM SIDs:%@", SIDs);
+    self.pokemonSIDs = SIDs;
     // Update the data for |WildPokePokemon|
-    for (NSString * data in datas) {
-      if ([data isEqualToString:@""])
+    for (NSString * SID in SIDs) {
+      if ([SID isEqualToString:@""])
         continue;
       WildPokemon * wildPokemon;
       wildPokemon = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([WildPokemon class])
                                                   inManagedObjectContext:self.managedObjectContext];
       // Update data for current |wildPokemon|
-      [self _updateWildPokemon:wildPokemon withData:data];
+      [self _updateWildPokemon:wildPokemon withSID:[SID intValue]];
     }
     
     NSError * error;
