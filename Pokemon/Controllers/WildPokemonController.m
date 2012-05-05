@@ -46,7 +46,7 @@
 
 - (void)_updateForCurrentRegion;
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification;
-- (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
+- (void)_generateWildPokemon;
 - (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
 - (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark;
 //- (NSArray *)filterSIDs:(NSArray *)SIDs;
@@ -338,8 +338,11 @@ static WildPokemonController * wildPokemonController_ = nil;
     NSLog(@"...Update |%@| data done...", [WildPokemon class]);
     
     // If a Wild Pokemon Appeared already, fetch data for it
-    if (isPokemonAppeared_)
-      [self _generateWildPokemonWithLocationInfo:[[PMLocationManager sharedInstance] currLocationInfo]];
+    if (isPokemonAppeared_) {
+      self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:
+                           [[PMLocationManager sharedInstance] currLocationInfo]];
+      [self _generateWildPokemon];
+    }
     
     // Hide loading process view
     [self.loadingManager hideOverBar];
@@ -364,44 +367,40 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Generate Wild Pokemon with current location info
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
-  NSDictionary * locationInfo = notification.object;
-  [self _generateWildPokemonWithLocationInfo:locationInfo];
-  locationInfo = nil;
+  isPokemonAppeared_ = YES;
+  self.locationInfo = notification.object;
+  NSLog("new locationInfo::%@", self.locationInfo);
+  [self _generateWildPokemon];
 }
 
 // Generate Wild Pokemon with location info
-- (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo {
-  NSLog("locationInfo::%@", locationInfo);
-  
+- (void)_generateWildPokemon {
   // Parse the habitat type from current location type
-  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[locationInfo valueForKey:@"type"]];
-  
+//  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[self.locationInfo valueForKey:@"type"]];
   // update |regionCode_| with |placemark|
-  [self _updateRegionCodeWithPlacemark:[locationInfo objectForKey:@"placemark"]];
+  [self _updateRegionCodeWithPlacemark:[self.locationInfo objectForKey:@"placemark"]];
   
-  
+  // generate a Wild Pokemon
   WildPokemon * wildPokemon = nil;
   NSInteger pokemonSIDsCount = [self.pokemonSIDs count];
-  NSLog(@"pokemonSIDs:%@", self.pokemonSIDs);
   if (pokemonSIDsCount > 0) {
     // Generate a random SID for fetching the related Wild Pokemon
     NSInteger randomIndex = arc4random() % pokemonSIDsCount;
     wildPokemon = [WildPokemon queryPokemonDataWithSID:[[self.pokemonSIDs objectAtIndex:randomIndex] intValue]];
-    NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
-          habitat, [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+    NSLog(@"PokemonSIDs:<< %@ >> - WildPokemon:%@", [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
+//    NSLog(@"Habitat:%d - PokemonSIDs:<< %@ >> - WildPokemon:%@",
+//          habitat, [self.pokemonSIDs componentsJoinedByString:@","], wildPokemon);
   }
   
   // If no Wild Pokemon data matched, update all data for current region
   if (wildPokemon == nil) {
-    // Save location info data
-    self.locationInfo = [NSMutableDictionary dictionaryWithDictionary:locationInfo];
+    NSLog(@"!!!NO PM Available! Do Updating For Curent Region...");
     [self _updateForCurrentRegion];
     return;
   }
   
   // Set data
   UID_               = [wildPokemon.uid intValue];
-//  isReady_           = YES;
   isPokemonAppeared_ = NO;
 }
 
