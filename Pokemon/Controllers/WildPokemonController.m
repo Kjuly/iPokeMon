@@ -165,8 +165,8 @@ static WildPokemonController * wildPokemonController_ = nil;
   return self.wildPokemon;
 }
 
-/*/ LEGACY: Use Google Maps API
-// Update data for Wild Pokemon at current location
+// LEGACY: Use Google Maps API
+/*/ Update data for Wild Pokemon at current location
 - (void)updateAtLocation:(CLLocation *)location {
   // Show loading process view
   [self.loadingManager showOverBar];

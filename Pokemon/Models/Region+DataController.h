@@ -7,7 +7,10 @@
 //
 
 #import "Region.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface Region (DataController)
+
++ (NSString *)codeOfRegionWithPlacemark:(CLPlacemark *)placemark;
 
 @end
