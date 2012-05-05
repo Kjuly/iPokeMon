@@ -20,6 +20,13 @@
 
 @implementation Region (DataController)
 
+// Sync data between SERVER & CLIENT
+// pull data for current region from SERVER;
+// push data for new region data to SERVER.
++ (void)sync {
+  
+}
+
 // get code for current region with |placemark|
 //  
 // |codes| value format: [<0>:<1>:<2>:<3>:<4>]
@@ -56,20 +63,33 @@
 //                managedObjectContext:managedObjectContext];
     return nil;
   }
+  // no matter |flog| is 'v' or 'n', that's okay
+  // case 'v', it'll return correct |code|;
+  // case 'n', it'll return |code| with |nil|.
   return region.code;
 }
 
 #pragma mark - Private
 
+// add new region data to CoreData
+//
+// |flag|:
+//   v:verified - already verified
+//   n:new      - unknow |code|, will be removed from CoreData, after pushed to server
+//   p:pushed   - already pushed to server, but not verified
+//
 + (void)_addNewRegionWithPlacemark:(CLPlacemark *)placemark
               managedObjectContext:(NSManagedObjectContext *)managedObjectContext{
   Region * region;
   region = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
                                          inManagedObjectContext:managedObjectContext];
-  
   // Set data
-  region.code = @"";
-//  region.
+  region.flag               = @"n"; // flag to new, wait to be pushed to server
+  region.code               = nil;
+  region.countryCode        = placemark.ISOcountryCode;
+  region.administrativeArea = placemark.administrativeArea;
+  region.locality           = placemark.locality;
+  region.subLocality        = placemark.subLocality;
   
   NSError * error;
   if (! [managedObjectContext save:&error])

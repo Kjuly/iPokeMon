@@ -11,6 +11,7 @@
 
 @interface Region (DataController)
 
++ (void)sync;
 + (NSString *)codeOfRegionWithPlacemark:(CLPlacemark *)placemark;
 
 @end
