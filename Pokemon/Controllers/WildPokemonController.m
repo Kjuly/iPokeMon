@@ -44,6 +44,7 @@
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification;
 - (void)_generateWildPokemonWithLocationInfo:(NSDictionary *)locationInfo;
 - (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
+- (NSString *)_codeForPlacemark:(CLPlacemark *)placemark;
 //- (NSArray *)filterSIDs:(NSArray *)SIDs;
 
 @end
@@ -384,11 +385,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   // t:Type
   CLPlacemark * placemark = [locationInfo objectForKey:@"placemark"];
   self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                      [NSNumber numberWithInt:habitat], @"t",
-                      placemark.ISOcountryCode, @"code_co", // code: country
-                      @"", @"code_aa", // code: administrative area
-                      @"", @"code_ci", // code: city (locality)
-                      nil];
+                     [self _codeForPlacemark:placemark], @"code", nil];
   placemark = nil;
   
   // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
@@ -488,6 +485,17 @@ static WildPokemonController * wildPokemonController_ = nil;
     habitat = kPokemonHabitatRare;
   
   return habitat;
+}
+
+// location code that parsed from |placemark|
+- (NSString *)_codeForPlacemark:(CLPlacemark *)placemark {
+  NSString * codeCountry            = @"CN"; //placemark.ISOcountryCode ? placemark.ISOcountryCode : @"XX";
+  NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
+  NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
+  NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
+  NSString * codeSpecail            = @"X";
+  return [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
+          codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecail, nil];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
