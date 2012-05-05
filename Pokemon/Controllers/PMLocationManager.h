@@ -15,5 +15,6 @@
 
 - (void)listen;
 - (NSDictionary *)currLocationInfo; // return location info for current location
+- (NSString *)currRegionCode;       // return current region code
 
 @end

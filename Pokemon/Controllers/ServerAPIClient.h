@@ -20,6 +20,7 @@ typedef enum {
   kDataFetchTargetTrainer      = 1 << 0,
   kDataFetchTargetTamedPokemon = 1 << 1,
   kDataFetchTargetWildPokemon  = 1 << 2,
+  kDataFetchTargetRegion       = 1 << 3
 }DataFetchTarget;
 
 @interface ServerAPIClient : AFHTTPClient

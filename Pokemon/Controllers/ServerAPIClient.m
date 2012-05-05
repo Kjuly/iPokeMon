@@ -9,6 +9,7 @@
 #import "ServerAPIClient.h"
 
 #import "OAuthManager.h"
+#import "PMLocationManager.h"
 #import "AFJSONRequestOperation.h"
 
 #pragma mark - Constants
@@ -30,6 +31,13 @@ NSString * const kServerAPIGetPokemon      = @"/pm/%d";  // /pm:PokeMon/<Pokemon
 NSString * const kServerAPIGet6Pokemons    = @"/6pm";    // /6pm:SixPokeMons
 NSString * const kServerAPIGetPokedex      = @"/pd";     // /pd:PokeDex
 NSString * const kServerAPIUpdatePokemon   = @"/upm";    // /upm:Update PokeMon
+// Region
+// <code> = <cc>:<ca>:<cl>
+//   <cc>: code country
+//   <ca>: code administrative are
+//   <cl>: code locality
+NSString * const kServerAPIGetRegion       = @"/r/%@"; // /r:Region/<code>
+NSString * const kServerAPIUpdateRegion    = @"/ur";     // /ur:Update Region (push new region to server)
 // WildPokemon
 NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 
@@ -48,6 +56,9 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 + (NSString *)getSixPokemons;                               // GET
 + (NSString *)getPokedex;                                   // GET
 + (NSString *)updatePokemon;                                // POST
+// Region
++ (NSString *)getRegionWithCode:(NSString *)code; // GET
++ (NSString *)updateRegion; // POST
 // WildPokemon
 + (NSString *)getWildPokemon;
 @end
@@ -76,6 +87,12 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 + (NSString *)getSixPokemons { return kServerAPIGet6Pokemons; }
 + (NSString *)getPokedex     { return kServerAPIGetPokedex; }
 + (NSString *)updatePokemon  { return kServerAPIUpdatePokemon; }
+
+// Region
++ (NSString *)getRegionWithCode:(NSString *)code {
+  return [NSString stringWithFormat:kServerAPIGetRegion, code];
+}
++ (NSString *)updateRegion { return kServerAPIUpdateRegion; }
 
 // WildPokemon
 + (NSString *)getWildPokemon { return kServerAPIGetWildPokemon; }
@@ -154,6 +171,9 @@ static ServerAPIClient * client_;
     path = [ServerAPI getUser];
   else if (target & kDataFetchTargetTamedPokemon)
     path = [ServerAPI getPokedex];
+  else if (target & kDataFetchTargetRegion) {
+    path = [ServerAPI getRegionWithCode:[[PMLocationManager sharedInstance] currRegionCode]];
+  }
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
@@ -185,6 +205,8 @@ static ServerAPIClient * client_;
     path = [ServerAPI updateUser];
   else if (target & kDataFetchTargetTamedPokemon)
     path = [ServerAPI updatePokemon];
+  else if (target & kDataFetchTargetRegion)
+    path = [ServerAPI updateRegion];
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];

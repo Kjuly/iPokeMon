@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "PMLocationManager.h"
 #import "LoadingManager.h"
+#import "Region+DataController.h"
 #import "WildPokemon+DataController.h"
 #import "Pokemon+DataController.h"
 #import "Move+DataController.h"
@@ -27,7 +28,6 @@
   LoadingManager         * loadingManager_;
   NSMutableDictionary    * locationInfo_;
   NSMutableString        * regionCode_;        // e.g. 'CN:ZJ:HZ:XX:XX'
-  NSDictionary           * addressDictionary_; // used for collect new region info
   NSArray                * pokemonSIDs_;
   WildPokemon            * wildPokemon_;
   
@@ -40,7 +40,6 @@
 @property (nonatomic, retain) LoadingManager         * loadingManager;
 @property (nonatomic, copy)   NSMutableDictionary    * locationInfo;
 @property (nonatomic, copy)   NSMutableString        * regionCode;
-@property (nonatomic, copy)   NSDictionary           * addressDictionary;
 @property (nonatomic, copy)   NSArray                * pokemonSIDs;
 @property (nonatomic, retain) WildPokemon            * wildPokemon;
 
@@ -64,7 +63,6 @@
 @synthesize loadingManager       = loadingManager_;
 @synthesize locationInfo         = locationInfo_;
 @synthesize regionCode           = regionCode_;
-@synthesize addressDictionary    = addressDictionary_;
 @synthesize pokemonSIDs          = pokemonSIDs_;
 @synthesize wildPokemon          = wildPokemon_;
 
@@ -86,7 +84,6 @@ static WildPokemonController * wildPokemonController_ = nil;
   self.loadingManager       = nil;
   self.locationInfo         = nil;
   self.regionCode           = nil;
-  self.addressDictionary    = nil;
   self.pokemonSIDs          = nil;
   self.wildPokemon          = nil;
   // remove notification observers
@@ -97,9 +94,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (id)init {
   if (self = [super init]) {
     self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-    self.loadingManager    = [LoadingManager sharedInstance];
-    self.pokemonSIDs       = [NSArray array];
-    self.addressDictionary = [NSDictionary dictionary];
+    self.loadingManager = [LoadingManager sharedInstance];
+    self.pokemonSIDs    = [NSArray array];
     isPokemonAppeared_  = NO;
     UID_                = 0;
     pokemonCounter_     = kPokemonDefaultCount;
@@ -488,14 +484,14 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Update |regionCode_| that parsed from |placemark|
 - (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark {
-  NSString * codeCountry            = @"CN"; //placemark.ISOcountryCode ? placemark.ISOcountryCode : @"XX";
-  NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
-  NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
-  NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
-  NSString * codeSpecial            = @"XX"; // special
-//  self.addressDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"", @"country", nil];
-  self.regionCode = [NSMutableString stringWithFormat:@"%@:%@:%@:%@:%@",
-                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecial, nil];
+  self.regionCode = [NSMutableString stringWithString:[Region codeOfRegionWithPlacemark:placemark]];
+//  NSString * codeCountry            = @"CN"; //placemark.ISOcountryCode ? placemark.ISOcountryCode : @"XX";
+//  NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
+//  NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
+//  NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
+//  NSString * codeSpecial            = @"XX"; // special
+//  self.regionCode = [NSMutableString stringWithFormat:@"%@:%@:%@:%@:%@",
+//                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecial, nil];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp

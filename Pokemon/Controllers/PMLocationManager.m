@@ -9,12 +9,14 @@
 #import "PMLocationManager.h"
 
 #import "LoadingManager.h"
+#import "Region+DataController.h"
 
 @interface PMLocationManager () {
  @private
   CLLocationManager * locationManager_;
   CLLocation        * location_;
   NSDictionary      * locationInfo_;
+  NSString          * regionCode_;   // current region code. e.g. 'CN:ZJ:HZ:XX:XX'
   NSTimer           * eventTimer_;
   
   BOOL               isUpdatingLocation_;
@@ -25,6 +27,7 @@
 @property (nonatomic, retain) CLLocationManager * locationManager;
 @property (nonatomic, retain) CLLocation        * location;
 @property (nonatomic, copy)   NSDictionary      * locationInfo;
+@property (nonatomic, copy)   NSString          * regionCode;
 @property (nonatomic, retain) NSTimer           * eventTimer;
 
 - (void)_setup;
@@ -39,9 +42,10 @@
 
 @implementation PMLocationManager
 
-@synthesize locationInfo    = locationInfo_;
 @synthesize locationManager = locationManager_;
 @synthesize location        = location_;
+@synthesize locationInfo    = locationInfo_;
+@synthesize regionCode      = regionCode_;
 @synthesize eventTimer      = eventTimer_;
 
 // singleton
@@ -58,10 +62,10 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 - (void)dealloc {
-  self.locationInfo    = nil;
-  
   self.locationManager = nil;
   self.location        = nil;
+  self.locationInfo    = nil;
+  self.regionCode      = nil;
   self.eventTimer      = nil;
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
@@ -101,6 +105,11 @@ static PMLocationManager * locationManager_ = nil;
 // return location info for current location
 - (NSDictionary *)currLocationInfo {
   return self.locationInfo;
+}
+
+// return current region code
+- (NSString *)currRegionCode {
+  return self.regionCode;
 }
 
 #pragma mark - Private Methods
@@ -254,10 +263,15 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
     [locationInfo setObject:placemark forKey:@"placemark"];
     self.locationInfo = locationInfo;
+    self.regionCode   = [Region codeOfRegionWithPlacemark:placemark];
     [locationInfo release];
     // loading done & post notification to |WildPokemonController| to generate a new Wild PM
     [[LoadingManager sharedInstance] hideOverBar];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon
+                                                        object:self.locationInfo];
+    
+    // Sync Region Info when necessary
+    [Region sync];
   };
   // loading start
   [[LoadingManager sharedInstance] showOverBar];
