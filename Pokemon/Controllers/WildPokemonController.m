@@ -385,7 +385,10 @@ static WildPokemonController * wildPokemonController_ = nil;
   CLPlacemark * placemark = [locationInfo objectForKey:@"placemark"];
   self.regionInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                       [NSNumber numberWithInt:habitat], @"t",
-                      placemark.ISOcountryCode, @"country_code", nil];
+                      placemark.ISOcountryCode, @"code_co", // code: country
+                      @"", @"code_aa", // code: administrative area
+                      @"", @"code_ci", // code: city (locality)
+                      nil];
   placemark = nil;
   
   // Got SIDs for Pokemons in this |habitat| & generate one as the Appeared Pokemon
