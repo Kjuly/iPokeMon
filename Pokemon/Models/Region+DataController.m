@@ -29,6 +29,7 @@
 // pull data for current region from SERVER;
 // push data for new region data to SERVER.
 + (void)sync {
+  NSLog(@"SYNC REGION...");
   [self _pullFromServer];
   // this task will be done after task of |_pullFromServer| done
   //[self _pushToServer];

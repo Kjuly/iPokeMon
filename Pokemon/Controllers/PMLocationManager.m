@@ -263,18 +263,24 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
     [locationInfo setObject:placemark forKey:@"placemark"];
     self.locationInfo = locationInfo;
-    self.regionCode   = [Region codeOfRegionWithPlacemark:placemark];
     [locationInfo release];
+    
+    // update |regionCode_| when get a different region code
+    NSString * regionCode = [Region codeOfRegionWithPlacemark:placemark];
+    if (! [self.regionCode isEqualToString:regionCode]) {
+      self.regionCode = regionCode;
+      // Sync Region Info when necessary
+      [Region sync];
+      // post notif to |ServerAPIClient| to update region (code)
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateRegion
+                                                          object:self.regionCode];
+    }
+    
     // loading done & post notification to |WildPokemonController| to generate a new Wild PM
     [[LoadingManager sharedInstance] hideOverBar];
-    // post notif to |ServerAPIClient| to update region (code)
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateRegion
-                                                        object:self.regionCode];
     // post notif to |WildPokemonController| to generate new Wild PM
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon
                                                         object:self.locationInfo];
-    // Sync Region Info when necessary
-    [Region sync];
   };
   // loading start
   [[LoadingManager sharedInstance] showOverBar];
