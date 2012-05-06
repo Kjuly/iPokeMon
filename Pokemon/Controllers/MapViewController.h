@@ -8,18 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
-  MKMapView         * mapView_;
-  CLLocationManager * locationManager_;
-  CLLocation        * location_;
+  MKMapView  * mapView_;
 }
 
-@property (nonatomic, retain) MKMapView         * mapView;
-@property (nonatomic, retain) CLLocationManager * locationManager;
-@property (nonatomic, retain) CLLocation        * location;
-
-- (id)initWithLocationTracking;
+@property (nonatomic, retain) MKMapView * mapView;
 
 @end

@@ -102,6 +102,11 @@ static PMLocationManager * locationManager_ = nil;
                                              object:nil];
 }
 
+// return current location
+- (CLLocation *)currLocation {
+  return self.location;
+}
+
 // return location info for current location
 - (NSDictionary *)currLocationInfo {
   return self.locationInfo;

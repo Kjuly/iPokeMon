@@ -14,6 +14,7 @@
 + (PMLocationManager *)sharedInstance;
 
 - (void)listen;
+- (CLLocation *)currLocation;       // return |location_|
 - (NSDictionary *)currLocationInfo; // return location info for current location
 - (NSString *)currRegionCode;       // return current region code
 

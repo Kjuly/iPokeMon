@@ -138,7 +138,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNChangeCenterMainButtonStatus object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil]; // self.mapViewController
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:nil];
   [super dealloc];
 }
@@ -239,11 +239,6 @@
   [mapButton_ addTarget:self action:@selector(toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
   [mapButton_ addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:mapButton_];
-  
-  // Init |mapViewController_| to run location tracking,
-  //   if enable location tracking, it'll do tracking
-  //   otherwise, just add observer for notification when enable trakcing
-//  mapViewController_ = [[MapViewController alloc] initWithLocationTracking];
   
   
   // Add self as Notification observer
@@ -734,7 +729,7 @@
   else {
     mapButtonFrame.origin.y = - kMapButtonSize / 2;
     
-    if (! self.mapViewController) {
+    if (self.mapViewController == nil) {
       NSLog(@"--- MainViewController openMapView if(!): Create |mapViewController_| ---");
       MapViewController * mapViewController = [[MapViewController alloc] init];
       self.mapViewController = mapViewController;
@@ -809,13 +804,13 @@
     NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:kUDKeyGeneralLocationServices];
     [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
-    // Post notification to |MapViewController| to stop location tracking
+    // Post notification to |PMLocationManager| to stop location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   } else {
     NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
     [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
-    // Post notification to |MapViewController| to start location tracking
+    // Post notification to |PMLocationManager| to start location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
 }
