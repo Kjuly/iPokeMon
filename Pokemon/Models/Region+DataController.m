@@ -117,7 +117,7 @@
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     // Get JSON Data Array from HTTP Response
-    // {'r':[...]} // r:region
+    // {'r':"CN:ZJ:HZ=Zhejiang Province=Hangzhou City"} // r:region
     if ([[JSON valueForKey:@"r"] isKindOfClass:[NSNull class]]) {
       NSLog(@"...SYNC Region Info from SERVER DONE...NO Region Data");
       // Hide loading
@@ -128,8 +128,10 @@
     }
     
     // Parse data from JSON
-    NSDictionary * regionDict = [JSON valueForKey:@"r"];
-    NSLog(@"Pulled Region Info : SERVER => CLIENT::%@", regionDict);
+    // e.g. "CN:ZJ:HZ=Zhejiang Province=Hangzhou City"
+    NSString * regionSeq = [JSON valueForKey:@"r"];
+    NSLog(@"Pulled Region Seq : SERVER => CLIENT::%@", regionSeq);
+    NSArray * regionArray = [regionSeq componentsSeparatedByString:@"="];
     
     // start to update regions
     NSManagedObjectContext * managedObjectContext =
@@ -139,24 +141,24 @@
     [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
+    
     // Update the data for model:|Region|
-//    for (NSDictionary * regionDict in regions) {
-      Region * region;
-      NSString * locality = [regionDict valueForKey:@"cl"]; // code locality
-      // Check the existence of the object
-      // If exist, execute fetching request, otherwise, insert new object
-      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"locality == %@", locality]];
-      if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
-        region = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-      else region = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                                  inManagedObjectContext:managedObjectContext];
-      region.code               = @"CN:ZJ:HZ";//[regionDict valueForKey:@"c"];   // code
-      region.countryCode        = @"CN";//[regionDict valueForKey:@"cc"];  // code country
-      region.administrativeArea = @"Zhejiang Province";//[regionDict valueForKey:@"ca"];  // code administrative area
-      region.locality           = @"Hangzhou City";//locality;                        // code locality
-//      region.subLocality        = [regionDict valueForKey:@"csl"]; // code sublocality
-      region.flag               = [regionDict valueForKey:@"f"];   // flag
-//    }
+    Region * region;
+    // Check the existence of the object
+    // If exist, execute fetching request, otherwise, insert new object
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"locality == %@", [regionArray objectAtIndex:2]]];
+    if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
+      region = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+    else region = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                                inManagedObjectContext:managedObjectContext];
+    // set data for region
+    region.code               = [regionArray objectAtIndex:0]; // code
+    region.countryCode        = [[regionArray objectAtIndex:0] substringToIndex:2]; // code country
+    region.administrativeArea = [regionArray objectAtIndex:1]; // code administrative area
+    region.locality           = [regionArray objectAtIndex:2]; // code locality
+    //region.subLocality        = [regionDict valueForKey:@"csl"]; // code sublocality
+    region.flag               = @"v"; // flag
+    
     [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
@@ -222,18 +224,17 @@
 // push new region info data to SERVER
 - (void)_doPush {
   NSLog(@"......PUSHING new REGION INFO to SERVER......");
-  NSString * locationInfo = [NSString stringWithFormat:@"%@=%@=%@", @"CN", @"Zhejiang Province", @"Hangzhou City"];
-  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         locationInfo, @"li", // location info
-//                         @"Shaoxing City", @"cl",
+//  NSString * locationInfo = [NSString stringWithFormat:@"%@=%@=%@", @"CN", @"Zhejiang Province", @"Hangzhou City"];
+//  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                         locationInfo, @"li", // location info
 //                         self.code,               @"c",
 //                         self.countryCode,        @"cc",
 //                         self.administrativeArea, @"ca",
 //                         self.locality,           @"cl",
                          
 //                         self.subLocality,        @"csl", # add it in next version
-                         nil];
-  NSLog(@"NEW REGION INFO:%@", data);
+//                         nil];
+  
   
   // Blocks: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -256,6 +257,9 @@
   
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
+  NSString * locationInfo = [NSString stringWithFormat:@"%@=%@=%@", @"CN", @"Zhejiang Province", @"Hangzhou City"];
+  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:locationInfo, @"li", nil];
+  NSLog(@"NEW REGION INFO:%@", data);
   [[ServerAPIClient sharedInstance] updateData:data
                                      forTarget:kDataFetchTargetRegion
                                        success:success

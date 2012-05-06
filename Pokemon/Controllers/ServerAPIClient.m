@@ -173,6 +173,7 @@ static ServerAPIClient * client_;
     path = [ServerAPI getPokedex];
   else if (target & kDataFetchTargetRegion) {
     path = [ServerAPI getRegionWithCode:[[PMLocationManager sharedInstance] currRegionCode]];
+    NSLog(@"Region Request URL Tail: %@", path);
   }
   else return;
   
