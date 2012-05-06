@@ -23,7 +23,11 @@ typedef enum {
 
 
 // OAuth Manager
-@interface OAuthManager : NSObject
+@interface OAuthManager : NSObject {
+  BOOL isNewworkAvailable_;
+}
+
+@property (nonatomic, assign) BOOL isNewworkAvailable;
 
 + (OAuthManager *)sharedInstance;
 

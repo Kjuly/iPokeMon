@@ -178,6 +178,9 @@
       // Hide loading
       [[LoadingManager sharedInstance] hideOverBar];
       isCheckingConnection_ = NO;
+      
+      // set |isNewworkAvailable_| to YES for |OAuthManager|, so it can check session again
+      [OAuthManager sharedInstance].isNewworkAvailable = YES;
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
       NSLog(@"!!! CONNECTION to SERVER failed, ERROR: %@", error);

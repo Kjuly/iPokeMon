@@ -32,6 +32,7 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
   GTMOAuth2Authentication    * oauth_;                   // OAuth object
   OAuthServiceProviderChoice   selectedServiceProvider_; // Selected service provider
   BOOL                         isUserIDSynced_;          // Mark for whether user ID has been synced
+  BOOL                         isUserIDSyncing_;         // avoid multiple synces
 }
 
 @property (nonatomic, retain) LoadingManager          * loadingManager;
@@ -48,6 +49,8 @@ static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.
 
 
 @implementation OAuthManager
+
+@synthesize isNewworkAvailable = isNewworkAvailable_;
 
 @synthesize loadingManager = loadingManager_;
 @synthesize operationQueue = operationQueue_;
@@ -76,7 +79,9 @@ static OAuthManager * oauthManager_ = nil;
 - (id)init {
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
-    isUserIDSynced_ = NO;
+    isNewworkAvailable_ = YES;
+    isUserIDSynced_     = NO;
+    isUserIDSyncing_    = NO;
     
     OAuthServiceProviderChoice lastUsedServiceProvider =
       [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
@@ -100,7 +105,12 @@ static OAuthManager * oauthManager_ = nil;
     NSLog(@"INVALID SESSION...");
     return NO;
   }
-  if (! isUserIDSynced_)
+  // if newwork not available, no need to sync |userID_|
+  if (! self.isNewworkAvailable)
+    return NO;
+  
+  // if |userID_| not synced & current is not doing sync work, do it
+  if (! isUserIDSynced_ && ! isUserIDSyncing_)
     [self _syncUserID];
   NSLog(@"VALID SESSION...");
   return YES;
@@ -141,10 +151,12 @@ static OAuthManager * oauthManager_ = nil;
   NSString * keychainItemName = [oauthData valueForKey:@"keychainItemName"];
   [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:keychainItemName];
   [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:self.oauth];
-  self.oauth       = nil;
-  isUserIDSynced_  = NO;
-  oauthData        = nil;
-  keychainItemName = nil;
+  self.oauth              = nil;
+  self.isNewworkAvailable = YES;
+  isUserIDSynced_         = NO;
+  isUserIDSyncing_        = NO;
+  oauthData               = nil;
+  keychainItemName        = nil;
 }
 
 // Logout
@@ -219,13 +231,15 @@ static OAuthManager * oauthManager_ = nil;
 
 // Current authticated User's ID (Trainer's |uid|)
 - (void)_syncUserID {
+  isUserIDSyncing_ = YES;
   // Show loading
   [self.loadingManager showOverBar];
   
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer with UserID...");
-    isUserIDSynced_ = YES;
+    isUserIDSynced_  = YES;
+    isUserIDSyncing_ = NO;
     // Init data from SERVER to CLIENT for Trainer, including TrainerTamedPokemon, six PMs, etc
     [[TrainerController sharedInstance] initTrainerWithUserID:[[responseObject valueForKey:@"userID"] intValue]];
     // Hide loading
@@ -233,6 +247,8 @@ static OAuthManager * oauthManager_ = nil;
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! |_syncUserID| - Get |userID| for current user failed. ERROR: %@", error);
+    self.isNewworkAvailable = NO;
+    isUserIDSyncing_ = NO;
     // Hide loading
     [self.loadingManager hideOverBar];
 #ifndef DEBUG_NO_SESSION_MOED

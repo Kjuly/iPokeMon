@@ -228,7 +228,7 @@ static PMLocationManager * locationManager_ = nil;
     if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
       NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 [NSNumber numberWithInt:kPMErrorUnknow], @"error", nil];
+                                 [NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
       [userInfo release];
       // loading done

@@ -340,6 +340,11 @@
   if (! error)
     return;
   
+  if (self.fullScreenLoadingViewController != nil) {
+    [self.fullScreenLoadingViewController.view removeFromSuperview];
+    self.fullScreenLoadingViewController = nil;
+  }
+  
   // Load view for different ERROR
   FullScreenLoadingViewController * fullScreenLoadingViewController;
   fullScreenLoadingViewController = [[FullScreenLoadingViewController alloc] init];
