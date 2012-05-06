@@ -202,9 +202,11 @@
   [self addChild:self.background];
   
   // Pokemons' Points
-  CGRect pokemonPointFrame = CGRectMake(0.f, 0.f, kGameBattlePlayerPMPointWidth, kGameBattlePlayerPMPointHeight);
-  self.playerPokemonPoint = [CCSprite spriteWithFile:kPMINBattleScenePMPoint rect:pokemonPointFrame];
-  self.enemyPokemonPoint  = [CCSprite spriteWithFile:kPMINBattleScenePMPoint rect:pokemonPointFrame];
+//  CGRect pokemonPointFrame = CGRectMake(0.f, 0.f, kGameBattlePlayerPMPointWidth, kGameBattlePlayerPMPointHeight);
+  self.playerPokemonPoint = [CCSprite spriteWithFile:kPMINBattleScenePMPoint];
+  self.enemyPokemonPoint  = [CCSprite spriteWithFile:kPMINBattleScenePMPoint];
+//  self.playerPokemonPoint = [CCSprite spriteWithFile:kPMINBattleScenePMPoint rect:pokemonPointFrame];
+//  self.enemyPokemonPoint  = [CCSprite spriteWithFile:kPMINBattleScenePMPoint rect:pokemonPointFrame];
   [self.playerPokemonPoint setPosition:ccp(kGameBattlePlayerPMPointPosX, kGameBattlePlayerPMPointPosY)];
   [self.enemyPokemonPoint  setPosition:ccp(kGameBattleEnemyPMPointPosX,  kGameBattleEnemyPMPointPosY)];
   [self addChild:self.playerPokemonPoint];
