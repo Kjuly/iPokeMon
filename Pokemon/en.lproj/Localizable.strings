@@ -36,6 +36,8 @@
 "Bandwidth Usage" = "Bandwidth Usage";
 "Game Setting"    = "Game Setting";
 
+"A Wild Pokemon Appeared!" = "A Wild Pokemon Appeared!";
+
 
 // ERROR: Full screen view text: T:Title, M:Message
 "PMSError01T" = "Unknow Error";          // unkown error

@@ -34,6 +34,8 @@
 "Bandwidth Usage" = "带宽使用率";
 "Game Setting"    = "游戏设置";
 
+"A Wild Pokemon Appeared!" = "出现一只野生口袋妖怪!";
+
 
 // ERROR: Full screen view text: T:Title, M:Message
 "PMSError01T" = "未知错误";    // unkown error

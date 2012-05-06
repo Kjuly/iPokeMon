@@ -326,7 +326,7 @@ static PMLocationManager * locationManager_ = nil;
     //   so |WildPokemonController| can use the latest data to generate a Wild PM
     [self _generateLocationInfoForLocation:newLocation];
     
-    // Generate the Info Dictionary for Appeared Pokemon
+    /*/ Generate the Info Dictionary for Appeared Pokemon
     NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],
                                @"centerMainButtonStatus", nil];
@@ -357,7 +357,7 @@ static PMLocationManager * locationManager_ = nil;
     else {
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared object:nil userInfo:userInfo];
     }
-    [userInfo release];
+    [userInfo release];*/
     
     // Mark as a Wild Pokemon appeared & stop tracking
     isPokemonAppeared_ = YES;

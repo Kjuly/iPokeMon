@@ -293,8 +293,7 @@
 #pragma mark - Private Methods
 
 // Start game loop
-- (void)startGameLoop
-{
+- (void)startGameLoop {
   // Post notification to |GamePokemonStatusViewController| to show pokemon status view
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowPokemonStatus object:self userInfo:nil];
   // Set game play to ready
@@ -302,8 +301,7 @@
 }
 
 // Battle Begin Animation
-- (void)runBattleBeginAnimation
-{
+- (void)runBattleBeginAnimation {
   // Battle begin animation
   [self.playerPokemonSprite runAction:
     [CCMoveTo actionWithDuration:1.5f position:ccp(kGameBattlePlayerPokemonPosX, kGameBattlePlayerPokemonPosY)]];
@@ -315,8 +313,7 @@
 }
 
 // Replace player's pokemon image
-- (void)replacePlayerPokemon:(NSNotification *)notification
-{
+- (void)replacePlayerPokemon:(NSNotification *)notification {
   [self.playerPokemonSprite removeFromParentAndCleanup:YES];
   self.playerPokemonSprite = nil;
   

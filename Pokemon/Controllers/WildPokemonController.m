@@ -52,6 +52,7 @@
 - (void)_generateWildPokemon;
 - (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType;
 - (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark;
+- (void)_postNotificationThatWildPokemonAppeared;
 //- (NSArray *)filterSIDs:(NSArray *)SIDs;
 
 @end
@@ -404,6 +405,9 @@ static WildPokemonController * wildPokemonController_ = nil;
   self.wildPokemon   = wildPokemon;
   UID_               = [wildPokemon.uid intValue];
   isPokemonAppeared_ = NO;
+  
+  // post notification about the new Wild PM
+  [self _postNotificationThatWildPokemonAppeared];
 }
 
 // Parse habitat with the location type
@@ -485,6 +489,41 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Update |regionCode_| that parsed from |placemark|
 - (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark {
   self.regionCode = [NSMutableString stringWithString:[Region codeOfRegionWithPlacemark:placemark]];
+}
+
+// post notification that Wild PM appeared
+- (void)_postNotificationThatWildPokemonAppeared {
+  // Generate the Info Dictionary for Appeared Pokemon
+  NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],
+                             @"centerMainButtonStatus", nil];
+  ///Send Corresponding Notification: Pokemon Appeared!!!
+  // Use |Local Notification| if in Background Mode
+  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+    UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+    // |UILocalNotification| only works on iOS4.0 and later
+    if (! localNotification) {
+      [userInfo release];
+      return;
+    }
+    
+    // Set data for Local Notification
+    localNotification.fireDate = [NSData data];
+    //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.alertBody = NSLocalizedString(@"A Wild Pokemon Appeared!", nil);
+    localNotification.alertAction = @"Go";
+    localNotification.applicationIconBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber + 1;
+    localNotification.userInfo = userInfo;
+    //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    [localNotification release];
+  }
+  // Use Post Notification if in Foreground Mode
+  else [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
+                                                           object:nil
+                                                         userInfo:userInfo];
+  [userInfo release];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
