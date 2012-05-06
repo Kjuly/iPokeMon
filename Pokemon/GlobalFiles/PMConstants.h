@@ -130,7 +130,7 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINMainButtonCancel           @"MainViewCenterButtonImageCancel.png"
 #define kPMINMainButtonCancelOpposite   @"MainViewCenterButtonImageCancelOpposite.png"
 #define kPMINMainButtonHalfCancel       @"MainViewCenterButtonImageHalfCancel.png"
-// map button
+// map view button
 #define kPMINMapButtonBackgound    @"MainViewMapButtonBackground.png"
 #define kPMINMapButtonNormal       @"MainViewMapButtonImageNormal.png"
 #define kPMINMapButtonDisabled     @"MainViewMapButtonImageLBSDisabled.png"
@@ -186,6 +186,9 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINBattleMenuMessageViewBackground @"GameMessageViewBackground.png"
 #define kPMINBattleElementPokeball @"GamePokeball.png"
 // ICONs
+// Map View
+#define kPMINIconLocateMe  @"IconLocateMe.png"
+#define kPMINIconShowWorld @"IconShowWorld.png"
 // Pokemon related icons
 #define kPMINIconPMGender         @"IconPokemonGender%d.png" // %d: 0(F) - 1(M)
 // bag table view related icons

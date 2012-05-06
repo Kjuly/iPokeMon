@@ -38,5 +38,5 @@
 //#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
 //#define DEBUG_NO_SESSION_MOED 1
 
-#define DEBUG_TEST_FLIGHT         1 // TestFlight, can leave it
-#define DEBUG_TEST_FLIGHT_TESTING 1 // TestFlight, should be comment out when release the app
+//#define DEBUG_TEST_FLIGHT         1 // TestFlight, can leave it
+//#define DEBUG_TEST_FLIGHT_TESTING 1 // TestFlight, should be comment out when release the app

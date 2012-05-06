@@ -123,6 +123,10 @@
 		7F44F72F155115F50052678F /* StoreItemQuantityDcreaseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72B155115F40052678F /* StoreItemQuantityDcreaseButton@2x.png */; };
 		7F44F730155115F50052678F /* StoreItemQuantityIcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72C155115F50052678F /* StoreItemQuantityIcreaseButton.png */; };
 		7F44F731155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72D155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png */; };
+		7F45112C15566E700059CA6F /* IconLocateMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F45112815566E700059CA6F /* IconLocateMe.png */; };
+		7F45112D15566E700059CA6F /* IconLocateMe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F45112915566E700059CA6F /* IconLocateMe@2x.png */; };
+		7F45112E15566E700059CA6F /* IconShowWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F45112A15566E700059CA6F /* IconShowWorld.png */; };
+		7F45112F15566E700059CA6F /* IconShowWorld@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F45112B15566E700059CA6F /* IconShowWorld@2x.png */; };
 		7F45710014F225EB0031A8F5 /* PokemonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */; };
 		7F4A3D0E14DECDE70017F336 /* PokemonDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A3D0D14DECDE70017F336 /* PokemonDetailTabViewController.m */; };
 		7F4A7B7A155014D500F3BFB0 /* StoreItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4A7B79155014D500F3BFB0 /* StoreItemTableViewController.m */; };
@@ -697,6 +701,10 @@
 		7F44F72B155115F40052678F /* StoreItemQuantityDcreaseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityDcreaseButton@2x.png"; sourceTree = "<group>"; };
 		7F44F72C155115F50052678F /* StoreItemQuantityIcreaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityIcreaseButton.png; sourceTree = "<group>"; };
 		7F44F72D155115F50052678F /* StoreItemQuantityIcreaseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityIcreaseButton@2x.png"; sourceTree = "<group>"; };
+		7F45112815566E700059CA6F /* IconLocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLocateMe.png; sourceTree = "<group>"; };
+		7F45112915566E700059CA6F /* IconLocateMe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconLocateMe@2x.png"; sourceTree = "<group>"; };
+		7F45112A15566E700059CA6F /* IconShowWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconShowWorld.png; sourceTree = "<group>"; };
+		7F45112B15566E700059CA6F /* IconShowWorld@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconShowWorld@2x.png"; sourceTree = "<group>"; };
 		7F4570FE14F225EB0031A8F5 /* PokemonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailViewController.h; sourceTree = "<group>"; };
 		7F4570FF14F225EB0031A8F5 /* PokemonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonDetailViewController.m; sourceTree = "<group>"; };
 		7F4A3D0C14DECDE70017F336 /* PokemonDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonDetailTabViewController.h; sourceTree = "<group>"; };
@@ -2470,6 +2478,10 @@
 				7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */,
 				7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */,
 				7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */,
+				7F45112815566E700059CA6F /* IconLocateMe.png */,
+				7F45112915566E700059CA6F /* IconLocateMe@2x.png */,
+				7F45112A15566E700059CA6F /* IconShowWorld.png */,
+				7F45112B15566E700059CA6F /* IconShowWorld@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -2894,6 +2906,10 @@
 				7F2C09331553617E00118B00 /* Icon.png in Resources */,
 				7F2C09341553617E00118B00 /* Icon@2x.png in Resources */,
 				7F2C09351553617E00118B00 /* iTunesArtwork in Resources */,
+				7F45112C15566E700059CA6F /* IconLocateMe.png in Resources */,
+				7F45112D15566E700059CA6F /* IconLocateMe@2x.png in Resources */,
+				7F45112E15566E700059CA6F /* IconShowWorld.png in Resources */,
+				7F45112F15566E700059CA6F /* IconShowWorld@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

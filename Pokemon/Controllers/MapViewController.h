@@ -10,9 +10,9 @@
 #import <MapKit/MapKit.h>
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
-  MKMapView  * mapView_;
+  
 }
 
-@property (nonatomic, retain) MKMapView * mapView;
+
 
 @end

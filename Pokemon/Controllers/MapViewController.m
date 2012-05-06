@@ -12,20 +12,33 @@
 
 @interface MapViewController () {
  @private
+  MKMapView  * mapView_;
+  UIButton   * locateMeButton_;
+  UIButton   * showWorldButton_;
+  
   CLLocation * location_;
 }
+
+@property (nonatomic, retain) MKMapView  * mapView;
+@property (nonatomic, retain) UIButton   * locateMeButton;
+@property (nonatomic, retain) UIButton   * showWorldButton;
 
 @property (nonatomic, retain) CLLocation * location;
 
 - (void)releaseSubviews;
+- (void)_actionForButtonLocateMe:(id)sender;
+- (void)_actionForButtonShowWorld:(id)sender;
 
 @end
 
 
 @implementation MapViewController
 
-@synthesize mapView  = mapView_;
-@synthesize location = location_;
+@synthesize mapView         = mapView_;
+@synthesize locateMeButton  = locateMeButton_;
+@synthesize showWorldButton = showWorldButton_;
+
+@synthesize location        = location_;
 
 - (void)dealloc {
   self.location = nil;
@@ -34,7 +47,9 @@
 }
 
 - (void)releaseSubviews {
-  self.mapView = nil;
+  self.mapView         = nil;
+  self.locateMeButton  = nil;
+  self.showWorldButton = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -71,6 +86,30 @@
   self.mapView = mapView;
   [mapView release];
   [self.view addSubview:self.mapView];
+  
+  // buttons: |locateMeButton_| & |showWorldButton_|
+  // constants
+  CGFloat marginLeft = 30.f;
+  CGRect buttonFrame = CGRectMake(marginLeft, kViewHeight - kMapButtonSize - 20.f, kMapButtonSize, kMapButtonSize);
+  
+  locateMeButton_ = [[UIButton alloc] initWithFrame:buttonFrame];
+  [locateMeButton_ setImage:[UIImage imageNamed:kPMINIconLocateMe] forState:UIControlStateNormal];
+  [locateMeButton_ setOpaque:NO];
+  [locateMeButton_ setAlpha:.5f];
+  [locateMeButton_ addTarget:self
+                      action:@selector(_actionForButtonLocateMe:)
+            forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:locateMeButton_];
+  
+  buttonFrame.origin.x = kViewWidth - marginLeft - kMapButtonSize;
+  showWorldButton_ = [[UIButton alloc] initWithFrame:buttonFrame];
+  [showWorldButton_ setImage:[UIImage imageNamed:kPMINIconShowWorld] forState:UIControlStateNormal];
+  [showWorldButton_ setOpaque:NO];
+  [showWorldButton_ setAlpha:.5f];
+  [showWorldButton_ addTarget:self
+                       action:@selector(_actionForButtonShowWorld:)
+             forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:showWorldButton_];
 }
 
 - (void)viewDidUnload {
@@ -86,7 +125,7 @@
 #pragma mark - UtilityViewControllerDelegate
 
 // Locate user's location
-- (void)actionForButtonLocateMe {
+- (void)_actionForButtonLocateMe:(id)sender {
   // Get current location
 //  self.location = self.locationManager.location;
   
@@ -99,7 +138,7 @@
 }
 
 // Show whole world map
-- (void)actionForButtonShowWorld {
+- (void)_actionForButtonShowWorld:(id)sender {
   // Get current location
 //  self.location = self.locationManager.location;
   
