@@ -166,7 +166,7 @@ static ServerAPIClient * client_;
 - (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                                failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"Request URL Description:%@", [self description]);
+  NSLog(@"Request URL");
   [self getPath:[ServerAPI checkConnection] parameters:nil success:success failure:failure];
 }
 
@@ -189,15 +189,13 @@ static ServerAPIClient * client_;
     path = [ServerAPI getUser];
   else if (target & kDataFetchTargetTamedPokemon)
     path = [ServerAPI getPokedex];
-  else if (target & kDataFetchTargetRegion) {
+  else if (target & kDataFetchTargetRegion)
     path = [ServerAPI getRegionWithCode:self.regionCode];
-    NSLog(@"Region Request URL Tail: %@", path);
-  }
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"Request URL Description:%@", [self description]);
   [self getPath:path parameters:nil success:success failure:failure];
+  NSLog(@"Request with URL tail:%@", path);
   
   /*/ *** Legacy ***
    success:(void (^)(NSURLRequest *, NSHTTPURLResponse *, id))success
@@ -229,7 +227,7 @@ static ServerAPIClient * client_;
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"Sync Data Request - clientDescription:%@", [self description]);
+  NSLog(@"Sync Data Request");
   [self postPath:path parameters:data success:success failure:failure];
 }
 
@@ -238,7 +236,7 @@ static ServerAPIClient * client_;
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"Request URL Description:%@", [self description]);
+  NSLog(@"Request URL...");
   [self postPath:[ServerAPI checkUniquenessForName]
       parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
          success:success
