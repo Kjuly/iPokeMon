@@ -78,6 +78,9 @@
 "PMSSettingFeedback"          = "反馈";
 "PMSSettingLogout"            = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";
+// Feedback
+"PMSCannotSendMail" = "对不起，检测无法使用邮件服务.";
+"PMSMailSent"       = "感谢您的反馈!";
 
 
 // Pokemon

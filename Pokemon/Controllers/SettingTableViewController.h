@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 typedef enum {
   kSectionGeneral = 0,
@@ -28,6 +29,6 @@ typedef enum {
   kNumberOfSectionAboutRows
 }SectionAboutRow;
 
-@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate>
+@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
 @end

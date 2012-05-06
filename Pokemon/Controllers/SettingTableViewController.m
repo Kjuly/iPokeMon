@@ -9,6 +9,7 @@
 #import "SettingTableViewController.h"
 
 #import "CustomNavigationBar.h"
+#import "LoadingManager.h"
 #import "SettingTableViewCellStyleTitle.h"
 #import "SettingTableViewCellStyleSwitch.h"
 #import "SettingTableViewCellStyleCenterTitle.h"
@@ -16,7 +17,10 @@
 #import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
-#import "FeedbackViewController.h"
+//#import "FeedbackViewController.h"
+
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 
 @interface SettingTableViewController ()
@@ -310,10 +314,27 @@
   else if (section == kSectionAbout) {
     // Feedback
     if (row == kSectionAboutRowFeedback) {
-      FeedbackViewController * feedbackViewController;
-      feedbackViewController = [[FeedbackViewController alloc] init];
-      [self.navigationController pushViewController:feedbackViewController animated:YES];
-      [feedbackViewController release];
+      if (! [MFMailComposeViewController canSendMail]) {
+        [[LoadingManager sharedInstance] showMessage:NSLocalizedString(@"PMSCannotSendMail", nil)
+                                                type:kProgressMessageTypeWarn
+                                        withDuration:2.f];
+        return;
+      }
+      
+      MFMailComposeViewController *mailComposer; 
+      mailComposer  = [[MFMailComposeViewController alloc] init];
+      mailComposer.mailComposeDelegate = self;
+      [mailComposer setModalPresentationStyle:UIModalPresentationFormSheet];
+      [mailComposer setToRecipients:[NSArray arrayWithObject:@"dev@kjuly.com"]];
+      [mailComposer setSubject:@"iPokemon Feedback"];
+      [mailComposer setMessageBody:nil isHTML:NO];
+      [self presentModalViewController:mailComposer animated:YES];
+      [mailComposer release];
+      
+//      FeedbackViewController * feedbackViewController;
+//      feedbackViewController = [[FeedbackViewController alloc] init];
+//      [self.navigationController pushViewController:feedbackViewController animated:YES];
+//      [feedbackViewController release];
     }
     // Logout
     if (row == kSectionAboutRowLogout)
@@ -370,10 +391,25 @@
   }
 }
 
-#pragma mark - FeedbackViewController Delegate
+#pragma mark - MFMailComposeViewController Delegate
 
-- (void)cancelFeedbackView {
+- (void)mailComposeController:(MFMailComposeViewController*)controller 
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error {
+  LoadingManager * loadingManager = [LoadingManager sharedInstance];
+  if (result == MFMailComposeResultSent)
+    [loadingManager showMessage:NSLocalizedString(@"PMSMailSent", nil)
+                           type:kProgressMessageTypeSucceed
+                   withDuration:2.f];
+  loadingManager = nil;
   [self dismissModalViewControllerAnimated:YES];
 }
+
+//#pragma mark - FeedbackViewController Delegate
+//
+//- (void)cancelFeedbackView {
+//  [self dismissModalViewControllerAnimated:YES];
+//  
+//}
 
 @end

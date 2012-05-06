@@ -307,6 +307,9 @@
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
 		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
 		7F6E6CF814D6CB9800033C65 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CF014D6CB9800033C65 /* AppDelegate.m */; };
+		7F6F428D15568EE30007E889 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428C15568EE30007E889 /* MessageUI.framework */; };
+		7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428F15568EEF0007E889 /* AddressBook.framework */; };
+		7F6F429215568EEF0007E889 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F429015568EEF0007E889 /* AddressBookUI.framework */; };
 		7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */; };
 		7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */; };
 		7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */; };
@@ -1030,6 +1033,9 @@
 		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
 		7F6E6CEF14D6CB9800033C65 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F6E6CF014D6CB9800033C65 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7F6F428C15568EE30007E889 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7F6F428F15568EEF0007E889 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		7F6F429015568EEF0007E889 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		7F6FC128153F0BE400E97986 /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
 		7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
 		7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageLBSDisabled.png; sourceTree = "<group>"; };
@@ -1355,6 +1361,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */,
+				7F6F429215568EEF0007E889 /* AddressBookUI.framework in Frameworks */,
+				7F6F428D15568EE30007E889 /* MessageUI.framework in Frameworks */,
 				7FC5B154154EC6F6001CECBA /* StoreKit.framework in Frameworks */,
 				7F50FD04154AD46500F44FD1 /* libz.dylib in Frameworks */,
 				7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */,
@@ -1843,6 +1852,9 @@
 		7F6E6CB714D6CAA600033C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F6F428F15568EEF0007E889 /* AddressBook.framework */,
+				7F6F429015568EEF0007E889 /* AddressBookUI.framework */,
+				7F6F428C15568EE30007E889 /* MessageUI.framework */,
 				7FC5B153154EC6F6001CECBA /* StoreKit.framework */,
 				7F50FD03154AD46500F44FD1 /* libz.dylib */,
 				7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */,

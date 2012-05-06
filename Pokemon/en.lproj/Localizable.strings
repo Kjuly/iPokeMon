@@ -80,6 +80,9 @@
 "PMSSettingFeedback"          = "Feedback";
 "PMSSettingLogout"            = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";
+// Feedback
+"PMSCannotSendMail" = "Sorry, Mail Not Available.";
+"PMSMailSent"       = "Thanks For Your Feedback!";
 
 
 // Pokemon
