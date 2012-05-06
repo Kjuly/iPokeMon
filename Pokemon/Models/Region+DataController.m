@@ -19,7 +19,7 @@
               managedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 + (void)_pullFromServer;
 + (void)_pushToServer;
-- (void)_doPush;
+- (void)_doPushWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end
 
@@ -36,7 +36,7 @@
 
 // get code for current region with |placemark|
 //  
-// |codes| value format: [<0>:<1>:<2>:<3>:<4>]
+// |codes| value format: "<0>:<1>:<2>:<3>:<4>"
 //   <0>=<country>:                      China (CN)
 //   <1>=<administrativeArea(province)>: Zhejiang Province (ZJ)
 //   <2>=<locality(city)>:               Hangzhou City (HZ)
@@ -44,6 +44,11 @@
 //   <4>=<special>:                      water, cave
 //
 // |codes| value e.g.: "CN:ZJ:HZ:XX:XX"
+//
+// !!! the last two is wait to be added,
+//     so the current format e.g.:
+//     
+//     "CN:ZJ:HZ"
 //
 + (NSString *)codeOfRegionWithPlacemark:(CLPlacemark *)placemark {
   NSManagedObjectContext * managedObjectContext =
@@ -99,10 +104,9 @@
   region.flag               = @"n"; // flag to new, wait to be pushed to server
   region.code               = nil;
   region.countryCode        = placemark.ISOcountryCode;
-  region.administrativeArea = @"Zhejiang Province";//placemark.administrativeArea;
-  region.locality           = @"Hangzhou City";//placemark.locality;
+  region.administrativeArea = placemark.administrativeArea;
+  region.locality           = placemark.locality;
 //  region.subLocality        = placemark.subLocality;
-  NSLog(@"%@", region.countryCode);
   
   NSError * error;
   if (! [managedObjectContext save:&error])
@@ -157,7 +161,7 @@
     region.administrativeArea = [regionArray objectAtIndex:1]; // code administrative area
     region.locality           = [regionArray objectAtIndex:2]; // code locality
     //region.subLocality        = [regionDict valueForKey:@"csl"]; // code sublocality
-    region.flag               = @"v"; // flag
+    region.flag               = @"v"; // flag | verified
     
     [fetchRequest release];
     
@@ -202,8 +206,10 @@
   // Check the existence of the object
   // If not exist, return, otherwise, execute fetching request.
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"flag == %@", @"n"]];
-  if ([managedObjectContext countForFetchRequest:fetchRequest error:&error] == 0)
+  if ([managedObjectContext countForFetchRequest:fetchRequest error:&error] == 0) {
+    [fetchRequest release];
     return;
+  }
   NSArray * regions = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
   [fetchRequest release];
   
@@ -212,42 +218,30 @@
   //   so next time do not need to push it again
   // When the SERVER side's admin update it,
   //   it'll get |flag| with 'v' (already verified)
-  for (Region * region in regions)
-    [region _doPush];
-  
-  // save data that modified (|flag|)
-  if (! [managedObjectContext save:&error])
-    NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
-  NSLog(@"...DONE...");
+  for (Region * region in regions) {
+    // if the region info data not complete, pass this region
+    if (!region.countryCode || !region.administrativeArea || !region.locality)
+      continue;
+    [region _doPushWithManagedObjectContext:managedObjectContext];
+  }
 }
 
 // push new region info data to SERVER
-- (void)_doPush {
+- (void)_doPushWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
   NSLog(@"......PUSHING new REGION INFO to SERVER......");
-//  NSString * locationInfo = [NSString stringWithFormat:@"%@=%@=%@", @"CN", @"Zhejiang Province", @"Hangzhou City"];
-//  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                         locationInfo, @"li", // location info
-//                         self.code,               @"c",
-//                         self.countryCode,        @"cc",
-//                         self.administrativeArea, @"ca",
-//                         self.locality,           @"cl",
-                         
-//                         self.subLocality,        @"csl", # add it in next version
-//                         nil];
-  
-  
   // Blocks: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"...Push new Region Info to SERVER successfully...");
+    
     // set region's |flag| to 'p'(already pushed to server, but not verified)
-    NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    //   and save the region data that modified (|flag|)
     self.flag = @"p";
     NSError * error;
     if (! [managedObjectContext save:&error])
       NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
     // Hide loading
+    NSLog(@"FLAG:%@",self.flag);
     [[LoadingManager sharedInstance] hideOverBar];
+    NSLog(@"...DONE...Pushed new Region Info to SERVER successfully...");
   };
   void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!! Push new Region Info to SERVER failed ERROR: %@", [error localizedDescription]);
@@ -257,9 +251,13 @@
   
   // Show loading
   [[LoadingManager sharedInstance] showOverBar];
-  NSString * locationInfo = [NSString stringWithFormat:@"%@=%@=%@", @"CN", @"Zhejiang Province", @"Hangzhou City"];
-  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:locationInfo, @"li", nil];
-  NSLog(@"NEW REGION INFO:%@", data);
+  
+  // region info
+  // e.g. "CN=Zhejiang Province=Hangzhou City"
+  NSString * regionInfo = [NSString stringWithFormat:@"%@=%@=%@",
+                             self.countryCode, self.administrativeArea, self.locality];
+  NSDictionary * data = [[NSDictionary alloc] initWithObjectsAndKeys:regionInfo, @"ri", nil];
+  NSLog(@"NEW REGION INFO:%@", regionInfo);
   [[ServerAPIClient sharedInstance] updateData:data
                                      forTarget:kDataFetchTargetRegion
                                        success:success

@@ -34,6 +34,7 @@ NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider"; 
 #pragma mark - Notifications
 
 NSString * const kPMNError = @"PMNError"; // notification for ERROR
+NSString * const kPMNUpdateRegion = @"PMNUpdateRegion"; // notification for updating region (code, ...)
 
 // Notification for UserDefaults changed
 NSString * const kPMNUDGeneralLocationServices  = @"PMNUDGeneralLocationServices";  // general - location service

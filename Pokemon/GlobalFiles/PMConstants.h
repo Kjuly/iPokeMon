@@ -49,6 +49,7 @@ extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider 
 #pragma mark - Notifications
 
 extern NSString * const kPMNError; // notification for ERROR
+extern NSString * const kPMNUpdateRegion; // notification for updating region (code, ...)
 
 // Notification for UserDefaults changed
 extern NSString * const kPMNUDGeneralLocationServices;  // general - location service

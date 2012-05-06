@@ -267,9 +267,12 @@ static PMLocationManager * locationManager_ = nil;
     [locationInfo release];
     // loading done & post notification to |WildPokemonController| to generate a new Wild PM
     [[LoadingManager sharedInstance] hideOverBar];
+    // post notif to |ServerAPIClient| to update region (code)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateRegion
+                                                        object:self.regionCode];
+    // post notif to |WildPokemonController| to generate new Wild PM
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon
                                                         object:self.locationInfo];
-    
     // Sync Region Info when necessary
     [Region sync];
   };

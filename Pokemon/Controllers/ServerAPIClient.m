@@ -9,7 +9,6 @@
 #import "ServerAPIClient.h"
 
 #import "OAuthManager.h"
-#import "PMLocationManager.h"
 #import "AFJSONRequestOperation.h"
 
 #pragma mark - Constants
@@ -111,16 +110,22 @@ typedef enum {
 
 @interface ServerAPIClient () {
  @private
-  
+  NSString * regionCode_; // record current region code
 }
 
+@property (nonatomic, copy) NSString * regionCode;
+
 - (void)updateHeaderWithFlag:(HTTPHeaderFlag)flag;
+- (void)_updateRegion:(NSNotification *)notification;
 //- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 
 @end
 
 @implementation ServerAPIClient
 
+@synthesize regionCode = regionCode_;
+
+// singleton
 static ServerAPIClient * client_;
 + (ServerAPIClient *)sharedInstance {
   if (client_ != nil)
@@ -133,11 +138,24 @@ static ServerAPIClient * client_;
   return client_;
 }
 
+- (void)dealloc {
+  self.regionCode = nil;
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateRegion object:nil];
+  [super dealloc];
+}
+
 - (id)initWithBaseURL:(NSURL *)url {
   if (self = [super initWithBaseURL:url]) {
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
     [self setDefaultHeader:@"key"    value:kClientIdentifier];
+    
+    self.regionCode = @"XX";
+    // add observer for notification from |PMLocationManager| when region changed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updateRegion:)
+                                                 name:kPMNUpdateRegion
+                                               object:nil];
   }
   return self;
 }
@@ -172,7 +190,7 @@ static ServerAPIClient * client_;
   else if (target & kDataFetchTargetTamedPokemon)
     path = [ServerAPI getPokedex];
   else if (target & kDataFetchTargetRegion) {
-    path = [ServerAPI getRegionWithCode:[[PMLocationManager sharedInstance] currRegionCode]];
+    path = [ServerAPI getRegionWithCode:self.regionCode];
     NSLog(@"Region Request URL Tail: %@", path);
   }
   else return;
@@ -260,6 +278,11 @@ static ServerAPIClient * client_;
   
   // Include user location info if needed
   if (flag & kHTTPHeaderWithRegion) [self setDefaultHeader:@"region" value:@"1"];                      
+}
+
+// update region (code, ...)
+- (void)_updateRegion:(NSNotification *)notification {
+  self.regionCode = notification.object;
 }
 
 // Set HTTP Header for URL request
