@@ -123,6 +123,7 @@
 "Cash Shortage" = "Sorry, Cash Shortage";
 "Exchange Failed" = "Sorry, Exchange Failed";
 "Exchange Done" = "Exchange Done";
+"ErrorLoadingTimeOut"  = "Loading Time Out.";
 
 // Bag Tableview
 "Bag1"         = "Items";

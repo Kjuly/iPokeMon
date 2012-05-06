@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "LoadingManager.h"
 #import "PMPurchaseManager.h"
+#import "CustomNavigationBar.h"
 #import "PurchaseTableViewCell.h"
 #import "TrainerController.h"
 
@@ -73,6 +74,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.tableView setHidden:YES];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(productsLoaded:)
@@ -94,18 +96,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  if (self.purchaseManager.products == nil) {
+    [self.purchaseManager requestProducts];
+    // Loaidng start
+    [self.loadingManager showOverView];
+    [self performSelector:@selector(timeOut:) withObject:nil afterDelay:15.f];
+  }
+  else [self.tableView setHidden:NO];
+  
+  /*
   Reachability *reach = [Reachability reachabilityForInternetConnection];	
   NetworkStatus netStatus = [reach currentReachabilityStatus];    
-  if (netStatus == NotReachable) {        
-    NSLog(@"No internet connection!");        
-  } else {        
+  if (netStatus == NotReachable) {
+    NSLog(@"No internet connection!");
+  }
+  else {
     if (self.purchaseManager.products == nil) {
       [self.purchaseManager requestProducts];
       // Loaidng start
       [self.loadingManager showOverView];
-      [self performSelector:@selector(timeOut:) withObject:nil afterDelay:15.f];
-    }        
-  }
+      [self performSelector:@selector(timeOut:) withObject:nil afterDelay:5.f];
+    }
+  }*/
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -217,6 +229,13 @@
 - (void)timeOut:(id)sender {
   NSLog(@"!!!ERROR: TIMEOUT");
   [self.loadingManager hideOverView];
+  CGFloat delay = 1.5f;
+  [[LoadingManager sharedInstance] showMessage:NSLocalizedString(@"ErrorLoadingTimeOut", nil)
+                                          type:kProgressMessageTypeError
+                                  withDuration:delay];
+  CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
+  [navigationBar performSelector:@selector(back:) withObject:nil afterDelay:delay];
+  navigationBar = nil;
 }
 
 - (void)productsLoaded:(NSNotification *)notification {
@@ -224,6 +243,7 @@
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
+  [self.tableView setHidden:NO];
   [self.tableView reloadData];
 }
 

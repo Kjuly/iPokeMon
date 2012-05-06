@@ -122,6 +122,7 @@
 "Cash Shortage" = "对不起，现金不足";
 "Exchange Failed" = "对不起，兑换失败";
 "Exchange Done"            = "兑换换成";
+"ErrorLoadingTimeOut"  = "连接超时";
 
 // Bag Tableview
 "Bag1"         = "道具";
