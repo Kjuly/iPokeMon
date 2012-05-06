@@ -74,7 +74,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self.tableView setHidden:YES];
+  [self.tableView setAlpha:0.f];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(productsLoaded:)
@@ -102,7 +102,7 @@
     [self.loadingManager showOverView];
     [self performSelector:@selector(timeOut:) withObject:nil afterDelay:15.f];
   }
-  else [self.tableView setHidden:NO];
+  else [self.tableView setAlpha:1.f];
   
   /*
   Reachability *reach = [Reachability reachabilityForInternetConnection];	
@@ -243,8 +243,12 @@
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
-  [self.tableView setHidden:NO];
   [self.tableView reloadData];
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationCurveLinear
+                   animations:^{ [self.tableView setAlpha:1.f]; }
+                   completion:nil];
 }
 
 - (void)productPurchased:(NSNotification *)notification {
