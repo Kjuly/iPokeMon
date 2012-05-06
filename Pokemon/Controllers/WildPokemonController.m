@@ -27,7 +27,7 @@
   NSManagedObjectContext * managedObjectContext_;
   LoadingManager         * loadingManager_;
   NSMutableDictionary    * locationInfo_;
-  NSMutableString        * regionCode_;        // e.g. 'CN:ZJ:HZ:XX:XX'
+  NSMutableString        * regionCode_;  // e.g. 'CN:ZJ:HZ' ###'CN:ZJ:HZ:XX:XX' next version
   NSArray                * pokemonSIDs_;
   WildPokemon            * wildPokemon_;
   
@@ -485,13 +485,6 @@ static WildPokemonController * wildPokemonController_ = nil;
 // Update |regionCode_| that parsed from |placemark|
 - (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark {
   self.regionCode = [NSMutableString stringWithString:[Region codeOfRegionWithPlacemark:placemark]];
-//  NSString * codeCountry            = @"CN"; //placemark.ISOcountryCode ? placemark.ISOcountryCode : @"XX";
-//  NSString * codeAdministrativeArea = @"ZJ"; //placemark.administrativeArea ? placemark.administrativeArea : @"XX";
-//  NSString * codeLocality           = @"HZ"; //placemark.locality ? placemark.locality : @"XX";
-//  NSString * codeSubLocality        = @"XX"; //placemark.subLocality ? placemark.subLocality : @"XX"; // space holder
-//  NSString * codeSpecial            = @"XX"; // special
-//  self.regionCode = [NSMutableString stringWithFormat:@"%@:%@:%@:%@:%@",
-//                     codeCountry, codeAdministrativeArea, codeLocality, codeSubLocality, codeSpecial, nil];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp
