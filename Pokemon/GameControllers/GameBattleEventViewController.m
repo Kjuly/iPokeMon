@@ -93,12 +93,6 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
-  
-  backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  [backgroundView_ setBackgroundColor:[UIColor blackColor]];
-  [backgroundView_ setAlpha:0.f];
-  [view addSubview:backgroundView_];
-  
   self.view = view;
   [view release];
 }
@@ -107,13 +101,19 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // backgroun view
+  backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [backgroundView_ setBackgroundColor:[UIColor blackColor]];
+  [backgroundView_ setAlpha:0.f];
+  [self.view addSubview:backgroundView_];
+  
   // Tap gesture recognizer
-  UITapGestureRecognizer * tapGestureRecognizer =
-  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+  UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
+  [tapGestureRecognizer initWithTarget:self action:@selector(tapGestureAction:)];
+  [tapGestureRecognizer setNumberOfTapsRequired:1];
+  [tapGestureRecognizer setNumberOfTouchesRequired:1];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
-  [self.tapGestureRecognizer setNumberOfTapsRequired:1];
-  [self.tapGestureRecognizer setNumberOfTouchesRequired:1];
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
@@ -141,9 +141,6 @@
   
   // NO Pokemon Available to battle
   if (eventType & kGameBattleEventTypeNoPMAvailable) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: All PMs Fainted"];
-#endif
     // Message Label
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
@@ -175,9 +172,6 @@
   }
   // LEVEL UP
   else if (eventType & kGameBattleEventTypeLevelUp) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: PM Level Up"];
-#endif
     // Message Label
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
@@ -235,17 +229,10 @@
   //   Evolution for Pokemon
   //
   else if (eventType & kGameBattleEventTypeEvolution) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: PM Evolution Occurred"];
-#endif
   }
   // Caught a Wild Pokemon
   else if (eventType & kGameBattleEventTypeCaughtWPM) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: Wild PM Caught"];
-#endif
     WildPokemon * wildPokemon = self.systemProcess.enemyPokemon;
-    
     // Save WildPokemon to TraienrTamedPokemon groupd
     [self.trainer caughtNewWildPokemon:wildPokemon memo:@"PMSMemoTest"];
     
@@ -260,9 +247,7 @@
     wildPokemon = nil;
     
     // Animation blocks
-    animations = ^(){
-      [self.backgroundView setAlpha:1.f];
-    };
+    animations = ^(){ [self.backgroundView setAlpha:1.f]; };
     completion = ^(BOOL finished) {
       // Notification to |GameBattleLayer| to deal with ending battle
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEnd
@@ -311,9 +296,11 @@
     
     // If battle is not started (Trainer has NO Pokemon available)
     if (eventType_ & kGameBattleEventTypeNoPMAvailable)
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent object:self userInfo:nil];
-    else // ENS EVENT
-      [self.systemProcess endEvent];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent
+                                                          object:self
+                                                        userInfo:nil];
+    // ENS EVENT
+    else [self.systemProcess endEvent];
   };
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f
