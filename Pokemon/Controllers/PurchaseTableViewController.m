@@ -8,7 +8,7 @@
 
 #import "PurchaseTableViewController.h"
 
-#import "Reachability.h"
+//#import "Reachability.h"
 #import "LoadingManager.h"
 #import "PMPurchaseManager.h"
 #import "CustomNavigationBar.h"
