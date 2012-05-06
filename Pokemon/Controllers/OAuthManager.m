@@ -94,11 +94,15 @@ static OAuthManager * oauthManager_ = nil;
 
 // Session status for User
 - (BOOL)isSessionValid {
-  NSLog(@"Email:%@, VerifiedEmail:%@, ClientID:%@, ClientSecret:%@, TokenType:%@, AccessToken:%@, RefreshToken:%@, Code:%@, UserData:%@", self.oauth.userEmail,self.oauth.userEmailIsVerified, self.oauth.clientID, self.oauth.clientSecret, self.oauth.tokenType, self.oauth.accessToken, self.oauth.refreshToken, self.oauth.code, self.oauth.userData);
-  if (! [self.oauth canAuthorize])
+  NSLog(@"CHECKING SESSION...");
+//  NSLog(@"Email:%@, VerifiedEmail:%@, ClientID:%@, ClientSecret:%@, TokenType:%@, AccessToken:%@, RefreshToken:%@, Code:%@, UserData:%@", self.oauth.userEmail,self.oauth.userEmailIsVerified, self.oauth.clientID, self.oauth.clientSecret, self.oauth.tokenType, self.oauth.accessToken, self.oauth.refreshToken, self.oauth.code, self.oauth.userData);
+  if (! [self.oauth canAuthorize]) {
+    NSLog(@"INVALID SESSION...");
     return NO;
+  }
   if (! isUserIDSynced_)
     [self _syncUserID];
+  NSLog(@"VALID SESSION...");
   return YES;
 }
 
