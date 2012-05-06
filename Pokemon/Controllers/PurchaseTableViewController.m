@@ -103,7 +103,7 @@
       [self.purchaseManager requestProducts];
       // Loaidng start
       [self.loadingManager showOverView];
-      [self performSelector:@selector(timeout) withObject:nil afterDelay:30.0];
+      [self performSelector:@selector(timeOut:) withObject:nil afterDelay:15.f];
     }        
   }
 }
@@ -273,7 +273,7 @@
   [self.purchaseManager buyProduct:product];
   // loading
   [self.loadingManager showOverView];
-  [self performSelector:@selector(timeout) withObject:nil afterDelay:60*5];
+  [self performSelector:@selector(timeOut:) withObject:nil afterDelay:60*5];
   product = nil;
 }
 
