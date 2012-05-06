@@ -1223,6 +1223,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
   self.playerPokemon.hp = [NSNumber numberWithInt:playerPokemonHP];
   self.enemyPokemon.hp  = [NSNumber numberWithInt:enemyPokemonHP];
+#ifdef DEBUG_SUPER_PM
+  self.enemyPokemon.hp = [NSNumber numberWithInt:0];
+#endif
   
   // !!!TODO
   //   Different Move has its own audio type!
@@ -1693,6 +1696,11 @@ static GameSystemProcess * gameSystemProcess = nil;
     // if this case last to the 3rd time, the wild PM is caught
     else return NO;
   }
+  
+#ifdef DEBUG_SUPER_PM
+  // 100% catch Wild PM when in SUPER PM mode (DEBUG)
+  succeed = YES;
+#endif
   
   // if |catchValue >= 255|(SUCCEED) or |randomeNumber > catch|(FAILED)
   //   run this method to show the capture result
