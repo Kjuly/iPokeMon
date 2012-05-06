@@ -246,7 +246,7 @@
     [gameBattleEventViewController release];
   }
   
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
+  [self.view.window addSubview:self.gameBattleEventViewController.view];
   NSTimeInterval delay = 1.5f;
   [self.gameBattleEventViewController loadViewWithEventType:eventType
                                                        info:notification.userInfo
@@ -277,7 +277,8 @@
   
   NSTimeInterval delay = 1.8f;
   if (battleEndEventType != kGameBattleEndEventTypeWin && battleEndEventType != kGameBattleEndEventTypeRun) {
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+    //[[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
+    [self.view.window addSubview:self.gameBattleEndViewController.view];
     [self.gameBattleEndViewController loadViewWithEventType:battleEndEventType
                                                    animated:YES
                                                  afterDelay:delay];

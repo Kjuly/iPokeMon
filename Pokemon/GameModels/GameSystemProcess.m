@@ -266,7 +266,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     return;
   }
   
-  // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
+  // Notification to |GameMainViewController| to show view of |GameBattleEventViewController|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleRunEvent
                                                       object:self
                                                     userInfo:userInfo];
@@ -1869,10 +1869,10 @@ static GameSystemProcess * gameSystemProcess = nil;
       
       // If |levelsUp > 0|, run EVENT:Level UP to show view for Level Up Info
       if (levelsUp) {
+        //processType_ = kGameSystemProcessTypeBattleEnd; ///////
         NSDictionary * info = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSNumber numberWithInt:levelsUp], @"levelsUp", nil];
-        [self runEventWithEventType:kGameBattleEventTypeLevelUp
-                               info:info];
+        [self runEventWithEventType:kGameBattleEventTypeLevelUp info:info];
         [info release];
       }
       break;
