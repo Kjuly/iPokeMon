@@ -213,25 +213,28 @@ static PMLocationManager * locationManager_ = nil;
 
 // Generate location info
 - (void)_generateLocationInfoForLocation:(CLLocation *)location {
-//#ifdef DEBUG_NO_CORELOCATION
-//  NSMutableDictionary * locationInfo = [[NSMutableDictionary alloc] init];
-//  [locationInfo setValue:@"street_address" forKey:@"type"];
-//  [locationInfo setValue:@"Hangzhou City" forKey:@"city"];
-//  self.locationInfo = locationInfo;
-//  [locationInfo release];
-//  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon object:self.locationInfo];
-//#else
-  CLGeocoder * geocoder = [[CLGeocoder alloc] init];
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSMutableArray * languages = [userDefaults objectForKey:@"AppleLanguages"];
+  NSString * originalLanguage = [languages objectAtIndex:0];
+  if (! [originalLanguage isEqualToString:@"en"])
+    [languages insertObject:@"en" atIndex:0];
+  
+  // completion handler block
   void (^completionHandler)(NSArray*, NSError*) = ^(NSArray *placemarks, NSError *error) {
+    if (! [originalLanguage isEqualToString:@"en"])
+      [languages removeObjectAtIndex:0];
+    
     //if([error code] == kCLErrorLocationUnknown) {}
-    /*if (error) {
+    if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
       NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  [NSNumber numberWithInt:kPMErrorUnknow], @"error", nil];
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
       [userInfo release];
+      // loading done
+      [[LoadingManager sharedInstance] hideOverBar];
       return;
-    }*/
+    }
     
     /*
     NSDictionary *addressDictionary  // A dictionary containing the Address Book keys and values for the placemark
@@ -259,6 +262,7 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"locality:::%@", [placemark locality]);
     NSLog(@"subLocality:::%@", [placemark subLocality]);
     NSLog(@"administrativeArea:::%@", [placemark administrativeArea]);
+    NSLog(@"administrativeArea:::%@", placemark.administrativeArea);
     NSLog(@"subAdministrativeArea:::%@", [placemark subAdministrativeArea]);
     NSLog(@"postalCode:::%@", [placemark postalCode]);
     NSLog(@"ISOcountryCode:::%@", [placemark ISOcountryCode]);
@@ -281,7 +285,7 @@ static PMLocationManager * locationManager_ = nil;
                                                           object:self.regionCode];
     }
     
-    // loading done & post notification to |WildPokemonController| to generate a new Wild PM
+    // loading done
     [[LoadingManager sharedInstance] hideOverBar];
     // post notif to |WildPokemonController| to generate new Wild PM
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGenerateNewWildPokemon
@@ -289,6 +293,7 @@ static PMLocationManager * locationManager_ = nil;
   };
   // loading start
   [[LoadingManager sharedInstance] showOverBar];
+  CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
   [geocoder release];
 //#endif
