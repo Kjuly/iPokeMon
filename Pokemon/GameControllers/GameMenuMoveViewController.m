@@ -188,17 +188,20 @@
    NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
   [moveUnitView.name setText:
    NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
+  NSInteger currPPIndex = (moveIndex - 1) * 2;
   [moveUnitView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                              [[fourMovesPP_ objectAtIndex:0] intValue],
-                              [[fourMovesPP_ objectAtIndex:1] intValue]]];
+                              [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+                              [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]];
   move = nil;
   
   // Change Text color if needed
-  if ([[fourMovesPP_ objectAtIndex:0] intValue] == 0) {
+  if ([[fourMovesPP_ objectAtIndex:currPPIndex] intValue] <= 0) {
     [moveUnitView.name setTextColor:[GlobalRender textColorDisabled]];
+    [moveUnitView.pp setTextColor:[GlobalRender textColorDisabled]];
     [moveUnitView.viewButton setEnabled:NO];
   } else {
     [moveUnitView.name setTextColor:[GlobalRender textColorTitleWhite]];
+    [moveUnitView.pp setTextColor:[GlobalRender textColorOrange]];
     [moveUnitView.viewButton setEnabled:YES];
   }
   moveUnitView = nil;
