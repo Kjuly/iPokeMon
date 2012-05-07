@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PokemonMoveView : UIView {
-  UILabel  * type1_;
-  UILabel  * name_;
-  UILabel  * pp_;
-  UIButton * viewButton_;
-}
+@protocol PokemonMoveViewDelegate <NSObject>
 
-@property (nonatomic, retain) UILabel  * type1;
-@property (nonatomic, retain) UILabel  * name;
-@property (nonatomic, retain) UILabel  * pp;
-@property (nonatomic, retain) UIButton * viewButton;
+- (void)loadMoveDetailView:(id)sender;
+
+@end
+
+@interface PokemonMoveView : UIView
+
+// localization job is done in this method
+- (void)configureMoveUnitWithName:(NSString *)name
+                             type:(NSString *)type
+                               pp:(NSString *)pp
+                         delegate:(id <PokemonMoveViewDelegate>)delegate
+                              tag:(NSInteger)tag
+                              odd:(BOOL)odd;
+- (void)setButtonEnabled:(BOOL)enabled;
 
 @end

@@ -10,11 +10,30 @@
 
 #import "GlobalRender.h"
 
+@interface PokemonMoveView () {
+ @private
+  id <PokemonMoveViewDelegate> delegate_;
+  UILabel  * type1_;
+  UILabel  * name_;
+  UILabel  * pp_;
+  UIButton * viewButton_;
+}
+
+@property (nonatomic, assign) id <PokemonMoveViewDelegate> delegate;
+@property (nonatomic, retain) UILabel  * type1;
+@property (nonatomic, retain) UILabel  * name;
+@property (nonatomic, retain) UILabel  * pp;
+@property (nonatomic, retain) UIButton * viewButton;
+
+@end
+
 @implementation PokemonMoveView
 
-@synthesize name  = name_;
-@synthesize type1 = type1_;
-@synthesize pp    = pp_;
+@synthesize delegate   = delegate_;
+
+@synthesize name       = name_;
+@synthesize type1      = type1_;
+@synthesize pp         = pp_;
 @synthesize viewButton = viewButton_;
 
 -(void)dealloc {
@@ -25,17 +44,15 @@
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     CGFloat const typeWidth   = 64.f;
     CGFloat const labelHeight = frame.size.height - 10.f;
     
     CGRect  const type1Frame  = CGRectMake(10.f, 5.f, typeWidth, labelHeight);
-    CGRect  const nameFrame   = CGRectMake(10.f + typeWidth, 5.f, frame.size.width - typeWidth - 80.f, labelHeight);
+    CGRect  const nameFrame   = CGRectMake(10.f + typeWidth, 5.f, frame.size.width - typeWidth - 100.f, labelHeight);
     CGRect  const ppFrame     = CGRectMake(nameFrame.origin.x + nameFrame.size.width, 5.f, 60.f, labelHeight);
-    CGRect  const viewButtonFrame = CGRectMake(10.f, 0.f, frame.size.width, frame.size.height);
     
     type1_ = [[UILabel alloc] initWithFrame:type1Frame];
     [type1_ setBackgroundColor:[UIColor clearColor]];
@@ -56,10 +73,6 @@
     [pp_ setTextColor:[GlobalRender textColorTitleWhite]];
     [pp_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [self addSubview:pp_];
-    
-    viewButton_ = [[UIButton alloc] initWithFrame:viewButtonFrame];
-    [viewButton_ setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:viewButton_];
   }
   return self;
 }
@@ -72,5 +85,48 @@
     // Drawing code
 }
 */
+
+#pragma mark - Public Methods
+
+- (void)configureMoveUnitWithName:(NSString *)name
+                             type:(NSString *)type
+                               pp:(NSString *)pp
+                         delegate:(id<PokemonMoveViewDelegate>)delegate
+                              tag:(NSInteger)tag
+                              odd:(BOOL)odd {
+  CGRect viewFrame = self.frame;
+  viewFrame.origin.x = 0.f;
+  viewFrame.origin.y = 0.f;
+  if (odd) {
+    UIView * backgroundView = [[UIView alloc] initWithFrame:viewFrame];
+    [backgroundView setBackgroundColor:[UIColor blackColor]];
+    [backgroundView setAlpha:.1f];
+    [self addSubview:backgroundView];
+    [backgroundView release];
+  }
+  
+  [self.name  setText:NSLocalizedString(name, nil)];
+  [self.type1 setText:NSLocalizedString(type, nil)];
+  [self.pp    setText:pp];
+  
+  self.delegate = delegate;
+  if (delegate) {
+    UIButton * viewButton = [[UIButton alloc] initWithFrame:viewFrame];
+    [viewButton setBackgroundColor:[UIColor clearColor]];
+    [viewButton setTag:tag];
+    [viewButton setEnabled:YES];
+    [viewButton addTarget:self.delegate
+                   action:@selector(loadMoveDetailView:)
+         forControlEvents:UIControlEventTouchUpInside];
+    self.viewButton = viewButton;
+    [viewButton release];
+    [self addSubview:self.viewButton];
+  }
+}
+
+// toggle |viewButton_|
+- (void)setButtonEnabled:(BOOL)enabled {
+  [self.viewButton setEnabled:enabled];
+}
 
 @end

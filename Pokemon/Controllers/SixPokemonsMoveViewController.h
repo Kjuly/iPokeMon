@@ -7,7 +7,8 @@
 //
 
 #import "SixPokemonsDetailViewController.h"
+#import "PokemonMoveView.h"
 
-@interface SixPokemonsMoveViewController : SixPokemonsDetailViewController
+@interface SixPokemonsMoveViewController : SixPokemonsDetailViewController <PokemonMoveViewDelegate>
 
 @end
