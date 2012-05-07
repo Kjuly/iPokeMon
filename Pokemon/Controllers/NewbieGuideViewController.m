@@ -332,10 +332,12 @@
       };
       void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"!!! |checkUniquenessForName| data failed ERROR: %@", error);
+        isProcessing_ = NO;
+        return;
       };
       
-      [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
       isProcessing_ = YES;
+      [self.serverAPIClient checkUniquenessForName:name success:success failure:failure];
       break;
     }
       
@@ -385,6 +387,7 @@
     }
       
     case 3:
+      [self.trainer sync];
       [self unloadViewAnimated:YES];
       break;
       
