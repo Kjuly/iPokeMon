@@ -380,6 +380,16 @@
              withNewMoveID:(NSInteger)newMoveID {
 }
 
+// update pp & maxPP for moves (NSArray)
+//- (void)updateFourMovesWithPPArrayWithMax:(NSArray *)ppArrayWithMax {
+//  NSMutableArray * fourMoves = [NSMutableArray arrayWithArray:[self.fourMoves componentsSeparatedByString:@","]];
+//  for (NSInteger i = 0; i < [fourMoves count] / 3; ++i) {
+//    [fourMoves replaceObjectAtIndex:(i * 3 + 1) withObject:[ppArrayWithMax objectAtIndex:i]];
+//    [fourMoves replaceObjectAtIndex:(i * 3 + 2) withObject:[ppArrayWithMax objectAtIndex:(i + 1)]];
+//  }
+//  self.fourMoves = [fourMoves componentsJoinedByString:@","];
+//}
+
 // Update PP for moves (NSArray)
 //
 // |self.fourMoves|:

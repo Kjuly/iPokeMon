@@ -43,6 +43,7 @@
 // SET Base data
 - (void)addMoveWithNewMoveID:(NSInteger)newMoveID;                              // Add Move
 - (void)replaceMoveAtIndex:(NSInteger)index withNewMoveID:(NSInteger)newMoveID; // Replace move
+//- (void)updateFourMovesWithPPArrayWithMax:(NSArray *)ppArrayWithMax;            // update pp & maxPP for moves (NSArray)
 - (void)updateFourMovesWithPPArray:(NSArray *)ppArray;                          // Update PP for moves (NSArray)
 - (void)updateFourMovesWithPPInOne:(NSInteger)PPInOne;                          // Update PP for moves (NSInteger)
 - (NSInteger)levelsUpWithGainedExp:(NSInteger)gainedExp;                        // Levels up by adding gained EXP

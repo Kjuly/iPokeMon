@@ -39,12 +39,19 @@
 - (NSString *)localizedNameHeader;
 
 // Methods for using different items' type
-- (void)healStatusAndRestoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine;
-- (void)healStatusForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine;
-- (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon withBagMedicine:(BagMedicine *)bagMedicine;
-- (void)restorePPForPokemonMove:(Move *)move withBagMedicine:(BagMedicine *)bagMedicine;
-- (void)useBerryForPokemon:(TrainerTamedPokemon *)pokemon withBagBerry:(BagBerry *)bagBerry;
-- (void)useBattleItemForPokemon:(TrainerTamedPokemon *)pokemon withBagBattleItem:(BagBattleItem *)bagBattleItem;
+- (void)healStatusAndRestoreHPForPokemon:(TrainerTamedPokemon *)pokemon // heal status & restore HP
+                         withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)healStatusForPokemon:(TrainerTamedPokemon *)pokemon             // heal status
+             withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)restoreHPForPokemon:(TrainerTamedPokemon *)pokemon              // restore HP
+            withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)restorePPForPokemon:(TrainerTamedPokemon *)pokemon              // restore PP
+                  moveIndex:(NSInteger)moveIndex
+            withBagMedicine:(BagMedicine *)bagMedicine;
+- (void)useBerryForPokemon:(TrainerTamedPokemon *)pokemon               // user berry
+              withBagBerry:(BagBerry *)bagBerry;
+- (void)useBattleItemForPokemon:(TrainerTamedPokemon *)pokemon          // user battle item
+              withBagBattleItem:(BagBattleItem *)bagBattleItem;
 
 @end
 
@@ -367,9 +374,13 @@
     else if (self.targetType & kBagQueryTargetTypeMedicineHP)
       [self restoreHPForPokemon:targetPokemon withBagMedicine:(BagMedicine *)anonymousEntity];
     else if (self.targetType & kBagQueryTargetTypeMedicinePP) {
-      NSInteger selectedMoveIndex = [[notification.userInfo objectForKey:@"selectedMoveIndex"] intValue];
-      [self restorePPForPokemonMove:[targetPokemon moveWithIndex:selectedMoveIndex]
-                    withBagMedicine:(BagMedicine *)anonymousEntity];
+      NSInteger selectedMoveIndex = 0;
+      id selectedMove = [notification.userInfo objectForKey:@"selectedMoveIndex"];
+      if (selectedMove)
+        selectedMoveIndex = [selectedMove intValue];
+      [self restorePPForPokemon:targetPokemon
+                      moveIndex:selectedMoveIndex
+                withBagMedicine:(BagMedicine *)anonymousEntity];
     } else return;
   }
   else if (self.targetType & kBagQueryTargetTypeTMHM)         {}
@@ -689,29 +700,64 @@
 }
 
 // Use 'PP Restore' to restore Pokemon's move PP
-- (void)restorePPForPokemonMove:(Move *)move
-                withBagMedicine:(BagMedicine *)bagMedicine {
+- (void)restorePPForPokemon:(TrainerTamedPokemon *)pokemon
+                  moveIndex:(NSInteger)moveIndex
+            withBagMedicine:(BagMedicine *)bagMedicine {
+  NSLog(@"selected Move Index: %d", moveIndex);
+  // four Moves' PP array (with max value)
+  //   currPP,maxPP,currPP,maxPP,...
+  NSArray * PPArrayWithMax = [[NSMutableArray alloc] initWithArray:[pokemon fourMovesPPInArray]];
+  NSLog(@"PPArrayWithMax:%@", [PPArrayWithMax componentsJoinedByString:@","]);
+  NSInteger moveCount  = [PPArrayWithMax count] / 2;
+  NSMutableArray * PPArray = [[NSMutableArray alloc] initWithCapacity:moveCount];
   NSInteger effectCode = [bagMedicine.code intValue];
   // 0x1F: 0001 1111
   // Restores all PP to every move of a selected Pokemon
   if (effectCode == 0x1F) {
     NSLog(@"- BagMedicine - PP - EffectCode: 0x1F");
-  }
+    for (NSInteger i = 0; i < moveCount; ++i)
+      [PPArray addObject:[PPArrayWithMax objectAtIndex:(i * 2 + 1)]];
+  } 
   // 0x0F: 0000 1111
   // Restores 10 PP to every move of a selected Pokemon
   else if (effectCode == 0x0F) {
     NSLog(@"- BagMedicine - PP - EffectCode: 0x0F");
+    for (NSInteger i = 0; i < moveCount; ++i) {
+      NSInteger pp = [[PPArrayWithMax objectAtIndex:(i * 2)] intValue] + 10;
+      NSInteger maxPP = [[PPArrayWithMax objectAtIndex:(i * 2 + 1)] intValue];
+      [PPArray addObject:[NSNumber numberWithInt:(pp < maxPP ? pp : maxPP)]];
+    }
   }
+  /*
   // 0x07: 0000 0111
   // Restores all PP to one move of a selected Pokemon
   else if (effectCode == 0x07) {
     NSLog(@"- BagMedicine - PP - EffectCode: 0x07");
+    if (! moveIndex) moveIndex = 1;
+//    [PPArrayWithMax replaceObjectAtIndex:(moveIndex * 2)
+//                              withObject:[PPArrayWithMax objectAtIndex:(moveIndex * 2 + 1)]];
   }
   // 0x01: 0000 0001
   // Restores 10 PP to one Pokemon's selected move
-  if (effectCode & 0x01) {
+  else if (effectCode & 0x01) {
     NSLog(@"- BagMedicine - PP - EffectCode: 0x01");
+    if (! moveIndex) moveIndex = 1;
+//    NSInteger pp = [[PPArrayWithMax objectAtIndex:(moveIndex * 2)] intValue] + 10;
+//    NSInteger maxPP = [[PPArrayWithMax objectAtIndex:(moveIndex * 2 + 1)] intValue];
+//    [PPArrayWithMax replaceObjectAtIndex:(moveIndex * 2)
+//                              withObject:[NSNumber numberWithInt:(pp < maxPP ? pp : maxPP)]];
+  }*/
+  else {
+    [PPArray release];
+    [PPArrayWithMax release];
+    return;
   }
+  NSLog(@"PPArray:%@", [PPArray componentsJoinedByString:@","]);
+  // update moves' PP & save
+  [pokemon updateFourMovesWithPPArray:PPArray];
+  [PPArray release];
+  [PPArrayWithMax release];
+  [pokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
 }
 
 // Use 'Berry' for Pokemon
