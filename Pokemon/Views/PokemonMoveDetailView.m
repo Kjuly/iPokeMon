@@ -43,7 +43,10 @@
     CGRect const categoryLabelViewFrame = CGRectMake(10.0f, 10.0f + moveBaseViewHeight, 300.0f, labelHeight);
     CGRect const powerLabelViewFrame    = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + labelHeight, 140.0f, labelHeight);
     CGRect const accuracyLabelViewFrame = CGRectMake(140.0f, powerLabelViewFrame.origin.y, 160.0f, labelHeight);
-    CGRect const infoTextViewFrame      = CGRectMake(10.0f, powerLabelViewFrame.origin.y + labelHeight, 300.0f, labelHeight);
+    CGRect const infoTextViewFrame      = CGRectMake(10.0f,
+                                                     powerLabelViewFrame.origin.y + labelHeight,
+                                                     300.0f,
+                                                     3 * labelHeight);
     
     moveBaseView_ = [[PokemonMoveView alloc] initWithFrame:moveBaseViewFrame];
     [self addSubview:moveBaseView_];
