@@ -194,10 +194,9 @@
 
 // Get Six Pokemons that trainer brought
 // State: 0 - Unknown; 1 - Seen; 2 - Caught; 3 - Brought; 4 - Foster Care.
-+ (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID
-{
++ (NSArray *)sixPokemonsForTrainer:(NSInteger)trainerID {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
@@ -215,8 +214,7 @@
 // Get pokemons that in pokemons ID array
 + (NSArray *)queryPokemonsWithUID:(NSArray *)pokemonsUID
                        trainerUID:(NSInteger)trainerUID
-                       fetchLimit:(NSInteger)fetchLimit
-{
+                       fetchLimit:(NSInteger)fetchLimit {
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   
@@ -336,16 +334,14 @@
 
 // Current PPs & Max PPs
 - (NSArray *)fourMovesPPInArray {
-  NSArray * fourMoves = [self.fourMoves componentsSeparatedByString:@","];
-  NSInteger fourMovesCount = [fourMoves count] / 3;
+  NSMutableArray * fourMovesPP = [NSMutableArray arrayWithArray:
+                                  [self.fourMoves componentsSeparatedByString:@","]];
+  NSInteger fourMovesCount = [fourMovesPP count] / 3;
   if (fourMovesCount <= 0)
     return nil;
-  NSMutableArray * fourMovesPP = [NSMutableArray arrayWithCapacity:(fourMovesCount * 2)];
-  for (NSInteger i = 0; i < fourMovesCount; ++i) {
-    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 1)]];
-    [fourMovesPP addObject:[fourMoves objectAtIndex:(i * 3 + 2)]];
-  }
-  fourMoves = nil;
+  // remove Move IDs from tail to head
+  for (NSInteger i = --fourMovesCount; i >= 0; --i)
+    [fourMovesPP removeObjectAtIndex:(i * 3)];
   return fourMovesPP;
 }
 
@@ -360,8 +356,11 @@
   if (fourMovesCount <= 0)
     return 0;
   NSInteger ppInOne = 0;
-  for (NSInteger i = 0; i < fourMovesCount; ++i)
-    ppInOne += [[fourMoves objectAtIndex:(i * 3 + 1)] intValue] * pow(1000, i);
+  for (NSInteger i = 0; i < fourMovesCount; ++i) {
+    NSInteger movePP = [[fourMoves objectAtIndex:(i * 3 + 1)] intValue];
+    if (movePP < 0) movePP = 0;
+    ppInOne += movePP * pow(1000, i);
+  }
   NSLog(@"ppInOne:%d", ppInOne);
   return ppInOne;
 }
