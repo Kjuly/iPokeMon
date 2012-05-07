@@ -26,7 +26,7 @@
 @property (nonatomic, retain) TrainerController          * trainer;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
-- (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)_configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -52,7 +52,7 @@
       // Get a handle to our fetchedResultsController (which implicitly creates it as well)
       // and call |performFetch:| to retrieve the first batch of data
       NSError * error;
-      if (! [[self fetchedResultsController] performFetch:&error]) {
+      if (! [self.fetchedResultsController performFetch:&error]) {
         // Update to handle the error appropriately.
         NSLog(@">>> Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
@@ -111,7 +111,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:section];
 //  return [sectionInfo numberOfObjects];
-  return [self.trainer.pokedex length] * 4;
+  return [[self.trainer pokedex] length] * 4;
 //  return 151;
 }
 
@@ -132,15 +132,14 @@
   // Configure the cell
   NSInteger rowID = [indexPath row];
   // Set Pokemon photo & name
-  if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)])
-    [self configureCell:cell atIndexPath:indexPath];
+  if ([[self.trainer pokedex] isBinary1AtIndex:(rowID + 1)])
+    [self _configureCell:cell atIndexPath:indexPath];
   else {
     [cell.labelTitle setText:@"? ? ?"];
     [cell.imageView setImage:[UIImage imageNamed:kPMINTableViewPokedexDefaultImage]];
   }
   // Set Pokemon ID as subtitle
   [cell.labelSubtitle setText:[NSString stringWithFormat:@"#%.3d", ++rowID]];
-  
   return cell;
 }
 
@@ -187,7 +186,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSInteger rowID = [indexPath row];
-  if ([self.trainer.pokedex isBinary1AtIndex:(rowID + 1)]) {
+  if ([[self.trainer pokedex] isBinary1AtIndex:(rowID + 1)]) {
     PokemonDetailTabViewController * pokemonDetailTabViewController;
     pokemonDetailTabViewController = [PokemonDetailTabViewController alloc];
     [pokemonDetailTabViewController initWithPokemonSID:++rowID withTopbar:YES];
@@ -198,13 +197,17 @@
 
 #pragma mark - Private Methods
 
-- (void)configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  Pokemon * pokemon = [fetchedResultsController_ objectAtIndexPath:indexPath];
+// configure the data for table veiw cell
+- (void)_configureCell:(PokedexTableViewCell *)cell
+           atIndexPath:(NSIndexPath *)indexPath {
+  Pokemon * pokemon = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  NSLog(@"~~~~~~~~~~~~~~indexPath.row:%d", indexPath.row);
+  NSLog(@"~~~~~~~~~~~~~~PM:%@", pokemon.sid);
   [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
   [cell.imageView setImage:pokemon.image];
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate
+#pragma mark - NSFetchedResultsController Delegate
 
 - (NSFetchedResultsController *)fetchedResultsController {
   if (fetchedResultsController_ != nil)
@@ -228,11 +231,14 @@
   [fetchRequest setFetchBatchSize:20];
   
   // Create the |NSFetchedRequestController| instance
+  // |sectionNameKeyPath|: sort the data into sections in table view
+  // |cacheName|: the name of the file the fetched results controller should
+  //   use to cache any repeat work such as setting up sections and ordering contents
   NSFetchedResultsController * fetchedResultsController = [NSFetchedResultsController alloc];
   [fetchedResultsController initWithFetchRequest:fetchRequest
                             managedObjectContext:context
-                              sectionNameKeyPath:nil   // sort the data into sections in table view
-                                       cacheName:nil]; // the name of the file the fetched results controller should use to cache any repeat work such as setting up sections and ordering contents
+                              sectionNameKeyPath:nil
+                                       cacheName:nil];
   [fetchRequest release];
   
   self.fetchedResultsController = fetchedResultsController;
@@ -244,7 +250,8 @@
 
 // NSFetchedResultsControllerDelegate for TableView
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-  // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+  // The fetch controller is about to start sending change notifications,
+  //   so prepare the table view for updates.
   [self.tableView beginUpdates];
 }
 
@@ -266,8 +273,8 @@
       break;
       
     case NSFetchedResultsChangeUpdate:
-      [self configureCell:(PokedexTableViewCell *)[tableView cellForRowAtIndexPath:indexPath]
-              atIndexPath:indexPath];
+      [self _configureCell:(PokedexTableViewCell *)[tableView cellForRowAtIndexPath:indexPath]
+               atIndexPath:indexPath];
       break;
       
     case NSFetchedResultsChangeMove:
@@ -297,7 +304,8 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-  // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+  // The fetch controller has sent all current change notifications,
+  //   so tell the table view to process all updates.
   [self.tableView endUpdates];
 }
 
