@@ -102,7 +102,7 @@
   // TODO:
   //   Hard code now. need to fetch from web server
   if (targetType & kBagQueryTargetTypeItem) {
-    itemIDsInString = @"1,2,3";
+    itemIDsInString = nil;
   }
   else if (targetType & kBagQueryTargetTypeMedicine) {
     if (targetType & kBagQueryTargetTypeMedicineStatus)
@@ -111,6 +111,7 @@
       itemIDsInString = @"23,6,20,12,18,25";
     else if (targetType & kBagQueryTargetTypeMedicinePP)
       itemIDsInString = nil;
+//      itemIDsInString = @"4,16";
     else itemIDsInString = nil;
   }
   else if (targetType & kBagQueryTargetTypePokeball) {
