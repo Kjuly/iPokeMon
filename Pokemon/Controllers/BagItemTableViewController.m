@@ -8,7 +8,6 @@
 
 #import "BagItemTableViewController.h"
 
-#import "PMAudioPlayer.h"
 #import "TrainerController.h"
 #import "BagItemTableViewCell.h"
 #import "BagItemInfoViewController.h"
@@ -20,7 +19,6 @@
   BagItemTableViewCell              * selectedCell_;
   BagItemTableViewHiddenCell        * hiddenCell_;
   UIView                            * hiddenCellAreaView_;
-  PMAudioPlayer                     * audioPlayer_;
   TrainerController                 * trainer_;
   BagItemInfoViewController         * bagItemInfoViewController_;
   GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
@@ -29,7 +27,6 @@
 @property (nonatomic, retain) UIView                            * hiddenCellAreaView;
 @property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
 @property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
-@property (nonatomic, retain) PMAudioPlayer                     * audioPlayer;
 @property (nonatomic, retain) TrainerController                 * trainer;
 @property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
 @property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
@@ -63,14 +60,12 @@
 @synthesize selectedCell                      = selectedCell_;
 @synthesize hiddenCell                        = hiddenCell_;
 @synthesize hiddenCellAreaView                = hiddenCellAreaView_;
-@synthesize audioPlayer                       = audioPlayer_;
 @synthesize trainer                           = trainer_;
 @synthesize bagItemInfoViewController         = bagItemInfoViewController_;
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 
 -(void)dealloc {
   self.items = nil;
-  self.audioPlayer                       = nil;
   self.trainer                           = nil;
   self.bagItemInfoViewController         = nil;
   self.gameMenuSixPokemonsViewController = nil;
@@ -135,7 +130,6 @@
     targetType_           = 0;
     selectedPokemonIndex_ = 0;
     isDuringBattle_       = NO;
-    self.audioPlayer      = [PMAudioPlayer sharedInstance];
     self.trainer          = [TrainerController sharedInstance];
     
     // Cell Area View
@@ -377,8 +371,6 @@
       [self restorePPForPokemonMove:[targetPokemon moveWithIndex:selectedMoveIndex]
                     withBagMedicine:(BagMedicine *)anonymousEntity];
     } else return;
-    // Play AUDIO for using Medicine
-    [self.audioPlayer playForAudioType:kAudioGameUseMedicine afterDelay:1.f];
   }
   else if (self.targetType & kBagQueryTargetTypeTMHM)         {}
   else if (self.targetType & kBagQueryTargetTypeBerry)
