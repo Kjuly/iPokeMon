@@ -79,6 +79,13 @@ static BagDataController * bagDataController = nil;
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid IN %@", targetIDs]];
   [fetchRequest setFetchLimit:count];
   
+  // set sort descriptor when fetching multiple objects
+  if (count > 1) {
+    NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [sort release];
+  }
+  
   NSError * error;
   NSArray * items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
   [fetchRequest release];
