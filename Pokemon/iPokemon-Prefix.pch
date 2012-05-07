@@ -30,7 +30,7 @@
 //#define LOCAL_SERVER 1
 
 ///LBS
-#define DEBUG_NO_MOVE 1
+//#define DEBUG_NO_MOVE 1
 //#define DEBUG_NO_CORELOCATION 1
 //#define LOCATION_SERVICE_LOW_BATTERY_MODE 1
 
