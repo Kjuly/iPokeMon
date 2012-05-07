@@ -36,12 +36,13 @@
   self = [super initWithFrame:frame];
   if (self) {
     CGFloat const labelHeight        = 30.0f;
-    CGFloat const moveBaseViewHeight = (frame.size.height - 80.0f) / 4.0f;
+    CGFloat const offset = 15.f;
+    CGFloat const moveBaseViewHeight = (frame.size.height - 80.0f) / 4.0f - offset;
     
-    CGRect const moveBaseViewFrame      = CGRectMake(0.0f, 10.0f, kViewWidth, moveBaseViewHeight);
+    CGRect const moveBaseViewFrame      = CGRectMake(0.0f, 10.0f + offset / 2.f, kViewWidth, moveBaseViewHeight);
     CGRect const backButtonFrame        = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
-    CGRect const categoryLabelViewFrame = CGRectMake(10.0f, 10.0f + moveBaseViewHeight, 300.0f, labelHeight);
-    CGRect const powerLabelViewFrame    = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + labelHeight, 140.0f, labelHeight);
+    CGRect const categoryLabelViewFrame = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + offset, 300.0f, labelHeight);
+    CGRect const powerLabelViewFrame    = CGRectMake(10.0f, 10.0f + moveBaseViewHeight + offset + labelHeight, 140.0f, labelHeight);
     CGRect const accuracyLabelViewFrame = CGRectMake(140.0f, powerLabelViewFrame.origin.y, 160.0f, labelHeight);
     CGRect const infoTextViewFrame      = CGRectMake(10.0f,
                                                      powerLabelViewFrame.origin.y + labelHeight,
