@@ -171,7 +171,7 @@
     completion = nil;
   }
   // WIN
-  else if (eventType & kGameBattleEndEventTypeWin) {
+  else if (eventType & kGameBattleEndEventTypeWin || eventType & kGameBattleEventTypeLose) {
     // do nothing, just wait for user's tap gesture
     animations = nil;
     completion = nil;

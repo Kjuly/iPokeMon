@@ -1966,7 +1966,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   else if (battleEndEventType & kGameBattleEndEventTypeLose) {
     // Update message in |GameMenuViewController| to show Player LOSE
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
-    [self _runFinalProcessForGameBattleEventType:battleEndEventType];
+    [self runEventWithEventType:kGameBattleEventTypeWin info:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
     BOOL isRunSucceed = [self isRunSucceed];
