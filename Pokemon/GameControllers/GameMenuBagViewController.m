@@ -86,6 +86,8 @@
     [button setTitle:NSLocalizedString(([NSString stringWithFormat:@"PMSGameMenuBagItem%d", i]), nil)
             forState:UIControlStateNormal];
     [button addTarget:self action:@selector(loadSelcetedItemTalbeView:) forControlEvents:UIControlEventTouchUpInside];
+    if (i % 2)
+      [button setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.1f]];
     [self.tableAreaView addSubview:button];
     [button release];
   }

@@ -94,25 +94,18 @@
                          delegate:(id<PokemonMoveViewDelegate>)delegate
                               tag:(NSInteger)tag
                               odd:(BOOL)odd {
-  CGRect viewFrame = self.frame;
-  viewFrame.origin.x = 0.f;
-  viewFrame.origin.y = 0.f;
-  if (odd) {
-    UIView * backgroundView = [[UIView alloc] initWithFrame:viewFrame];
-    [backgroundView setBackgroundColor:[UIColor blackColor]];
-    [backgroundView setAlpha:.1f];
-    [self addSubview:backgroundView];
-    [backgroundView release];
-  }
-  
   [self.name  setText:NSLocalizedString(name, nil)];
   [self.type1 setText:NSLocalizedString(type, nil)];
   [self.pp    setText:pp];
   
   self.delegate = delegate;
   if (delegate) {
+    CGRect viewFrame = self.frame;
+    viewFrame.origin.x = 0.f;
+    viewFrame.origin.y = 0.f;
     UIButton * viewButton = [[UIButton alloc] initWithFrame:viewFrame];
-    [viewButton setBackgroundColor:[UIColor clearColor]];
+    if (odd) [viewButton setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.1f]];
+    else [viewButton setBackgroundColor:[UIColor clearColor]];
     [viewButton setTag:tag];
     [viewButton setEnabled:YES];
     [viewButton addTarget:self.delegate
