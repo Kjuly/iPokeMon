@@ -11,9 +11,10 @@
 typedef enum {
   kGameBattleEventTypeNone          = 0,
   kGameBattleEventTypeNoPMAvailable = 1 << 0,
-  kGameBattleEventTypeLevelUp       = 1 << 1,
-  kGameBattleEventTypeEvolution     = 1 << 2,
-  kGameBattleEventTypeCaughtWPM     = 1 << 3 // WPM: Wild PokeMon
+  kGameBattleEventTypeWin           = 1 << 1,
+  kGameBattleEventTypeLevelUp       = 1 << 2,
+  kGameBattleEventTypeEvolution     = 1 << 3,
+  kGameBattleEventTypeCaughtWPM     = 1 << 4 // WPM: Wild PokeMon
 }GameBattleEventType;
 
 @interface GameBattleEventViewController : UIViewController

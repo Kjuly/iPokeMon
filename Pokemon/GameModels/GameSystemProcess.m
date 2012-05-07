@@ -106,6 +106,7 @@ typedef enum {
 
 - (void)playerWin;  // WIN
 - (void)playerLose; // LOSE
+- (void)_confirmToLevelBattleScene:(UITapGestureRecognizer *)recognizer;
 - (void)_runFinalProcessForGameBattleEventType:(GameBattleEndEventType)battleEndEventType;
 
 @end
@@ -248,8 +249,12 @@ static GameSystemProcess * gameSystemProcess = nil;
   eventType_ = eventType;
   NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     [NSNumber numberWithInt:eventType], @"eventType", nil];
+  // WIN
+  if (eventType & kGameBattleEventTypeWin) {
+    // do nothing
+  }
   // Level Up
-  if (eventType & kGameBattleEventTypeLevelUp) {
+  else if (eventType & kGameBattleEventTypeLevelUp) {
     [userInfo setValue:[info valueForKey:@"levelsUp"] forKey:@"levelsUp"];
   }
   // Evolution
@@ -1875,7 +1880,8 @@ static GameSystemProcess * gameSystemProcess = nil;
         [self runEventWithEventType:kGameBattleEventTypeLevelUp info:info];
         [info release];
       }
-      else [self _runFinalProcessForGameBattleEventType:kGameBattleEndEventTypeWin];
+      else [self runEventWithEventType:kGameBattleEventTypeWin info:nil];
+//        [self _runFinalProcessForGameBattleEventType:kGameBattleEndEventTypeWin];
       break;
     }
       
@@ -1989,8 +1995,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     
   }
   else [self _runFinalProcessForGameBattleEventType:battleEndEventType];
-  
-//  [self _runFinalProcessForGameBattleEventType:battleEndEventType];
 }
 
 // WIN
@@ -2001,6 +2005,15 @@ static GameSystemProcess * gameSystemProcess = nil;
 // LOSE
 - (void)playerLose {
   [self endBattleWithEventType:kGameBattleEndEventTypeLose];
+}
+
+// confirm to level battle scene
+//
+// !!!TODO
+//   might different type
+//
+- (void)_confirmToLevelBattleScene:(UITapGestureRecognizer *)recognizer {
+  [self _runFinalProcessForGameBattleEventType:kGameBattleEndEventTypeWin];
 }
 
 // end final battle process

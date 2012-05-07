@@ -170,6 +170,12 @@
     };
     completion = nil;
   }
+  // WIN
+  else if (eventType & kGameBattleEndEventTypeWin) {
+    // do nothing, just wait for user's tap gesture
+    animations = nil;
+    completion = nil;
+  }
   // LEVEL UP
   else if (eventType & kGameBattleEventTypeLevelUp) {
     // Message Label
