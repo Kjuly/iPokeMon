@@ -231,10 +231,6 @@ static OAuthManager * oauthManager_ = nil;
 
 // Current authticated User's ID (Trainer's |uid|)
 - (void)_syncUserID {
-  isUserIDSyncing_ = YES;
-  // Show loading
-  [self.loadingManager showOverBar];
-  
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer with UserID...");
@@ -260,6 +256,9 @@ static OAuthManager * oauthManager_ = nil;
 #endif
   };
   
+  // Show loading
+  [self.loadingManager showOverBar];
+  isUserIDSyncing_ = YES;
   // Fetch userID for current user
   [[ServerAPIClient sharedInstance] fetchUserIDSuccess:success failure:failure];
 }
