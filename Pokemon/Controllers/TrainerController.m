@@ -81,7 +81,6 @@ static TrainerController * trainerController_ = nil;
 
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
-  NSLog("Mark");
   if (isInitialized_)
     return;
   NSLog(@"......INIT......with userID:%d", userID);
