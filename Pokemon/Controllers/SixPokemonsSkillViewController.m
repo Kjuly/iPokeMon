@@ -112,7 +112,7 @@
   
   // HP
   hpLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:hpLabelViewFrame hasValueLabel:YES];
-  [hpLabelView_ adjustNameLabelWidthWith:-45.f];
+  [hpLabelView_ adjustNameLabelWidthWith:-40.f];
   [hpLabelView_.name setText:NSLocalizedString(@"PMSLabelHP", nil)];
   [hpLabelView_.value setTextColor:[GlobalRender textColorOrange]];
   [dataView addSubview:hpLabelView_];
