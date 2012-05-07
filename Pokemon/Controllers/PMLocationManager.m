@@ -224,6 +224,7 @@ static PMLocationManager * locationManager_ = nil;
     if (! [originalLanguage isEqualToString:@"en"])
       [languages removeObjectAtIndex:0];
     
+#ifndef LOCAL_SERVER
     //if([error code] == kCLErrorLocationUnknown) {}
     if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
@@ -235,6 +236,7 @@ static PMLocationManager * locationManager_ = nil;
       [[LoadingManager sharedInstance] hideOverBar];
       return;
     }
+#endif
     
     /*
     NSDictionary *addressDictionary  // A dictionary containing the Address Book keys and values for the placemark

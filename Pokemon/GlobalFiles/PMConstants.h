@@ -50,6 +50,7 @@ extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider 
 
 extern NSString * const kPMNError; // notification for ERROR
 extern NSString * const kPMNUpdateRegion; // notification for updating region (code, ...)
+extern NSString * const kPMNUserLogout; // notif for reset data when user logout
 
 // Notification for UserDefaults changed
 extern NSString * const kPMNUDGeneralLocationServices;  // general - location service

@@ -35,6 +35,7 @@ NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider"; 
 
 NSString * const kPMNError = @"PMNError"; // notification for ERROR
 NSString * const kPMNUpdateRegion = @"PMNUpdateRegion"; // notification for updating region (code, ...)
+NSString * const kPMNUserLogout = @"PMNUserLogout"; // notif for reset data when user logout
 
 // Notification for UserDefaults changed
 NSString * const kPMNUDGeneralLocationServices  = @"PMNUDGeneralLocationServices";  // general - location service

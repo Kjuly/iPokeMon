@@ -176,7 +176,7 @@ static ServerAPIClient * client_;
 - (void)fetchUserIDSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   [self updateHeaderWithFlag:kHTTPHeaderDefault];
-  NSLog(@"Request URL Description:%@", [self description]);
+  NSLog(@"Request UserID");
   [self getPath:[ServerAPI getUserID] parameters:nil success:success failure:failure];
 }
 

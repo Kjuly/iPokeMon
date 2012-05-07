@@ -29,6 +29,7 @@
 @property (nonatomic, retain) Trainer        * entityTrainer;
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
+- (void)_resetUser:(NSNotification *)notification;
 - (void)_newbieChecking;
 - (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
@@ -62,22 +63,28 @@ static TrainerController * trainerController_ = nil;
 - (void)dealloc { 
   self.entityTrainer     = nil;
   self.entitySixPokemons = nil;
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUserLogout object:nil];
   [super dealloc];
 }
 
 - (id)init {
   if (self = [super init]) {
-    isInitialized_ = NO;
-    flag_          = 0;
+    [self _resetUser:nil];
+    // notif from |OAuthManager|, reset data when user logout
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_resetUser:)
+                                                 name:kPMNUserLogout
+                                               object:nil];
   }
   return self;
 }
 
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
 - (void)initTrainerWithUserID:(NSInteger)userID {
+  NSLog("Mark");
   if (isInitialized_)
     return;
-  NSLog(@"......INIT......");
+  NSLog(@"......INIT......with userID:%d", userID);
   userID_ = userID;
   
   // |completion| block that will be executed after |Trainer|'s data initialized
@@ -390,6 +397,15 @@ static TrainerController * trainerController_ = nil;
 }
 
 #pragma mark - Private Methods
+     
+// reset data for user when logout
+- (void)_resetUser:(NSNotification *)notification {
+  NSLog(@"RESET");
+  isInitialized_ = NO;
+  flag_          = 0;
+  self.entityTrainer     = nil;
+  self.entitySixPokemons = nil;
+}
 
 // Newbie checking
 - (void)_newbieChecking {

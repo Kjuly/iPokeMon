@@ -161,14 +161,13 @@ static OAuthManager * oauthManager_ = nil;
 
 // Logout
 - (void)logout {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: LOGOUT"];
-#endif
   NSLog(@"LOGOUT...");
   [self.operationQueue cancelAllOperations];
   [self revokeAuthorizedWith:[[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
   // Session is invalid, so post notification to |MainViewController| to open login view
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid object:self userInfo:nil];
+  // post notif to |TrainerController| to reset data
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUserLogout object:nil];
 }
 
 #pragma mark - Private Methods
@@ -233,7 +232,7 @@ static OAuthManager * oauthManager_ = nil;
 - (void)_syncUserID {
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer with UserID...");
+    NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer...");
     isUserIDSynced_  = YES;
     isUserIDSyncing_ = NO;
     // Init data from SERVER to CLIENT for Trainer, including TrainerTamedPokemon, six PMs, etc
