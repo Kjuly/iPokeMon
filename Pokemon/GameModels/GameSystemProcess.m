@@ -106,6 +106,7 @@ typedef enum {
 
 - (void)playerWin;  // WIN
 - (void)playerLose; // LOSE
+- (void)_runFinalProcessForGameBattleEventType:(GameBattleEndEventType)battleEndEventType;
 
 @end
 
@@ -245,7 +246,6 @@ static GameSystemProcess * gameSystemProcess = nil;
                          info:(NSDictionary *)info {
   // Mark as running EVENT
   eventType_ = eventType;
-  
   NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     [NSNumber numberWithInt:eventType], @"eventType", nil];
   // Level Up
@@ -1869,12 +1869,13 @@ static GameSystemProcess * gameSystemProcess = nil;
       
       // If |levelsUp > 0|, run EVENT:Level UP to show view for Level Up Info
       if (levelsUp) {
-        //processType_ = kGameSystemProcessTypeBattleEnd; ///////
+        processType_ = kGameSystemProcessTypeBattleEnd;
         NSDictionary * info = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSNumber numberWithInt:levelsUp], @"levelsUp", nil];
         [self runEventWithEventType:kGameBattleEventTypeLevelUp info:info];
         [info release];
       }
+      else [self _runFinalProcessForGameBattleEventType:kGameBattleEndEventTypeWin];
       break;
     }
       
@@ -1959,11 +1960,9 @@ static GameSystemProcess * gameSystemProcess = nil;
   else if (battleEndEventType & kGameBattleEndEventTypeLose) {
     // Update message in |GameMenuViewController| to show Player LOSE
     [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
+    [self _runFinalProcessForGameBattleEventType:battleEndEventType];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
-#ifdef DEBUG_TEST_FLIGHT
-    [TestFlight passCheckpoint:@"CHECK_POINT: ESCAPE Battle"];
-#endif
     BOOL isRunSucceed = [self isRunSucceed];
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -1984,17 +1983,34 @@ static GameSystemProcess * gameSystemProcess = nil;
       [self endTurn];
       return;
     }
+    [self _runFinalProcessForGameBattleEventType:battleEndEventType];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeWildPokemonRun) {
     
   }
+  else [self _runFinalProcessForGameBattleEventType:battleEndEventType];
   
+//  [self _runFinalProcessForGameBattleEventType:battleEndEventType];
+}
+
+// WIN
+- (void)playerWin {
+  [self endBattleWithEventType:kGameBattleEndEventTypeWin];
+}
+
+// LOSE
+- (void)playerLose {
+  [self endBattleWithEventType:kGameBattleEndEventTypeLose];
+}
+
+// end final battle process
+- (void)_runFinalProcessForGameBattleEventType:(GameBattleEndEventType)battleEndEventType {
   // Set system process type to |kGameSystemProcessTypeBattleEnd|
   processType_ = kGameSystemProcessTypeBattleEnd;
   
   // Notification to |GameMainViewController| to show view of |GameBattleEndViewController|
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                              [NSNumber numberWithInt:battleEndEventType], @"battleEndEventType", nil];
+                             [NSNumber numberWithInt:battleEndEventType], @"battleEndEventType", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent
                                                       object:self
                                                     userInfo:userInfo];
@@ -2002,22 +2018,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // Save data for current battle Pokemon to Server
   [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
-}
-
-// WIN
-- (void)playerWin {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: WIN Battle"];
-#endif
-  [self endBattleWithEventType:kGameBattleEndEventTypeWin];
-}
-
-// LOSE
-- (void)playerLose {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: LOSE Battle"];
-#endif
-  [self endBattleWithEventType:kGameBattleEndEventTypeLose];
 }
 
 @end
