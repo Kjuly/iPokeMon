@@ -89,18 +89,14 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   // If ZERO master volume, do not play any audio
   if (masterVolume == 0)
     return;
-  NSInteger musicVolume = [userDefaults integerForKey:kUDKeyGameSettingsMusic];
   // If ZERO music volume, do not play music
-  if (musicVolume == 0) {
-    if ([self _isMusicForAudioType:audioType])
-      return;
-  }
-  NSInteger soundsVolume = [userDefaults integerForKey:kUDKeyGameSettingsSounds];
+  NSInteger musicVolume = [userDefaults integerForKey:kUDKeyGameSettingsMusic];
+  if (musicVolume == 0)
+    if ([self _isMusicForAudioType:audioType]) return;
   // If ZERO sounds volume, do not play sounds (not music)
-  if (soundsVolume == 0) {
-    if (! [self _isMusicForAudioType:audioType])
-      return;
-  }
+  NSInteger soundsVolume = [userDefaults integerForKey:kUDKeyGameSettingsSounds];
+  if (soundsVolume == 0)
+    if (! [self _isMusicForAudioType:audioType]) return;
   
   // Play AUDIO
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
@@ -108,18 +104,17 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   if (audioPlayer != nil) {
     // Set volume
     float volume = masterVolume / 100.f;
-    if ([self _isMusicForAudioType:audioType])
-      volume *= musicVolume / 100.f;
-    else
-      volume *= soundsVolume / 100.f;
+    if ([self _isMusicForAudioType:audioType]) volume *= musicVolume / 100.f;
+    else                                       volume *= soundsVolume / 100.f;
     [audioPlayer setVolume:volume];
     
-    if (delay == 0) [audioPlayer play];
-    else            [audioPlayer playAtTime:(audioPlayer.deviceCurrentTime + delay)];
+    // play audio
+    if (delay) [audioPlayer playAtTime:(audioPlayer.deviceCurrentTime + delay)];
+    else       [audioPlayer play];
     audioPlayer = nil;
     return;
   }
-  
+  audioPlayer = nil;
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPlay];
 }
