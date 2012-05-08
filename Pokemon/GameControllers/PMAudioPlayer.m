@@ -116,6 +116,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
     
     if (delay == 0) [audioPlayer play];
     else            [audioPlayer playAtTime:(audioPlayer.deviceCurrentTime + delay)];
+    audioPlayer = nil;
     return;
   }
   
@@ -249,11 +250,11 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
                                  error:&error];
     [audioPlayer setDelegate:self];
     // Set LOOP for special AUDIO
-    if (audioType == kAudioBattlingVSWildPM) {
+    if (audioType == kAudioBattlingVSWildPM)
       [audioPlayer setNumberOfLoops:-1];
-    }
     
-    if (error) NSLog(@"!!!Error: %@", [error localizedDescription]);
+    if (error)
+      NSLog(@"!!!Error: %@", [error debugDescription]);
     else {
       [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
       if      (audioAction == kAudioActionPlay)          [audioPlayer play];
@@ -369,15 +370,14 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 #pragma mark - AVAudioPlayer Delegate
 
 // Audio finished playing
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-  NSLog(@"...Playing Audio Finished...");
-  [player stop];
-}
+//- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+//  NSLog(@"...Playing Audio Finished...");
+////  [player stop];
+//}
 
 // Audio playing ERROR
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
   NSLog(@"!!!ERROR::Playing Audio Decode Error Occurred");
-  [player stop];
 }
 
 @end
