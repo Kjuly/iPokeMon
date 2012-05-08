@@ -381,8 +381,8 @@
 
 // username's validity & uniqueness checking
 - (BOOL)_isValidOfName:(NSString *)name {
-  // At least 3 characters
-  if ([name length] < 3)
+  // At least 3 characters, max 20
+  if ([name length] < 3 || [name length] > 20)
     return NO;
   NSString * unWantedCharacterSet = @" ~!@#$%%^&*()={}[]|;’:\"<>,?/`";
   return ([name rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:unWantedCharacterSet]].location
