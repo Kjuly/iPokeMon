@@ -17,20 +17,20 @@
 #endif
 
 // Disable logging when not in debug
-//#ifndef DEBUG
-//#undef NSLog
+#ifndef DEBUG
+#undef NSLog
 //#define NSLog(args, ...)
-//#endif
-
 // Switch between |NSLog| & |TFLog|, just comment out
 //#define NSLog TFLog // Simple
 #define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#endif
+
 
 // Debug Settings
 //#define LOCAL_SERVER 1
 
 ///LBS
-#define DEBUG_NO_MOVE 1
+//#define DEBUG_NO_MOVE 1
 //#define DEBUG_NO_CORELOCATION 1
 //#define LOCATION_SERVICE_LOW_BATTERY_MODE 1
 
