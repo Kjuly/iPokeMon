@@ -138,10 +138,10 @@
 
 // Submit feedback content & cancel
 - (void)_submit:(id)sender {
-  [TestFlight submitFeedback:self.textField.text];
-  if ([self.navigationController isNavigationBarHidden])
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-  [(CustomNavigationBar *)self.navigationController.navigationBar back:nil];
+//  [TestFlight submitFeedback:self.textField.text];
+//  if ([self.navigationController isNavigationBarHidden])
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+//  [(CustomNavigationBar *)self.navigationController.navigationBar back:nil];
 }
 
 // Clean the content
