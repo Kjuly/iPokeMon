@@ -57,6 +57,7 @@
 "PMSNewbiewGuide3Message"           = "准备好了吗?";
 "PMSNewbiewGuideErrorTitle"         = "ERROR";
 "PMSNewbiewGuideErrorTextNameExist" = "对不起，用户名已存在。";
+"PMSNewbiewGuideErrorTextNameInvalid" = "对不起，用户名无效。";
 "PMSNewbiewGuideErrorUnknow"        = "对不起，发生异常错误。";
 
 // Setting view

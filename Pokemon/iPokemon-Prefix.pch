@@ -38,7 +38,7 @@
 //#define DEBUG_NO_SESSION_MOED 1
 
 ///Game
-#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
+//#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
 // super Pokemon
 //#define DEBUG_SUPER_PM 1
 

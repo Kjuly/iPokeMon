@@ -52,13 +52,14 @@
 "PMSLoginSigninPage"    = "Loading sign-in page...";
 "PMSAuthenticating"     = "Authenticating...";
 "PMSNewbiewGuide1Title"             = "Step 1";
-"PMSNewbiewGuide1Message"           = "Welcome to Pokemon world! What's your name?";
+"PMSNewbiewGuide1Message"           = "Welcome to Pokemon world! What's your name? (at least 3 characters without any symbol)";
 "PMSNewbiewGuide2Title"             = "Step 2";
 "PMSNewbiewGuide2Message"           = "Choose a Pokemon you would like...";
 "PMSNewbiewGuide3Title"             = "Done";
 "PMSNewbiewGuide3Message"           = "Are you ready?";
 "PMSNewbiewGuideErrorTitle"         = "ERROR";
 "PMSNewbiewGuideErrorTextNameExist" = "Sorry, name exists.";
+"PMSNewbiewGuideErrorTextNameInvalid" = "Sorry, invalid name.";
 "PMSNewbiewGuideErrorUnknow"        = "Web service unknown ERROR..";
 
 // Setting view
