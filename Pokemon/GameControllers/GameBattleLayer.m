@@ -94,9 +94,12 @@
   self.audioPlayer         = nil;
   self.trainer             = nil;
   self.gameStatusMachine   = nil;
+  self.gameSystemProcess   = nil;
   self.playerProcess       = nil;
   self.enemyProcess        = nil;
   self.background          = nil;
+  self.playerPokemonPoint  = nil;
+  self.enemyPokemonPoint   = nil;
   self.playerPokemonSprite = nil;
   self.enemyPokemonSprite  = nil;
   
