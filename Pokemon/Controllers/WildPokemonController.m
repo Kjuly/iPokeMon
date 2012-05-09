@@ -373,7 +373,7 @@ static WildPokemonController * wildPokemonController_ = nil;
 - (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
   isPokemonAppeared_ = YES;
   self.locationInfo  = notification.object;
-  NSLog("new locationInfo::%@", self.locationInfo);
+//  NSLog("new locationInfo::%@", self.locationInfo);
   [self _generateWildPokemon];
 }
 

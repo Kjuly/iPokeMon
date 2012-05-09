@@ -9,18 +9,24 @@ Imagine that we live with Pokemon. ;)
 
 
     Category: Game
-    Updated: Apr 26, 2012
-    Version: 0.1
-    Size: ~10 MB
+    Updated: May 8, 2012
+    Version: 0.3.2
+    Size: 7.4 MB
     Language: English, Chinese
-    Requirements: Compatible with iPhone, iPod touch. Requires iOS 4.0 or later.
+    Requirements: Compatible with iPhone, iPod touch. Requires iOS 5.0 or later.
 
 © 2011-2012 Kjuly All rights reserved.
 
 ---
 # Features:
 
-* __v0.1:__ Playable but still buggy I think. :p
+* __v0.3.2:__5/8/2012
+  - Modify regions for Wild Pokemon.
+  - Fix some potentical crash bugs.
+  - Add In-App Feedback with mail.
+  - Add Store & In-App Purchase.
+
+* __v0.1:__4/26/2012 Playable but still buggy I think. :p
   - You can find different Pokemons based on your location (make sure you enable `Location Service`).
   - Caught Wild Pokemons if you have Pokeballs.
   - You can leave the App run in background, and when a Wild Pokemon appeared, you'll receive a `Push Notification` to deal with it.
@@ -59,7 +65,7 @@ __Tips:__
 ![iPhone Screenshots - Game Battle Default][iPM_gamebattle_default]
 
 ---
-# Usage:
+# Usage (Video Demo [Youtube](http://www.youtube.com/watch?v=otiBQnwdt0U) | [Youku](http://v.youku.com/v_show/id_XMzkzNTE1NDQ0.html)):
 
 ![iPhone Screenshots - Home Default][iPM_home_default]
 ![iPhone Screenshots - ][iPM_home_pm_appeared]  
@@ -88,11 +94,11 @@ The center button is the `Main Button` in App, you can open menu by pressing it.
 Enjoy!!! :D
 
 ---
-# Apply for Alpha Version Testing:
+# Apply for Beta Version Testing:
 
-There're __100__ adhoc provisioning profiles available for every App testing before submit. So if you want to help me testing the __iPokemon Alpha__, please send your `Device ID` & `the iOS version number` to `dev#kjuly.com` (You can get your device ID using iTunes, or just Google). And you might receive a email with the __App__ & a __adhoc provisioning profile__, but I cannot make a promise.
+The Beta version of iPokemon is hosted on Testflight, just register a account, and join my team:
 
-When you receive the email, you can use iTunes to install the provisioning profile and app on your device. Just double click on both two files after your device connected to your computer. I suggest you connect your device to iTunes once every day, so I can receive crash logs and then collect and analyze them to resolve problems.
+<a href="https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/">https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/</a>
 
 Feel free to email your comments, suggestions and questions to me. :)
 
