@@ -61,6 +61,7 @@
 		7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */; };
 		7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */; };
 		7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11D3DD15551A720067B1F3 /* Region+DataController.m */; };
+		7F1382701567BFCC0046B537 /* UIButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F13826F1567BFCC0046B537 /* UIButton+Animation.m */; };
 		7F199EDF150A6B55004CE84E /* GamePokeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDD150A6B54004CE84E /* GamePokeball.png */; };
 		7F199EE0150A6B55004CE84E /* GamePokeball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */; };
 		7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F21AA8514FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m */; };
@@ -630,6 +631,8 @@
 		7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewController.m; sourceTree = "<group>"; };
 		7F11D3DC15551A720067B1F3 /* Region+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+DataController.h"; sourceTree = "<group>"; };
 		7F11D3DD15551A720067B1F3 /* Region+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+DataController.m"; sourceTree = "<group>"; };
+		7F13826E1567BFCC0046B537 /* UIButton+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Animation.h"; sourceTree = "<group>"; };
+		7F13826F1567BFCC0046B537 /* UIButton+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Animation.m"; sourceTree = "<group>"; };
 		7F199EDD150A6B54004CE84E /* GamePokeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GamePokeball.png; sourceTree = "<group>"; };
 		7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GamePokeball@2x.png"; sourceTree = "<group>"; };
 		7F21AA8414FFA27F00F9071A /* CenterMainButtonTouchDownCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMainButtonTouchDownCircleView.h; sourceTree = "<group>"; };
@@ -1476,6 +1479,8 @@
 			children = (
 				7F27D09315274FAC0092DD68 /* NSString+Algorithm.h */,
 				7F27D09415274FAC0092DD68 /* NSString+Algorithm.m */,
+				7F13826E1567BFCC0046B537 /* UIButton+Animation.h */,
+				7F13826F1567BFCC0046B537 /* UIButton+Animation.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3215,6 +3220,7 @@
 				7FD037D015526242001A7C34 /* PMLocationManager.m in Sources */,
 				7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */,
 				7F05964C1555331800E5428C /* Region.m in Sources */,
+				7F1382701567BFCC0046B537 /* UIButton+Animation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

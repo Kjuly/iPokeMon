@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 
+#import "UIButton+Animation.h"
+
 #import "TrainerController.h"
 #import "PMLocationManager.h"
 #import "WildPokemonController.h"
@@ -771,12 +773,23 @@
                    completion:^(BOOL finished) {                     
                      isMapViewOpening_ = ! isMapViewOpening_;
                      
-                     if (isMapViewOpening_)
-                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
-                                       forState:UIControlStateNormal];
+                     if (isMapViewOpening_) {
+//                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
+//                                       forState:UIControlStateNormal];
+                       [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
+                                                forState:UIControlStateNormal
+                                                duration:.3f
+                                                 options:UIViewAnimationOptionTransitionFlipFromBottom
+                                              completion:nil];
+                     }
                      else {
-                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal]
-                                       forState:UIControlStateNormal];
+                       [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
+                                                forState:UIControlStateNormal
+                                                duration:.3f
+                                                 options:UIViewAnimationOptionTransitionFlipFromBottom
+                                              completion:nil];
+//                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal]
+//                                       forState:UIControlStateNormal];
                        [self.mapViewController.view removeFromSuperview];
                      }
                    }];
