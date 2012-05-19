@@ -1015,17 +1015,17 @@
 		7F6C193A1517A1740000682B /* EmptyTableViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmptyTableViewBackground@2x.png"; sourceTree = "<group>"; };
 		7F6D0E52152C8FBB001D91F4 /* MainViewCenterButtonImageHalfCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageHalfCancel.png; sourceTree = "<group>"; };
 		7F6D0E53152C8FBC001D91F4 /* MainViewCenterButtonImageHalfCancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageHalfCancel@2x.png"; sourceTree = "<group>"; };
-		7F6E6CB414D6CAA600033C65 /* iPokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F6E6CB414D6CAA600033C65 /* Mew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CB814D6CAA600033C65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F6E6CBA14D6CAA600033C65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7F6E6CBE14D6CAA600033C65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		7F6E6CC214D6CAA600033C65 /* iPokemon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemon-Info.plist"; sourceTree = "<group>"; };
+		7F6E6CC214D6CAA600033C65 /* Mew-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Mew-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CC414D6CAA600033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7F6E6CC614D6CAA600033C65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7F6E6CC814D6CAA600033C65 /* iPokemon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPokemon-Prefix.pch"; sourceTree = "<group>"; };
+		7F6E6CC814D6CAA600033C65 /* Mew-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mew-Prefix.pch"; sourceTree = "<group>"; };
 		7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pokemon.xcdatamodel; sourceTree = "<group>"; };
-		7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPokemonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F6E6CD414D6CAA700033C65 /* MewTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MewTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1843,8 +1843,8 @@
 		7F6E6CB514D6CAA600033C65 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CB414D6CAA600033C65 /* iPokemon.app */,
-				7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */,
+				7F6E6CB414D6CAA600033C65 /* Mew.app */,
+				7F6E6CD414D6CAA700033C65 /* MewTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1898,10 +1898,10 @@
 			isa = PBXGroup;
 			children = (
 				7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */,
-				7F6E6CC214D6CAA600033C65 /* iPokemon-Info.plist */,
+				7F6E6CC214D6CAA600033C65 /* Mew-Info.plist */,
 				7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */,
 				7F6E6CC614D6CAA600033C65 /* main.m */,
-				7F6E6CC814D6CAA600033C65 /* iPokemon-Prefix.pch */,
+				7F6E6CC814D6CAA600033C65 /* Mew-Prefix.pch */,
 				7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
@@ -2590,9 +2590,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F6E6CB314D6CAA600033C65 /* iPokemon */ = {
+		7F6E6CB314D6CAA600033C65 /* Mew */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemon" */;
+			buildConfigurationList = 7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "Mew" */;
 			buildPhases = (
 				7F6E6CB014D6CAA600033C65 /* Sources */,
 				7F6E6CB114D6CAA600033C65 /* Frameworks */,
@@ -2603,14 +2603,14 @@
 			);
 			dependencies = (
 			);
-			name = iPokemon;
+			name = Mew;
 			productName = Pokemon;
-			productReference = 7F6E6CB414D6CAA600033C65 /* iPokemon.app */;
+			productReference = 7F6E6CB414D6CAA600033C65 /* Mew.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7F6E6CD314D6CAA700033C65 /* iPokemonTests */ = {
+		7F6E6CD314D6CAA700033C65 /* MewTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemonTests" */;
+			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "MewTests" */;
 			buildPhases = (
 				7F6E6CCF14D6CAA700033C65 /* Sources */,
 				7F6E6CD014D6CAA700033C65 /* Frameworks */,
@@ -2622,9 +2622,9 @@
 			dependencies = (
 				7F6E6CDB14D6CAA700033C65 /* PBXTargetDependency */,
 			);
-			name = iPokemonTests;
+			name = MewTests;
 			productName = PokemonTests;
-			productReference = 7F6E6CD414D6CAA700033C65 /* iPokemonTests.octest */;
+			productReference = 7F6E6CD414D6CAA700033C65 /* MewTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2636,7 +2636,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "";
 			};
-			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemon" */;
+			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "Mew" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2649,8 +2649,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F6E6CB314D6CAA600033C65 /* iPokemon */,
-				7F6E6CD314D6CAA700033C65 /* iPokemonTests */,
+				7F6E6CB314D6CAA600033C65 /* Mew */,
+				7F6E6CD314D6CAA700033C65 /* MewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3231,7 +3231,7 @@
 /* Begin PBXTargetDependency section */
 		7F6E6CDB14D6CAA700033C65 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7F6E6CB314D6CAA600033C65 /* iPokemon */;
+			target = 7F6E6CB314D6CAA600033C65 /* Mew */;
 			targetProxy = 7F6E6CDA14D6CAA700033C65 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -3318,15 +3318,15 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
-				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
+				GCC_PREFIX_HEADER = "Pokemon/Mew-Prefix.pch";
+				INFOPLIST_FILE = "Pokemon/Mew-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = iPokemon;
+				PRODUCT_NAME = Mew;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3337,15 +3337,15 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
-				INFOPLIST_FILE = "Pokemon/iPokemon-Info.plist";
+				GCC_PREFIX_HEADER = "Pokemon/Mew-Prefix.pch";
+				INFOPLIST_FILE = "Pokemon/Mew-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = iPokemon;
+				PRODUCT_NAME = Mew;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3362,7 +3362,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
-				PRODUCT_NAME = iPokemonTests;
+				PRODUCT_NAME = MewTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3379,7 +3379,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
-				PRODUCT_NAME = iPokemonTests;
+				PRODUCT_NAME = MewTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3388,7 +3388,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokemon" */ = {
+		7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "Mew" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CE514D6CAA700033C65 /* Debug */,
@@ -3397,7 +3397,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemon" */ = {
+		7F6E6CE714D6CAA700033C65 /* Build configuration list for PBXNativeTarget "Mew" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CE814D6CAA700033C65 /* Debug */,
@@ -3406,7 +3406,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokemonTests" */ = {
+		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "MewTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CEB14D6CAA700033C65 /* Debug */,
