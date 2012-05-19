@@ -279,8 +279,8 @@
 #ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-  [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonWarning]
-                         forState:UIControlStateNormal];
+  [self.centerMainButton transitionToImage:[UIImage imageNamed:kPMINMainButtonWarning]
+                                   options:UIViewAnimationOptionTransitionFlipFromTop];
   [self runCenterMainButtonTouchUpInsideAction:nil];
 #endif
   
@@ -419,8 +419,8 @@
       
     case kCenterMainButtonStatusPokemonAppeared:
       centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
-      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonWarning]
-                             forState:UIControlStateNormal];
+      [self.centerMainButton transitionToImage:[UIImage imageNamed:kPMINMainButtonWarning]
+                                       options:UIViewAnimationOptionTransitionFlipFromTop];
       break;
       
     case kCenterMainButtonStatusNormal:
@@ -466,8 +466,8 @@
       [self.gameMainViewController startBattleWithPreviousCenterMainButtonStatus:centerMainButtonStatus_];
       centerMainButtonStatus_ = kCenterMainButtonStatusPokemonAppeared;
       isGameMainViewOpening_  = YES;
-      [self.centerMainButton setImage:[UIImage imageNamed:kPMINMainButtonNormal]
-                             forState:UIControlStateNormal];
+      [self.centerMainButton transitionToImage:[UIImage imageNamed:kPMINMainButtonNormal]
+                                       options:UIViewAnimationOptionTransitionFlipFromTop];
       [self deactivateCenterMenuOpenStatusTimer];
     };
     // If |centerMainButton_| is not at view bottom, move it to bottom
@@ -773,23 +773,12 @@
                    completion:^(BOOL finished) {                     
                      isMapViewOpening_ = ! isMapViewOpening_;
                      
-                     if (isMapViewOpening_) {
-//                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
-//                                       forState:UIControlStateNormal];
+                     if (isMapViewOpening_)
                        [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
-                                                forState:UIControlStateNormal
-                                                duration:.3f
-                                                 options:UIViewAnimationOptionTransitionFlipFromBottom
-                                              completion:nil];
-                     }
+                                                 options:UIViewAnimationOptionTransitionFlipFromBottom];
                      else {
                        [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
-                                                forState:UIControlStateNormal
-                                                duration:.3f
-                                                 options:UIViewAnimationOptionTransitionFlipFromBottom
-                                              completion:nil];
-//                       [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal]
-//                                       forState:UIControlStateNormal];
+                                                 options:UIViewAnimationOptionTransitionFlipFromTop];
                        [self.mapViewController.view removeFromSuperview];
                      }
                    }];
@@ -808,11 +797,13 @@
 - (void)updateLocationService:(NSNotification *)notification {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
-    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
+    [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
+                              options:UIViewAnimationOptionTransitionFlipFromTop];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
   else {
-    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
+    [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonDisabled]
+                              options:UIViewAnimationOptionTransitionFlipFromBottom];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   }
 }
@@ -823,13 +814,15 @@
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:kUDKeyGeneralLocationServices];
-    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
+    [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonDisabled]
+                              options:UIViewAnimationOptionTransitionFlipFromBottom];
     // Post notification to |PMLocationManager| to stop location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   } else {
     NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
-    [self.mapButton setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
+    [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
+                              options:UIViewAnimationOptionTransitionFlipFromTop];
     // Post notification to |PMLocationManager| to start location tracking
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }

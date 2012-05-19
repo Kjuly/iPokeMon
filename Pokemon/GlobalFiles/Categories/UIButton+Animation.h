@@ -16,4 +16,7 @@
                   options:(UIViewAnimationOptions)options
                completion:(void (^)(BOOL finished))completion;
 
+- (void)transitionToImage:(UIImage *)image
+                  options:(UIViewAnimationOptions)options;
+
 @end
