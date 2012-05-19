@@ -16,7 +16,6 @@
   UIButton * mainButton_;
   UIButton * confirmButton_;
   UIButton * infoButton_;
-  UIButton * cancelButton_;
   
   BOOL isCurrBattlePokemon_;   // mark it as the current battle PM
   BOOL isFainted_;             // mark it as a fainted PM
@@ -28,7 +27,6 @@
 @property (nonatomic, retain) UIButton * mainButton;
 @property (nonatomic, retain) UIButton * confirmButton;
 @property (nonatomic, retain) UIButton * infoButton;
-@property (nonatomic, retain) UIButton * cancelButton;
 
 - (void)_runButtonAction:(id)sender;
 - (void)_openUnit:(id)sender;
@@ -44,7 +42,6 @@
 @synthesize mainButton    = mainButton_;
 @synthesize confirmButton = confirmButton_;
 @synthesize infoButton    = infoButton_;
-@synthesize cancelButton  = cancelButton_;
 
 - (void)dealloc {
   self.delegate = nil;
@@ -53,12 +50,12 @@
   self.mainButton    = nil;
   self.confirmButton = nil;
   self.infoButton    = nil;
-  self.cancelButton  = nil;
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag
-{
+- (id)initWithFrame:(CGRect)frame
+              image:(UIImage *)image
+                tag:(NSInteger)tag {
   if (self = [self initWithFrame:frame]) {
     self.spriteImage = image;
     
@@ -66,13 +63,12 @@
     CGRect mainButtonFrame    = CGRectMake((frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
     CGRect confirmButtonFrame = mainButtonFrame;
     CGRect infoButtonFrame    = mainButtonFrame;
-    CGRect cancelButtonFrame  = mainButtonFrame;
     
     mainButton_ = [[UIButton alloc] initWithFrame:mainButtonFrame];
     [mainButton_ setTag:tag];
     [mainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
-    [mainButton_ setImage:image forState:UIControlStateNormal];
+    [mainButton_ setImage:self.spriteImage forState:UIControlStateNormal];
     [mainButton_ addTarget:self action:@selector(_runButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:mainButton_];
     
@@ -93,18 +89,11 @@
     [infoButton_ addTarget:self.delegate action:@selector(openInfoView:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton_ setAlpha:0.f];
     [self addSubview:infoButton_];
-    
-    cancelButton_ = [[UIButton alloc] initWithFrame:cancelButtonFrame];
-    [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
-                             forState:UIControlStateNormal];
-    [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
-    [cancelButton_ addTarget:self action:@selector(_runButtonAction:) forControlEvents:UIControlEventTouchUpInside];
   }
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     [self setFrame:frame];
@@ -143,18 +132,11 @@
     [self.infoButton setAlpha:0.f];
   };
   void (^completion)(BOOL finished) = ^(BOOL finished) {
-    if (finished) {
-      [self.mainButton transitionTotalToImage:self.spriteImage
-                                     forState:UIControlStateNormal
-                                     duration:(animated ? .3f : 0.f)
-                                      options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
-                                   completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
-//      [UIView transitionFromView:self.cancelButton
-//                          toView:self.mainButton
-//                        duration:(animated ? .3f : 0.f)
-//                         options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
-//                      completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
-    }
+    [self.mainButton transitionTotalToImage:self.spriteImage
+                                   forState:UIControlStateNormal
+                                   duration:(animated ? .3f : 0.f)
+                                    options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
+                                 completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
   };
   
   if (! animated) { animation(); completion(YES); }
@@ -204,7 +186,6 @@
 // Open Unit
 - (void)_openUnit:(id)sender {
   isOpen_ = YES;
-  
   [self.delegate checkUnit:sender];
   
   CGFloat buttonSize = 60.f;
@@ -213,21 +194,19 @@
   CGRect infoButtonFrame    = CGRectMake(mainButtonFrame.origin.x + 70.f, 0.f, buttonSize, buttonSize);
   
   void(^completion)(BOOL) = ^(BOOL finished) {
-    if (finished) {
-      [UIView animateWithDuration:.3f
-                            delay:.1f
-                          options:UIViewAnimationOptionCurveEaseInOut
-                       animations:^{
-                         // If it's the current battle pokemon, do not show confirm button
-                         if (! isCurrBattlePokemon_ && ! isFainted_) {
-                           [self.confirmButton setAlpha:1.f];
-                           [self.confirmButton setFrame:confirmButtonFrame];
-                         }
-                         [self.infoButton setAlpha:1.f];
-                         [self.infoButton setFrame:infoButtonFrame];
+    [UIView animateWithDuration:.3f
+                          delay:.1f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       // If it's the current battle pokemon, do not show confirm button
+                       if (! isCurrBattlePokemon_ && ! isFainted_) {
+                         [self.confirmButton setAlpha:1.f];
+                         [self.confirmButton setFrame:confirmButtonFrame];
                        }
-                       completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
-    }
+                       [self.infoButton setAlpha:1.f];
+                       [self.infoButton setFrame:infoButtonFrame];
+                     }
+                     completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
   };
   [self.mainButton transitionTotalToImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite]
                                  forState:UIControlStateNormal
@@ -240,8 +219,6 @@
 - (void)_setBackgroundForButtonsWithImageName:(NSString *)imageName {
   [self.mainButton setBackgroundImage:[UIImage imageNamed:imageName]
                              forState:UIControlStateNormal];
-  [self.cancelButton setBackgroundImage:[UIImage imageNamed:imageName]
-                               forState:UIControlStateNormal];
 }
 
 @end
