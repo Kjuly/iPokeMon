@@ -8,24 +8,31 @@
 
 #import "GameMenuSixPokemonsUnitView.h"
 
+#import "UIButton+Animation.h"
+
 @interface GameMenuSixPokemonsUnitView () {
  @private
+  UIImage  * spriteImage_;
   UIButton * mainButton_;
   UIButton * confirmButton_;
   UIButton * infoButton_;
   UIButton * cancelButton_;
   
-  BOOL       isCurrBattlePokemon_;
-  BOOL       isFainted_;
+  BOOL isCurrBattlePokemon_;   // mark it as the current battle PM
+  BOOL isFainted_;             // mark it as a fainted PM
+  BOOL isOpen_;                // mark that the button is open
+  BOOL isAnimationProcessing_; // mark that the animation is processing
 }
 
+@property (nonatomic, retain) UIImage  * spriteImage;
 @property (nonatomic, retain) UIButton * mainButton;
 @property (nonatomic, retain) UIButton * confirmButton;
 @property (nonatomic, retain) UIButton * infoButton;
 @property (nonatomic, retain) UIButton * cancelButton;
 
-- (void)openUnit:(id)sender;
-- (void)setBackgroundForButtonsWithImageName:(NSString *)imageName;
+- (void)_runButtonAction:(id)sender;
+- (void)_openUnit:(id)sender;
+- (void)_setBackgroundForButtonsWithImageName:(NSString *)imageName;
 
 @end
 
@@ -33,6 +40,7 @@
 
 @synthesize delegate = delegate_;
 
+@synthesize spriteImage   = spriteImage_;
 @synthesize mainButton    = mainButton_;
 @synthesize confirmButton = confirmButton_;
 @synthesize infoButton    = infoButton_;
@@ -41,6 +49,7 @@
 - (void)dealloc {
   self.delegate = nil;
   
+  self.spriteImage   = nil;
   self.mainButton    = nil;
   self.confirmButton = nil;
   self.infoButton    = nil;
@@ -51,6 +60,8 @@
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag
 {
   if (self = [self initWithFrame:frame]) {
+    self.spriteImage = image;
+    
     CGFloat buttonSize = 60.f;
     CGRect mainButtonFrame    = CGRectMake((frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
     CGRect confirmButtonFrame = mainButtonFrame;
@@ -62,7 +73,7 @@
     [mainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
     [mainButton_ setImage:image forState:UIControlStateNormal];
-    [mainButton_ addTarget:self action:@selector(openUnit:) forControlEvents:UIControlEventTouchUpInside];
+    [mainButton_ addTarget:self action:@selector(_runButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:mainButton_];
     
     confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
@@ -87,7 +98,7 @@
     [cancelButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                              forState:UIControlStateNormal];
     [cancelButton_ setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
-    [cancelButton_ addTarget:self action:@selector(cancelUnitAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton_ addTarget:self action:@selector(_runButtonAction:) forControlEvents:UIControlEventTouchUpInside];
   }
   return self;
 }
@@ -97,8 +108,10 @@
   self = [super initWithFrame:frame];
   if (self) {
     [self setFrame:frame];
-    isCurrBattlePokemon_ = NO;
-    isFainted_           = NO;
+    isCurrBattlePokemon_   = NO;
+    isFainted_             = NO;
+    isOpen_                = NO;
+    isAnimationProcessing_ = NO;
   }
   return self;
 }
@@ -112,37 +125,12 @@
 }
 */
 
-// Open Unit
-- (void)openUnit:(id)sender {
-  [self.delegate checkUnit:sender];
-  
-  CGFloat buttonSize = 60.f;
-  CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
-  CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);
-  CGRect infoButtonFrame    = CGRectMake(mainButtonFrame.origin.x + 70.f, 0.f, buttonSize, buttonSize);
-  [UIView transitionFromView:self.mainButton
-                      toView:self.cancelButton
-                    duration:.3f
-                     options:UIViewAnimationOptionTransitionFlipFromRight
-                  completion:^(BOOL finished) {
-                    [UIView animateWithDuration:.3f
-                                          delay:.1f
-                                        options:UIViewAnimationOptionCurveEaseInOut
-                                     animations:^{
-                                       // If it's the current battle pokemon, do not show confirm button
-                                       if (! isCurrBattlePokemon_ && ! isFainted_) {
-                                         [self.confirmButton setAlpha:1.f];
-                                         [self.confirmButton setFrame:confirmButtonFrame];
-                                       }
-                                       [self.infoButton setAlpha:1.f];
-                                       [self.infoButton setFrame:infoButtonFrame];
-                                     }
-                                     completion:nil];
-                  }];
-}
+#pragma mark - Public Methods
 
 // Cancel Unit
 - (void)cancelUnitAnimated:(BOOL)animated {
+  isOpen_ = NO;
+  
   void (^animation)() = ^(){
     CGFloat buttonSize = 60.f;
     CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
@@ -155,11 +143,18 @@
     [self.infoButton setAlpha:0.f];
   };
   void (^completion)(BOOL finished) = ^(BOOL finished) {
-    [UIView transitionFromView:self.cancelButton
-                        toView:self.mainButton
-                      duration:(animated ? .3f : 0.f)
-                       options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
-                    completion:nil];
+    if (finished) {
+      [self.mainButton transitionTotalToImage:self.spriteImage
+                                     forState:UIControlStateNormal
+                                     duration:(animated ? .3f : 0.f)
+                                      options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
+                                   completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
+//      [UIView transitionFromView:self.cancelButton
+//                          toView:self.mainButton
+//                        duration:(animated ? .3f : 0.f)
+//                         options:(animated ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionNone)
+//                      completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
+    }
   };
   
   if (! animated) { animation(); completion(YES); }
@@ -175,7 +170,7 @@
 - (void)setAsNormal {
   isCurrBattlePokemon_ = NO;
   isFainted_           = NO;
-  [self setBackgroundForButtonsWithImageName:kPMINMainButtonBackgoundNormal];
+  [self _setBackgroundForButtonsWithImageName:kPMINMainButtonBackgoundNormal];
 }
 
 // Set the Pokemon as current battle one
@@ -184,7 +179,7 @@
   NSString * buttonBackgroundImageName = kPMINMainButtonBackgoundNormal;
   if (isCurrentBattleOne)
     buttonBackgroundImageName = kPMINMainButtonBackgoundEnable;
-  [self setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
+  [self _setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
 }
 
 // Set the Pokemon as Fainted
@@ -193,13 +188,56 @@
   NSString * buttonBackgroundImageName = kPMINMainButtonBackgoundNormal;
   if (isFainted)
     buttonBackgroundImageName = kPMINMainButtonBackgoundDisable;
-  [self setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
+  [self _setBackgroundForButtonsWithImageName:buttonBackgroundImageName];
 }
 
 #pragma mark - Private Methods
 
+- (void)_runButtonAction:(id)sender {
+  if (isAnimationProcessing_)
+    return;
+  isAnimationProcessing_ = YES;
+  if (isOpen_) [self cancelUnitAnimated:YES];
+  else [self _openUnit:sender];
+}
+
+// Open Unit
+- (void)_openUnit:(id)sender {
+  isOpen_ = YES;
+  
+  [self.delegate checkUnit:sender];
+  
+  CGFloat buttonSize = 60.f;
+  CGRect mainButtonFrame    = CGRectMake((self.frame.size.width - buttonSize) / 2, 0.f, buttonSize, buttonSize);
+  CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);
+  CGRect infoButtonFrame    = CGRectMake(mainButtonFrame.origin.x + 70.f, 0.f, buttonSize, buttonSize);
+  
+  void(^completion)(BOOL) = ^(BOOL finished) {
+    if (finished) {
+      [UIView animateWithDuration:.3f
+                            delay:.1f
+                          options:UIViewAnimationOptionCurveEaseInOut
+                       animations:^{
+                         // If it's the current battle pokemon, do not show confirm button
+                         if (! isCurrBattlePokemon_ && ! isFainted_) {
+                           [self.confirmButton setAlpha:1.f];
+                           [self.confirmButton setFrame:confirmButtonFrame];
+                         }
+                         [self.infoButton setAlpha:1.f];
+                         [self.infoButton setFrame:infoButtonFrame];
+                       }
+                       completion:^(BOOL finished){ isAnimationProcessing_ = NO; }];
+    }
+  };
+  [self.mainButton transitionTotalToImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite]
+                                 forState:UIControlStateNormal
+                                 duration:.3f
+                                  options:UIViewAnimationOptionTransitionFlipFromRight
+                               completion:completion];
+}
+
 // Set background image for buttons
-- (void)setBackgroundForButtonsWithImageName:(NSString *)imageName {
+- (void)_setBackgroundForButtonsWithImageName:(NSString *)imageName {
   [self.mainButton setBackgroundImage:[UIImage imageNamed:imageName]
                              forState:UIControlStateNormal];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:imageName]
