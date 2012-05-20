@@ -16,12 +16,9 @@
 
 // localization job is done in this method
 - (void)configureMoveUnitWithName:(NSString *)name
-                             icon:(UIImage *)icon
-                             type:(NSString *)type
                                pp:(NSString *)pp
                          delegate:(id <GameMenuMoveUnitViewDelegate>)delegate
-                              tag:(NSInteger)tag
-                              odd:(BOOL)odd;
+                              tag:(NSInteger)tag;
 - (void)setButtonEnabled:(BOOL)enabled;
 
 @end

@@ -134,31 +134,15 @@
   [move3View_ setTag:103];
   [move4View_ setTag:104];
   
-//  [move1View_.viewButton setTag:1];
-//  [move2View_.viewButton setTag:2];
-//  [move3View_.viewButton setTag:3];
-//  [move4View_.viewButton setTag:4];
-//  
-//  [move1View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-//                  forControlEvents:UIControlEventTouchUpInside];
-//  [move2View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-//                  forControlEvents:UIControlEventTouchUpInside];
-//  [move3View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-//                  forControlEvents:UIControlEventTouchUpInside];
-//  [move4View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-//                  forControlEvents:UIControlEventTouchUpInside];
-  
   [self.tableAreaView addSubview:move1View_];
   [self.tableAreaView addSubview:move2View_];
   [self.tableAreaView addSubview:move3View_];
   [self.tableAreaView addSubview:move4View_];
   
-  [self updateFourMoves];
+//  [self updateFourMoves];
   
   // move detail view
   moveDetailRoundView_ = [[MoveDetailRoundView alloc] initWithFrame:CGRectMake(40.f, 150.f, 330.f, 330.f)];
-//  [self.view insertSubview:moveDetailRoundView_ atIndex:0];
-//  [moveDetailRoundView_ setAlpha:0.f];
   
   // Swipte to LEFT, close move view
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer =
@@ -193,9 +177,9 @@
   [self _updateMoveUnitViewWithMoveIndex:4];
 }
 
-// swipe gesture aciton
-- (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
-  [super swipeView:recognizer];
+// make sure |moveDetailView_| is unloaded when unload Move view
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated {
+  [super unloadViewWithAnimationToLeft:toLeft animated:animated];
   if (currSelectedMoveIndex_)
     [self _unloadMoveDetailRoundViewAnimated:YES];
 }
@@ -219,13 +203,10 @@
   GameMenuMoveUnitView * moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
   Move * move = [self.playerPokemon moveWithIndex:moveIndex];
   if (move == nil) {
-    [moveUnitView configureMoveUnitWithName:nil
-                                       icon:nil
-                                       type:nil
+    [moveUnitView configureMoveUnitWithName:@"- - -"
                                          pp:nil
                                    delegate:nil
-                                        tag:-1
-                                        odd:NO];
+                                        tag:-1];
     [moveUnitView setButtonEnabled:NO];
     moveUnitView = nil;
     return;
@@ -233,14 +214,11 @@
   
   NSInteger currPPIndex = (moveIndex - 1) * 2;
   [moveUnitView configureMoveUnitWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
-                                     icon:nil//[UIImage imageNamed:[NSString stringWithFormat:@"IconMove%d.png", moveIndex]]
-                                     type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
                                        pp:[NSString stringWithFormat:@"%d / %d",
                                            [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
                                            [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
                                  delegate:self
-                                      tag:moveIndex
-                                      odd:NO];
+                                      tag:moveIndex];
   move = nil;
   
   // Change Text color if needed
