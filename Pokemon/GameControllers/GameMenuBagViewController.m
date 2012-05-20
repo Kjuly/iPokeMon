@@ -73,21 +73,22 @@
   // Base Setting
   isSelectedItemViewOpening_ = NO;
   
-  CGRect tableAreaViewFrame  = CGRectMake(8.f, 8.f, 312.f, kViewHeight - 16.f);
+  CGRect tableAreaViewFrame  = self.tableAreaView.frame;
+  tableAreaViewFrame.origin.x = kViewWidth - tableAreaViewFrame.size.width;
   [self.tableAreaView setFrame:tableAreaViewFrame];
   
-  CGFloat unitViewHeight = (kViewHeight - 20.f) / 6.f;
-  CGFloat unitViewWidth  = kViewWidth - 10.f;
+  CGFloat buttonSize = 64.f;
+  CGFloat marginTop  = (kViewHeight - 20.f - 64.f * 6);
   for (int i = 0; i < 6;) {
-    CGRect buttonFrame = CGRectMake(0.f, unitViewHeight * i, unitViewWidth, unitViewHeight);
+    CGRect buttonFrame = CGRectMake(12.f, marginTop + buttonSize * i, buttonSize, buttonSize);
     UIButton * button = [[UIButton alloc] initWithFrame:buttonFrame];
-    [button setTitleColor:[GlobalRender textColorTitleWhite] forState:UIControlStateNormal];
     [button setTag:++i];
-    [button setTitle:NSLocalizedString(([NSString stringWithFormat:@"PMSGameMenuBagItem%d", i]), nil)
+    [button setBackgroundImage:[UIImage imageNamed:kPMINGameBagIconBackground]
+                      forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINGameBagIcon, i]]
             forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(loadSelcetedItemTalbeView:) forControlEvents:UIControlEventTouchUpInside];
-    if (i % 2)
-      [button setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.1f]];
+    [button addTarget:self action:@selector(loadSelcetedItemTalbeView:)
+     forControlEvents:UIControlEventTouchUpInside];
     [self.tableAreaView addSubview:button];
     [button release];
   }
