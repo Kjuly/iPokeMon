@@ -63,13 +63,14 @@
     pp_ = [[UILabel alloc] initWithFrame:ppFrame];
     [pp_ setBackgroundColor:[UIColor clearColor]];
     [pp_ setTextColor:[GlobalRender textColorOrange]];
-    [pp_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+    [pp_ setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
     [pp_ setTextAlignment:UITextAlignmentCenter];
     [self addSubview:pp_];
     
     description_ = [[UILabel alloc] init];
     [description_ setBackgroundColor:[UIColor clearColor]];
     [description_ setTextColor:[GlobalRender textColorNormal]];
+    [description_ setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
     [description_ setNumberOfLines:0];
     [description_ setLineBreakMode:UILineBreakModeWordWrap];
     [self addSubview:description_];
@@ -94,6 +95,7 @@
 
 #pragma mark - Public Methods
 
+// configure move detail with content
 - (void)configureMoveDetailWithName:(NSString *)name
                                type:(NSString *)type
                                  pp:(NSString *)pp
@@ -111,6 +113,14 @@
   [self.description setFrame:descriptionFrame];
   [self.description setText:NSLocalizedString(description, nil)];
   [self.description sizeToFit];
+}
+
+// toggle content between shown & hidden
+- (void)setContentHidden:(BOOL)hidden {
+  CGFloat alpha = hidden ? 0.f : 1.f;
+  [self.title setAlpha:alpha];
+  [self.pp setAlpha:alpha];
+  [self.description setAlpha:alpha];
 }
 
 @end

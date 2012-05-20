@@ -22,10 +22,16 @@
   GameMenuMoveUnitView * move3View_;
   GameMenuMoveUnitView * move4View_;
   MoveDetailRoundView  * moveDetailRoundView_;
+  CAAnimationGroup     * loadAnimationGroup_;
+  CAAnimationGroup     * unloadAnimationGroup_;
+  CAAnimationGroup     * switchAnimationGroup_;
   
   TrainerTamedPokemon      * playerPokemon_;
   NSArray                  * fourMovesPP_;
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer_;
+  UITapGestureRecognizer   * tapGestureRecognizer_;
+  
+  NSInteger currSelectedMoveIndex_;
 }
 
 @property (nonatomic, retain) GameMenuMoveUnitView * move1View;
@@ -33,34 +39,49 @@
 @property (nonatomic, retain) GameMenuMoveUnitView * move3View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move4View;
 @property (nonatomic, retain) MoveDetailRoundView  * moveDetailRoundView;
+@property (nonatomic, retain) CAAnimationGroup     * loadAnimationGroup;
+@property (nonatomic, retain) CAAnimationGroup     * unloadAnimationGroup;
+@property (nonatomic, retain) CAAnimationGroup     * switchAnimationGroup;
 
 @property (nonatomic, retain) TrainerTamedPokemon      * playerPokemon;
 @property (nonatomic, copy)   NSArray                  * fourMovesPP;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
+@property (nonatomic, retain) UITapGestureRecognizer   * tapGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_useSelectedMove:(id)sender;
 - (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex;
+- (void)_loadMoveDetailRoundViewAnimated:(BOOL)animated;
+- (void)_unloadMoveDetailRoundViewAnimated:(BOOL)animated;
+- (void)_switchContentForMoveDetailRoundViewAnimated:(BOOL)animated;
 
 @end
 
 
 @implementation GameMenuMoveViewController
 
-@synthesize move1View           = move1View_;
-@synthesize move2View           = move2View_;
-@synthesize move3View           = move3View_;
-@synthesize move4View           = move4View_;
-@synthesize moveDetailRoundView = moveDetailRoundView_;
+@synthesize move1View            = move1View_;
+@synthesize move2View            = move2View_;
+@synthesize move3View            = move3View_;
+@synthesize move4View            = move4View_;
+@synthesize moveDetailRoundView  = moveDetailRoundView_;
+@synthesize loadAnimationGroup   = loadAnimationGroup_;
+@synthesize unloadAnimationGroup = unloadAnimationGroup_;
+@synthesize switchAnimationGroup = switchAnimationGroup_;
 
 @synthesize playerPokemon              = playerPokemon;
 @synthesize fourMovesPP                = fourMovesPP_;
 @synthesize swipeLeftGestureRecognizer = swipeLeftGestureRecognizer_;
+@synthesize tapGestureRecognizer       = tapGestureRecognizer_;
 
 - (void)dealloc {
-  self.playerPokemon = nil;
-  self.fourMovesPP   = nil;
+  self.loadAnimationGroup         = nil;
+  self.unloadAnimationGroup       = nil;
+  self.switchAnimationGroup       = nil;
+  self.playerPokemon              = nil;
+  self.fourMovesPP                = nil;
   self.swipeLeftGestureRecognizer = nil;
+  self.tapGestureRecognizer       = nil;
   [self _releaseSubviews];
   [super dealloc];
 }
@@ -91,6 +112,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  currSelectedMoveIndex_ = 0;
   
   // Constants
   CGFloat moveViewHeight = 88.f;
@@ -130,8 +153,12 @@
   [self.tableAreaView addSubview:move3View_];
   [self.tableAreaView addSubview:move4View_];
   
-  
   [self updateFourMoves];
+  
+  // move detail view
+  moveDetailRoundView_ = [[MoveDetailRoundView alloc] initWithFrame:CGRectMake(40.f, 150.f, 330.f, 330.f)];
+//  [self.view insertSubview:moveDetailRoundView_ atIndex:0];
+//  [moveDetailRoundView_ setAlpha:0.f];
   
   // Swipte to LEFT, close move view
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer =
@@ -140,6 +167,10 @@
   [swipeLeftGestureRecognizer release];
   [self.swipeLeftGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
   [self.view addGestureRecognizer:self.swipeLeftGestureRecognizer];
+  
+  // tap on the move detail view to hide it
+  tapGestureRecognizer_ = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_unloadMoveDetailRoundViewAnimated:)];
+  [self.moveDetailRoundView addGestureRecognizer:tapGestureRecognizer_];
 }
 
 - (void)viewDidUnload {
@@ -160,6 +191,13 @@
   [self _updateMoveUnitViewWithMoveIndex:2];
   [self _updateMoveUnitViewWithMoveIndex:3];
   [self _updateMoveUnitViewWithMoveIndex:4];
+}
+
+// swipe gesture aciton
+- (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
+  [super swipeView:recognizer];
+  if (currSelectedMoveIndex_)
+    [self _unloadMoveDetailRoundViewAnimated:YES];
 }
 
 #pragma mark - Private Methods
@@ -189,22 +227,11 @@
                                         tag:-1
                                         odd:NO];
     [moveUnitView setButtonEnabled:NO];
-//    [moveUnitView.type1 setText:nil];
-//    [moveUnitView.name  setText:nil];
-//    [moveUnitView.pp    setText:nil];
-//    [moveUnitView.viewButton setEnabled:NO];
     moveUnitView = nil;
     return;
   }
   
-//  [moveUnitView.type1 setText:
-//   NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
-//  [moveUnitView.name setText:
-//   NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
   NSInteger currPPIndex = (moveIndex - 1) * 2;
-//  [moveUnitView.pp setText:[NSString stringWithFormat:@"%d / %d",
-//                              [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
-//                              [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]];
   [moveUnitView configureMoveUnitWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
                                      icon:nil//[UIImage imageNamed:[NSString stringWithFormat:@"IconMove%d.png", moveIndex]]
                                      type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
@@ -217,42 +244,154 @@
   move = nil;
   
   // Change Text color if needed
-  if ([[fourMovesPP_ objectAtIndex:currPPIndex] intValue] <= 0) {
-//    [moveUnitView.name setTextColor:[GlobalRender textColorDisabled]];
-//    [moveUnitView.pp setTextColor:[GlobalRender textColorDisabled]];
-//    [moveUnitView.viewButton setEnabled:NO];
+  if ([[fourMovesPP_ objectAtIndex:currPPIndex] intValue] <= 0)
     [moveUnitView setButtonEnabled:NO];
-  } else {
-//    [moveUnitView.name setTextColor:[GlobalRender textColorTitleWhite]];
-//    [moveUnitView.pp setTextColor:[GlobalRender textColorOrange]];
-//    [moveUnitView.viewButton setEnabled:YES];
-    [moveUnitView setButtonEnabled:YES];
-  }
+  else [moveUnitView setButtonEnabled:YES];
   moveUnitView = nil;
+}
+
+// load |moveDetailRoundView_|
+- (void)_loadMoveDetailRoundViewAnimated:(BOOL)animated {
+  // set up animations if it is not initialized
+  if (self.loadAnimationGroup == nil) {
+    CGFloat duration = .3f;
+    // scale
+    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    animationScale.duration = duration;
+    animationScale.values = [NSArray arrayWithObjects:
+                             [NSNumber numberWithFloat:.1f],
+                             [NSNumber numberWithFloat:.8f],
+                             [NSNumber numberWithFloat:1.f], nil];
+    
+    // fade
+    CABasicAnimation * animationFade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animationFade.duration = duration * .4f;
+    animationFade.fromValue = [NSNumber numberWithFloat:0.f];
+    animationFade.toValue = [NSNumber numberWithFloat:1.f];
+    animationFade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animationFade.fillMode = kCAFillModeForwards;
+    
+    self.loadAnimationGroup = [CAAnimationGroup animation];
+    self.loadAnimationGroup.delegate = self;
+    [self.loadAnimationGroup setValue:@"load" forKey:@"animationType"];
+    [self.loadAnimationGroup setDuration:duration];
+    NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
+    [self.loadAnimationGroup setAnimations:animations];
+    [animations release];
+    [self.loadAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+  }
+  [self.moveDetailRoundView.layer addAnimation:self.loadAnimationGroup forKey:@"loadAnimation"];
+}
+
+// unload |moveDetailRoundView_|
+- (void)_unloadMoveDetailRoundViewAnimated:(BOOL)animated {
+  if (currSelectedMoveIndex_ == 0)
+    return;
+  currSelectedMoveIndex_ = 0;
+  // set up animations if it is not initialized
+  if (self.unloadAnimationGroup == nil) {
+    CGFloat duration = .3f;
+    // scale
+    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    animationScale.duration = duration;
+    animationScale.values = [NSArray arrayWithObjects:
+                             [NSNumber numberWithFloat:1.f],
+                             [NSNumber numberWithFloat:1.2f], nil];
+    
+    // fade
+    CABasicAnimation * animationFade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animationFade.duration = duration * .8f;
+    animationFade.fromValue = [NSNumber numberWithFloat:1.f];
+    animationFade.toValue = [NSNumber numberWithFloat:0.f];
+    animationFade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animationFade.fillMode = kCAFillModeForwards;
+    
+    self.unloadAnimationGroup = [CAAnimationGroup animation];
+    self.unloadAnimationGroup.delegate = self;
+    [self.unloadAnimationGroup setValue:@"unload" forKey:@"animationType"];
+    [self.unloadAnimationGroup setDuration:duration];
+    NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
+    [self.unloadAnimationGroup setAnimations:animations];
+    [animations release];
+    [self.unloadAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+  }
+  [self.moveDetailRoundView.layer addAnimation:self.unloadAnimationGroup forKey:@"unloadAnimation"];
+}
+
+// switch content for |moveDetailRoundView_|
+- (void)_switchContentForMoveDetailRoundViewAnimated:(BOOL)animated {
+  // set up animations if it is not initialized
+  if (self.switchAnimationGroup == nil) {
+    CGFloat duration = .3f;
+    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    animationScale.duration = duration;
+    animationScale.values = [NSArray arrayWithObjects:
+                             [NSNumber numberWithFloat:1.f],
+                             [NSNumber numberWithFloat:.9f],
+                             [NSNumber numberWithFloat:1.f], nil];
+        
+    self.switchAnimationGroup = [CAAnimationGroup animation];
+    self.switchAnimationGroup.delegate = self;
+    [self.switchAnimationGroup setValue:@"switch" forKey:@"animationType"];
+    [self.switchAnimationGroup setDuration:duration];
+    NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, nil];
+    [self.switchAnimationGroup setAnimations:animations];
+    [animations release];
+    [self.switchAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+  }
+  [self.moveDetailRoundView.layer addAnimation:self.switchAnimationGroup forKey:@"switchAnimation"];
+}
+
+#pragma mark - CoreAnimation Delegate
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+  if ([[anim valueForKey:@"animationType"] isEqualToString:@"unload"]) {
+    [self.moveDetailRoundView setAlpha:0.f];
+    [self.moveDetailRoundView removeFromSuperview];
+  }
+  else {
+    [UIView animateWithDuration:.1f
+                          delay:0.f
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{ [self.moveDetailRoundView setContentHidden:NO]; }
+                     completion:nil];
+  }
 }
 
 #pragma mark - GameMenuMoveUnitView Delegate
 
+// show detail for selected Move
 - (void)showDetail:(id)sender {
-  NSLog(@"showDetail");
-  if (self.moveDetailRoundView == nil) {
-    MoveDetailRoundView * moveDetailRoundView = [MoveDetailRoundView alloc];
-    [moveDetailRoundView initWithFrame:CGRectMake(40.f, 100.f, 320.f, 320.f)];
-    self.moveDetailRoundView = moveDetailRoundView;
-    [moveDetailRoundView release];
-    [self.view insertSubview:self.moveDetailRoundView atIndex:0];
-  }
-  
   NSInteger moveIndex = ((UIButton *)sender).tag;
-  Move * move = [self.playerPokemon moveWithIndex:moveIndex];
-  NSInteger currPPIndex = (moveIndex - 1) * 2;
-  [self.moveDetailRoundView configureMoveDetailWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
-                                                   type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
-                                                     pp:[NSString stringWithFormat:@"%d / %d",
-                                                         [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
-                                                         [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
-                                            description:[NSString stringWithFormat:@"PMSMoveInfo%.3d", [move.sid intValue]]];
-  move = nil;
+  if (currSelectedMoveIndex_ == moveIndex)
+    return;
+  
+  // load |moveDetailView_| is no Move is selected
+  // otherwise, switch content for different Moves
+  if (currSelectedMoveIndex_ == 0) {
+    [self.moveDetailRoundView setAlpha:1.f];
+    [self.view insertSubview:self.moveDetailRoundView atIndex:0];
+    [self _loadMoveDetailRoundViewAnimated:YES];
+  }
+  else [self _switchContentForMoveDetailRoundViewAnimated:YES];
+  currSelectedMoveIndex_ = moveIndex;
+  
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    Move * move = [self.playerPokemon moveWithIndex:moveIndex];
+    NSInteger currPPIndex = (moveIndex - 1) * 2;
+    [self.moveDetailRoundView configureMoveDetailWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
+                                                     type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
+                                                       pp:[NSString stringWithFormat:@"%d / %d",
+                                                           [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+                                                           [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
+                                              description:[NSString stringWithFormat:@"PMSMoveInfo%.3d", [move.sid intValue]]];
+    move = nil;
+  };
+  [UIView animateWithDuration:.1f
+                        delay:0.f
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:^{ [self.moveDetailRoundView setContentHidden:YES]; }
+                   completion:completion];
 }
 
 @end
