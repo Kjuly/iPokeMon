@@ -8,29 +8,12 @@
 
 #import "GameMenuAbstractChildViewController.h"
 
-@interface GameMenuAbstractChildViewController () {
- @private
-//  CAAnimationGroup * animationGroupToShow_;
-//  CAAnimationGroup * animationGroupToHide_;
-}
-
-//@property (nonatomic, retain) CAAnimationGroup * animationGroupToShow;
-//@property (nonatomic, retain) CAAnimationGroup * animationGroupToHide;
-
-@end
-
-
 @implementation GameMenuAbstractChildViewController
 
-@synthesize tableAreaView        = tableAreaView_;
-//@synthesize animationGroupToShow = animationGroupToShow_;
-//@synthesize animationGroupToHide = animationGroupToHide_;
+@synthesize tableAreaView = tableAreaView_;
 
 - (void)dealloc {
   self.tableAreaView = nil;
-  
-//  self.animationGroupToShow = nil;
-//  self.animationGroupToHide = nil;
   [super dealloc];
 }
 
@@ -63,8 +46,6 @@
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
-//  [self.tableAreaView setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.8f]];
-//  [self.tableAreaView setOpaque:NO];
   [view addSubview:self.tableAreaView];
   
   self.view = view;
@@ -74,56 +55,6 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  /*
-  // Set up animations
-  // Animation group to show view
-  CGFloat duration = .3f;
-  CAKeyframeAnimation * animationScaleToShow = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-  animationScaleToShow.duration = duration;
-  animationScaleToShow.values = [NSArray arrayWithObjects:
-                                 [NSNumber numberWithFloat:.8f],
-                                 [NSNumber numberWithFloat:1.2f],
-                                 [NSNumber numberWithFloat:1.f], nil];
-  
-  CABasicAnimation * animationFadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-  animationFadeIn.duration = duration * .4f;
-  animationFadeIn.fromValue = [NSNumber numberWithFloat:0.f];
-  animationFadeIn.toValue = [NSNumber numberWithFloat:1.f];
-  animationFadeIn.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-  animationFadeIn.fillMode = kCAFillModeForwards;
-  
-  self.animationGroupToShow = [CAAnimationGroup animation];
-  self.animationGroupToShow.delegate = self;
-  [self.animationGroupToShow setValue:@"show" forKey:@"animationType"];
-  [self.animationGroupToShow setDuration:duration];
-  NSArray * animationsToShow = [[NSArray alloc] initWithObjects:animationScaleToShow, animationFadeIn, nil];
-  [self.animationGroupToShow setAnimations:animationsToShow];
-  [animationsToShow release];
-  [self.animationGroupToShow setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-  
-  // Animation group to hide view
-  CAKeyframeAnimation * animationScaleToHide = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-  animationScaleToHide.duration = duration;
-  animationScaleToHide.values = [NSArray arrayWithObjects:
-                                 [NSNumber numberWithFloat:1.f],
-                                 [NSNumber numberWithFloat:1.5f], nil];
-  
-  CABasicAnimation * animationFadeOut = [CABasicAnimation animationWithKeyPath:@"opacity"];
-  animationFadeOut.duration = duration;
-  animationFadeOut.fromValue = [NSNumber numberWithFloat:1.f];
-  animationFadeOut.toValue = [NSNumber numberWithFloat:0.f];
-  animationFadeOut.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-  animationFadeOut.fillMode = kCAFillModeForwards;
-  
-  self.animationGroupToHide = [CAAnimationGroup animation];
-  self.animationGroupToHide.delegate = self;
-  [self.animationGroupToHide setValue:@"hide" forKey:@"animationType"];
-  [self.animationGroupToHide setDuration:duration];
-  NSArray * animationsToHide = [[NSArray alloc] initWithObjects:animationScaleToHide, animationFadeOut, nil];
-  [self.animationGroupToHide setAnimations:animationsToHide];
-  [animationsToHide release];
-  [self.animationGroupToHide setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];*/
 }
 
 - (void)viewDidUnload {
@@ -146,12 +77,11 @@
   viewFrame.origin.x = 0.f;
   
   if (! animated) [self.view setFrame:viewFrame];
-  else[UIView animateWithDuration:.3f
-                            delay:0.f
-                          options:UIViewAnimationOptionCurveEaseInOut
-                       animations:^{ [self.view setFrame:viewFrame]; }
-                       completion:nil];
-//  [self.tableAreaView.layer addAnimation:self.animationGroupToShow forKey:@"ScaleToShow"];
+  else [UIView animateWithDuration:.3f
+                             delay:0.f
+                           options:UIViewAnimationOptionCurveEaseInOut
+                        animations:^{ [self.view setFrame:viewFrame]; }
+                        completion:nil];
 }
 
 - (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated {
@@ -168,15 +98,9 @@
                         animations:^{ [self.view setFrame:viewFrame]; }
                         completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView object:self userInfo:nil];
-//  [self.tableAreaView.layer addAnimation:self.animationGroupToHide forKey:@"ScaleToHide"];
 }
 
-// Animation delegate
-/*- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-  if ([[anim valueForKey:@"animationType"] isEqualToString:@"hide"])
-    [self.view removeFromSuperview];
-}*/
-
+// action for swipe gesture
 - (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight:
