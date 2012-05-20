@@ -11,6 +11,7 @@
 #import "GlobalRender.h"
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
+#import "MoveDetailRoundView.h"
 #import "TrainerTamedPokemon+DataController.h"
 
 
@@ -20,6 +21,7 @@
   GameMenuMoveUnitView * move2View_;
   GameMenuMoveUnitView * move3View_;
   GameMenuMoveUnitView * move4View_;
+  MoveDetailRoundView  * moveDetailRoundView_;
   
   TrainerTamedPokemon      * playerPokemon_;
   NSArray                  * fourMovesPP_;
@@ -30,6 +32,7 @@
 @property (nonatomic, retain) GameMenuMoveUnitView * move2View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move3View;
 @property (nonatomic, retain) GameMenuMoveUnitView * move4View;
+@property (nonatomic, retain) MoveDetailRoundView  * moveDetailRoundView;
 
 @property (nonatomic, retain) TrainerTamedPokemon      * playerPokemon;
 @property (nonatomic, copy)   NSArray                  * fourMovesPP;
@@ -44,10 +47,11 @@
 
 @implementation GameMenuMoveViewController
 
-@synthesize move1View = move1View_;
-@synthesize move2View = move2View_;
-@synthesize move3View = move3View_;
-@synthesize move4View = move4View_;
+@synthesize move1View           = move1View_;
+@synthesize move2View           = move2View_;
+@synthesize move3View           = move3View_;
+@synthesize move4View           = move4View_;
+@synthesize moveDetailRoundView = moveDetailRoundView_;
 
 @synthesize playerPokemon              = playerPokemon;
 @synthesize fourMovesPP                = fourMovesPP_;
@@ -62,10 +66,11 @@
 }
 
 - (void)_releaseSubviews {
-  self.move1View = nil;
-  self.move2View = nil;
-  self.move3View = nil;
-  self.move4View = nil;
+  self.move1View           = nil;
+  self.move2View           = nil;
+  self.move3View           = nil;
+  self.move4View           = nil;
+  self.moveDetailRoundView = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -230,6 +235,24 @@
 
 - (void)showDetail:(id)sender {
   NSLog(@"showDetail");
+  if (self.moveDetailRoundView == nil) {
+    MoveDetailRoundView * moveDetailRoundView = [MoveDetailRoundView alloc];
+    [moveDetailRoundView initWithFrame:CGRectMake(40.f, 100.f, 320.f, 320.f)];
+    self.moveDetailRoundView = moveDetailRoundView;
+    [moveDetailRoundView release];
+    [self.view insertSubview:self.moveDetailRoundView atIndex:0];
+  }
+  
+  NSInteger moveIndex = ((UIButton *)sender).tag;
+  Move * move = [self.playerPokemon moveWithIndex:moveIndex];
+  NSInteger currPPIndex = (moveIndex - 1) * 2;
+  [self.moveDetailRoundView configureMoveDetailWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
+                                                   type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
+                                                     pp:[NSString stringWithFormat:@"%d / %d",
+                                                         [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+                                                         [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
+                                            description:[NSString stringWithFormat:@"PMSMoveInfo%.3d", [move.sid intValue]]];
+  move = nil;
 }
 
 @end

@@ -473,6 +473,7 @@
 		7FCBFE471568BB5F001C8BAB /* IconMove4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3F1568BB5F001C8BAB /* IconMove4@2x.png */; };
 		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
 		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
+		7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */; };
 		7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */; };
 		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
 		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
@@ -1272,6 +1273,8 @@
 		7FCBFE3F1568BB5F001C8BAB /* IconMove4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMove4@2x.png"; sourceTree = "<group>"; };
 		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
 		7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMoveBackground@2x.png"; sourceTree = "<group>"; };
+		7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDetailRoundView.h; sourceTree = "<group>"; };
+		7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveDetailRoundView.m; sourceTree = "<group>"; };
 		7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlackWithFog.png; sourceTree = "<group>"; };
@@ -2293,6 +2296,8 @@
 			children = (
 				7F77F6FF14FAA16C00842700 /* GameMenuMoveUnitView.h */,
 				7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */,
+				7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */,
+				7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */,
 				7FB76462150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.h */,
 				7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */,
 			);
@@ -3261,6 +3266,7 @@
 				7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */,
 				7F05964C1555331800E5428C /* Region.m in Sources */,
 				7F1382701567BFCC0046B537 /* UIButton+Animation.m in Sources */,
+				7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
