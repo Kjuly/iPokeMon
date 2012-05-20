@@ -13,11 +13,13 @@
 @interface MoveDetailRoundView () {
  @private
   UILabel * title_;
+  UILabel * type_;
   UILabel * pp_;
   UILabel * description_;
 }
 
 @property (nonatomic, retain) UILabel * title;
+@property (nonatomic, retain) UILabel * type;
 @property (nonatomic, retain) UILabel * pp;
 @property (nonatomic, retain) UILabel * description;
 
@@ -26,11 +28,13 @@
 @implementation MoveDetailRoundView
 
 @synthesize title       = title_;
+@synthesize type        = type_;
 @synthesize pp          = pp_;
 @synthesize description = description_;
 
 - (void)dealloc {
   self.title       = nil;
+  self.type        = nil;
   self.pp          = nil;
   self.description = nil;
   [super dealloc];
@@ -45,18 +49,20 @@
     // subviews
     // constants
     CGFloat viewSize         = frame.size.width;
-    CGFloat margin           = 30.f;
+    CGFloat margin           = 50.f;
     CGFloat labelHeight      = 32.f;
     CGFloat titleWidth       = 100.f;
     CGFloat ppWidth          = 80.f;
+    CGFloat typeWidth        = 100.f;
     
-    CGRect titleFrame       = CGRectMake((viewSize - titleWidth) / 2.f, margin, titleWidth, labelHeight);
-    CGRect ppFrame          = CGRectMake((viewSize - ppWidth) / 2.f, margin + labelHeight, ppWidth, labelHeight);
+    CGRect titleFrame = CGRectMake((viewSize - titleWidth) / 2.f, margin, titleWidth, labelHeight);
+    CGRect ppFrame    = CGRectMake((viewSize - ppWidth) / 2.f, margin + labelHeight, ppWidth, labelHeight);
+    CGRect typeFrame  = CGRectMake((viewSize - typeWidth) / 2.f, viewSize - 100.f, typeWidth, labelHeight);
     
     title_ = [[UILabel alloc] initWithFrame:titleFrame];
     [title_ setBackgroundColor:[UIColor clearColor]];
     [title_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+    [title_ setFont:[GlobalRender textFontBoldInSizeOf:24.f]];
     [title_ setTextAlignment:UITextAlignmentCenter];
     [self addSubview:title_];
     
@@ -74,6 +80,13 @@
     [description_ setNumberOfLines:0];
     [description_ setLineBreakMode:UILineBreakModeWordWrap];
     [self addSubview:description_];
+    
+    type_ = [[UILabel alloc] initWithFrame:typeFrame];
+    [type_ setBackgroundColor:[UIColor clearColor]];
+    [type_ setTextColor:[GlobalRender textColorGolden]];
+    [type_ setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
+    [type_ setTextAlignment:UITextAlignmentCenter];
+    [self addSubview:type_];
   }
   return self;
 }
@@ -101,9 +114,10 @@
                                  pp:(NSString *)pp
                         description:(NSString *)description {
   [self.title setText:NSLocalizedString(name, nil)];
+  [self.type setText:NSLocalizedString(type, nil)];
   [self.pp setText:pp];
   CGFloat viewSize         = self.frame.size.width;
-  CGFloat margin           = 30.f;
+  CGFloat margin           = 50.f;
   CGFloat labelHeight      = 32.f;
   CGFloat descriptionWidth = 200.f;
   CGRect descriptionFrame = CGRectMake((viewSize - descriptionWidth) / 2.f,
