@@ -13,6 +13,7 @@
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerController.h"
+#import "GameBattleLogTableViewController.h"
 #import "GamePlayerPokemonStatusViewController.h"
 #import "GameEnemyPokemonStatusViewController.h"
 #import "GameMenuSixPokemonsViewController.h"
@@ -40,6 +41,7 @@ typedef enum {
   PMAudioPlayer                         * audioPlayer_;
   TrainerController                     * trainer_;
   GameStatusMachine                     * gameStatusMachine_;
+  GameBattleLogTableViewController      * gameBattleLogTableViewController_;
   GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController_;
   GamePlayerPokemonStatusViewController * playerPokemonStatusViewController_;
   GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController_;
@@ -66,6 +68,7 @@ typedef enum {
 @property (nonatomic, retain) PMAudioPlayer                         * audioPlayer;
 @property (nonatomic, retain) TrainerController                     * trainer;
 @property (nonatomic, retain) GameStatusMachine                     * gameStatusMachine;
+@property (nonatomic, retain) GameBattleLogTableViewController      * gameBattleLogTableViewController;
 @property (nonatomic, retain) GameEnemyPokemonStatusViewController  * enemyPokemonStatusViewController;
 @property (nonatomic, retain) GamePlayerPokemonStatusViewController * playerPokemonStatusViewController;
 @property (nonatomic, retain) GameMenuSixPokemonsViewController     * gameMenuSixPokemonsViewController;
@@ -80,6 +83,9 @@ typedef enum {
 @property (nonatomic, retain) UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer;
 
 - (void)releaseSubviews;
+- (void)_initSubviews;
+- (void)_initGestureRecognizers;
+- (void)_initNotificationObservers;
 // Button Actions
 - (void)updateGameMenuKeyView:(NSNotification *)notification;
 - (void)toggleSixPokemonView;
@@ -117,6 +123,7 @@ typedef enum {
 @synthesize audioPlayer                       = audioPlayer_;
 @synthesize trainer                           = trainer_;
 @synthesize gameStatusMachine                 = gameStatusMachine_;
+@synthesize gameBattleLogTableViewController  = gameBattleLogTableViewController_;
 @synthesize enemyPokemonStatusViewController  = enemyPokemonStatusViewController_;
 @synthesize playerPokemonStatusViewController = playerPokemonStatusViewController_;
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
@@ -137,6 +144,7 @@ typedef enum {
   self.audioPlayer                        = nil;
   self.trainer                            = nil;
   self.gameStatusMachine                  = nil;
+  self.gameBattleLogTableViewController   = nil;
   self.enemyPokemonStatusViewController   = nil;
   self.playerPokemonStatusViewController  = nil;
   self.gameMenuSixPokemonsViewController  = nil;
@@ -190,9 +198,41 @@ typedef enum {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  self.view = view;
+  [view release];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
   
+  // Base Settings
+  self.audioPlayer       = [PMAudioPlayer     sharedInstance];
+  self.trainer           = [TrainerController sharedInstance];
+  self.gameStatusMachine = [GameStatusMachine sharedInstance];
+  gameMenuKeyView_       = kGameMenuKeyViewNone;
+  
+  [self _initSubviews];
+  [self _initGestureRecognizers];
+  [self _initNotificationObservers];
+}
+
+- (void)viewDidUnload {
+  [super viewDidUnload];
+  [self releaseSubviews];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+  // Return YES for supported orientations
+  return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Private Methods
+
+// init methods
+- (void)_initSubviews {
   // Constants
-  CGRect messageViewFrame             = CGRectMake(0.f,
+  CGRect gameBattleLogTableViewFrame  = CGRectMake(0.f,
                                                    kViewHeight - kGameMenuMessageViewHeight,
                                                    kViewWidth,
                                                    kGameMenuMessageViewHeight);
@@ -211,61 +251,53 @@ typedef enum {
   // Wild Pokemon Status View
   enemyPokemonStatusViewController_ = [[GameEnemyPokemonStatusViewController alloc] init];
   [enemyPokemonStatusViewController_.view setFrame:enemyPokemonStatusViewFrame];
-  [view addSubview:enemyPokemonStatusViewController_.view];
+  [self.view addSubview:enemyPokemonStatusViewController_.view];
   
   // My Pokemon Status View
   playerPokemonStatusViewController_ = [[GamePlayerPokemonStatusViewController alloc] init];
   [playerPokemonStatusViewController_.view setFrame:playerPokemonStatusViewFrame];
-  [view addSubview:playerPokemonStatusViewController_.view];
+  [self.view addSubview:playerPokemonStatusViewController_.view];
   
   //
   // Message View
   //
-  UITextView * messageView = [[UITextView alloc] initWithFrame:messageViewFrame];
+  UITextView * messageView = [[UITextView alloc] initWithFrame:gameBattleLogTableViewFrame];
   self.messageView = messageView;
   [messageView release];
   [self.messageView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBattleMenuMessageViewBackground]]];
   [self.messageView setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
   [self.messageView setTextColor:[GlobalRender textColorNormal]];
   [self.messageView setEditable:NO];
-  [view addSubview:self.messageView];
+  [self.view addSubview:self.messageView];
+  
+  // battle logs tableview
+  gameBattleLogTableViewController_ = [GameBattleLogTableViewController alloc];
+  [gameBattleLogTableViewController_ initWithStyle:UITableViewStylePlain];
+  [gameBattleLogTableViewController_.view setFrame:gameBattleLogTableViewFrame];
+  [self.view addSubview:gameBattleLogTableViewController_.view];
   
   // Pokemon Image View (for animation of getting back pokemon)
   UIImageView * pokemonImageView =
-    [[UIImageView alloc] initWithFrame:CGRectMake(70.f, kViewHeight, kGameBattlePMSize, kGameBattlePMSize)];
+  [[UIImageView alloc] initWithFrame:CGRectMake(70.f, kViewHeight, kGameBattlePMSize, kGameBattlePMSize)];
   self.pokemonImageView = pokemonImageView;
   [pokemonImageView release];
-  [view addSubview:self.pokemonImageView];
+  [self.view addSubview:self.pokemonImageView];
   
   // Pokeball
   UIImageView * pokeball =
-    [[UIImageView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-                                                  kViewHeight,
-                                                  kGameMenuPokeballSize,
-                                                  kGameMenuPokeballSize)];
+  [[UIImageView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
+                                                kViewHeight,
+                                                kGameMenuPokeballSize,
+                                                kGameMenuPokeballSize)];
   self.pokeball = pokeball;
   [pokeball release];
   [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
   [self.pokeball setImage:[UIImage imageNamed:kPMINBattleElementPokeball]];
-  [view addSubview:self.pokeball];
-  
-  self.view = view;
-  [view release];
+  [self.view addSubview:self.pokeball];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  
-  // Base Settings
-  self.audioPlayer       = [PMAudioPlayer     sharedInstance];
-  self.trainer           = [TrainerController sharedInstance];
-  self.gameStatusMachine = [GameStatusMachine sharedInstance];
-  gameMenuKeyView_       = kGameMenuKeyViewNone;
-  
-  //
-  // Getsture Recognizers
-  //
+// initialize gesture recognizers
+- (void)_initGestureRecognizers {
   // Swipte to RIGHT, open move view or close bag view
   UISwipeGestureRecognizer * swipeRightGestureRecognizer =
     [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
@@ -315,10 +347,10 @@ typedef enum {
   [self.twoFingersOneTapGestureRecognizer setNumberOfTapsRequired:1];
   [self.twoFingersOneTapGestureRecognizer setNumberOfTouchesRequired:2];
   [self.view addGestureRecognizer:self.twoFingersOneTapGestureRecognizer];
-  
-  //
-  // Notification Observers
-  //
+}
+
+// initialize notification observers
+- (void)_initNotificationObservers {
   // Add observer for notfication from |GameMenuAbstractChildViewController|
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(updateGameMenuKeyView:)
@@ -360,18 +392,6 @@ typedef enum {
                                                name:kPMNPokeballLossWildPokemon
                                              object:nil];
 }
-
-- (void)viewDidUnload {
-  [super viewDidUnload];
-  [self releaseSubviews];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  // Return YES for supported orientations
-  return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - Private Methods
 
 // Update key view
 - (void)updateGameMenuKeyView:(NSNotification *)notification {

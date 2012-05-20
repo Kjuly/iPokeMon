@@ -262,6 +262,7 @@
 		7F51CAE3152B3D3700B97249 /* NewbieGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F51CAE2152B3D3700B97249 /* NewbieGuideViewController.m */; };
 		7F52451314FBDACE0019C75A /* WildPokemon+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451214FBDACE0019C75A /* WildPokemon+DataController.m */; };
 		7F52451914FBEA810019C75A /* GameStatusMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451814FBEA810019C75A /* GameStatusMachine.m */; };
+		7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F566BB415694C0000BC111B /* GameBattleLogTableViewController.m */; };
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
 		7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */; };
@@ -990,6 +991,8 @@
 		7F52451214FBDACE0019C75A /* WildPokemon+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WildPokemon+DataController.m"; sourceTree = "<group>"; };
 		7F52451714FBEA800019C75A /* GameStatusMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatusMachine.h; sourceTree = "<group>"; };
 		7F52451814FBEA810019C75A /* GameStatusMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatusMachine.m; sourceTree = "<group>"; };
+		7F566BB315694C0000BC111B /* GameBattleLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleLogTableViewController.h; sourceTree = "<group>"; };
+		7F566BB415694C0000BC111B /* GameBattleLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLogTableViewController.m; sourceTree = "<group>"; };
 		7F579E6F1530A37900907A45 /* GameBattleEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEndViewController.h; sourceTree = "<group>"; };
 		7F579E701530A37900907A45 /* GameBattleEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEndViewController.m; sourceTree = "<group>"; };
 		7F581F431511D5F500F154FA /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
@@ -2283,6 +2286,8 @@
 				7F50B81B14F955A900883412 /* GameBattleLayer.m */,
 				7F77F6F114FA75A200842700 /* GameMenuViewController.h */,
 				7F77F6F214FA75A200842700 /* GameMenuViewController.m */,
+				7F566BB315694C0000BC111B /* GameBattleLogTableViewController.h */,
+				7F566BB415694C0000BC111B /* GameBattleLogTableViewController.m */,
 				7F22C67C150781C00070CB36 /* GamePokemonStatusViewController.h */,
 				7F22C67D150781C00070CB36 /* GamePokemonStatusViewController.m */,
 				7F8C15CB15091B94004BE083 /* GameEnemyPokemonStatusViewController.h */,
@@ -3291,6 +3296,7 @@
 				7F05964C1555331800E5428C /* Region.m in Sources */,
 				7F1382701567BFCC0046B537 /* UIButton+Animation.m in Sources */,
 				7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */,
+				7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
