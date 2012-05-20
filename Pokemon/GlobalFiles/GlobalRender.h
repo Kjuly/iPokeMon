@@ -24,9 +24,20 @@
 + (UIColor *)textColorDisabled;
 
 + (UIColor *)colorOrange;
++ (UIColor *)colorOrangeWithAlpha:(CGFloat)alpha;
 + (UIColor *)colorGolden;
++ (UIColor *)colorGoldenWithAlpha:(CGFloat)alpha;
 + (UIColor *)colorBlue;
++ (UIColor *)colorBlueWithAlpha:(CGFloat)alpha;
++ (UIColor *)colorRed;
++ (UIColor *)colorRedWithAlpha:(CGFloat)alpha;
++ (UIColor *)colorGreen;
++ (UIColor *)colorGreenWithAlpha:(CGFloat)alpha;
 + (UIColor *)colorGray;
++ (UIColor *)colorGrayWithAlpha:(CGFloat)alpha;
++ (UIColor *)colorWithColorType:(MEWColorType)colorType;
++ (UIColor *)colorWithColorType:(MEWColorType)colorType
+                          alpha:(CGFloat)alpha;
 
 // Font Style
 + (UIFont *)textFontNormalInSizeOf:(CGFloat)fontSize;

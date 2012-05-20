@@ -71,28 +71,126 @@
 }
 
 + (UIColor *)colorOrange {
+  return [self colorOrangeWithAlpha:1.f];
+}
+
++ (UIColor *)colorOrangeWithAlpha:(CGFloat)alpha {
   return [UIColor colorWithRed:238.0f / 255.0f
                          green:153.0f / 255.0f
                           blue:17.0f  / 255.0f
-                         alpha:1.0f];
+                         alpha:alpha];
 }
 
 + (UIColor *)colorGolden {
+  return [self colorGoldenWithAlpha:1.f];
+}
+
++ (UIColor *)colorGoldenWithAlpha:(CGFloat)alpha {
   return [UIColor colorWithRed:217.0f / 255.0f
                          green:183.0f / 255.0f
                           blue:112.0f  / 255.0f
-                         alpha:1.0f];
+                         alpha:alpha];
 }
 
 + (UIColor *)colorBlue {
+  return [self colorBlueWithAlpha:1.f];
+}
+
++ (UIColor *)colorBlueWithAlpha:(CGFloat)alpha {
   return [UIColor colorWithRed:91.0f / 255.0f
                          green:155.0f / 255.0f
                           blue:209.0f/ 255.0f
-                         alpha:1.0f];
+                         alpha:alpha];
+}
+
++ (UIColor *)colorRed {
+  return [self colorRedWithAlpha:1.f];
+}
+
++ (UIColor *)colorRedWithAlpha:(CGFloat)alpha {
+  return [UIColor colorWithRed:225.f / 255.f
+                         green:67.f / 255.f
+                          blue:67.f / 255.f
+                         alpha:alpha];
+}
+
++ (UIColor *)colorGreen {
+  return [self colorGreenWithAlpha:1.f];
+}
+
++ (UIColor *)colorGreenWithAlpha:(CGFloat)alpha {
+  return [UIColor colorWithRed:116.f / 255.f
+                         green:183.f / 255.f
+                          blue:36.f / 255.f
+                         alpha:alpha];
 }
 
 + (UIColor *)colorGray {
-  return [UIColor grayColor];
+  return [self colorGrayWithAlpha:1.f];
+}
+
++ (UIColor *)colorGrayWithAlpha:(CGFloat)alpha {
+//  return [UIColor grayColor];
+  return [UIColor colorWithWhite:.5f alpha:alpha];
+}
+
++ (UIColor *)colorWithColorType:(MEWColorType)colorType {
+  return [self colorWithColorType:colorType alpha:1.f];
+}
+
++ (UIColor *)colorWithColorType:(MEWColorType)colorType
+                          alpha:(CGFloat)alpha {
+  /*
+   kMEWColorTypeNone      = 0,
+   kMEWColorTypeBlack     = 1 << 0,
+   kMEWColorTypeWhite     = 1 << 1,
+   kMEWColorTypeOrange    = 1 << 2,
+   kMEWColorTypeGloden    = 1 << 3,
+   kMEWColorTypeBlue      = 1 << 4,
+   kMEWColorTypeGray      = 1 << 5,
+   kMEWColorTypeDarkGray  = 1 << 6,
+   kMEWColorTypeLightGray = 1 << 7
+   */
+  switch (colorType) {
+    case kMEWColorTypeBlack:
+      return [UIColor colorWithWhite:0.f alpha:alpha];
+      break;
+      
+    case kMEWColorTypeWhite:
+      return [UIColor colorWithWhite:1.f alpha:alpha];
+      break;
+      
+    case kMEWColorTypeOrange:
+      return [self colorOrangeWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeGolden:
+      return [self colorGoldenWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeBlue:
+      return [self colorBlueWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeRed:
+      return [self colorRedWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeGreen:
+      return [self colorGreenWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeGray:
+      return [self colorGrayWithAlpha:alpha];
+      break;
+      
+    case kMEWColorTypeDarkGray:
+    case kMEWColorTypeLightGray:
+    case kMEWColorTypeNone:
+    default:
+      return nil;
+      break;
+  }
 }
 
 #pragma mark - Font Style

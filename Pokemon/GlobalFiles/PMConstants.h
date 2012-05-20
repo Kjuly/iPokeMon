@@ -267,6 +267,21 @@ typedef enum {
   kDataModifyTamedPokemonMemo        = 1 << 21
 }DataModifyFlag;
 
+// color types
+typedef enum {
+  kMEWColorTypeNone      = 0,
+  kMEWColorTypeBlack     = 1 << 0,
+  kMEWColorTypeWhite     = 1 << 1,
+  kMEWColorTypeOrange    = 1 << 2,
+  kMEWColorTypeGolden    = 1 << 3,
+  kMEWColorTypeBlue      = 1 << 4,
+  kMEWColorTypeRed       = 1 << 5,
+  kMEWColorTypeGreen     = 1 << 6,
+  kMEWColorTypeGray      = 1 << 7,
+  kMEWColorTypeDarkGray  = 1 << 8,
+  kMEWColorTypeLightGray = 1 << 9
+}MEWColorType;
+
 // For |centerMainButton_| status
 typedef enum {
   kCenterMainButtonStatusNormal = 0,

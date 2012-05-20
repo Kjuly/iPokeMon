@@ -48,12 +48,12 @@
     
     // subviews
     // constants
-    CGFloat viewSize         = frame.size.width;
-    CGFloat margin           = 50.f;
-    CGFloat labelHeight      = 32.f;
-    CGFloat titleWidth       = 100.f;
-    CGFloat ppWidth          = 80.f;
-    CGFloat typeWidth        = 100.f;
+    CGFloat viewSize    = frame.size.width;
+    CGFloat margin      = 50.f;
+    CGFloat labelHeight = 32.f;
+    CGFloat titleWidth  = 100.f;
+    CGFloat ppWidth     = 80.f;
+    CGFloat typeWidth   = 100.f;
     
     CGRect titleFrame = CGRectMake((viewSize - titleWidth) / 2.f, margin, titleWidth, labelHeight);
     CGRect ppFrame    = CGRectMake((viewSize - ppWidth) / 2.f, margin + labelHeight, ppWidth, labelHeight);
