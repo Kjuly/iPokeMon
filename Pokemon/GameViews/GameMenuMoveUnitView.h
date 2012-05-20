@@ -15,10 +15,11 @@
 @interface GameMenuMoveUnitView : UIView
 
 // localization job is done in this method
-- (void)configureMoveUnitWithName:(NSString *)name
-                               pp:(NSString *)pp
-                         delegate:(id <GameMenuMoveUnitViewDelegate>)delegate
-                              tag:(NSInteger)tag;
+- (void)configureMoveUnitWithSID:(NSInteger)SID
+                              pp:(NSString *)pp
+                        delegate:(id <GameMenuMoveUnitViewDelegate>)delegate
+                             tag:(NSInteger)tag;
 - (void)setButtonEnabled:(BOOL)enabled;
+- (void)setButtonSelected:(BOOL)selected;
 
 @end

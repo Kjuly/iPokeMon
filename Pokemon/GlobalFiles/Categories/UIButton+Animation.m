@@ -25,6 +25,23 @@
                   completion:completion];
 }
 
+// trainsition button's image & background image
+- (void)transitionToImage:(UIImage *)image
+      withBackgroundImage:(UIImage *)backgroundImage
+                 forState:(UIControlState)state
+                 duration:(NSTimeInterval)duration
+                  options:(UIViewAnimationOptions)options
+               completion:(void (^)(BOOL finished))completion {
+  [UIView transitionWithView:self
+                    duration:duration
+                     options:options
+                  animations:^{
+                    [self setImage:image forState:state];
+                    [self setBackgroundImage:backgroundImage forState:state];
+                  }
+                  completion:completion];
+}
+
 // trainsition button's image only
 - (void)transitionToImage:(UIImage *)image
                  forState:(UIControlState)state
@@ -64,6 +81,18 @@
                       duration:.3f
                        options:options
                     completion:nil];
+}
+
+// trainsition button's image & background image
+- (void)transitionToImage:(UIImage *)image
+      withBackgroundImage:(UIImage *)backgroundImage
+                  options:(UIViewAnimationOptions)options {
+  [self transitionToImage:image
+      withBackgroundImage:backgroundImage
+                 forState:UIControlStateNormal
+                 duration:.3f
+                  options:options
+               completion:nil];
 }
 
 // trainsition button's image only

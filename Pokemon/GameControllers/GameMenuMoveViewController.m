@@ -203,22 +203,22 @@
   GameMenuMoveUnitView * moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
   Move * move = [self.playerPokemon moveWithIndex:moveIndex];
   if (move == nil) {
-    [moveUnitView configureMoveUnitWithName:@"- - -"
-                                         pp:nil
-                                   delegate:nil
-                                        tag:-1];
+    [moveUnitView configureMoveUnitWithSID:0
+                                        pp:nil
+                                  delegate:nil
+                                      tag:-1];
     [moveUnitView setButtonEnabled:NO];
     moveUnitView = nil;
     return;
   }
   
   NSInteger currPPIndex = (moveIndex - 1) * 2;
-  [moveUnitView configureMoveUnitWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
-                                       pp:[NSString stringWithFormat:@"%d / %d",
-                                           [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
-                                           [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
-                                 delegate:self
-                                      tag:moveIndex];
+  [moveUnitView configureMoveUnitWithSID:[move.sid intValue]
+                                      pp:[NSString stringWithFormat:@"%d / %d",
+                                          [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+                                          [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
+                                delegate:self
+                                    tag:moveIndex];
   move = nil;
   
   // Change Text color if needed
@@ -265,6 +265,13 @@
 - (void)_unloadMoveDetailRoundViewAnimated:(BOOL)animated {
   if (currSelectedMoveIndex_ == 0)
     return;
+  
+  // unselected Move
+  GameMenuMoveUnitView * moveUnitView;
+  moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + currSelectedMoveIndex_)];
+  [moveUnitView setButtonSelected:NO];
+  moveUnitView = nil;
+  
   currSelectedMoveIndex_ = 0;
   // set up animations if it is not initialized
   if (self.unloadAnimationGroup == nil) {
@@ -341,8 +348,14 @@
 // show detail for selected Move
 - (void)showDetail:(id)sender {
   NSInteger moveIndex = ((UIButton *)sender).tag;
-  if (currSelectedMoveIndex_ == moveIndex)
+  if (currSelectedMoveIndex_ == moveIndex) {
+    [self _useSelectedMove:sender];
     return;
+  }
+  
+  GameMenuMoveUnitView * moveUnitView;
+  moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
+  [moveUnitView setButtonSelected:YES];
   
   // load |moveDetailView_| is no Move is selected
   // otherwise, switch content for different Moves
@@ -351,8 +364,13 @@
     [self.view insertSubview:self.moveDetailRoundView atIndex:0];
     [self _loadMoveDetailRoundViewAnimated:YES];
   }
-  else [self _switchContentForMoveDetailRoundViewAnimated:YES];
+  else {
+    [self _switchContentForMoveDetailRoundViewAnimated:YES];
+    moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + currSelectedMoveIndex_)];
+    [moveUnitView setButtonSelected:NO];
+  }
   currSelectedMoveIndex_ = moveIndex;
+  moveUnitView = nil;
   
   void (^completion)(BOOL) = ^(BOOL finished) {
     Move * move = [self.playerPokemon moveWithIndex:moveIndex];

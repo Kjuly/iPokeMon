@@ -192,6 +192,7 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINIconShowWorld @"IconShowWorld.png"
 // Pokemon related icons
 #define kPMINIconPMGender         @"IconPokemonGender%d.png" // %d: 0(F) - 1(M)
+#define kPMINIconMoveBackground   @"IconMoveBackground.png"
 // bag table view related icons
 #define kPMINIconBagTableViewCell     @"BagTableViewCellIcon_%d.png" // %d: 1 - 8
 #define kPMINIconCurrencyExchange     @"CurrencyExchangeIcon.png"

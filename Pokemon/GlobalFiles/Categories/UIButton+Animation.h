@@ -17,6 +17,14 @@
                        options:(UIViewAnimationOptions)options
                     completion:(void (^)(BOOL finished))completion;
 
+// trainsition button's image & background image
+- (void)transitionToImage:(UIImage *)image
+      withBackgroundImage:(UIImage *)backgroundImage
+                 forState:(UIControlState)state
+                 duration:(NSTimeInterval)duration
+                  options:(UIViewAnimationOptions)options
+               completion:(void (^)(BOOL finished))completion;
+
 // trainsition button's image only
 - (void)transitionToImage:(UIImage *)image
                  forState:(UIControlState)state
@@ -34,6 +42,10 @@
 // default setting methods for above
 - (void)transitionTotalToImage:(UIImage *)image
                        options:(UIViewAnimationOptions)options;
+
+- (void)transitionToImage:(UIImage *)image
+      withBackgroundImage:(UIImage *)backgroundImage
+                  options:(UIViewAnimationOptions)options;
 
 - (void)transitionToImage:(UIImage *)image
                   options:(UIViewAnimationOptions)options;

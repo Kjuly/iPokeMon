@@ -8,17 +8,20 @@
 
 #import "GameMenuMoveUnitView.h"
 
+#import "UIButton+Animation.h"
 #import "GlobalRender.h"
 
 @interface GameMenuMoveUnitView () {
 @private
   id <GameMenuMoveUnitViewDelegate> delegate_;
-  UIButton * viewButton_;
+  UIButton * moveButton_;
   UILabel  * pp_;
+  
+  NSInteger moveSID_;
 }
 
 @property (nonatomic, assign) id <GameMenuMoveUnitViewDelegate> delegate;
-@property (nonatomic, retain) UIButton * viewButton;
+@property (nonatomic, retain) UIButton * moveButton;
 @property (nonatomic, retain) UILabel  * pp;
 
 @end
@@ -27,12 +30,12 @@
 
 @synthesize delegate = delegate_;
 
-@synthesize viewButton = viewButton_;
+@synthesize moveButton = moveButton_;
 @synthesize pp         = pp_;
 
 -(void)dealloc {
   self.delegate   = nil;
-  self.viewButton = nil;
+  self.moveButton = nil;
   self.pp         = nil;
   [super dealloc];
 }
@@ -49,17 +52,16 @@
 //    CGRect  const ppFrame     = CGRectMake(nameFrame.origin.x, 20.f + labelHeight, 60.f, labelHeight);
     CGRect  const viewButtonFrame = CGRectMake((frameWidth - buttonSize) / 2.f, (frameHeight - buttonSize) / 2.f, buttonSize, buttonSize);
     
-    viewButton_ = [[UIButton alloc] initWithFrame:viewButtonFrame];
-    [viewButton_ setBackgroundColor:[UIColor clearColor]];
-    [viewButton_.titleLabel setTextAlignment:UITextAlignmentCenter];
-    [viewButton_ setBackgroundImage:[UIImage imageNamed:@"IconMoveBackground.png"]
+    moveButton_ = [[UIButton alloc] initWithFrame:viewButtonFrame];
+    [moveButton_ setBackgroundColor:[UIColor clearColor]];
+    [moveButton_.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [moveButton_ setBackgroundImage:[UIImage imageNamed:kPMINIconMoveBackground]
                            forState:UIControlStateNormal];
-//    [viewButton_ setImage:[UIImage imageNamed:@"IconMoveBackground.png"]
-//                 forState:UIControlStateNormal];
-    [viewButton_ addTarget:self.delegate
+    [moveButton_ setImage:nil forState:UIControlStateNormal];
+    [moveButton_ addTarget:self.delegate
                     action:@selector(showDetail:)
           forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:viewButton_];
+    [self addSubview:moveButton_];
     
 //    pp_ = [[UILabel alloc] initWithFrame:ppFrame];
 //    [pp_ setBackgroundColor:[UIColor clearColor]];
@@ -82,40 +84,54 @@
 
 #pragma mark - Public Methods
 
-- (void)configureMoveUnitWithName:(NSString *)name
-                               pp:(NSString *)pp
-                         delegate:(id<GameMenuMoveUnitViewDelegate>)delegate
-                              tag:(NSInteger)tag {
-  NSString * localizedName = NSLocalizedString(name, nil);
-  if (! [self.viewButton.titleLabel.text isEqualToString:localizedName]) {
+- (void)configureMoveUnitWithSID:(NSInteger)SID
+                              pp:(NSString *)pp
+                        delegate:(id<GameMenuMoveUnitViewDelegate>)delegate
+                             tag:(NSInteger)tag {
+  moveSID_ = SID;
+  NSString * localizedName = SID ? NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", SID]), nil) : @"- - -";
+  if (! [self.moveButton.titleLabel.text isEqualToString:localizedName]) {
     CGFloat fontSize;
     if (localizedName.length <= 7)       fontSize = 12.f;
     else if (localizedName.length <= 12) fontSize = 8.f;
     else                                 fontSize = 6.f;
-    [self.viewButton.titleLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:fontSize]];
-    [self.viewButton setTitle:localizedName forState:UIControlStateNormal];
+    [self.moveButton.titleLabel setFont:[GlobalRender textFontBoldItalicInSizeOf:fontSize]];
+    [self.moveButton setTitle:localizedName forState:UIControlStateNormal];
   }
   
 //  [self.pp setText:pp];
   
   self.delegate = delegate;
-  [self.viewButton setTag:tag];
-  [self.viewButton setEnabled:YES];
+  [self.moveButton setTag:tag];
+  [self.moveButton setEnabled:YES];
 }
 
-// toggle |viewButton_|
+// toggle |moveButton_|
 - (void)setButtonEnabled:(BOOL)enabled {
-//  [self.viewButton setEnabled:enabled];
-  
   // Change Text color if needed
   if (enabled) {
-    [self.viewButton setEnabled:YES];
-    [self.viewButton.titleLabel setTextColor:[GlobalRender textColorTitleWhite]];
+    [self.moveButton setEnabled:YES];
+    [self.moveButton.titleLabel setTextColor:[GlobalRender textColorTitleWhite]];
 //    [self.pp setTextColor:[GlobalRender textColorOrange]];
   } else {
-    [self.viewButton setEnabled:NO];
-    [self.viewButton.titleLabel setTextColor:[GlobalRender textColorDisabled]];
+    [self.moveButton setEnabled:NO];
+    [self.moveButton.titleLabel setTextColor:[GlobalRender textColorDisabled]];
 //    [self.pp setTextColor:[GlobalRender textColorDisabled]];
+  }
+}
+
+// set |moveButton_| as selected
+- (void)setButtonSelected:(BOOL)selected {
+  if (selected) {
+    [self.moveButton transitionToImage:[UIImage imageNamed:kPMINMainButtonConfirm]
+                               options:UIViewAnimationOptionTransitionCrossDissolve];
+    [self.moveButton setTitle:nil forState:UIControlStateNormal];
+  }
+  else {
+    [self.moveButton transitionToImage:nil
+                               options:UIViewAnimationOptionTransitionCrossDissolve];
+    [self.moveButton setTitle:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveSID_]), nil)
+                     forState:UIControlStateNormal];
   }
 }
 
