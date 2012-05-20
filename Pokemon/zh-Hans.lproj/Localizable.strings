@@ -141,12 +141,12 @@
 "BagMedicine3" = "PP回复";
 
 // Game
-"PMSGameMenuBagItem1" = "状态回复";
-"PMSGameMenuBagItem2" = "HP 回复";
-"PMSGameMenuBagItem3" = "PP 回复";
-"PMSGameMenuBagItem4" = "树果";
-"PMSGameMenuBagItem5" = "精灵球";
-"PMSGameMenuBagItem6" = "战斗辅助";
+//"PMSGameMenuBagItem1" = "状态回复";
+//"PMSGameMenuBagItem2" = "HP 回复";
+//"PMSGameMenuBagItem3" = "PP 回复";
+//"PMSGameMenuBagItem4" = "树果";
+//"PMSGameMenuBagItem5" = "精灵球";
+//"PMSGameMenuBagItem6" = "战斗辅助";
 "PMSRunConfirmViewText" = "确认要逃跑吗？";
 
 // Text Message

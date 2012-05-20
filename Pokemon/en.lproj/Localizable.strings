@@ -142,12 +142,12 @@
 "BagMedicine3" = "PP Restore";
 
 // Game
-"PMSGameMenuBagItem1" = "Status Healers";
-"PMSGameMenuBagItem2" = "HP Restore";
-"PMSGameMenuBagItem3" = "PP Restore";
-"PMSGameMenuBagItem4" = "Berries";
-"PMSGameMenuBagItem5" = "PokeBalls";
-"PMSGameMenuBagItem6" = "Battle Items";
+//"PMSGameMenuBagItem1" = "Status Healers";
+//"PMSGameMenuBagItem2" = "HP Restore";
+//"PMSGameMenuBagItem3" = "PP Restore";
+//"PMSGameMenuBagItem4" = "Berries";
+//"PMSGameMenuBagItem5" = "PokeBalls";
+//"PMSGameMenuBagItem6" = "Battle Items";
 "PMSRunConfirmViewText" = "Are you sure run away?";
 
 // Text Message
