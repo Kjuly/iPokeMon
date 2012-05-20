@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameMenuMoveUnitView : UIView {
-  UILabel  * type1_;
-  UILabel  * name_;
-  UILabel  * pp_;
-  UIButton * viewButton_;
-}
+@protocol GameMenuMoveUnitViewDelegate <NSObject>
+- (void)showDetail:(id)sender;
+@end
 
-@property (nonatomic, retain) UILabel  * type1;
-@property (nonatomic, retain) UILabel  * name;
-@property (nonatomic, retain) UILabel  * pp;
-@property (nonatomic, retain) UIButton * viewButton;
+@interface GameMenuMoveUnitView : UIView
+
+// localization job is done in this method
+- (void)configureMoveUnitWithName:(NSString *)name
+                             icon:(UIImage *)icon
+                             type:(NSString *)type
+                               pp:(NSString *)pp
+                         delegate:(id <GameMenuMoveUnitViewDelegate>)delegate
+                              tag:(NSInteger)tag
+                              odd:(BOOL)odd;
+- (void)setButtonEnabled:(BOOL)enabled;
 
 @end

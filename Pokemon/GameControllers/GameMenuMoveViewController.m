@@ -12,7 +12,6 @@
 #import "GameStatusMachine.h"
 #import "GameSystemProcess.h"
 #import "TrainerTamedPokemon+DataController.h"
-#import "GameMenuMoveUnitView.h"
 
 
 @interface GameMenuMoveViewController () {
@@ -89,12 +88,13 @@
   [super viewDidLoad];
   
   // Constants
-  CGFloat moveViewHeight = (kViewHeight - 20.f) / 4.f;
-  CGFloat moveViewWidth  = kViewWidth - 10.f;
-  CGRect moveOneViewFrame   = CGRectMake(0.f, 0.f,                moveViewWidth, moveViewHeight);
-  CGRect moveTwoViewFrame   = CGRectMake(0.f, moveViewHeight,     moveViewWidth, moveViewHeight);
-  CGRect moveThreeViewFrame = CGRectMake(0.f, moveViewHeight * 2, moveViewWidth, moveViewHeight);
-  CGRect moveFourViewFrame  = CGRectMake(0.f, moveViewHeight * 3, moveViewWidth, moveViewHeight);
+  CGFloat moveViewHeight = 88.f;
+  CGFloat moveViewWidth  = 88.f;
+  CGFloat marginTop      = (kViewHeight - 20.f - 88.f * 4);
+  CGRect moveOneViewFrame   = CGRectMake(0.f, marginTop,                moveViewWidth, moveViewHeight);
+  CGRect moveTwoViewFrame   = CGRectMake(0.f, marginTop + moveViewHeight,     moveViewWidth, moveViewHeight);
+  CGRect moveThreeViewFrame = CGRectMake(0.f, marginTop + moveViewHeight * 2, moveViewWidth, moveViewHeight);
+  CGRect moveFourViewFrame  = CGRectMake(0.f, marginTop + moveViewHeight * 3, moveViewWidth, moveViewHeight);
   
   // Set Four Moves' layout
   move1View_ = [[GameMenuMoveUnitView alloc] initWithFrame:moveOneViewFrame];
@@ -106,19 +106,19 @@
   [move3View_ setTag:103];
   [move4View_ setTag:104];
   
-  [move1View_.viewButton setTag:1];
-  [move2View_.viewButton setTag:2];
-  [move3View_.viewButton setTag:3];
-  [move4View_.viewButton setTag:4];
-  
-  [move1View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-                  forControlEvents:UIControlEventTouchUpInside];
-  [move2View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-                  forControlEvents:UIControlEventTouchUpInside];
-  [move3View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-                  forControlEvents:UIControlEventTouchUpInside];
-  [move4View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
-                  forControlEvents:UIControlEventTouchUpInside];
+//  [move1View_.viewButton setTag:1];
+//  [move2View_.viewButton setTag:2];
+//  [move3View_.viewButton setTag:3];
+//  [move4View_.viewButton setTag:4];
+//  
+//  [move1View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
+//                  forControlEvents:UIControlEventTouchUpInside];
+//  [move2View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
+//                  forControlEvents:UIControlEventTouchUpInside];
+//  [move3View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
+//                  forControlEvents:UIControlEventTouchUpInside];
+//  [move4View_.viewButton addTarget:self action:@selector(_useSelectedMove:)
+//                  forControlEvents:UIControlEventTouchUpInside];
   
   [self.tableAreaView addSubview:move1View_];
   [self.tableAreaView addSubview:move2View_];
@@ -176,35 +176,60 @@
   GameMenuMoveUnitView * moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
   Move * move = [self.playerPokemon moveWithIndex:moveIndex];
   if (move == nil) {
-    [moveUnitView.type1 setText:nil];
-    [moveUnitView.name  setText:nil];
-    [moveUnitView.pp    setText:nil];
-    [moveUnitView.viewButton setEnabled:NO];
+    [moveUnitView configureMoveUnitWithName:nil
+                                       icon:nil
+                                       type:nil
+                                         pp:nil
+                                   delegate:nil
+                                        tag:-1
+                                        odd:NO];
+    [moveUnitView setButtonEnabled:NO];
+//    [moveUnitView.type1 setText:nil];
+//    [moveUnitView.name  setText:nil];
+//    [moveUnitView.pp    setText:nil];
+//    [moveUnitView.viewButton setEnabled:NO];
     moveUnitView = nil;
     return;
   }
   
-  [moveUnitView.type1 setText:
-   NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
-  [moveUnitView.name setText:
-   NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
+//  [moveUnitView.type1 setText:
+//   NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]), nil)];
+//  [moveUnitView.name setText:
+//   NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]), nil)];
   NSInteger currPPIndex = (moveIndex - 1) * 2;
-  [moveUnitView.pp setText:[NSString stringWithFormat:@"%d / %d",
-                              [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
-                              [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]];
+//  [moveUnitView.pp setText:[NSString stringWithFormat:@"%d / %d",
+//                              [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+//                              [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]];
+  [moveUnitView configureMoveUnitWithName:[NSString stringWithFormat:@"PMSMove%.3d", [move.sid intValue]]
+                                     icon:nil//[UIImage imageNamed:[NSString stringWithFormat:@"IconMove%d.png", moveIndex]]
+                                     type:[NSString stringWithFormat:@"PMSType%.2d", [move.type intValue]]
+                                       pp:[NSString stringWithFormat:@"%d / %d",
+                                           [[fourMovesPP_ objectAtIndex:currPPIndex] intValue],
+                                           [[fourMovesPP_ objectAtIndex:(currPPIndex + 1)] intValue]]
+                                 delegate:self
+                                      tag:moveIndex
+                                      odd:NO];
   move = nil;
   
   // Change Text color if needed
   if ([[fourMovesPP_ objectAtIndex:currPPIndex] intValue] <= 0) {
-    [moveUnitView.name setTextColor:[GlobalRender textColorDisabled]];
-    [moveUnitView.pp setTextColor:[GlobalRender textColorDisabled]];
-    [moveUnitView.viewButton setEnabled:NO];
+//    [moveUnitView.name setTextColor:[GlobalRender textColorDisabled]];
+//    [moveUnitView.pp setTextColor:[GlobalRender textColorDisabled]];
+//    [moveUnitView.viewButton setEnabled:NO];
+    [moveUnitView setButtonEnabled:NO];
   } else {
-    [moveUnitView.name setTextColor:[GlobalRender textColorTitleWhite]];
-    [moveUnitView.pp setTextColor:[GlobalRender textColorOrange]];
-    [moveUnitView.viewButton setEnabled:YES];
+//    [moveUnitView.name setTextColor:[GlobalRender textColorTitleWhite]];
+//    [moveUnitView.pp setTextColor:[GlobalRender textColorOrange]];
+//    [moveUnitView.viewButton setEnabled:YES];
+    [moveUnitView setButtonEnabled:YES];
   }
   moveUnitView = nil;
+}
+
+#pragma mark - GameMenuMoveUnitView Delegate
+
+- (void)showDetail:(id)sender {
+  NSLog(@"showDetail");
 }
 
 @end

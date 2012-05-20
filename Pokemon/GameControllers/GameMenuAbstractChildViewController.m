@@ -56,16 +56,15 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
-  [view setBackgroundColor:[UIColor whiteColor]];
+  [view setBackgroundColor:[UIColor clearColor]];
   
   // Create Table Area View
-  CGRect tableAreaViewFrame  = CGRectMake(0.f, 8.f, 312.f, kViewHeight - 16.f);
+  CGRect tableAreaViewFrame  = CGRectMake(0.f, 0.f, 88.f, kViewHeight);
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
-  [self.tableAreaView setBackgroundColor:
-   [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
-  [self.tableAreaView setOpaque:NO];
+//  [self.tableAreaView setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.8f]];
+//  [self.tableAreaView setOpaque:NO];
   [view addSubview:self.tableAreaView];
   
   self.view = view;

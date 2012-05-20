@@ -17,12 +17,14 @@
 + (UIColor *)textColorNormal;
 + (UIColor *)textColorBlue;
 + (UIColor *)textColorOrange;
++ (UIColor *)textColorGolden;
 + (UIColor *)textColorRed;
 + (UIColor *)textColorTitleWhite;
 
 + (UIColor *)textColorDisabled;
 
 + (UIColor *)colorOrange;
++ (UIColor *)colorGolden;
 + (UIColor *)colorBlue;
 + (UIColor *)colorGray;
 

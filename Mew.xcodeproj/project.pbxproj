@@ -463,6 +463,16 @@
 		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
 		7FC5B16E154EE00F001CECBA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16D154EE00F001CECBA /* Reachability.m */; };
+		7FCBFE401568BB5F001C8BAB /* IconMove1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE381568BB5F001C8BAB /* IconMove1.png */; };
+		7FCBFE411568BB5F001C8BAB /* IconMove1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE391568BB5F001C8BAB /* IconMove1@2x.png */; };
+		7FCBFE421568BB5F001C8BAB /* IconMove2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3A1568BB5F001C8BAB /* IconMove2.png */; };
+		7FCBFE431568BB5F001C8BAB /* IconMove2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3B1568BB5F001C8BAB /* IconMove2@2x.png */; };
+		7FCBFE441568BB5F001C8BAB /* IconMove3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3C1568BB5F001C8BAB /* IconMove3.png */; };
+		7FCBFE451568BB5F001C8BAB /* IconMove3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3D1568BB5F001C8BAB /* IconMove3@2x.png */; };
+		7FCBFE461568BB5F001C8BAB /* IconMove4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3E1568BB5F001C8BAB /* IconMove4.png */; };
+		7FCBFE471568BB5F001C8BAB /* IconMove4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE3F1568BB5F001C8BAB /* IconMove4@2x.png */; };
+		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
+		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
 		7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */; };
 		7FCD7D7F1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */; };
 		7FCD7D801500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD7D7E1500BAA6000783CF /* MainViewBackgroundBlackWithFog@2x.png */; };
@@ -1252,6 +1262,16 @@
 		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
 		7FC5B16C154EE00F001CECBA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7FC5B16D154EE00F001CECBA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		7FCBFE381568BB5F001C8BAB /* IconMove1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMove1.png; sourceTree = "<group>"; };
+		7FCBFE391568BB5F001C8BAB /* IconMove1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMove1@2x.png"; sourceTree = "<group>"; };
+		7FCBFE3A1568BB5F001C8BAB /* IconMove2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMove2.png; sourceTree = "<group>"; };
+		7FCBFE3B1568BB5F001C8BAB /* IconMove2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMove2@2x.png"; sourceTree = "<group>"; };
+		7FCBFE3C1568BB5F001C8BAB /* IconMove3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMove3.png; sourceTree = "<group>"; };
+		7FCBFE3D1568BB5F001C8BAB /* IconMove3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMove3@2x.png"; sourceTree = "<group>"; };
+		7FCBFE3E1568BB5F001C8BAB /* IconMove4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMove4.png; sourceTree = "<group>"; };
+		7FCBFE3F1568BB5F001C8BAB /* IconMove4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMove4@2x.png"; sourceTree = "<group>"; };
+		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
+		7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMoveBackground@2x.png"; sourceTree = "<group>"; };
 		7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FCD7D7615008AE4000783CF /* CenterMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FCD7D7D1500BAA6000783CF /* MainViewBackgroundBlackWithFog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewBackgroundBlackWithFog.png; sourceTree = "<group>"; };
@@ -2499,6 +2519,16 @@
 				7F45112915566E700059CA6F /* IconLocateMe@2x.png */,
 				7F45112A15566E700059CA6F /* IconShowWorld.png */,
 				7F45112B15566E700059CA6F /* IconShowWorld@2x.png */,
+				7FCBFE491568C331001C8BAB /* IconMoveBackground.png */,
+				7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */,
+				7FCBFE381568BB5F001C8BAB /* IconMove1.png */,
+				7FCBFE391568BB5F001C8BAB /* IconMove1@2x.png */,
+				7FCBFE3A1568BB5F001C8BAB /* IconMove2.png */,
+				7FCBFE3B1568BB5F001C8BAB /* IconMove2@2x.png */,
+				7FCBFE3C1568BB5F001C8BAB /* IconMove3.png */,
+				7FCBFE3D1568BB5F001C8BAB /* IconMove3@2x.png */,
+				7FCBFE3E1568BB5F001C8BAB /* IconMove4.png */,
+				7FCBFE3F1568BB5F001C8BAB /* IconMove4@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -2927,6 +2957,16 @@
 				7F45112D15566E700059CA6F /* IconLocateMe@2x.png in Resources */,
 				7F45112E15566E700059CA6F /* IconShowWorld.png in Resources */,
 				7F45112F15566E700059CA6F /* IconShowWorld@2x.png in Resources */,
+				7FCBFE401568BB5F001C8BAB /* IconMove1.png in Resources */,
+				7FCBFE411568BB5F001C8BAB /* IconMove1@2x.png in Resources */,
+				7FCBFE421568BB5F001C8BAB /* IconMove2.png in Resources */,
+				7FCBFE431568BB5F001C8BAB /* IconMove2@2x.png in Resources */,
+				7FCBFE441568BB5F001C8BAB /* IconMove3.png in Resources */,
+				7FCBFE451568BB5F001C8BAB /* IconMove3@2x.png in Resources */,
+				7FCBFE461568BB5F001C8BAB /* IconMove4.png in Resources */,
+				7FCBFE471568BB5F001C8BAB /* IconMove4@2x.png in Resources */,
+				7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */,
+				7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

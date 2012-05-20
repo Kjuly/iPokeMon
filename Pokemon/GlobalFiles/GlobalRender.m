@@ -50,6 +50,11 @@
   return [self colorOrange];
 }
 
+// Golden
++ (UIColor *)textColorGolden {
+  return [self colorGolden];
+}
+
 // Red |
 + (UIColor *)textColorRed {
   return [UIColor redColor];
@@ -69,6 +74,13 @@
   return [UIColor colorWithRed:238.0f / 255.0f
                          green:153.0f / 255.0f
                           blue:17.0f  / 255.0f
+                         alpha:1.0f];
+}
+
++ (UIColor *)colorGolden {
+  return [UIColor colorWithRed:217.0f / 255.0f
+                         green:183.0f / 255.0f
+                          blue:112.0f  / 255.0f
                          alpha:1.0f];
 }
 
