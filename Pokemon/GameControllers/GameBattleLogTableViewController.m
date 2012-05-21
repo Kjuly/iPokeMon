@@ -174,10 +174,17 @@
       [[[self.logs objectAtIndex:0] valueForKey:@"type"] intValue]
         != kMEWGameBattleLogTypeAskingForUserAction) {
     [self.logs insertObject:logDetail atIndex:0];
+    
+    if ([self.logs count])
+      [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]]
+                            withRowAnimation:UITableViewRowAnimationTop];
+    else [self.tableView reloadData];
   }
-  else [self.logs replaceObjectAtIndex:0 withObject:logDetail];
+  else {
+    [self.logs replaceObjectAtIndex:0 withObject:logDetail];
+    [self.tableView reloadData];
+  }
   [logDetail release];
-  [self.tableView reloadData];
 }
 
 @end
