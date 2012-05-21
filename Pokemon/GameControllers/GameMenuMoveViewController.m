@@ -246,7 +246,6 @@
     animationFade.duration = duration * .4f;
     animationFade.fromValue = [NSNumber numberWithFloat:0.f];
     animationFade.toValue = [NSNumber numberWithFloat:1.f];
-    animationFade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     animationFade.fillMode = kCAFillModeForwards;
     
     self.loadAnimationGroup = [CAAnimationGroup animation];
@@ -256,7 +255,8 @@
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
     [self.loadAnimationGroup setAnimations:animations];
     [animations release];
-    [self.loadAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.loadAnimationGroup setTimingFunction:
+      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
   [self.moveDetailRoundView.layer addAnimation:self.loadAnimationGroup forKey:@"loadAnimation"];
 }
@@ -288,7 +288,6 @@
     animationFade.duration = duration * .8f;
     animationFade.fromValue = [NSNumber numberWithFloat:1.f];
     animationFade.toValue = [NSNumber numberWithFloat:0.f];
-    animationFade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     animationFade.fillMode = kCAFillModeForwards;
     
     self.unloadAnimationGroup = [CAAnimationGroup animation];
@@ -298,7 +297,8 @@
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
     [self.unloadAnimationGroup setAnimations:animations];
     [animations release];
-    [self.unloadAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.unloadAnimationGroup setTimingFunction:
+      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
   [self.moveDetailRoundView.layer addAnimation:self.unloadAnimationGroup forKey:@"unloadAnimation"];
 }
@@ -312,8 +312,12 @@
     animationScale.duration = duration;
     animationScale.values = [NSArray arrayWithObjects:
                              [NSNumber numberWithFloat:1.f],
-                             [NSNumber numberWithFloat:.9f],
+                             [NSNumber numberWithFloat:.6f],
                              [NSNumber numberWithFloat:1.f], nil];
+    animationScale.timingFunctions =
+      [NSArray arrayWithObjects:
+        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn], nil];
         
     self.switchAnimationGroup = [CAAnimationGroup animation];
     self.switchAnimationGroup.delegate = self;
@@ -322,7 +326,6 @@
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, nil];
     [self.switchAnimationGroup setAnimations:animations];
     [animations release];
-    [self.switchAnimationGroup setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
   [self.moveDetailRoundView.layer addAnimation:self.switchAnimationGroup forKey:@"switchAnimation"];
 }
