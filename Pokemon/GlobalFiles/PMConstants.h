@@ -392,6 +392,7 @@ typedef enum {
 #define kCellHeightOfCurrencyExchange       128.f
 #define kCellHeightOfSettingTableView       44.f
 #define kCellHeightOfSettingTableViewCenterTitleStyle 64.f // center title style: feedback, logout
+#define kCellHeightOfGameBattleLogTableView 50.f
 // Header
 #define kSectionHeaderHeightOfSettingTableView 32.f
 // Others

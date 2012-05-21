@@ -816,29 +816,35 @@ typedef enum {
   
   // Different colors for different type of message owner (action user)
   id user = [userInfo objectForKey:@"user"];
+  MEWGameBattleLogType gameBattleLogType = kMEWGameBattleLogTypeNormal;
   if (user != nil) {
     switch ([user intValue]) {
       case kGameSystemProcessUserPlayer:
-        [self.messageView setTextColor:[GlobalRender textColorBlue]];
+        gameBattleLogType = kMEWGameBattleLogTypePlayerPMAttack;
         break;
         
       case kGameSystemProcessUserEnemy:
-        [self.messageView setTextColor:[GlobalRender textColorRed]];
+        gameBattleLogType = kMEWGameBattleLogTypeEnemyPMAttack;
         break;
         
       case -1: // What will XXX do?
-        [self.messageView setTextColor:[GlobalRender textColorOrange]];
+        gameBattleLogType = kMEWGameBattleLogTypeAskingForUserAction;
         break;
         
       default:
-        [self.messageView setTextColor:[GlobalRender textColorNormal]];
+        gameBattleLogType = kMEWGameBattleLogTypeNormal;
         break;
     }
   }
-  else [self.messageView setTextColor:[GlobalRender textColorNormal]];
+//  else [self.messageView setTextColor:[GlobalRender textColorNormal]];
   
   // Update message
-  [self.messageView setText:[userInfo objectForKey:@"message"]];
+//  [self.messageView setText:[userInfo objectForKey:@"message"]];
+  
+  //////
+  [self.gameBattleLogTableViewController pushLog:[userInfo objectForKey:@"message"]
+                                     description:@""
+                                         forType:gameBattleLogType];
 }
 
 // Update Pokemon's Status

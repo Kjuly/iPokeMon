@@ -11,18 +11,22 @@
 @interface GameBattleLogTableViewController () {
  @private
   NSMutableArray * logs_;
+  NSDictionary   * logForWaitingUserAction_;
 }
 
 @property (nonatomic, copy) NSMutableArray * logs;
+@property (nonatomic, copy) NSDictionary   * logForWaitingUserAction;
 
 @end
 
 @implementation GameBattleLogTableViewController
 
-@synthesize logs = logs_;
+@synthesize logs                    = logs_;
+@synthesize logForWaitingUserAction = logForWaitingUserAction_;
 
 - (void)dealloc {
-  self.logs = nil;
+  self.logs                    = nil;
+  self.logForWaitingUserAction = nil;
   [super dealloc];
 }
 
@@ -48,6 +52,18 @@
   [self.view setBackgroundColor:[UIColor clearColor]];
   
   logs_ = [[NSMutableArray alloc] init];
+//  NSString * log;
+//  log = [NSString stringWithFormat:@"%@ %@ %@",
+//         NSLocalizedString(@"PMSMessageWhatWillXXXDoPart1", nil),
+//         NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+//                             [playerPokemon.sid intValue]]), nil),
+//         NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
+//  logForWaitingUserAction_ = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                              [NSNumber numberWithInt:kMEWGameBattleLogTypeNormal], @"type",
+//                              log, @"log",
+//                              nil, @"description", nil];
+    
+//  else log = NSLocalizedString(@"PMSMessageChooseNewPokemon", nil);
 }
 
 - (void)viewDidUnload {
@@ -68,17 +84,26 @@
   return [self.logs count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kCellHeightOfGameBattleLogTableView;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  GameBattleLogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                   reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[GameBattleLogTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                              reuseIdentifier:CellIdentifier] autorelease];
   }
   
   // Configure the cell...
-  
+  NSDictionary * logDetail = [self.logs objectAtIndex:indexPath.row];
+  [cell configureCellWithType:[[logDetail valueForKey:@"type"] intValue]
+                          log:[logDetail valueForKey:@"log"]
+                  description:[logDetail valueForKey:@"description"]
+                          odd:(([self.logs count] - indexPath.row) % 2 == 1)];
+  logDetail = nil;
   return cell;
 }
 
@@ -133,6 +158,26 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+#pragma mark - Public Methods
+
+// push new log to |logs_|
+- (void)pushLog:(NSString *)log
+    description:(NSString *)description
+        forType:(MEWGameBattleLogType)type {
+  NSDictionary * logDetail = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              log,                           @"log",
+                              description,                   @"description",
+                              [NSNumber numberWithInt:type], @"type", nil];
+  if ([self.logs count] == 0 ||
+      [[[self.logs objectAtIndex:0] valueForKey:@"type"] intValue]
+        != kMEWGameBattleLogTypeAskingForUserAction) {
+    [self.logs insertObject:logDetail atIndex:0];
+  }
+  else [self.logs replaceObjectAtIndex:0 withObject:logDetail];
+  [logDetail release];
+  [self.tableView reloadData];
 }
 
 @end

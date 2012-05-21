@@ -98,6 +98,7 @@
 		7F34876E1532A16500A5244F /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F34876D1532A16500A5244F /* Trainer.m */; };
 		7F37216E15283A10007D9A00 /* IconSettingModify.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F37216C15283A10007D9A00 /* IconSettingModify.png */; };
 		7F37216F15283A10007D9A00 /* IconSettingModify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */; };
+		7F379DE01569FFDC008D2C6C /* GameBattleLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F379DDF1569FFDC008D2C6C /* GameBattleLogTableViewCell.m */; };
 		7F3B66771541351A0036EC18 /* MainViewCenterButtonImageWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B6675154135190036EC18 /* MainViewCenterButtonImageWarning.png */; };
 		7F3B66781541351A0036EC18 /* MainViewCenterButtonImageWarning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B6676154135190036EC18 /* MainViewCenterButtonImageWarning@2x.png */; };
 		7F3B667B154136450036EC18 /* MainViewCenterButtonImageCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B6679154136430036EC18 /* MainViewCenterButtonImageCancel.png */; };
@@ -700,6 +701,8 @@
 		7F34876D1532A16500A5244F /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
 		7F37216C15283A10007D9A00 /* IconSettingModify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconSettingModify.png; sourceTree = "<group>"; };
 		7F37216D15283A10007D9A00 /* IconSettingModify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconSettingModify@2x.png"; sourceTree = "<group>"; };
+		7F379DDB1569FFB9008D2C6C /* GameBattleLogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleLogTableViewCell.h; sourceTree = "<group>"; };
+		7F379DDF1569FFDC008D2C6C /* GameBattleLogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLogTableViewCell.m; sourceTree = "<group>"; };
 		7F3B6675154135190036EC18 /* MainViewCenterButtonImageWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageWarning.png; sourceTree = "<group>"; };
 		7F3B6676154135190036EC18 /* MainViewCenterButtonImageWarning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageWarning@2x.png"; sourceTree = "<group>"; };
 		7F3B6679154136430036EC18 /* MainViewCenterButtonImageCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageCancel.png; sourceTree = "<group>"; };
@@ -2316,6 +2319,8 @@
 			children = (
 				7F566BB71569582D00BC111B /* MEWRoundView.h */,
 				7F566BB81569582D00BC111B /* MEWRoundView.m */,
+				7F379DDB1569FFB9008D2C6C /* GameBattleLogTableViewCell.h */,
+				7F379DDF1569FFDC008D2C6C /* GameBattleLogTableViewCell.m */,
 				7F77F6FF14FAA16C00842700 /* GameMenuMoveUnitView.h */,
 				7F77F70014FAA16C00842700 /* GameMenuMoveUnitView.m */,
 				7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */,
@@ -3303,6 +3308,7 @@
 				7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */,
 				7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */,
 				7F566BB91569582D00BC111B /* MEWRoundView.m in Sources */,
+				7F379DE01569FFDC008D2C6C /* GameBattleLogTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

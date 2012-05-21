@@ -54,7 +54,7 @@
   // foreground
   [[GlobalRender colorWithColorType:foregroundColor_
                               alpha:foregroundAlpha_] setFill];
-  CGFloat margin = rect.size.width * .5f;
+  CGFloat margin = rect.size.width * .1f;
   CGRect foregroundRect = rect;
   foregroundRect.origin.x    += margin;
   foregroundRect.origin.y    += margin;

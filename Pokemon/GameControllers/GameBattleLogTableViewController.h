@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "GameBattleLogTableViewCell.h"
+
 @interface GameBattleLogTableViewController : UITableViewController
+
+- (void)pushLog:(NSString *)log
+    description:(NSString *)description
+        forType:(MEWGameBattleLogType)type;
 
 @end
