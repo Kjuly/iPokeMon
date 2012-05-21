@@ -13,6 +13,7 @@
 
 @interface GameBattleLogTableViewCell () {
  @private
+  BOOL logWordsMore_;
 }
 
 @end
@@ -80,6 +81,12 @@
   [self.textLabel setTextColor:[GlobalRender textColorTitleWhite]];
   [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   
+  if (logWordsMore_) {
+    [self.textLabel setNumberOfLines:0];
+    [self.textLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [self.textLabel sizeToFit];
+  }
+  
   // description
 //  [self.detailTextLabel setFrame:priceLabelFrame];
 //  [self.detailTextLabel setBackgroundColor:[UIColor clearColor]];
@@ -97,7 +104,10 @@
                           log:(NSString *)log
                   description:(NSString *)description
                           odd:(BOOL)odd{
+  logWordsMore_ = NO;
   [self.textLabel setText:log];
+  if ([log length] > 30)
+    logWordsMore_ = YES;
   [self.detailTextLabel setText:description];
   
   // log type marker
