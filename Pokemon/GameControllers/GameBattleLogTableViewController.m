@@ -11,22 +11,18 @@
 @interface GameBattleLogTableViewController () {
  @private
   NSMutableArray * logs_;
-  NSDictionary   * logForWaitingUserAction_;
 }
 
 @property (nonatomic, copy) NSMutableArray * logs;
-@property (nonatomic, copy) NSDictionary   * logForWaitingUserAction;
 
 @end
 
 @implementation GameBattleLogTableViewController
 
-@synthesize logs                    = logs_;
-@synthesize logForWaitingUserAction = logForWaitingUserAction_;
+@synthesize logs = logs_;
 
 - (void)dealloc {
-  self.logs                    = nil;
-  self.logForWaitingUserAction = nil;
+  self.logs = nil;
   [super dealloc];
 }
 
@@ -52,18 +48,6 @@
   [self.view setBackgroundColor:[UIColor clearColor]];
   
   logs_ = [[NSMutableArray alloc] init];
-//  NSString * log;
-//  log = [NSString stringWithFormat:@"%@ %@ %@",
-//         NSLocalizedString(@"PMSMessageWhatWillXXXDoPart1", nil),
-//         NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-//                             [playerPokemon.sid intValue]]), nil),
-//         NSLocalizedString(@"PMSMessageWhatWillXXXDoPart3", nil)];
-//  logForWaitingUserAction_ = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                              [NSNumber numberWithInt:kMEWGameBattleLogTypeNormal], @"type",
-//                              log, @"log",
-//                              nil, @"description", nil];
-    
-//  else log = NSLocalizedString(@"PMSMessageChooseNewPokemon", nil);
 }
 
 - (void)viewDidUnload {
