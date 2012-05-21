@@ -201,7 +201,7 @@
   NSString * backgroundImageName =
   [NSString stringWithFormat:kPMINBattleSceneBackground, [enemyPokemon.pokemon.habitat intValue]];
   self.background = [CCSprite spriteWithFile:backgroundImageName];
-  [self.background setPosition:ccp(kViewWidth / 2, kGameBattleSceneBackgroundHeight / 2 + kGameMenuMessageViewHeight)];
+  [self.background setPosition:ccp(kViewWidth / 2, kGameBattleSceneBackgroundHeight / 2 + kGameMenuBattleLogViewHeight)];
   [self addChild:self.background];
   
   // Pokemons' Points

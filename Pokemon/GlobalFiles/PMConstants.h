@@ -182,9 +182,8 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINPMExpBarBackground            @"PokemonExpBarBackground.png"
 #define kPMINPMExpBar                      @"PokemonExpBar.png"
 // GAME BATTLE
-#define kPMINBattleSceneBackground           @"GameBattleSceneBackground_%.2d.png" // %.2d: 01 - 09
-#define kPMINBattleScenePMPoint              @"GameBattleScenePMPoint.png"
-#define kPMINBattleMenuMessageViewBackground @"GameMessageViewBackground.png"
+#define kPMINBattleSceneBackground @"GameBattleSceneBackground_%.2d.png" // %.2d: 01 - 09
+#define kPMINBattleScenePMPoint    @"GameBattleScenePMPoint.png"
 #define kPMINBattleElementPokeball @"GamePokeball.png"
 // ICONs
 // Map View
@@ -360,7 +359,7 @@ typedef enum {
 #define kTopBarHeight    55.0f  // 60 - 5(shadow)
 #define kTopIDViewHeight 160.0f // 150 + 10
 
-#define kGameMenuMessageViewHeight         150.f // Game Menu: Message view hegith
+#define kGameMenuBattleLogViewHeight       150.f // Game Menu: game battle log view height
 #define kGameMenuPMStatusViewHeight        64.f  //       ...: Pokemon Status view height
 #define kGameMenuPMStatusHPBarHeight       8.f   //       ...:            ...'s HP Bar height
 #define kGameMenuPokeballSize              60.f  // Size of Pokeball (which is used for replacing & catching PM)

@@ -45,7 +45,8 @@
   // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [self.view setBackgroundColor:[UIColor clearColor]];
+  [self.view setBackgroundColor:[UIColor colorWithPatternImage:
+                                 [UIImage imageNamed:kPMINBackgroundBlack]]];
   
   logs_ = [[NSMutableArray alloc] init];
 }
