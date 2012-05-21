@@ -9,6 +9,8 @@
 #import "MapViewController.h"
 
 #import "PMLocationManager.h"
+#import "MEWMapPoint.h"
+#import "MEWMapAnnotationView.h"
 
 @interface MapViewController () {
  @private
@@ -85,6 +87,7 @@
   [mapView setShowsUserLocation:YES];
   self.mapView = mapView;
   [mapView release];
+  self.mapView.delegate = self;
   [self.view addSubview:self.mapView];
   
   // buttons: |locateMeButton_| & |showWorldButton_|
@@ -149,5 +152,97 @@
   region.center = CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude);
   [self.mapView setRegion:region animated:YES];
 }
+
+#pragma mark - MKMapView Delegate
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+//  MKAnnotationView *annotationView = [views objectAtIndex:0];
+//  id<MKAnnotation> mp = [annotationView annotation];
+//  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate] ,250,250);
+//  [self.mapView setRegion:region animated:YES];
+  
+  // add animation for showing annotation views
+//  CGRect visibleRect = [mapView annotationVisibleRect];
+  for(MKAnnotationView *view in views) {
+    if([view isKindOfClass:[MEWMapAnnotationView class]]) {
+//      CGRect endFrame = view.frame;
+//      CGRect startFrame = endFrame;
+//      startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
+//      view.frame = startFrame;
+      
+      CGRect endFrame = view.frame;
+      CGRect startFrame = endFrame;
+      CGFloat originalSize = view.frame.size.width;
+      CGFloat startSize = 128.f;
+      CGFloat offset = (startSize - originalSize) / 2.f;
+      startFrame.origin.x -= offset;
+      startFrame.origin.y -= offset;
+      startFrame.size = CGSizeMake(startSize, startSize);
+      [view setFrame:startFrame];
+      [view setAlpha:0.f];
+      
+      [UIView commitAnimations];
+      [UIView animateWithDuration:.3f
+                            delay:0.f
+                          options:UIViewAnimationCurveEaseOut
+                       animations:^{
+                         [view setFrame:endFrame];
+                         [view setAlpha:1.f];
+                       }
+                       completion:nil];
+    }
+  }
+}
+
+// when a new location update is received by the map view.
+static BOOL generated = NO;
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+  self.location = userLocation.location;
+  
+  if (generated)
+    return;
+  generated = YES;
+  
+  CLLocationCoordinate2D userCoordinate = userLocation.location.coordinate;
+  for(int i = 1; i <= 5; ++i) {
+    CGFloat latDelta  = rand() * .035f / RAND_MAX - .02f;
+    CGFloat longDelta = rand() * .03f / RAND_MAX - .015f;
+    CLLocationCoordinate2D newCoord = {
+      userCoordinate.latitude + latDelta,
+      userCoordinate.longitude + longDelta
+    };
+    MEWMapPoint * mapPoint = [MEWMapPoint alloc];
+    [mapPoint initWithCoordinate:newCoord
+                           title:[NSString stringWithFormat:@"Azam Home %d",i]
+                        subTitle:@"Home Sweet Home"];
+    [self.mapView addAnnotation:mapPoint];
+    [mapPoint release];
+  }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+  if([annotation isKindOfClass:[MKUserLocation class]])
+    return nil;
+  
+  NSString *annotationIdentifier = @"PinViewAnnotation";
+  MEWMapAnnotationView * annotationView =
+    (MEWMapAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+  if (!annotationView) {
+    annotationView = [[[MEWMapAnnotationView alloc] initWithAnnotation:annotation
+                                                reuseIdentifier:annotationIdentifier] autorelease];
+    annotationView.canShowCallout = YES;
+    
+//    UIImageView * houseIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINIconRefresh]];
+//    pinView.leftCalloutAccessoryView = houseIconView;
+//    [houseIconView release];
+  }
+  else annotationView.annotation = annotation;
+  
+  return annotationView;
+}
+
+//- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
+//  
+//}
 
 @end

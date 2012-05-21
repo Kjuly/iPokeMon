@@ -558,6 +558,8 @@
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
 		7FF56403152823E200BA5E28 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* PMConstants.m */; };
+		7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */; };
+		7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -1393,6 +1395,10 @@
 		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
 		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
 		7FF56402152823E200BA5E28 /* PMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMConstants.m; sourceTree = "<group>"; };
+		7FFAF86D156A9A13008605E4 /* MEWMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapPoint.h; sourceTree = "<group>"; };
+		7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapPoint.m; sourceTree = "<group>"; };
+		7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationView.h; sourceTree = "<group>"; };
+		7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationView.m; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
@@ -2260,6 +2266,10 @@
 				7F0D18D6150745CB009CFDBA /* PokemonHPBar.m */,
 				7F0D18DB15075111009CFDBA /* PokemonEXPBar.h */,
 				7F0D18DC15075111009CFDBA /* PokemonEXPBar.m */,
+				7FFAF86D156A9A13008605E4 /* MEWMapPoint.h */,
+				7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */,
+				7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */,
+				7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3301,6 +3311,8 @@
 				7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */,
 				7F566BB91569582D00BC111B /* MEWRoundView.m in Sources */,
 				7F379DE01569FFDC008D2C6C /* GameBattleLogTableViewCell.m in Sources */,
+				7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */,
+				7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
