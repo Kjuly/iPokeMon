@@ -151,6 +151,7 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"Start Tracking Location...");
     isUpdatingLocation_ = NO;
     // Check whether it is updating location after some time interval
+    [self _continueUpdatingLocation];
     [self _setEventTimerStatusToRunning:YES];
 #endif
   }
@@ -309,7 +310,7 @@ static PMLocationManager * locationManager_ = nil;
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
   self.location = newLocation;
-  //  NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
+  //NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
   // If |moveDistance == 0|, set a base distance:10,
   //   this'll fix the bug after restart tracking, the result of |distanceFromLocation:| will much big
   if (moveDistance_ == 0) moveDistance_ = 10;

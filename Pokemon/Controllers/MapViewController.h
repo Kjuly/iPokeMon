@@ -9,10 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
-  
-}
+typedef enum {
+  kMEWMapPlaceTypeContinent = 0,      // continent
+  kMEWMapPlaceTypeOcean,              // ocean
+  kMEWMapPlaceTypeCountry,            // country
+  kMEWMapPlaceTypeSea,                // sea
+  kMEWMapPlaceTypeAdministrativeArea, // administrative (province)
+  kMEWMapPlaceTypeLocality,           // locality (city)
+  kMEWMapPlaceTypeLake,               // lake
+  kMEWMapPlaceTypeSubLocality,        // sub-locality (district)
+  kMEWMapPlaceTypeHotPoint            // hot point: shop, etc.
+}MEWMapPlaceType;
 
-
+@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @end

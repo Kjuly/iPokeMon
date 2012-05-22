@@ -560,6 +560,7 @@
 		7FF56403152823E200BA5E28 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* PMConstants.m */; };
 		7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */; };
 		7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */; };
+		7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -1399,6 +1400,8 @@
 		7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapPoint.m; sourceTree = "<group>"; };
 		7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationView.h; sourceTree = "<group>"; };
 		7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationView.m; sourceTree = "<group>"; };
+		7FFBEDD9156B7617005FAD33 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
@@ -1527,6 +1530,8 @@
 				7F27D09415274FAC0092DD68 /* NSString+Algorithm.m */,
 				7F13826E1567BFCC0046B537 /* UIButton+Animation.h */,
 				7F13826F1567BFCC0046B537 /* UIButton+Animation.m */,
+				7FFBEDD9156B7617005FAD33 /* MKMapView+ZoomLevel.h */,
+				7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3313,6 +3318,7 @@
 				7F379DE01569FFDC008D2C6C /* GameBattleLogTableViewCell.m in Sources */,
 				7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */,
 				7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */,
+				7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

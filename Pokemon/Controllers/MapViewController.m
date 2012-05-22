@@ -8,6 +8,8 @@
 
 #import "MapViewController.h"
 
+#import "MKMapView+ZoomLevel.h"
+
 #import "PMLocationManager.h"
 #import "MEWMapPoint.h"
 #import "MEWMapAnnotationView.h"
@@ -19,6 +21,8 @@
   UIButton   * showWorldButton_;
   
   CLLocation * location_;
+  
+  NSInteger    zoomLevel_;
 }
 
 @property (nonatomic, retain) MKMapView  * mapView;
@@ -90,6 +94,12 @@
   self.mapView.delegate = self;
   [self.view addSubview:self.mapView];
   
+  // set default region with zoom level
+  zoomLevel_ = 12.f;
+  [self.mapView setCenterCoordinate:self.location.coordinate
+                          zoomLevel:zoomLevel_
+                           animated:YES];
+  
   // buttons: |locateMeButton_| & |showWorldButton_|
   // constants
   CGFloat marginLeft = 30.f;
@@ -128,10 +138,7 @@
 #pragma mark - UtilityViewControllerDelegate
 
 // Locate user's location
-- (void)_actionForButtonLocateMe:(id)sender {
-  // Get current location
-//  self.location = self.locationManager.location;
-  
+- (void)_actionForButtonLocateMe:(id)sender {  
   // Zoom In the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
   region.span.longitudeDelta = 0.01f;
@@ -142,24 +149,21 @@
 
 // Show whole world map
 - (void)_actionForButtonShowWorld:(id)sender {
-  // Get current location
-//  self.location = self.locationManager.location;
-  
   // Zoom Out the |mapView_| & make User's Location as |mapView_| center point
   MKCoordinateRegion region = self.mapView.region;
-  region.span.longitudeDelta = 180;
-  region.span.latitudeDelta  = 180;
+  region.span.longitudeDelta = 90;
+  region.span.latitudeDelta  = 90;
   region.center = CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude);
   [self.mapView setRegion:region animated:YES];
 }
 
 #pragma mark - MKMapView Delegate
 
+// Tells the delegate that one or more annotation views were added to the map
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-//  MKAnnotationView *annotationView = [views objectAtIndex:0];
+//  MKAnnotationView * annotationView = [views objectAtIndex:0];
 //  id<MKAnnotation> mp = [annotationView annotation];
-//  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate] ,250,250);
-//  [self.mapView setRegion:region animated:YES];
+//  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], 10000, 10000);
   
   // add animation for showing annotation views
 //  CGRect visibleRect = [mapView annotationVisibleRect];
@@ -194,11 +198,9 @@
   }
 }
 
-// when a new location update is received by the map view.
+// Tells the delegate that the location of the user was updated
 static BOOL generated = NO;
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-  self.location = userLocation.location;
-  
   if (generated)
     return;
   generated = YES;
@@ -220,11 +222,13 @@ static BOOL generated = NO;
   }
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+// Returns the view associated with the specified annotation object
+- (MKAnnotationView *)mapView:(MKMapView *)mapView
+            viewForAnnotation:(id<MKAnnotation>)annotation {
   if([annotation isKindOfClass:[MKUserLocation class]])
     return nil;
   
-  NSString *annotationIdentifier = @"PinViewAnnotation";
+  NSString * annotationIdentifier = @"com.kjuly.Mew.PinViewAnnotation";
   MEWMapAnnotationView * annotationView =
     (MEWMapAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
   if (!annotationView) {
@@ -237,8 +241,13 @@ static BOOL generated = NO;
 //    [houseIconView release];
   }
   else annotationView.annotation = annotation;
-  
   return annotationView;
+}
+
+// Tells the delegate that the region displayed by the map view just changed
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  zoomLevel_ = [mapView zoomLevel];
+  NSLog(@"region did cahnged, zoom level:%d", zoomLevel_);
 }
 
 //- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
