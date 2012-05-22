@@ -10,14 +10,12 @@
 
 @interface MEWMapPoint () {
  @private
-  CLLocationCoordinate2D coordinate_;
-  NSString             * title_;
-  NSString             * subTitle_;
+  NSString * title_;
+  NSString * subTitle_;
 }
 
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic, copy)   NSString * title;
-@property (nonatomic, copy)   NSString * subTitle;
+@property (nonatomic, copy) NSString * title;
+@property (nonatomic, copy) NSString * subTitle;
 
 @end
 

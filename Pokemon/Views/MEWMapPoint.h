@@ -10,7 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface MEWMapPoint : NSObject <MKAnnotation>
+@interface MEWMapPoint : NSObject <MKAnnotation> {
+  CLLocationCoordinate2D coordinate_;
+}
+
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                    title:(NSString *)title

@@ -26,6 +26,7 @@
   
   NSInteger zoomLevel_;
   NSInteger selectedAnnotationViewCount_;
+  BOOL      shouldIgnoreFirstRegionChange_; // when select the annotation, map view will move the region
 }
 
 @property (nonatomic, retain) MKMapView  * mapView;
@@ -101,8 +102,9 @@
   [super viewDidLoad];
   
   // basic settings
-  zoomLevel_                   = 12.f;
-  selectedAnnotationViewCount_ = 0;
+  zoomLevel_                     = 12.f;
+  selectedAnnotationViewCount_   = 0;
+  shouldIgnoreFirstRegionChange_ = NO;
   
   // Google Map View
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
@@ -304,14 +306,15 @@ static BOOL generated = NO;
 
 // Tells the delegate that one of its annotation views was selected
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+  shouldIgnoreFirstRegionChange_ = YES;
   [self _increaseSelectedAnnotationViewCount];
   
   if (self.mapAnnotationCalloutViewController == nil) {
     mapAnnotationCalloutViewController_ = [MapAnnotationCalloutViewController alloc];
     [mapAnnotationCalloutViewController_ init];
     CGRect viewFrame = self.mapAnnotationCalloutViewController.view.frame;
-    viewFrame.origin.y = 150.f;
-    viewFrame.origin.x = 40.f;
+    viewFrame.origin.y = -100.f;
+    viewFrame.origin.x = (kViewWidth - kMapAnnotationCalloutMainViewSize) / 2.f;
     [mapAnnotationCalloutViewController_.view setFrame:viewFrame];
   }
   
@@ -328,6 +331,12 @@ static BOOL generated = NO;
   [self _setAnnotationView:view
                 asSelected:YES
                 completion:nil];
+  
+  MEWMapPoint * mapPoint = (MEWMapPoint *)(view.annotation);
+  MKCoordinateRegion region = self.mapView.region;
+  region.center = CLLocationCoordinate2DMake(mapPoint.coordinate.latitude, mapPoint.coordinate.longitude);
+  [self.mapView setRegion:region animated:YES];
+  mapPoint = nil;
 }
 
 // Tells the delegate that one of its annotation views was deselected
@@ -346,6 +355,14 @@ static BOOL generated = NO;
 
 // Tells the delegate that the region displayed by the map view is about to change
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+  // ignore the first region change when select a annotation
+  //   to prevent unload the callout view
+  if (shouldIgnoreFirstRegionChange_) {
+    shouldIgnoreFirstRegionChange_ = NO;
+    return;
+  }
+  
+  // if no annotation is open, do nothing
   if (selectedAnnotationViewCount_ == 0 || self.selectedAnnotationView == nil)
     return;
   [self _setAnnotationView:self.selectedAnnotationView
