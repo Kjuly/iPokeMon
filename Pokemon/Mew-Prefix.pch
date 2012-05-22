@@ -17,13 +17,13 @@
 #endif
 
 // Disable logging when not in debug
-#ifndef DEBUG
-#undef NSLog
+//#ifndef DEBUG
+//#undef NSLog
 //#define NSLog(args, ...)
 // Switch between |NSLog| & |TFLog|, just comment out
 //#define NSLog TFLog // Simple
 #define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-#endif
+//#endif
 
 
 // Debug Settings

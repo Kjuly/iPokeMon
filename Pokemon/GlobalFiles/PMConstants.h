@@ -235,8 +235,12 @@ extern NSString * const kPMNLoadingDone;
 #define kRectButtonBottomLineHeight 10.f
 #define kFeedbackTextFieldBackgroundHeight 210.f
 
-#define kMapViewHeight      200.0f
-#define kUtilityBarHeight  40.0f
+#define kMapViewHeight                    200.0f
+#define kMapAnnotationSize                44.f
+#define kMapAnnotationImageSize           32.f
+#define kMapAnnotationCalloutMainViewSize 300.f
+#define kMapAnnotationCalloutSubViewSize  kMapAnnotationCalloutMainViewSize / 3.f
+#define kUtilityBarHeight                 40.0f
 
 #define kTagMainViewCenterMainButton 1001
 #define kTagMainViewMapButton        1002

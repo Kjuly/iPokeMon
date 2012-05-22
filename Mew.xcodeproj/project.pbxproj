@@ -561,6 +561,11 @@
 		7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */; };
 		7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */; };
 		7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */; };
+		7FFBEDE2156B99FE005FAD33 /* mpbCN-ZJ-HZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDE156B99FE005FAD33 /* mpbCN-ZJ-HZ.png */; };
+		7FFBEDE3156B99FE005FAD33 /* mpbCN-ZJ-HZ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDF156B99FE005FAD33 /* mpbCN-ZJ-HZ@2x.png */; };
+		7FFBEDE4156B99FE005FAD33 /* mpCN-ZJ-HZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFBEDE0156B99FE005FAD33 /* mpCN-ZJ-HZ.png */; };
+		7FFBEDE5156B99FE005FAD33 /* mpCN-ZJ-HZ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFBEDE1156B99FE005FAD33 /* mpCN-ZJ-HZ@2x.png */; };
+		7FFBEDE8156BA24C005FAD33 /* MapAnnotationCalloutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */; };
 		7FFC9619151706D1004D3D8F /* BagItemTableViewHiddenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */; };
 		7FFC961D15171593004D3D8F /* BagMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFC961C15171593004D3D8F /* BagMedicineTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -1402,6 +1407,12 @@
 		7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationView.m; sourceTree = "<group>"; };
 		7FFBEDD9156B7617005FAD33 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		7FFBEDDE156B99FE005FAD33 /* mpbCN-ZJ-HZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mpbCN-ZJ-HZ.png"; sourceTree = "<group>"; };
+		7FFBEDDF156B99FE005FAD33 /* mpbCN-ZJ-HZ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mpbCN-ZJ-HZ@2x.png"; sourceTree = "<group>"; };
+		7FFBEDE0156B99FE005FAD33 /* mpCN-ZJ-HZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mpCN-ZJ-HZ.png"; sourceTree = "<group>"; };
+		7FFBEDE1156B99FE005FAD33 /* mpCN-ZJ-HZ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mpCN-ZJ-HZ@2x.png"; sourceTree = "<group>"; };
+		7FFBEDE6156BA24C005FAD33 /* MapAnnotationCalloutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotationCalloutViewController.h; sourceTree = "<group>"; };
+		7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotationCalloutViewController.m; sourceTree = "<group>"; };
 		7FFC9617151706D1004D3D8F /* BagItemTableViewHiddenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewHiddenCell.h; sourceTree = "<group>"; };
 		7FFC9618151706D1004D3D8F /* BagItemTableViewHiddenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewHiddenCell.m; sourceTree = "<group>"; };
 		7FFC961B15171592004D3D8F /* BagMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagMedicineTableViewCell.h; sourceTree = "<group>"; };
@@ -2015,6 +2026,8 @@
 				7F51C3D614D7C4DF0091902D /* MainViewController.m */,
 				7F51C40614D7D3C60091902D /* MapViewController.h */,
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
+				7FFBEDE6156BA24C005FAD33 /* MapAnnotationCalloutViewController.h */,
+				7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */,
 				7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */,
 				7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
@@ -2155,6 +2168,7 @@
 		7F6E6CF214D6CB9800033C65 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2C09281553617E00118B00 /* Default.png */,
 				7F2C09291553617E00118B00 /* Default@2x.png */,
 				7F2C092A1553617E00118B00 /* Icon-Small.png */,
@@ -2669,6 +2683,17 @@
 			path = MainView;
 			sourceTree = "<group>";
 		};
+		7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */ = {
+			isa = PBXGroup;
+			children = (
+				7FFBEDDE156B99FE005FAD33 /* mpbCN-ZJ-HZ.png */,
+				7FFBEDDF156B99FE005FAD33 /* mpbCN-ZJ-HZ@2x.png */,
+				7FFBEDE0156B99FE005FAD33 /* mpCN-ZJ-HZ.png */,
+				7FFBEDE1156B99FE005FAD33 /* mpCN-ZJ-HZ@2x.png */,
+			);
+			path = Pokemon_tmp_files;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3018,6 +3043,10 @@
 				7FA51659156929DA002A4D08 /* GameBagIcon_6@2x.png in Resources */,
 				7FA5165A156929DA002A4D08 /* GameBagIconBackground.png in Resources */,
 				7FA5165B156929DA002A4D08 /* GameBagIconBackground@2x.png in Resources */,
+				7FFBEDE2156B99FE005FAD33 /* mpbCN-ZJ-HZ.png in Resources */,
+				7FFBEDE3156B99FE005FAD33 /* mpbCN-ZJ-HZ@2x.png in Resources */,
+				7FFBEDE4156B99FE005FAD33 /* mpCN-ZJ-HZ.png in Resources */,
+				7FFBEDE5156B99FE005FAD33 /* mpCN-ZJ-HZ@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3319,6 +3348,7 @@
 				7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */,
 				7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */,
 				7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */,
+				7FFBEDE8156BA24C005FAD33 /* MapAnnotationCalloutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

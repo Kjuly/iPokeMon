@@ -13,6 +13,7 @@
 #import "PMLocationManager.h"
 #import "MEWMapPoint.h"
 #import "MEWMapAnnotationView.h"
+#import "MapAnnotationCalloutViewController.h"
 
 @interface MapViewController () {
  @private
@@ -21,8 +22,10 @@
   UIButton   * showWorldButton_;
   
   CLLocation * location_;
+  MapAnnotationCalloutViewController * mapAnnotationCalloutViewController_;
   
-  NSInteger    zoomLevel_;
+  NSInteger zoomLevel_;
+  NSInteger selectedAnnotationViewCount_;
 }
 
 @property (nonatomic, retain) MKMapView  * mapView;
@@ -30,10 +33,17 @@
 @property (nonatomic, retain) UIButton   * showWorldButton;
 
 @property (nonatomic, retain) CLLocation * location;
+@property (nonatomic, retain) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
+@property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
 
 - (void)releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;
 - (void)_actionForButtonShowWorld:(id)sender;
+- (void)_increaseSelectedAnnotationViewCount;
+- (void)_decreaseSelectedAnnotationViewCount;
+- (void)_setAnnotationView:(MKAnnotationView *)view
+                asSelected:(BOOL)selected
+                completion:(void (^)(BOOL))completion;
 
 @end
 
@@ -45,9 +55,13 @@
 @synthesize showWorldButton = showWorldButton_;
 
 @synthesize location        = location_;
+@synthesize mapAnnotationCalloutViewController = mapAnnotationCalloutViewController_;
+@synthesize selectedAnnotationView = selectedAnnotationView_;
 
 - (void)dealloc {
   self.location = nil;
+  self.mapAnnotationCalloutViewController = nil;
+  self.selectedAnnotationView = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -86,6 +100,10 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // basic settings
+  zoomLevel_                   = 12.f;
+  selectedAnnotationViewCount_ = 0;
+  
   // Google Map View
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
   [mapView setShowsUserLocation:YES];
@@ -95,7 +113,6 @@
   [self.view addSubview:self.mapView];
   
   // set default region with zoom level
-  zoomLevel_ = 12.f;
   [self.mapView setCenterCoordinate:self.location.coordinate
                           zoomLevel:zoomLevel_
                            animated:YES];
@@ -157,6 +174,45 @@
   [self.mapView setRegion:region animated:YES];
 }
 
+// increase |selectedAnnotationViewCount_|
+- (void)_increaseSelectedAnnotationViewCount {
+  if (++selectedAnnotationViewCount_ > 2)
+    selectedAnnotationViewCount_ = 2;
+}
+
+// decrease |selectedAnnotationViewCount_|
+- (void)_decreaseSelectedAnnotationViewCount {
+  if (--selectedAnnotationViewCount_ < 0)
+    selectedAnnotationViewCount_ = 0;
+}
+
+// toggle the annotation view
+- (void)_setAnnotationView:(MKAnnotationView *)view
+                asSelected:(BOOL)selected
+                completion:(void (^)(BOOL finished))completion {
+  CGRect viewFrame = view.frame;
+  CGFloat offset = (kMapAnnotationCalloutSubViewSize - kMapAnnotationSize) / 2.f;
+  if (selected) {
+    viewFrame.origin.x -= offset;
+    viewFrame.origin.y -= offset;
+    viewFrame.size = CGSizeMake(kMapAnnotationCalloutSubViewSize, kMapAnnotationCalloutSubViewSize);
+    self.selectedAnnotationView = view;
+  }
+  else {
+    viewFrame.origin.x += offset;
+    viewFrame.origin.y += offset;
+    viewFrame.size = CGSizeMake(kMapAnnotationSize, kMapAnnotationSize);
+  }
+  [UIView animateWithDuration:.3f
+                        delay:0.f
+                      options:UIViewAnimationCurveLinear
+                   animations:^{
+                     [view setFrame:viewFrame];
+                     [view setNeedsDisplay];
+                   }
+                   completion:completion];
+}
+
 #pragma mark - MKMapView Delegate
 
 // Tells the delegate that one or more annotation views were added to the map
@@ -177,10 +233,10 @@
       CGRect endFrame = view.frame;
       CGRect startFrame = endFrame;
       CGFloat originalSize = view.frame.size.width;
-      CGFloat startSize = 128.f;
-      CGFloat offset = (startSize - originalSize) / 2.f;
-      startFrame.origin.x -= offset;
-      startFrame.origin.y -= offset;
+      CGFloat startSize = 16.f;
+      CGFloat offset = (originalSize - startSize) / 2.f;
+      startFrame.origin.x += offset;
+      startFrame.origin.y += offset;
       startFrame.size = CGSizeMake(startSize, startSize);
       [view setFrame:startFrame];
       [view setAlpha:0.f];
@@ -215,7 +271,7 @@ static BOOL generated = NO;
     };
     MEWMapPoint * mapPoint = [MEWMapPoint alloc];
     [mapPoint initWithCoordinate:newCoord
-                           title:[NSString stringWithFormat:@"Azam Home %d",i]
+                           title:[NSString stringWithFormat:@"Azam Home %d", i]
                         subTitle:@"Home Sweet Home"];
     [self.mapView addAnnotation:mapPoint];
     [mapPoint release];
@@ -231,17 +287,72 @@ static BOOL generated = NO;
   NSString * annotationIdentifier = @"com.kjuly.Mew.PinViewAnnotation";
   MEWMapAnnotationView * annotationView =
     (MEWMapAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-  if (!annotationView) {
+  if (! annotationView) {
     annotationView = [[[MEWMapAnnotationView alloc] initWithAnnotation:annotation
-                                                reuseIdentifier:annotationIdentifier] autorelease];
-    annotationView.canShowCallout = YES;
-    
-//    UIImageView * houseIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINIconRefresh]];
-//    pinView.leftCalloutAccessoryView = houseIconView;
-//    [houseIconView release];
+                                                       reuseIdentifier:annotationIdentifier] autorelease];
+//    annotationView.canShowCallout = YES;
   }
-  else annotationView.annotation = annotation;
+  
+  // Configure the |annotationView|
+  annotationView.annotation = annotation;
+  [annotationView setPlaceImage:[UIImage imageNamed:@"mpCN-ZJ-HZ.png"]];
+//  UIImageView * placeDetailView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mpbCN-ZJ-HZ.png"]];
+//  annotationView.leftCalloutAccessoryView = placeDetailView;
+//  [placeDetailView release];
   return annotationView;
+}
+
+// Tells the delegate that one of its annotation views was selected
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+  [self _increaseSelectedAnnotationViewCount];
+  
+  if (self.mapAnnotationCalloutViewController == nil) {
+    mapAnnotationCalloutViewController_ = [MapAnnotationCalloutViewController alloc];
+    [mapAnnotationCalloutViewController_ init];
+    CGRect viewFrame = self.mapAnnotationCalloutViewController.view.frame;
+    viewFrame.origin.y = 150.f;
+    viewFrame.origin.x = 40.f;
+    [mapAnnotationCalloutViewController_.view setFrame:viewFrame];
+  }
+  
+  // if there's an annotation view selected already,
+  //   close the previous one first & do switching for callout view
+  if (selectedAnnotationViewCount_ == 2)
+    [self.mapAnnotationCalloutViewController switchViewAnimated:YES];
+  // otherwise, add callout view & load it animated
+  else {
+    [self.view addSubview:self.mapAnnotationCalloutViewController.view];
+    [self.mapAnnotationCalloutViewController loadViewAnimated:YES];
+  }
+  // open selected annotation view
+  [self _setAnnotationView:view
+                asSelected:YES
+                completion:nil];
+}
+
+// Tells the delegate that one of its annotation views was deselected
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+  if (selectedAnnotationViewCount_ == 0)
+    return;
+  [self _setAnnotationView:view
+                asSelected:NO
+                completion:^(BOOL finished) {
+                  [self _decreaseSelectedAnnotationViewCount];
+                  if (selectedAnnotationViewCount_ == 0) {
+                    [self.mapAnnotationCalloutViewController unloadViewAnimated:YES];
+                  }
+                }];
+}
+
+// Tells the delegate that the region displayed by the map view is about to change
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+  if (selectedAnnotationViewCount_ == 0 || self.selectedAnnotationView == nil)
+    return;
+  [self _setAnnotationView:self.selectedAnnotationView
+                asSelected:NO
+                completion:nil];
+  selectedAnnotationViewCount_ = 0;
+  [self.mapAnnotationCalloutViewController unloadViewAnimated:YES];
 }
 
 // Tells the delegate that the region displayed by the map view just changed
