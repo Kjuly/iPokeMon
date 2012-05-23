@@ -219,18 +219,14 @@
 
 // Tells the delegate that one or more annotation views were added to the map
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-//  MKAnnotationView * annotationView = [views objectAtIndex:0];
-//  id<MKAnnotation> mp = [annotationView annotation];
-//  MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], 10000, 10000);
-  
   // add animation for showing annotation views
-//  CGRect visibleRect = [mapView annotationVisibleRect];
+  //CGRect visibleRect = [mapView annotationVisibleRect];
   for(MKAnnotationView *view in views) {
     if([view isKindOfClass:[MEWMapAnnotationView class]]) {
-//      CGRect endFrame = view.frame;
-//      CGRect startFrame = endFrame;
-//      startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
-//      view.frame = startFrame;
+      //CGRect endFrame = view.frame;
+      //CGRect startFrame = endFrame;
+      //startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
+      //view.frame = startFrame;
       
       CGRect endFrame = view.frame;
       CGRect startFrame = endFrame;
@@ -292,16 +288,13 @@ static BOOL generated = NO;
   if (! annotationView) {
     annotationView = [[[MEWMapAnnotationView alloc] initWithAnnotation:annotation
                                                        reuseIdentifier:annotationIdentifier] autorelease];
-//    annotationView.canShowCallout = YES;
+    // do not show the default callout view
+    //annotationView.canShowCallout = YES;
   }
   
   // Configure the |annotationView|
   annotationView.annotation = annotation;
   [annotationView setImageWithName:@"mpbCN-ZJ-HZ.png"];
-  
-//  UIImageView * placeDetailView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mpbCN-ZJ-HZ.png"]];
-//  annotationView.leftCalloutAccessoryView = placeDetailView;
-//  [placeDetailView release];
   return annotationView;
 }
 
@@ -366,6 +359,7 @@ static BOOL generated = NO;
   // if no annotation is open, do nothing
   if (selectedAnnotationViewCount_ == 0 || self.selectedAnnotationView == nil)
     return;
+//  [self mapView:self.mapView didDeselectAnnotationView:self.selectedAnnotationView];
   [self _setAnnotationView:self.selectedAnnotationView
                 asSelected:NO
                 completion:nil];
