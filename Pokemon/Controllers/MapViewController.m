@@ -307,8 +307,8 @@ static BOOL generated = NO;
     mapAnnotationCalloutViewController_ = [MapAnnotationCalloutViewController alloc];
     [mapAnnotationCalloutViewController_ init];
     CGRect viewFrame = self.mapAnnotationCalloutViewController.view.frame;
-    viewFrame.origin.y = -100.f;
-    viewFrame.origin.x = (kViewWidth - kMapAnnotationCalloutMainViewSize) / 2.f;
+    viewFrame.origin.y = kMapButtonSize  / 2.f + 10.f;
+    viewFrame.origin.x = (kViewWidth - kMapAnnotationCalloutViewWidth) / 2.f;
     [mapAnnotationCalloutViewController_.view setFrame:viewFrame];
   }
   

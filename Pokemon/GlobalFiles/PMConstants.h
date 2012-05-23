@@ -238,7 +238,9 @@ extern NSString * const kPMNLoadingDone;
 #define kMapViewHeight                    200.0f
 #define kMapAnnotationSize                44.f
 #define kMapAnnotationImageSize           32.f
-#define kMapAnnotationCalloutMainViewSize 280.f
+#define kMapAnnotationCalloutViewHeight   130.f
+#define kMapAnnotationCalloutViewWidth    300.f
+//#define kMapAnnotationCalloutMainViewSize 280.f
 #define kMapAnnotationCalloutSubViewSize  100.f
 #define kUtilityBarHeight                 40.0f
 

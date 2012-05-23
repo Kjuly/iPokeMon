@@ -117,6 +117,7 @@
 		7F3B669A154139890036EC18 /* MainViewCenterButtonImageUnknow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668A154139830036EC18 /* MainViewCenterButtonImageUnknow@2x.png */; };
 		7F3B669B154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668B154139850036EC18 /* MainViewCenterButtonImageUnknowOpposite.png */; };
 		7F3B669C154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */; };
+		7F407837156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */; };
 		7F44F727155103770052678F /* StoreItemQuantityButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */; };
 		7F44F728155103770052678F /* StoreItemQuantityButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */; };
 		7F44F72E155115F50052678F /* StoreItemQuantityDcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */; };
@@ -727,6 +728,8 @@
 		7F3B668A154139830036EC18 /* MainViewCenterButtonImageUnknow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageUnknow@2x.png"; sourceTree = "<group>"; };
 		7F3B668B154139850036EC18 /* MainViewCenterButtonImageUnknowOpposite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewCenterButtonImageUnknowOpposite.png; sourceTree = "<group>"; };
 		7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageUnknowOpposite@2x.png"; sourceTree = "<group>"; };
+		7F407835156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationCalloutBottomView.h; sourceTree = "<group>"; };
+		7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationCalloutBottomView.m; sourceTree = "<group>"; };
 		7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityButtonBackground.png; sourceTree = "<group>"; };
 		7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityButtonBackground@2x.png"; sourceTree = "<group>"; };
 		7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityDcreaseButton.png; sourceTree = "<group>"; };
@@ -2289,6 +2292,8 @@
 				7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */,
 				7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */,
 				7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */,
+				7F407835156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.h */,
+				7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3349,6 +3354,7 @@
 				7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */,
 				7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */,
 				7FFBEDE8156BA24C005FAD33 /* MapAnnotationCalloutViewController.m in Sources */,
+				7F407837156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
