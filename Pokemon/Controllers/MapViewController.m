@@ -297,7 +297,8 @@ static BOOL generated = NO;
   
   // Configure the |annotationView|
   annotationView.annotation = annotation;
-  [annotationView setPlaceImage:[UIImage imageNamed:@"mpCN-ZJ-HZ.png"]];
+  [annotationView setImageWithName:@"mpbCN-ZJ-HZ.png"];
+  
 //  UIImageView * placeDetailView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mpbCN-ZJ-HZ.png"]];
 //  annotationView.leftCalloutAccessoryView = placeDetailView;
 //  [placeDetailView release];

@@ -12,19 +12,19 @@
 
 @interface MEWMapAnnotationView () {
  @private
-  UIButton * placeButton_;
+  UIImage * image_;
 }
 
-@property (nonatomic, retain) UIButton * placeButton;
+@property (nonatomic, retain) UIImage * image;
 
 @end
 
 @implementation MEWMapAnnotationView
 
-@synthesize placeButton = placeButton_;
+@synthesize image = image_;
 
 - (void)dealloc {
-  self.placeButton = nil;
+  self.image = nil;
   [super dealloc];
 }
 
@@ -35,13 +35,6 @@
     frame.size = CGSizeMake(kMapAnnotationSize, kMapAnnotationSize);
     [self setFrame:frame];
     [self setBackgroundColor:[UIColor clearColor]];
-    
-    // button
-    CGFloat margin = (kMapAnnotationSize - kMapAnnotationImageSize) / 2.f;
-    CGRect buttonFrame = CGRectMake(margin, margin, kMapAnnotationImageSize, kMapAnnotationImageSize);
-    placeButton_ = [[UIButton alloc] initWithFrame:buttonFrame];
-    [placeButton_.imageView.layer setCornerRadius:(kMapAnnotationImageSize / 2.f)];
-    [self addSubview:placeButton_];
   }
   return self;
 }
@@ -58,18 +51,28 @@
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-  // Drawing code
+  // background
   [[UIColor colorWithWhite:1.f alpha:.8f] setFill];
   [[UIBezierPath bezierPathWithOvalInRect:rect] fill];
   
-  [[UIColor colorWithWhite:0.f alpha:.9f] setFill];
-  CGFloat margin = (kMapAnnotationSize - kMapAnnotationImageSize) / 2.f;
-  CGRect foregroundRect = rect;
-  foregroundRect.origin.x    += margin;
-  foregroundRect.origin.y    += margin;
-  foregroundRect.size.width  -= margin * 2;
-  foregroundRect.size.height -= margin * 2;
-  [[UIBezierPath bezierPathWithOvalInRect:foregroundRect] fill];
+  // foreground
+//  [[UIColor colorWithWhite:0.f alpha:.9f] setFill];
+//  CGFloat viewSize = self.frame.size.width;
+//  CGFloat margin = viewSize * .1f;
+//  CGRect foregroundRect = rect;
+//  foregroundRect.origin.x    += margin;
+//  foregroundRect.origin.y    += margin;
+//  foregroundRect.size.width  -= margin * 2;
+//  foregroundRect.size.height -= margin * 2;
+//  [[UIBezierPath bezierPathWithOvalInRect:foregroundRect] fill];
+  
+  // image
+  CGFloat viewSize = self.frame.size.width;
+  CGFloat margin = viewSize * .1f;
+  viewSize -= margin * 2;
+  CGRect imageFrame = CGRectMake(margin, margin, viewSize, viewSize);
+  [[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:viewSize / 2.f] addClip];
+  [self.image drawInRect:imageFrame];
 }
 
 //#pragma mark - Overwrited Methods of MKAnnotationView
@@ -82,8 +85,8 @@
 
 #pragma mark - Public Methods
 
-- (void)setPlaceImage:(UIImage *)placeImage {
-  [placeButton_ setImage:placeImage forState:UIControlStateNormal];
+- (void)setImageWithName:(NSString *)name {
+  self.image = [UIImage imageNamed:name];
 }
 
 @end

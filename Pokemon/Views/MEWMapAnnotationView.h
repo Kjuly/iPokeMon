@@ -10,6 +10,6 @@
 
 @interface MEWMapAnnotationView : MKAnnotationView
 
-- (void)setPlaceImage:(UIImage *)placeImage;
+- (void)setImageWithName:(NSString *)name;
 
 @end
