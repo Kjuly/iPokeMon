@@ -8,12 +8,15 @@
 
 #import "MapAnnotationCalloutViewController.h"
 
+#import "GlobalRender.h"
 #import "MEWMapAnnotationCalloutBottomView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MapAnnotationCalloutViewController () {
  @private
   UIView                            * mainView_;
+  UILabel                           * title_;
+  UILabel                           * description_;
   MEWMapAnnotationCalloutBottomView * bottomView_;
   CAAnimationGroup * loadAnimationGroupForBottomView_;
   CAAnimationGroup * loadAnimationGroupForMainView_;
@@ -22,6 +25,8 @@
 }
 
 @property (nonatomic, retain) UIView                            * mainView;
+@property (nonatomic, retain) UILabel                           * title;
+@property (nonatomic, retain) UILabel                           * description;
 @property (nonatomic, retain) MEWMapAnnotationCalloutBottomView * bottomView;
 @property (nonatomic, retain) CAAnimationGroup * loadAnimationGroupForBottomView;
 @property (nonatomic, retain) CAAnimationGroup * loadAnimationGroupForMainView;
@@ -35,6 +40,8 @@
 @implementation MapAnnotationCalloutViewController
 
 @synthesize mainView             = mainView_;
+@synthesize title                = title_;
+@synthesize description          = description_;
 @synthesize bottomView           = bottomView_;
 @synthesize loadAnimationGroupForBottomView   = loadAnimationGroupForBottomView_;
 @synthesize loadAnimationGroupForMainView     = loadAnimationGroupForMainView_;
@@ -51,8 +58,10 @@
 }
 
 - (void)_releaseSubViews {
-  self.mainView   = nil;
-  self.bottomView = nil;
+  self.mainView    = nil;
+  self.title       = nil;
+  self.description = nil;
+  self.bottomView  = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
@@ -74,11 +83,32 @@
   CGFloat bottomViewHeight = 10.f;
   CGRect bottomViewFrame = CGRectMake(0.f, kMapAnnotationCalloutViewHeight - bottomViewHeight, kMapAnnotationCalloutViewWidth, bottomViewHeight);
   
+  // main view
   mainView_ = [[UIView alloc] initWithFrame:viewFrame];
   [mainView_ setBackgroundColor:[UIColor colorWithWhite:0.f alpha:.8f]];
-//  [mainView_ setAlpha:0.f];
   [self.view addSubview:mainView_];
   
+  CGFloat margin = 10.f;
+  CGRect titleFrame = CGRectMake(margin, margin, kMapAnnotationCalloutViewWidth - margin * 2, 30.f);
+  CGRect descriptionFrame = CGRectMake(margin, margin + 30.f, kMapAnnotationCalloutViewWidth - margin * 2, 30.f);
+  
+  // title
+  title_ = [[UILabel alloc] initWithFrame:titleFrame];
+  [title_ setBackgroundColor:[UIColor clearColor]];
+  [title_ setTextColor:[GlobalRender textColorOrange]];
+  [title_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
+  [self.mainView addSubview:title_];
+  
+  // description
+  description_ = [[UILabel alloc] initWithFrame:descriptionFrame];
+  [description_ setBackgroundColor:[UIColor clearColor]];
+  [description_ setTextColor:[GlobalRender textColorTitleWhite]];
+  [description_ setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
+  [description_ setNumberOfLines:0];
+  [description_ setLineBreakMode:UILineBreakModeCharacterWrap];
+  [self.mainView addSubview:description_];
+  
+  // bottom view
   bottomView_ = [[MEWMapAnnotationCalloutBottomView alloc] initWithFrame:bottomViewFrame];
   [self.view addSubview:bottomView_];
 }
@@ -234,6 +264,17 @@
   }
   [self.mainView.layer addAnimation:self.switchAnimationGroupForMainView
                              forKey:@"switchAnimationForMainView"];
+}
+
+// configure view
+- (void)configureWithTitle:(NSString *)title
+               description:(NSString *)description {
+  [self.title setText:title];
+  CGFloat margin = 10.f;
+  CGRect descriptionFrame = CGRectMake(margin, margin + 30.f, kMapAnnotationCalloutViewWidth - margin * 2, 30.f);
+  [self.description setFrame:descriptionFrame];
+  [self.description setText:description];
+  [self.description sizeToFit];
 }
 
 #pragma mark - CoreAnimation Delegate

@@ -14,4 +14,7 @@
 - (void)unloadViewAnimated:(BOOL)animated;
 - (void)switchViewAnimated:(BOOL)animated;
 
+- (void)configureWithTitle:(NSString *)title
+               description:(NSString *)description;
+
 @end

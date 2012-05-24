@@ -52,7 +52,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
   // background
-  [[UIColor colorWithWhite:1.f alpha:.8f] setFill];
+  [[UIColor colorWithWhite:0.f alpha:.8f] setFill];
   [[UIBezierPath bezierPathWithOvalInRect:rect] fill];
   
   // foreground

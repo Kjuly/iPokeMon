@@ -270,7 +270,7 @@ static BOOL generated = NO;
     MEWMapPoint * mapPoint = [MEWMapPoint alloc];
     [mapPoint initWithCoordinate:newCoord
                            title:[NSString stringWithFormat:@"Azam Home %d", i]
-                        subTitle:@"Home Sweet Home"];
+                        subtitle:@"subtitle"];
     [self.mapView addAnnotation:mapPoint];
     [mapPoint release];
   }
@@ -312,6 +312,15 @@ static BOOL generated = NO;
     [mapAnnotationCalloutViewController_.view setFrame:viewFrame];
   }
   
+  // set content for callout view & move the annotation point to center of the view
+  MEWMapPoint * mapPoint = (MEWMapPoint *)view.annotation;
+  [self.mapAnnotationCalloutViewController configureWithTitle:mapPoint.title
+                                                  description:mapPoint.subtitle];
+  MKCoordinateRegion region = self.mapView.region;
+  region.center = CLLocationCoordinate2DMake(mapPoint.coordinate.latitude, mapPoint.coordinate.longitude);
+  [self.mapView setRegion:region animated:YES];
+  mapPoint = nil;
+  
   // if there's an annotation view selected already,
   //   close the previous one first & do switching for callout view
   if (selectedAnnotationViewCount_ == 2)
@@ -325,12 +334,6 @@ static BOOL generated = NO;
   [self _setAnnotationView:view
                 asSelected:YES
                 completion:nil];
-  
-  MEWMapPoint * mapPoint = (MEWMapPoint *)(view.annotation);
-  MKCoordinateRegion region = self.mapView.region;
-  region.center = CLLocationCoordinate2DMake(mapPoint.coordinate.latitude, mapPoint.coordinate.longitude);
-  [self.mapView setRegion:region animated:YES];
-  mapPoint = nil;
 }
 
 // Tells the delegate that one of its annotation views was deselected
