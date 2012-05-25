@@ -33,4 +33,6 @@ typedef enum {
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
+- (void)reset;
+
 @end

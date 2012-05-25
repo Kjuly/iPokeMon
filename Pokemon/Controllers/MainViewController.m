@@ -734,6 +734,8 @@
   if (isMapViewOpening_) {
     mapViewFrame.origin.y   = kViewHeight;
     mapButtonFrame.origin.y = 100.f;
+    // reset map view to default
+    [self.mapViewController reset];
   }
   else {
     mapButtonFrame.origin.y = - kMapButtonSize / 2;

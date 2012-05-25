@@ -155,6 +155,13 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Public Methods
+
+// reset to default
+- (void)reset {
+  [self mapView:self.mapView regionWillChangeAnimated:YES];
+}
+
 #pragma mark - Private Methods
 
 // Locate user's location
