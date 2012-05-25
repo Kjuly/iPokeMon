@@ -38,13 +38,14 @@
 @property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
 
 - (void)releaseSubviews;
-- (void)_actionForButtonLocateMe:(id)sender;
-- (void)_actionForButtonShowWorld:(id)sender;
-- (void)_increaseSelectedAnnotationViewCount;
-- (void)_decreaseSelectedAnnotationViewCount;
-- (void)_setAnnotationView:(MKAnnotationView *)view
+- (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
+- (void)_actionForButtonShowWorld:(id)sender; // zoom out to show all world
+- (void)_increaseSelectedAnnotationViewCount; // increase |selectedAnnotationViewCount_|
+- (void)_decreaseSelectedAnnotationViewCount; // decrease |selectedAnnotationViewCount_|
+- (void)_setAnnotationView:(MKAnnotationView *)view // toggle annotation view between selected or not
                 asSelected:(BOOL)selected
                 completion:(void (^)(BOOL))completion;
+- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at current zoom level
 
 @end
 
@@ -154,7 +155,7 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - UtilityViewControllerDelegate
+#pragma mark - Private Methods
 
 // Locate user's location
 - (void)_actionForButtonLocateMe:(id)sender {  
@@ -213,6 +214,41 @@
                      [view setNeedsDisplay];
                    }
                    completion:completion];
+}
+
+// only show annotation view in current zoom level
+- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel {
+  // contient & ocean: 0
+  if (zoomLevel_ == kMEWMaxZoomLevelOfContinentAndOcean) {
+    
+  }
+  // country & sea: 1, 2
+  else if (zoomLevel_ <= kMEWMaxZoomLevelOfCountryAndSea) {
+    
+  }
+  // administrative (province): 3, 4
+  else if (zoomLevel_ <= kMEWMaxZoomLevelOfAdministrativeArea) {
+    
+  }
+  // zoom levels are crossed for below types
+  else {
+    // locality (city): 5, 6, 7
+    if (kMEWMinZoomLevelOfLocality <= zoomLevel_ <= kMEWMaxZoomLevelOfLocality) {
+      
+    }
+    // lake: 6, 7, 8, 9
+    if (kMEWMinZoomLevelOfLake <= zoomLevel_ <= kMEWMaxZoomLevelOfLake) {
+      
+    }
+    // sub-locality (district): 8, 9, 10
+    if (kMEWMinZoomLevelOfSubLocality <= zoomLevel_ <= kMEWMaxZoomLevelOfSubLocality) {
+      
+    }
+    // hot point: shop, etc.: 10, ..., 20
+    if (kMEWMinZoomLevelOfHotPoint <= zoomLevel_ <= kMEWMaxZoomLevelOfHotPoint) {
+      
+    }
+  }
 }
 
 #pragma mark - MKMapView Delegate
@@ -373,7 +409,9 @@ static BOOL generated = NO;
 // Tells the delegate that the region displayed by the map view just changed
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
   zoomLevel_ = [mapView zoomLevel];
-  NSLog(@"region did cahnged, zoom level:%d", zoomLevel_);
+  NSLog(@"region did cahnged, zoom level:%d, updating annotation views to show...", zoomLevel_);
+  // only show annotation view in current zoom level
+  [self _updateAnnotationViewAtZoomLevel:zoomLevel_];
 }
 
 //- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
