@@ -559,7 +559,7 @@
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
 		7FF56403152823E200BA5E28 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56402152823E200BA5E28 /* PMConstants.m */; };
-		7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */; };
+		7FFAF86F156A9A13008605E4 /* MEWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapAnnotation.m */; };
 		7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */; };
 		7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDA156B7617005FAD33 /* MKMapView+ZoomLevel.m */; };
 		7FFBEDE2156B99FE005FAD33 /* mpbCN-ZJ-HZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFBEDDE156B99FE005FAD33 /* mpbCN-ZJ-HZ.png */; };
@@ -1404,8 +1404,8 @@
 		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
 		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
 		7FF56402152823E200BA5E28 /* PMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMConstants.m; sourceTree = "<group>"; };
-		7FFAF86D156A9A13008605E4 /* MEWMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapPoint.h; sourceTree = "<group>"; };
-		7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapPoint.m; sourceTree = "<group>"; };
+		7FFAF86D156A9A13008605E4 /* MEWMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MEWMapAnnotation.h; sourceTree = "<group>"; };
+		7FFAF86E156A9A13008605E4 /* MEWMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotation.m; sourceTree = "<group>"; };
 		7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationView.h; sourceTree = "<group>"; };
 		7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationView.m; sourceTree = "<group>"; };
 		7FFBEDD9156B7617005FAD33 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
@@ -2288,8 +2288,8 @@
 				7F0D18D6150745CB009CFDBA /* PokemonHPBar.m */,
 				7F0D18DB15075111009CFDBA /* PokemonEXPBar.h */,
 				7F0D18DC15075111009CFDBA /* PokemonEXPBar.m */,
-				7FFAF86D156A9A13008605E4 /* MEWMapPoint.h */,
-				7FFAF86E156A9A13008605E4 /* MEWMapPoint.m */,
+				7FFAF86D156A9A13008605E4 /* MEWMapAnnotation.h */,
+				7FFAF86E156A9A13008605E4 /* MEWMapAnnotation.m */,
 				7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */,
 				7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */,
 				7F407835156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.h */,
@@ -3350,7 +3350,7 @@
 				7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */,
 				7F566BB91569582D00BC111B /* MEWRoundView.m in Sources */,
 				7F379DE01569FFDC008D2C6C /* GameBattleLogTableViewCell.m in Sources */,
-				7FFAF86F156A9A13008605E4 /* MEWMapPoint.m in Sources */,
+				7FFAF86F156A9A13008605E4 /* MEWMapAnnotation.m in Sources */,
 				7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */,
 				7FFBEDDB156B7617005FAD33 /* MKMapView+ZoomLevel.m in Sources */,
 				7FFBEDE8156BA24C005FAD33 /* MapAnnotationCalloutViewController.m in Sources */,

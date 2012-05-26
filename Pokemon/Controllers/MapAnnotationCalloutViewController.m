@@ -131,7 +131,7 @@
   // set up animation group for |bottomView_| if it is not initialized
   if (self.loadAnimationGroupForBottomView == nil) {
     CGFloat duration = .3f;
-    // move
+    // move // transform.translation.y also works
     CABasicAnimation * animationMove = [CABasicAnimation animationWithKeyPath:@"position.y"];
     animationMove.duration = duration;
     [animationMove setFromValue:[NSNumber numberWithFloat:kMapAnnotationCalloutViewHeight]];

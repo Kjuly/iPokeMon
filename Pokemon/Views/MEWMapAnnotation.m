@@ -6,18 +6,21 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "MEWMapPoint.h"
+#import "MEWMapAnnotation.h"
 
-@implementation MEWMapPoint
+@implementation MEWMapAnnotation
 
+@synthesize code       = code_;
 @synthesize coordinate = coordinate_;
 @synthesize title      = title_;
 @synthesize subtitle   = subtitle_;
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
-                   title:(NSString *)title
-                subtitle:(NSString *)subtitle {
+- (id)initWithCode:(NSString *)code
+        coordinate:(CLLocationCoordinate2D)coordinate
+             title:(NSString *)title
+          subtitle:(NSString *)subtitle {
   if (self = [super init]) {
+    self.code       = code;
     self.coordinate = coordinate;
     self.title      = title;
     self.subtitle   = subtitle;

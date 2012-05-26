@@ -8,6 +8,7 @@
 
 #import "MEWMapAnnotationView.h"
 
+#import "MEWMapAnnotation.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MEWMapAnnotationView () {
@@ -85,8 +86,8 @@
 
 #pragma mark - Public Methods
 
-- (void)setImageWithName:(NSString *)name {
-  self.image = [UIImage imageNamed:name];
+- (void)updateImage {
+  self.image = [UIImage imageNamed:[NSString stringWithFormat:@"mpb%@.png", ((MEWMapAnnotation *)self.annotation).code]];
 }
 
 @end

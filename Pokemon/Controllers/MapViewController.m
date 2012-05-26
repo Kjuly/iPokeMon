@@ -11,7 +11,7 @@
 #import "MKMapView+ZoomLevel.h"
 
 #import "PMLocationManager.h"
-#import "MEWMapPoint.h"
+#import "MEWMapAnnotation.h"
 #import "MEWMapAnnotationView.h"
 #import "MapAnnotationCalloutViewController.h"
 
@@ -224,7 +224,29 @@
 }
 
 // only show annotation view in current zoom level
+static BOOL generated = NO;
 - (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel {
+  if (generated)
+    return;
+  generated = YES;
+  CLLocationCoordinate2D userCoordinate = self.location.coordinate;
+  for(int i = 1; i <= 5; ++i) {
+    CGFloat latDelta  = rand() * .035f / RAND_MAX - .02f;
+    CGFloat longDelta = rand() * .03f / RAND_MAX - .015f;
+    CLLocationCoordinate2D newCoord = {
+      userCoordinate.latitude + latDelta,
+      userCoordinate.longitude + longDelta
+    };
+    MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
+    [mapAnnotation initWithCode:@"CN-ZJ-HZ"
+                     coordinate:newCoord
+                          title:[NSString stringWithFormat:@"Azam Home %d", i]
+                       subtitle:@"subtitle"];
+    [self.mapView addAnnotation:mapAnnotation];
+    [mapAnnotation release];
+  }
+
+  
   // contient & ocean: 0
   if (zoomLevel_ == kMEWMaxZoomLevelOfContinentAndOcean) {
     
@@ -296,27 +318,7 @@
 }
 
 // Tells the delegate that the location of the user was updated
-static BOOL generated = NO;
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-  if (generated)
-    return;
-  generated = YES;
-  
-  CLLocationCoordinate2D userCoordinate = userLocation.location.coordinate;
-  for(int i = 1; i <= 5; ++i) {
-    CGFloat latDelta  = rand() * .035f / RAND_MAX - .02f;
-    CGFloat longDelta = rand() * .03f / RAND_MAX - .015f;
-    CLLocationCoordinate2D newCoord = {
-      userCoordinate.latitude + latDelta,
-      userCoordinate.longitude + longDelta
-    };
-    MEWMapPoint * mapPoint = [MEWMapPoint alloc];
-    [mapPoint initWithCoordinate:newCoord
-                           title:[NSString stringWithFormat:@"Azam Home %d", i]
-                        subtitle:@"subtitle"];
-    [self.mapView addAnnotation:mapPoint];
-    [mapPoint release];
-  }
 }
 
 // Returns the view associated with the specified annotation object
@@ -337,7 +339,7 @@ static BOOL generated = NO;
   
   // Configure the |annotationView|
   annotationView.annotation = annotation;
-  [annotationView setImageWithName:@"mpbCN-ZJ-HZ.png"];
+  [annotationView updateImage];
   return annotationView;
 }
 
@@ -356,13 +358,13 @@ static BOOL generated = NO;
   }
   
   // set content for callout view & move the annotation point to center of the view
-  MEWMapPoint * mapPoint = (MEWMapPoint *)view.annotation;
-  [self.mapAnnotationCalloutViewController configureWithTitle:mapPoint.title
-                                                  description:mapPoint.subtitle];
+  MEWMapAnnotation * mapAnnotation = (MEWMapAnnotation *)view.annotation;
+  [self.mapAnnotationCalloutViewController configureWithTitle:mapAnnotation.title
+                                                  description:mapAnnotation.subtitle];
   MKCoordinateRegion region = self.mapView.region;
-  region.center = CLLocationCoordinate2DMake(mapPoint.coordinate.latitude, mapPoint.coordinate.longitude);
+  region.center = CLLocationCoordinate2DMake(mapAnnotation.coordinate.latitude, mapAnnotation.coordinate.longitude);
   [self.mapView setRegion:region animated:YES];
-  mapPoint = nil;
+  mapAnnotation = nil;
   
   // if there's an annotation view selected already,
   //   close the previous one first & do switching for callout view
@@ -416,7 +418,7 @@ static BOOL generated = NO;
 // Tells the delegate that the region displayed by the map view just changed
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
   zoomLevel_ = [mapView zoomLevel];
-  NSLog(@"region did cahnged, zoom level:%d, updating annotation views to show...", zoomLevel_);
+  NSLog(@"zoom level:%d, UPDATing annotation views...", zoomLevel_);
   // only show annotation view in current zoom level
   [self _updateAnnotationViewAtZoomLevel:zoomLevel_];
 }
