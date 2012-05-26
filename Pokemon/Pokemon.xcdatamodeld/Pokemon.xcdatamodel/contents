@@ -5,6 +5,15 @@
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
+    <entity name="Annotation" representedClassName="Annotation" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" defaultValueString="XX" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Float" minValueString="-90" maxValueString="90" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Float" minValueString="-180" maxValueString="180" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxZoomLevel" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="20" defaultValueString="20" syncable="YES"/>
+        <attribute name="minZoomLevel" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="20" defaultValueString="0" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" defaultValueString="Unknow" syncable="YES"/>
+    </entity>
     <entity name="BagBattleItem" representedClassName="BagBattleItem" syncable="YES">
         <attribute name="code" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
@@ -183,5 +192,6 @@
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="300"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
         <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="Annotation" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

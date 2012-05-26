@@ -87,7 +87,10 @@
 #pragma mark - Public Methods
 
 - (void)updateImage {
-  self.image = [UIImage imageNamed:[NSString stringWithFormat:@"mpb%@.png", ((MEWMapAnnotation *)self.annotation).code]];
+  NSLog(@"!!!!!!!!!!!!!!!!!!%@", [NSString stringWithFormat:@"%@%@.png",
+                @"CN", ((MEWMapAnnotation *)self.annotation).code]);
+  self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@.png",
+                                    @"CN", ((MEWMapAnnotation *)self.annotation).code]];
 }
 
 @end

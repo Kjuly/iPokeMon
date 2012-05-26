@@ -39,6 +39,8 @@ NSString * const kServerAPIGetRegion       = @"/r/%@"; // /r:Region/<code>
 NSString * const kServerAPIUpdateRegion    = @"/ur";     // /ur:Update Region (push new region to server)
 // WildPokemon
 NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
+// Map Annotations
+NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<code>
 
 #pragma mark -
 #pragma mark - ServerAPI
@@ -60,6 +62,8 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 + (NSString *)updateRegion; // POST
 // WildPokemon
 + (NSString *)getWildPokemon;
+// Annotation
++ (NSString *)getAnnotationWithCode:(NSString *)code; // GET
 @end
 
 
@@ -95,6 +99,11 @@ NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
 
 // WildPokemon
 + (NSString *)getWildPokemon { return kServerAPIGetWildPokemon; }
+
+// Annotation
++ (NSString *)getAnnotationWithCode:(NSString *)code {
+  return [NSString stringWithFormat:kServerAPIGetAnnotation, code];
+}
 
 @end
 
@@ -191,6 +200,8 @@ static ServerAPIClient * client_;
     path = [ServerAPI getPokedex];
   else if (target & kDataFetchTargetRegion)
     path = [ServerAPI getRegionWithCode:self.regionCode];
+  else if (target & kDataFetchTargetAnnotation)
+    path = [ServerAPI getAnnotationWithCode:self.regionCode];
   else return;
   
   [self updateHeaderWithFlag:kHTTPHeaderDefault];

@@ -11,6 +11,7 @@
 #import "MKMapView+ZoomLevel.h"
 
 #import "PMLocationManager.h"
+#import "Annotation+DataController.h"
 #import "MEWMapAnnotation.h"
 #import "MEWMapAnnotationView.h"
 #import "MapAnnotationCalloutViewController.h"
@@ -21,8 +22,10 @@
   UIButton   * locateMeButton_;
   UIButton   * showWorldButton_;
   
-  CLLocation * location_;
+  CLLocation       * location_;
   MapAnnotationCalloutViewController * mapAnnotationCalloutViewController_;
+  MKAnnotationView * selectedAnnotationView_;
+  NSMutableSet     * annotations_;
   
   NSInteger zoomLevel_;
   NSInteger selectedAnnotationViewCount_;
@@ -33,9 +36,10 @@
 @property (nonatomic, retain) UIButton   * locateMeButton;
 @property (nonatomic, retain) UIButton   * showWorldButton;
 
-@property (nonatomic, retain) CLLocation * location;
+@property (nonatomic, retain) CLLocation       * location;
 @property (nonatomic, retain) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
 @property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
+@property (nonatomic, copy)   NSMutableSet     * annotations;
 
 - (void)releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
@@ -45,7 +49,8 @@
 - (void)_setAnnotationView:(MKAnnotationView *)view // toggle annotation view between selected or not
                 asSelected:(BOOL)selected
                 completion:(void (^)(BOOL))completion;
-- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at current zoom level
+- (void)_updateAnnotationsAtZoomLevel:(NSInteger)zoomLevel;    // only store annotations at current zoom level
+- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at ...
 
 @end
 
@@ -56,14 +61,16 @@
 @synthesize locateMeButton  = locateMeButton_;
 @synthesize showWorldButton = showWorldButton_;
 
-@synthesize location        = location_;
+@synthesize location               = location_;
 @synthesize mapAnnotationCalloutViewController = mapAnnotationCalloutViewController_;
 @synthesize selectedAnnotationView = selectedAnnotationView_;
+@synthesize annotations            = annotations_;
 
 - (void)dealloc {
-  self.location = nil;
+  self.location               = nil;
   self.mapAnnotationCalloutViewController = nil;
   self.selectedAnnotationView = nil;
+  self.annotations            = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -143,6 +150,11 @@
                        action:@selector(_actionForButtonShowWorld:)
              forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:showWorldButton_];
+  
+  /////
+  annotations_ = [[NSMutableSet alloc] init];
+  // update annotations for current region
+  [Annotation updateForCurrentRegion];
 }
 
 - (void)viewDidUnload {
@@ -223,25 +235,25 @@
                    completion:completion];
 }
 
+// only store annotations at current zoom level
+- (void)_updateAnnotationsAtZoomLevel:(NSInteger)zoomLevel {
+  self.annotations = [NSMutableSet setWithArray:[Annotation annotationsAtZoomLevel:zoomLevel]];
+}
+
 // only show annotation view in current zoom level
-static BOOL generated = NO;
+//static BOOL generated = NO;
 - (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel {
-  if (generated)
-    return;
-  generated = YES;
-  CLLocationCoordinate2D userCoordinate = self.location.coordinate;
-  for(int i = 1; i <= 5; ++i) {
-    CGFloat latDelta  = rand() * .035f / RAND_MAX - .02f;
-    CGFloat longDelta = rand() * .03f / RAND_MAX - .015f;
-    CLLocationCoordinate2D newCoord = {
-      userCoordinate.latitude + latDelta,
-      userCoordinate.longitude + longDelta
-    };
+  [self _updateAnnotationsAtZoomLevel:zoomLevel];
+  
+//  if (generated)
+//    return;
+//  generated = YES;
+  for (Annotation * annotation in self.annotations) {
     MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
-    [mapAnnotation initWithCode:@"CN-ZJ-HZ"
-                     coordinate:newCoord
-                          title:[NSString stringWithFormat:@"Azam Home %d", i]
-                       subtitle:@"subtitle"];
+    [mapAnnotation initWithCode:annotation.code
+                     coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue], [annotation.longitude floatValue])
+                          title:annotation.title
+                       subtitle:annotation.subtitle];
     [self.mapView addAnnotation:mapAnnotation];
     [mapAnnotation release];
   }
