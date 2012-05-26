@@ -49,8 +49,7 @@
 - (void)_setAnnotationView:(MKAnnotationView *)view // toggle annotation view between selected or not
                 asSelected:(BOOL)selected
                 completion:(void (^)(BOOL))completion;
-- (void)_updateAnnotationsAtZoomLevel:(NSInteger)zoomLevel;    // only store annotations at current zoom level
-- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at ...
+- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at current zoom level
 
 @end
 
@@ -235,20 +234,18 @@
                    completion:completion];
 }
 
-// only store annotations at current zoom level
-- (void)_updateAnnotationsAtZoomLevel:(NSInteger)zoomLevel {
-  self.annotations = [NSMutableSet setWithArray:[Annotation annotationsAtZoomLevel:zoomLevel]];
-}
-
 // only show annotation view in current zoom level
-//static BOOL generated = NO;
 - (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel {
-  [self _updateAnnotationsAtZoomLevel:zoomLevel];
+  // need to check whether need to refetch the data
+  //!!!!!!
   
-//  if (generated)
-//    return;
-//  generated = YES;
-  for (Annotation * annotation in self.annotations) {
+  // only store annotations at current zoom level
+  NSArray * annotations = [Annotation annotationsAtZoomLevel:zoomLevel];
+  
+  // add annotations to |mapView_|
+  for (Annotation * annotation in annotations) {
+    if ([self.annotations containsObject:annotation])
+      continue;
     MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
     [mapAnnotation initWithCode:annotation.code
                      coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue], [annotation.longitude floatValue])
@@ -257,6 +254,9 @@
     [self.mapView addAnnotation:mapAnnotation];
     [mapAnnotation release];
   }
+  
+  self.annotations = [NSMutableSet setWithArray:annotations];
+  annotations = nil;
 
   
   // contient & ocean: 0
@@ -357,6 +357,9 @@
 
 // Tells the delegate that one of its annotation views was selected
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+  if ([view.annotation isKindOfClass:[MKUserLocation class]])
+    return;
+  
   shouldIgnoreFirstRegionChange_ = YES;
   [self _increaseSelectedAnnotationViewCount];
   
