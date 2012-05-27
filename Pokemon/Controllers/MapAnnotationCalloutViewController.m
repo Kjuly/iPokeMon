@@ -106,7 +106,7 @@
   [description_ setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [description_ setNumberOfLines:0];
   [description_ setLineBreakMode:UILineBreakModeCharacterWrap];
-  [self.mainView addSubview:description_];
+//  [self.mainView addSubview:description_];
   
   // bottom view
   bottomView_ = [[MEWMapAnnotationCalloutBottomView alloc] initWithFrame:bottomViewFrame];
