@@ -37,7 +37,8 @@
   CGFloat const imageHeight = 150.f;
   CGFloat const labelHeight = 30.f;
   
-  CGRect  const sizeViewFrame    = CGRectMake(10.f, imageHeight + 15.f, 300.f, labelHeight);
+//  CGRect  const sizeViewFrame    = CGRectMake(10.f, imageHeight + 15.f, 300.f, labelHeight);
+  CGRect  const sizeViewFrame    = CGRectMake(10.f, imageHeight + 15.f + 30.f, 300.f, labelHeight);
   CGRect  const heightLabelFrame = CGRectMake(0.f, 0.f, 140.f, labelHeight);
   CGRect  const weightLabelFrame = CGRectMake(140.f, 0.f, 160.f, labelHeight);
   
