@@ -941,6 +941,18 @@
 		7FA7BAC41540414300DF6377 /* BagTableViewCellIcon_7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */; };
 		7FA7BAC51540414300DF6377 /* BagTableViewCellIcon_8.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */; };
 		7FA7BAC61540414300DF6377 /* BagTableViewCellIcon_8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */; };
+		7FA9C70C15725C210090BD6C /* CN.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C6FF15725C200090BD6C /* CN.png */; };
+		7FA9C70D15725C210090BD6C /* CNZJHY.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70115725C210090BD6C /* CNZJHY.png */; };
+		7FA9C70E15725C210090BD6C /* CNZJHZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70215725C210090BD6C /* CNZJHZ.png */; };
+		7FA9C70F15725C210090BD6C /* CNZJJH.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70315725C210090BD6C /* CNZJJH.png */; };
+		7FA9C71015725C210090BD6C /* CNZJJX.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70415725C210090BD6C /* CNZJJX.png */; };
+		7FA9C71115725C210090BD6C /* CNZJLS.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70515725C210090BD6C /* CNZJLS.png */; };
+		7FA9C71215725C210090BD6C /* CNZJNB.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70615725C210090BD6C /* CNZJNB.png */; };
+		7FA9C71315725C210090BD6C /* CNZJQZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70715725C210090BD6C /* CNZJQZ.png */; };
+		7FA9C71415725C210090BD6C /* CNZJSX.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70815725C210090BD6C /* CNZJSX.png */; };
+		7FA9C71515725C210090BD6C /* CNZJTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70915725C210090BD6C /* CNZJTZ.png */; };
+		7FA9C71615725C210090BD6C /* CNZJWZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70A15725C210090BD6C /* CNZJWZ.png */; };
+		7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70B15725C210090BD6C /* CNZJZS.png */; };
 		7FAC07B51535573F00DF86B7 /* GameBattleEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */; };
 		7FAC07B9153582F600DF86B7 /* PokemonLevelUpUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B8153582F600DF86B7 /* PokemonLevelUpUnitView.m */; };
 		7FAC496814DEE627008BAB45 /* PokemonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */; };
@@ -2240,6 +2252,18 @@
 		7FA7BAB41540414100DF6377 /* BagTableViewCellIcon_7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_7@2x.png"; sourceTree = "<group>"; };
 		7FA7BAB51540414200DF6377 /* BagTableViewCellIcon_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagTableViewCellIcon_8.png; sourceTree = "<group>"; };
 		7FA7BAB61540414200DF6377 /* BagTableViewCellIcon_8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BagTableViewCellIcon_8@2x.png"; sourceTree = "<group>"; };
+		7FA9C6FF15725C200090BD6C /* CN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CN.png; sourceTree = "<group>"; };
+		7FA9C70115725C210090BD6C /* CNZJHY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJHY.png; sourceTree = "<group>"; };
+		7FA9C70215725C210090BD6C /* CNZJHZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJHZ.png; sourceTree = "<group>"; };
+		7FA9C70315725C210090BD6C /* CNZJJH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJJH.png; sourceTree = "<group>"; };
+		7FA9C70415725C210090BD6C /* CNZJJX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJJX.png; sourceTree = "<group>"; };
+		7FA9C70515725C210090BD6C /* CNZJLS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJLS.png; sourceTree = "<group>"; };
+		7FA9C70615725C210090BD6C /* CNZJNB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJNB.png; sourceTree = "<group>"; };
+		7FA9C70715725C210090BD6C /* CNZJQZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJQZ.png; sourceTree = "<group>"; };
+		7FA9C70815725C210090BD6C /* CNZJSX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJSX.png; sourceTree = "<group>"; };
+		7FA9C70915725C210090BD6C /* CNZJTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJTZ.png; sourceTree = "<group>"; };
+		7FA9C70A15725C210090BD6C /* CNZJWZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJWZ.png; sourceTree = "<group>"; };
+		7FA9C70B15725C210090BD6C /* CNZJZS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJZS.png; sourceTree = "<group>"; };
 		7FAC07B31535573F00DF86B7 /* GameBattleEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEventViewController.h; sourceTree = "<group>"; };
 		7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEventViewController.m; sourceTree = "<group>"; };
 		7FAC07B7153582F600DF86B7 /* PokemonLevelUpUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonLevelUpUnitView.h; sourceTree = "<group>"; };
@@ -3077,6 +3101,8 @@
 		7F38FD7215709FF600AEEE65 /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
+				7FA9C6FF15725C200090BD6C /* CN.png */,
+				7FA9C70015725C210090BD6C /* ZJ */,
 				7F38FD7315709FF600AEEE65 /* CNAH.png */,
 				7F38FD7415709FF600AEEE65 /* CNBJ.png */,
 				7F38FD7515709FF600AEEE65 /* CNCQ.png */,
@@ -4155,6 +4181,24 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		7FA9C70015725C210090BD6C /* ZJ */ = {
+			isa = PBXGroup;
+			children = (
+				7FA9C70115725C210090BD6C /* CNZJHY.png */,
+				7FA9C70215725C210090BD6C /* CNZJHZ.png */,
+				7FA9C70315725C210090BD6C /* CNZJJH.png */,
+				7FA9C70415725C210090BD6C /* CNZJJX.png */,
+				7FA9C70515725C210090BD6C /* CNZJLS.png */,
+				7FA9C70615725C210090BD6C /* CNZJNB.png */,
+				7FA9C70715725C210090BD6C /* CNZJQZ.png */,
+				7FA9C70815725C210090BD6C /* CNZJSX.png */,
+				7FA9C70915725C210090BD6C /* CNZJTZ.png */,
+				7FA9C70A15725C210090BD6C /* CNZJWZ.png */,
+				7FA9C70B15725C210090BD6C /* CNZJZS.png */,
+			);
+			path = ZJ;
+			sourceTree = "<group>";
+		};
 		7FC127FF1504C24400E2A8F7 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5102,6 +5146,18 @@
 				7F38FDB415709FF600AEEE65 /* CNZJ.png in Resources */,
 				7F38FDB61570FB2E00AEEE65 /* CNHE.png in Resources */,
 				7F38FDBC15710D9C00AEEE65 /* CNHB.png in Resources */,
+				7FA9C70C15725C210090BD6C /* CN.png in Resources */,
+				7FA9C70D15725C210090BD6C /* CNZJHY.png in Resources */,
+				7FA9C70E15725C210090BD6C /* CNZJHZ.png in Resources */,
+				7FA9C70F15725C210090BD6C /* CNZJJH.png in Resources */,
+				7FA9C71015725C210090BD6C /* CNZJJX.png in Resources */,
+				7FA9C71115725C210090BD6C /* CNZJLS.png in Resources */,
+				7FA9C71215725C210090BD6C /* CNZJNB.png in Resources */,
+				7FA9C71315725C210090BD6C /* CNZJQZ.png in Resources */,
+				7FA9C71415725C210090BD6C /* CNZJSX.png in Resources */,
+				7FA9C71515725C210090BD6C /* CNZJTZ.png in Resources */,
+				7FA9C71615725C210090BD6C /* CNZJWZ.png in Resources */,
+				7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
