@@ -10,29 +10,38 @@
 
 #import "MKMapView+ZoomLevel.h"
 #import "PMLocationManager.h"
+#import "Pokemon+DataController.h"
+#import "PokemonAreaAnnotation.h"
+#import "PokemonAreaAnnotationView.h"
 
 @interface PokemonAreaViewController () {
  @private
-  MKMapView  * mapView_;
-  CLLocation * location_;
+  MKMapView    * mapView_;
+  CLLocation   * location_;
+  NSMutableSet * annotations_;
   
+  NSInteger pokemonSID_;
   NSInteger zoomLevel_;
 }
 
-@property (nonatomic, retain) MKMapView  * mapView;
-@property (nonatomic, retain) CLLocation * location;
+@property (nonatomic, retain) MKMapView    * mapView;
+@property (nonatomic, retain) CLLocation   * location;
+@property (nonatomic, copy)   NSMutableSet * annotations;
 
 - (void)_releaseSubviews;
+- (void)_updateAnnotations;
 
 @end
 
 @implementation PokemonAreaViewController
 
-@synthesize mapView  = mapView_;
-@synthesize location = location_;
+@synthesize mapView     = mapView_;
+@synthesize location    = location_;
+@synthesize annotations = annotations_;
 
 - (void)dealloc {
-  self.location = nil;
+  self.location    = nil;
+  self.annotations = nil;
   [self _releaseSubviews];
   [super dealloc];
 }
@@ -44,6 +53,7 @@
 - (id)initWithPokemonSID:(NSInteger)pokemonSID {
   self = [self init];
   if (self) {
+    pokemonSID_ = pokemonSID;
   }
   return self;
 }
@@ -78,7 +88,8 @@
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
   // basic settings
-  zoomLevel_ = 3.f;
+  zoomLevel_   = 3.f;
+  annotations_ = [[NSMutableSet alloc] init];
   
   // Google Map View
   CGRect mapViewFrame = self.view.frame;
@@ -104,6 +115,110 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Private Methods
+
+// only show annotation view in current zoom level
+- (void)_updateAnnotations {
+  // remove old annotations
+  [self.mapView removeAnnotations:[self.annotations allObjects]];
+  
+  // only store annotations at current zoom level
+  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:pokemonSID_];
+  NSArray * coordinatePairs = [pokemon.area componentsSeparatedByString:@":"];
+  NSMutableArray * pokemonAreaAnnotations = [[NSMutableArray alloc] init];
+  // add annotations to |mapView_|
+  for (NSString * coordinatePair in coordinatePairs) {
+    NSArray * coordinates = [coordinatePair componentsSeparatedByString:@","];
+    if ([coordinates count] < 2)
+      continue;
+    PokemonAreaAnnotation * pokemonAreaAnnotation = [PokemonAreaAnnotation alloc];
+    [pokemonAreaAnnotation initWithCoordinate:CLLocationCoordinate2DMake([[coordinates objectAtIndex:0] floatValue],
+                                                                         [[coordinates objectAtIndex:1] floatValue])
+                                        title:nil
+                                     subtitle:nil];
+    NSLog(@"---> new Annotation...");
+    [pokemonAreaAnnotations addObject:pokemonAreaAnnotation];
+    [pokemonAreaAnnotation release];
+  }
+  
+  [self.mapView addAnnotations:pokemonAreaAnnotations];
+  self.annotations = [NSMutableSet setWithArray:pokemonAreaAnnotations];
+  [pokemonAreaAnnotations release];
+  coordinatePairs = nil;
+}
+
+#pragma mark - MKMapView Delegate
+
+// Tells the delegate that one or more annotation views were added to the map
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+  // add animation for showing annotation views
+  //CGRect visibleRect = [mapView annotationVisibleRect];
+  for(MKAnnotationView *view in views) {
+    if(! [view isKindOfClass:[PokemonAreaAnnotationView class]])
+      continue;
+    //CGRect endFrame = view.frame;
+    //CGRect startFrame = endFrame;
+    //startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
+    //view.frame = startFrame;
+    
+    CGRect endFrame = view.frame;
+    CGRect startFrame = endFrame;
+    CGFloat originalSize = view.frame.size.width;
+    CGFloat startSize = 16.f;
+    CGFloat offset = (originalSize - startSize) / 2.f;
+    startFrame.origin.x += offset;
+    startFrame.origin.y += offset;
+    startFrame.size = CGSizeMake(startSize, startSize);
+    [view setFrame:startFrame];
+    [view setAlpha:0.f];
+    
+    [UIView commitAnimations];
+    [UIView animateWithDuration:.3f
+                          delay:0.f
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
+                       [view setFrame:endFrame];
+                       [view setAlpha:1.f];
+                     }
+                     completion:nil];
+  }
+}
+
+// Returns the view associated with the specified annotation object
+- (MKAnnotationView *)mapView:(MKMapView *)mapView
+            viewForAnnotation:(id<MKAnnotation>)annotation {
+  if([annotation isKindOfClass:[MKUserLocation class]])
+    return nil;
+  
+  NSString * annotationIdentifier = @"com.kjuly.Mew.PokemonAreaAnnotationView";
+  PokemonAreaAnnotationView * annotationView =
+  (PokemonAreaAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+  if (! annotationView) {
+    annotationView = [[[PokemonAreaAnnotationView alloc] initWithAnnotation:annotation
+                                                            reuseIdentifier:annotationIdentifier] autorelease];
+    // do not show the default callout view
+    //annotationView.canShowCallout = YES;
+  }
+  
+  // Configure the |annotationView|
+  annotationView.annotation = annotation;
+//  [annotationView setNeedsDisplay];
+  return annotationView;
+}
+
+// Tells the delegate that the region displayed by the map view just changed
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  NSInteger zoomLevel = [mapView zoomLevel];
+  NSLog(@"zoomLevel = %d", zoomLevel);
+  if (zoomLevel_ == zoomLevel)
+    return;
+  zoomLevel_ = zoomLevel;
+  
+  // do updating for annotations in current zoom level
+  NSLog(@"UPDATing annotation views...");
+  [self _updateAnnotations];
 }
 
 @end

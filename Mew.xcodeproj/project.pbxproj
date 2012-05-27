@@ -953,6 +953,8 @@
 		7FA9C71515725C210090BD6C /* CNZJTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70915725C210090BD6C /* CNZJTZ.png */; };
 		7FA9C71615725C210090BD6C /* CNZJWZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70A15725C210090BD6C /* CNZJWZ.png */; };
 		7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9C70B15725C210090BD6C /* CNZJZS.png */; };
+		7FA9C71B157271120090BD6C /* PokemonAreaAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9C71A157271120090BD6C /* PokemonAreaAnnotation.m */; };
+		7FA9C71E157271940090BD6C /* PokemonAreaAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9C71D157271940090BD6C /* PokemonAreaAnnotationView.m */; };
 		7FAC07B51535573F00DF86B7 /* GameBattleEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */; };
 		7FAC07B9153582F600DF86B7 /* PokemonLevelUpUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC07B8153582F600DF86B7 /* PokemonLevelUpUnitView.m */; };
 		7FAC496814DEE627008BAB45 /* PokemonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC496714DEE627008BAB45 /* PokemonInfoViewController.m */; };
@@ -2264,6 +2266,10 @@
 		7FA9C70915725C210090BD6C /* CNZJTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJTZ.png; sourceTree = "<group>"; };
 		7FA9C70A15725C210090BD6C /* CNZJWZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJWZ.png; sourceTree = "<group>"; };
 		7FA9C70B15725C210090BD6C /* CNZJZS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNZJZS.png; sourceTree = "<group>"; };
+		7FA9C719157271120090BD6C /* PokemonAreaAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PokemonAreaAnnotation.h; sourceTree = "<group>"; };
+		7FA9C71A157271120090BD6C /* PokemonAreaAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonAreaAnnotation.m; sourceTree = "<group>"; };
+		7FA9C71C157271930090BD6C /* PokemonAreaAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonAreaAnnotationView.h; sourceTree = "<group>"; };
+		7FA9C71D157271940090BD6C /* PokemonAreaAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonAreaAnnotationView.m; sourceTree = "<group>"; };
 		7FAC07B31535573F00DF86B7 /* GameBattleEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEventViewController.h; sourceTree = "<group>"; };
 		7FAC07B41535573F00DF86B7 /* GameBattleEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEventViewController.m; sourceTree = "<group>"; };
 		7FAC07B7153582F600DF86B7 /* PokemonLevelUpUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonLevelUpUnitView.h; sourceTree = "<group>"; };
@@ -3874,6 +3880,10 @@
 				7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */,
 				7F407835156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.h */,
 				7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */,
+				7FA9C719157271120090BD6C /* PokemonAreaAnnotation.h */,
+				7FA9C71A157271120090BD6C /* PokemonAreaAnnotation.m */,
+				7FA9C71C157271930090BD6C /* PokemonAreaAnnotationView.h */,
+				7FA9C71D157271940090BD6C /* PokemonAreaAnnotationView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5463,6 +5473,8 @@
 				7F407837156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m in Sources */,
 				7F38F9C115709F0400AEEE65 /* Annotation.m in Sources */,
 				7F38F9C415709F3400AEEE65 /* Annotation+DataController.m in Sources */,
+				7FA9C71B157271120090BD6C /* PokemonAreaAnnotation.m in Sources */,
+				7FA9C71E157271940090BD6C /* PokemonAreaAnnotationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
