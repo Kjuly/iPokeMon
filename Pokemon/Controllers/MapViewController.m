@@ -27,7 +27,7 @@
   MKAnnotationView * selectedAnnotationView_;
   NSMutableSet     * annotations_;
   
-  NSInteger        zoomLevel_;          // zoom level: 0 ~ 20
+  NSInteger        zoomLevel_;     // zoom level: 0 ~ 20
   MEWZoomLevelType zoomLevelType_; // zoom level of terrain
   NSInteger selectedAnnotationViewCount_;    // selected annotation view count
   BOOL      shouldIgnoreFirstRegionChange_;  // when select the annotation, map view will move the region
@@ -306,39 +306,6 @@
   self.annotations = [NSMutableSet setWithArray:mapAnnotations];
   [mapAnnotations release];
   annotations = nil;
-
-  
-  // contient & ocean: 0
-  if (zoomLevel_ == kMEWMaxZoomLevelOfContinentAndOcean) {
-    
-  }
-  // country & sea: 1, 2
-  else if (zoomLevel_ <= kMEWMaxZoomLevelOfCountryAndSea) {
-    
-  }
-  // administrative (province): 3, 4
-  else if (zoomLevel_ <= kMEWMaxZoomLevelOfAdministrativeArea) {
-    
-  }
-  // zoom levels are crossed for below types
-  else {
-    // locality (city): 5, 6, 7
-    if (kMEWMinZoomLevelOfLocality <= zoomLevel_ <= kMEWMaxZoomLevelOfLocality) {
-      
-    }
-    // lake: 6, 7, 8, 9
-    if (kMEWMinZoomLevelOfLake <= zoomLevel_ <= kMEWMaxZoomLevelOfLake) {
-      
-    }
-    // sub-locality (district): 8, 9, 10
-    if (kMEWMinZoomLevelOfSubLocality <= zoomLevel_ <= kMEWMaxZoomLevelOfSubLocality) {
-      
-    }
-    // hot point: shop, etc.: 10, ..., 20
-    if (kMEWMinZoomLevelOfHotPoint <= zoomLevel_ <= kMEWMaxZoomLevelOfHotPoint) {
-      
-    }
-  }
 }
 
 #pragma mark - MKMapView Delegate
