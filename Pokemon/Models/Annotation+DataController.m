@@ -118,7 +118,7 @@
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
                                       inManagedObjectContext:managedObjectContext]];
-//  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"minZoomLevel < %d < maxZoomLevel", zoomLevel]];
+  [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%d BETWEEN { minZoomLevel, maxZoomLevel }", zoomLevel]];
   
   NSError * error;
   NSArray * annotations = [managedObjectContext executeFetchRequest:fetchRequest error:&error];

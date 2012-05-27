@@ -490,12 +490,14 @@
 // Tells the delegate that the region displayed by the map view just changed
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
   zoomLevel_ = [mapView zoomLevel];
-  NSLog(@"zoom level:%d, UPDATing annotation views...", zoomLevel_);
+  NSLog(@"zoomLevel = %d", zoomLevel_);
   
   // check whether need to update annotations,
   //   if so, do updating for annotations in current zoom level
-  if ([self _needToUpdateAnnotations])
+  if ([self _needToUpdateAnnotations]) {
+    NSLog(@"UPDATing annotation views...");
     [self _updateAnnotations];
+  }
 }
 
 //- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
