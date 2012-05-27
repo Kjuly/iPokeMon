@@ -8,13 +8,37 @@
 
 #import "PokemonAreaViewController.h"
 
+#import "MKMapView+ZoomLevel.h"
+#import "PMLocationManager.h"
+
+@interface PokemonAreaViewController () {
+ @private
+  MKMapView  * mapView_;
+  CLLocation * location_;
+  
+  NSInteger zoomLevel_;
+}
+
+@property (nonatomic, retain) MKMapView  * mapView;
+@property (nonatomic, retain) CLLocation * location;
+
+- (void)_releaseSubviews;
+
+@end
+
 @implementation PokemonAreaViewController
 
-@synthesize mapView = mapView_;
+@synthesize mapView  = mapView_;
+@synthesize location = location_;
 
 - (void)dealloc {
-  self.mapView = nil;
+  self.location = nil;
+  [self _releaseSubviews];
   [super dealloc];
+}
+
+- (void)_releaseSubviews {
+  self.mapView = nil;
 }
 
 - (id)initWithPokemonSID:(NSInteger)pokemonSID {
@@ -28,6 +52,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
+    self.location = [[PMLocationManager sharedInstance] currLocation];
   }
   return self;
 }
@@ -52,24 +77,31 @@
   [super viewDidLoad];
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
+  // basic settings
+  zoomLevel_ = 3.f;
+  
   // Google Map View
   CGRect mapViewFrame = self.view.frame;
   mapViewFrame.origin.y = -kNavigationBarBottomAlphaHegiht;
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:mapViewFrame];
+  [mapView setShowsUserLocation:YES];
   self.mapView = mapView;
   [mapView release];
+  [self.mapView setDelegate:self];
   [self.view addSubview:self.mapView];
-}
-
-- (void)viewDidUnload
-{
-  [super viewDidUnload];
   
-  self.mapView = nil;
+  // set default region with zoom level
+  [self.mapView setCenterCoordinate:self.location.coordinate
+                          zoomLevel:zoomLevel_
+                           animated:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (void)viewDidUnload {
+  [super viewDidUnload];
+  [self _releaseSubviews];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

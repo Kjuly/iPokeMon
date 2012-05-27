@@ -9,12 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface PokemonAreaViewController : UIViewController
-{
-  MKMapView * mapView_;
-}
-
-@property (nonatomic, retain) MKMapView * mapView;
+@interface PokemonAreaViewController : UIViewController <MKMapViewDelegate>
 
 - (id)initWithPokemonSID:(NSInteger)pokemonSID;
 
