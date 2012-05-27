@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+// map's zoom level for terrain
+typedef enum {
+  kMEWZoomLevelTypeNone               = 0,
+  kMEWZoomLevelTypeContinentAndOcean  = 1 << 0,  // continent & ocean
+  kMEWZoomLevelTypeCountryAndSea      = 1 << 1,  // country & sea
+  kMEWZoomLevelTypeAdministrativeArea = 1 << 2,  // administrative (province)
+  kMEWZoomLevelTypeLocality           = 1 << 3,  // locality (city)
+  kMEWZoomLevelTypeLake               = 1 << 4,  // lake
+  kMEWZoomLevelTypeSubLocality        = 1 << 5,  // sub-locality (district)
+  kMEWZoomLevelTypeHotPoint           = 1 << 6   // hot point: shop, etc.
+}MEWZoomLevelType;
+
 // map's min zoom level for different type of terrain
 typedef enum {
   kMEWMinZoomLevelOfContinentAndOcean  = 0,  // continent & ocean        : 0

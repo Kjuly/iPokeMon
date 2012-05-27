@@ -26,10 +26,12 @@
   MapAnnotationCalloutViewController * mapAnnotationCalloutViewController_;
   MKAnnotationView * selectedAnnotationView_;
   NSMutableSet     * annotations_;
+  NSMutableSet     * annotationCodes_; // store codes for annotations that already added
   
-  NSInteger zoomLevel_;
-  NSInteger selectedAnnotationViewCount_;
-  BOOL      shouldIgnoreFirstRegionChange_; // when select the annotation, map view will move the region
+  NSInteger        zoomLevel_;          // zoom level: 0 ~ 20
+  MEWZoomLevelType zoomLevelType_; // zoom level of terrain
+  NSInteger selectedAnnotationViewCount_;    // selected annotation view count
+  BOOL      shouldIgnoreFirstRegionChange_;  // when select the annotation, map view will move the region
 }
 
 @property (nonatomic, retain) MKMapView  * mapView;
@@ -40,6 +42,7 @@
 @property (nonatomic, retain) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
 @property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
 @property (nonatomic, copy)   NSMutableSet     * annotations;
+@property (nonatomic, copy)   NSMutableSet     * annotationCodes;
 
 - (void)releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
@@ -49,7 +52,9 @@
 - (void)_setAnnotationView:(MKAnnotationView *)view // toggle annotation view between selected or not
                 asSelected:(BOOL)selected
                 completion:(void (^)(BOOL))completion;
-- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel; // only show annotation view at current zoom level
+- (MEWZoomLevelType)_typeOfZoomLevel:(NSInteger)zoomLevel;
+- (BOOL)_needToUpdateAnnotations;
+- (void)_updateAnnotations; // only add annotation view at current zoom level
 
 @end
 
@@ -64,12 +69,14 @@
 @synthesize mapAnnotationCalloutViewController = mapAnnotationCalloutViewController_;
 @synthesize selectedAnnotationView = selectedAnnotationView_;
 @synthesize annotations            = annotations_;
+@synthesize annotationCodes        = annotationCodes_;
 
 - (void)dealloc {
   self.location               = nil;
   self.mapAnnotationCalloutViewController = nil;
   self.selectedAnnotationView = nil;
   self.annotations            = nil;
+  self.annotationCodes        = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -84,6 +91,8 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     self.location = [[PMLocationManager sharedInstance] currLocation];
+    // update annotations for current region
+    [Annotation updateForCurrentRegion];
   }
   return self;
 }
@@ -110,6 +119,7 @@
   
   // basic settings
   zoomLevel_                     = 12.f;
+  zoomLevelType_                 = kMEWZoomLevelTypeNone;
   selectedAnnotationViewCount_   = 0;
   shouldIgnoreFirstRegionChange_ = NO;
   
@@ -150,10 +160,12 @@
              forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:showWorldButton_];
   
-  /////
-  annotations_ = [[NSMutableSet alloc] init];
-  // update annotations for current region
-  [Annotation updateForCurrentRegion];
+  // annotation set
+  annotations_     = [[NSMutableSet alloc] init];
+  annotationCodes_ = [[NSMutableSet alloc] init];
+  
+  // initialize the annotations
+  [self _updateAnnotations];
 }
 
 - (void)viewDidUnload {
@@ -234,28 +246,74 @@
                    completion:completion];
 }
 
+// update |zoomLevelType_| with |zoomLevel|
+- (MEWZoomLevelType)_typeOfZoomLevel:(NSInteger)zoomLevel {
+  MEWZoomLevelType zoomLevelType = kMEWZoomLevelTypeNone;
+  // contient & ocean: 0
+  if (zoomLevel == kMEWMaxZoomLevelOfContinentAndOcean)
+    zoomLevelType_ |= kMEWZoomLevelTypeContinentAndOcean;
+  // country & sea: 1, 2
+  else if (zoomLevel <= kMEWMaxZoomLevelOfCountryAndSea)
+    zoomLevelType_ |= kMEWZoomLevelTypeCountryAndSea;
+  // administrative (province): 3, 4
+  else if (zoomLevel <= kMEWMaxZoomLevelOfAdministrativeArea)
+    zoomLevelType_ |= kMEWZoomLevelTypeAdministrativeArea;
+  // zoom levels are crossed for below types
+  else {
+    // locality (city): 5, 6, 7
+    if (kMEWMinZoomLevelOfLocality <= zoomLevel <= kMEWMaxZoomLevelOfLocality)
+      zoomLevelType_ |= kMEWZoomLevelTypeLocality;
+    // lake: 6, 7, 8, 9
+    if (kMEWMinZoomLevelOfLake <= zoomLevel <= kMEWMaxZoomLevelOfLake)
+      zoomLevelType_ |= kMEWZoomLevelTypeLake;
+    // sub-locality (district): 8, 9, 10
+    if (kMEWMinZoomLevelOfSubLocality <= zoomLevel <= kMEWMaxZoomLevelOfSubLocality)
+      zoomLevelType_ |= kMEWZoomLevelTypeSubLocality;
+    // hot point: shop, etc.: 10, ..., 20
+    if (kMEWMinZoomLevelOfHotPoint <= zoomLevel <= kMEWMaxZoomLevelOfHotPoint)
+      zoomLevelType_ |= kMEWZoomLevelTypeHotPoint;
+  }
+  return zoomLevelType;
+}
+
+// whether need to update annotations at current zoom level
+//   if types are same, no need to do updating
+//   otherwise, update |zoomLevelType_| & return YES
+- (BOOL)_needToUpdateAnnotations {
+  MEWZoomLevelType zoomLevelType = [self _typeOfZoomLevel:zoomLevel_];
+  if (zoomLevelType_ == zoomLevelType)
+    return NO;
+  zoomLevelType_ = zoomLevelType;
+  return YES;
+}
+
 // only show annotation view in current zoom level
-- (void)_updateAnnotationViewAtZoomLevel:(NSInteger)zoomLevel {
-  // need to check whether need to refetch the data
-  //!!!!!!
+- (void)_updateAnnotations {
+  // remove old annotations
+  [self.mapView removeAnnotations:[self.annotations allObjects]];
   
   // only store annotations at current zoom level
-  NSArray * annotations = [Annotation annotationsAtZoomLevel:zoomLevel];
-  
+  NSArray * annotations = [Annotation annotationsAtZoomLevel:zoomLevel_];
+  NSMutableArray * mapAnnotations = [[NSMutableArray alloc] init];
   // add annotations to |mapView_|
   for (Annotation * annotation in annotations) {
-    if ([self.annotations containsObject:annotation])
+    if ([self.annotationCodes containsObject:annotation.code])
       continue;
+    [self.annotationCodes addObject:annotation.code];
+    
     MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
     [mapAnnotation initWithCode:annotation.code
                      coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue], [annotation.longitude floatValue])
                           title:annotation.title
                        subtitle:annotation.subtitle];
-    [self.mapView addAnnotation:mapAnnotation];
+    NSLog(@"---> new Annotation...code:%@", annotation.code);
+    [mapAnnotations addObject:mapAnnotation];
     [mapAnnotation release];
   }
   
-  self.annotations = [NSMutableSet setWithArray:annotations];
+  [self.mapView addAnnotations:mapAnnotations];
+  self.annotations = [NSMutableSet setWithArray:mapAnnotations];
+  [mapAnnotations release];
   annotations = nil;
 
   
@@ -299,33 +357,33 @@
   // add animation for showing annotation views
   //CGRect visibleRect = [mapView annotationVisibleRect];
   for(MKAnnotationView *view in views) {
-    if([view isKindOfClass:[MEWMapAnnotationView class]]) {
-      //CGRect endFrame = view.frame;
-      //CGRect startFrame = endFrame;
-      //startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
-      //view.frame = startFrame;
-      
-      CGRect endFrame = view.frame;
-      CGRect startFrame = endFrame;
-      CGFloat originalSize = view.frame.size.width;
-      CGFloat startSize = 16.f;
-      CGFloat offset = (originalSize - startSize) / 2.f;
-      startFrame.origin.x += offset;
-      startFrame.origin.y += offset;
-      startFrame.size = CGSizeMake(startSize, startSize);
-      [view setFrame:startFrame];
-      [view setAlpha:0.f];
-      
-      [UIView commitAnimations];
-      [UIView animateWithDuration:.3f
-                            delay:0.f
-                          options:UIViewAnimationCurveEaseOut
-                       animations:^{
-                         [view setFrame:endFrame];
-                         [view setAlpha:1.f];
-                       }
-                       completion:nil];
-    }
+    if(! [view isKindOfClass:[MEWMapAnnotationView class]])
+      continue;
+    //CGRect endFrame = view.frame;
+    //CGRect startFrame = endFrame;
+    //startFrame.origin.y = visibleRect.origin.y - startFrame.size.height;
+    //view.frame = startFrame;
+    
+    CGRect endFrame = view.frame;
+    CGRect startFrame = endFrame;
+    CGFloat originalSize = view.frame.size.width;
+    CGFloat startSize = 16.f;
+    CGFloat offset = (originalSize - startSize) / 2.f;
+    startFrame.origin.x += offset;
+    startFrame.origin.y += offset;
+    startFrame.size = CGSizeMake(startSize, startSize);
+    [view setFrame:startFrame];
+    [view setAlpha:0.f];
+    
+    [UIView commitAnimations];
+    [UIView animateWithDuration:.3f
+                          delay:0.f
+                        options:UIViewAnimationCurveEaseOut
+                     animations:^{
+                       [view setFrame:endFrame];
+                       [view setAlpha:1.f];
+                     }
+                     completion:nil];
   }
 }
 
@@ -434,8 +492,11 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
   zoomLevel_ = [mapView zoomLevel];
   NSLog(@"zoom level:%d, UPDATing annotation views...", zoomLevel_);
-  // only show annotation view in current zoom level
-  [self _updateAnnotationViewAtZoomLevel:zoomLevel_];
+  
+  // check whether need to update annotations,
+  //   if so, do updating for annotations in current zoom level
+  if ([self _needToUpdateAnnotations])
+    [self _updateAnnotations];
 }
 
 //- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
