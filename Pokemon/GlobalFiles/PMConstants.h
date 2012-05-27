@@ -308,6 +308,18 @@ typedef enum {
   kMainViewButtonLayoutMapButtonToOffcreen        = 1 << 3
 }MainViewButtonLayout;
 
+// map's annotation type
+typedef enum {
+  kMEWAnnotationTypeNone               = 0,
+  kMEWAnnotationTypeContinentAndOcean  = 1 << 0,  // continent & ocean
+  kMEWAnnotationTypeCountryAndSea      = 1 << 1,  // country & sea
+  kMEWAnnotationTypeAdministrativeArea = 1 << 2,  // administrative (province)
+  kMEWAnnotationTypeLocality           = 1 << 3,  // locality (city)
+  kMEWAnnotationTypeLake               = 1 << 4,  // lake
+  kMEWAnnotationTypeSubLocality        = 1 << 5,  // sub-locality (district)
+  kMEWAnnotationTypeHotPoint           = 1 << 6   // hot point: shop, etc.
+}MEWAnnotationType;
+
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,
   kTagUtilityBallButtonShowPokemon,

@@ -16,6 +16,9 @@
 
 //- (void)_updateAnnotation;
 + (NSArray *)_parsedAnnotation:(NSString *)annotation;
++ (void)_updateForAnnotationType:(MEWAnnotationType)annotationType
+                  withCodePrefix:(NSString *)codePrefix
+                            data:(NSArray *)data;
 
 @end
 
@@ -47,11 +50,8 @@
     }
     
     // Parse data from JSON
-    NSArray * zoomLevels = [[JSON valueForKey:@"zl"] componentsSeparatedByString:@"="];
-    NSNumber * minZoomLevel = [NSNumber numberWithInt:[[zoomLevels objectAtIndex:0] intValue]];
-    NSNumber * maxZoomLevel = [NSNumber numberWithInt:[[zoomLevels objectAtIndex:1] intValue]];
-    NSArray * annotations = [JSON valueForKey:@"mas"];
-    NSLog(@"Pulled Annotations : SERVER => CLIENT::%@", annotations);
+    NSArray * datas = [JSON valueForKey:@"mas"];
+    NSLog(@"Pulled datas : SERVER => CLIENT::%@", datas);
     
     // start to update annotations
     NSManagedObjectContext * managedObjectContext =
@@ -62,28 +62,36 @@
                                         inManagedObjectContext:managedObjectContext]];
     [fetchRequest setFetchLimit:1];
     
-    // update annotations
-    for (NSString *annotationData in annotations) {
-      // parse annotation data (e.g.: "ZJ=30.2333=120.1670=Zhejiang=Zhejiang") to an array
-      NSArray * parsedAnnotation = [self _parsedAnnotation:annotationData];
-      // Update the data for model:|Annotation|
-      Annotation * annotation;
-      // Check the existence of the object
-      //   if exist, execute fetching request, otherwise, insert new object
-      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"code == %@",
-                                  [parsedAnnotation objectAtIndex:0]]];
-      if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
-        annotation = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-      else annotation = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                                      inManagedObjectContext:managedObjectContext];
-      // set data for annotation
-      annotation.code         = [parsedAnnotation objectAtIndex:0];
-      annotation.latitude     = [NSNumber numberWithFloat:[[parsedAnnotation objectAtIndex:1] floatValue]];
-      annotation.longitude    = [NSNumber numberWithFloat:[[parsedAnnotation objectAtIndex:2] floatValue]];
-      annotation.title        = [parsedAnnotation objectAtIndex:3];
-      annotation.subtitle     = [parsedAnnotation lastObject];
-      annotation.minZoomLevel = minZoomLevel;
-      annotation.maxZoomLevel = maxZoomLevel;
+    // update with all datas that fetched
+    for (NSDictionary * data in datas) {
+      NSArray * zoomLevels = [[data valueForKey:@"l"] componentsSeparatedByString:@"="];
+      NSNumber * minZoomLevel = [NSNumber numberWithInt:[[zoomLevels objectAtIndex:0] intValue]];
+      NSNumber * maxZoomLevel = [NSNumber numberWithInt:[[zoomLevels objectAtIndex:1] intValue]];
+      
+      NSArray * annotations = [data objectForKey:@"as"];
+      // update annotations
+      for (NSString *annotationData in annotations) {
+        // parse annotation data (e.g.: "ZJ=30.2333=120.1670=Zhejiang=Zhejiang") to an array
+        NSArray * parsedAnnotation = [self _parsedAnnotation:annotationData];
+        // Update the data for model:|Annotation|
+        Annotation * annotation;
+        // Check the existence of the object
+        //   if exist, execute fetching request, otherwise, insert new object
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"code == %@",
+                                    [parsedAnnotation objectAtIndex:0]]];
+        if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
+          annotation = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+        else annotation = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                                        inManagedObjectContext:managedObjectContext];
+        // set data for annotation
+        annotation.code         = [parsedAnnotation objectAtIndex:0];
+        annotation.latitude     = [NSNumber numberWithFloat:[[parsedAnnotation objectAtIndex:1] floatValue]];
+        annotation.longitude    = [NSNumber numberWithFloat:[[parsedAnnotation objectAtIndex:2] floatValue]];
+        annotation.title        = [parsedAnnotation objectAtIndex:3];
+        annotation.subtitle     = [parsedAnnotation lastObject];
+        annotation.minZoomLevel = minZoomLevel;
+        annotation.maxZoomLevel = maxZoomLevel;
+      }
     }
     [fetchRequest release];
     
@@ -130,6 +138,13 @@
 
 + (NSArray *)_parsedAnnotation:(NSString *)annotation {
   return [annotation componentsSeparatedByString:@"="];
+}
+
+// update data fot annotations
++ (void)_updateForAnnotationType:(MEWAnnotationType)annotationType
+                  withCodePrefix:(NSString *)codePrefix
+                            data:(NSArray *)data {
+  
 }
 
 @end
