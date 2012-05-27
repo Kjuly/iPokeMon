@@ -434,9 +434,8 @@
   MEWMapAnnotation * mapAnnotation = (MEWMapAnnotation *)view.annotation;
   [self.mapAnnotationCalloutViewController configureWithTitle:mapAnnotation.title
                                                   description:mapAnnotation.subtitle];
-  MKCoordinateRegion region = self.mapView.region;
-  region.center = CLLocationCoordinate2DMake(mapAnnotation.coordinate.latitude, mapAnnotation.coordinate.longitude);
-  [self.mapView setRegion:region animated:YES];
+  [self.mapView setCenterCoordinate:mapAnnotation.coordinate
+                           animated:YES];
   mapAnnotation = nil;
   
   // if there's an annotation view selected already,
