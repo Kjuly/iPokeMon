@@ -368,6 +368,7 @@
   // Configure the |annotationView|
   annotationView.annotation = annotation;
   [annotationView updateImage];
+  [annotationView setNeedsDisplay];
   return annotationView;
 }
 
