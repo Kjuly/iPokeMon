@@ -25,7 +25,7 @@ typedef enum {
 typedef enum {
   kMEWMinZoomLevelOfContinentAndOcean  = 0,  // continent & ocean        : 0
   kMEWMinZoomLevelOfCountryAndSea      = 1,  // country & sea            : 1, 2
-  kMEWMinZoomLevelOfAdministrativeArea = 3,  // administrative (province): 3, 4
+  kMEWMinZoomLevelOfAdministrativeArea = 3,  // administrative (province): 3, 4, 5
   kMEWMinZoomLevelOfLocality           = 5,  // locality (city)          : 5, 6, 7
   kMEWMinZoomLevelOfLake               = 6,  // lake                     : 6, 7, 8, 9
   kMEWMinZoomLevelOfSubLocality        = 8,  // sub-locality (district)  : 8, 9, 10
@@ -36,7 +36,7 @@ typedef enum {
 typedef enum {
   kMEWMaxZoomLevelOfContinentAndOcean  = 0,  // continent & ocean        : 0
   kMEWMaxZoomLevelOfCountryAndSea      = 2,  // country & sea            : 1, 2
-  kMEWMaxZoomLevelOfAdministrativeArea = 4,  // administrative (province): 3, 4
+  kMEWMaxZoomLevelOfAdministrativeArea = 5,  // administrative (province): 3, 4, 5
   kMEWMaxZoomLevelOfLocality           = 7,  // locality (city)          : 5, 6, 7
   kMEWMaxZoomLevelOfLake               = 9,  // lake                     : 6, 7, 8, 9
   kMEWMaxZoomLevelOfSubLocality        = 10, // sub-locality (district)  : 8, 9, 10

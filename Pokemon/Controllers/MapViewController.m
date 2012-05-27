@@ -250,11 +250,11 @@
   // country & sea: 1, 2
   else if (zoomLevel <= kMEWMaxZoomLevelOfCountryAndSea)
     zoomLevelType |= kMEWZoomLevelTypeCountryAndSea;
-  // administrative (province): 3, 4
-  else if (zoomLevel <= kMEWMaxZoomLevelOfAdministrativeArea)
-    zoomLevelType |= kMEWZoomLevelTypeAdministrativeArea;
   // zoom levels are crossed for below types
   else {
+    // administrative (province): 3, 4, 5
+    if (zoomLevel <= kMEWMaxZoomLevelOfAdministrativeArea)
+      zoomLevelType |= kMEWZoomLevelTypeAdministrativeArea;
     // locality (city): 5, 6, 7
     if (kMEWMinZoomLevelOfLocality <= zoomLevel <= kMEWMaxZoomLevelOfLocality)
       zoomLevelType |= kMEWZoomLevelTypeLocality;
