@@ -26,7 +26,6 @@
   MapAnnotationCalloutViewController * mapAnnotationCalloutViewController_;
   MKAnnotationView * selectedAnnotationView_;
   NSMutableSet     * annotations_;
-  NSMutableSet     * annotationCodes_; // store codes for annotations that already added
   
   NSInteger        zoomLevel_;          // zoom level: 0 ~ 20
   MEWZoomLevelType zoomLevelType_; // zoom level of terrain
@@ -42,7 +41,6 @@
 @property (nonatomic, retain) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
 @property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
 @property (nonatomic, copy)   NSMutableSet     * annotations;
-@property (nonatomic, copy)   NSMutableSet     * annotationCodes;
 
 - (void)releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
@@ -69,14 +67,12 @@
 @synthesize mapAnnotationCalloutViewController = mapAnnotationCalloutViewController_;
 @synthesize selectedAnnotationView = selectedAnnotationView_;
 @synthesize annotations            = annotations_;
-@synthesize annotationCodes        = annotationCodes_;
 
 - (void)dealloc {
   self.location               = nil;
   self.mapAnnotationCalloutViewController = nil;
   self.selectedAnnotationView = nil;
   self.annotations            = nil;
-  self.annotationCodes        = nil;
   [self releaseSubviews];
   [super dealloc];
 }
@@ -161,8 +157,7 @@
   [self.view addSubview:showWorldButton_];
   
   // annotation set
-  annotations_     = [[NSMutableSet alloc] init];
-  annotationCodes_ = [[NSMutableSet alloc] init];
+  annotations_ = [[NSMutableSet alloc] init];
   
   // initialize the annotations
   [self _updateAnnotations];
@@ -251,27 +246,27 @@
   MEWZoomLevelType zoomLevelType = kMEWZoomLevelTypeNone;
   // contient & ocean: 0
   if (zoomLevel == kMEWMaxZoomLevelOfContinentAndOcean)
-    zoomLevelType_ |= kMEWZoomLevelTypeContinentAndOcean;
+    zoomLevelType |= kMEWZoomLevelTypeContinentAndOcean;
   // country & sea: 1, 2
   else if (zoomLevel <= kMEWMaxZoomLevelOfCountryAndSea)
-    zoomLevelType_ |= kMEWZoomLevelTypeCountryAndSea;
+    zoomLevelType |= kMEWZoomLevelTypeCountryAndSea;
   // administrative (province): 3, 4
   else if (zoomLevel <= kMEWMaxZoomLevelOfAdministrativeArea)
-    zoomLevelType_ |= kMEWZoomLevelTypeAdministrativeArea;
+    zoomLevelType |= kMEWZoomLevelTypeAdministrativeArea;
   // zoom levels are crossed for below types
   else {
     // locality (city): 5, 6, 7
     if (kMEWMinZoomLevelOfLocality <= zoomLevel <= kMEWMaxZoomLevelOfLocality)
-      zoomLevelType_ |= kMEWZoomLevelTypeLocality;
+      zoomLevelType |= kMEWZoomLevelTypeLocality;
     // lake: 6, 7, 8, 9
     if (kMEWMinZoomLevelOfLake <= zoomLevel <= kMEWMaxZoomLevelOfLake)
-      zoomLevelType_ |= kMEWZoomLevelTypeLake;
+      zoomLevelType |= kMEWZoomLevelTypeLake;
     // sub-locality (district): 8, 9, 10
     if (kMEWMinZoomLevelOfSubLocality <= zoomLevel <= kMEWMaxZoomLevelOfSubLocality)
-      zoomLevelType_ |= kMEWZoomLevelTypeSubLocality;
+      zoomLevelType |= kMEWZoomLevelTypeSubLocality;
     // hot point: shop, etc.: 10, ..., 20
     if (kMEWMinZoomLevelOfHotPoint <= zoomLevel <= kMEWMaxZoomLevelOfHotPoint)
-      zoomLevelType_ |= kMEWZoomLevelTypeHotPoint;
+      zoomLevelType |= kMEWZoomLevelTypeHotPoint;
   }
   return zoomLevelType;
 }
@@ -297,10 +292,6 @@
   NSMutableArray * mapAnnotations = [[NSMutableArray alloc] init];
   // add annotations to |mapView_|
   for (Annotation * annotation in annotations) {
-    if ([self.annotationCodes containsObject:annotation.code])
-      continue;
-    [self.annotationCodes addObject:annotation.code];
-    
     MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
     [mapAnnotation initWithCode:annotation.code
                      coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue], [annotation.longitude floatValue])
