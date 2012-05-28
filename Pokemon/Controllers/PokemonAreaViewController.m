@@ -125,7 +125,7 @@
   [self.mapView removeAnnotations:[self.annotations allObjects]];
   
   // only store annotations at current zoom level
-  Pokemon * pokemon = [Pokemon queryPokemonDataWithID:pokemonSID_];
+  Pokemon * pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID_];
   NSArray * coordinatePairs = [pokemon.area componentsSeparatedByString:@":"];
   NSMutableArray * pokemonAreaAnnotations = [[NSMutableArray alloc] init];
   // add annotations to |mapView_|

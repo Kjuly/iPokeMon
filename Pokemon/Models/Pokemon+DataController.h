@@ -14,7 +14,7 @@
 + (void)hardUpdateData;
 
 + (NSArray *)queryAllData;
-+ (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID;
++ (Pokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID;
 + (NSArray *)SIDsForHabitat:(PokemonHabitat)habitat;
 
 // Basic Data

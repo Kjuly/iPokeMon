@@ -76,7 +76,7 @@
         
         // Set relationships
         tamedPokemon.owner   = trainer;
-        tamedPokemon.pokemon = [Pokemon queryPokemonDataWithID:sid];
+        tamedPokemon.pokemon = [Pokemon queryPokemonDataWithSID:sid];
       }
       
       // Update base data
@@ -298,7 +298,7 @@
   
   // Set relationships
   tamedPokemon.owner   = trainer;
-  tamedPokemon.pokemon = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
+  tamedPokemon.pokemon = [Pokemon queryPokemonDataWithSID:[wildPokemon.sid intValue]];
   
   NSError * error;
   if (! [managedObjectContext save:&error])

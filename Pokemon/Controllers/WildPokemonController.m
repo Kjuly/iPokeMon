@@ -300,7 +300,7 @@ static WildPokemonController * wildPokemonController_ = nil;
   wildPokemon.status = [NSNumber numberWithInt:kPokemonStatusNormal];
   
   // Relationship betweent Pokemon & WildPokemon
-  wildPokemon.pokemon = [Pokemon queryPokemonDataWithID:SID];
+  wildPokemon.pokemon = [Pokemon queryPokemonDataWithSID:SID];
   
   // Calculate |level| based on Trainer's related data
   //   then, update data for current level.

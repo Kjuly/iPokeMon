@@ -44,7 +44,7 @@
     CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
     self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
     
-    self.pokemon = [Pokemon queryPokemonDataWithID:pokemonSID];
+    self.pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID];
     
     // Add child view controllers to each tab
     PokemonInfoViewController * pokemonInfoViewController;

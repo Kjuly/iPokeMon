@@ -176,7 +176,7 @@
     [self.trainer caughtNewWildPokemon:wildPokemon memo:@""];
     
     // Load Pokemon info view
-    Pokemon * pokemonData = [Pokemon queryPokemonDataWithID:[wildPokemon.sid intValue]];
+    Pokemon * pokemonData = [Pokemon queryPokemonDataWithSID:[wildPokemon.sid intValue]];
     PokemonInfoViewController * pokemonInfoViewController;
     pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:pokemonData];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];

@@ -83,15 +83,14 @@
 }
 
 // Get data of one Pokemon
-+ (Pokemon *)queryPokemonDataWithID:(NSInteger)pokemonID
-{
++ (Pokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID {
   NSManagedObjectContext * managedObjectContext =
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
   [fetchRequest setEntity:entity];
-  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonID];
+  NSPredicate * predicate = [NSPredicate predicateWithFormat:@"sid == %d", pokemonSID];
   [fetchRequest setPredicate:predicate];
 //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];
