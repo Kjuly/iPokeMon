@@ -98,7 +98,10 @@
   };
   
   // Fetch data from server & populate the data for Tainer
-  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTrainer success:success failure:failure];
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTrainer
+                                      withObject:nil
+                                         success:success
+                                         failure:failure];
 }
 
 // Add new Entity Data

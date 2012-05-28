@@ -12,6 +12,8 @@
 @interface Pokemon (DataController)
 
 + (void)hardUpdateData;
++ (void)updateAreaForAll;                             // for all
+- (void)getAreaCompletion:(void (^)(BOOL))completion; // for single
 
 + (NSArray *)queryAllData;
 + (Pokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID;

@@ -123,30 +123,37 @@
 - (void)_updateAnnotations {
   // remove old annotations
   [self.mapView removeAnnotations:[self.annotations allObjects]];
-  
-  // only store annotations at current zoom level
+  // get PM with SID
   Pokemon * pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID_];
-  NSArray * coordinatePairs = [pokemon.area componentsSeparatedByString:@":"];
-  NSMutableArray * pokemonAreaAnnotations = [[NSMutableArray alloc] init];
-  // add annotations to |mapView_|
-  for (NSString * coordinatePair in coordinatePairs) {
-    NSArray * coordinates = [coordinatePair componentsSeparatedByString:@","];
-    if ([coordinates count] < 2)
-      continue;
-    PokemonAreaAnnotation * pokemonAreaAnnotation = [PokemonAreaAnnotation alloc];
-    [pokemonAreaAnnotation initWithCoordinate:CLLocationCoordinate2DMake([[coordinates objectAtIndex:0] floatValue],
-                                                                         [[coordinates objectAtIndex:1] floatValue])
-                                        title:nil
-                                     subtitle:nil];
-    NSLog(@"---> new Annotation...");
-    [pokemonAreaAnnotations addObject:pokemonAreaAnnotation];
-    [pokemonAreaAnnotation release];
-  }
   
-  [self.mapView addAnnotations:pokemonAreaAnnotations];
-  self.annotations = [NSMutableSet setWithArray:pokemonAreaAnnotations];
-  [pokemonAreaAnnotations release];
-  coordinatePairs = nil;
+  // completion block to be executed after area data fetched
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    NSArray * coordinatePairs = [pokemon.area componentsSeparatedByString:@":"];
+    NSMutableArray * pokemonAreaAnnotations = [[NSMutableArray alloc] init];
+    // add annotations to |mapView_|
+    for (NSString * coordinatePair in coordinatePairs) {
+      NSLog(@"%@", coordinatePair);
+      NSArray * coordinates = [coordinatePair componentsSeparatedByString:@","];
+      if ([coordinates count] < 2)
+        continue;
+      PokemonAreaAnnotation * pokemonAreaAnnotation = [PokemonAreaAnnotation alloc];
+      [pokemonAreaAnnotation initWithCoordinate:CLLocationCoordinate2DMake([[coordinates objectAtIndex:0] floatValue],
+                                                                           [[coordinates objectAtIndex:1] floatValue])
+                                          title:nil
+                                       subtitle:nil];
+      NSLog(@"---> new Annotation...");
+      [pokemonAreaAnnotations addObject:pokemonAreaAnnotation];
+      [pokemonAreaAnnotation release];
+    }
+    
+    [self.mapView addAnnotations:pokemonAreaAnnotations];
+    self.annotations = [NSMutableSet setWithArray:pokemonAreaAnnotations];
+    [pokemonAreaAnnotations release];
+    coordinatePairs = nil;
+  };
+  
+  // get area data for PM
+  [pokemon getAreaCompletion:completion];
 }
 
 #pragma mark - MKMapView Delegate
@@ -194,7 +201,7 @@
   
   NSString * annotationIdentifier = @"com.kjuly.Mew.PokemonAreaAnnotationView";
   PokemonAreaAnnotationView * annotationView =
-  (PokemonAreaAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+    (PokemonAreaAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
   if (! annotationView) {
     annotationView = [[[PokemonAreaAnnotationView alloc] initWithAnnotation:annotation
                                                             reuseIdentifier:annotationIdentifier] autorelease];

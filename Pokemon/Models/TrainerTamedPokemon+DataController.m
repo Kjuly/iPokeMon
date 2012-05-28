@@ -114,7 +114,10 @@
   };
   
   // Fetch data from server & populate the |teamedPokemon|
-  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon success:success failure:failure];
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetTamedPokemon
+                                      withObject:nil
+                                         success:success
+                                         failure:failure];
 }
 
 // CM: Sync data between Client & Server

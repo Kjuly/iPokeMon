@@ -114,6 +114,7 @@
   [[LoadingManager sharedInstance] showOverBar];
   // Fetch data from server & populate the |teamedPokemon|
   [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetAnnotation
+                                      withObject:nil
                                          success:success
                                          failure:failure];
 }

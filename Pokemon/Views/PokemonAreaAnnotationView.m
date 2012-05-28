@@ -8,6 +8,8 @@
 
 #import "PokemonAreaAnnotationView.h"
 
+#import "GlobalRender.h"
+
 @implementation PokemonAreaAnnotationView
 
 - (void)dealloc {
@@ -33,7 +35,7 @@
   [[UIBezierPath bezierPathWithOvalInRect:rect] fill];
   
   // foreground
-  [[UIColor colorWithWhite:1.f alpha:.9f] setFill];
+  [[GlobalRender colorRedWithAlpha:.9f] setFill];
   CGFloat viewSize = self.frame.size.width;
   CGFloat margin = viewSize * .1f;
   CGRect foregroundRect = rect;

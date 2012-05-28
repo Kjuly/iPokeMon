@@ -10,6 +10,9 @@
 
 #import "AppDelegate.h"
 #import "PListParser.h"
+#import "LoadingManager.h"
+#import "ServerAPIClient.h"
+
 
 @interface Pokemon (Private)
 
@@ -25,10 +28,9 @@
 #pragma mark - Hard Initialize the DB data
 
 // Hard Update the DB data
-+ (void)hardUpdateData
-{
++ (void)hardUpdateData {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:@"Pokemon"
                                              inManagedObjectContext:managedObjectContext];
@@ -63,13 +65,143 @@
   managedObjectContext = nil;
 }
 
+// update area data for all PMs
++ (void)updateAreaForAll {
+  // Success Block Method
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    // Get JSON Data Array from HTTP Response
+    //
+    // pma: PokeMon Area
+    // data format: "<SID>=<latitude>,<longitude>:<latitude>,<longitude>:..."
+    //
+    // {
+    //   'pma':[
+    //           "1=30.123,31.123:28.123,29.123:...",
+    //           ...
+    //         ]
+    // }
+    if ([[JSON valueForKey:@"pma"] isKindOfClass:[NSNull class]]) {
+      NSLog(@"...SYNC Pokemon Area Data from SERVER DONE...NO Data");
+      // Hide loading
+      [[LoadingManager sharedInstance] hideOverBar];
+      return;
+    }
+    
+    // Parse data from JSON
+    // e.g. "CN:ZJ:HZ=Zhejiang Province=Hangzhou City"
+    NSArray * pma = [JSON valueForKey:@"pma"];
+    NSLog(@"Pulled Pokemon Area Data : SERVER => CLIENT::%@", pma);
+    
+    // start to update regions
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSError * error;
+    NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:NSStringFromClass([self class])
+                                        inManagedObjectContext:managedObjectContext]];
+    [fetchRequest setFetchLimit:1];
+    for (NSString * pokemonArea in pma) {
+      NSArray * data = [pokemonArea componentsSeparatedByString:@"="];
+      
+      // Update the data for model:|Pokemon|
+      Pokemon * pokemon;
+      // Check the existence of the object
+      //   If exist, execute fetching request, otherwise, insert new object
+      [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"sid == %d", [[data objectAtIndex:0] intValue]]];
+      if ([managedObjectContext countForFetchRequest:fetchRequest error:&error])
+        pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
+      else continue;
+      
+      // update area data for PM
+      pokemon.area = [data objectAtIndex:1];
+    }
+    [fetchRequest release];
+    
+    if (! [managedObjectContext save:&error])
+      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
+    NSLog(@"...Update |%@| data done...", [self class]);
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+  };
+  
+  // Failure Block Method
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
+    NSLog(@"!!! ERROR: %@", error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+  };
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
+  // Fetch data from server & populate the |teamedPokemon|
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetAllPokemonsArea
+                                      withObject:nil
+                                         success:success
+                                         failure:failure];
+}
+
+// get area data for single PM
+- (void)getAreaCompletion:(void (^)(BOOL finished))completion {
+  // Success Block Method
+  void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
+    // Get JSON Data Array from HTTP Response
+    //
+    // pma: PokeMon Area
+    // data format: "<latitude>,<longitude>:<latitude>,<longitude>:..."
+    //
+    // {
+    //   'pma':"1=30.123,31.123:28.123,29.123:..."
+    // }
+    if ([[JSON valueForKey:@"pma"] isKindOfClass:[NSNull class]]) {
+      NSLog(@"...SYNC Pokemon Area Data from SERVER DONE...NO Data");
+      // Hide loading
+      [[LoadingManager sharedInstance] hideOverBar];
+      return;
+    }
+    
+    // start to update regions
+    NSManagedObjectContext * managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSError * error;
+    
+    // update area data for PM
+    NSLog(@"Pulled Pokemon Area Data : SERVER => CLIENT::%@", [JSON valueForKey:@"pma"]);
+    self.area = [JSON valueForKey:@"pma"];
+    
+    if (! [managedObjectContext save:&error])
+      NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
+    NSLog(@"...Update |%@| data done...", [self class]);
+    
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+    
+    // execute the |completion| block
+    completion(YES);
+  };
+  
+  // Failure Block Method
+  void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError * error) {
+    NSLog(@"!!! ERROR: %@", error);
+    // Hide loading
+    [[LoadingManager sharedInstance] hideOverBar];
+  };
+  
+  // Show loading
+  [[LoadingManager sharedInstance] showOverBar];
+  // Fetch data from server & populate the |teamedPokemon|
+  [[ServerAPIClient sharedInstance] fetchDataFor:kDataFetchTargetPokemonArea
+                                      withObject:self.sid
+                                         success:success
+                                         failure:failure];
+}
+
 #pragma mark - Pokemon Data Query Mthods
 
 // Get data from model
-+ (NSArray *)queryAllData
-{
++ (NSArray *)queryAllData {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];
@@ -85,7 +217,7 @@
 // Get data of one Pokemon
 + (Pokemon *)queryPokemonDataWithSID:(NSInteger)pokemonSID {
   NSManagedObjectContext * managedObjectContext =
-  [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([self class])
                                              inManagedObjectContext:managedObjectContext];

@@ -17,11 +17,13 @@
 
 
 typedef enum {
-  kDataFetchTargetTrainer      = 1 << 0,
-  kDataFetchTargetTamedPokemon = 1 << 1,
-  kDataFetchTargetWildPokemon  = 1 << 2,
-  kDataFetchTargetRegion       = 1 << 3,
-  kDataFetchTargetAnnotation   = 1 << 4
+  kDataFetchTargetTrainer         = 1 << 0,
+  kDataFetchTargetTamedPokemon    = 1 << 1,
+  kDataFetchTargetWildPokemon     = 1 << 2,
+  kDataFetchTargetAllPokemonsArea = 1 << 3,
+  kDataFetchTargetPokemonArea     = 1 << 4,
+  kDataFetchTargetRegion          = 1 << 5,
+  kDataFetchTargetAnnotation      = 1 << 6
 }DataFetchTarget;
 
 @interface ServerAPIClient : AFHTTPClient
@@ -35,6 +37,7 @@ typedef enum {
 - (void)fetchUserIDSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 - (void)fetchDataFor:(DataFetchTarget)target
+          withObject:(id)object
              success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 - (void)updateData:(NSDictionary *)data

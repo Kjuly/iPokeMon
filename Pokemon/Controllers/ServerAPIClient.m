@@ -26,19 +26,22 @@ NSString * const kServerAPIGetUser         = @"/u";      // /u:User
 NSString * const kServerAPIUpdateUser      = @"/uu";     // /uu:Update User
 NSString * const kServerAPICheckUniqueness = @"/cu";     // /cu:Check Uniqueness
 // User's Pokemon
-NSString * const kServerAPIGetPokemon      = @"/pm/%d";  // /pm:PokeMon/<PokemonID:Int>
+NSString * const kServerAPIGetPokemon      = @"/pm/%d";  // /pm:PokeMon/<PokemonSID:int>
 NSString * const kServerAPIGet6Pokemons    = @"/6pm";    // /6pm:SixPokeMons
 NSString * const kServerAPIGetPokedex      = @"/pd";     // /pd:PokeDex
 NSString * const kServerAPIUpdatePokemon   = @"/upm";    // /upm:Update PokeMon
+// pokemon area
+NSString * const kServerAPIGetAllPokemonsArea = @"/pma";     // /pma:PokeMon Area
+NSString * const kServerAPIGetPokemonArea     = @"/pma/%d";  // /pma:PokeMon Area/<PokemonSID:int>
 // Region
 // <code> = <cc>:<ca>:<cl>
 //   <cc>: code country
 //   <ca>: code administrative are
 //   <cl>: code locality
-NSString * const kServerAPIGetRegion       = @"/r/%@"; // /r:Region/<code>
-NSString * const kServerAPIUpdateRegion    = @"/ur";     // /ur:Update Region (push new region to server)
+NSString * const kServerAPIGetRegion    = @"/r/%@";  // /r:Region/<code>
+NSString * const kServerAPIUpdateRegion = @"/ur";    // /ur:Update Region (push new region to server)
 // WildPokemon
-NSString * const kServerAPIGetWildPokemon  = @"/wpm";    // /wp:WildPokeMon
+NSString * const kServerAPIGetWildPokemon = @"/wpm";    // /wp:WildPokeMon
 // Map Annotations
 NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<code>
 
@@ -57,6 +60,9 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 + (NSString *)getSixPokemons;                               // GET
 + (NSString *)getPokedex;                                   // GET
 + (NSString *)updatePokemon;                                // POST
+// Pokemon Area
++ (NSString *)getAllPokemonsArea;                      // GET
++ (NSString *)getAreaForPokemonWithSID:(NSInteger)SID; // GET
 // Region
 + (NSString *)getRegionWithCode:(NSString *)code; // GET
 + (NSString *)updateRegion; // POST
@@ -90,6 +96,12 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 + (NSString *)getSixPokemons { return kServerAPIGet6Pokemons; }
 + (NSString *)getPokedex     { return kServerAPIGetPokedex; }
 + (NSString *)updatePokemon  { return kServerAPIUpdatePokemon; }
+
+// Pokemon Area
++ (NSString *)getAllPokemonsArea { return kServerAPIGetAllPokemonsArea; }
++ (NSString *)getAreaForPokemonWithSID:(NSInteger)SID {
+  return [NSString stringWithFormat:kServerAPIGetPokemonArea, SID];
+}
 
 // Region
 + (NSString *)getRegionWithCode:(NSString *)code {
@@ -191,6 +203,7 @@ static ServerAPIClient * client_;
 
 // GET
 - (void)fetchDataFor:(DataFetchTarget)target
+          withObject:(id)object
              success:(void (^)(AFHTTPRequestOperation *, id))success
              failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   NSString * path;
@@ -198,6 +211,10 @@ static ServerAPIClient * client_;
     path = [ServerAPI getUser];
   else if (target & kDataFetchTargetTamedPokemon)
     path = [ServerAPI getPokedex];
+  else if (target & kDataFetchTargetAllPokemonsArea)
+    path = [ServerAPI getAllPokemonsArea];
+  else if (target & kDataFetchTargetPokemonArea)
+    path = [ServerAPI getAreaForPokemonWithSID:[object intValue]];
   else if (target & kDataFetchTargetRegion)
     path = [ServerAPI getRegionWithCode:self.regionCode];
   else if (target & kDataFetchTargetAnnotation)
