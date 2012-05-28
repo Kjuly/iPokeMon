@@ -8,9 +8,9 @@
 
 #import "PMPurchaseManager.h"
 
-#define kPMCurrencyTier1ID @"com.kjuly.iPokemon.coin.tier1"
-#define kPMCurrencyTier2ID @"com.kjuly.iPokemon.coin.tier2"
-#define kPMCurrencyTier3ID @"com.kjuly.iPokemon.coin.tier3"
+#define kPMCurrencyTier1ID @"com.kjuly.Mew.coin.tier1"
+#define kPMCurrencyTier2ID @"com.kjuly.Mew.coin.tier2"
+#define kPMCurrencyTier3ID @"com.kjuly.Mew.coin.tier3"
 
 @implementation PMPurchaseManager
 
