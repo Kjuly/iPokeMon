@@ -983,6 +983,7 @@
 		7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */; };
 		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
+		7FC8479C169C2DFD0013D5FF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */; };
 		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
 		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
 		7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */; };
@@ -2293,6 +2294,7 @@
 		7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPurchaseManager.m; sourceTree = "<group>"; };
 		7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewController.h; sourceTree = "<group>"; };
 		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
+		7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
 		7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMoveBackground@2x.png"; sourceTree = "<group>"; };
 		7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDetailRoundView.h; sourceTree = "<group>"; };
@@ -3332,6 +3334,7 @@
 				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2C09281553617E00118B00 /* Default.png */,
 				7F2C09291553617E00118B00 /* Default@2x.png */,
+				7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */,
 				7F2C092A1553617E00118B00 /* Icon-Small.png */,
 				7F2C092B1553617E00118B00 /* Icon-Small@2x.png */,
 				7F2C092C1553617E00118B00 /* Icon.png */,
@@ -5044,6 +5047,7 @@
 				7F8E2F67169BBFF0008A3F19 /* UnitTests-Info.plist in Resources */,
 				7F8E2F6A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib in Resources */,
 				7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */,
+				7FC8479C169C2DFD0013D5FF /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
