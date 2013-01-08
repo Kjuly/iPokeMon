@@ -7,3 +7,9 @@
 [submodule "Pokemon/Libs/MBProgressHUD"]
 	path = Pokemon/Libs/MBProgressHUD
 	url = git@github.com:Kjuly/MBProgressHUD.git
+[submodule "Pokemon/Libs/Cocos2D-iPhone"]
+	path = Pokemon/Libs/Cocos2D-iPhone
+	url = git://github.com/Kjuly/cocos2d-iphone.git
+[submodule "Pokemon/Libs/GTMOAuth2"]
+	path = Pokemon/Libs/GTMOAuth2
+	url = git://github.com/Kjuly/GTMOAuth2.git
