@@ -777,7 +777,6 @@
 		7F8E2F67169BBFF0008A3F19 /* UnitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F55169BBFF0008A3F19 /* UnitTests-Info.plist */; };
 		7F8E2F69169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F59169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m */; };
 		7F8E2F6A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F5A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib */; };
-		7F8E2F71169BBFF7008A3F19 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */; };
 		7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3020169BC7CC008A3F19 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300F169BC7CC008A3F19 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3021169BC7CC008A3F19 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3011169BC7CC008A3F19 /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -895,6 +894,7 @@
 		7FA22CA3154BFAF6007E2339 /* RectButtonConfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9D154BFAF5007E2339 /* RectButtonConfirm@2x.png */; };
 		7FA22CA4154BFAF6007E2339 /* RectButtonUndo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9E154BFAF5007E2339 /* RectButtonUndo.png */; };
 		7FA22CA5154BFAF6007E2339 /* RectButtonUndo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */; };
+		7FA4469D169C32850024D668 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA4469C169C32850024D668 /* MobileCoreServices.framework */; };
 		7FA5164E156929DA002A4D08 /* GameBagIcon_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51640156929D5002A4D08 /* GameBagIcon_1.png */; };
 		7FA5164F156929DA002A4D08 /* GameBagIcon_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51641156929D6002A4D08 /* GameBagIcon_1@2x.png */; };
 		7FA51650156929DA002A4D08 /* GameBagIcon_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51642156929D6002A4D08 /* GameBagIcon_2.png */; };
@@ -984,6 +984,7 @@
 		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
 		7FC8479C169C2DFD0013D5FF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */; };
+		7FC847A3169C30750013D5FF /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC847A0169C30750013D5FF /* JSONKit.m */; };
 		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
 		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
 		7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */; };
@@ -1940,8 +1941,6 @@
 		7F8E2F58169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
 		7F8E2F59169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
 		7F8E2F5A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		7F8E2F6D169BBFF7008A3F19 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7F8E300C169BC7CC008A3F19 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		7F8E300E169BC7CC008A3F19 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -2181,6 +2180,7 @@
 		7FA22C9D154BFAF5007E2339 /* RectButtonConfirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RectButtonConfirm@2x.png"; sourceTree = "<group>"; };
 		7FA22C9E154BFAF5007E2339 /* RectButtonUndo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RectButtonUndo.png; sourceTree = "<group>"; };
 		7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RectButtonUndo@2x.png"; sourceTree = "<group>"; };
+		7FA4469C169C32850024D668 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7FA51640156929D5002A4D08 /* GameBagIcon_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBagIcon_1.png; sourceTree = "<group>"; };
 		7FA51641156929D6002A4D08 /* GameBagIcon_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBagIcon_1@2x.png"; sourceTree = "<group>"; };
 		7FA51642156929D6002A4D08 /* GameBagIcon_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBagIcon_2.png; sourceTree = "<group>"; };
@@ -2295,6 +2295,8 @@
 		7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewController.h; sourceTree = "<group>"; };
 		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
 		7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
+		7FC8479F169C30750013D5FF /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		7FC847A0169C30750013D5FF /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
 		7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMoveBackground@2x.png"; sourceTree = "<group>"; };
 		7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDetailRoundView.h; sourceTree = "<group>"; };
@@ -2416,12 +2418,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */,
+				7FA4469D169C32850024D668 /* MobileCoreServices.framework in Frameworks */,
 				7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */,
 				7F6F429215568EEF0007E889 /* AddressBookUI.framework in Frameworks */,
 				7F6F428D15568EE30007E889 /* MessageUI.framework in Frameworks */,
 				7FC5B154154EC6F6001CECBA /* StoreKit.framework in Frameworks */,
 				7F50FD04154AD46500F44FD1 /* libz.dylib in Frameworks */,
-				7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */,
 				7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */,
 				7F50B81514F9410700883412 /* QuartzCore.framework in Frameworks */,
 				7F50B81314F940B100883412 /* AudioToolbox.framework in Frameworks */,
@@ -3074,6 +3077,7 @@
 		7F6E6CB714D6CAA600033C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FA4469C169C32850024D668 /* MobileCoreServices.framework */,
 				7F6F428F15568EEF0007E889 /* AddressBook.framework */,
 				7F6F429015568EEF0007E889 /* AddressBookUI.framework */,
 				7F6F428C15568EE30007E889 /* MessageUI.framework */,
@@ -3585,10 +3589,10 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7FC8479D169C30750013D5FF /* JSONKit */,
 				7F8E312D169BD1B2008A3F19 /* Cocos2D-iPhone */,
 				7F8E3028169BC7D2008A3F19 /* MBProgressHUD */,
 				7F8E300B169BC7CC008A3F19 /* AFNetworking */,
-				7F8E2F6B169BBFF7008A3F19 /* JSONKit */,
 				7F8E2F3D169BBFF0008A3F19 /* GTMOAuth2 */,
 				7F8E2E1D169BB94A008A3F19 /* TestFlightSDK */,
 			);
@@ -3665,15 +3669,6 @@
 				7F8E2F5A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib */,
 			);
 			path = Touch;
-			sourceTree = "<group>";
-		};
-		7F8E2F6B169BBFF7008A3F19 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				7F8E2F6D169BBFF7008A3F19 /* JSONKit.h */,
-				7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */,
-			);
-			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		7F8E300B169BC7CC008A3F19 /* AFNetworking */ = {
@@ -4102,6 +4097,15 @@
 				7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */,
 			);
 			path = GameView;
+			sourceTree = "<group>";
+		};
+		7FC8479D169C30750013D5FF /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				7FC8479F169C30750013D5FF /* JSONKit.h */,
+				7FC847A0169C30750013D5FF /* JSONKit.m */,
+			);
+			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
@@ -5248,7 +5252,6 @@
 				7F8E2F64169BBFF0008A3F19 /* GTMMIMEDocument.m in Sources */,
 				7F8E2F65169BBFF0008A3F19 /* GTMReadMonitorInputStream.m in Sources */,
 				7F8E2F69169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m in Sources */,
-				7F8E2F71169BBFF7008A3F19 /* JSONKit.m in Sources */,
 				7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */,
 				7F8E3020169BC7CC008A3F19 /* AFHTTPRequestOperation.m in Sources */,
 				7F8E3021169BC7CC008A3F19 /* AFImageRequestOperation.m in Sources */,
@@ -5344,6 +5347,7 @@
 				7F8E37C2169BD1BE008A3F19 /* FontManager.m in Sources */,
 				7F8E37C3169BD1BE008A3F19 /* ZAttributedString.m in Sources */,
 				7F8E37C4169BD1BE008A3F19 /* ZFont.m in Sources */,
+				7FC847A3169C30750013D5FF /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
