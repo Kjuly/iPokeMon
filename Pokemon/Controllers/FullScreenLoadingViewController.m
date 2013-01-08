@@ -136,7 +136,7 @@
   [self.message sizeToFit];
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{ [self.view setAlpha:1.f]; }
                    completion:nil];
 }
@@ -145,7 +145,7 @@
 - (void)unloadViewAnimated:(BOOL)animated {
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
                    animations:^{
                      [self.view setAlpha:0.f];
                    }

@@ -246,7 +246,7 @@
   [self.tableView reloadData];
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveLinear
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
                    animations:^{ [self.tableView setAlpha:1.f]; }
                    completion:nil];
 }

@@ -274,7 +274,7 @@
   [self.view addSubview:self.authenticatingLabel];
   [UIView animateWithDuration:.3f
                         delay:.3f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{
                      [self.authenticatingView  setAlpha:.85f];
                      [self.authenticatingLabel setAlpha:1.f];

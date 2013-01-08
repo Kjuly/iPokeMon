@@ -379,7 +379,7 @@
   [self.view addSubview:self.customNavigationController.view];
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
                    animations:^{
                      [self.loginTableViewController.view setAlpha:1.f];
                    }

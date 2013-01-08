@@ -233,7 +233,7 @@
   }
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveLinear
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
                    animations:^{
                      [view setFrame:viewFrame];
                      [view setNeedsDisplay];
@@ -336,7 +336,7 @@
     [UIView commitAnimations];
     [UIView animateWithDuration:.3f
                           delay:0.f
-                        options:UIViewAnimationCurveEaseOut
+                        options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
                      animations:^{
                        [view setFrame:endFrame];
                        [view setAlpha:1.f];

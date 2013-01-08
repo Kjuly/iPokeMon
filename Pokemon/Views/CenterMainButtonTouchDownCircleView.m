@@ -105,7 +105,7 @@
   NSLog(@"START LOADING");
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.backgroundImageView setAlpha:1.f];
                    }
@@ -119,7 +119,7 @@
   NSLog(@"STOP LOADING");
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.foregroundImageView setAlpha:0.f];
                      [self.backgroundImageView setAlpha:0.f];

@@ -153,7 +153,7 @@
 - (void)loadViewAnimated:(BOOL)animated {
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.view setAlpha:1.f];
                      CGRect cancelButtonFrame = self.cancelButton.frame;
@@ -178,7 +178,7 @@
 - (void)unloadViewAnimated:(BOOL)animated {
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveLinear
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
                    animations:^{
                      CGRect cancelButtonFrame = self.cancelButton.frame;
                      cancelButtonFrame.origin.y = - kMapButtonSize;

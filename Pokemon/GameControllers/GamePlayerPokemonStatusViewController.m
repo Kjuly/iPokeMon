@@ -150,7 +150,7 @@
   
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.view setFrame:viewFrame];
                    }

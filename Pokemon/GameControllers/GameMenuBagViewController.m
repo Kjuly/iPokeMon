@@ -226,7 +226,7 @@
   // Unload bag menu
   [UIView animateWithDuration:.6f
                         delay:0.f
-                      options:UIViewAnimationCurveLinear
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
                    animations:^{ [self.view setAlpha:0.f]; }
                    completion:^(BOOL finished) {
                      [self unloadViewWithAnimationToLeft:NO animated:NO];

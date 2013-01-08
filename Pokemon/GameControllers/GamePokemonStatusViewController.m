@@ -148,7 +148,7 @@
 - (void)showStatus:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{ [self.view setAlpha:1.f]; }
                    completion:nil];
 }

@@ -192,7 +192,7 @@
     [userInfo release];
     [UIView animateWithDuration:.3f
                           delay:0.f
-                        options:UIViewAnimationCurveLinear
+                        options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
                      animations:^{ [self.view setAlpha:0.f]; }
                      completion:^(BOOL finished) {
                        [self unloadSixPokemonsAnimated:NO];
@@ -323,7 +323,7 @@
   
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.backgroundView setAlpha:.75f];
                      [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
@@ -371,7 +371,7 @@
   if (! animated) { animation(); completion(YES); }
   else [UIView animateWithDuration:.3f
                              delay:(currOpeningUnitViewTag_ != 0 ? .6f : 0.f)
-                           options:UIViewAnimationCurveEaseInOut
+                           options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                         animations:animation
                         completion:completion];
 }

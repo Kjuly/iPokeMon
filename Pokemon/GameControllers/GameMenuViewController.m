@@ -403,7 +403,7 @@ typedef enum {
   }
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{
                      [self.gameBattleLogTableViewController.view setFrame:viewFrame];
                    }

@@ -185,7 +185,7 @@
   
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{
                      [self.view setAlpha:0.f];
                    }
@@ -225,7 +225,7 @@
   [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{
                      [self.view setAlpha:1.f];
                    }

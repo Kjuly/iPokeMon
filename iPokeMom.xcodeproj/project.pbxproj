@@ -763,7 +763,6 @@
 		7F8E2E22169BB94A008A3F19 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */; };
 		7F8E2E23169BB94A008A3F19 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E1F169BB94A008A3F19 /* README.txt */; };
 		7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E20169BB94A008A3F19 /* release_notes.txt */; };
-		7F8E2F5B169BBFF0008A3F19 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F3E169BBFF0008A3F19 /* .gitignore */; };
 		7F8E2F5C169BBFF0008A3F19 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F40169BBFF0008A3F19 /* GTMOAuth2Authentication.m */; };
 		7F8E2F5D169BBFF0008A3F19 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F42169BBFF0008A3F19 /* GTMOAuth2SignIn.m */; };
 		7F8E2F5E169BBFF0008A3F19 /* GTMGatherInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F45169BBFF0008A3F19 /* GTMGatherInputStream.m */; };
@@ -776,12 +775,9 @@
 		7F8E2F65169BBFF0008A3F19 /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F53169BBFF0008A3F19 /* GTMReadMonitorInputStream.m */; };
 		7F8E2F66169BBFF0008A3F19 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F54169BBFF0008A3F19 /* ReleaseNotes.txt */; };
 		7F8E2F67169BBFF0008A3F19 /* UnitTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F55169BBFF0008A3F19 /* UnitTests-Info.plist */; };
-		7F8E2F68169BBFF0008A3F19 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F56169BBFF0008A3F19 /* README.md */; };
 		7F8E2F69169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F59169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m */; };
 		7F8E2F6A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F5A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib */; };
-		7F8E2F70169BBFF7008A3F19 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F6C169BBFF7008A3F19 /* CHANGELOG.md */; };
 		7F8E2F71169BBFF7008A3F19 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */; };
-		7F8E2F72169BBFF7008A3F19 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2F6F169BBFF7008A3F19 /* README.md */; };
 		7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3020169BC7CC008A3F19 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300F169BC7CC008A3F19 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3021169BC7CC008A3F19 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3011169BC7CC008A3F19 /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1918,7 +1914,6 @@
 		7F8E2E1F169BB94A008A3F19 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		7F8E2E20169BB94A008A3F19 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		7F8E2E21169BB94A008A3F19 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		7F8E2F3E169BBFF0008A3F19 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7F8E2F3F169BBFF0008A3F19 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
 		7F8E2F40169BBFF0008A3F19 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2Authentication.m; sourceTree = "<group>"; };
 		7F8E2F41169BBFF0008A3F19 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
@@ -1941,14 +1936,11 @@
 		7F8E2F53169BBFF0008A3F19 /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
 		7F8E2F54169BBFF0008A3F19 /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
 		7F8E2F55169BBFF0008A3F19 /* UnitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		7F8E2F56169BBFF0008A3F19 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7F8E2F58169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
 		7F8E2F59169BBFF0008A3F19 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
 		7F8E2F5A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
-		7F8E2F6C169BBFF7008A3F19 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7F8E2F6D169BBFF7008A3F19 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		7F8E2F6F169BBFF7008A3F19 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7F8E300C169BC7CC008A3F19 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		7F8E300E169BC7CC008A3F19 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -3627,13 +3619,11 @@
 		7F8E2F3D169BBFF0008A3F19 /* GTMOAuth2 */ = {
 			isa = PBXGroup;
 			children = (
-				7F8E2F3E169BBFF0008A3F19 /* .gitignore */,
 				7F8E2F3F169BBFF0008A3F19 /* GTMOAuth2Authentication.h */,
 				7F8E2F40169BBFF0008A3F19 /* GTMOAuth2Authentication.m */,
 				7F8E2F41169BBFF0008A3F19 /* GTMOAuth2SignIn.h */,
 				7F8E2F42169BBFF0008A3F19 /* GTMOAuth2SignIn.m */,
 				7F8E2F43169BBFF0008A3F19 /* HTTPFetcher */,
-				7F8E2F56169BBFF0008A3F19 /* README.md */,
 				7F8E2F57169BBFF0008A3F19 /* Touch */,
 			);
 			path = GTMOAuth2;
@@ -3677,10 +3667,8 @@
 		7F8E2F6B169BBFF7008A3F19 /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				7F8E2F6C169BBFF7008A3F19 /* CHANGELOG.md */,
 				7F8E2F6D169BBFF7008A3F19 /* JSONKit.h */,
 				7F8E2F6E169BBFF7008A3F19 /* JSONKit.m */,
-				7F8E2F6F169BBFF7008A3F19 /* README.md */,
 			);
 			path = JSONKit;
 			sourceTree = "<group>";
@@ -4243,7 +4231,7 @@
 		7F6E6CAB14D6CAA600033C65 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "iPokeMom" */;
@@ -5052,13 +5040,9 @@
 				7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */,
 				7F8E2E23169BB94A008A3F19 /* README.txt in Resources */,
 				7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */,
-				7F8E2F5B169BBFF0008A3F19 /* .gitignore in Resources */,
 				7F8E2F66169BBFF0008A3F19 /* ReleaseNotes.txt in Resources */,
 				7F8E2F67169BBFF0008A3F19 /* UnitTests-Info.plist in Resources */,
-				7F8E2F68169BBFF0008A3F19 /* README.md in Resources */,
 				7F8E2F6A169BBFF0008A3F19 /* GTMOAuth2ViewTouch.xib in Resources */,
-				7F8E2F70169BBFF7008A3F19 /* CHANGELOG.md in Resources */,
-				7F8E2F72169BBFF7008A3F19 /* README.md in Resources */,
 				7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5411,6 +5395,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5424,6 +5412,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iPokemon;
@@ -5437,12 +5426,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";

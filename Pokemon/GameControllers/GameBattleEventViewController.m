@@ -216,7 +216,7 @@
     completion = ^(BOOL finished) {
       [UIView animateWithDuration:.3f
                             delay:0.f
-                          options:UIViewAnimationCurveEaseOut
+                          options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
                        animations:^{
                          CGRect levelUpViewFrame = self.levelUpView.frame;
                          levelUpViewFrame.origin.y -= 20.f;

@@ -263,7 +263,7 @@
   if (! animated) { animation(); }
   else [UIView animateWithDuration:.3f
                              delay:(currOpeningUnitViewTag_ != 0 ? .6f : 0.f)
-                           options:UIViewAnimationCurveEaseInOut
+                           options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                         animations:animation
                         completion:nil];
 }
@@ -332,7 +332,7 @@
   [self.pokemonSelectionButton setAlpha:0.f];
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{ [self.backgroundView setAlpha:.85f]; }
                    completion:^(BOOL finished) { if (finished) animationsToShowPokemons(); }];
 }

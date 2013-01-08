@@ -167,7 +167,7 @@
   // Show buttons with animation
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseInOut
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                    animations:^{
                      [self.centerMenu setAlpha:1.f];
                      // Compute buttons' frame and set for them, based on |buttonCount|
@@ -176,7 +176,7 @@
                    completion:^(BOOL finished) {
                      [UIView animateWithDuration:.1f
                                            delay:0.f
-                                         options:UIViewAnimationCurveEaseInOut
+                                         options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
                                       animations:^{
                                         [self computeAndSetButtonLayoutWithTriangleHypotenuse:112.f];
                                       }
@@ -230,7 +230,7 @@
   // Hide buttons with animation
   [UIView animateWithDuration:.3f
                         delay:0.f
-                      options:UIViewAnimationCurveEaseIn
+                      options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
                    animations:^{
                      for (UIButton * button in [self.centerMenu subviews])
                        [button setFrame:buttonOriginFrame_];
