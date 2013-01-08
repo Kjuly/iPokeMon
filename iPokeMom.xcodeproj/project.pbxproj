@@ -760,6 +760,9 @@
 		7F8E2E1A169BB8D5008A3F19 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0E169BB8D5008A3F19 /* PMConstants.m */; };
 		7F8E2E1B169BB8D5008A3F19 /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */; };
 		7F8E2E1C169BB8D5008A3F19 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E12169BB8D5008A3F19 /* Reachability.m */; };
+		7F8E2E22169BB94A008A3F19 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */; };
+		7F8E2E23169BB94A008A3F19 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E1F169BB94A008A3F19 /* README.txt */; };
+		7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E20169BB94A008A3F19 /* release_notes.txt */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
 		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
 		7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AB14E5592D00147718 /* CustomTabViewController.m */; };
@@ -1796,6 +1799,10 @@
 		7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F8E2E11169BB8D5008A3F19 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7F8E2E12169BB8D5008A3F19 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		7F8E2E1F169BB94A008A3F19 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		7F8E2E20169BB94A008A3F19 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		7F8E2E21169BB94A008A3F19 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
 		7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
@@ -2083,6 +2090,7 @@
 				7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */,
 				7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */,
 				7F6E6CBF14D6CAA600033C65 /* CoreData.framework in Frameworks */,
+				7F8E2E22169BB94A008A3F19 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3231,6 +3239,7 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7F8E2E1D169BB94A008A3F19 /* TestFlightSDK */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -3246,6 +3255,17 @@
 				7F8E2E06169BB8D5008A3F19 /* UIButton+Animation.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		7F8E2E1D169BB94A008A3F19 /* TestFlightSDK */ = {
+			isa = PBXGroup;
+			children = (
+				7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */,
+				7F8E2E1F169BB94A008A3F19 /* README.txt */,
+				7F8E2E20169BB94A008A3F19 /* release_notes.txt */,
+				7F8E2E21169BB94A008A3F19 /* TestFlight.h */,
+			);
+			path = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 		7F8EFA9E14D97D9A00FF1055 /* TabBar */ = {
@@ -4328,6 +4348,8 @@
 				7FA9C71515725C210090BD6C /* CNZJTZ.png in Resources */,
 				7FA9C71615725C210090BD6C /* CNZJWZ.png in Resources */,
 				7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */,
+				7F8E2E23169BB94A008A3F19 /* README.txt in Resources */,
+				7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4626,6 +4648,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
+					"\"$(SRCROOT)/Pokemon/Libs/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = iPokeMom;
@@ -4645,6 +4668,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Pokemon/Thirdparties/TestFlightSDK\"",
+					"\"$(SRCROOT)/Pokemon/Libs/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = iPokeMom;
