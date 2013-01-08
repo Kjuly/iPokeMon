@@ -1,0 +1,9 @@
+[submodule "Pokemon/Libs/JSONKit"]
+	path = Pokemon/Libs/JSONKit
+	url = git://github.com/johnezang/JSONKit.git
+[submodule "Pokemon/Libs/AFNetworking"]
+	path = Pokemon/Libs/AFNetworking
+	url = git@github.com:Kjuly/AFNetworking.git
+[submodule "Pokemon/Libs/MBProgressHUD"]
+	path = Pokemon/Libs/MBProgressHUD
+	url = git@github.com:Kjuly/MBProgressHUD.git
