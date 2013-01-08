@@ -93,7 +93,7 @@
   NSInteger index = [indexPath row] + 1;
   if (index == 4) {
     [cell configureCellWithTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)
-                            icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchange, index]]
+                            icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchangeIcon, index]]
                    accessoryType:UITableViewCellAccessoryNone];
   }
   else {
