@@ -682,7 +682,6 @@
 		7F6E6CC514D6CAA600033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */; };
 		7F6E6CC714D6CAA600033C65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC614D6CAA600033C65 /* main.m */; };
 		7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */; };
-		7F6E6CD614D6CAA700033C65 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */; };
 		7F6E6CD714D6CAA700033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CD814D6CAA700033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CD914D6CAA700033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
@@ -898,7 +897,6 @@
 		7FA44734169C34A90024D668 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446F3169C34A90024D668 /* GTMOAuth2SignIn.m */; };
 		7FA44739169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446FC169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m */; };
 		7FA4473A169C34A90024D668 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA446FD169C34A90024D668 /* GTMOAuth2ViewTouch.xib */; };
-		7FA4474F169C352E0024D668 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */; };
 		7FA5164E156929DA002A4D08 /* GameBagIcon_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51640156929D5002A4D08 /* GameBagIcon_1.png */; };
 		7FA5164F156929DA002A4D08 /* GameBagIcon_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51641156929D6002A4D08 /* GameBagIcon_1@2x.png */; };
 		7FA51650156929DA002A4D08 /* GameBagIcon_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA51642156929D6002A4D08 /* GameBagIcon_2.png */; };
@@ -1818,7 +1816,6 @@
 		7F6E6CC814D6CAA600033C65 /* iPokeMom-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPokeMom-Prefix.pch"; sourceTree = "<group>"; };
 		7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pokemon.xcdatamodel; sourceTree = "<group>"; };
 		7F6E6CD414D6CAA700033C65 /* iPokeMomTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPokeMomTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7F6E6CE214D6CAA700033C65 /* PokemonTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PokemonTests.h; sourceTree = "<group>"; };
@@ -2431,7 +2428,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FA4474F169C352E0024D668 /* SenTestingKit.framework in Frameworks */,
 				7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */,
 				7FA4469D169C32850024D668 /* MobileCoreServices.framework in Frameworks */,
 				7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */,
@@ -2460,7 +2456,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F6E6CD614D6CAA700033C65 /* SenTestingKit.framework in Frameworks */,
 				7F6E6CD714D6CAA700033C65 /* UIKit.framework in Frameworks */,
 				7F6E6CD814D6CAA700033C65 /* Foundation.framework in Frameworks */,
 				7F6E6CD914D6CAA700033C65 /* CoreData.framework in Frameworks */,
@@ -3111,7 +3106,6 @@
 				7F6E6CBA14D6CAA600033C65 /* Foundation.framework */,
 				7F6E6CBC14D6CAA600033C65 /* CoreGraphics.framework */,
 				7F6E6CBE14D6CAA600033C65 /* CoreData.framework */,
-				7F6E6CD514D6CAA700033C65 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3349,7 +3343,6 @@
 		7F6E6CF214D6CB9800033C65 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2C09281553617E00118B00 /* Default.png */,
 				7F2C09291553617E00118B00 /* Default@2x.png */,
 				7FC8479B169C2DFD0013D5FF /* Default-568h@2x.png */,
@@ -3358,6 +3351,7 @@
 				7F2C092C1553617E00118B00 /* Icon.png */,
 				7F2C092D1553617E00118B00 /* Icon@2x.png */,
 				7F2C092E1553617E00118B00 /* iTunesArtwork */,
+				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2FA45214ECDDA90077C4E0 /* db */,
 				7F2EFB6D14DE48440068F681 /* PLists */,
 				7F6E6CF314D6CB9800033C65 /* Images */,
