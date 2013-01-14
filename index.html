@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>iPokeMon by Kjuly</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>iPokeMon</h1>
+        <p>iPokeMon is a PokéMon game for iPhone with Location Based Service.</p>
+
+        <p class="view"><a href="https://github.com/Kjuly/iPokeMon">View the Project on GitHub <small>Kjuly/iPokeMon</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Kjuly/iPokeMon/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Kjuly/iPokeMon/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Kjuly/iPokeMon">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>iPokeMon (iOS Client)</h1>
+
+<p><a href="http://flattr.com/thing/1100134/" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a></p>
+
+<h1>Description</h1>
+
+<h3>About App</h3>
+
+<blockquote>
+<p>iPokeMon is a PokéMon game on iOS with Location Based Service, i.e., PokeMons are distributed in the real world. You'll find different PokeMons in different cities, or even countries.  </p>
+
+<p>Just imagine that we live with PokeMons in real world. ;)</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon-Server">SERVER SIDE SOURCE CODE</a>.</p>
+</blockquote>
+
+<h3>About Project</h3>
+
+<blockquote>
+<p>This was my Graduation Project. I tried to submit it to the App Store when the v0.3.2 done, but finally, the binary was rejected on May 16, 2012 with the reason of rejection: "8.5: Use of protected 3rd party material (trademarks, copyrights, trade secrets, otherwise proprietary content) requires a documented rights check which must be provided upon request". What a pity! There was a time I wanted to ask some designers to create a set of PokéMon like characters, but I gave up the thought cause it'll lose its meaning then. So after I graduated from university on Jun, 2012, I shelved this project for several months.  </p>
+
+<p>Till now, I still hope to have such a game on iOS. With my own limited capacity, iPokeMon is still in beta version. So I open source this whole project in order to let more and more people (both programmer &amp; designer, or even just a player are all welcomed) participate in the development. I look forward to that one day it can be owned by everyone that grown up with PokéMon!</p>
+
+<p>Finally, I would like to say that feel free to transplant this project to any system! And I'll be glad if you send me a mail about your transplanting. ;)</p>
+</blockquote>
+
+<hr><h1>Demo</h1>
+
+<ul>
+<li>
+<a href="http://www.youtube.com/watch?v=otiBQnwdt0U">Youtube</a> - 2012-05-09</li>
+<li>
+<a href="http://v.youku.com/v_show/id_XNDA1MjExMDg4.html">Youku</a> - 2012-06-03 (Newer)</li>
+</ul><hr><h1>Usage</h1>
+
+<h3>Root Manage View</h3>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/01_00_root_manage_view_without_lbs.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/01_00_root_manage_view_without_lbs.png" title="Root Manage View without LBS"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/01_01_root_manage_view_with_lbs.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/01_01_root_manage_view_with_lbs.png" title="Root Manage View with LBS"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/01_02_root_manage_view_with_lbs_pm_appeared.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/01_02_root_manage_view_with_lbs_pm_appeared.png" title="Root Manage View with LBS PokeMon Appeared"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_00_00_root_circle_menu.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_00_00_root_circle_menu.png" title="Root Circle Menu"></a></p>
+
+<h3>Main Circle Menu</h3>
+
+<p>The center button is the <strong>"Main Button"</strong>_ in App, you can open the main circle menu by pressing it. The button above is a <strong>"Map Button"</strong>, the default color is red, that means <strong><em>"Location Service"</em></strong> is disabled, you can turn it on by keeping pressing on it with <em>3 seconds</em>, and it'll change to white color (location service is turned on now).</p>
+
+<p>You should enable <strong><em>"Location Service"</em></strong> when you playing the game. When a Wild Pokemon appeared, the <strong><em>"Main Button"</em></strong> will change its state with an exclamation mark, you can press it to enter the battle scene.</p>
+
+<p>The main circle menu includes items: PokeDex, Your Six PokeMons, Your Bag, Trainer Card, Store, Setting.</p>
+
+<ol>
+<li>
+<p>PokeDex</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_01_00_pokedex.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_01_00_pokedex.png" title="PokeDex"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_01_01_pokedex_pm_info.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_01_01_pokedex_pm_info.png" title="PokeDex - PokeMon Info"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_01_02_pokedex_pm_area.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_01_02_pokedex_pm_area.png" title="PokeDex - PokeMon Area"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_01_03_pokedex_pm_size_weight.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_01_03_pokedex_pm_size_weight.png" title="PokeDex - PokeMon Size/Weight"></a></p>
+</li>
+<li>
+<p>Six PokeMons</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_00_six_pms.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_00_six_pms.png" title="Six PokeMons"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_01_six_pms_detail.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_01_six_pms_detail.png" title="Six PokeMons - PokeMon Detail"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_02_six_pms_memo.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_02_six_pms_memo.png" title="Six PokeMons - PokeMon Memo"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_03_six_pms_skill.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_03_six_pms_skill.png" title="Six PokeMons - PokeMon Skill"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_04_six_pms_move.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_04_six_pms_move.png" title="Six PokeMons - PokeMon Move"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_02_04_six_pms_move_info.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_02_04_six_pms_move_info.png" title="Six PokeMons - PokeMon Move Info"></a></p>
+</li>
+<li>
+<p>Bag</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_03_00_bag.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_03_00_bag.png" title="Bag"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_03_01_bag_pokeball.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_03_01_bag_pokeball.png" title="Bag - PokeBall"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_03_01_bag_pokeball_info.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_03_01_bag_pokeball_info.png" title="Bag - PokeBall Info"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_03_01_bag_pokeball_selected.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_03_01_bag_pokeball_selected.png" title="Bag - PokeBall Selected"></a></p>
+</li>
+<li>
+<p>Trainer Card</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_04_00_trainer_card.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_04_00_trainer_card.png" title="Trainer Card"></a></p>
+</li>
+<li>
+<p>Store</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_05_00_store.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_05_00_store.png" title="Store"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_05_01_store_pokeball.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_05_01_store_pokeball.png" title="Store - PokeBall"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_05_01_store_pokeball_selected.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_05_01_store_pokeball_selected.png" title="Store - PokeBall Selected"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_05_01_store_pokeball_selected_change_quantity.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_05_01_store_pokeball_selected_change_quantity.png" title="Store - PokeBall Selected - Change Quantity"></a></p>
+</li>
+<li>
+<p>Setting</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_06_00_setting.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_06_00_setting.png" title="Setting"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/02_06_01_setting_on_game.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/02_06_01_setting_on_game.png" title="Setting - Game"></a></p>
+</li>
+</ol><h3>Map</h3>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/03_00_00_map.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/03_00_00_map.png" title="Map"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/03_01_00_map_zoom_in.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/03_01_00_map_zoom_in.png" title="Map - Zoom In"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/03_02_00_map_spot_info.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/03_02_00_map_spot_info.png" title="Map - Spot Info"></a></p>
+
+<p><strong>Tips:</strong></p>
+
+<ul>
+<li>
+<strong>Location Service</strong>: You can en/disable it in Setting View.<br>
+</li>
+<li>
+<strong>Push Notification</strong>: You'll get a alert view the first time you launch the App, en/diable it as you want.</li>
+</ul><h3>Game Battle Scene</h3>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_00_00_game_battle.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_00_00_game_battle.png" title="Game Battle"></a></p>
+
+<p>You can dispatch 6 types of views in the battle scene: Move, Bag, PokeMon Status, Pokemon selection, Log, Run away. Gestures in battle scene are shown below:</p>
+
+<ul>
+<li>
+<strong>Swipe to right</strong>: open <code>Move View</code>.<br>
+</li>
+<li>
+<strong>Swipe to left</strong>: open <code>Bag View</code>.<br>
+</li>
+<li>
+<strong>Swipe to Up</strong>: open <code>Status View</code> of your Pokemon.<br>
+</li>
+<li>
+<strong>Swipe to Down</strong>: open <code>Status View</code> of Wild Pokemon.<br>
+</li>
+<li>
+<strong>Press Bottom Button</strong>: open your <code>Pokemon Selection View</code>.<br>
+</li>
+<li>
+<strong>Two fingers with two Taps</strong>: Try to <code>Escape</code> the battle.<br>
+</li>
+</ul><p>Different type of views are listed below:</p>
+
+<ol>
+<li>
+<p>Move</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_01_00_game_battle_move.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_01_00_game_battle_move.png" title="Game Battle - Move"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_01_01_game_battle_move_info.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_01_01_game_battle_move_info.png" title="Game Battle - Move Info"></a></p>
+</li>
+<li>
+<p>Bag</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_02_00_game_battle_bag.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_02_00_game_battle_bag.png" title="Game Battle - Bag"></a></p>
+</li>
+<li>
+<p>PokeMon Status</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_03_00_game_battle_own_pm_status.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_03_00_game_battle_own_pm_status.png" title="Game Battle - Own PokeMon's Status"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_04_00_game_battle_wild_pm_status.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_04_00_game_battle_wild_pm_status.png" title="Game Battle - Wild PokeMon's Status"></a></p>
+</li>
+<li>
+<p>Run Away</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_05_00_game_battle_try_to_run.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_05_00_game_battle_try_to_run.png" title="Game Battle - Try to Run Away"></a></p>
+</li>
+<li>
+<p>Log</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_06_00_game_battle_log.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_06_00_game_battle_log.png" title="Game Battle - Log"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_06_01_game_battle_log_fullscreen.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_06_01_game_battle_log_fullscreen.png" title="Game Battle - Log - Fullscreen"></a></p>
+</li>
+<li>
+<p>Catch PokeMon</p>
+
+<p><a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_07_00_game_battle_throw_pokeball.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_07_00_game_battle_throw_pokeball.png" title="Game Battle - Throw PokeBall"></a>
+<a href="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM/04_07_01_game_battle_pm_caught.png">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/iPM_small/04_07_01_game_battle_pm_caught.png" title="Game Battle - PokeMon Caught"></a></p>
+</li>
+</ol><p>Enjoy!!! ;)</p>
+
+<hr><h1>TODOs</h1>
+
+<ul>
+<li>Evolutionary systems</li>
+<li>Battle between trainers</li>
+<li>Computers for Pokemon storage &amp; transmission</li>
+<li>Move effect &amp; related animations</li>
+<li>etc.</li>
+</ul><hr><h1>Change Log</h1>
+
+<p><strong>v0.3.3 @ 2013-01-13</strong></p>
+
+<ul>
+<li>Fix some warnings for the new Xcode compiler;</li>
+<li>Update submodules.</li>
+</ul><p><strong>v0.3.2 @ 2012-05-08</strong></p>
+
+<ul>
+<li>Modify regions for Wild Pokemon.</li>
+<li>Fix some potentical crash bugs.</li>
+<li>Add In-App Feedback with mail.</li>
+<li>Add Store &amp; In-App Purchase.</li>
+</ul><p><strong>v0.1.0 @ 2012-04-26</strong></p>
+
+<ul>
+<li>You can find different Pokemons based on your location (make sure you enable <code>Location Service</code>).</li>
+<li>Caught Wild Pokemons if you have Pokeballs.</li>
+<li>You can leave the App run in background, and when a Wild Pokemon appeared, you'll receive a <code>Push Notification</code> to deal with it.</li>
+<li>You can heal Pokemons by using some medicine, including Status Healers, HP/PP Restore.</li>
+<li>and more features exist in PokéMon.</li>
+</ul><hr><h1>Dependence</h1>
+
+<ul>
+<li><a href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a></li>
+<li><a href="https://github.com/cocos2d/cocos2d-iphone">Cocos2D-iPhone</a></li>
+<li><a href="http://code.google.com/p/gtm-oauth2/">GTMOAuth2</a></li>
+<li><a href="https://github.com/johnezang/JSONKit">JSONKit</a></li>
+<li><a href="https://github.com/Kjuly/KYArcTab">KYArcTab</a></li>
+<li><a href="https://github.com/Kjuly/KYCircleMenu">KYCircleMenu</a></li>
+<li><a href="https://github.com/jdg/MBProgressHUD">MBProgressHUD</a></li>
+</ul><hr><h1>Apply for Beta Version Testing</h1>
+
+<p>The Beta version of iPokemon is hosted on Testflight, just register a account, and join my team:</p>
+
+<p><a href="https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/"></a><a href="https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/">https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/</a></p>
+
+<hr><h1>Make Contributions</h1>
+
+<p>If you have some spare time then there is no better way to help an open source project than to get involved at one level or another. Contributions are very much appreciated and needed in any of the following ways:</p>
+
+<ul>
+<li>Improve the source code;</li>
+<li>Help diagnose and report problems;</li>
+<li>Suggest fixes by sending in patches;</li>
+<li>Help with unit and end-to-end testing;</li>
+<li>Provide peer support on our forum or on the Sencha forum;</li>
+<li>Publish an article on your blog (send the link) to educate others regarding some aspect of the project;</li>
+<li>Help with missing documentation;</li>
+<li>Improve the game data.</li>
+</ul><p>For programmers, if you want to be a contributor of the source code, just fork this repo as your own and improve the code in your own repo. When you done, send a "Pull Request" to me. I'll merge the commits after checking. And b.t.w, it is better to send "Pull Request" whenever you've modify the source code, even a modification of one word. :)</p>
+
+<p>And for designers, feel free to discuss with me on the design work via email: <code>kj#kjuly.com</code>.</p>
+
+<p>I collected the original data of iPokeMon on the internet. Most of them are okay, but of course, the lack is also hard to avoid. So I'm glad that you can help me to improve the data.</p>
+
+<p>As an independent developer, I need some support with microdonations to continue the project. Your monetary support is greatly appreciated!</p>
+
+<p><a href="http://flattr.com/thing/1100134/" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a></p>
+
+<p>As an another way to support me, you can purchase any of my iOS Apps which are sold on the AppStore (<a href="https://itunes.apple.com/artist/kaijie-yu/id523484108">https://itunes.apple.com/artist/kaijie-yu/id523484108</a>), or just share this page to your friends via <em>Twitter</em>, <em>Facebook</em>, <em>Google+</em>, etc.</p>
+
+<p>Thanks in advance! &lt;3</p>
+
+<hr><h1>Feedback</h1>
+
+<p>I'd love your feedback.<br>
+Email your comments, suggestions and questions to <code>dev#kjuly.com</code>.<br>
+Or you can just post a bug report or a feature request <a href="https://github.com/Kjuly/iPokeMon/issues/new"><strong>HERE</strong></a>.<br>
+Thank you! :)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Kjuly">Kjuly</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
