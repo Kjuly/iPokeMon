@@ -1,6 +1,6 @@
 //
 //  MKMapView+ZoomLevel.h
-//  Mew
+//  iPokeMon
 //
 //  Created by Kaijie Yu on 5/22/12.
 //  Copyright (c) 2012 Kjuly. All rights reserved.

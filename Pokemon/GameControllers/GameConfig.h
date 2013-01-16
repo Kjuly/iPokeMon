@@ -1,6 +1,6 @@
 //
 //  GameConfig.h
-//  Test_2_25
+//  iPokeMon
 //
 //  Created by Kaijie Yu on 2/25/12.
 //  Copyright Kjuly 2012. All rights reserved.

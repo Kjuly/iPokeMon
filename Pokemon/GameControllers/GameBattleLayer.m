@@ -1,6 +1,6 @@
 //
 //  GameBattleLayer.m
-//  Pokemon
+//  iPokeMon
 //
 //  Created by Kaijie Yu on 2/26/12.
 //  Copyright 2012 Kjuly. All rights reserved.
