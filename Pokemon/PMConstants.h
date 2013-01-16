@@ -220,8 +220,8 @@ extern NSString * const kPMNLoadingDone;
 #pragma mark -
 
 // View Basic
-#define kViewHeight 460.f
-#define kViewWidth  320.f
+#define kViewHeight CGRectGetHeight([UIScreen mainScreen].applicationFrame)
+#define kViewWidth  CGRectGetWidth([UIScreen mainScreen].applicationFrame)
 
 // Main view settings
 #define kCenterMainButtonSize 64.0f
