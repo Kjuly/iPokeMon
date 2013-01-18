@@ -643,6 +643,9 @@
 		7F52451914FBEA810019C75A /* GameStatusMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52451814FBEA810019C75A /* GameStatusMachine.m */; };
 		7F566BB515694C0000BC111B /* GameBattleLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F566BB415694C0000BC111B /* GameBattleLogTableViewController.m */; };
 		7F566BB91569582D00BC111B /* MEWRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F566BB81569582D00BC111B /* MEWRoundView.m */; };
+		7F56995F16A8E33F0045EA23 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F56995B16A8E33F0045EA23 /* libTestFlight.a */; };
+		7F56996016A8E33F0045EA23 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995C16A8E33F0045EA23 /* README.md */; };
+		7F56996116A8E33F0045EA23 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995D16A8E33F0045EA23 /* release_notes.md */; };
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
 		7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */; };
@@ -760,9 +763,6 @@
 		7F8E2E1A169BB8D5008A3F19 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0E169BB8D5008A3F19 /* PMConstants.m */; };
 		7F8E2E1B169BB8D5008A3F19 /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */; };
 		7F8E2E1C169BB8D5008A3F19 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E12169BB8D5008A3F19 /* Reachability.m */; };
-		7F8E2E22169BB94A008A3F19 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */; };
-		7F8E2E23169BB94A008A3F19 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E1F169BB94A008A3F19 /* README.txt */; };
-		7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E2E20169BB94A008A3F19 /* release_notes.txt */; };
 		7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3020169BC7CC008A3F19 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300F169BC7CC008A3F19 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7F8E3021169BC7CC008A3F19 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3011169BC7CC008A3F19 /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1760,6 +1760,10 @@
 		7F566BB415694C0000BC111B /* GameBattleLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleLogTableViewController.m; sourceTree = "<group>"; };
 		7F566BB71569582D00BC111B /* MEWRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWRoundView.h; sourceTree = "<group>"; };
 		7F566BB81569582D00BC111B /* MEWRoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWRoundView.m; sourceTree = "<group>"; };
+		7F56995B16A8E33F0045EA23 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		7F56995C16A8E33F0045EA23 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		7F56995D16A8E33F0045EA23 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		7F56995E16A8E33F0045EA23 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		7F579E6F1530A37900907A45 /* GameBattleEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEndViewController.h; sourceTree = "<group>"; };
 		7F579E701530A37900907A45 /* GameBattleEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEndViewController.m; sourceTree = "<group>"; };
 		7F581F431511D5F500F154FA /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
@@ -1914,10 +1918,6 @@
 		7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F8E2E11169BB8D5008A3F19 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7F8E2E12169BB8D5008A3F19 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		7F8E2E1F169BB94A008A3F19 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		7F8E2E20169BB94A008A3F19 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
-		7F8E2E21169BB94A008A3F19 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		7F8E300C169BC7CC008A3F19 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		7F8E300E169BC7CC008A3F19 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -2448,7 +2448,7 @@
 				7F6E6CBB14D6CAA600033C65 /* Foundation.framework in Frameworks */,
 				7F6E6CBD14D6CAA600033C65 /* CoreGraphics.framework in Frameworks */,
 				7F6E6CBF14D6CAA600033C65 /* CoreData.framework in Frameworks */,
-				7F8E2E22169BB94A008A3F19 /* libTestFlight.a in Frameworks */,
+				7F56995F16A8E33F0045EA23 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3623,10 +3623,10 @@
 		7F8E2E1D169BB94A008A3F19 /* TestFlightSDK */ = {
 			isa = PBXGroup;
 			children = (
-				7F8E2E1E169BB94A008A3F19 /* libTestFlight.a */,
-				7F8E2E1F169BB94A008A3F19 /* README.txt */,
-				7F8E2E20169BB94A008A3F19 /* release_notes.txt */,
-				7F8E2E21169BB94A008A3F19 /* TestFlight.h */,
+				7F56995B16A8E33F0045EA23 /* libTestFlight.a */,
+				7F56995C16A8E33F0045EA23 /* README.md */,
+				7F56995D16A8E33F0045EA23 /* release_notes.md */,
+				7F56995E16A8E33F0045EA23 /* TestFlight.h */,
 			);
 			path = TestFlightSDK;
 			sourceTree = "<group>";
@@ -5078,11 +5078,11 @@
 				7FA9C71515725C210090BD6C /* CNZJTZ.png in Resources */,
 				7FA9C71615725C210090BD6C /* CNZJWZ.png in Resources */,
 				7FA9C71715725C210090BD6C /* CNZJZS.png in Resources */,
-				7F8E2E23169BB94A008A3F19 /* README.txt in Resources */,
-				7F8E2E24169BB94A008A3F19 /* release_notes.txt in Resources */,
 				7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */,
 				7FA4473A169C34A90024D668 /* GTMOAuth2ViewTouch.xib in Resources */,
 				7F6F5E9C16A69B4000F28CCF /* Default-568h@2x.png in Resources */,
+				7F56996016A8E33F0045EA23 /* README.md in Resources */,
+				7F56996116A8E33F0045EA23 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
