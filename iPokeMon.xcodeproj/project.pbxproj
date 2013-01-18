@@ -647,6 +647,7 @@
 		7F56996016A8E33F0045EA23 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995C16A8E33F0045EA23 /* README.md */; };
 		7F56996116A8E33F0045EA23 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995D16A8E33F0045EA23 /* release_notes.md */; };
 		7F56996416A8E3EA0045EA23 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56996316A8E3EA0045EA23 /* Config.m */; };
+		7F56996C16A959E80045EA23 /* KYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56996B16A959E80045EA23 /* KYConstants.m */; };
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
 		7F58B7AB153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B7AA153FC09F000AAB72 /* SettingTableViewCellStyleCenterTitle.m */; };
@@ -1767,6 +1768,8 @@
 		7F56995E16A8E33F0045EA23 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		7F56996216A8E3EA0045EA23 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		7F56996316A8E3EA0045EA23 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		7F56996A16A959E80045EA23 /* KYConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYConstants.h; sourceTree = "<group>"; };
+		7F56996B16A959E80045EA23 /* KYConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYConstants.m; sourceTree = "<group>"; };
 		7F579E6F1530A37900907A45 /* GameBattleEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEndViewController.h; sourceTree = "<group>"; };
 		7F579E701530A37900907A45 /* GameBattleEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBattleEndViewController.m; sourceTree = "<group>"; };
 		7F581F431511D5F500F154FA /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
@@ -3067,6 +3070,15 @@
 			path = GameModels;
 			sourceTree = "<group>";
 		};
+		7F56996916A959E80045EA23 /* KYiOSFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				7F56996A16A959E80045EA23 /* KYConstants.h */,
+				7F56996B16A959E80045EA23 /* KYConstants.m */,
+			);
+			path = KYiOSFoundation;
+			sourceTree = "<group>";
+		};
 		7F6E6CA914D6CAA600033C65 = {
 			isa = PBXGroup;
 			children = (
@@ -3602,6 +3614,7 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7F56996916A959E80045EA23 /* KYiOSFoundation */,
 				7FA4469F169C34A90024D668 /* GTMOAuth2 */,
 				7FC8479D169C30750013D5FF /* JSONKit */,
 				7F8E312D169BD1B2008A3F19 /* Cocos2D-iPhone */,
@@ -5390,6 +5403,7 @@
 				7FA44734169C34A90024D668 /* GTMOAuth2SignIn.m in Sources */,
 				7FA44739169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m in Sources */,
 				7F56996416A8E3EA0045EA23 /* Config.m in Sources */,
+				7F56996C16A959E80045EA23 /* KYConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

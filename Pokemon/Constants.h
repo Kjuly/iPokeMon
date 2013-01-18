@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "KYConstants.h"
 
 // Device System Version Checking
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
@@ -224,12 +224,12 @@ extern NSString * const kPMNLoadingDone;
 #define kViewWidth  CGRectGetWidth([UIScreen mainScreen].applicationFrame)
 
 // Main view settings
-#define kCenterMainButtonSize 64.0f
+#define kCenterMainButtonSize kKYButtonInNormalSize
 #define kCenterMainButtonTouchDownCircleViewSize 230.0f
 #define kCenterMenuSize       305.0f
-#define kCenterMenuButtonSize 64.0f
+#define kCenterMenuButtonSize kKYButtonInNormalSize
 
-#define kMapButtonSize 64.0f
+#define kMapButtonSize kKYButtonInNormalSize
 #define kRectButtonHeight 44.f
 #define kRectButtonWidth  160.f
 #define kRectButtonBottomLineHeight 10.f
@@ -366,7 +366,7 @@ typedef enum {
 }MoveRealTarget;
 
 #define kTabBarHeight   88.f
-#define kTabBarWdith    320.f
+#define kTabBarWdith    kViewWidth
 #define kTabBarItemSize 44.f
 
 #define kNavigationBarHeight            60.f
@@ -421,5 +421,5 @@ typedef enum {
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345
 
-@interface Constants : NSObject
+@interface Constants : KYConstants
 @end
