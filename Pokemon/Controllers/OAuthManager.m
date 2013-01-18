@@ -246,7 +246,7 @@ static OAuthManager * oauthManager_ = nil;
     isUserIDSyncing_ = NO;
     // Hide loading
     [self.loadingManager hideOverBar];
-#ifndef DEBUG_NO_SESSION_MOED
+#ifdef KY_SESSION_MODE_ON
     // Post notification to |MainViewController| to warn Network not available view
     NSDictionary * userInfo =
       [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];

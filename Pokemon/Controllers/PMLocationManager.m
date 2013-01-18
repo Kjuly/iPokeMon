@@ -141,7 +141,7 @@ static PMLocationManager * locationManager_ = nil;
   
   // if low battery mode, use |startMonitoringSignificantLocationChanges|
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
-#ifdef LOCATION_SERVICE_LOW_BATTERY_MODE
+#ifdef KY_LOCATION_SERVICE_LOW_BATTERY_MODE_ON
     // check whether Significant-Change Location Service is available & use it
     if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
       NSLog(@"Significant Location Change Monitoring Available");
@@ -225,7 +225,7 @@ static PMLocationManager * locationManager_ = nil;
     if (! [originalLanguage isEqualToString:@"en"])
       [languages removeObjectAtIndex:0];
     
-#ifndef LOCAL_SERVER
+#ifndef KY_LOCAL_SERVER_ON
     //if([error code] == kCLErrorLocationUnknown) {}
     if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
@@ -319,7 +319,7 @@ static PMLocationManager * locationManager_ = nil;
   
   // If there's no Wild Pokemon Arreared yet, and got the basic required move distance,
   //   Generate a Wild Pokemon for player
-#ifdef DEBUG_NO_MOVE
+#ifdef KY_PLAYER_MOVEMENT_SIMULATION_ON
   if (! isPokemonAppeared_ && arc4random() % 10 > 5)
 #else
   if (! isPokemonAppeared_ && moveDistance_ > 10.0f && arc4random() % 2)

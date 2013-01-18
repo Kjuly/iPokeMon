@@ -185,9 +185,6 @@
 
 // Load Move detail view
 - (void)loadMoveDetailView:(id)sender {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Open Move Detail View"];
-#endif
   CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
   PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
   self.moveDetailView = moveDetailView;

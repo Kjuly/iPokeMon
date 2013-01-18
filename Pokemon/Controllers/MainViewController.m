@@ -24,8 +24,8 @@
 #import "MapViewController.h"
 #import "GameMainViewController.h"
 
-#ifdef DEBUG_PREINIT_POPULATE_DATA
-#import "OriginalDataManager.h"
+#ifdef KY_POPULATE_COREDATA
+  #import "OriginalDataManager.h"
 #endif
 
 
@@ -156,7 +156,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-#ifdef DEBUG_PREINIT_POPULATE_DATA
+#ifdef KY_POPULATE_COREDATA
     // Hard Initialize the Core Data
     [OriginalDataManager initData];
 #endif
@@ -276,7 +276,7 @@
                                                name:kPMNBattleEnd
                                              object:nil];
   
-#ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
+#ifdef KY_DEFAULT_VIEW_GAME_BATTLE_ON
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalPokemonAppeared;
   [self.centerMainButton transitionToImage:[UIImage imageNamed:kPMINMainButtonWarning]
@@ -287,7 +287,7 @@
   // Init |WildPokemonController| singleton to listen notfications
   [[WildPokemonController sharedInstance] listen];
   
-#ifndef DEBUG_DEFAULT_VIEW_GAME_BATTLE
+#ifndef KY_DEFAULT_VIEW_GAME_BATTLE_ON
   // Init |PMLocationManager| singleton to run location tracking,
   //   if enable location tracking, it'll do tracking
   //   otherwise, just add observer for notification when enable trakcing
@@ -388,7 +388,7 @@
 
 // Show guide view for newbie (new trainer)
 - (void)showNewbieGuideView:(NSNotification *)notification {
-#ifdef DEBUG_TEST_FLIGHT
+#ifdef KY_TESTFLIGHT_ON
   [TestFlight passCheckpoint:@"CHECK_POINT: Open Newbie Guide View"];
 #endif
   NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
@@ -567,7 +567,7 @@
   }
   // Six Pokemons Menu
   else if (timeCounter_ <= 5) {
-#ifdef DEBUG_TEST_FLIGHT
+#ifdef KY_TESTFLIGHT_ON
     [TestFlight passCheckpoint:@"CHECK_POINT: Open Center Six PMs Menu (long press)"];
 #endif
     // Reset |centerMenuUtilityViewController_|

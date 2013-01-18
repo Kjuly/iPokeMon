@@ -1228,7 +1228,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Set HP back to |playerPokemon_| & |enemyPokemon_|
   self.playerPokemon.hp = [NSNumber numberWithInt:playerPokemonHP];
   self.enemyPokemon.hp  = [NSNumber numberWithInt:enemyPokemonHP];
-#ifdef DEBUG_SUPER_PM
+#ifdef KY_SUPER_POKEMON_MODE_ON
   self.enemyPokemon.hp = [NSNumber numberWithInt:0];
 #endif
   
@@ -1556,7 +1556,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 
 // Replace pokemon
 - (void)replacePokemon {
-#ifdef DEBUG_TEST_FLIGHT
+#ifdef KY_TESTFLIGHT_ON
   [TestFlight passCheckpoint:@"CHECK_POINT: Replaced a PM"];
 #endif
   // Post to |GameMenuViewController| to update pokemon status view
@@ -1702,7 +1702,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     else return NO;
   }
   
-#ifdef DEBUG_SUPER_PM
+#ifdef KY_SUPER_POKEMON_MODE_ON
   // 100% catch Wild PM when in SUPER PM mode (DEBUG)
   succeed = YES;
 #endif

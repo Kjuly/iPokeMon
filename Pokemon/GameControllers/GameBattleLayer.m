@@ -125,7 +125,7 @@
     
     // Create a new scene
     // Generate a Wild Pokemon as the appeared Pokemon
-#ifdef DEBUG_DEFAULT_VIEW_GAME_BATTLE
+#ifdef KY_DEFAULT_VIEW_GAME_BATTLE_ON
     [self _createNewSceneWithWildPokemon:[WildPokemon queryPokemonDataWithUID:8]];
 #else
     [self _createNewSceneWithWildPokemon:[[WildPokemonController sharedInstance] appearedPokemon]];

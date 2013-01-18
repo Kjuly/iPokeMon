@@ -13,11 +13,13 @@
 
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
-#ifdef LOCAL_SERVER
-NSString * const kServerAPIRoot = @"http://localhost:8080";
+
+#ifdef KY_LOCAL_SERVER_ON
+  NSString * const kServerAPIRoot = @"http://localhost:8080";
 #else
-NSString * const kServerAPIRoot = @"http://184.169.146.32:8080";
+  NSString * const kServerAPIRoot = @"http://184.169.146.32:8080";
 #endif
+
 // Connection Checking
 NSString * const kServerAPICheckConnection = @"/cc";     // /cc:Check Connection
 // User

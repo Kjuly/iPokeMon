@@ -941,9 +941,6 @@ typedef enum {
 
 // Action for tap gesture recognizer
 - (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Open Run Confirm Alert View"];
-#endif
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2)
     [self openRunConfirmView];
 }

@@ -9,7 +9,7 @@
 #import "GameMenuAbstractChildViewController.h"
 
 @interface GameMenuBagViewController : GameMenuAbstractChildViewController {
-   BOOL isSelectedItemViewOpening_;
+  BOOL isSelectedItemViewOpening_;
 }
 
 @property (nonatomic, assign) BOOL isSelectedItemViewOpening;

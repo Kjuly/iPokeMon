@@ -9,41 +9,22 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <CoreData/CoreData.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
-    #import "PMConstants.h"
-//    #import "TestFlight.h"
+  #import <UIKit/UIKit.h>
+  #import <Foundation/Foundation.h>
+  #import <CoreData/CoreData.h>
+  #import <SystemConfiguration/SystemConfiguration.h>
+  #import <MobileCoreServices/MobileCoreServices.h>
+  #import "Config.h"
+  #import "PMConstants.h"
 #endif
 
-// Disable logging when not in debug
-//#ifndef DEBUG
-//#undef NSLog
-//#define NSLog(args, ...)
-// Switch between |NSLog| & |TFLog|, just comment out
-//#define NSLog TFLog // Simple
-#define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-//#endif
-
-
-// Debug Settings
-#define LOCAL_SERVER 1
-
-///LBS
-#define DEBUG_NO_MOVE 1
-//#define DEBUG_NO_CORELOCATION 1
-//#define LOCATION_SERVICE_LOW_BATTERY_MODE 1
-
-//#define DEBUG_PREINIT_POPULATE_DATA 1
-//#define DEBUG_NO_SESSION_MOED 1
-
-///Game
-//#define DEBUG_DEFAULT_VIEW_GAME_BATTLE 1
-// super Pokemon
-//#define DEBUG_SUPER_PM 1
-
-//#define DEBUG_TEST_FLIGHT         1 // TestFlight, can leave it
-//#define DEBUG_TEST_FLIGHT_TESTING 1 // TestFlight, should be comment out when release the app
-//#define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#ifndef DEBUG
+  #undef NSLog
+#else
+  #ifdef KY_TESTFLIGHT_ON
+    #import "TestFlight.h"
+    #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+  #else
+    #define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+  #endif
+#endif

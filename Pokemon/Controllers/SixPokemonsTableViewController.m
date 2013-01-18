@@ -191,9 +191,6 @@
 - (void) tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
        toIndexPath:(NSIndexPath *)toIndexPath {
-#ifdef DEBUG_TEST_FLIGHT
-  [TestFlight passCheckpoint:@"CHECK_POINT: Rearrange the Table View of Six PMs"];
-#endif
   NSInteger sourceRow      = [fromIndexPath row];
   NSInteger destinationRow = [toIndexPath   row];
   [self.trainer replacePokemonAtIndex:sourceRow toIndex:destinationRow];
