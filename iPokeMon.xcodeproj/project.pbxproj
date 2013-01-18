@@ -761,7 +761,7 @@
 		7F8E2E17169BB8D5008A3F19 /* DataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E08169BB8D5008A3F19 /* DataDecoder.m */; };
 		7F8E2E18169BB8D5008A3F19 /* GlobalRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0A169BB8D5008A3F19 /* GlobalRender.m */; };
 		7F8E2E19169BB8D5008A3F19 /* PListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0C169BB8D5008A3F19 /* PListParser.m */; };
-		7F8E2E1A169BB8D5008A3F19 /* PMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0E169BB8D5008A3F19 /* PMConstants.m */; };
+		7F8E2E1A169BB8D5008A3F19 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E0E169BB8D5008A3F19 /* Constants.m */; };
 		7F8E2E1B169BB8D5008A3F19 /* PokemonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */; };
 		7F8E2E1C169BB8D5008A3F19 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E12169BB8D5008A3F19 /* Reachability.m */; };
 		7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E300D169BC7CC008A3F19 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1915,8 +1915,8 @@
 		7F8E2E0A169BB8D5008A3F19 /* GlobalRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalRender.m; sourceTree = "<group>"; };
 		7F8E2E0B169BB8D5008A3F19 /* PListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListParser.h; sourceTree = "<group>"; };
 		7F8E2E0C169BB8D5008A3F19 /* PListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListParser.m; sourceTree = "<group>"; };
-		7F8E2E0D169BB8D5008A3F19 /* PMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMConstants.h; sourceTree = "<group>"; };
-		7F8E2E0E169BB8D5008A3F19 /* PMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMConstants.m; sourceTree = "<group>"; };
+		7F8E2E0D169BB8D5008A3F19 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		7F8E2E0E169BB8D5008A3F19 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		7F8E2E0F169BB8D5008A3F19 /* PokemonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonConstants.h; sourceTree = "<group>"; };
 		7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonConstants.m; sourceTree = "<group>"; };
 		7F8E2E11169BB8D5008A3F19 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -3126,8 +3126,8 @@
 				7F8E2E0A169BB8D5008A3F19 /* GlobalRender.m */,
 				7F8E2E0B169BB8D5008A3F19 /* PListParser.h */,
 				7F8E2E0C169BB8D5008A3F19 /* PListParser.m */,
-				7F8E2E0D169BB8D5008A3F19 /* PMConstants.h */,
-				7F8E2E0E169BB8D5008A3F19 /* PMConstants.m */,
+				7F8E2E0D169BB8D5008A3F19 /* Constants.h */,
+				7F8E2E0E169BB8D5008A3F19 /* Constants.m */,
 				7F8E2E0F169BB8D5008A3F19 /* PokemonConstants.h */,
 				7F8E2E10169BB8D5008A3F19 /* PokemonConstants.m */,
 				7F8E2E11169BB8D5008A3F19 /* Reachability.h */,
@@ -5274,7 +5274,7 @@
 				7F8E2E17169BB8D5008A3F19 /* DataDecoder.m in Sources */,
 				7F8E2E18169BB8D5008A3F19 /* GlobalRender.m in Sources */,
 				7F8E2E19169BB8D5008A3F19 /* PListParser.m in Sources */,
-				7F8E2E1A169BB8D5008A3F19 /* PMConstants.m in Sources */,
+				7F8E2E1A169BB8D5008A3F19 /* Constants.m in Sources */,
 				7F8E2E1B169BB8D5008A3F19 /* PokemonConstants.m in Sources */,
 				7F8E2E1C169BB8D5008A3F19 /* Reachability.m in Sources */,
 				7F8E301F169BC7CC008A3F19 /* AFHTTPClient.m in Sources */,

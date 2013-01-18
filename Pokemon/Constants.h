@@ -421,5 +421,5 @@ typedef enum {
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345
 
-@interface PMConstants : NSObject
+@interface Constants : NSObject
 @end

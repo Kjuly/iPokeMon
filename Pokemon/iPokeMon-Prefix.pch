@@ -15,7 +15,7 @@
   #import <SystemConfiguration/SystemConfiguration.h>
   #import <MobileCoreServices/MobileCoreServices.h>
   #import "Config.h"
-  #import "PMConstants.h"
+  #import "Constants.h"
 #endif
 
 #ifndef DEBUG

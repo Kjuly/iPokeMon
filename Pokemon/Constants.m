@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "PMConstants.h"
+#import "Constants.h"
 
 #pragma mark - User Defaults
 
@@ -91,6 +91,6 @@ NSString * const kPMNGameBattleEndWithEvent = @"PMNGameBattleEndWithEvent"; // B
 
 NSString * const kPMNLoadingDone = @"PMNLoadingDone"; // Loading done
 
-@implementation PMConstants
+@implementation Constants
 
 @end
