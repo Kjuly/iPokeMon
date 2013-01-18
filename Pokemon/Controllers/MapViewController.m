@@ -27,8 +27,8 @@
   MKAnnotationView * selectedAnnotationView_;
   NSMutableSet     * annotations_;
   
-  NSInteger         zoomLevel_;      // zoom level: 0 ~ 20
-  MEWAnnotationType annotationType_; // current annotation type
+  NSInteger      zoomLevel_;      // zoom level: 0 ~ 20
+  AnnotationType annotationType_; // current annotation type
   NSInteger selectedAnnotationViewCount_;    // selected annotation view count
   BOOL      shouldIgnoreFirstRegionChange_;  // when select the annotation, map view will move the region
 }
@@ -50,7 +50,7 @@
 - (void)_setAnnotationView:(MKAnnotationView *)view // toggle annotation view between selected or not
                 asSelected:(BOOL)selected
                 completion:(void (^)(BOOL))completion;
-- (MEWAnnotationType)_annotationTypeForZoomLevel:(NSInteger)zoomLevel;
+- (AnnotationType)_annotationTypeForZoomLevel:(NSInteger)zoomLevel;
 - (BOOL)_needToUpdateAnnotations;
 - (void)_updateAnnotations; // only add annotation view at current zoom level
 
@@ -115,7 +115,7 @@
   
   // basic settings
   zoomLevel_                     = 12.f;
-  annotationType_                = kMEWAnnotationTypeNone;
+  annotationType_                = kAnnotationTypeNone;
   selectedAnnotationViewCount_   = 0;
   shouldIgnoreFirstRegionChange_ = NO;
   
@@ -242,31 +242,31 @@
 }
 
 // update |zoomLevelType_| with |zoomLevel|
-- (MEWAnnotationType)_annotationTypeForZoomLevel:(NSInteger)zoomLevel {
-  MEWAnnotationType annotationType = kMEWAnnotationTypeNone;
+- (AnnotationType)_annotationTypeForZoomLevel:(NSInteger)zoomLevel {
+  AnnotationType annotationType = kAnnotationTypeNone;
   // contient & ocean: 0
   if (zoomLevel == kMEWMaxZoomLevelOfContinentAndOcean)
-    annotationType |= kMEWAnnotationTypeContinentAndOcean;
+    annotationType |= kAnnotationTypeContinentAndOcean;
   // country & sea: 1, 2
   else if (zoomLevel <= kMEWMaxZoomLevelOfCountryAndSea)
-    annotationType |= kMEWAnnotationTypeCountryAndSea;
+    annotationType |= kAnnotationTypeCountryAndSea;
   // zoom levels are crossed for below types
   else {
     // administrative (province): 3, 4, 5
     if (zoomLevel <= kMEWMaxZoomLevelOfAdministrativeArea)
-      annotationType |= kMEWAnnotationTypeAdministrativeArea;
+      annotationType |= kAnnotationTypeAdministrativeArea;
     // locality (city): 5, 6, 7
     if (kMEWMinZoomLevelOfLocality <= zoomLevel <= kMEWMaxZoomLevelOfLocality)
-      annotationType |= kMEWAnnotationTypeLocality;
+      annotationType |= kAnnotationTypeLocality;
     // lake: 6, 7, 8, 9
     if (kMEWMinZoomLevelOfLake <= zoomLevel <= kMEWMaxZoomLevelOfLake)
-      annotationType |= kMEWAnnotationTypeLake;
+      annotationType |= kAnnotationTypeLake;
     // sub-locality (district): 8, 9, 10
     if (kMEWMinZoomLevelOfSubLocality <= zoomLevel <= kMEWMaxZoomLevelOfSubLocality)
-      annotationType |= kMEWAnnotationTypeSubLocality;
+      annotationType |= kAnnotationTypeSubLocality;
     // hot point: shop, etc.: 10, ..., 20
     if (kMEWMinZoomLevelOfHotPoint <= zoomLevel <= kMEWMaxZoomLevelOfHotPoint)
-      annotationType |= kMEWAnnotationTypeHotPoint;
+      annotationType |= kAnnotationTypeHotPoint;
   }
   return annotationType;
 }
@@ -275,7 +275,7 @@
 //   if types are same, no need to do updating
 //   otherwise, update |zoomLevelType_| & return YES
 - (BOOL)_needToUpdateAnnotations {
-  MEWAnnotationType annotationType = [self _annotationTypeForZoomLevel:zoomLevel_];
+  AnnotationType annotationType = [self _annotationTypeForZoomLevel:zoomLevel_];
   if (annotationType_ == annotationType)
     return NO;
   annotationType_ = annotationType;

@@ -11,9 +11,9 @@
 @interface MEWRoundView : UIView
 
 - (id)initWithFrame:(CGRect)frame
-    foregroundColor:(MEWColorType)foregroundColor
+    foregroundColor:(ColorType)foregroundColor
     foregroundAlpha:(CGFloat)foregroundAlpha
-    backgroundColor:(MEWColorType)backgroundColor
+    backgroundColor:(ColorType)backgroundColor
     backgroundAlpha:(CGFloat)backgroundAlpha;
 
 @end

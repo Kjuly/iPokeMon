@@ -118,26 +118,26 @@
   switch (type) {
     case kMEWGameBattleLogTypePlayerPMAttack:
       [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kMEWColorTypeBlue
+                foregroundColor:kColorTypeBlue
                 foregroundAlpha:1.f
-                backgroundColor:kMEWColorTypeWhite
+                backgroundColor:kColorTypeWhite
                 backgroundAlpha:.95f];
       break;
       
     case kMEWGameBattleLogTypeEnemyPMAttack:
       [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kMEWColorTypeRed
+                foregroundColor:kColorTypeRed
                 foregroundAlpha:1.f
-                backgroundColor:kMEWColorTypeWhite
+                backgroundColor:kColorTypeWhite
                 backgroundAlpha:.95f];
       break;
       
     case kMEWGameBattleLogTypeNormal:
     default:
       [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kMEWColorTypeGray
+                foregroundColor:kColorTypeGray
                 foregroundAlpha:1.f
-                backgroundColor:kMEWColorTypeWhite
+                backgroundColor:kColorTypeWhite
                 backgroundAlpha:.95f];
       break;
   }

@@ -12,10 +12,10 @@
 
 @interface MEWRoundView () {
  @private
-  MEWColorType foregroundColor_;
-  CGFloat      foregroundAlpha_;
-  MEWColorType backgroundColor_;
-  CGFloat      backgroundAlpha_;
+  ColorType foregroundColor_;
+  CGFloat   foregroundAlpha_;
+  ColorType backgroundColor_;
+  CGFloat   backgroundAlpha_;
 }
 
 @end
@@ -23,9 +23,9 @@
 @implementation MEWRoundView
 
 - (id)initWithFrame:(CGRect)frame
-    foregroundColor:(MEWColorType)foregroundColor
+    foregroundColor:(ColorType)foregroundColor
     foregroundAlpha:(CGFloat)foregroundAlpha
-    backgroundColor:(MEWColorType)backgroundColor
+    backgroundColor:(ColorType)backgroundColor
     backgroundAlpha:(CGFloat)backgroundAlpha {
   foregroundColor_ = foregroundColor;
   foregroundAlpha_ = foregroundAlpha;

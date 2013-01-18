@@ -274,18 +274,18 @@ typedef enum {
 
 // color types
 typedef enum {
-  kMEWColorTypeNone      = 0,
-  kMEWColorTypeBlack     = 1 << 0,
-  kMEWColorTypeWhite     = 1 << 1,
-  kMEWColorTypeOrange    = 1 << 2,
-  kMEWColorTypeGolden    = 1 << 3,
-  kMEWColorTypeBlue      = 1 << 4,
-  kMEWColorTypeRed       = 1 << 5,
-  kMEWColorTypeGreen     = 1 << 6,
-  kMEWColorTypeGray      = 1 << 7,
-  kMEWColorTypeDarkGray  = 1 << 8,
-  kMEWColorTypeLightGray = 1 << 9
-}MEWColorType;
+  kColorTypeNone      = 0,
+  kColorTypeBlack     = 1 << 0,
+  kColorTypeWhite     = 1 << 1,
+  kColorTypeOrange    = 1 << 2,
+  kColorTypeGolden    = 1 << 3,
+  kColorTypeBlue      = 1 << 4,
+  kColorTypeRed       = 1 << 5,
+  kColorTypeGreen     = 1 << 6,
+  kColorTypeGray      = 1 << 7,
+  kColorTypeDarkGray  = 1 << 8,
+  kColorTypeLightGray = 1 << 9
+}ColorType;
 
 // For |centerMainButton_| status
 typedef enum {
@@ -310,15 +310,15 @@ typedef enum {
 
 // map's annotation type
 typedef enum {
-  kMEWAnnotationTypeNone               = 0,
-  kMEWAnnotationTypeContinentAndOcean  = 1 << 0,  // continent & ocean
-  kMEWAnnotationTypeCountryAndSea      = 1 << 1,  // country & sea
-  kMEWAnnotationTypeAdministrativeArea = 1 << 2,  // administrative (province)
-  kMEWAnnotationTypeLocality           = 1 << 3,  // locality (city)
-  kMEWAnnotationTypeLake               = 1 << 4,  // lake
-  kMEWAnnotationTypeSubLocality        = 1 << 5,  // sub-locality (district)
-  kMEWAnnotationTypeHotPoint           = 1 << 6   // hot point: shop, etc.
-}MEWAnnotationType;
+  kAnnotationTypeNone               = 0,
+  kAnnotationTypeContinentAndOcean  = 1 << 0,  // continent & ocean
+  kAnnotationTypeCountryAndSea      = 1 << 1,  // country & sea
+  kAnnotationTypeAdministrativeArea = 1 << 2,  // administrative (province)
+  kAnnotationTypeLocality           = 1 << 3,  // locality (city)
+  kAnnotationTypeLake               = 1 << 4,  // lake
+  kAnnotationTypeSubLocality        = 1 << 5,  // sub-locality (district)
+  kAnnotationTypeHotPoint           = 1 << 6   // hot point: shop, etc.
+}AnnotationType;
 
 enum {
   kTagUtilityBallButtonShowPokedex = 2001,

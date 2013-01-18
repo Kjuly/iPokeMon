@@ -134,11 +134,11 @@
   return [UIColor colorWithWhite:.5f alpha:alpha];
 }
 
-+ (UIColor *)colorWithColorType:(MEWColorType)colorType {
++ (UIColor *)colorWithColorType:(ColorType)colorType {
   return [self colorWithColorType:colorType alpha:1.f];
 }
 
-+ (UIColor *)colorWithColorType:(MEWColorType)colorType
++ (UIColor *)colorWithColorType:(ColorType)colorType
                           alpha:(CGFloat)alpha {
   /*
    kMEWColorTypeNone      = 0,
@@ -152,41 +152,41 @@
    kMEWColorTypeLightGray = 1 << 7
    */
   switch (colorType) {
-    case kMEWColorTypeBlack:
+    case kColorTypeBlack:
       return [UIColor colorWithWhite:0.f alpha:alpha];
       break;
       
-    case kMEWColorTypeWhite:
+    case kColorTypeWhite:
       return [UIColor colorWithWhite:1.f alpha:alpha];
       break;
       
-    case kMEWColorTypeOrange:
+    case kColorTypeOrange:
       return [self colorOrangeWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeGolden:
+    case kColorTypeGolden:
       return [self colorGoldenWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeBlue:
+    case kColorTypeBlue:
       return [self colorBlueWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeRed:
+    case kColorTypeRed:
       return [self colorRedWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeGreen:
+    case kColorTypeGreen:
       return [self colorGreenWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeGray:
+    case kColorTypeGray:
       return [self colorGrayWithAlpha:alpha];
       break;
       
-    case kMEWColorTypeDarkGray:
-    case kMEWColorTypeLightGray:
-    case kMEWColorTypeNone:
+    case kColorTypeDarkGray:
+    case kColorTypeLightGray:
+    case kColorTypeNone:
     default:
       return nil;
       break;

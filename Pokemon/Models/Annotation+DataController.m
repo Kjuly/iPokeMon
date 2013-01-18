@@ -16,7 +16,7 @@
 
 //- (void)_updateAnnotation;
 + (NSArray *)_parsedAnnotation:(NSString *)annotation;
-+ (void)_updateForAnnotationType:(MEWAnnotationType)annotationType
++ (void)_updateForAnnotationType:(AnnotationType)annotationType
                   withCodePrefix:(NSString *)codePrefix
                             data:(NSArray *)data;
 
@@ -142,7 +142,7 @@
 }
 
 // update data fot annotations
-+ (void)_updateForAnnotationType:(MEWAnnotationType)annotationType
++ (void)_updateForAnnotationType:(AnnotationType)annotationType
                   withCodePrefix:(NSString *)codePrefix
                             data:(NSArray *)data {
   

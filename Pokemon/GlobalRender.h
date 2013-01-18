@@ -35,8 +35,8 @@
 + (UIColor *)colorGreenWithAlpha:(CGFloat)alpha;
 + (UIColor *)colorGray;
 + (UIColor *)colorGrayWithAlpha:(CGFloat)alpha;
-+ (UIColor *)colorWithColorType:(MEWColorType)colorType;
-+ (UIColor *)colorWithColorType:(MEWColorType)colorType
++ (UIColor *)colorWithColorType:(ColorType)colorType;
++ (UIColor *)colorWithColorType:(ColorType)colorType
                           alpha:(CGFloat)alpha;
 
 // Font Style
