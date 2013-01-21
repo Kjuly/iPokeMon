@@ -17,7 +17,6 @@
 #import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
-//#import "FeedbackViewController.h"
 
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -321,20 +320,22 @@
         return;
       }
       
-      MFMailComposeViewController *mailComposer; 
-      mailComposer  = [[MFMailComposeViewController alloc] init];
+      UIDevice * device = [UIDevice currentDevice];
+      NSString * appInfo = [NSString stringWithFormat:@"- - - - - - - - - - - - - - - - - - - - - - - - - - - >8\n Version: %@\n Locale: %@\n Device: %@\n OS: %@ %@",
+                            [[NSUserDefaults standardUserDefaults] stringForKey:kKYSKeyAboutApp],
+                            [[NSLocale currentLocale] localeIdentifier],
+                            device.model,
+                            device.systemName, device.systemVersion];
+      
+      MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
       mailComposer.mailComposeDelegate = self;
       [mailComposer setModalPresentationStyle:UIModalPresentationFormSheet];
       [mailComposer setToRecipients:[NSArray arrayWithObject:@"dev@kjuly.com"]];
-      [mailComposer setSubject:@"iPokemon Feedback"];
-      [mailComposer setMessageBody:nil isHTML:NO];
+      [mailComposer setSubject:@"iPokeMon Feedback"];
+      [mailComposer setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n%@", appInfo] isHTML:NO];
+      [mailComposer.navigationBar setBarStyle:UIBarStyleBlack];
       [self presentModalViewController:mailComposer animated:YES];
       [mailComposer release];
-      
-//      FeedbackViewController * feedbackViewController;
-//      feedbackViewController = [[FeedbackViewController alloc] init];
-//      [self.navigationController pushViewController:feedbackViewController animated:YES];
-//      [feedbackViewController release];
     }
     // Logout
     if (row == kSectionAboutRowLogout)
@@ -404,12 +405,5 @@
   loadingManager = nil;
   [self dismissModalViewControllerAnimated:YES];
 }
-
-//#pragma mark - FeedbackViewController Delegate
-//
-//- (void)cancelFeedbackView {
-//  [self dismissModalViewControllerAnimated:YES];
-//  
-//}
 
 @end
