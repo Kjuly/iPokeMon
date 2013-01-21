@@ -22,7 +22,12 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 
-@interface SettingTableViewController ()
+@interface SettingTableViewController () {
+ @private
+  NSArray * developerEmails_;
+}
+
+@property (nonatomic, copy) NSArray * developerEmails;
 
 - (void)updateValueSettings:(NSNotification *)notification;
 - (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
@@ -33,7 +38,10 @@
 
 @implementation SettingTableViewController
 
+@synthesize developerEmails = developerEmails_;
+
 - (void)dealloc {
+  self.developerEmails = nil;
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
   [super dealloc];
@@ -42,6 +50,11 @@
 - (id)initWithStyle:(UITableViewStyle)style {
   if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"Setting", nil)];
+    // These developer emails are for receiving users' feedback,
+    //   they are in CC section of the mail compose view.
+    // You can participate in this project development
+    //   and send your mail address to Kjuly (dev@kjuly.com)
+    self.developerEmails = @[@"dev@kjuly.com"];
   }
   return self;
 }
@@ -330,8 +343,9 @@
       MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
       mailComposer.mailComposeDelegate = self;
       [mailComposer setModalPresentationStyle:UIModalPresentationFormSheet];
-      [mailComposer setToRecipients:[NSArray arrayWithObject:@"dev@kjuly.com"]];
       [mailComposer setSubject:@"iPokeMon Feedback"];
+      [mailComposer setToRecipients:[NSArray arrayWithObject:@"dev@kjuly.com"]];
+      [mailComposer setCcRecipients:self.developerEmails];
       [mailComposer setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n%@", appInfo] isHTML:NO];
       [mailComposer.navigationBar setBarStyle:UIBarStyleBlack];
       [self presentModalViewController:mailComposer animated:YES];
