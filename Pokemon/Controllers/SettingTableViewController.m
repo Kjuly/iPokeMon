@@ -335,7 +335,7 @@
       
       UIDevice * device = [UIDevice currentDevice];
       NSString * appInfo = [NSString stringWithFormat:@"- - - - - - - - - - - - - - - - - - - - - - - - - - - >8\n Version: %@\n Locale: %@\n Device: %@\n OS: %@ %@",
-                            [[NSUserDefaults standardUserDefaults] stringForKey:kKYSKeyAboutApp],
+                            [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion],
                             [[NSLocale currentLocale] localeIdentifier],
                             device.model,
                             device.systemName, device.systemVersion];
