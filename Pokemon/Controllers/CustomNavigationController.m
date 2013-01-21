@@ -10,6 +10,12 @@
 
 #import "GlobalRender.h"
 
+@interface CustomNavigationController ()
+
+- (void)_setupNavigationBar;
+
+@end
+
 @implementation CustomNavigationController
 
 - (void)dealloc {
@@ -18,20 +24,17 @@
 }
 
 - (id)init {
-  self = [super initWithNibName:nil bundle:nil];
+  self = [super init];
   if (self) {
     NSLog(@"......INIT......");
-    CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
-    [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
-    customNavigationBar.delegate = self;
-    [self setValue:customNavigationBar forKey:@"navigationBar"];
-    [customNavigationBar release];
-    [self setNavigationBarHidden:YES];
   }
   return self;
 }
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController {
+  // Setup navigation bar with the custom one before do initialization job
+  // In iOS6, |-initWithRootViewController:| won't send |-init| message
+  [self _setupNavigationBar];
   self = [super initWithRootViewController:rootViewController];
   if (self) {
   }
@@ -68,6 +71,19 @@
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Private Method
+
+// Setup |navigationBar|
+- (void)_setupNavigationBar {
+  NSLog(@"...SETUP NavigationBar...");
+  CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
+  [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
+  customNavigationBar.delegate = self;
+  [self setValue:customNavigationBar forKey:@"navigationBar"];
+  [customNavigationBar release];
+  [self setNavigationBarHidden:YES];
+}
+
 #pragma mark - Overwrited UINavigationController Methods
 
 // Uses a horizontal slide transition.
@@ -76,7 +92,7 @@
                   animated:(BOOL)animated {
   // Set original |backButton| hidden to show custom |backButton|
   [viewController.navigationItem setHidesBackButton:YES];
-  
+       
   // If |viewCount| == 2, add |backButton| for previous view
   if (++((CustomNavigationBar *)self.navigationBar).viewCount == 2)
     [(CustomNavigationBar *)self.navigationBar addBackButtonForPreviousView];
