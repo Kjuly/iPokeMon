@@ -18,13 +18,11 @@
   #import "Constants.h"
 #endif
 
-#ifndef DEBUG
-  #undef NSLog
+//#ifndef DEBUG
+//#undef NSLog
+#ifdef KY_TESTFLIGHT_ON
+  #import "TestFlight.h"
+  #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
-  #ifdef KY_TESTFLIGHT_ON
-    #import "TestFlight.h"
-    #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-  #else
-    #define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-  #endif
+  #define NSLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #endif

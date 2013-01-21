@@ -21,7 +21,7 @@
 //#define KY_SESSION_MODE_ON 1                      // DEV: Turn on session mode (ON)
 // - - LBS
 #define KY_CORELOCATION_ON 1                      // DEV: Turn on Core Lcation service (ON)
-#define KY_LOCATION_SERVICE_LOW_BATTERY_MODE_ON 1 // DEV: Turn on low battery mode for location service (ON)
+//#define KY_LOCATION_SERVICE_LOW_BATTERY_MODE_ON 1 // DEV: Turn on low battery mode for location service (ON)
 #define KY_PLAYER_MOVEMENT_SIMULATION_ON 1        // DEV: Turn on palyer movement simulation (OFF)
 
 // - - Game
