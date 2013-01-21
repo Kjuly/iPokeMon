@@ -5139,7 +5139,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\ncd $PROJECT_DIR\nBUILD_VERSION=`git rev-parse --short HEAD`\ncd $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app\nRELEASE_VERSION=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Info.plist)\n/usr/libexec/PlistBuddy -c \"Set CFBundleVersion $BUILD_VERSION\" Info.plist\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:5:DefaultValue $RELEASE_VERSION ($BUILD_VERSION)\" Settings.bundle/Root.plist";
+			shellScript = "#!/bin/bash\n# Auto Increment Version Script\ninfoPlist=$SRCROOT/$INFOPLIST_FILE\nPlistBuddy=\"/usr/libexec/PlistBuddy\"\n\n# build date\n#CFBuildDate=$(date +%Y%m%d%H%M%S)\nCFBuildDate=$(date -u +\"%b %d %T GMT %Y\")\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $CFBuildDate\" $infoPlist\n\n# git commit sha\ncd $PROJECT_DIR\nBUILD_VERSION=`git rev-parse --short=6 HEAD`\ncd $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app\nRELEASE_VERSION=$($PlistBuddy -c \"Print CFBundleShortVersionString\" $infoPlist)\n$PlistBuddy -c \"Set :PreferenceSpecifiers:5:DefaultValue $RELEASE_VERSION ($BUILD_VERSION)\" Settings.bundle/Root.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 

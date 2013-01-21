@@ -334,8 +334,9 @@
       }
       
       UIDevice * device = [UIDevice currentDevice];
-      NSString * appInfo = [NSString stringWithFormat:@"- - - - - - - - - - - - - - - - - - - - - - - - - - - >8\n Version: %@\n Locale: %@\n Device: %@\n OS: %@ %@",
+      NSString * appInfo = [NSString stringWithFormat:@"- - - - - - - - - - - - - - - - - - - - - - - - - - - >8\n Version: %@\n Build Date: %@\n Locale: %@\n Device: %@\n OS: %@ %@",
                             [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion],
+                            [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBuildDate"],
                             [[NSLocale currentLocale] localeIdentifier],
                             device.model,
                             device.systemName, device.systemVersion];
