@@ -48,8 +48,8 @@
   [self saveContext];
   
 #ifdef KY_TESTFLIGHT_ON
-  [TestFlight takeOff:@"e8b3641f3cc7071dbbb44760f8591843_ODU0NjMyMDEyLTA0LTI4IDE0OjExOjM2LjE1ODAxMw"];
   [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+  [TestFlight takeOff:@"e8b3641f3cc7071dbbb44760f8591843_ODU0NjMyMDEyLTA0LTI4IDE0OjExOjM2LjE1ODAxMw"];
 #endif
   
   // Set View
