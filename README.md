@@ -1,6 +1,9 @@
 iPokeMon (iOS Client)
 =====================
 
+<a href="http://me.alipay.com/kjuly" target="_blank">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/donate_with_alipay.png" alt="Donate with Alipay" title="Donate with Alipay" border="0" />
+</a>
 <a href="http://flattr.com/thing/1100134/" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
 </a>
@@ -9,19 +12,21 @@ iPokeMon (iOS Client)
 
 ### About App
 
-> iPokeMon is a PokéMon game on iOS with Location Based Service, i.e., PokeMons are distributed in the real world. You'll find different PokeMons in different cities, or even countries.  
+iPokeMon is a PokéMon game on iOS with Location Based Service, i.e., PokeMons are distributed in the real world. You'll find different PokeMons in different cities, or even countries.  
 
-> Just imagine that we live with PokeMons in real world. ;)
+Just imagine that we live with PokeMons in real world. ;)
 
-> [__SERVER SIDE SOURCE CODE__](https://github.com/Kjuly/iPokeMon-Server).
+[__SERVER SIDE SOURCE CODE__](https://github.com/Kjuly/iPokeMon-Server).
 
 ### About Project
 
-> This was my Graduation Project. I tried to submit it to the App Store when the v0.3.2 done, but finally, the binary was rejected on May 16, 2012 with the reason of rejection: "8.5: Use of protected 3rd party material (trademarks, copyrights, trade secrets, otherwise proprietary content) requires a documented rights check which must be provided upon request". What a pity! There was a time I wanted to ask some designers to create a set of PokéMon like characters, but I gave up the thought cause it'll lose its meaning then. So after I graduated from university on Jun, 2012, I shelved this project for several months.  
+This was my Graduation Project. I tried to submit it to the App Store when the v0.3.2 done, but finally, the binary was rejected on May 16, 2012 with the reason of rejection: "8.5: Use of protected 3rd party material (trademarks, copyrights, trade secrets, otherwise proprietary content) requires a documented rights check which must be provided upon request". What a pity! There was a time I wanted to ask some designers to create a set of PokéMon like characters, but I gave up the thought cause it'll lose its meaning then. So after I graduated from university on Jun, 2012, I shelved this project for several months.  
 
-> Till now, I still hope to have such a game on iOS. With my own limited capacity, iPokeMon is still in beta version. So I open source this whole project in order to let more and more people (both programmer & designer, or even just a player are all welcomed) participate in the development. I look forward to that one day it can be owned by everyone that grown up with PokéMon!
+Till now, I still hope to have such a game on iOS. With my own limited capacity, iPokeMon is still in beta version. So I open source this whole project in order to let more and more people (both programmer & designer, or even just a player are all welcomed) participate in the development. I look forward to that one day it can be owned by everyone that grown up with PokéMon!
 
-> Finally, I would like to say that feel free to transplant this project to any system! And I'll be glad if you send me a mail about your transplanting. ;)
+Finally, I would like to say that feel free to transplant this project to any system! And I'll be glad if you send me a mail about your transplanting. ;)
+
+You can follow me for updates on the development: [Twitter](http://twitter.com/kJulYu) / [Sina Weibo](http://weibo.com/kjuly).
 
 ---
 # Game Play Demo
@@ -42,6 +47,10 @@ Refer to the [__Game Play Manual__](https://github.com/Kjuly/iPokeMon/wiki/Game-
 
 ---
 # Change Log
+
+__v0.3.4 @ 2013-01-21__
+
+  - Fix bugs on iOS 6.0.
 
 __v0.3.3 @ 2013-01-13__
 
@@ -73,6 +82,8 @@ __v0.1.0 @ 2012-04-26__
 - [KYArcTab](https://github.com/Kjuly/KYArcTab)
 - [KYCircleMenu](https://github.com/Kjuly/KYCircleMenu)
 - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+
+iPokeMon requires iOS 5.0 SDK or later.
 
 ---
 # Apply for Beta Version Testing
@@ -106,6 +117,9 @@ I collected the original data of iPokeMon on the internet. Most of them are okay
 
 As an independent developer, I need some support with microdonations to continue the project. Your monetary support is greatly appreciated!
 
+<a href="http://me.alipay.com/kjuly" target="_blank">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/donate_with_alipay.png" alt="Donate with Alipay" title="Donate with Alipay" border="0" />
+</a>
 <a href="http://flattr.com/thing/1100134/" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
 </a>
@@ -123,4 +137,9 @@ I'd love your feedback.
 Email your comments, suggestions and questions to `dev#kjuly.com`.  
 Or you can just post a bug report or a feature request [__HERE__](https://github.com/Kjuly/iPokeMon/issues/new).  
 Thank you! :)
+
+---
+# License
+
+In addition to the [MIT LICENSE](https://raw.github.com/Kjuly/iPokeMon/dev/LICENSE), I ask that you do not publicly distribute the app as a whole in binary form (e.g. on the App Store). If you do want to, please contact me for the permission first. Thank you! :)
 
