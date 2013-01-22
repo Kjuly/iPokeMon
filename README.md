@@ -110,7 +110,7 @@ If you have some spare time then there is no better way to help an open source p
   - Help with missing documentation;
   - Improve the game data.
 
-For programmers, if you want to be a contributor of the source code, just fork this repo as your own and improve the code in your own repo. When you done, send a "Pull Request" to me. I'll merge the commits after checking. And b.t.w, it is better to send "Pull Request" whenever you've modify the source code, even a modification of one word. :)
+For programmers, if you want to be a contributor of the source code, just fork this repo as your own and improve the code in your own repo. When you done, send a "Pull Request" to me. I'll merge the commits after checking. And b.t.w, it is better to send "Pull Request" whenever you've modify the source code, even a modification of one word. :) \[[__Configuration Page__](https://github.com/Kjuly/iPokeMon/wiki/Configuration)\]
 
 And for designers, feel free to discuss with me on the design work via email: `kj#kjuly.com`.
 
