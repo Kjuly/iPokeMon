@@ -1,6 +1,16 @@
 iPokeMon (iOS Client)
 =====================
 
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dev@kjuly.com&lc=US&item_name=iPokeMon_Project_Donation&no_note=1&currency_code=USD">
+<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/>
+</a>
+<a href="http://me.alipay.com/kjuly" target="_blank">
+<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/donate_with_alipay.png" alt="Donate with Alipay" title="Donate with Alipay" border="0" />
+</a>
+<a href="http://flattr.com/thing/1100134/" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
+</a>
+
 # Description
 
 ### About App
@@ -110,12 +120,9 @@ I collected the original data of iPokeMon on the internet. Most of them are okay
 
 As an independent developer, I need some support with microdonations to continue the project. Your monetary support is greatly appreciated!
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="display:inline">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="TXTJA726T73RN">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dev@kjuly.com&lc=US&item_name=iPokeMon_Project_Donation&no_note=1&currency_code=USD">
+<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/>
+</a>
 <a href="http://me.alipay.com/kjuly" target="_blank">
 <img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/donate_with_alipay.png" alt="Donate with Alipay" title="Donate with Alipay" border="0" />
 </a>
