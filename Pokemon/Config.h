@@ -26,7 +26,7 @@
 
 // - - Game
 //#define KY_DEFAULT_VIEW_GAME_BATTLE_ON 1        // DEV: Set game battle view as the default view (OFF)
-//#define KY_SUPER_POKEMON_MODE_ON 1              // DEV: Turn on super PokeMon mode on (OFF)
+//#define KY_SUPER_POKEMON_MODE_ON 1              // DEV: Turn on super PokeMon mode (OFF)
 
 
 @interface Config : NSObject
