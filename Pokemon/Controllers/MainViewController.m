@@ -75,6 +75,7 @@
 @property (nonatomic, retain) NSTimer              * longTapTimer;
 
 - (void)releaseSubviews;
+- (void)_setupNotificationObservers;
 - (void)_resetAll;
 - (void)showFullScreenLoadingView:(NSNotification *)notification;
 - (void)showLoginTableView:(NSNotification *)notification;
@@ -135,13 +136,7 @@
   self.longTapTimer              = nil;
   
   // Remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNError object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNSessionIsInvalid object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowNewbieGuide object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralLocationServices object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNChangeCenterMainButtonStatus object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNPokemonAppeared object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -242,39 +237,8 @@
   [mapButton_ addTarget:self action:@selector(countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
   [self.view addSubview:mapButton_];
   
-  
-  // Add self as Notification observer
-  // Notification from |OAuthManager| when cannot connet to server
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showFullScreenLoadingView:)
-                                               name:kPMNError
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showLoginTableView:)
-                                               name:kPMNSessionIsInvalid
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showNewbieGuideView:)
-                                               name:kPMNShowNewbieGuide
-                                             object:nil]; // From |TrainerController|
-  // Notification from |SettingTableViewController|,
-  //   when the value of Switch button for Location service changed
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(updateLocationService:)
-                                               name:kPMNUDGeneralLocationServices
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
-                                               name:kPMNChangeCenterMainButtonStatus
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(changeCenterMainButtonStatus:)
-                                               name:kPMNPokemonAppeared
-                                             object:nil]; // self.mapViewController
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(unloadGameBattleScene:)
-                                               name:kPMNBattleEnd
-                                             object:nil];
+  // Setup notification observers
+  [self _setupNotificationObservers];
   
 #ifdef KY_DEFAULT_VIEW_GAME_BATTLE_ON
   //#if defined (DEBUG_DEFAULT_VIEW_GAME_BATTLE)
@@ -316,6 +280,42 @@
 }
 
 #pragma mark - Private Methods
+
+// Setup notification observers
+- (void)_setupNotificationObservers {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  // Notification from |OAuthManager| when cannot connet to server
+  [notificationCenter addObserver:self
+                         selector:@selector(showFullScreenLoadingView:)
+                             name:kPMNError
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(showLoginTableView:)
+                             name:kPMNSessionIsInvalid
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(showNewbieGuideView:)
+                             name:kPMNShowNewbieGuide
+                           object:nil]; // From |TrainerController|
+  // Notification from |SettingTableViewController|,
+  //   when the value of Switch button for Location service changed
+  [notificationCenter addObserver:self
+                         selector:@selector(updateLocationService:)
+                             name:kPMNUDGeneralLocationServices
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(changeCenterMainButtonStatus:)
+                             name:kPMNChangeCenterMainButtonStatus
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(changeCenterMainButtonStatus:)
+                             name:kPMNPokemonAppeared
+                           object:nil]; // self.mapViewController
+  [notificationCenter addObserver:self
+                         selector:@selector(unloadGameBattleScene:)
+                             name:kPMNBattleEnd
+                           object:nil];
+}
 
 // Reset all to original
 - (void)_resetAll {
