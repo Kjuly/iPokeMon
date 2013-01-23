@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "CustomTabViewController.h"
+#import "KYArcTabViewController.h"
 
 @class TrainerTamedPokemon;
 
-@interface SixPokemonsDetailTabViewController : CustomTabViewController
+@interface SixPokemonsDetailTabViewController : KYArcTabViewController
 
-- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon withTopbar:(BOOL)withTopbar;
+- (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
+           withTopbar:(BOOL)withTopbar;
 
 @end

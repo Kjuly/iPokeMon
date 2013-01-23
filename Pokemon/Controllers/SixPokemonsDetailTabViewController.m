@@ -19,6 +19,7 @@
 @interface SixPokemonsDetailTabViewController () {
  @private
   TrainerTamedPokemon * pokemon_;
+  BOOL                  withTopbar_;
   SixPokemonsInfoViewController  * sixPokemonsInfoViewController_;
   SixPokemonsMemoViewController  * sixPokemonsMemoViewController_;
   SixPokemonsSkillViewController * sixPokemonsSkillViewController_;
@@ -54,39 +55,16 @@
 
 - (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
            withTopbar:(BOOL)withTopbar {
-  self = [super init];
-  if (self) {
-    [self setTitle:[NSString stringWithFormat:@"%@ %@",
-                    NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil),
-                    NSLocalizedString(@"Info", nil)]];
-    
-    // Set View Frame
-    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
-    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
-    self.pokemon = pokemon;
-    
-    // Add child view controllers to each tab
-    sixPokemonsInfoViewController_  = [[SixPokemonsInfoViewController alloc]  initWithPokemon:self.pokemon];
-    sixPokemonsMemoViewController_  = [[SixPokemonsMemoViewController alloc]  initWithPokemon:self.pokemon];
-    sixPokemonsSkillViewController_ = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
-    sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
-    
-    // Set child views' Frame
-    CGRect childViewFrame =
-      CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
-    [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
-    [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
-    [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
-    [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
-    
-    // Add child views as tab bar items
-    self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMemo, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailSkill, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMove, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
-                        nil];
-  }
+  self.pokemon = pokemon;
+  withTopbar_  = withTopbar;
+  NSString * title = [NSString stringWithFormat:@"%@ %@",
+                      NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil),
+                      NSLocalizedString(@"Info", nil)];
+  self = [super initWithTitle:title
+                   tabBarSize:CGSizeMake(kTabBarWdith, kTabBarHeight)
+        tabBarBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTabBarBackground]]
+                     itemSize:CGSizeMake(kTabBarItemSize, kTabBarItemSize)
+                        arrow:[UIImage imageNamed:kPMINTabBarArrow]];
   return self;
 }
 
@@ -192,6 +170,37 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Override
+
+// Override |KYArcTabViewController|'s |-setup|
+- (void)setup {
+  // Set View Frame
+  CGFloat marginTop = withTopbar_ ? kTopBarHeight : 0.f;
+  self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
+  
+  // Add child view controllers to each tab
+  sixPokemonsInfoViewController_  = [[SixPokemonsInfoViewController alloc]  initWithPokemon:self.pokemon];
+  sixPokemonsMemoViewController_  = [[SixPokemonsMemoViewController alloc]  initWithPokemon:self.pokemon];
+  sixPokemonsSkillViewController_ = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
+  sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
+  
+  // Set child views' Frame
+  CGRect childViewFrame =
+  CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
+  [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
+  [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
+  [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
+  [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
+  
+  // Add child views as tab bar items
+  self.tabBarItems = [NSArray arrayWithObjects:
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController_, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMemo, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailSkill, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMove, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
+                      nil];
 }
 
 @end
