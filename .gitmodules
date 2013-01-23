@@ -13,3 +13,6 @@
 [submodule "Pokemon/Libs/GTMOAuth2"]
 	path = Pokemon/Libs/GTMOAuth2
 	url = git://github.com/Kjuly/GTMOAuth2.git
+[submodule "Pokemon/Libs/KYArcTab"]
+	path = Pokemon/Libs/KYArcTab
+	url = git@github.com:Kjuly/KYArcTab.git

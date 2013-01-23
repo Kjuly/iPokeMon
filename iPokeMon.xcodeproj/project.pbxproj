@@ -46,6 +46,8 @@
 		7F0D18DD15075111009CFDBA /* PokemonEXPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0D18DC15075111009CFDBA /* PokemonEXPBar.m */; };
 		7F0E513C14DFC3D4006F7477 /* BagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */; };
 		7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */; };
+		7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F10F48716AFBCD300A85587 /* KYArcTab.m */; };
+		7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F10F48916AFBCD300A85587 /* KYArcTabViewController.m */; };
 		7F11D3DE15551A730067B1F3 /* Region+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11D3DD15551A720067B1F3 /* Region+DataController.m */; };
 		7F199EDF150A6B55004CE84E /* GamePokeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDD150A6B54004CE84E /* GamePokeball.png */; };
 		7F199EE0150A6B55004CE84E /* GamePokeball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */; };
@@ -1136,6 +1138,10 @@
 		7F0E513B14DFC3D4006F7477 /* BagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagTableViewController.m; sourceTree = "<group>"; };
 		7F0E513E14DFC75A006F7477 /* BagItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItemTableViewController.h; sourceTree = "<group>"; };
 		7F0E513F14DFC75B006F7477 /* BagItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItemTableViewController.m; sourceTree = "<group>"; };
+		7F10F48616AFBCD300A85587 /* KYArcTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYArcTab.h; sourceTree = "<group>"; };
+		7F10F48716AFBCD300A85587 /* KYArcTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYArcTab.m; sourceTree = "<group>"; };
+		7F10F48816AFBCD300A85587 /* KYArcTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYArcTabViewController.h; sourceTree = "<group>"; };
+		7F10F48916AFBCD300A85587 /* KYArcTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYArcTabViewController.m; sourceTree = "<group>"; };
 		7F11D3DC15551A720067B1F3 /* Region+DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+DataController.h"; sourceTree = "<group>"; };
 		7F11D3DD15551A720067B1F3 /* Region+DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+DataController.m"; sourceTree = "<group>"; };
 		7F199EDD150A6B54004CE84E /* GamePokeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GamePokeball.png; sourceTree = "<group>"; };
@@ -2498,6 +2504,18 @@
 			path = GameBattleSceneBackgrounds;
 			sourceTree = "<group>";
 		};
+		7F10F48516AFBCD300A85587 /* KYArcTab */ = {
+			isa = PBXGroup;
+			children = (
+				7F10F48616AFBCD300A85587 /* KYArcTab.h */,
+				7F10F48716AFBCD300A85587 /* KYArcTab.m */,
+				7F10F48816AFBCD300A85587 /* KYArcTabViewController.h */,
+				7F10F48916AFBCD300A85587 /* KYArcTabViewController.m */,
+			);
+			name = KYArcTab;
+			path = KYArcTab/KYArcTab;
+			sourceTree = "<group>";
+		};
 		7F2EFB6D14DE48440068F681 /* PLists */ = {
 			isa = PBXGroup;
 			children = (
@@ -3616,6 +3634,7 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7F10F48516AFBCD300A85587 /* KYArcTab */,
 				7F56996916A959E80045EA23 /* KYiOSFoundation */,
 				7FA4469F169C34A90024D668 /* GTMOAuth2 */,
 				7FC8479D169C30750013D5FF /* JSONKit */,
@@ -5408,6 +5427,8 @@
 				7FA44739169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m in Sources */,
 				7F56996416A8E3EA0045EA23 /* Config.m in Sources */,
 				7F56996C16A959E80045EA23 /* KYConstants.m in Sources */,
+				7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */,
+				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

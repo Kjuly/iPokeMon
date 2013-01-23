@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-#import "CustomTabViewController.h"
+#import "KYArcTabViewController.h"
 
-@interface PokemonDetailTabViewController : CustomTabViewController
+@interface PokemonDetailTabViewController : KYArcTabViewController
 
-- (id)initWithPokemonSID:(NSInteger)pokemonSID withTopbar:(BOOL)withTopbar;
+- (id)initWithPokemonSID:(NSInteger)pokemonSID
+              withTopbar:(BOOL)withTopbar;
 
 @end

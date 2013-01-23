@@ -16,82 +16,69 @@
 
 @interface PokemonDetailTabViewController () {
  @private
-  Pokemon * pokemon_;
+  NSInteger pokemonSID_;
+  BOOL      withTopbar_;
 }
-
-@property (nonatomic, retain) Pokemon * pokemon;
 
 @end
 
 
 @implementation PokemonDetailTabViewController
 
-@synthesize pokemon = pokemon_;
-
 - (void)dealloc {
-  self.pokemon = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemonSID:(NSInteger)pokemonSID withTopbar:(BOOL)withTopbar {
-  self = [super init];
-  if (self) {
-    [self setTitle:[NSString stringWithFormat:@"%@ %@",
-                    NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonSID]), nil),
-                    NSLocalizedString(@"Info", nil)]];
-    
-    // Set View Frame
-    CGFloat marginTop = withTopbar ? kTopBarHeight : 0.f;
-    self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
-    
-    self.pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID];
-    
-    // Add child view controllers to each tab
-    PokemonInfoViewController * pokemonInfoViewController;
-    PokemonAreaViewController * pokemonAreaViewController;
-    PokemonSizeViewController * pokemonSizeViewController;
-    pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:self.pokemon];
-    pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonSID:pokemonSID];
-    pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemon:self.pokemon];
-    
-    // Set child views' Frame
-    CGRect childViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
-    [pokemonInfoViewController.view setFrame:childViewFrame];
-    [pokemonAreaViewController.view setFrame:childViewFrame];
-    [pokemonSizeViewController.view setFrame:childViewFrame];
-    
-    // Add child views as tab bar items
-    self.tabBarItems = [NSArray arrayWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", pokemonInfoViewController, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailArea, @"image", pokemonAreaViewController, @"viewController", nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", pokemonSizeViewController, @"viewController", nil],
-                        nil];
-    
-    // Release child view controllers
-    [pokemonInfoViewController release];
-    [pokemonAreaViewController release];
-    [pokemonSizeViewController release];
-  }
+- (id)initWithPokemonSID:(NSInteger)pokemonSID
+              withTopbar:(BOOL)withTopbar {
+  pokemonSID_ = pokemonSID;
+  withTopbar_ = withTopbar;
+  NSString * title = [NSString stringWithFormat:@"%@ %@",
+                      NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonSID]), nil),
+                      NSLocalizedString(@"Info", nil)];
+  self = [super initWithTitle:title
+                   tabBarSize:CGSizeMake(kTabBarWdith, kTabBarHeight)
+        tabBarBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTabBarBackground]]
+                     itemSize:CGSizeMake(kTabBarItemSize, kTabBarItemSize)
+                        arrow:[UIImage imageNamed:kPMINTabBarArrow]];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-  [super didReceiveMemoryWarning];
-}
+#pragma mark - Override
 
-#pragma mark - View lifecycle
-
-- (void)loadView {
-  [super loadView];
-}
-
-- (void)viewDidLoad {
-  [super viewDidLoad];
-}
-
-- (void)viewDidUnload {
-  [super viewDidUnload];
+// Override |KYArcTabViewController|'s |-setup|
+- (void)setup {
+  // Set View Frame
+  CGFloat marginTop = withTopbar_ ? kTopBarHeight : 0.f;
+  self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
+  
+  Pokemon * pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID_];
+  
+  // Add child view controllers to each tab
+  PokemonInfoViewController * pokemonInfoViewController;
+  PokemonAreaViewController * pokemonAreaViewController;
+  PokemonSizeViewController * pokemonSizeViewController;
+  pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:pokemon];
+  pokemonAreaViewController = [[PokemonAreaViewController alloc] initWithPokemonSID:pokemonSID_];
+  pokemonSizeViewController = [[PokemonSizeViewController alloc] initWithPokemon:pokemon];
+  
+  // Set child views' Frame
+  CGRect childViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+  [pokemonInfoViewController.view setFrame:childViewFrame];
+  [pokemonAreaViewController.view setFrame:childViewFrame];
+  [pokemonSizeViewController.view setFrame:childViewFrame];
+  
+  // Add child views as tab bar items
+  self.tabBarItems = [NSArray arrayWithObjects:
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", pokemonInfoViewController, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailArea, @"image", pokemonAreaViewController, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", pokemonSizeViewController, @"viewController", nil],
+                      nil];
+  
+  // Release child view controllers
+  [pokemonInfoViewController release];
+  [pokemonAreaViewController release];
+  [pokemonSizeViewController release];
 }
 
 @end
