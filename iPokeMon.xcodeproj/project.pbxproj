@@ -865,8 +865,6 @@
 		7F8E37C4169BD1BE008A3F19 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E336C169BD1B7008A3F19 /* ZFont.m */; };
 		7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E336D169BD1B7008A3F19 /* FontLabel_without_warnings2.patch */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
-		7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */; };
-		7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AB14E5592D00147718 /* CustomTabViewController.m */; };
 		7F90C5AF14E5640B00147718 /* PokedexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */; };
 		7F9169CF15387EAD0095A8A8 /* LoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9169CE15387EAD0095A8A8 /* LoadingManager.m */; };
 		7F91D0A514EE3BC400476AFB /* Pokemon.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F91D0A414EE3BC400476AFB /* Pokemon.sqlite3 */; };
@@ -2138,10 +2136,6 @@
 		7F8E336C169BD1B7008A3F19 /* ZFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFont.m; sourceTree = "<group>"; };
 		7F8E336D169BD1B7008A3F19 /* FontLabel_without_warnings2.patch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FontLabel_without_warnings2.patch; sourceTree = "<group>"; };
 		7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterMenuUtilityViewController.m; sourceTree = "<group>"; };
-		7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
-		7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
-		7F90C5AA14E5592C00147718 /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabViewController.h; sourceTree = "<group>"; };
-		7F90C5AB14E5592D00147718 /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabViewController.m; sourceTree = "<group>"; };
 		7F90C5AD14E5640B00147718 /* PokedexTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokedexTableViewCell.h; sourceTree = "<group>"; };
 		7F90C5AE14E5640B00147718 /* PokedexTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokedexTableViewCell.m; sourceTree = "<group>"; };
 		7F9169CD15387EAD0095A8A8 /* LoadingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingManager.h; sourceTree = "<group>"; };
@@ -3307,8 +3301,6 @@
 				7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */,
 				7F5A4D63153DDC4200F55F23 /* SettingGameSettingsTableViewController.h */,
 				7F5A4D64153DDC4300F55F23 /* SettingGameSettingsTableViewController.m */,
-				7F90C5AA14E5592C00147718 /* CustomTabViewController.h */,
-				7F90C5AB14E5592D00147718 /* CustomTabViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
 				7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */,
 				7FE2BAA214DABCD900419825 /* CustomTableViewController.h */,
@@ -3437,8 +3429,6 @@
 		7F6E6CF614D6CB9800033C65 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7F8EFA9B14D9781500FF1055 /* CustomTabBar.h */,
-				7F8EFA9C14D9781500FF1055 /* CustomTabBar.m */,
 				7FE2BA9C14DAA59500419825 /* CustomNavigationBar.h */,
 				7FE2BA9D14DAA59500419825 /* CustomNavigationBar.m */,
 				7F6FC128153F0BE400E97986 /* LoginTableViewCell.h */,
@@ -5176,7 +5166,6 @@
 				7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */,
 				7F51C40814D7D3C60091902D /* MapViewController.m in Sources */,
 				7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */,
-				7F8EFA9D14D9781500FF1055 /* CustomTabBar.m in Sources */,
 				7FE2BA9714DAA3F800419825 /* CustomNavigationController.m in Sources */,
 				7FE2BA9E14DAA59500419825 /* CustomNavigationBar.m in Sources */,
 				7FE2BAA414DABCD900419825 /* CustomTableViewController.m in Sources */,
@@ -5192,7 +5181,6 @@
 				7F0E514014DFC75B006F7477 /* BagItemTableViewController.m in Sources */,
 				7FBD73F014E40CF600965CED /* SixPokemonsTableViewController.m in Sources */,
 				7FEED5C414E4E8F10010F7F2 /* SettingTableViewController.m in Sources */,
-				7F90C5AC14E5592E00147718 /* CustomTabViewController.m in Sources */,
 				7F90C5AF14E5640B00147718 /* PokedexTableViewCell.m in Sources */,
 				7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */,
 				7FBB60B114E6A6B500C24BA5 /* TrainerCardViewController.m in Sources */,
