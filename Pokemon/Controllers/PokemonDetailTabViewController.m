@@ -69,11 +69,12 @@
   [pokemonSizeViewController.view setFrame:childViewFrame];
   
   // Add child views as tab bar items
-  self.tabBarItems = [NSArray arrayWithObjects:
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", pokemonInfoViewController, @"viewController", nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailArea, @"image", pokemonAreaViewController, @"viewController", nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailSize, @"image", pokemonSizeViewController, @"viewController", nil],
-                      nil];
+  self.tabBarItems = @[@{@"image"          : kPMINTabBarItemPMDetailInfo,
+                         @"viewController" : pokemonInfoViewController},
+                       @{@"image"          : kPMINTabBarItemPMDetailArea,
+                         @"viewController" : pokemonAreaViewController},
+                       @{@"image"          : kPMINTabBarItemPMDetailSize,
+                         @"viewController" : pokemonSizeViewController}];
   
   // Release child view controllers
   [pokemonInfoViewController release];
