@@ -20,17 +20,9 @@
  @private
   TrainerTamedPokemon * pokemon_;
   BOOL                  withTopbar_;
-  SixPokemonsInfoViewController  * sixPokemonsInfoViewController_;
-  SixPokemonsMemoViewController  * sixPokemonsMemoViewController_;
-  SixPokemonsSkillViewController * sixPokemonsSkillViewController_;
-  SixPokemonsMoveViewController  * sixPokemonsMoveViewController_;
 }
 
 @property (nonatomic, retain) TrainerTamedPokemon * pokemon;
-@property (nonatomic, retain) SixPokemonsInfoViewController  * sixPokemonsInfoViewController;
-@property (nonatomic, retain) SixPokemonsMemoViewController  * sixPokemonsMemoViewController;
-@property (nonatomic, retain) SixPokemonsSkillViewController * sixPokemonsSkillViewController;
-@property (nonatomic, retain) SixPokemonsMoveViewController  * sixPokemonsMoveViewController;
 
 @end
 
@@ -38,18 +30,9 @@
 @implementation SixPokemonsDetailTabViewController
 
 @synthesize pokemon = pokemon_;
-@synthesize sixPokemonsInfoViewController  = sixPokemonsInfoViewController_;
-@synthesize sixPokemonsMemoViewController  = sixPokemonsMemoViewController_;
-@synthesize sixPokemonsSkillViewController = sixPokemonsSkillViewController_;
-@synthesize sixPokemonsMoveViewController  = sixPokemonsMoveViewController_;
-
 
 -(void)dealloc {
   self.pokemon = nil;
-  self.sixPokemonsInfoViewController  = nil;
-  self.sixPokemonsMemoViewController  = nil;
-  self.sixPokemonsSkillViewController = nil;
-  self.sixPokemonsMoveViewController  = nil;
   [super dealloc];
 }
 
@@ -181,26 +164,36 @@
   self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
   
   // Add child view controllers to each tab
-  sixPokemonsInfoViewController_  = [[SixPokemonsInfoViewController alloc]  initWithPokemon:self.pokemon];
-  sixPokemonsMemoViewController_  = [[SixPokemonsMemoViewController alloc]  initWithPokemon:self.pokemon];
-  sixPokemonsSkillViewController_ = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
-  sixPokemonsMoveViewController_  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
+  SixPokemonsInfoViewController  * sixPokemonsInfoViewController;
+  SixPokemonsMemoViewController  * sixPokemonsMemoViewController;
+  SixPokemonsSkillViewController * sixPokemonsSkillViewController;
+  SixPokemonsMoveViewController  * sixPokemonsMoveViewController;
+  sixPokemonsInfoViewController  = [[SixPokemonsInfoViewController alloc]  initWithPokemon:self.pokemon];
+  sixPokemonsMemoViewController  = [[SixPokemonsMemoViewController alloc]  initWithPokemon:self.pokemon];
+  sixPokemonsSkillViewController = [[SixPokemonsSkillViewController alloc] initWithPokemon:self.pokemon];
+  sixPokemonsMoveViewController  = [[SixPokemonsMoveViewController alloc]  initWithPokemon:self.pokemon];
   
   // Set child views' Frame
   CGRect childViewFrame =
   CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
-  [sixPokemonsInfoViewController_.view  setFrame:childViewFrame];
-  [sixPokemonsMemoViewController_.view  setFrame:childViewFrame];
-  [sixPokemonsSkillViewController_.view setFrame:childViewFrame];
-  [sixPokemonsMoveViewController_.view  setFrame:childViewFrame];
+  [sixPokemonsInfoViewController.view  setFrame:childViewFrame];
+  [sixPokemonsMemoViewController.view  setFrame:childViewFrame];
+  [sixPokemonsSkillViewController.view setFrame:childViewFrame];
+  [sixPokemonsMoveViewController.view  setFrame:childViewFrame];
   
   // Add child views as tab bar items
   self.tabBarItems = [NSArray arrayWithObjects:
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController_, @"viewController", nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMemo, @"image", sixPokemonsMemoViewController_, @"viewController", nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailSkill, @"image", sixPokemonsSkillViewController_, @"viewController", nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMove, @"image", sixPokemonsMoveViewController_, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItemPMDetailInfo, @"image", sixPokemonsInfoViewController, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMemo, @"image", sixPokemonsMemoViewController, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailSkill, @"image", sixPokemonsSkillViewController, @"viewController", nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:kPMINTabBarItem6PMsDetailMove, @"image", sixPokemonsMoveViewController, @"viewController", nil],
                       nil];
+  
+  // Release child view controllers
+  [sixPokemonsInfoViewController  release];
+  [sixPokemonsMemoViewController  release];
+  [sixPokemonsSkillViewController release];
+  [sixPokemonsMoveViewController  release];
 }
 
 @end
