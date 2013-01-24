@@ -1008,6 +1008,7 @@
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FD60E0116B13902008258DE /* iPokeMon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FD60E0016B13902008258DE /* iPokeMon.sqlite */; };
+		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -2353,6 +2354,8 @@
 		7FD60DDE16B1233A008258DE /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		7FD60DDF16B1233A008258DE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		7FD60E0016B13902008258DE /* iPokeMon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iPokeMon.sqlite; sourceTree = "<group>"; };
+		7FD60E0216B15344008258DE /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
+		7FD60E0316B15345008258DE /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
 		7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarArrow@2x.png"; sourceTree = "<group>"; };
 		7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemPMDetailInfo.png; sourceTree = "<group>"; };
@@ -3233,6 +3236,8 @@
 				7F09AA441521912F00D4F5DB /* OAuthManager.m */,
 				7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */,
 				7FF56400152817AB00BA5E28 /* ServerAPIClient.m */,
+				7FD60E0216B15344008258DE /* ResourceManager.h */,
+				7FD60E0316B15345008258DE /* ResourceManager.m */,
 				7FD037CE15526242001A7C34 /* PMLocationManager.h */,
 				7FD037CF15526242001A7C34 /* PMLocationManager.m */,
 				7FB4128C1529C979003F41F0 /* TrainerController.h */,
@@ -5473,6 +5478,7 @@
 				7FD60DF116B1233A008258DE /* unzip.c in Sources */,
 				7FD60DF216B1233A008258DE /* zip.c in Sources */,
 				7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */,
+				7FD60E0416B15346008258DE /* ResourceManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
