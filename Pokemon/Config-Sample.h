@@ -10,9 +10,11 @@
 // NOTE:
 //
 // DO NOT modify content here if you just want to do configuration.
-// Just copy these two files (Config-Sample.h/m) as Config.h/m
-//   and modify the configuration there.
-// Config.h/m will be ignored when you commit to the repo.
+// Just copy these two files (Config-Sample.h/m) as Config.h/m,
+//   and rename Config_Sample to Config in both .h/.m files.
+// Then you can modify the configuration there.
+// Config.h/m will be ignored when you commit to the repo, so keep a copy locally,
+//   otherwise they'll disappear when you switch between branches.
 //
 // When you need a new MACRO or Configuration Param,
 //   please DON't FORGET to add it here after you've added to Config.h/m,
