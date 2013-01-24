@@ -208,7 +208,7 @@
   if (__managedObjectModel != nil)
     return __managedObjectModel;
   
-  NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Pokemon" withExtension:@"momd"];
+  NSURL * modelURL = [[NSBundle mainBundle] URLForResource:@"Pokemon" withExtension:@"momd"];
   __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
   return __managedObjectModel;
 }
@@ -221,31 +221,32 @@
   if (__persistentStoreCoordinator != nil)
     return __persistentStoreCoordinator;
   
-  NSURL * storeURL;
-#ifndef DEBUG_PREINIT_POPULATE_DATA
   // Generate Path for |Pokemon.sqlite| in Document
-  NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString * documentsDirectory = [paths objectAtIndex:0];
-  NSString * storePath = [documentsDirectory stringByAppendingPathComponent:@"Pokemon.sqlite3"];
-  storeURL = [NSURL fileURLWithPath:storePath];
+  NSString * pathComponent = [NSString stringWithFormat:@"%@.sqlite", kKYAppBundleIdentifier];
+  NSString * storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:pathComponent];
   
+#ifdef KY_COPY_COREDATA_IF_NOT_EXIST
   NSLog(@">>> storePath: %@ ---", storePath);
   // Put down default db if it doesn't exist
   NSFileManager * fileManager = [NSFileManager defaultManager];
   if (! [fileManager fileExistsAtPath:storePath]) {
-    NSLog(@">>> |Pokemon.sqlite3| does not exists, Copying it to Document from main bundle");
-    NSString * defaultStorePath = [[NSBundle mainBundle] pathForResource:@"Pokemon" ofType:@"sqlite3"];
+    NSLog(@">>> |%@| does not exists, Copying it to Document from main bundle", pathComponent);
+    NSString * defaultStorePath = [[NSBundle mainBundle] pathForResource:kKYAppBundleIdentifier ofType:@"sqlite"];
     if (defaultStorePath)
       [fileManager copyItemAtPath:defaultStorePath toPath:storePath error:NULL];
   }
-#else
-  // Just use the db generated
-  storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Pokemon.sqlite3"];
 #endif
+  NSURL * storeURL = [NSURL fileURLWithPath:storePath];
   
-  NSError *error = nil;
-  __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-  if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+  NSError * error = nil;
+  __persistentStoreCoordinator =
+    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+  if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil
+                                                            URL:storeURL
+                                                        options:nil
+                                                          error:&error])
+  {
     /*
      Replace this implementation with code to handle the error appropriately.
      
@@ -278,11 +279,9 @@
 
 #pragma mark - Application's Documents directory
 
-/**
- Returns the URL to the application's Documents directory.
- */
-- (NSURL *)applicationDocumentsDirectory {
-  return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+// Returns the URL to the application's Documents directory.
+- (NSString *)applicationDocumentsDirectory {
+  return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 #pragma mark - Notification
