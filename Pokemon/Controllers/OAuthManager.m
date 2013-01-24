@@ -17,11 +17,11 @@
 #pragma mark - OAuthManager Constants
 // TODO:
 //   Encrypt them!!!
-NSString * const kClientIdentifier = @"iPokemonClient"; // Client Identifier to match C/S
-static NSString * const kOAuthGoogleClientID         = @"890704274988.apps.googleusercontent.com";
-static NSString * const kOAuthGoogleClientSecret     = @"O0vkiUPUHR7xCbYKz7pC6SLQ";
-static NSString * const kOAuthGoogleKeychainItemName = @"PMOAuth2_Google";
-static NSString * const kOAuthGoogleScope            = @"https://www.googleapis.com/auth/plus.me"; // scope for Google+ API
+       NSString * const kClientIdentifier            = KY_OAUTH_CLIENT_IDENTIFIER;
+static NSString * const kOAuthGoogleClientID         = KY_OAUTH_GOOGLE_CLIENT_ID;
+static NSString * const kOAuthGoogleClientSecret     = KY_OAUTH_GOOGLE_CLIENT_SECRET;
+static NSString * const kOAuthGoogleKeychainItemName = KY_OAUTH_GOOGLE_KEYCHAIN_ITEM_NAME;
+static NSString * const kOAuthGoogleScope            = KY_OAUTH_GOOGLE_SCOPE;
 
 #pragma mark -
 #pragma mark - OAuthManager

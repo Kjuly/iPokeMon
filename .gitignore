@@ -26,6 +26,7 @@ build/
 *~.xib
 
 # Temp files
+Pokemon/Config.*
 Pokemon/Resources/Pokemon_tmp_files/*
 !Pokemon/Resources/Pokemon_tmp_files/README.md
 

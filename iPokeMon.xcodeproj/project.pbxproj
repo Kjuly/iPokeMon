@@ -649,7 +649,6 @@
 		7F56995F16A8E33F0045EA23 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F56995B16A8E33F0045EA23 /* libTestFlight.a */; };
 		7F56996016A8E33F0045EA23 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995C16A8E33F0045EA23 /* README.md */; };
 		7F56996116A8E33F0045EA23 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 7F56995D16A8E33F0045EA23 /* release_notes.md */; };
-		7F56996416A8E3EA0045EA23 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56996316A8E3EA0045EA23 /* Config.m */; };
 		7F56996C16A959E80045EA23 /* KYConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56996B16A959E80045EA23 /* KYConstants.m */; };
 		7F579E711530A37900907A45 /* GameBattleEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F579E701530A37900907A45 /* GameBattleEndViewController.m */; };
 		7F581F451511D5F500F154FA /* Move.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F581F441511D5F500F154FA /* Move.m */; };
@@ -1001,6 +1000,8 @@
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
+		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
+		7FD60DCA16B0D673008258DE /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC916B0D673008258DE /* Config.m */; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -1773,7 +1774,6 @@
 		7F56995D16A8E33F0045EA23 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		7F56995E16A8E33F0045EA23 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		7F56996216A8E3EA0045EA23 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		7F56996316A8E3EA0045EA23 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		7F56996A16A959E80045EA23 /* KYConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYConstants.h; sourceTree = "<group>"; };
 		7F56996B16A959E80045EA23 /* KYConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYConstants.m; sourceTree = "<group>"; };
 		7F579E6F1530A37900907A45 /* GameBattleEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBattleEndViewController.h; sourceTree = "<group>"; };
@@ -2333,6 +2333,9 @@
 		7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveView.m; sourceTree = "<group>"; };
 		7FD183E31508BD1700F3D50B /* GameSystemProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameSystemProcess.h; path = ../GameModels/GameSystemProcess.h; sourceTree = "<group>"; };
 		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
+		7FD60DC616B0D576008258DE /* Config-Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Config-Sample.h"; sourceTree = "<group>"; };
+		7FD60DC716B0D576008258DE /* Config-Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Config-Sample.m"; sourceTree = "<group>"; };
+		7FD60DC916B0D673008258DE /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
 		7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarArrow@2x.png"; sourceTree = "<group>"; };
 		7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemPMDetailInfo.png; sourceTree = "<group>"; };
@@ -3145,7 +3148,9 @@
 				7F8E2DFE169BB8D4008A3F19 /* AppDelegate.h */,
 				7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */,
 				7F56996216A8E3EA0045EA23 /* Config.h */,
-				7F56996316A8E3EA0045EA23 /* Config.m */,
+				7FD60DC916B0D673008258DE /* Config.m */,
+				7FD60DC616B0D576008258DE /* Config-Sample.h */,
+				7FD60DC716B0D576008258DE /* Config-Sample.m */,
 				7F8E2E07169BB8D5008A3F19 /* DataDecoder.h */,
 				7F8E2E08169BB8D5008A3F19 /* DataDecoder.m */,
 				7F8E2E09169BB8D5008A3F19 /* GlobalRender.h */,
@@ -5413,10 +5418,11 @@
 				7FA44733169C34A90024D668 /* GTMOAuth2Authentication.m in Sources */,
 				7FA44734169C34A90024D668 /* GTMOAuth2SignIn.m in Sources */,
 				7FA44739169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m in Sources */,
-				7F56996416A8E3EA0045EA23 /* Config.m in Sources */,
 				7F56996C16A959E80045EA23 /* KYConstants.m in Sources */,
 				7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */,
 				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
+				7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */,
+				7FD60DCA16B0D673008258DE /* Config.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
