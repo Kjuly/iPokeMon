@@ -13,20 +13,15 @@
 #import "TrainerController.h"
 #import "LoadingManager.h"
 
-
-#pragma mark - OAuthManager Constants
-// TODO:
-//   Encrypt them!!!
-       NSString * const kClientIdentifier            = KY_OAUTH_CLIENT_IDENTIFIER;
-static NSString * const kOAuthGoogleClientID         = KY_OAUTH_GOOGLE_CLIENT_ID;
-static NSString * const kOAuthGoogleClientSecret     = KY_OAUTH_GOOGLE_CLIENT_SECRET;
-static NSString * const kOAuthGoogleKeychainItemName = KY_OAUTH_GOOGLE_KEYCHAIN_ITEM_NAME;
-static NSString * const kOAuthGoogleScope            = KY_OAUTH_GOOGLE_SCOPE;
-
 #pragma mark -
 #pragma mark - OAuthManager
 @interface OAuthManager () {
  @private
+  NSString * clientIdentifier_,
+           * oAuthGoogleClientID_,
+           * oAuthGoogleClientSecret_,
+           * oAuthGoogleKeychainItemName_,
+           * oAuthGoogleScope_;
   LoadingManager             * loadingManager_;          // Loading manager
   NSOperationQueue           * operationQueue_;          // Operation Queue
   GTMOAuth2Authentication    * oauth_;                   // OAuth object
@@ -35,6 +30,11 @@ static NSString * const kOAuthGoogleScope            = KY_OAUTH_GOOGLE_SCOPE;
   BOOL                         isUserIDSyncing_;         // avoid multiple synces
 }
 
+@property (nonatomic, copy) NSString * clientIdentifier,
+                                     * oAuthGoogleClientID,
+                                     * oAuthGoogleClientSecret,
+                                     * oAuthGoogleKeychainItemName,
+                                     * oAuthGoogleScope;
 @property (nonatomic, retain) LoadingManager          * loadingManager;
 @property (nonatomic, retain) NSOperationQueue        * operationQueue;
 @property (nonatomic, retain) GTMOAuth2Authentication * oauth;
@@ -51,7 +51,11 @@ static NSString * const kOAuthGoogleScope            = KY_OAUTH_GOOGLE_SCOPE;
 @implementation OAuthManager
 
 @synthesize isNewworkAvailable = isNewworkAvailable_;
-
+@synthesize clientIdentifier            = clientIdentifier_,
+            oAuthGoogleClientID         = oAuthGoogleClientID_,
+            oAuthGoogleClientSecret     = oAuthGoogleClientSecret_,
+            oAuthGoogleKeychainItemName = oAuthGoogleKeychainItemName_,
+            oAuthGoogleScope            = oAuthGoogleScope_;
 @synthesize loadingManager = loadingManager_;
 @synthesize operationQueue = operationQueue_;
 @synthesize oauth          = oauth_;
@@ -69,6 +73,11 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 - (void)dealloc {
+  self.clientIdentifier = nil;
+  self.oAuthGoogleClientID =
+    self.oAuthGoogleClientSecret =
+    self.oAuthGoogleKeychainItemName,
+    self.oAuthGoogleScope = nil;
   self.oauth = nil;
   [self.operationQueue cancelAllOperations];
   self.operationQueue = nil;
@@ -82,6 +91,14 @@ static OAuthManager * oauthManager_ = nil;
     isNewworkAvailable_ = YES;
     isUserIDSynced_     = NO;
     isUserIDSyncing_    = NO;
+    
+    // TODO:
+    //   Encrypt them!!!
+    self.clientIdentifier            = kOAuthClientIdentifier;
+    self.oAuthGoogleClientID         = kOAuthGoogleClientID;
+    self.oAuthGoogleClientSecret     = kOAuthGoogleClientSecret;
+    self.oAuthGoogleKeychainItemName = kOAuthGoogleKeychainItemName;
+    self.oAuthGoogleScope            = kOAuthGoogleScope;
     
     OAuthServiceProviderChoice lastUsedServiceProvider =
       [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
@@ -194,10 +211,10 @@ static OAuthManager * oauthManager_ = nil;
       //break;
       
     case kOAuthServiceProviderChoiceGoogle:
-      clientID         = kOAuthGoogleClientID;
-      clientSecret     = kOAuthGoogleClientSecret;
-      keychainItemName = kOAuthGoogleKeychainItemName;
-      scope            = kOAuthGoogleScope;
+      clientID         = oAuthGoogleClientID_;
+      clientSecret     = oAuthGoogleClientSecret_;
+      keychainItemName = oAuthGoogleKeychainItemName_;
+      scope            = oAuthGoogleScope_;
       break;
       
     //case kOAuthServiceProviderChoiceTwitter:
@@ -215,10 +232,10 @@ static OAuthManager * oauthManager_ = nil;
       //break;
       
     default:
-      clientID         = kOAuthGoogleClientID;
-      clientSecret     = kOAuthGoogleClientSecret;
-      keychainItemName = kOAuthGoogleKeychainItemName;
-      scope            = kOAuthGoogleScope;
+      clientID         = oAuthGoogleClientID_;
+      clientSecret     = oAuthGoogleClientSecret_;
+      keychainItemName = oAuthGoogleKeychainItemName_;
+      scope            = oAuthGoogleScope_;
       break;
   }
   return [NSDictionary dictionaryWithObjectsAndKeys:

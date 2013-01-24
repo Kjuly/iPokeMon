@@ -10,8 +10,6 @@
 
 #import "GTMOAuth2ViewControllerTouch+Custom.h"
 
-extern NSString * const kClientIdentifier;
-
 typedef enum {
 //  kOAuthServiceProviderChoiceFacebook = 0,
 //  kOAuthServiceProviderChoiceGithub,

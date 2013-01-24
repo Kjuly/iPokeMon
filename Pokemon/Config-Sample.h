@@ -58,24 +58,24 @@
 // Client Identifier to match C/S,
 //   any string value is okay, but alpha is better
 //   e.g. "iPokemonClient"
-//#define KY_OAUTH_CLIENT_IDENTIFIER @""
+//extern NSString * const kOAuthClientIdentifier;
 //
 // Google
 // Client ID for Google's Authentication
 //   e.g. "123456789012.apps.googleusercontent.com"
-//#define KY_OAUTH_GOOGLE_CLIENT_ID @""
+//extern NSString * const kOAuthGoogleClientID;
 //
 // Client Secret for Google's Authentication
 //   e.g. "O0vXxXPUR7xXxYKz7xX6SLQ"
-//#define KY_OAUTH_GOOGLE_CLIENT_SECRET @""
+//extern NSString * const kOAuthGoogleClientSecret;
 //
 // Item name to be stored in keychain for Google OpenID
 // Any string value is okay, but alpha is better
 //   e.g. "PMOAuth2_Google"
-//#define KY_OAUTH_GOOGLE_KEYCHAIN_ITEM_NAME @""
+//extern NSString * const kOAuthGoogleKeychainItemName;
 //
 // Scope for Google+ API,
-//#define KY_OAUTH_GOOGLE_SCOPE @"https://www.googleapis.com/auth/plus.me"
+//extern NSString * const kOAuthGoogleScope;
 
 
 @interface Config_Sample : NSObject
