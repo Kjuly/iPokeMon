@@ -55,19 +55,21 @@
  */
 // Client Identifier to match C/S,
 //   any string value is okay, but alpha is better
+//   e.g. "iPokemonClient"
 //#define KY_OAUTH_CLIENT_IDENTIFIER @""
 //
 // Google
 // Client ID for Google's Authentication
-//   e.g. 123456789012.apps.googleusercontent.com
+//   e.g. "123456789012.apps.googleusercontent.com"
 //#define KY_OAUTH_GOOGLE_CLIENT_ID @""
 //
 // Client Secret for Google's Authentication
-//   e.g. O0vXxXPUR7xXxYKz7xX6SLQ
+//   e.g. "O0vXxXPUR7xXxYKz7xX6SLQ"
 //#define KY_OAUTH_GOOGLE_CLIENT_SECRET @""
 //
 // Item name to be stored in keychain for Google OpenID
 // Any string value is okay, but alpha is better
+//   e.g. "PMOAuth2_Google"
 //#define KY_OAUTH_GOOGLE_KEYCHAIN_ITEM_NAME @""
 //
 // Scope for Google+ API,
