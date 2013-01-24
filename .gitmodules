@@ -16,3 +16,6 @@
 [submodule "Pokemon/Libs/KYArcTab"]
 	path = Pokemon/Libs/KYArcTab
 	url = git@github.com:Kjuly/KYArcTab.git
+[submodule "Pokemon/Libs/SSZipArchive"]
+	path = Pokemon/Libs/SSZipArchive
+	url = git@github.com:Kjuly/ssziparchive.git

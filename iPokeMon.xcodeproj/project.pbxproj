@@ -1003,6 +1003,11 @@
 		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
 		7FD60DCD16B10702008258DE /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DCC16B10702008258DE /* Config.m */; };
 		7FD60DCE16B10C7A008258DE /* Config.h in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DCB16B10702008258DE /* Config.h */; };
+		7FD60DEF16B1233A008258DE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD516B1233A008258DE /* ioapi.c */; };
+		7FD60DF016B1233A008258DE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD716B1233A008258DE /* mztools.c */; };
+		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
+		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
+		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -2337,6 +2342,17 @@
 		7FD60DC716B0D576008258DE /* Config-Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Config-Sample.m"; sourceTree = "<group>"; };
 		7FD60DCB16B10702008258DE /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		7FD60DCC16B10702008258DE /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		7FD60DD416B1233A008258DE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		7FD60DD516B1233A008258DE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		7FD60DD616B1233A008258DE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		7FD60DD716B1233A008258DE /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		7FD60DD816B1233A008258DE /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		7FD60DD916B1233A008258DE /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		7FD60DDA16B1233A008258DE /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		7FD60DDB16B1233A008258DE /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		7FD60DDC16B1233A008258DE /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		7FD60DDE16B1233A008258DE /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		7FD60DDF16B1233A008258DE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
 		7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarArrow@2x.png"; sourceTree = "<group>"; };
 		7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemPMDetailInfo.png; sourceTree = "<group>"; };
@@ -3630,6 +3646,7 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7FD60DCF16B1233A008258DE /* SSZipArchive */,
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
 				7F56996916A959E80045EA23 /* KYiOSFoundation */,
 				7FA4469F169C34A90024D668 /* GTMOAuth2 */,
@@ -4174,6 +4191,32 @@
 				7FC847A0169C30750013D5FF /* JSONKit.m */,
 			);
 			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		7FD60DCF16B1233A008258DE /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				7FD60DD316B1233A008258DE /* minizip */,
+				7FD60DDE16B1233A008258DE /* SSZipArchive.h */,
+				7FD60DDF16B1233A008258DE /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		7FD60DD316B1233A008258DE /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				7FD60DD416B1233A008258DE /* crypt.h */,
+				7FD60DD516B1233A008258DE /* ioapi.c */,
+				7FD60DD616B1233A008258DE /* ioapi.h */,
+				7FD60DD716B1233A008258DE /* mztools.c */,
+				7FD60DD816B1233A008258DE /* mztools.h */,
+				7FD60DD916B1233A008258DE /* unzip.c */,
+				7FD60DDA16B1233A008258DE /* unzip.h */,
+				7FD60DDB16B1233A008258DE /* zip.c */,
+				7FD60DDC16B1233A008258DE /* zip.h */,
+			);
+			path = minizip;
 			sourceTree = "<group>";
 		};
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
@@ -5425,6 +5468,11 @@
 				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
 				7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */,
 				7FD60DCD16B10702008258DE /* Config.m in Sources */,
+				7FD60DEF16B1233A008258DE /* ioapi.c in Sources */,
+				7FD60DF016B1233A008258DE /* mztools.c in Sources */,
+				7FD60DF116B1233A008258DE /* unzip.c in Sources */,
+				7FD60DF216B1233A008258DE /* zip.c in Sources */,
+				7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
