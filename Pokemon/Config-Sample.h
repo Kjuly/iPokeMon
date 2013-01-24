@@ -26,8 +26,8 @@
 /*
  * Feature
  */
-//#define KY_ICLOUD_ENABLED 1                       // Use iCloud Service
-//#define KY_COPY_COREDATA_IF_NOT_EXIST 1           // Copy CoreData from bundle
+//#define KY_ICLOUD_ENABLED 1                       // Use iCloud Service (ON)
+//#define KY_COPY_COREDATA_IF_NOT_EXIST 1           // Copy CoreData from bundle (ON)
 
 /*
  * DEV
