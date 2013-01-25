@@ -11,5 +11,6 @@
 @interface OriginalDataManager : NSObject
 
 + (void)initData;
++ (BOOL)updateDataWithResourceBundle:(NSBundle *)resourceBundle;
 
 @end

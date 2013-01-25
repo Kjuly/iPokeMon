@@ -66,6 +66,12 @@ typedef enum {
   [self initDataForEntityWithType:kEntityTypeBagKeyItem];
 }
 
+// Update data with resource bundle
++ (BOOL)updateDataWithResourceBundle:(NSBundle *)resourceBundle {
+  NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
+  return YES;
+}
+
 #pragma mark - Private Methods
 
 + (void)initDataForEntityWithType:(EntityType)type

@@ -8,6 +8,7 @@
 
 #import "ResourceTableViewController.h"
 
+#import "OriginalDataManager.h"
 #import "LoadingManager.h"
 
 #import "AFJSONRequestOperation.h"
@@ -172,19 +173,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   void (^failure)(AFHTTPRequestOperation *, NSError *);
   success = ^(AFHTTPRequestOperation *operation, id response) {
     NSLog(@"RESOURCE in ZIP is successfully saved to disk");
-    // Hide loading indicator and show a success message
-    [self.loadingManager hideOverView];
+    BOOL succeed = NO;
     // Unzip resource package
     //
     // TODO:
     //   Rm .zip file after unzipped successfully
     //
+    // Unzip succeed
     if ([SSZipArchive unzipFileAtPath:pathToSave toDestination:pathToUnzip]) {
       NSLog(@"RESOURCE is UNZIPPed successfully to \"%@\"", pathToUnzip);
-      [self.loadingManager showMessage:nil
-                                  type:kProgressMessageTypeSucceed
-                          withDuration:2.f];
+      // Update original data with the unzipped resource bundle
+      NSString * pathToResourceBundle =
+        [pathToSave substringToIndex:(pathToSave.length - @".zip".length)];
+      NSBundle * resourceBundle = [NSBundle bundleWithPath:pathToResourceBundle];
+      if ([OriginalDataManager updateDataWithResourceBundle:resourceBundle])
+        succeed = YES;
     }
+    // Hide loading indicator and show a succeed/faild message
+    [self.loadingManager hideOverView];
+    [self.loadingManager showMessage:nil
+                                type:(succeed ? kProgressMessageTypeSucceed : kProgressMessageTypeError)
+                        withDuration:2.f];
   };
   failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!!ERROR: RESOURCE in ZIP CANNOT be saved to disk: %@", [error description]);
