@@ -172,18 +172,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   void (^failure)(AFHTTPRequestOperation *, NSError *);
   success = ^(AFHTTPRequestOperation *operation, id response) {
     NSLog(@"RESOURCE in ZIP is successfully saved to disk");
+    // Hide loading indicator and show a success message
+    [self.loadingManager hideOverView];
     // Unzip resource package
     //
     // TODO:
     //   Rm .zip file after unzipped successfully
     //
-    [SSZipArchive unzipFileAtPath:pathToSave toDestination:pathToUnzip];
-    NSLog(@"RESOURCE is UNZIPPed successfully to \"%@\"", pathToUnzip);
-    // Hide loading indicator and show a success message
-    [self.loadingManager hideOverView];
-    [self.loadingManager showMessage:nil
-                                type:kProgressMessageTypeSucceed
-                        withDuration:2.f];
+    if ([SSZipArchive unzipFileAtPath:pathToSave toDestination:pathToUnzip]) {
+      NSLog(@"RESOURCE is UNZIPPed successfully to \"%@\"", pathToUnzip);
+      [self.loadingManager showMessage:nil
+                                  type:kProgressMessageTypeSucceed
+                          withDuration:2.f];
+    }
   };
   failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!!ERROR: RESOURCE in ZIP CANNOT be saved to disk: %@", [error description]);
