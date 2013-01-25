@@ -17,6 +17,7 @@
 #import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
+#import "ResourceManageViewController.h"
 
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -385,7 +386,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     // Load Resource
     else if (row == kSectionMoreRowLoadResource) {
-      
+      ResourceManageViewController * resourceManageViewController;
+      resourceManageViewController = [[ResourceManageViewController alloc] init];
+      [self.navigationController pushViewController:resourceManageViewController animated:YES];
+      [resourceManageViewController release];
     }
     // Logout
     else if (row == kSectionMoreRowLogout)

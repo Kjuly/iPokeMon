@@ -1029,6 +1029,7 @@
 		7FDAD5341541C6A5003F9DA6 /* IconPokemonGender0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */; };
 		7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */; };
 		7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */; };
+		7FDBE13716B2695400BF692D /* ResourceManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE13616B2695400BF692D /* ResourceManageViewController.m */; };
 		7FDF10E91543F5580052DDF9 /* GameBattleScenePMPoint-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint-hd.png */; };
 		7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */; };
 		7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */; };
@@ -2376,6 +2377,8 @@
 		7FDAD5301541C6A5003F9DA6 /* IconPokemonGender0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender0@2x.png"; sourceTree = "<group>"; };
 		7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPokemonGender1.png; sourceTree = "<group>"; };
 		7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender1@2x.png"; sourceTree = "<group>"; };
+		7FDBE13516B2695300BF692D /* ResourceManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManageViewController.h; sourceTree = "<group>"; };
+		7FDBE13616B2695400BF692D /* ResourceManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManageViewController.m; sourceTree = "<group>"; };
 		7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleScenePMPoint-hd.png"; sourceTree = "<group>"; };
 		7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellCenterTitleStyleBackground.png; sourceTree = "<group>"; };
 		7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellCenterTitleStyleBackground@2x.png"; sourceTree = "<group>"; };
@@ -3328,6 +3331,8 @@
 				7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */,
 				7F5A4D63153DDC4200F55F23 /* SettingGameSettingsTableViewController.h */,
 				7F5A4D64153DDC4300F55F23 /* SettingGameSettingsTableViewController.m */,
+				7FDBE13516B2695300BF692D /* ResourceManageViewController.h */,
+				7FDBE13616B2695400BF692D /* ResourceManageViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
 				7FE2BA9614DAA3F800419825 /* CustomNavigationController.m */,
 				7FE2BAA214DABCD900419825 /* CustomTableViewController.h */,
@@ -5479,6 +5484,7 @@
 				7FD60DF216B1233A008258DE /* zip.c in Sources */,
 				7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */,
 				7FD60E0416B15346008258DE /* ResourceManager.m in Sources */,
+				7FDBE13716B2695400BF692D /* ResourceManageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
