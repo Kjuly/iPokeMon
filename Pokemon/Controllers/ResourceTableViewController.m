@@ -156,7 +156,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   // Resource name
   NSString * resourceName = [[self.resources objectAtIndex:row] objectForKey:@"id"];
   // Resource package name
-  NSString * resourcePackageName = [resourceName stringByAppendingString:@".zip"];
+  NSString * resourcePackageName = [resourceName stringByAppendingString:@".bundle.zip"];
   // Request URL path tail: e.g. package/PokeMon.zip
   NSString * pathComponent =
     [(NSString *)kResourceServerPackageAPI stringByAppendingString:resourcePackageName];
