@@ -122,6 +122,10 @@
       return kNumberOfSectionAboutRows;
       break;
       
+    case kSectionMore:
+      return kNumberOfSectionMoreRows;
+      break;
+      
     default:
       return 1;
       break;
@@ -129,8 +133,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  if (indexPath.section == kSectionAbout)
-    if (indexPath.row == kSectionAboutRowFeedback || indexPath.row == kSectionAboutRowLogout)
+  if (indexPath.section == kSectionMore)
+    if (indexPath.row == kSectionMoreRowLogout)
       return kCellHeightOfSettingTableViewCenterTitleStyle;
   return kCellHeightOfSettingTableView;
 }
@@ -151,7 +155,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString * CellIdentifier;
+  static NSString * cellIdentifier;
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger sectionNum = indexPath.section;
@@ -161,11 +165,12 @@
     switch (rowNum) {
       ///GENERAL - Location Service
       case kSectionGeneralLocationServices: {
-        CellIdentifier = @"CellStyleSwitch";
-        SettingTableViewCellStyleSwitch *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+        cellIdentifier = @"CellStyleSwitch";
+        SettingTableViewCellStyleSwitch * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1
+                                                         reuseIdentifier:cellIdentifier] autorelease];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
         [cell.switchButton addTarget:self
@@ -177,11 +182,12 @@
         
       ///GENERAL - Bandwidth Usage
       case kSectionGeneralBandwidthUsage: {
-        CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+        cellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier] autorelease];
         NSString * bandwidthUsageName =
           NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d",
                               [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]]), nil);
@@ -194,11 +200,12 @@
         
       ///GENERAL - Game Settings
       case kSectionGeneralGameSettings: {
-        CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        }
+        cellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier] autorelease];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
@@ -215,12 +222,12 @@
     switch (rowNum) {
       ///ABOUT - Version
       case kSectionAboutRowVersion: {
-        static NSString *CellIdentifier = @"CellStyleTitle";
-        SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
+        cellIdentifier = @"CellStyleTitle";
+        SettingTableViewCellStyleTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
           cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                              reuseIdentifier:CellIdentifier] autorelease];
-        }
+                                                        reuseIdentifier:cellIdentifier] autorelease];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
                                value:[userDefaults stringForKey:kUDKeyAboutVersion]
                        accessoryType:UITableViewCellAccessoryNone];
@@ -228,26 +235,49 @@
         break;
       }
         
-      case kSectionAboutRowFeedback: {
-        static NSString *CellIdentifier = @"CellStyleLogout";
-        SettingTableViewCellStyleCenterTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
-                                                              reuseIdentifier:CellIdentifier] autorelease];
-        }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingFeedback", nil)];
+      default:
+        break;
+    }
+  }
+  //////MORE//////
+  else if (sectionNum == kSectionMore) {
+    switch (rowNum) {
+      case kSectionMoreRowFeedback: {
+        cellIdentifier = @"CellStyleFeedback";
+        SettingTableViewCellStyleTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier] autorelease];
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreFeedback", nil)
+                               value:nil
+                       accessoryType:UITableViewCellAccessoryNone];
         return cell;
         break;
       }
         
-      case kSectionAboutRowLogout: {
-        static NSString *CellIdentifier = @"CellStyleLogout";
-        SettingTableViewCellStyleCenterTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
+      case kSectionMoreRowLoadResource: {
+        cellIdentifier = @"CellStyleLoadResource";
+        SettingTableViewCellStyleTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier] autorelease];
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreLoadResource", nil)
+                               value:nil
+                       accessoryType:UITableViewCellAccessoryNone];
+        return cell;
+        break;
+      }
+        
+      case kSectionMoreRowLogout: {
+        cellIdentifier = @"CellStyleLogout";
+        SettingTableViewCellStyleCenterTitle * cell =
+          [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
           cell = [[[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
-                                                              reuseIdentifier:CellIdentifier] autorelease];
-        }
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingLogout", nil)];
+                                                              reuseIdentifier:cellIdentifier] autorelease];
+        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreLogout", nil)];
         return cell;
         break;
       }
@@ -301,7 +331,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)      tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSInteger section = [indexPath section];
   NSInteger row     = [indexPath row];
   
@@ -323,9 +354,9 @@
       [settingGameSettingsTableViewController release];
     }
   }
-  else if (section == kSectionAbout) {
+  else if (section == kSectionMore) {
     // Feedback
-    if (row == kSectionAboutRowFeedback) {
+    if (row == kSectionMoreRowFeedback) {
       if (! [MFMailComposeViewController canSendMail]) {
         [[LoadingManager sharedInstance] showMessage:NSLocalizedString(@"PMSCannotSendMail", nil)
                                                 type:kProgressMessageTypeWarn
@@ -352,8 +383,12 @@
       [self presentModalViewController:mailComposer animated:YES];
       [mailComposer release];
     }
+    // Load Resource
+    else if (row == kSectionMoreRowLoadResource) {
+      
+    }
     // Logout
-    if (row == kSectionAboutRowLogout)
+    else if (row == kSectionMoreRowLogout)
       [self openLogoutConfirmView];
   }
 }

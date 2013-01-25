@@ -62,15 +62,16 @@
 "PMSNewbiewGuideErrorTextNameInvalid" = "Sorry, invalid name.";
 "PMSNewbiewGuideErrorUnknow"        = "Web service unknown ERROR..";
 
-// Setting view
-// GENERAL
+// Setting View
+// - General
 "PMSSettingSection1" = "General";
 "PMSSettingSection2" = "About";
+"PMSSettingSection3" = "More";
 "PMSSettingGeneralLocationServices" = "Location Services";
-// Bandwidth useage
+// - - Bandwidth useage
 "PMSSettingGeneralBandWidthUsage0"  = "Minimal";
 "PMSSettingGeneralBandWidthUsage1"  = "Standard";
-// Game settings
+// - - Game settings
 "PMSSettingGeneralGameSettings"                 = "Game Setting";
 "PMSSettingGeneralGameSettingsSection1"         = "Volume";
 "PMSSettingGeneralGameSettingsSection2"         = "Others";
@@ -78,14 +79,18 @@
 "PMSSettingGeneralGameSettingsVolumeMusic"      = "Music";
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "Sounds";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "Animations";
-// ABOUT
-"PMSSettingAboutVersion"      = "Version";
-"PMSSettingFeedback"          = "Feedback";
-"PMSSettingLogout"            = "Logout";
+// - About
+"PMSSettingAboutVersion" = "Version";
+// - More
+// - - Feedback
+"PMSSettingMoreFeedback" = "Feedback";
+"PMSCannotSendMail"      = "Sorry, Mail Not Available.";
+"PMSMailSent"            = "Thanks For Your Feedback!";
+// - - Load Resource
+"PMSSettingMoreLoadResource" = "Load Resource";
+// - - Logout
+"PMSSettingMoreLogout"        = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";
-// Feedback
-"PMSCannotSendMail" = "Sorry, Mail Not Available.";
-"PMSMailSent"       = "Thanks For Your Feedback!";
 
 
 // Pokemon

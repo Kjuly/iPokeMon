@@ -60,15 +60,16 @@
 "PMSNewbiewGuideErrorTextNameInvalid" = "对不起，用户名无效。";
 "PMSNewbiewGuideErrorUnknow"        = "对不起，发生异常错误。";
 
-// Setting view
-// GENERAL
+// Setting View
+// - General
 "PMSSettingSection1" = "基本设置";
 "PMSSettingSection2" = "关于";
+"PMSSettingSection3" = "更多";
 "PMSSettingGeneralLocationServices" = "位置服务";
-// Bandwidth useage
+// - - Bandwidth useage
 "PMSSettingGeneralBandWidthUsage0"  = "最低";
 "PMSSettingGeneralBandWidthUsage1"  = "标准";
-// Game settings
+// - - Game settings
 "PMSSettingGeneralGameSettings"                 = "游戏设置";
 "PMSSettingGeneralGameSettingsSection1"         = "音量调节";
 "PMSSettingGeneralGameSettingsSection2"         = "其它";
@@ -76,14 +77,18 @@
 "PMSSettingGeneralGameSettingsVolumeMusic"      = "背景音乐";
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "音效";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
-// ABOUT
-"PMSSettingAboutVersion"      = "版本";
-"PMSSettingFeedback"          = "反馈";
-"PMSSettingLogout"            = "注销";
+// - About
+"PMSSettingAboutVersion" = "版本";
+// - More
+// - - Feedback
+"PMSSettingMoreFeedback" = "反馈";
+"PMSCannotSendMail"      = "对不起，检测无法使用邮件服务。";
+"PMSMailSent"            = "感谢您的反馈！";
+// - - Load Resource
+"PMSSettingMoreLoadResource" = "Load Resource";
+// - - Logout
+"PMSSettingMoreLogout"        = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";
-// Feedback
-"PMSCannotSendMail" = "对不起，检测无法使用邮件服务.";
-"PMSMailSent"       = "感谢您的反馈!";
 
 
 // Pokemon

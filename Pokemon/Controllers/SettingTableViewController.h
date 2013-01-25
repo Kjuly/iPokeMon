@@ -12,6 +12,7 @@
 typedef enum {
   kSectionGeneral = 0,
   kSectionAbout,
+  kSectionMore,
   kNumberOfSections
 }Section;
 
@@ -24,10 +25,15 @@ typedef enum {
 
 typedef enum {
   kSectionAboutRowVersion = 0,
-  kSectionAboutRowFeedback,
-  kSectionAboutRowLogout,
   kNumberOfSectionAboutRows
 }SectionAboutRow;
+
+typedef enum {
+  kSectionMoreRowFeedback = 0,
+  kSectionMoreRowLoadResource,
+  kSectionMoreRowLogout,
+  kNumberOfSectionMoreRows
+}SectionMoreRow;
 
 @interface SettingTableViewController : UITableViewController <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
