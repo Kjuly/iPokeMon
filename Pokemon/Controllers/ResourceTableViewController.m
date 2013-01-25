@@ -8,6 +8,8 @@
 
 #import "ResourceTableViewController.h"
 
+#import "LoadingManager.h"
+
 #import "AFJSONRequestOperation.h"
 #import "SSZipArchive.h"
 
@@ -23,10 +25,12 @@
 
 @interface ResourceTableViewController () {
  @private
-  NSArray * resources_;
+  NSArray        * resources_;      // resources array
+  LoadingManager * loadingManager_; // loading manager
 }
 
-@property (nonatomic, copy) NSArray * resources;
+@property (nonatomic, copy)   NSArray        * resources;
+@property (nonatomic, retain) LoadingManager * loadingManager;
 
 - (void)_loadResourceForRow:(NSInteger)row;
 
@@ -38,7 +42,8 @@
 @synthesize resources = resources_;
 
 - (void)dealloc {
-  self.resources = nil;
+  self.resources      = nil;
+  self.loadingManager = nil;
   [super dealloc];
 }
 
@@ -48,6 +53,7 @@
     [self setTitle:NSLocalizedString(@"PMSSettingMoreResources", nil)];
     // Populate |resources_|
     self.resources = @[@{@"name" : @"PokeMon Package", @"id" : @"PokeMon"}];
+    self.loadingManager = [LoadingManager sharedInstance];
   }
   return self;
 }
@@ -173,9 +179,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //
     [SSZipArchive unzipFileAtPath:pathToSave toDestination:pathToUnzip];
     NSLog(@"RESOURCE is UNZIPPed successfully to \"%@\"", pathToUnzip);
+    // Hide loading indicator and show a success message
+    [self.loadingManager hideOverView];
+    [self.loadingManager showMessage:nil
+                                type:kProgressMessageTypeSucceed
+                        withDuration:2.f];
   };
   failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"!!!ERROR: RESOURCE in ZIP CANNOT be saved to disk: %@", [error description]);
+    // Hide loading indicator and show a faild message
+    [self.loadingManager hideOverView];
+    [self.loadingManager showMessage:nil
+                                type:kProgressMessageTypeError
+                        withDuration:2.f];
   };
   
   // The final URL to get the resource package in .zip format
@@ -188,6 +204,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   AFHTTPRequestOperation * operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
   operation.outputStream = [NSOutputStream outputStreamToFileAtPath:pathToSave append:NO];
   [operation setCompletionBlockWithSuccess:success failure:failure];
+  // Show loading indicator
+  [self.loadingManager showOverView];
   // Start operation
   [operation start];
 }
