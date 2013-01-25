@@ -1,5 +1,5 @@
 //
-//  ResourceManageViewController.h
+//  ResourceTableViewController.h
 //  iPokeMon
 //
 //  Created by Kjuly on 1/25/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResourceManageViewController : UIViewController
+@interface ResourceTableViewController : UITableViewController
 
 @end

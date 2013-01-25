@@ -85,7 +85,8 @@
 "PMSCannotSendMail"      = "对不起，检测无法使用邮件服务。";
 "PMSMailSent"            = "感谢您的反馈！";
 // - - Load Resource
-"PMSSettingMoreLoadResource" = "Load Resource";
+"PMSSettingMoreLoadResource" = "加载资源包";
+"PMSSettingMoreResources"    = "所有资源包";
 // - - Logout
 "PMSSettingMoreLogout"        = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";

@@ -88,6 +88,7 @@
 "PMSMailSent"            = "Thanks For Your Feedback!";
 // - - Load Resource
 "PMSSettingMoreLoadResource" = "Load Resource";
+"PMSSettingMoreResources"    = "Resources";
 // - - Logout
 "PMSSettingMoreLogout"        = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";
