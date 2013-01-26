@@ -12,9 +12,12 @@
 
 + (NSString *)_pathOfPropertyList:(NSString *)propertyList
                          inBundle:(NSBundle *)bundle {
-  return [bundle pathForResource:propertyList
-                          ofType:@"plist"
-                     inDirectory:kBundleDirectoryOfPropertyList];
+  NSString * path = [bundle pathForResource:propertyList
+                                     ofType:@"plist"
+                                inDirectory:kBundleDirectoryOfPropertyList];
+  if (! path) path = [bundle pathForResource:propertyList ofType:@"plist"];
+  NSLog(@"PATH:%@", path);
+  return path;
 }
 
 #pragma mark - Pokedex

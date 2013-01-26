@@ -534,21 +534,6 @@
 		7F38FD6015709FB200AEEE65 /* PMSpriteBack_97.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB8B15709FB100AEEE65 /* PMSpriteBack_97.png */; };
 		7F38FD6115709FB200AEEE65 /* PMSpriteBack_98.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB8C15709FB100AEEE65 /* PMSpriteBack_98.png */; };
 		7F38FD6215709FB200AEEE65 /* PMSpriteBack_99.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB8D15709FB100AEEE65 /* PMSpriteBack_99.png */; };
-		7F38FD6315709FB200AEEE65 /* BagBattleItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB8F15709FB200AEEE65 /* BagBattleItems.plist */; };
-		7F38FD6415709FB200AEEE65 /* BagBerries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9015709FB200AEEE65 /* BagBerries.plist */; };
-		7F38FD6515709FB200AEEE65 /* BagItems-Evolution.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9115709FB200AEEE65 /* BagItems-Evolution.plist */; };
-		7F38FD6615709FB200AEEE65 /* BagItems-Misc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9215709FB200AEEE65 /* BagItems-Misc.plist */; };
-		7F38FD6715709FB200AEEE65 /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9315709FB200AEEE65 /* BagItems.plist */; };
-		7F38FD6815709FB200AEEE65 /* BagKeyItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9415709FB200AEEE65 /* BagKeyItems.plist */; };
-		7F38FD6915709FB200AEEE65 /* BagMail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9515709FB200AEEE65 /* BagMail.plist */; };
-		7F38FD6A15709FB200AEEE65 /* BagMedicine.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9615709FB200AEEE65 /* BagMedicine.plist */; };
-		7F38FD6B15709FB200AEEE65 /* BagPokeballs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9715709FB200AEEE65 /* BagPokeballs.plist */; };
-		7F38FD6C15709FB200AEEE65 /* BagTMsHMs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9815709FB200AEEE65 /* BagTMsHMs.plist */; };
-		7F38FD6D15709FB200AEEE65 /* GameSettingOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9915709FB200AEEE65 /* GameSettingOptions.plist */; };
-		7F38FD6E15709FB200AEEE65 /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9A15709FB200AEEE65 /* Moves.plist */; };
-		7F38FD6F15709FB200AEEE65 /* Moves.plist_backup in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9B15709FB200AEEE65 /* Moves.plist_backup */; };
-		7F38FD7015709FB200AEEE65 /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9C15709FB200AEEE65 /* Pokedex.plist */; };
-		7F38FD7115709FB200AEEE65 /* Pokedex.plist_backup_3-14 in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FB9D15709FB200AEEE65 /* Pokedex.plist_backup_3-14 */; };
 		7F38FD9415709FF600AEEE65 /* CNAH.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FD7315709FF600AEEE65 /* CNAH.png */; };
 		7F38FD9515709FF600AEEE65 /* CNBJ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FD7415709FF600AEEE65 /* CNBJ.png */; };
 		7F38FD9615709FF600AEEE65 /* CNCQ.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F38FD7515709FF600AEEE65 /* CNCQ.png */; };
@@ -966,6 +951,25 @@
 		7FB1353A153B14EE00975CB5 /* AudioGameUseMedicine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13530153B14EE00975CB5 /* AudioGameUseMedicine.mp3 */; };
 		7FB1353B153B14EE00975CB5 /* AudioGameERROR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13531153B14EE00975CB5 /* AudioGameERROR.mp3 */; };
 		7FB1353C153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13532153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 */; };
+		7FB3A05F16B3DBCC00EC3BDF /* BagBattleItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05016B3DBCC00EC3BDF /* BagBattleItems.plist */; };
+		7FB3A06016B3DBCC00EC3BDF /* BagBerries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05116B3DBCC00EC3BDF /* BagBerries.plist */; };
+		7FB3A06116B3DBCC00EC3BDF /* BagItems-Evolution.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05216B3DBCC00EC3BDF /* BagItems-Evolution.plist */; };
+		7FB3A06216B3DBCC00EC3BDF /* BagItems-Misc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05316B3DBCC00EC3BDF /* BagItems-Misc.plist */; };
+		7FB3A06316B3DBCC00EC3BDF /* BagItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05416B3DBCC00EC3BDF /* BagItems.plist */; };
+		7FB3A06416B3DBCC00EC3BDF /* BagKeyItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05516B3DBCC00EC3BDF /* BagKeyItems.plist */; };
+		7FB3A06516B3DBCC00EC3BDF /* BagMail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05616B3DBCC00EC3BDF /* BagMail.plist */; };
+		7FB3A06616B3DBCC00EC3BDF /* BagMedicine.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05716B3DBCC00EC3BDF /* BagMedicine.plist */; };
+		7FB3A06716B3DBCC00EC3BDF /* BagPokeballs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05816B3DBCC00EC3BDF /* BagPokeballs.plist */; };
+		7FB3A06816B3DBCC00EC3BDF /* BagTMsHMs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */; };
+		7FB3A06916B3DBCC00EC3BDF /* GameSettingOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */; };
+		7FB3A06A16B3DBCC00EC3BDF /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */; };
+		7FB3A06B16B3DBCC00EC3BDF /* Moves.plist_backup in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */; };
+		7FB3A06C16B3DBCC00EC3BDF /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */; };
+		7FB3A06D16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */; };
+		7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */; };
+		7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */; };
+		7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */; };
+		7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */; };
 		7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB4128D1529C979003F41F0 /* TrainerController.m */; };
 		7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412941529CC98003F41F0 /* WildPokemonController.m */; };
 		7FB412AC152A02F0003F41F0 /* IconBadgeBronze.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */; };
@@ -975,8 +979,6 @@
 		7FB412B0152A02F0003F41F0 /* IconBadgeSilver.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412AA152A02EF003F41F0 /* IconBadgeSilver.png */; };
 		7FB412B1152A02F0003F41F0 /* IconBadgeSilver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */; };
 		7FB412B4152A0469003F41F0 /* TrainerBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */; };
-		7FB734E8154251A500027EE2 /* TrainerAvatarDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB734E6154251A500027EE2 /* TrainerAvatarDefault.png */; };
-		7FB734E9154251A500027EE2 /* TrainerAvatarDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB734E7154251A500027EE2 /* TrainerAvatarDefault@2x.png */; };
 		7FB764461509DFDA008A9AA1 /* GameMenuSixPokemonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */; };
 		7FB7644D1509EC6B008A9AA1 /* GameMenuSixPokemonsUnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB7644C1509EC6A008A9AA1 /* GameMenuSixPokemonsUnitViewController.m */; };
 		7FB76464150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB76463150A008F008A9AA1 /* GameMenuSixPokemonsUnitView.m */; };
@@ -1007,7 +1009,6 @@
 		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
-		7FD60E0116B13902008258DE /* iPokeMon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FD60E0016B13902008258DE /* iPokeMon.sqlite */; };
 		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
@@ -1646,21 +1647,6 @@
 		7F38FB8B15709FB100AEEE65 /* PMSpriteBack_97.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_97.png; sourceTree = "<group>"; };
 		7F38FB8C15709FB100AEEE65 /* PMSpriteBack_98.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_98.png; sourceTree = "<group>"; };
 		7F38FB8D15709FB100AEEE65 /* PMSpriteBack_99.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMSpriteBack_99.png; sourceTree = "<group>"; };
-		7F38FB8F15709FB200AEEE65 /* BagBattleItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBattleItems.plist; sourceTree = "<group>"; };
-		7F38FB9015709FB200AEEE65 /* BagBerries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBerries.plist; sourceTree = "<group>"; };
-		7F38FB9115709FB200AEEE65 /* BagItems-Evolution.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BagItems-Evolution.plist"; sourceTree = "<group>"; };
-		7F38FB9215709FB200AEEE65 /* BagItems-Misc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BagItems-Misc.plist"; sourceTree = "<group>"; };
-		7F38FB9315709FB200AEEE65 /* BagItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagItems.plist; sourceTree = "<group>"; };
-		7F38FB9415709FB200AEEE65 /* BagKeyItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagKeyItems.plist; sourceTree = "<group>"; };
-		7F38FB9515709FB200AEEE65 /* BagMail.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMail.plist; sourceTree = "<group>"; };
-		7F38FB9615709FB200AEEE65 /* BagMedicine.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMedicine.plist; sourceTree = "<group>"; };
-		7F38FB9715709FB200AEEE65 /* BagPokeballs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagPokeballs.plist; sourceTree = "<group>"; };
-		7F38FB9815709FB200AEEE65 /* BagTMsHMs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagTMsHMs.plist; sourceTree = "<group>"; };
-		7F38FB9915709FB200AEEE65 /* GameSettingOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameSettingOptions.plist; sourceTree = "<group>"; };
-		7F38FB9A15709FB200AEEE65 /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
-		7F38FB9B15709FB200AEEE65 /* Moves.plist_backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Moves.plist_backup; sourceTree = "<group>"; };
-		7F38FB9C15709FB200AEEE65 /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
-		7F38FB9D15709FB200AEEE65 /* Pokedex.plist_backup_3-14 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Pokedex.plist_backup_3-14"; sourceTree = "<group>"; };
 		7F38FD7315709FF600AEEE65 /* CNAH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNAH.png; sourceTree = "<group>"; };
 		7F38FD7415709FF600AEEE65 /* CNBJ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNBJ.png; sourceTree = "<group>"; };
 		7F38FD7515709FF600AEEE65 /* CNCQ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CNCQ.png; sourceTree = "<group>"; };
@@ -2286,6 +2272,25 @@
 		7FB13530153B14EE00975CB5 /* AudioGameUseMedicine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameUseMedicine.mp3; sourceTree = "<group>"; };
 		7FB13531153B14EE00975CB5 /* AudioGameERROR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameERROR.mp3; sourceTree = "<group>"; };
 		7FB13532153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioMoveBasicAttack.mp3; sourceTree = "<group>"; };
+		7FB3A05016B3DBCC00EC3BDF /* BagBattleItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBattleItems.plist; sourceTree = "<group>"; };
+		7FB3A05116B3DBCC00EC3BDF /* BagBerries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagBerries.plist; sourceTree = "<group>"; };
+		7FB3A05216B3DBCC00EC3BDF /* BagItems-Evolution.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BagItems-Evolution.plist"; sourceTree = "<group>"; };
+		7FB3A05316B3DBCC00EC3BDF /* BagItems-Misc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BagItems-Misc.plist"; sourceTree = "<group>"; };
+		7FB3A05416B3DBCC00EC3BDF /* BagItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagItems.plist; sourceTree = "<group>"; };
+		7FB3A05516B3DBCC00EC3BDF /* BagKeyItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagKeyItems.plist; sourceTree = "<group>"; };
+		7FB3A05616B3DBCC00EC3BDF /* BagMail.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMail.plist; sourceTree = "<group>"; };
+		7FB3A05716B3DBCC00EC3BDF /* BagMedicine.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagMedicine.plist; sourceTree = "<group>"; };
+		7FB3A05816B3DBCC00EC3BDF /* BagPokeballs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagPokeballs.plist; sourceTree = "<group>"; };
+		7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagTMsHMs.plist; sourceTree = "<group>"; };
+		7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameSettingOptions.plist; sourceTree = "<group>"; };
+		7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
+		7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Moves.plist_backup; sourceTree = "<group>"; };
+		7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
+		7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Pokedex.plist_backup_3-14"; sourceTree = "<group>"; };
+		7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSprite.png; sourceTree = "<group>"; };
+		7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteBack.png; sourceTree = "<group>"; };
+		7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteIcon.png; sourceTree = "<group>"; };
+		7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
 		7FB4128C1529C979003F41F0 /* TrainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerController.h; sourceTree = "<group>"; };
 		7FB4128D1529C979003F41F0 /* TrainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerController.m; sourceTree = "<group>"; };
 		7FB412931529CC98003F41F0 /* WildPokemonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildPokemonController.h; sourceTree = "<group>"; };
@@ -2298,8 +2303,6 @@
 		7FB412AB152A02F0003F41F0 /* IconBadgeSilver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBadgeSilver@2x.png"; sourceTree = "<group>"; };
 		7FB412B2152A0469003F41F0 /* TrainerBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerBadgeView.h; sourceTree = "<group>"; };
 		7FB412B3152A0469003F41F0 /* TrainerBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerBadgeView.m; sourceTree = "<group>"; };
-		7FB734E6154251A500027EE2 /* TrainerAvatarDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainerAvatarDefault.png; sourceTree = "<group>"; };
-		7FB734E7154251A500027EE2 /* TrainerAvatarDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrainerAvatarDefault@2x.png"; sourceTree = "<group>"; };
 		7FB764441509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsViewController.h; sourceTree = "<group>"; };
 		7FB764451509DFD9008A9AA1 /* GameMenuSixPokemonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMenuSixPokemonsViewController.m; sourceTree = "<group>"; };
 		7FB7644B1509EC69008A9AA1 /* GameMenuSixPokemonsUnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMenuSixPokemonsUnitViewController.h; sourceTree = "<group>"; };
@@ -2354,7 +2357,6 @@
 		7FD60DDC16B1233A008258DE /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		7FD60DDE16B1233A008258DE /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		7FD60DDF16B1233A008258DE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
-		7FD60E0016B13902008258DE /* iPokeMon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iPokeMon.sqlite; sourceTree = "<group>"; };
 		7FD60E0216B15344008258DE /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		7FD60E0316B15345008258DE /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
@@ -2546,7 +2548,6 @@
 		7F2FA45214ECDDA90077C4E0 /* db */ = {
 			isa = PBXGroup;
 			children = (
-				7FD60E0016B13902008258DE /* iPokeMon.sqlite */,
 			);
 			path = db;
 			sourceTree = "<group>";
@@ -3036,28 +3037,6 @@
 			path = PMSpriteBack;
 			sourceTree = "<group>";
 		};
-		7F38FB8E15709FB100AEEE65 /* tmp_plists */ = {
-			isa = PBXGroup;
-			children = (
-				7F38FB8F15709FB200AEEE65 /* BagBattleItems.plist */,
-				7F38FB9015709FB200AEEE65 /* BagBerries.plist */,
-				7F38FB9115709FB200AEEE65 /* BagItems-Evolution.plist */,
-				7F38FB9215709FB200AEEE65 /* BagItems-Misc.plist */,
-				7F38FB9315709FB200AEEE65 /* BagItems.plist */,
-				7F38FB9415709FB200AEEE65 /* BagKeyItems.plist */,
-				7F38FB9515709FB200AEEE65 /* BagMail.plist */,
-				7F38FB9615709FB200AEEE65 /* BagMedicine.plist */,
-				7F38FB9715709FB200AEEE65 /* BagPokeballs.plist */,
-				7F38FB9815709FB200AEEE65 /* BagTMsHMs.plist */,
-				7F38FB9915709FB200AEEE65 /* GameSettingOptions.plist */,
-				7F38FB9A15709FB200AEEE65 /* Moves.plist */,
-				7F38FB9B15709FB200AEEE65 /* Moves.plist_backup */,
-				7F38FB9C15709FB200AEEE65 /* Pokedex.plist */,
-				7F38FB9D15709FB200AEEE65 /* Pokedex.plist_backup_3-14 */,
-			);
-			path = tmp_plists;
-			sourceTree = "<group>";
-		};
 		7F38FD7215709FF600AEEE65 /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
@@ -3412,6 +3391,7 @@
 				7F2C092C1553617E00118B00 /* Icon.png */,
 				7F2C092D1553617E00118B00 /* Icon@2x.png */,
 				7F2C092E1553617E00118B00 /* iTunesArtwork */,
+				7FB3A04F16B3DBCB00EC3BDF /* PropertyLists */,
 				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2FA45214ECDDA90077C4E0 /* db */,
 				7F2EFB6D14DE48440068F681 /* PLists */,
@@ -3424,8 +3404,10 @@
 		7F6E6CF314D6CB9800033C65 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7FB734E6154251A500027EE2 /* TrainerAvatarDefault.png */,
-				7FB734E7154251A500027EE2 /* TrainerAvatarDefault@2x.png */,
+				7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */,
+				7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */,
+				7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */,
+				7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */,
 				7FA1D86A15035DC700E0D2F6 /* Icons */,
 				7F7EF3DB153FFCC30061D82E /* TableView */,
 				7FEAE80214FD00DC003679C1 /* MainView */,
@@ -4182,6 +4164,28 @@
 			path = ZJ;
 			sourceTree = "<group>";
 		};
+		7FB3A04F16B3DBCB00EC3BDF /* PropertyLists */ = {
+			isa = PBXGroup;
+			children = (
+				7FB3A05016B3DBCC00EC3BDF /* BagBattleItems.plist */,
+				7FB3A05116B3DBCC00EC3BDF /* BagBerries.plist */,
+				7FB3A05216B3DBCC00EC3BDF /* BagItems-Evolution.plist */,
+				7FB3A05316B3DBCC00EC3BDF /* BagItems-Misc.plist */,
+				7FB3A05416B3DBCC00EC3BDF /* BagItems.plist */,
+				7FB3A05516B3DBCC00EC3BDF /* BagKeyItems.plist */,
+				7FB3A05616B3DBCC00EC3BDF /* BagMail.plist */,
+				7FB3A05716B3DBCC00EC3BDF /* BagMedicine.plist */,
+				7FB3A05816B3DBCC00EC3BDF /* BagPokeballs.plist */,
+				7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */,
+				7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */,
+				7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */,
+				7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */,
+				7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */,
+				7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */,
+			);
+			path = PropertyLists;
+			sourceTree = "<group>";
+		};
 		7FC127FF1504C24400E2A8F7 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4309,7 +4313,6 @@
 			children = (
 				7F4D76B516AE97EE00292CFB /* README.md */,
 				7F38F9C515709FB100AEEE65 /* tmp_imgs */,
-				7F38FB8E15709FB100AEEE65 /* tmp_plists */,
 			);
 			path = Pokemon_tmp_files;
 			sourceTree = "<group>";
@@ -4600,8 +4603,6 @@
 				7F0BD9E01541CE1800C2CABA /* IconBagItemToss@2x.png in Resources */,
 				7F0BD9E11541CE1800C2CABA /* IconBagItemUse.png in Resources */,
 				7F0BD9E21541CE1800C2CABA /* IconBagItemUse@2x.png in Resources */,
-				7FB734E8154251A500027EE2 /* TrainerAvatarDefault.png in Resources */,
-				7FB734E9154251A500027EE2 /* TrainerAvatarDefault@2x.png in Resources */,
 				7FDF10E91543F5580052DDF9 /* GameBattleScenePMPoint-hd.png in Resources */,
 				7FA22CA0154BFAF6007E2339 /* FeedbackTextFieldBackground.png in Resources */,
 				7FA22CA1154BFAF6007E2339 /* FeedbackTextFieldBackground@2x.png in Resources */,
@@ -5105,21 +5106,6 @@
 				7F38FD6015709FB200AEEE65 /* PMSpriteBack_97.png in Resources */,
 				7F38FD6115709FB200AEEE65 /* PMSpriteBack_98.png in Resources */,
 				7F38FD6215709FB200AEEE65 /* PMSpriteBack_99.png in Resources */,
-				7F38FD6315709FB200AEEE65 /* BagBattleItems.plist in Resources */,
-				7F38FD6415709FB200AEEE65 /* BagBerries.plist in Resources */,
-				7F38FD6515709FB200AEEE65 /* BagItems-Evolution.plist in Resources */,
-				7F38FD6615709FB200AEEE65 /* BagItems-Misc.plist in Resources */,
-				7F38FD6715709FB200AEEE65 /* BagItems.plist in Resources */,
-				7F38FD6815709FB200AEEE65 /* BagKeyItems.plist in Resources */,
-				7F38FD6915709FB200AEEE65 /* BagMail.plist in Resources */,
-				7F38FD6A15709FB200AEEE65 /* BagMedicine.plist in Resources */,
-				7F38FD6B15709FB200AEEE65 /* BagPokeballs.plist in Resources */,
-				7F38FD6C15709FB200AEEE65 /* BagTMsHMs.plist in Resources */,
-				7F38FD6D15709FB200AEEE65 /* GameSettingOptions.plist in Resources */,
-				7F38FD6E15709FB200AEEE65 /* Moves.plist in Resources */,
-				7F38FD6F15709FB200AEEE65 /* Moves.plist_backup in Resources */,
-				7F38FD7015709FB200AEEE65 /* Pokedex.plist in Resources */,
-				7F38FD7115709FB200AEEE65 /* Pokedex.plist_backup_3-14 in Resources */,
 				7F38FD9415709FF600AEEE65 /* CNAH.png in Resources */,
 				7F38FD9515709FF600AEEE65 /* CNBJ.png in Resources */,
 				7F38FD9615709FF600AEEE65 /* CNCQ.png in Resources */,
@@ -5172,7 +5158,25 @@
 				7F56996016A8E33F0045EA23 /* README.md in Resources */,
 				7F56996116A8E33F0045EA23 /* release_notes.md in Resources */,
 				7F4D76B616AE97EE00292CFB /* README.md in Resources */,
-				7FD60E0116B13902008258DE /* iPokeMon.sqlite in Resources */,
+				7FB3A05F16B3DBCC00EC3BDF /* BagBattleItems.plist in Resources */,
+				7FB3A06016B3DBCC00EC3BDF /* BagBerries.plist in Resources */,
+				7FB3A06116B3DBCC00EC3BDF /* BagItems-Evolution.plist in Resources */,
+				7FB3A06216B3DBCC00EC3BDF /* BagItems-Misc.plist in Resources */,
+				7FB3A06316B3DBCC00EC3BDF /* BagItems.plist in Resources */,
+				7FB3A06416B3DBCC00EC3BDF /* BagKeyItems.plist in Resources */,
+				7FB3A06516B3DBCC00EC3BDF /* BagMail.plist in Resources */,
+				7FB3A06616B3DBCC00EC3BDF /* BagMedicine.plist in Resources */,
+				7FB3A06716B3DBCC00EC3BDF /* BagPokeballs.plist in Resources */,
+				7FB3A06816B3DBCC00EC3BDF /* BagTMsHMs.plist in Resources */,
+				7FB3A06916B3DBCC00EC3BDF /* GameSettingOptions.plist in Resources */,
+				7FB3A06A16B3DBCC00EC3BDF /* Moves.plist in Resources */,
+				7FB3A06B16B3DBCC00EC3BDF /* Moves.plist_backup in Resources */,
+				7FB3A06C16B3DBCC00EC3BDF /* Pokedex.plist in Resources */,
+				7FB3A06D16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 in Resources */,
+				7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */,
+				7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */,
+				7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */,
+				7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

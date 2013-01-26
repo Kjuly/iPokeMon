@@ -22,6 +22,11 @@
 #import "BagBattleItem.h"
 #import "BagKeyItem.h"
 
+
+#define kDefaultSpriteIcon_ @"DefaultSpriteIcon.png"
+#define kDefaultSprite_     @"DefaultSprite.png"
+#define kDefaultSpriteBack_ @"DefaultSpriteBack.png"
+
 typedef enum {
   kEntityTypePokemon       = 1 << 0,
   kEntityTypeMove          = 1 << 1,
@@ -192,10 +197,15 @@ typedef enum {
       pokemon.imageBack = [UIImage imageWithContentsOfFile:extra[@"imageBack"]];
     }
     else {
-      pokemon.image     = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", index]];
-      pokemon.imageBack = [UIImage imageNamed:[NSString stringWithFormat:@"PMSpriteBack_%.3d.png", index]];
-      pokemon.imageIcon = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", index - 1]];
+      pokemon.imageIcon = [UIImage imageNamed:kDefaultSpriteIcon_];
+      pokemon.image     = [UIImage imageNamed:kDefaultSprite_];
+      pokemon.imageBack = [UIImage imageNamed:kDefaultSpriteBack_];
     }
+//    else {
+//      pokemon.imageIcon = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", index]];
+//      pokemon.image     = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", index]];
+//      pokemon.imageBack = [UIImage imageNamed:[NSString stringWithFormat:@"PMSpriteBack_%.3d.png", index]];
+//    }
     pokemon.type1         = [dataDict objectForKey:@"type1"];
     pokemon.type2         = [dataDict objectForKey:@"type2"];
     pokemon.species       = [dataDict objectForKey:@"species"];
