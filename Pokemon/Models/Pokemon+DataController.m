@@ -41,7 +41,7 @@
   [fetchRequest release];
   
   // Set Data
-  NSArray * pokedex = [PListParser pokedex];
+  NSArray * pokedex = [PListParser pokedexInBundle:[NSBundle mainBundle]];
   
   int i = 0;
   for (Pokemon * pokemon in pokemons) {

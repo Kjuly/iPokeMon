@@ -10,7 +10,8 @@
 
 @interface OriginalDataManager : NSObject
 
-+ (void)initData;
+// Update data with resource bundle
+// If the bundle is not offered, use main bundle and init the data
 + (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle;
 
 @end

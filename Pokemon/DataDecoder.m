@@ -62,11 +62,11 @@ const NSRange kRangePokemonName = {0, 4};
   return [hexArray autorelease];
 }
 
-// Decode Binary Data for Pokedex
+/*/ Decode Binary Data for Pokedex
 + (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary {
   NSMutableArray * pokedex = [NSMutableArray arrayWithArray:[PListParser pokedex]];
   return pokedex;
-}
+}*/
 
 // Decode data for Pokedex
 + (NSMutableArray *)decodePokedexFromHex:(NSString *)dataInHex
@@ -79,7 +79,7 @@ const NSRange kRangePokemonName = {0, 4};
   return [resultArray autorelease];
 }
 
-// Decode Name form HEX
+/*/ Decode Name form HEX
 + (NSString *)decodeNameFromHex:(NSString *)dataInHex
 {
   // Decode the Pokemon ID form HEX
@@ -93,6 +93,6 @@ const NSRange kRangePokemonName = {0, 4};
   NSString * pokemonName = [NSString stringWithString:[[pokedex objectAtIndex:pokemonID] objectForKey:@"name"]];
   
   return pokemonName;
-}
+}*/
 
 @end

@@ -153,7 +153,7 @@
   if (self = [super init]) {
 #ifdef KY_POPULATE_COREDATA
     // Hard Initialize the Core Data
-    [OriginalDataManager initData];
+    [OriginalDataManager updateDataWithResourceBundle:nil];
 #endif
     // Base iVar Settings
     centerMainButtonStatus_        = kCenterMainButtonStatusNormal;

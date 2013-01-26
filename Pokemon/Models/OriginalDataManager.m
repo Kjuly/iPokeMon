@@ -38,134 +38,164 @@ typedef enum {
 
 @interface OriginalDataManager ()
   
-+ (void)_initDataForEntityWithType:(EntityType)type;
++ (void)_updateDataForEntityWithType:(EntityType)type
+                              bundle:(NSBundle *)bundle
+                              isInit:(BOOL)isInit;
 + (void)_setDataForEntity:(id)entity
                  withType:(EntityType)type
                  dataDict:(NSDictionary *)dataDict
-                    index:(NSInteger)index;
-+ (NSString *)_pathForPropertyList:(NSString *)propertyList
-                          inBundle:(NSBundle *)bundle;
+                    index:(NSInteger)index
+                    extra:(NSDictionary *)extra;
 
 @end
 
 
 @implementation OriginalDataManager
 
-// Init data for Pokemon, Move, BagXXX, etc.
-+ (void)initData {
+// Update data with resource bundle
+// If the bundle is not offered, use main bundle and init the data
++ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle {
+  BOOL isInit = NO;
+  if (bundle == nil) {
+    NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
+    bundle = [NSBundle mainBundle];
+    isInit = YES;
+  }
+  else NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
   // Pokemon
-  [self _initDataForEntityWithType:kEntityTypePokemon];
+  [self _updateDataForEntityWithType:kEntityTypePokemon       bundle:bundle isInit:isInit];
   
   // Move
-  [self _initDataForEntityWithType:kEntityTypeMove];
-  
-  // BagXXXs
-  [self _initDataForEntityWithType:kEntityTypeBagItem];
-  [self _initDataForEntityWithType:kEntityTypeBagMedicine];
-  [self _initDataForEntityWithType:kEntityTypeBagPokeball];
-  [self _initDataForEntityWithType:kEntityTypeBagTMHM];
-  [self _initDataForEntityWithType:kEntityTypeBagBerry];
-  [self _initDataForEntityWithType:kEntityTypeBagMail];
-  [self _initDataForEntityWithType:kEntityTypeBagBattleItem];
-  [self _initDataForEntityWithType:kEntityTypeBagKeyItem];
-}
+  [self _updateDataForEntityWithType:kEntityTypeMove          bundle:bundle isInit:isInit];
 
-// Update data with resource bundle
-+ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle {
-  NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
-  NSArray * pathsOfSpriteIcon = [bundle pathsForResourcesOfType:@"png" inDirectory:@"Images/SpriteIcon"];
-  NSArray * pathsOfSprite     = [bundle pathsForResourcesOfType:@"png" inDirectory:@"Images/Sprite"];
-  NSArray * pathsOfSpriteBack = [bundle pathsForResourcesOfType:@"png" inDirectory:@"Images/SpriteBack"];
-  NSLog(@"|pathsOfSpriteIcon|:%d, |pathsOfSprite|:%d, |pathsOfSpriteBack|:%d",
-        [pathsOfSpriteIcon count], [pathsOfSprite count], [pathsOfSpriteBack count]);
-  NSString * pathOfPokedexList        = [self _pathForPropertyList:@"Pokedex" inBundle:bundle];
-  NSString * pathOfMovesList          = [self _pathForPropertyList:@"Moves" inBundle:bundle];
-  NSString * pathOfBagItemsList       = [self _pathForPropertyList:@"BagItems" inBundle:bundle];
-  NSString * pathOfBagMedicineList    = [self _pathForPropertyList:@"BagMedicine" inBundle:bundle];
-  NSString * pathOfBagPokeballsList   = [self _pathForPropertyList:@"BagPokeballs" inBundle:bundle];
-  NSString * pathOfBagTMsHMsList      = [self _pathForPropertyList:@"BagTMsHMs" inBundle:bundle];
-  NSString * pathOfBagBerriesList     = [self _pathForPropertyList:@"BagBerries" inBundle:bundle];
-  NSString * pathOfBagMailList        = [self _pathForPropertyList:@"BagMail" inBundle:bundle];
-  NSString * pathOfBagBattleItemsList = [self _pathForPropertyList:@"BagBattleItems" inBundle:bundle];
-  NSString * pathOfBagKeyItemsList    = [self _pathForPropertyList:@"BagKeyItems" inBundle:bundle];
+  // BagXXXs
+  [self _updateDataForEntityWithType:kEntityTypeBagItem       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagMedicine   bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagPokeball   bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagTMHM       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagBerry      bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagMail       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagBattleItem bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithType:kEntityTypeBagKeyItem    bundle:bundle isInit:isInit];
   return YES;
 }
 
 #pragma mark - Private Methods
 
-+ (void)_initDataForEntityWithType:(EntityType)type {
++ (void)_updateDataForEntityWithType:(EntityType)type
+                              bundle:(NSBundle *)bundle
+                              isInit:(BOOL)isInit {
   NSArray * itemList;
   NSString * entityName;
   if (type & kEntityTypePokemon) {
-    itemList = [PListParser pokedex];
+    itemList = [PListParser pokedexInBundle:bundle];
     entityName = NSStringFromClass([Pokemon class]);
   }
   else if (type & kEntityTypeMove) {
-    itemList = [PListParser moves];
+    itemList = [PListParser movesInBundle:bundle];
     entityName = NSStringFromClass([Move class]);
   }
   else if (type & kEntityTypeBagItem) {
-    itemList = [PListParser bagItems];
+    itemList = [PListParser bagItemsInBundle:bundle];
     entityName = NSStringFromClass([BagItem class]);
   }
   else if (type & kEntityTypeBagMedicine) {
-    itemList   = [PListParser bagMedicine];
+    itemList   = [PListParser bagMedicineInBundle:bundle];
     entityName = NSStringFromClass([BagMedicine class]);
   }
   else if (type & kEntityTypeBagPokeball) {
-    itemList   = [PListParser bagPokeballs];
+    itemList   = [PListParser bagPokeballsInBundle:bundle];
     entityName = NSStringFromClass([BagPokeball class]);
   }
   else if (type & kEntityTypeBagTMHM) {
-    itemList   = [PListParser bagTMsHMs];
+    itemList   = [PListParser bagTMsHMsInBundle:bundle];
     entityName = NSStringFromClass([BagTMHM class]);
   }
   else if (type & kEntityTypeBagBerry) {
-    itemList   = [PListParser bagBerries];
+    itemList   = [PListParser bagBerriesInBundle:bundle];
     entityName = NSStringFromClass([BagBerry class]);
   }
   else if (type & kEntityTypeBagMail) {
-    itemList   = [PListParser bagMail];
+    itemList   = [PListParser bagMailInBundle:bundle];
     entityName = NSStringFromClass([BagMail class]);
   }
   else if (type & kEntityTypeBagBattleItem) {
-    itemList   = [PListParser bagBattleItems];
+    itemList   = [PListParser bagBattleItemsInBundle:bundle];
     entityName = NSStringFromClass([BagBattleItem class]);
   }
   else if (type & kEntityTypeBagKeyItem) {
-    itemList   = [PListParser bagKeyItems];
+    itemList   = [PListParser bagKeyItemsInBundle:bundle];
     entityName = NSStringFromClass([BagKeyItem class]);
   }
   else return;
   
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-  NSInteger i = 0;
-  for (NSDictionary * itemDict in itemList) {
-    id entity = [NSEntityDescription insertNewObjectForEntityForName:entityName
-                                              inManagedObjectContext:managedObjectContext];
-    [self _setDataForEntity:entity withType:type dataDict:itemDict index:++i];
-    itemDict = nil;
-    entity   = nil;
-  }
-  itemList = nil;
-  
   NSError * error = nil;
+  id entity;
+  NSInteger i = 0;
+  // Init data
+  if (isInit) {
+    for (NSDictionary * itemDict in itemList) {
+      entity = [NSEntityDescription insertNewObjectForEntityForName:entityName
+                                             inManagedObjectContext:managedObjectContext];
+      [self _setDataForEntity:entity withType:type dataDict:itemDict index:++i extra:nil];
+    }
+  }
+  // Update data
+  else {
+    entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext];
+    NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"sid" ascending:YES]]];
+    NSArray * entities = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
+    
+    NSArray * pathOfImageIcons, * pathOfImages, * pathOfImageBacks;
+    // Prepare extra data for special type
+    if (type & kEntityTypePokemon) {
+      pathOfImageIcons = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSpriteIcon];
+      pathOfImages     = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSprite];
+      pathOfImageBacks = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSpriteBack];
+    }
+    NSDictionary * extra = nil;
+    for (NSDictionary * itemDict in itemList) {
+      // Set extra data for special type
+      if (type & kEntityTypePokemon)
+        extra = @{@"imageIcon" : [pathOfImageIcons objectAtIndex:i],
+                  @"image"     : [pathOfImages     objectAtIndex:i],
+                  @"imageBack" : [pathOfImageBacks objectAtIndex:i]};
+      else extra = nil;
+      [self _setDataForEntity:[entities objectAtIndex:i++]
+                     withType:type
+                     dataDict:itemDict
+                        index:0
+                        extra:extra];
+    }
+  }
   if (! [managedObjectContext save:&error])
-    NSLog(@"!!! Couldn't save data to %@", entityName);
+    NSLog(@"!!! Couldn't save data to %@, ERROR:%@", entityName, [error description]);
 }
 
 // Set data for entity
 + (void)_setDataForEntity:(id)entity
                  withType:(EntityType)type
                  dataDict:(NSDictionary *)dataDict
-                    index:(NSInteger)index {
+                    index:(NSInteger)index
+                    extra:(NSDictionary *)extra {
   if (type & kEntityTypePokemon) {
     Pokemon * pokemon = entity;
-    pokemon.sid           = [NSNumber numberWithInt:index];
-    pokemon.image         = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", index]];
-    pokemon.imageBack     = [UIImage imageNamed:[NSString stringWithFormat:@"PMSpriteBack_%d.png", index]];
-    pokemon.imageIcon     = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", index - 1]];
+    if (index) pokemon.sid = [NSNumber numberWithInt:index];
+    if (extra) {
+      pokemon.imageIcon = [UIImage imageWithContentsOfFile:extra[@"imageIcon"]];
+      pokemon.image     = [UIImage imageWithContentsOfFile:extra[@"image"]];
+      pokemon.imageBack = [UIImage imageWithContentsOfFile:extra[@"imageBack"]];
+    }
+    else {
+      pokemon.image     = [UIImage imageNamed:[NSString stringWithFormat:@"%.3d.png", index]];
+      pokemon.imageBack = [UIImage imageNamed:[NSString stringWithFormat:@"PMSpriteBack_%.3d.png", index]];
+      pokemon.imageIcon = [UIImage imageNamed:[NSString stringWithFormat:@"PMIcon_%.3d.png", index - 1]];
+    }
     pokemon.type1         = [dataDict objectForKey:@"type1"];
     pokemon.type2         = [dataDict objectForKey:@"type2"];
     pokemon.species       = [dataDict objectForKey:@"species"];
@@ -193,7 +223,7 @@ typedef enum {
   }
   else if (type & kEntityTypeMove) {
     Move * move = entity;
-    move.sid                    = [NSNumber numberWithInt:index];
+    if (index) move.sid = [NSNumber numberWithInt:index];
     move.type                   = [dataDict objectForKey:@"type"];
     move.category               = [dataDict objectForKey:@"category"];
     //move.contestType            = [dataDict objectForKey:@"contestType"];
@@ -210,7 +240,7 @@ typedef enum {
   else if (type & kEntityTypeBagItem) {
     BagItem * bagItem = entity;
     //((BagItem *)entity).icon = ;
-    bagItem.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagItem.sid = [dataDict objectForKey:@"sid"];
     bagItem.type     = [dataDict objectForKey:@"type"];
     bagItem.code     = [dataDict objectForKey:@"code"];
     bagItem.price    = [dataDict objectForKey:@"price"];
@@ -220,7 +250,7 @@ typedef enum {
   else if (type & kEntityTypeBagMedicine) {
     BagMedicine * bagMedicine = entity;
     //((BagMedicine *)entity).icon = ;
-    bagMedicine.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagMedicine.sid = [dataDict objectForKey:@"sid"];
     bagMedicine.type     = [dataDict objectForKey:@"type"];
     bagMedicine.code     = [dataDict objectForKey:@"code"];
     bagMedicine.price    = [dataDict objectForKey:@"price"];
@@ -230,7 +260,7 @@ typedef enum {
   else if (type & kEntityTypeBagPokeball) {
     BagPokeball * bagPokeball = entity;
     //((BagPokeball *)entity).icon = ;
-    bagPokeball.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagPokeball.sid = [dataDict objectForKey:@"sid"];
     bagPokeball.type     = [dataDict objectForKey:@"type"];
     bagPokeball.code     = [dataDict objectForKey:@"code"];
     bagPokeball.price    = [dataDict objectForKey:@"price"];
@@ -242,7 +272,7 @@ typedef enum {
   else if (type & kEntityTypeBagBerry) {
     BagBerry * bagBerry = entity;
     //((BagBerry *)entity).icon = ;
-    bagBerry.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagBerry.sid = [dataDict objectForKey:@"sid"];
     bagBerry.type     = [dataDict objectForKey:@"type"];
     bagBerry.code     = [dataDict objectForKey:@"code"];
     bagBerry.location = [dataDict objectForKey:@"location"];
@@ -253,31 +283,21 @@ typedef enum {
   else if (type & kEntityTypeBagBattleItem) {
     BagBattleItem * bagBattleItem = entity;
     //((BagBattleItem *)entity).icon = ;
-    bagBattleItem.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagBattleItem.sid = [dataDict objectForKey:@"sid"];
     bagBattleItem.type     = [dataDict objectForKey:@"type"];
     bagBattleItem.code     = [dataDict objectForKey:@"code"];
     bagBattleItem.price    = [dataDict objectForKey:@"price"];
     bagBattleItem.location = [dataDict objectForKey:@"location"];
-    bagBattleItem = nil;
   }
   else if (type & kEntityTypeBagKeyItem) {
     BagKeyItem * bagKeyItem = entity;
     //((BagBattleItem *)entity).icon = ;
-    bagKeyItem.sid      = [dataDict objectForKey:@"sid"];
+    if (index) bagKeyItem.sid = [dataDict objectForKey:@"sid"];
     bagKeyItem.type     = [dataDict objectForKey:@"type"];
     bagKeyItem.code     = [dataDict objectForKey:@"code"];
     bagKeyItem.location = [dataDict objectForKey:@"location"];
-    bagKeyItem = nil;
   }
   else return;
-}
-
-// Return the path for property list in bundle
-+ (NSString *)_pathForPropertyList:(NSString *)propertyList
-                          inBundle:(NSBundle *)bundle {
-  return [bundle pathForResource:propertyList
-                          ofType:@"plist"
-                     inDirectory:@"PropertyLists"];
 }
 
 @end

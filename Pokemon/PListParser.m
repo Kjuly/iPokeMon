@@ -10,21 +10,25 @@
 
 @implementation PListParser
 
-+ (NSString *)getFilePath:(NSString *)fileName {
-  return [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
++ (NSString *)_pathOfPropertyList:(NSString *)propertyList
+                         inBundle:(NSBundle *)bundle {
+  return [bundle pathForResource:propertyList
+                          ofType:@"plist"
+                     inDirectory:kBundleDirectoryOfPropertyList];
 }
 
 #pragma mark - Pokedex
 
 // Get All Pokemons as an Array for Pokedex
-+ (NSArray *)pokedex {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"Pokedex"]];
++ (NSArray *)pokedexInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"Pokedex"
+                                                           inBundle:bundle]];
 }
 
 // Get Pokemons that User Brought
 + (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID
 {
-  NSArray * pokedex = [self pokedex];
+  NSArray * pokedex = [self pokedexInBundle:[NSBundle mainBundle]];
   NSMutableArray * sixPokemons = [[NSMutableArray alloc] init];
   for (int i = 0; i < [sixPokemonsID count]; ++i) {
     NSInteger pokemonID = [[sixPokemonsID objectAtIndex:i] intValue] >> 4;
@@ -36,7 +40,7 @@
 
 // Get Info for One Pokemon
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID {
-  return [[self pokedex] objectAtIndex:pokemonID];
+  return [[self pokedexInBundle:[NSBundle mainBundle]] objectAtIndex:pokemonID];
 }
 
 // Get All Pokemon Photo as an Array for Pokedex
@@ -115,48 +119,48 @@
 
 #pragma mark - Moves & Ability
 
-+ (NSArray *)moves {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"Moves"]];
++ (NSArray *)movesInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"Moves" inBundle:bundle]];
 }
 
 #pragma mark - Bag[Item]
 
-+ (NSArray *)bagItems {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagItems"]];
++ (NSArray *)bagItemsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagItems" inBundle:bundle]];
 }
 
-+ (NSArray *)bagMedicine {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagMedicine"]];
++ (NSArray *)bagMedicineInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagMedicine" inBundle:bundle]];
 }
 
-+ (NSArray *)bagPokeballs {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagPokeballs"]];
++ (NSArray *)bagPokeballsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagPokeballs" inBundle:bundle]];
 }
 
-+ (NSArray *)bagTMsHMs {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagTMsHMs"]];
++ (NSArray *)bagTMsHMsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagTMsHMs" inBundle:bundle]];
 }
 
-+ (NSArray *)bagBerries {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagBerries"]];
++ (NSArray *)bagBerriesInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagBerries" inBundle:bundle]];
 }
 
-+ (NSArray *)bagMail {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagMail"]];
++ (NSArray *)bagMailInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagMail" inBundle:bundle]];
 }
 
-+ (NSArray *)bagBattleItems {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagBattleItems"]];
++ (NSArray *)bagBattleItemsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagBattleItems" inBundle:bundle]];
 }
 
-+ (NSArray *)bagKeyItems {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"BagKeyItems"]];
++ (NSArray *)bagKeyItemsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"BagKeyItems" inBundle:bundle]];
 }
 
 #pragma mark - Game Setting Options
 
-+ (NSArray *)gameSettingOptions {
-  return [NSArray arrayWithContentsOfFile:[self getFilePath:@"GameSettingOptions"]];
++ (NSArray *)gameSettingOptionsInBundle:(NSBundle *)bundle {
+  return [NSArray arrayWithContentsOfFile:[self _pathOfPropertyList:@"GameSettingOptions" inBundle:bundle]];
 }
 
 @end

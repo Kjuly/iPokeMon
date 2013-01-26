@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#define kBundleDirectoryOfImageSpriteIcon @"Images/SpriteIcon"
+#define kBundleDirectoryOfImageSprite     @"Images/Sprite"
+#define kBundleDirectoryOfImageSpriteBack @"Images/SpriteBack"
+#define kBundleDirectoryOfPropertyList    @"PropertyLists"
+
 @interface PListParser : NSObject
 
 // Pokedex
-+ (NSArray *)pokedex;
++ (NSArray *)pokedexInBundle:(NSBundle *)bundle;
 + (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID;
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID;
 
@@ -20,19 +25,19 @@
 + (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence;
 
 // Moves & Ability
-+ (NSArray *)moves;
++ (NSArray *)movesInBundle:(NSBundle *)bundle;
 
 // Bag[Item]
-+ (NSArray *)bagItems;
-+ (NSArray *)bagMedicine;
-+ (NSArray *)bagPokeballs;
-+ (NSArray *)bagTMsHMs;
-+ (NSArray *)bagBerries;
-+ (NSArray *)bagMail;
-+ (NSArray *)bagBattleItems;
-+ (NSArray *)bagKeyItems;
++ (NSArray *)bagItemsInBundle:(NSBundle *)bundle;
++ (NSArray *)bagMedicineInBundle:(NSBundle *)bundle;
++ (NSArray *)bagPokeballsInBundle:(NSBundle *)bundle;
++ (NSArray *)bagTMsHMsInBundle:(NSBundle *)bundle;
++ (NSArray *)bagBerriesInBundle:(NSBundle *)bundle;
++ (NSArray *)bagMailInBundle:(NSBundle *)bundle;
++ (NSArray *)bagBattleItemsInBundle:(NSBundle *)bundle;
++ (NSArray *)bagKeyItemsInBundle:(NSBundle *)bundle;
 
 // GameSettingOptions
-+ (NSArray *)gameSettingOptions;
++ (NSArray *)gameSettingOptionsInBundle:(NSBundle *)bundle;
 
 @end

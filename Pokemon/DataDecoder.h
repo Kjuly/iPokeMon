@@ -12,9 +12,9 @@
 
 + (NSMutableArray *)generateHexArrayFrom:(NSString *)hexInString;
 
-+ (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary;
+//+ (NSMutableArray *)decodePokedexFromBinary:(NSString *)dataInBinary;
 + (NSMutableArray *)decodePokedexFromHex:(NSString *)dataInHex;
 
-+ (NSString *)decodeNameFromHex:(NSString *)dataInHex;
+//+ (NSString *)decodeNameFromHex:(NSString *)dataInHex;
 
 @end
