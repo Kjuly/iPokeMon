@@ -16,6 +16,7 @@
   #import <MobileCoreServices/MobileCoreServices.h>
   #import "Config.h"
   #import "Constants.h"
+  #import "ResourceManager.h"
 #endif
 
 //#ifndef DEBUG

@@ -113,8 +113,8 @@
                                type:(NSString *)type
                                  pp:(NSString *)pp
                         description:(NSString *)description {
-  [self.title setText:NSLocalizedString(name, nil)];
-  [self.type setText:NSLocalizedString(type, nil)];
+  [self.title setText:KYResourceLocalizedString(name, nil)];
+  [self.type setText:KYResourceLocalizedString(type, nil)];
   [self.pp setText:pp];
   CGFloat viewSize         = self.frame.size.width;
   CGFloat margin           = 50.f;
@@ -125,7 +125,7 @@
                                        descriptionWidth,
                                        labelHeight);
   [self.description setFrame:descriptionFrame];
-  [self.description setText:NSLocalizedString(description, nil)];
+  [self.description setText:KYResourceLocalizedString(description, nil)];
   [self.description sizeToFit];
 }
 

@@ -94,8 +94,8 @@
                          delegate:(id<PokemonMoveViewDelegate>)delegate
                               tag:(NSInteger)tag
                               odd:(BOOL)odd {
-  [self.name  setText:NSLocalizedString(name, nil)];
-  [self.type1 setText:NSLocalizedString(type, nil)];
+  [self.name  setText:KYLocalizedString(name, nil)];
+  [self.type1 setText:KYLocalizedString(type, nil)];
   [self.pp    setText:pp];
   
   self.delegate = delegate;

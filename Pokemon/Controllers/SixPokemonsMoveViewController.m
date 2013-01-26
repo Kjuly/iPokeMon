@@ -211,13 +211,13 @@
                                                           odd:YES];
   
   [self.moveDetailView.categoryLabelView.value setText:
-   NSLocalizedString(([NSString stringWithFormat:@"PMSMoveCategory%d", [move.category intValue]]), nil)];
+    KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMoveCategory%d", [move.category intValue]]), nil)];
   [self.moveDetailView.powerLabelView.value setText:
-   [[move.baseDamage stringValue] isEqualToString:@"0"] ? @"-" : [move.baseDamage stringValue]];
+    [[move.baseDamage stringValue] isEqualToString:@"0"] ? @"-" : [move.baseDamage stringValue]];
   [self.moveDetailView.accuracyLabelView.value setText:
-   [[move.hitChance stringValue] isEqualToString:@"0"] ? @"-" : [move.hitChance stringValue]];
+    [[move.hitChance stringValue] isEqualToString:@"0"] ? @"-" : [move.hitChance stringValue]];
   [self.moveDetailView.infoTextView setText:
-   NSLocalizedString(([NSString stringWithFormat:@"PMSMoveInfo%.3d", [move.sid intValue]]), nil)];
+    KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMoveInfo%.3d", [move.sid intValue]]), nil)];
   move = nil;
   
   [UIView transitionFromView:self.fourMovesView

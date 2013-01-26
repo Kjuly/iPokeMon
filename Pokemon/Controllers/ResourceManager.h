@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ResourceManager : NSObject
+@interface ResourceManager : NSObject {
+  NSBundle * bundle_;
+}
+
+@property (nonatomic, retain) NSBundle * bundle;
 
 + (ResourceManager *)sharedInstance;
+- (NSBundle *)bundle;
 
 @end

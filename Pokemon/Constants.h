@@ -43,6 +43,7 @@ extern NSString * const kUDKeyAboutVersion;            // version for App
 
 ///Extra UserDefaults
 extern NSString * const kUDKeyLastUsedServiceProvider; // last Service Provider used
+extern NSString * const kUDKeyResourceBundlePath;      // Resource bundle path
 ///END UserDefaults
 //////
 

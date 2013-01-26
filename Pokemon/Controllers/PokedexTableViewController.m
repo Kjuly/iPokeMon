@@ -10,6 +10,7 @@
 
 #import "NSString+Algorithm.h"
 #import "GlobalRender.h"
+#import "ResourceManager.h"
 #import "PokedexTableViewCell.h"
 #import "TrainerController.h"
 #import "PokemonDetailTabViewController.h"
@@ -201,9 +202,8 @@
 - (void)_configureCell:(PokedexTableViewCell *)cell
            atIndexPath:(NSIndexPath *)indexPath {
   Pokemon * pokemon = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  NSLog(@"~~~~~~~~~~~~~~indexPath.row:%d", indexPath.row);
-  NSLog(@"~~~~~~~~~~~~~~PM:%@", pokemon.sid);
-  [cell.labelTitle setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
+  [cell.labelTitle setText:
+    KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
   [cell.imageView setImage:pokemon.image];
 }
 

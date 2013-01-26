@@ -10,6 +10,13 @@
 
 @implementation ResourceManager
 
+@synthesize bundle = bundle_;
+
+- (void)dealloc {
+  self.bundle = nil;
+  [super dealloc];
+}
+
 // Singleton
 static ResourceManager * manager_;
 + (ResourceManager *)sharedInstance {
@@ -21,6 +28,18 @@ static ResourceManager * manager_;
     manager_ = [[ResourceManager alloc] init];
   });
   return manager_;
+}
+
+// Return resource bundle
+- (NSBundle *)bundle {
+  if (! bundle_) {
+    NSString * pathToResourceBundle =
+      [[NSUserDefaults standardUserDefaults] valueForKey:kUDKeyResourceBundlePath];
+    if (! pathToResourceBundle) return nil;
+    bundle_ = [[NSBundle alloc] initWithPath:pathToResourceBundle];
+    //[bundle_ load];
+  }
+  return bundle_;
 }
 
 @end

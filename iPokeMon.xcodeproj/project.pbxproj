@@ -970,7 +970,7 @@
 		7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */; };
 		7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */; };
 		7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */; };
-		7FB3A07716B3FFF500EC3BDF /* iPokeMon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07616B3FFF500EC3BDF /* iPokeMon.sqlite */; };
+		7FB3A07E16B40D9800EC3BDF /* iPokeMon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */; };
 		7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB4128D1529C979003F41F0 /* TrainerController.m */; };
 		7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412941529CC98003F41F0 /* WildPokemonController.m */; };
 		7FB412AC152A02F0003F41F0 /* IconBadgeBronze.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */; };
@@ -2292,7 +2292,7 @@
 		7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteBack.png; sourceTree = "<group>"; };
 		7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteIcon.png; sourceTree = "<group>"; };
 		7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
-		7FB3A07616B3FFF500EC3BDF /* iPokeMon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iPokeMon.sqlite; sourceTree = "<group>"; };
+		7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iPokeMon.sqlite; sourceTree = "<group>"; };
 		7FB4128C1529C979003F41F0 /* TrainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerController.h; sourceTree = "<group>"; };
 		7FB4128D1529C979003F41F0 /* TrainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerController.m; sourceTree = "<group>"; };
 		7FB412931529CC98003F41F0 /* WildPokemonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildPokemonController.h; sourceTree = "<group>"; };
@@ -2550,7 +2550,7 @@
 		7F2FA45214ECDDA90077C4E0 /* db */ = {
 			isa = PBXGroup;
 			children = (
-				7FB3A07616B3FFF500EC3BDF /* iPokeMon.sqlite */,
+				7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */,
 			);
 			path = db;
 			sourceTree = "<group>";
@@ -5180,7 +5180,7 @@
 				7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */,
 				7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */,
 				7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */,
-				7FB3A07716B3FFF500EC3BDF /* iPokeMon.sqlite in Resources */,
+				7FB3A07E16B40D9800EC3BDF /* iPokeMon.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

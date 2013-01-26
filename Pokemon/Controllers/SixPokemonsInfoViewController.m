@@ -87,11 +87,12 @@
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
   [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
-  NSString * types = NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [pokemonBaseInfo.type1 intValue]]), nil);
+  NSString * types =
+    KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [pokemonBaseInfo.type1 intValue]]), nil);
   if ([pokemonBaseInfo.type2 intValue])
     types = [types stringByAppendingString:[NSString stringWithFormat:@", %@",
-                                            NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
-                                                                [pokemonBaseInfo.type2 intValue]]), nil)]];
+                                            KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                                        [pokemonBaseInfo.type2 intValue]]), nil)]];
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
   [typeLabelView release];

@@ -89,7 +89,8 @@
                         delegate:(id<GameMenuMoveUnitViewDelegate>)delegate
                              tag:(NSInteger)tag {
   moveSID_ = SID;
-  NSString * localizedName = SID ? NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", SID]), nil) : @"- - -";
+  NSString * localizedName =
+    SID ? KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", SID]), nil) : @"- - -";
   if (! [self.moveButton.titleLabel.text isEqualToString:localizedName]) {
     CGFloat fontSize;
     if (localizedName.length <= 7)       fontSize = 12.f;
@@ -130,7 +131,7 @@
   else {
     [self.moveButton transitionToImage:nil
                                options:UIViewAnimationOptionTransitionCrossDissolve];
-    [self.moveButton setTitle:NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveSID_]), nil)
+    [self.moveButton setTitle:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveSID_]), nil)
                      forState:UIControlStateNormal];
   }
 }

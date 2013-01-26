@@ -188,10 +188,10 @@
  * Pokedex
  * */
 
-"PMSName001" = "Bulbasaur";
-"PMSName002" = "Ivysaur";
-"PMSName003" = "Venusaur";
-"PMSName004" = "Charmander";
+"PMSName001" = "B.9.r";
+"PMSName002" = "I.7.r";
+"PMSName003" = "V.8.r";
+"PMSName004" = "C.10.r";
 "PMSName005" = "Charmeleon";
 "PMSName006" = "Charizard";
 "PMSName007" = "Squirtle";

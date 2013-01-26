@@ -120,8 +120,8 @@
 
 - (void)prepareForNewScene {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
-  [self.pokemonName setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                                [playerPokemon.sid intValue]]), nil)];
+  [self.pokemonName setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                                        [playerPokemon.sid intValue]]), nil)];
   [self.pokemonGender setImage:
     [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [playerPokemon.gender intValue]]]];
   [self.pokemonLevel setText:[NSString stringWithFormat:@"Lv.%d", [playerPokemon.level intValue]]];

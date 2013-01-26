@@ -319,7 +319,7 @@
     price  = nil;
   }
   // Set the data for cell to display
-  [cell configureCellWithTitle:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemID]), nil)
+  [cell configureCellWithTitle:KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemID]), nil)
                          price:price
                           icon:nil];
   localizedNameHeader = nil;
@@ -518,8 +518,8 @@
   } else return;
   
   NSString * localizedNameHeader = [self localizedNameHeader];
-  NSString * name = NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil);
-  NSString * info = NSLocalizedString(([NSString stringWithFormat:@"%@Info%.3d", localizedNameHeader, entityID]), nil);
+  NSString * name = KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil);
+  NSString * info = KYResourceLocalizedString(([NSString stringWithFormat:@"%@Info%.3d", localizedNameHeader, entityID]), nil);
   
   [self.bagItemInfoViewController setDataWithName:name price:price info:info duringBattle:NO];
   [self.bagItemInfoViewController loadViewWithAnimation];

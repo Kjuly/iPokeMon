@@ -17,6 +17,22 @@
 #define kKYAppBundleDisplayName [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
 #define kKYAppBundleLocalizedName [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
 
+// KYResourceLocalizedString(,)
+//   Localized string for resource
+#define KYResourceLocalizedString(key, comment) \
+  [ResourceManager sharedInstance].bundle ? \
+  [[ResourceManager sharedInstance].bundle localizedStringForKey:(key) value:@"" table:@"KYLocalizable"] : \
+  NSLocalizedString(key, comment)
+// KYLocalizedStringFromTableInBundle(,,)
+#define KYLocalizedStringFromTableInBundle(key, bundle, comment) \
+  bundle ? [bundle localizedStringForKey:(key) value:@"" table:@"KYLocalizable"] : \
+  NSLocalizedString(key, comment)
+// KYLocalizedString(,)
+#define KYLocalizedString(key, comment) \
+  [[[NSBundle mainBundle] localizedStringForKey:(key) value:nil table:@"KYLocalizable"] isEqualToString:(key)] ? \
+  [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil] : \
+  [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:@"KYLocalizable"]
+
 #pragma mark - Key of Settings.bundle - prefix: KYS
 
 #define kKYSKeyiCloudService @"KYSKeyiCloudService"

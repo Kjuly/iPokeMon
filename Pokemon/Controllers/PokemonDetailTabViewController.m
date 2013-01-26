@@ -34,7 +34,7 @@
   pokemonSID_ = pokemonSID;
   withTopbar_ = withTopbar;
   NSString * title = [NSString stringWithFormat:@"%@ %@",
-                      NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonSID]), nil),
+                      KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonSID]), nil),
                       NSLocalizedString(@"Info", nil)];
   self = [super initWithTitle:title
                    tabBarSize:CGSizeMake(kTabBarWdith, kTabBarHeight)

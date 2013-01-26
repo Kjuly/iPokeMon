@@ -8,6 +8,7 @@
 
 #import "ResourceTableViewController.h"
 
+#import "ResourceManager.h"
 #import "OriginalDataManager.h"
 #import "LoadingManager.h"
 
@@ -26,12 +27,14 @@
 
 @interface ResourceTableViewController () {
  @private
-  NSArray        * resources_;      // resources array
-  LoadingManager * loadingManager_; // loading manager
+  NSArray         * resources_;      // resources array
+  ResourceManager * resourceManager_;
+  LoadingManager  * loadingManager_; // loading manager
 }
 
-@property (nonatomic, copy)   NSArray        * resources;
-@property (nonatomic, retain) LoadingManager * loadingManager;
+@property (nonatomic, copy)   NSArray         * resources;
+@property (nonatomic, retain) ResourceManager * resourceManager;
+@property (nonatomic, retain) LoadingManager  * loadingManager;
 
 - (void)_loadResourceForRow:(NSInteger)row;
 
@@ -40,11 +43,14 @@
 
 @implementation ResourceTableViewController
 
-@synthesize resources = resources_;
+@synthesize resources       = resources_;
+@synthesize resourceManager = resourceManager_;
+@synthesize loadingManager  = loadingManager_;
 
 - (void)dealloc {
-  self.resources      = nil;
-  self.loadingManager = nil;
+  self.resources       = nil;
+  self.resourceManager = nil;
+  self.loadingManager  = nil;
   [super dealloc];
 }
 
@@ -54,7 +60,8 @@
     [self setTitle:NSLocalizedString(@"PMSSettingMoreResources", nil)];
     // Populate |resources_|
     self.resources = @[@{@"name" : @"PokeMon Package", @"id" : @"PokeMon"}];
-    self.loadingManager = [LoadingManager sharedInstance];
+    self.resourceManager = [ResourceManager sharedInstance];
+    self.loadingManager  = [LoadingManager sharedInstance];
   }
   return self;
 }
@@ -185,9 +192,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       // Update original data with the unzipped resource bundle
       NSString * pathToResourceBundle =
         [pathToSave substringToIndex:(pathToSave.length - @".zip".length)];
-      NSBundle * resourceBundle = [NSBundle bundleWithPath:pathToResourceBundle];
-      if ([OriginalDataManager updateDataWithResourceBundle:resourceBundle])
+      self.resourceManager.bundle = [NSBundle bundleWithPath:pathToResourceBundle];
+      if ([OriginalDataManager updateDataWithResourceBundle:self.resourceManager.bundle])
         succeed = YES;
+      
+      // Save resource bundle path to user defaults
+      NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+      [userDefaults setValue:pathToResourceBundle forKey:kUDKeyResourceBundlePath];
+      [userDefaults synchronize];
     }
     // Hide loading indicator and show a succeed/faild message
     [self.loadingManager hideOverView];

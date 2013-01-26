@@ -28,6 +28,7 @@ NSString * const kUDKeyAboutVersion            = @"keyAboutVersion";            
 
 ///Extra UserDefaults
 NSString * const kUDKeyLastUsedServiceProvider = @"keyLastUsedServiceProvider"; // last Service Provider used
+NSString * const kUDKeyResourceBundlePath      = @"keyResourceBundlePath";      // Resource bundle path
 ///END UserDefaults
 //////
 

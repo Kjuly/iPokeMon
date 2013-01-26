@@ -58,8 +58,8 @@
 
 - (void)prepareForNewScene {
   WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
-  [pokemonName_ setText:NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
-                                            [enemyPokemon.sid intValue]]), nil)];
+  [pokemonName_ setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                                                    [enemyPokemon.sid intValue]]), nil)];
   [pokemonGender_ setImage:
     [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [enemyPokemon.gender intValue]]]];
   [pokemonLevel_ setText:[NSString stringWithFormat:@"Lv.%d", [enemyPokemon.level intValue]]];

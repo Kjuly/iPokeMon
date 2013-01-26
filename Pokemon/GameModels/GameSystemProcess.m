@@ -1774,9 +1774,9 @@ static GameSystemProcess * gameSystemProcess = nil;
       NSInteger moveID    = [[messageInfo valueForKey:@"moveID"] intValue];
       // Message: (<PokemonName> used <MoveName>, etc) to |messageView_| in |GameMenuViewController|
       message = [NSString stringWithFormat:@"%@ %@ %@",
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil),
                  NSLocalizedString(@"PMSMessage_used", nil),
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", moveID]), nil)];
       break;
     }
       
@@ -1796,14 +1796,14 @@ static GameSystemProcess * gameSystemProcess = nil;
         // Message: (You throwed a <ItemName>!)
         message = [NSString stringWithFormat:@"%@ %@!",
                    NSLocalizedString(@"PMSMessageYouThrowedXXX", nil),
-                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil), nil];
+                   KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil), nil];
       }
       else {
         NSInteger pokemonID = [[messageInfo valueForKey:@"pokemonID"] intValue];
         // Message: (You used <ItemName> to <PokemonName>)
         message = [NSString stringWithFormat:NSLocalizedString(@"PMSMessage:You used %@ to %@", nil),
-                   NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
-                   NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil)];
+                   KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, itemIndex_]), nil),
+                   KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil)];
       }
       break;
     }
@@ -1813,7 +1813,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       // Message: (You used <ItemName> to <PokemonName>)
       message = [NSString stringWithFormat:@"%@, %@!",
                  NSLocalizedString(@"PMSMessage_Go", nil),
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", pokemonID]), nil), nil];
       break;
     }
       
@@ -1821,7 +1821,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       // Message: (Oh, you caught <WildPokemonName>)
       message = [NSString stringWithFormat:@"%@ %@!",
                  NSLocalizedString(@"PMSMessageCatchPokemonXXXSucceed", nil),
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                      [self.enemyPokemon.sid intValue]]), nil), nil];
       break;
     }
@@ -1830,7 +1830,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       // Message: (Oh, no! The <WildPokemonName> broke free!)
       message = [NSString stringWithFormat:@"%@ %@ %@!",
                  NSLocalizedString(@"PMSMessageCatchPokemonXXXFailed1", nil),
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
                  NSLocalizedString(@"PMSMessageCatchPokemonXXXFailed3", nil), nil];
       break;
     }
@@ -1838,14 +1838,14 @@ static GameSystemProcess * gameSystemProcess = nil;
     case kGameSystemProcessTypeEnemyPokemonFaint:
       // Message: (<WildPokemonName> faint!)
       message = [NSString stringWithFormat:@"%@ %@!",
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.enemyPokemon.sid intValue]]), nil),
                  NSLocalizedString(@"PMSMessagePokemonFaint", nil), nil];
       break;
       
     case kGameSystemProcessTypePlayerPokemonFaint:
       // Message: (<PokemonName> faint!)
       message = [NSString stringWithFormat:@"%@ %@!",
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
                  NSLocalizedString(@"PMSMessagePokemonFaint", nil), nil];
       
       break;
@@ -1867,7 +1867,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       // Message: (You win! <PokemonName> gained <ExpValue> EXP. points.)
       message = [NSString stringWithFormat:@"%@  %@ %@ %d %@.",
                  NSLocalizedString(@"PMSMessagePlayerWin", nil),
-                 NSLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
+                 KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [self.playerPokemon.sid intValue]]), nil),
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP1", nil),
                  expGained,
                  NSLocalizedString(@"PMSMessagePokemonGainedXXXEXP3", nil), nil];

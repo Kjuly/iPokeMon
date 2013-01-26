@@ -298,7 +298,7 @@
   NSInteger entityQuantity = [[self.items objectAtIndex:(row * 2 + 1)] intValue];
   
   // Set the data for cell to display
-  [cell.name setText:NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)];
+  [cell.name setText:KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil)];
   [cell.quantity setText:[NSString stringWithFormat:@"%d", entityQuantity]];
   localizedNameHeader = nil;
 }
@@ -521,8 +521,10 @@
   } else return;
   
   NSString * localizedNameHeader = [self localizedNameHeader];
-  NSString * name = NSLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil);
-  NSString * info = NSLocalizedString(([NSString stringWithFormat:@"%@Info%.3d", localizedNameHeader, entityID]), nil);
+  NSString * name =
+    KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil);
+  NSString * info =
+    KYResourceLocalizedString(([NSString stringWithFormat:@"%@Info%.3d", localizedNameHeader, entityID]), nil);
   
   [self.bagItemInfoViewController setDataWithName:name price:price info:info duringBattle:self.isDuringBattle];
   [self.bagItemInfoViewController loadViewWithAnimation];

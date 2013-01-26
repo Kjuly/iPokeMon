@@ -51,19 +51,19 @@
   // Species
   PokemonInfoLabelView * speciesLabelView = [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
   [speciesLabelView.name  setText:NSLocalizedString(@"PMSLabelSpecies", nil)];
-  [speciesLabelView.value setText:NSLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
-                                                      [[self.pokemon valueForKey:@"species"] intValue]]), nil)];
+  [speciesLabelView.value setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
+                                                              [[self.pokemon valueForKey:@"species"] intValue]]), nil)];
   [dataView addSubview:speciesLabelView];
   [speciesLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
-  NSString * types = NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
-                                         [self.pokemon.type1 intValue]]), nil);
+  NSString * types = KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                 [self.pokemon.type1 intValue]]), nil);
   if ([self.pokemon.type2 intValue])
     types = [types stringByAppendingString:[NSString stringWithFormat:@", %@",
-                                            NSLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
-                                                                [self.pokemon.type2 intValue]]), nil)]];
+                                            KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
+                                                                        [self.pokemon.type2 intValue]]), nil)]];
   [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
@@ -83,7 +83,7 @@
   [descriptionField setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [descriptionField setTextColor:[GlobalRender textColorNormal]];
   [descriptionField setText:
-   NSLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
+    KYResourceLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
   [self.view addSubview:descriptionField];
   [descriptionField release];
 }
