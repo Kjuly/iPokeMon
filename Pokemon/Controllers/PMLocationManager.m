@@ -273,7 +273,7 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"inlandWater:::%@", [placemark inlandWater]);
     NSLog(@"ocean:::%@", [placemark ocean]);
     NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
-    [locationInfo setObject:placemark forKey:@"placemark"];
+    if (placemark) [locationInfo setObject:placemark forKey:@"placemark"];
     self.locationInfo = locationInfo;
     [locationInfo release];
     
