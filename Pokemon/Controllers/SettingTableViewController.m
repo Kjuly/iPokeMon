@@ -231,8 +231,8 @@
         if (cell == nil)
           cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
                                                         reuseIdentifier:cellIdentifier] autorelease];
-        [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingAboutVersion", nil)
-                               value:[userDefaults stringForKey:kUDKeyAboutVersion]
+        [cell configureCellWithTitle:kKYAppBundleLocalizedName
+                               value:[@"v" stringByAppendingString:[userDefaults stringForKey:kUDKeyAboutVersion]]
                        accessoryType:UITableViewCellAccessoryNone];
         return cell;
         break;
