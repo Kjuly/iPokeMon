@@ -45,11 +45,13 @@ typedef enum {
                             forType:(EntityType)type
                              bundle:(NSBundle *)bundle
                              isInit:(BOOL)isInit;
++ (void)_setImages:(NSDictionary *)images
+         forEntity:(id)entity
+          withType:(EntityType)type;
 + (void)_setDataForEntity:(id)entity
                  withType:(EntityType)type
                  dataDict:(NSDictionary *)dataDict
-                    index:(NSInteger)index
-                    extra:(NSDictionary *)extra;
+                    index:(NSInteger)index;
 
 @end
 
@@ -60,24 +62,28 @@ typedef enum {
 + (BOOL)updateDataWithMOC:(NSManagedObjectContext *)moc
            resourceBundle:(NSBundle *)bundle
                    isInit:(BOOL)isInit {
-  if (isInit) NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
-  else        NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
+  if (isInit) {
+    NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
+    // Move
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeMove          bundle:bundle isInit:isInit];
+    
+    // BagXXXs
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagItem       bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMedicine   bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagPokeball   bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagTMHM       bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBerry      bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMail       bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBattleItem bundle:bundle isInit:isInit];
+    [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagKeyItem    bundle:bundle isInit:isInit];
+  }
+  else {
+    NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
+  }
   
   // Pokemon
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypePokemon       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypePokemon bundle:bundle isInit:isInit];
   
-  // Move
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeMove          bundle:bundle isInit:isInit];
-
-  // BagXXXs
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagItem       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMedicine   bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagPokeball   bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagTMHM       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBerry      bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMail       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBattleItem bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagKeyItem    bundle:bundle isInit:isInit];
   return YES;
 }
 
@@ -139,18 +145,22 @@ typedef enum {
     for (NSDictionary * itemDict in itemList) {
       entity = [NSEntityDescription insertNewObjectForEntityForName:entityName
                                              inManagedObjectContext:moc];
-      [self _setDataForEntity:entity withType:type dataDict:itemDict index:++i extra:nil];
+      [self _setDataForEntity:entity
+                     withType:type
+                     dataDict:itemDict
+                        index:++i];
     }
   }
+#if defined(KY_RESOURCE_UPDATE_IMAGE) || defined(KY_RESOURCE_UPDATE_PROPERTY_LIST)
   // Update data
   else {
-    entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:moc];
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:moc]];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"sid" ascending:YES]]];
     NSArray * entities = [moc executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     
+#ifdef KY_RESOURCE_UPDATE_IMAGE
     NSArray * pathOfImageIcons, * pathOfImages, * pathOfImageBacks;
     // Prepare extra data for special type
     if (type & kEntityTypePokemon) {
@@ -158,40 +168,85 @@ typedef enum {
       pathOfImages     = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSprite];
       pathOfImageBacks = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSpriteBack];
     }
-    NSDictionary * extra = nil;
+    NSDictionary * images = nil;
+#endif
     for (NSDictionary * itemDict in itemList) {
+      entity = [entities objectAtIndex:i];
+#ifdef KY_RESOURCE_UPDATE_IMAGE
       // Set extra data for special type
-      if (type & kEntityTypePokemon)
-        extra = @{@"imageIcon" : [pathOfImageIcons objectAtIndex:i],
-                  @"image"     : [pathOfImages     objectAtIndex:i],
-                  @"imageBack" : [pathOfImageBacks objectAtIndex:i]};
-      else extra = nil;
-      [self _setDataForEntity:[entities objectAtIndex:i++]
+      if (type & kEntityTypePokemon) {
+        images = @{@"imageIcon" : [pathOfImageIcons objectAtIndex:i],
+                   @"image"     : [pathOfImages     objectAtIndex:i],
+                   @"imageBack" : [pathOfImageBacks objectAtIndex:i]};
+        [self _setImages:images forEntity:entity withType:type];
+      }
+#endif
+#ifdef KY_RESOURCE_UPDATE_PROPERTY_LIST
+      [self _setDataForEntity:entity
                      withType:type
                      dataDict:itemDict
-                        index:0
-                        extra:extra];
+                        index:0];
+#endif
+      ++i;
     }
   }
+#endif
   if (! [moc save:&error])
     NSLog(@"!!! Couldn't save data to %@, ERROR:%@", entityName, [error description]);
+}
+
+// Set images for entity
++ (void)_setImages:(NSDictionary *)images
+         forEntity:(id)entity
+          withType:(EntityType)type {
+  if (type & kEntityTypePokemon) {
+    Pokemon * pokemon = entity;
+    pokemon.imageIcon = [UIImage imageWithContentsOfFile:images[@"imageIcon"]];
+    pokemon.image     = [UIImage imageWithContentsOfFile:images[@"image"]];
+    pokemon.imageBack = [UIImage imageWithContentsOfFile:images[@"imageBack"]];
+  }
+  /*else if (type & kEntityTypeMove) {
+    Move * move = entity;
+  }
+  else if (type & kEntityTypeBagItem) {
+    BagItem * bagItem = entity;
+    //((BagItem *)entity).icon = ;
+  }
+  else if (type & kEntityTypeBagMedicine) {
+    BagMedicine * bagMedicine = entity;
+    //((BagMedicine *)entity).icon = ;
+  }
+  else if (type & kEntityTypeBagPokeball) {
+    BagPokeball * bagPokeball = entity;
+    //((BagPokeball *)entity).icon = ;
+  }
+  else if (type & kEntityTypeBagTMHM) {
+  }
+  else if (type & kEntityTypeBagBerry) {
+    BagBerry * bagBerry = entity;
+    //((BagBerry *)entity).icon = ;
+  }
+  else if (type & kEntityTypeBagMail) {
+  }
+  else if (type & kEntityTypeBagBattleItem) {
+    BagBattleItem * bagBattleItem = entity;
+    //((BagBattleItem *)entity).icon = ;
+  }
+  else if (type & kEntityTypeBagKeyItem) {
+    BagKeyItem * bagKeyItem = entity;
+  }
+  else return;*/
 }
 
 // Set data for entity
 + (void)_setDataForEntity:(id)entity
                  withType:(EntityType)type
                  dataDict:(NSDictionary *)dataDict
-                    index:(NSInteger)index
-                    extra:(NSDictionary *)extra {
+                    index:(NSInteger)index {
   if (type & kEntityTypePokemon) {
     Pokemon * pokemon = entity;
-    if (index) pokemon.sid = [NSNumber numberWithInt:index];
-    if (extra) {
-      pokemon.imageIcon = [UIImage imageWithContentsOfFile:extra[@"imageIcon"]];
-      pokemon.image     = [UIImage imageWithContentsOfFile:extra[@"image"]];
-      pokemon.imageBack = [UIImage imageWithContentsOfFile:extra[@"imageBack"]];
-    }
-    else {
+    if (index) {
+      pokemon.sid = [NSNumber numberWithInt:index];
       pokemon.imageIcon = [UIImage imageNamed:kDefaultSpriteIcon_];
       pokemon.image     = [UIImage imageNamed:kDefaultSprite_];
       pokemon.imageBack = [UIImage imageNamed:kDefaultSpriteBack_];
