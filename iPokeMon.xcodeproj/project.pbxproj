@@ -157,6 +157,10 @@
 		7F5A4D65153DDC4300F55F23 /* SettingGameSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A4D64153DDC4300F55F23 /* SettingGameSettingsTableViewController.m */; };
 		7F5A4D68153DE27500F55F23 /* SettingTableViewCellStyleSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A4D67153DE27500F55F23 /* SettingTableViewCellStyleSlider.m */; };
 		7F5A4D6B153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */; };
+		7F5C8FCE16B6FBC200BB10A3 /* KYILogoSinaWeibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C8FCA16B6FBC200BB10A3 /* KYILogoSinaWeibo.png */; };
+		7F5C8FCF16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C8FCB16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png */; };
+		7F5C8FD016B6FBC200BB10A3 /* KYILogoTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C8FCC16B6FBC200BB10A3 /* KYILogoTwitter.png */; };
+		7F5C8FD116B6FBC200BB10A3 /* KYILogoTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C8FCD16B6FBC200BB10A3 /* KYILogoTwitter@2x.png */; };
 		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
 		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
 		7F6C19241517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */; };
@@ -459,6 +463,8 @@
 		7FC5B164154ED7FC001CECBA /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B163154ED7FB001CECBA /* InAppPurchaseManager.m */; };
 		7FC5B168154EDA42001CECBA /* PMPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */; };
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
+		7FC6C79E16B6F45B005E29CB /* AppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6C79D16B6F45B005E29CB /* AppInfoViewController.m */; };
+		7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6C7A016B6F4E9005E29CB /* UIFont+Custom.m */; };
 		7FC847A3169C30750013D5FF /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC847A0169C30750013D5FF /* JSONKit.m */; };
 		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
 		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
@@ -771,6 +777,10 @@
 		7F5A4D67153DE27500F55F23 /* SettingTableViewCellStyleSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCellStyleSlider.m; sourceTree = "<group>"; };
 		7F5A4D69153DE81100F55F23 /* SettingBandwidthUsageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBandwidthUsageTableViewController.h; sourceTree = "<group>"; };
 		7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBandwidthUsageTableViewController.m; sourceTree = "<group>"; };
+		7F5C8FCA16B6FBC200BB10A3 /* KYILogoSinaWeibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KYILogoSinaWeibo.png; sourceTree = "<group>"; };
+		7F5C8FCB16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KYILogoSinaWeibo@2x.png"; sourceTree = "<group>"; };
+		7F5C8FCC16B6FBC200BB10A3 /* KYILogoTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KYILogoTwitter.png; sourceTree = "<group>"; };
+		7F5C8FCD16B6FBC200BB10A3 /* KYILogoTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KYILogoTwitter@2x.png"; sourceTree = "<group>"; };
 		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
 		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
 		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
@@ -1262,6 +1272,10 @@
 		7FC5B167154EDA42001CECBA /* PMPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPurchaseManager.m; sourceTree = "<group>"; };
 		7FC5B169154EDC07001CECBA /* PurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewController.h; sourceTree = "<group>"; };
 		7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewController.m; sourceTree = "<group>"; };
+		7FC6C79C16B6F45A005E29CB /* AppInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoViewController.h; sourceTree = "<group>"; };
+		7FC6C79D16B6F45B005E29CB /* AppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoViewController.m; sourceTree = "<group>"; };
+		7FC6C79F16B6F4E9005E29CB /* UIFont+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Custom.h"; sourceTree = "<group>"; };
+		7FC6C7A016B6F4E9005E29CB /* UIFont+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Custom.m"; sourceTree = "<group>"; };
 		7FC8479F169C30750013D5FF /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		7FC847A0169C30750013D5FF /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
@@ -1716,6 +1730,8 @@
 				7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */,
 				7F5A4D63153DDC4200F55F23 /* SettingGameSettingsTableViewController.h */,
 				7F5A4D64153DDC4300F55F23 /* SettingGameSettingsTableViewController.m */,
+				7FC6C79C16B6F45A005E29CB /* AppInfoViewController.h */,
+				7FC6C79D16B6F45B005E29CB /* AppInfoViewController.m */,
 				7FDBE13816B2728E00BF692D /* ResourceTableViewController.h */,
 				7FDBE13916B2728F00BF692D /* ResourceTableViewController.m */,
 				7FE2BA9914DAA44000419825 /* CustomNavigationController.h */,
@@ -2033,6 +2049,8 @@
 		7F8E2E00169BB8D4008A3F19 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7FC6C79F16B6F4E9005E29CB /* UIFont+Custom.h */,
+				7FC6C7A016B6F4E9005E29CB /* UIFont+Custom.m */,
 				7F8E2E01169BB8D4008A3F19 /* MKMapView+ZoomLevel.h */,
 				7F8E2E02169BB8D4008A3F19 /* MKMapView+ZoomLevel.m */,
 				7F8E2E03169BB8D4008A3F19 /* NSString+Algorithm.h */,
@@ -2364,6 +2382,10 @@
 		7FA1D86A15035DC700E0D2F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7F5C8FCA16B6FBC200BB10A3 /* KYILogoSinaWeibo.png */,
+				7F5C8FCB16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png */,
+				7F5C8FCC16B6FBC200BB10A3 /* KYILogoTwitter.png */,
+				7F5C8FCD16B6FBC200BB10A3 /* KYILogoTwitter@2x.png */,
 				7F50BF93153F2B1E00B24BC4 /* SocialIconGoogle.png */,
 				7F50BF94153F2B1E00B24BC4 /* SocialIconGoogle@2x.png */,
 				7F50BF98153F306800B24BC4 /* SocialIconFacebook.png */,
@@ -2977,6 +2999,10 @@
 				7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */,
 				7FB3A07E16B40D9800EC3BDF /* iPokeMon.sqlite in Resources */,
 				7F8A4FBF16B688630035513A /* Resource.bundle in Resources */,
+				7F5C8FCE16B6FBC200BB10A3 /* KYILogoSinaWeibo.png in Resources */,
+				7F5C8FCF16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png in Resources */,
+				7F5C8FD016B6FBC200BB10A3 /* KYILogoTwitter.png in Resources */,
+				7F5C8FD116B6FBC200BB10A3 /* KYILogoTwitter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3289,6 +3315,8 @@
 				7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */,
 				7FD60E0416B15346008258DE /* ResourceManager.m in Sources */,
 				7FDBE13A16B2729000BF692D /* ResourceTableViewController.m in Sources */,
+				7FC6C79E16B6F45B005E29CB /* AppInfoViewController.m in Sources */,
+				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

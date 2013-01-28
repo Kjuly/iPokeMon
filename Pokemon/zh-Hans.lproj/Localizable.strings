@@ -78,7 +78,8 @@
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "音效";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "动画效果";
 // - About
-"PMSSettingAboutVersion" = "版本";
+"PMSSettingAboutAppInfo"    = "信息";
+"PMSSettingAboutAppVersion" = "版本";
 // - More
 // - - Feedback
 "PMSSettingMoreFeedback" = "反馈";

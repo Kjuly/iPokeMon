@@ -80,7 +80,8 @@
 "PMSSettingGeneralGameSettingsVolumeSounds"     = "Sounds";
 "PMSSettingGeneralGameSettingsOthersAnimations" = "Animations";
 // - About
-"PMSSettingAboutVersion" = "Version";
+"PMSSettingAboutAppInfo"    = "Info";
+"PMSSettingAboutAppVersion" = "Version";
 // - More
 // - - Feedback
 "PMSSettingMoreFeedback" = "Feedback";

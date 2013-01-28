@@ -17,6 +17,7 @@
 #import "OAuthManager.h"
 #import "SettingBandwidthUsageTableViewController.h"
 #import "SettingGameSettingsTableViewController.h"
+#import "AppInfoViewController.h"
 #import "ResourceTableViewController.h"
 
 #import <AddressBook/AddressBook.h>
@@ -355,6 +356,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
       [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
       [settingGameSettingsTableViewController release];
+    }
+  }
+  // ABOUT Section
+  else if (section == kSectionAbout) {
+    // Version
+    if (row == kSectionAboutRowVersion) {
+      AppInfoViewController * appInfoViewController = [[AppInfoViewController alloc] init];
+      [self.navigationController pushViewController:appInfoViewController animated:YES];
+      [appInfoViewController release];
     }
   }
   else if (section == kSectionMore) {
