@@ -12,13 +12,9 @@
 
 + (NSString *)_pathOfPropertyList:(NSString *)propertyList
                          inBundle:(NSBundle *)bundle {
-  if (! bundle) return nil;
-  NSString * path = [bundle pathForResource:propertyList
-                                     ofType:@"plist"
-                                inDirectory:kBundleDirectoryOfPropertyList];
-  if (! path) path = [bundle pathForResource:propertyList ofType:@"plist"];
-  NSLog(@"PATH:%@", path);
-  return path;
+  return [bundle pathForResource:propertyList
+                          ofType:@"plist"
+                     inDirectory:kBundleDirectoryOfPropertyList];
 }
 
 #pragma mark - Pokedex
@@ -31,7 +27,7 @@
 
 // Get Pokemons that User Brought
 + (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID {
-  NSArray * pokedex = [self pokedexInBundle:[NSBundle mainBundle]];
+  NSArray * pokedex = [self pokedexInBundle:[[ResourceManager sharedInstance] defaultBundle]];
   NSMutableArray * sixPokemons = [[NSMutableArray alloc] init];
   for (int i = 0; i < [sixPokemonsID count]; ++i) {
     NSInteger pokemonID = [[sixPokemonsID objectAtIndex:i] intValue] >> 4;
@@ -43,7 +39,7 @@
 
 // Get Info for One Pokemon
 + (NSDictionary *)pokemonInfo:(NSInteger)pokemonID {
-  return [[self pokedexInBundle:[NSBundle mainBundle]] objectAtIndex:pokemonID];
+  return [[self pokedexInBundle:[[ResourceManager sharedInstance] defaultBundle]] objectAtIndex:pokemonID];
 }
 
 // Get All Pokemon Photo as an Array for Pokedex
