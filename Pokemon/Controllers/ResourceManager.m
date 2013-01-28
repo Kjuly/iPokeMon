@@ -10,10 +10,12 @@
 
 @implementation ResourceManager
 
-@synthesize bundle = bundle_;
+@synthesize defaultBundle = defaultBundle_;
+@synthesize bundle        = bundle_;
 
 - (void)dealloc {
-  self.bundle = nil;
+  self.defaultBundle = nil;
+  self.bundle        = nil;
   [super dealloc];
 }
 
@@ -32,8 +34,12 @@ static ResourceManager * manager_;
 
 // Return default resource bundle
 - (NSBundle *)defaultBundle {
-  NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"Resource" ofType:@"bundle"];
-  return [NSBundle bundleWithPath:bundlePath];
+  if (! defaultBundle_) {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"Resource" ofType:@"bundle"];
+    if (! bundlePath) return [NSBundle mainBundle];
+    defaultBundle_ = [NSBundle bundleWithPath:bundlePath];
+  }
+  return defaultBundle_;
 }
 
 // Return resource bundle

@@ -87,8 +87,12 @@
 #pragma mark - Public Methods
 
 - (void)updateImage {
-  NSLog(@"!!!!!!!!!!!!!!!!!!%@", [NSString stringWithFormat:@"%@.png", ((MEWMapAnnotation *)self.annotation).code]);
-  self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", ((MEWMapAnnotation *)self.annotation).code]];
+  NSString * pathToImage =
+    [[ResourceManager sharedInstance].defaultBundle pathForResource:((MEWMapAnnotation *)self.annotation).code
+                                                             ofType:@"png"
+                                                        inDirectory:kBundleDirectoryOfAnnotation];
+  NSLog(@"### %@", pathToImage);
+  self.image = [UIImage imageWithContentsOfFile:pathToImage];
 }
 
 @end

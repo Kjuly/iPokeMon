@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define kBundleDirectoryOfImageSpriteIcon @"Resources/Images/SpriteIcon"
-#define kBundleDirectoryOfImageSprite     @"Resources/Images/Sprite"
-#define kBundleDirectoryOfImageSpriteBack @"Resources/Images/SpriteBack"
-#define kBundleDirectoryOfPropertyList    @"Resources/PropertyLists"
-
 @interface PListParser : NSObject
 
 // Pokedex

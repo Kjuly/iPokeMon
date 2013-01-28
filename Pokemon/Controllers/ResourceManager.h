@@ -8,10 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+#define kBundleDirectoryOfImageSpriteIcon @"Resources/Images/SpriteIcon"
+#define kBundleDirectoryOfImageSprite     @"Resources/Images/Sprite"
+#define kBundleDirectoryOfImageSpriteBack @"Resources/Images/SpriteBack"
+#define kBundleDirectoryOfPropertyList    @"Resources/PropertyLists"
+#define kBundleDirectoryOfAnnotation      @"Resources/Annotations"
+#define kBundleDirectoryOfSound           @"Resources/Sounds"
+
 @interface ResourceManager : NSObject {
+  NSBundle * defaultBundle_;
   NSBundle * bundle_;
 }
 
+@property (nonatomic, retain) NSBundle * defaultBundle;
 @property (nonatomic, retain) NSBundle * bundle;
 
 + (ResourceManager *)sharedInstance;

@@ -10,8 +10,6 @@
 
 #import "LoadingManager.h"
 
-#define kBundleDirectoryOfSound_ @"Resources/Sounds"
-
 typedef enum {
   kAudioActionPrepareToPlay = 0,
   kAudioActionPlay,
@@ -251,7 +249,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   NSURL * url = [self.resourceManager.bundle URLForResource:audioResourceName
                                               withExtension:@"mp3"
-                                               subdirectory:kBundleDirectoryOfSound_];
+                                               subdirectory:kBundleDirectoryOfSound];
   if (! url) return;
   
   // Add resource unit to loading queue
