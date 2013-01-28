@@ -1,16 +1,6 @@
 iPokeMon (iOS Client)
 =====================
 
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=dev@kjuly.com&lc=US&item_name=iPokeMon_Project_Donation&no_note=1&currency_code=USD">
-<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/>
-</a>
-<a href="http://me.alipay.com/kjuly" target="_blank">
-<img src="https://github.com/Kjuly/iPokeMon/raw/gh-pages/images/donate_with_alipay.png" alt="Donate with Alipay" title="Donate with Alipay" border="0" />
-</a>
-<a href="http://flattr.com/thing/1100134/" target="_blank">
-<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
-</a>
-
 # Description
 
 ### About App
@@ -40,40 +30,9 @@ You can follow me for updates on the development: [Twitter](http://twitter.com/k
 Refer to the [__Game Play Manual__](https://github.com/Kjuly/iPokeMon/wiki/Game-Play).
 
 ---
-# TODOs
+# [Change Log](https://github.com/Kjuly/iPokeMon/wiki/Change-Log)
 
-  - Evolutionary systems
-  - Battle between trainers
-  - Computers for Pokemon storage & transmission
-  - Move effect & related animations
-  - etc.
-
----
-# Change Log
-
-__v0.3.4 @ 2013-01-21__
-
-  - Fix bugs on iOS 6.0.
-
-__v0.3.3 @ 2013-01-13__
-
-  - Fix some warnings for the new Xcode compiler;
-  - Update submodules.
-
-__v0.3.2 @ 2012-05-08__
-
-  - Modify regions for Wild Pokemon.
-  - Fix some potentical crash bugs.
-  - Add In-App Feedback with mail.
-  - Add Store & In-App Purchase.
-
-__v0.1.0 @ 2012-04-26__
-
-  - You can find different Pokemons based on your location (make sure you enable `Location Service`).
-  - Caught Wild Pokemons if you have Pokeballs.
-  - You can leave the App run in background, and when a Wild Pokemon appeared, you'll receive a `Push Notification` to deal with it.
-  - You can heal Pokemons by using some medicine, including Status Healers, HP/PP Restore.
-  - and more features exist in PokéMon.
+Change log is located in Wiki: [Change Log](https://github.com/Kjuly/iPokeMon/wiki/Change-Log). It also includes a TODO list, which shows further plans. If you've any idea about this project, just speak it out and you may receive a special gift from the iPokeMon world! Looking forward to your great idea! ;)
 
 ---
 # Dependence
