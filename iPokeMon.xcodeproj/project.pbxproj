@@ -193,11 +193,6 @@
 		7F5A4D68153DE27500F55F23 /* SettingTableViewCellStyleSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A4D67153DE27500F55F23 /* SettingTableViewCellStyleSlider.m */; };
 		7F5A4D6B153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */; };
 		7F5F583914F4F93200AFF048 /* PokemonMoveDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */; };
-		7F6474C91539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */; };
-		7F6474CA1539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */; };
-		7F6474CB1539E7D900D77887 /* AudioGameGuide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */; };
-		7F6474CC1539E7D900D77887 /* AudioGamePMEvolution.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */; };
-		7F6474CD1539E7D900D77887 /* AudioGamePMRecovery.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */; };
 		7F6910DD14EF95AF00127E2F /* DataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6910DC14EF95AF00127E2F /* DataTransformer.m */; };
 		7F6C19241517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */; };
 		7F6C19251517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6C191D1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel@2x.png */; };
@@ -403,7 +398,6 @@
 		7F999750155045160081D781 /* StoreItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F99974F155045160081D781 /* StoreItemTableViewCell.m */; };
 		7F999754155053D70081D781 /* StoreMedicineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F999753155053D70081D781 /* StoreMedicineTableViewController.m */; };
 		7F99975A155059B40081D781 /* StoreItemQuantityChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F999759155059B20081D781 /* StoreItemQuantityChangeViewController.m */; };
-		7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */; };
 		7F9F15B615089F8900795591 /* GamePokemonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B515089F8900795591 /* GamePokemonSprite.m */; };
 		7F9F15B91508B12600795591 /* GamePlayerProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15B81508B12600795591 /* GamePlayerProcess.m */; };
 		7F9F15BC1508B13500795591 /* GameEnemyProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F15BB1508B13500795591 /* GameEnemyProcess.m */; };
@@ -489,16 +483,6 @@
 		7FAC497814DEE74E008BAB45 /* SixPokemonsMemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAC497714DEE74E008BAB45 /* SixPokemonsMemoViewController.m */; };
 		7FAD69A514EFD7BF00B3E2F9 /* Ability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69A414EFD7BF00B3E2F9 /* Ability.m */; };
 		7FAD69BA14EFE64800B3E2F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69BC14EFE64800B3E2F9 /* Localizable.strings */; };
-		7FB13533153B14EE00975CB5 /* AudioBattlePMBrokeFree.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13529153B14ED00975CB5 /* AudioBattlePMBrokeFree.mp3 */; };
-		7FB13534153B14EE00975CB5 /* AudioBattlePMCaught.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352A153B14ED00975CB5 /* AudioBattlePMCaught.mp3 */; };
-		7FB13535153B14EE00975CB5 /* AudioBattlePMCaughtChecking.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352B153B14ED00975CB5 /* AudioBattlePMCaughtChecking.mp3 */; };
-		7FB13536153B14EE00975CB5 /* AudioBattlePMCaughtSucceed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352C153B14ED00975CB5 /* AudioBattlePMCaughtSucceed.mp3 */; };
-		7FB13537153B14EE00975CB5 /* AudioBattlePMLevelUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352D153B14EE00975CB5 /* AudioBattlePMLevelUp.mp3 */; };
-		7FB13538153B14EE00975CB5 /* AudioBattleRun.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352E153B14EE00975CB5 /* AudioBattleRun.mp3 */; };
-		7FB13539153B14EE00975CB5 /* AudioBattleThrowPokeball.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1352F153B14EE00975CB5 /* AudioBattleThrowPokeball.mp3 */; };
-		7FB1353A153B14EE00975CB5 /* AudioGameUseMedicine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13530153B14EE00975CB5 /* AudioGameUseMedicine.mp3 */; };
-		7FB1353B153B14EE00975CB5 /* AudioGameERROR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13531153B14EE00975CB5 /* AudioGameERROR.mp3 */; };
-		7FB1353C153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB13532153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 */; };
 		7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */; };
 		7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */; };
 		7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */; };
@@ -872,11 +856,6 @@
 		7F5A4D6A153DE81100F55F23 /* SettingBandwidthUsageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBandwidthUsageTableViewController.m; sourceTree = "<group>"; };
 		7F5F583714F4F93200AFF048 /* PokemonMoveDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokemonMoveDetailView.h; sourceTree = "<group>"; };
 		7F5F583814F4F93200AFF048 /* PokemonMoveDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveDetailView.m; sourceTree = "<group>"; };
-		7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleStartVSWildPM.mp3; sourceTree = "<group>"; };
-		7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleVictoryVSWildPM.mp3; sourceTree = "<group>"; };
-		7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameGuide.mp3; sourceTree = "<group>"; };
-		7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGamePMEvolution.mp3; sourceTree = "<group>"; };
-		7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGamePMRecovery.mp3; sourceTree = "<group>"; };
 		7F6910DB14EF95AF00127E2F /* DataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTransformer.h; sourceTree = "<group>"; };
 		7F6910DC14EF95AF00127E2F /* DataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTransformer.m; sourceTree = "<group>"; };
 		7F6C191C1517270F0000682B /* BagItemTableViewHiddenCellButtonIconCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BagItemTableViewHiddenCellButtonIconCancel.png; sourceTree = "<group>"; };
@@ -1223,7 +1202,6 @@
 		7F999753155053D70081D781 /* StoreMedicineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreMedicineTableViewController.m; sourceTree = "<group>"; };
 		7F999758155059B20081D781 /* StoreItemQuantityChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreItemQuantityChangeViewController.h; sourceTree = "<group>"; };
 		7F999759155059B20081D781 /* StoreItemQuantityChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreItemQuantityChangeViewController.m; sourceTree = "<group>"; };
-		7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlingVSWildPM.mp3; sourceTree = "<group>"; };
 		7F9F15B415089F8800795591 /* GamePokemonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePokemonSprite.h; sourceTree = "<group>"; };
 		7F9F15B515089F8900795591 /* GamePokemonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePokemonSprite.m; sourceTree = "<group>"; };
 		7F9F15B71508B12600795591 /* GamePlayerProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePlayerProcess.h; path = ../GameModels/GamePlayerProcess.h; sourceTree = "<group>"; };
@@ -1344,16 +1322,6 @@
 		7FAD69A414EFD7BF00B3E2F9 /* Ability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ability.m; sourceTree = "<group>"; };
 		7FAD69BB14EFE64800B3E2F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7FAD69BD14EFE65F00B3E2F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		7FB13529153B14ED00975CB5 /* AudioBattlePMBrokeFree.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlePMBrokeFree.mp3; sourceTree = "<group>"; };
-		7FB1352A153B14ED00975CB5 /* AudioBattlePMCaught.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlePMCaught.mp3; sourceTree = "<group>"; };
-		7FB1352B153B14ED00975CB5 /* AudioBattlePMCaughtChecking.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlePMCaughtChecking.mp3; sourceTree = "<group>"; };
-		7FB1352C153B14ED00975CB5 /* AudioBattlePMCaughtSucceed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlePMCaughtSucceed.mp3; sourceTree = "<group>"; };
-		7FB1352D153B14EE00975CB5 /* AudioBattlePMLevelUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattlePMLevelUp.mp3; sourceTree = "<group>"; };
-		7FB1352E153B14EE00975CB5 /* AudioBattleRun.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleRun.mp3; sourceTree = "<group>"; };
-		7FB1352F153B14EE00975CB5 /* AudioBattleThrowPokeball.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioBattleThrowPokeball.mp3; sourceTree = "<group>"; };
-		7FB13530153B14EE00975CB5 /* AudioGameUseMedicine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameUseMedicine.mp3; sourceTree = "<group>"; };
-		7FB13531153B14EE00975CB5 /* AudioGameERROR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioGameERROR.mp3; sourceTree = "<group>"; };
-		7FB13532153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AudioMoveBasicAttack.mp3; sourceTree = "<group>"; };
 		7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSprite.png; sourceTree = "<group>"; };
 		7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteBack.png; sourceTree = "<group>"; };
 		7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteIcon.png; sourceTree = "<group>"; };
@@ -1980,7 +1948,6 @@
 				7FFBEDDD156B99FE005FAD33 /* Pokemon_tmp_files */,
 				7F2FA45214ECDDA90077C4E0 /* db */,
 				7F6E6CF314D6CB9800033C65 /* Images */,
-				7F6E6CF414D6CB9800033C65 /* Sounds */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1999,29 +1966,6 @@
 				7F8EFA9E14D97D9A00FF1055 /* TabBar */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		7F6E6CF414D6CB9800033C65 /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				7F9AB88B153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 */,
-				7FB13529153B14ED00975CB5 /* AudioBattlePMBrokeFree.mp3 */,
-				7FB1352A153B14ED00975CB5 /* AudioBattlePMCaught.mp3 */,
-				7FB1352B153B14ED00975CB5 /* AudioBattlePMCaughtChecking.mp3 */,
-				7FB1352C153B14ED00975CB5 /* AudioBattlePMCaughtSucceed.mp3 */,
-				7FB1352D153B14EE00975CB5 /* AudioBattlePMLevelUp.mp3 */,
-				7FB1352E153B14EE00975CB5 /* AudioBattleRun.mp3 */,
-				7FB1352F153B14EE00975CB5 /* AudioBattleThrowPokeball.mp3 */,
-				7FB13530153B14EE00975CB5 /* AudioGameUseMedicine.mp3 */,
-				7FB13531153B14EE00975CB5 /* AudioGameERROR.mp3 */,
-				7FB13532153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 */,
-				7F6474C41539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 */,
-				7F6474C51539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 */,
-				7F6474C61539E7D900D77887 /* AudioGameGuide.mp3 */,
-				7F6474C71539E7D900D77887 /* AudioGamePMEvolution.mp3 */,
-				7F6474C81539E7D900D77887 /* AudioGamePMRecovery.mp3 */,
-			);
-			path = Sounds;
 			sourceTree = "<group>";
 		};
 		7F6E6CF614D6CB9800033C65 /* Views */ = {
@@ -3035,22 +2979,6 @@
 				7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */,
 				7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */,
 				7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */,
-				7F6474C91539E7D900D77887 /* AudioBattleStartVSWildPM.mp3 in Resources */,
-				7F6474CA1539E7D900D77887 /* AudioBattleVictoryVSWildPM.mp3 in Resources */,
-				7F6474CB1539E7D900D77887 /* AudioGameGuide.mp3 in Resources */,
-				7F6474CC1539E7D900D77887 /* AudioGamePMEvolution.mp3 in Resources */,
-				7F6474CD1539E7D900D77887 /* AudioGamePMRecovery.mp3 in Resources */,
-				7FB13533153B14EE00975CB5 /* AudioBattlePMBrokeFree.mp3 in Resources */,
-				7FB13534153B14EE00975CB5 /* AudioBattlePMCaught.mp3 in Resources */,
-				7FB13535153B14EE00975CB5 /* AudioBattlePMCaughtChecking.mp3 in Resources */,
-				7FB13536153B14EE00975CB5 /* AudioBattlePMCaughtSucceed.mp3 in Resources */,
-				7FB13537153B14EE00975CB5 /* AudioBattlePMLevelUp.mp3 in Resources */,
-				7FB13538153B14EE00975CB5 /* AudioBattleRun.mp3 in Resources */,
-				7FB13539153B14EE00975CB5 /* AudioBattleThrowPokeball.mp3 in Resources */,
-				7FB1353A153B14EE00975CB5 /* AudioGameUseMedicine.mp3 in Resources */,
-				7FB1353B153B14EE00975CB5 /* AudioGameERROR.mp3 in Resources */,
-				7FB1353C153B14EE00975CB5 /* AudioMoveBasicAttack.mp3 in Resources */,
-				7F9AB88C153BEA30000FF41A /* AudioBattlingVSWildPM.mp3 in Resources */,
 				7F50BF95153F2B1E00B24BC4 /* SocialIconGoogle.png in Resources */,
 				7F50BF96153F2B1E00B24BC4 /* SocialIconGoogle@2x.png in Resources */,
 				7F50BF9C153F306900B24BC4 /* SocialIconFacebook.png in Resources */,
