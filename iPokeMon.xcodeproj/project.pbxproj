@@ -189,7 +189,6 @@
 		7F6F428D15568EE30007E889 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428C15568EE30007E889 /* MessageUI.framework */; };
 		7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428F15568EEF0007E889 /* AddressBook.framework */; };
 		7F6F429215568EEF0007E889 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F429015568EEF0007E889 /* AddressBookUI.framework */; };
-		7F6F5E9C16A69B4000F28CCF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F5E9B16A69B4000F28CCF /* Default-568h@2x.png */; };
 		7F6FC12A153F0BE400E97986 /* LoginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */; };
 		7F74A09A14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */; };
 		7F74A09B14FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F74A09914FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled@2x.png */; };
@@ -810,7 +809,6 @@
 		7F6F428C15568EE30007E889 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7F6F428F15568EEF0007E889 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		7F6F429015568EEF0007E889 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		7F6F5E9B16A69B4000F28CCF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7F6FC128153F0BE400E97986 /* LoginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewCell.h; sourceTree = "<group>"; };
 		7F6FC129153F0BE400E97986 /* LoginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewCell.m; sourceTree = "<group>"; };
 		7F74A09814FE9A7A00495873 /* MainViewMapButtonImageLBSDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainViewMapButtonImageLBSDisabled.png; sourceTree = "<group>"; };
@@ -1793,7 +1791,6 @@
 			children = (
 				7F2C09281553617E00118B00 /* Default.png */,
 				7F2C09291553617E00118B00 /* Default@2x.png */,
-				7F6F5E9B16A69B4000F28CCF /* Default-568h@2x.png */,
 				7F2C092A1553617E00118B00 /* Icon-Small.png */,
 				7F2C092B1553617E00118B00 /* Icon-Small@2x.png */,
 				7F2C092C1553617E00118B00 /* Icon.png */,
@@ -2972,7 +2969,6 @@
 				7FA5165B156929DA002A4D08 /* GameBagIconBackground@2x.png in Resources */,
 				7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */,
 				7FA4473A169C34A90024D668 /* GTMOAuth2ViewTouch.xib in Resources */,
-				7F6F5E9C16A69B4000F28CCF /* Default-568h@2x.png in Resources */,
 				7F56996016A8E33F0045EA23 /* README.md in Resources */,
 				7F56996116A8E33F0045EA23 /* release_notes.md in Resources */,
 				7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */,
