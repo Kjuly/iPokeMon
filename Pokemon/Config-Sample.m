@@ -33,6 +33,14 @@
 // Scope for Google+ API,
 //NSString * const kOAuthGoogleScope = @"https://www.googleapis.com/auth/plus.me";
 
+/*
+ * In-App Purchase Configuration
+ */
+// Tiers
+//NSString * const kIAPCurrencyTier1 = @"<your_identifier>.tier1";
+//NSString * const kIAPCurrencyTier2 = @"<your_identifier>.tier2";
+//NSString * const kIAPCurrencyTier3 = @"<your_identifier>.tier3";
+
 @implementation Config_Sample
 
 @end

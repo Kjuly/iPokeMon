@@ -61,7 +61,7 @@
 //#define KY_SUPER_POKEMON_MODE_ON 1                // DEV: Turn on super PokeMon mode (OFF)
 
 /*
- *pragma mark - OAuth Configuration
+ * OAuth Configuration
  */
 // Client Identifier to match C/S,
 //   any string value is okay, but alpha is better
@@ -84,6 +84,14 @@
 //
 // Scope for Google+ API,
 //extern NSString * const kOAuthGoogleScope;
+
+/*
+ * In-App Purchase Configuration
+ */
+// Tiers
+//extern NSString * const kIAPCurrencyTier1;
+//extern NSString * const kIAPCurrencyTier2;
+//extern NSString * const kIAPCurrencyTier3;
 
 
 @interface Config_Sample : NSObject

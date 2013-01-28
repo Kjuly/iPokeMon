@@ -82,18 +82,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  BagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
+  static NSString * cellIdentifier = @"Cell";
+  BagTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  if (cell == nil)
     cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                    reuseIdentifier:CellIdentifier] autorelease];
-  }
+                                    reuseIdentifier:cellIdentifier] autorelease];
   
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
   if (index == 4) {
     [cell configureCellWithTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)
-                            icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchangeIcon, index]]
+                            icon:[UIImage imageNamed:kPMINIconCurrencyExchange]
                    accessoryType:UITableViewCellAccessoryNone];
   }
   else {
