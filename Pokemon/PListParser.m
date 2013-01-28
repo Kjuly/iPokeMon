@@ -12,6 +12,7 @@
 
 + (NSString *)_pathOfPropertyList:(NSString *)propertyList
                          inBundle:(NSBundle *)bundle {
+  if (! bundle) return nil;
   NSString * path = [bundle pathForResource:propertyList
                                      ofType:@"plist"
                                 inDirectory:kBundleDirectoryOfPropertyList];
@@ -29,8 +30,7 @@
 }
 
 // Get Pokemons that User Brought
-+ (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID
-{
++ (NSMutableArray *)sixPokemons:(NSMutableArray *)sixPokemonsID {
   NSArray * pokedex = [self pokedexInBundle:[NSBundle mainBundle]];
   NSMutableArray * sixPokemons = [[NSMutableArray alloc] init];
   for (int i = 0; i < [sixPokemonsID count]; ++i) {
@@ -47,8 +47,7 @@
 }
 
 // Get All Pokemon Photo as an Array for Pokedex
-+ (NSArray *)pokedexGenerationOneImageArray
-{
++ (NSArray *)pokedexGenerationOneImageArray {
   NSMutableArray * pokedexGenerationOneImageArray = [[NSMutableArray alloc] init];
   
   UIImage * fullImage = [UIImage imageNamed:@"GenerationOne.png"];
@@ -74,8 +73,7 @@
 }
 
 // Return A Single Image for One Pokemon
-+ (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID
-{
++ (UIImage *)pokedexGenerationOneImageForPokemon:(NSInteger)pokemonID {
   UIImage * fullImage = [UIImage imageNamed:@"GenerationOne.png"];
   NSInteger singleImageHeight = 96;
   NSInteger singleImageWidth  = 96;
@@ -92,8 +90,7 @@
 }
 
 // Image Array for Six Pokemons
-+ (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence
-{
++ (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence {
   NSMutableArray * imageArray = [[[NSMutableArray alloc] init] autorelease];
   UIImage * fullImage = [UIImage imageNamed:@"AllPokemonImageSmall.png"];
   

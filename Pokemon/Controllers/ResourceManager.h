@@ -15,6 +15,7 @@
 @property (nonatomic, retain) NSBundle * bundle;
 
 + (ResourceManager *)sharedInstance;
+- (NSBundle *)defaultBundle;
 - (NSBundle *)bundle;
 
 @end

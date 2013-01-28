@@ -30,6 +30,12 @@ static ResourceManager * manager_;
   return manager_;
 }
 
+// Return default resource bundle
+- (NSBundle *)defaultBundle {
+  NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"Resource" ofType:@"bundle"];
+  return [NSBundle bundleWithPath:bundlePath];
+}
+
 // Return resource bundle
 - (NSBundle *)bundle {
   if (! bundle_) {

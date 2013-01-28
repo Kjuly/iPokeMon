@@ -10,4 +10,6 @@
 
 @interface ResourceTableViewController : UITableViewController
 
+@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+
 @end

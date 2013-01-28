@@ -21,8 +21,8 @@
   NSString * const kResourceBaseURL = @"http://184.169.146.32:8888/";
 #endif
 
-#define kResourceServerPackageAPI   @"package/"
-#define kResourceServerThumbnailAPI @"thumbnail/"
+#define kResourceServerPackageAPI   @"Bundles/"
+#define kResourceServerThumbnailAPI @"Thumbnails/"
 
 
 @interface ResourceTableViewController () {
@@ -43,14 +43,16 @@
 
 @implementation ResourceTableViewController
 
+@synthesize managedObjectContext;
 @synthesize resources       = resources_;
 @synthesize resourceManager = resourceManager_;
 @synthesize loadingManager  = loadingManager_;
 
 - (void)dealloc {
-  self.resources       = nil;
-  self.resourceManager = nil;
-  self.loadingManager  = nil;
+  self.managedObjectContext = nil;
+  self.resources            = nil;
+  self.resourceManager      = nil;
+  self.loadingManager       = nil;
   [super dealloc];
 }
 
@@ -193,7 +195,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       NSString * pathToResourceBundle =
         [pathToSave substringToIndex:(pathToSave.length - @".zip".length)];
       self.resourceManager.bundle = [NSBundle bundleWithPath:pathToResourceBundle];
-      if ([OriginalDataManager updateDataWithResourceBundle:self.resourceManager.bundle isInit:NO])
+      if ([OriginalDataManager updateDataWithMOC:self.managedObjectContext
+                                  resourceBundle:self.resourceManager.bundle
+                                          isInit:NO])
         succeed = YES;
       
       // Save resource bundle path to user defaults

@@ -8,9 +8,7 @@
 
 #import "OriginalDataManager.h"
 
-#import "AppDelegate.h"
 #import "PListParser.h"
-
 #import "Pokemon.h"
 #import "Move.h"
 #import "BagItem.h"
@@ -43,9 +41,10 @@ typedef enum {
 
 @interface OriginalDataManager ()
   
-+ (void)_updateDataForEntityWithType:(EntityType)type
-                              bundle:(NSBundle *)bundle
-                              isInit:(BOOL)isInit;
++ (void)_updateDataForEntityWithMOC:(NSManagedObjectContext *)moc
+                            forType:(EntityType)type
+                             bundle:(NSBundle *)bundle
+                             isInit:(BOOL)isInit;
 + (void)_setDataForEntity:(id)entity
                  withType:(EntityType)type
                  dataDict:(NSDictionary *)dataDict
@@ -59,34 +58,36 @@ typedef enum {
 
 // Update data with resource bundle
 // If the bundle is not offered, use main bundle and init the data
-+ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle
-                              isInit:(BOOL)isInit {
++ (BOOL)updateDataWithMOC:(NSManagedObjectContext *)moc
+           resourceBundle:(NSBundle *)bundle
+                   isInit:(BOOL)isInit {
   if (isInit) NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
   else        NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
   
   // Pokemon
-  [self _updateDataForEntityWithType:kEntityTypePokemon       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypePokemon       bundle:bundle isInit:isInit];
   
   // Move
-  [self _updateDataForEntityWithType:kEntityTypeMove          bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeMove          bundle:bundle isInit:isInit];
 
   // BagXXXs
-  [self _updateDataForEntityWithType:kEntityTypeBagItem       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagMedicine   bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagPokeball   bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagTMHM       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagBerry      bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagMail       bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagBattleItem bundle:bundle isInit:isInit];
-  [self _updateDataForEntityWithType:kEntityTypeBagKeyItem    bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagItem       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMedicine   bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagPokeball   bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagTMHM       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBerry      bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagMail       bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagBattleItem bundle:bundle isInit:isInit];
+  [self _updateDataForEntityWithMOC:moc forType:kEntityTypeBagKeyItem    bundle:bundle isInit:isInit];
   return YES;
 }
 
 #pragma mark - Private Methods
 
-+ (void)_updateDataForEntityWithType:(EntityType)type
-                              bundle:(NSBundle *)bundle
-                              isInit:(BOOL)isInit {
++ (void)_updateDataForEntityWithMOC:(NSManagedObjectContext *)moc
+                            forType:(EntityType)type
+                             bundle:(NSBundle *)bundle
+                             isInit:(BOOL)isInit {
   NSArray * itemList;
   NSString * entityName;
   if (type & kEntityTypePokemon) {
@@ -131,8 +132,6 @@ typedef enum {
   }
   else return;
   
-  NSManagedObjectContext * managedObjectContext =
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSError * error = nil;
   id entity;
   NSInteger i = 0;
@@ -140,17 +139,17 @@ typedef enum {
   if (isInit) {
     for (NSDictionary * itemDict in itemList) {
       entity = [NSEntityDescription insertNewObjectForEntityForName:entityName
-                                             inManagedObjectContext:managedObjectContext];
+                                             inManagedObjectContext:moc];
       [self _setDataForEntity:entity withType:type dataDict:itemDict index:++i extra:nil];
     }
   }
   // Update data
   else {
-    entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext];
+    entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:moc];
     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"sid" ascending:YES]]];
-    NSArray * entities = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray * entities = [moc executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
     
     NSArray * pathOfImageIcons, * pathOfImages, * pathOfImageBacks;
@@ -175,7 +174,7 @@ typedef enum {
                         extra:extra];
     }
   }
-  if (! [managedObjectContext save:&error])
+  if (! [moc save:&error])
     NSLog(@"!!! Couldn't save data to %@, ERROR:%@", entityName, [error description]);
 }
 

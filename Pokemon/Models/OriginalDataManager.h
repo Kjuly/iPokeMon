@@ -12,7 +12,8 @@
 
 // Update data with resource bundle
 // If the bundle is not offered, use main bundle and init the data
-+ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle
-                              isInit:(BOOL)isInit;
++ (BOOL)updateDataWithMOC:(NSManagedObjectContext *)moc
+           resourceBundle:(NSBundle *)bundle
+                   isInit:(BOOL)isInit;
 
 @end

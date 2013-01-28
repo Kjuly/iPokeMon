@@ -35,6 +35,9 @@ typedef enum {
   kNumberOfSectionMoreRows
 }SectionMoreRow;
 
-@interface SettingTableViewController : UITableViewController <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@interface SettingTableViewController : UITableViewController
+  <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+
+@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @end

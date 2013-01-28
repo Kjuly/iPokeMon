@@ -39,10 +39,12 @@
 
 @implementation SettingTableViewController
 
+@synthesize managedObjectContext;
 @synthesize developerEmails = developerEmails_;
 
 - (void)dealloc {
-  self.developerEmails = nil;
+  self.managedObjectContext = nil;
+  self.developerEmails      = nil;
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
   [super dealloc];
@@ -389,6 +391,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       ResourceTableViewController * resourceTableViewController;
       resourceTableViewController = [ResourceTableViewController alloc];
       [resourceTableViewController initWithStyle:UITableViewStylePlain];
+      resourceTableViewController.managedObjectContext = self.managedObjectContext;
       [self.navigationController pushViewController:resourceTableViewController animated:YES];
       [resourceTableViewController release];
     }

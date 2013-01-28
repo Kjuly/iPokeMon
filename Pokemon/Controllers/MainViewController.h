@@ -10,4 +10,6 @@
 
 @interface MainViewController : UIViewController
 
+@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+
 @end

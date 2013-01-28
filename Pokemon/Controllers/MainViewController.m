@@ -103,6 +103,8 @@
 
 @implementation MainViewController
 
+@synthesize managedObjectContext;
+
 @synthesize fullScreenLoadingViewController     = fullScreenLoadingViewController_;
 @synthesize gameMainViewController              = gameMainViewController_;
 @synthesize customNavigationController          = customNavigationController_;
@@ -121,6 +123,8 @@
 @synthesize longTapTimer                    = longTapTimer_;
 
 - (void)dealloc {
+  self.managedObjectContext = nil;
+  
   self.fullScreenLoadingViewController     = nil;
   self.gameMainViewController              = nil;
   self.customNavigationController          = nil;
@@ -152,8 +156,11 @@
 - (id)init {
   if (self = [super init]) {
 #ifdef KY_POPULATE_COREDATA
-    // Hard Initialize the Core Data
-    [OriginalDataManager updateDataWithResourceBundle:[NSBundle mainBundle] isInit:YES];
+    // Hard Initialize the Core Data with default resource bundle
+    if([OriginalDataManager updateDataWithMOC:self.managedObjectContext
+                               resourceBundle:[[ResourceManager sharedInstance] defaultBundle]
+                                       isInit:YES])
+      NSLog(@"......DATA INITIALIZATION DONE.");
 #endif
     // Base iVar Settings
     centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
@@ -541,6 +548,7 @@
       // Center menu utility view controller
       CenterMenuUtilityViewController * centerMenuUtilityViewController;
       centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
+      centerMenuUtilityViewController.managedObjectContext = self.managedObjectContext;
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
       [centerMenuUtilityViewController release];
       

@@ -10,4 +10,6 @@
 
 @interface CenterMenuUtilityViewController : AbstractCenterMenuViewController
 
+@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+
 @end

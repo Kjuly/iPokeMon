@@ -31,7 +31,10 @@
 
 @implementation CenterMenuUtilityViewController
 
+@synthesize managedObjectContext;
+
 -(void)dealloc {
+  self.managedObjectContext = nil;
   [super dealloc];
 }
 
@@ -151,6 +154,7 @@
 
 - (void)setGame:(id)sender {
   SettingTableViewController * settingTableViewController = [[SettingTableViewController alloc] init];
+  settingTableViewController.managedObjectContext = self.managedObjectContext;
   [self pushViewController:settingTableViewController];
   [settingTableViewController release];
 }
