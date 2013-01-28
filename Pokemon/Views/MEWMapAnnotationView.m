@@ -18,6 +18,8 @@
 
 @property (nonatomic, retain) UIImage * image;
 
+- (NSString *)_pathToAnnotation:(NSString *)annotation;
+
 @end
 
 @implementation MEWMapAnnotationView
@@ -84,14 +86,32 @@
 //  
 //}
 
-#pragma mark - Public Methods
+#pragma mark - Private Method
+
+// Return the path to the annotation
+- (NSString *)_pathToAnnotation:(NSString *)annotation {
+  NSString * path = kBundleDirectoryOfAnnotation;
+  NSInteger length = annotation.length;
+  if (length <= 2)
+    return path;
+  
+  // e.g. CNZJHZ => <basePath>/CN/ZJ
+  int i = 0;
+  do {
+    path = [path stringByAppendingFormat:@"/%@", [annotation substringWithRange:NSMakeRange(i, 2)]];
+    i += 2;
+  } while (i < length - 2);
+  return path;
+}
+
+#pragma mark - Public Method
 
 - (void)updateImage {
+  NSString * annotation = ((MEWMapAnnotation *)self.annotation).code;
   NSString * pathToImage =
-    [[ResourceManager sharedInstance].defaultBundle pathForResource:((MEWMapAnnotation *)self.annotation).code
+    [[ResourceManager sharedInstance].defaultBundle pathForResource:annotation
                                                              ofType:@"png"
-                                                        inDirectory:kBundleDirectoryOfAnnotation];
-  NSLog(@"### %@", pathToImage);
+                                                        inDirectory:[self _pathToAnnotation:annotation]];
   self.image = [UIImage imageWithContentsOfFile:pathToImage];
 }
 
