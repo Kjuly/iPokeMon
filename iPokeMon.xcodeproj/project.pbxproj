@@ -963,9 +963,7 @@
 		7FB3A06816B3DBCC00EC3BDF /* BagTMsHMs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */; };
 		7FB3A06916B3DBCC00EC3BDF /* GameSettingOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */; };
 		7FB3A06A16B3DBCC00EC3BDF /* Moves.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */; };
-		7FB3A06B16B3DBCC00EC3BDF /* Moves.plist_backup in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */; };
 		7FB3A06C16B3DBCC00EC3BDF /* Pokedex.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */; };
-		7FB3A06D16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */; };
 		7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */; };
 		7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */; };
 		7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */; };
@@ -2285,9 +2283,7 @@
 		7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BagTMsHMs.plist; sourceTree = "<group>"; };
 		7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameSettingOptions.plist; sourceTree = "<group>"; };
 		7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Moves.plist; sourceTree = "<group>"; };
-		7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Moves.plist_backup; sourceTree = "<group>"; };
 		7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pokedex.plist; sourceTree = "<group>"; };
-		7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Pokedex.plist_backup_3-14"; sourceTree = "<group>"; };
 		7FB3A06E16B3DFDA00EC3BDF /* DefaultSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSprite.png; sourceTree = "<group>"; };
 		7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteBack.png; sourceTree = "<group>"; };
 		7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteIcon.png; sourceTree = "<group>"; };
@@ -4182,9 +4178,7 @@
 				7FB3A05916B3DBCC00EC3BDF /* BagTMsHMs.plist */,
 				7FB3A05A16B3DBCC00EC3BDF /* GameSettingOptions.plist */,
 				7FB3A05B16B3DBCC00EC3BDF /* Moves.plist */,
-				7FB3A05C16B3DBCC00EC3BDF /* Moves.plist_backup */,
 				7FB3A05D16B3DBCC00EC3BDF /* Pokedex.plist */,
-				7FB3A05E16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 */,
 			);
 			path = PropertyLists;
 			sourceTree = "<group>";
@@ -5173,9 +5167,7 @@
 				7FB3A06816B3DBCC00EC3BDF /* BagTMsHMs.plist in Resources */,
 				7FB3A06916B3DBCC00EC3BDF /* GameSettingOptions.plist in Resources */,
 				7FB3A06A16B3DBCC00EC3BDF /* Moves.plist in Resources */,
-				7FB3A06B16B3DBCC00EC3BDF /* Moves.plist_backup in Resources */,
 				7FB3A06C16B3DBCC00EC3BDF /* Pokedex.plist in Resources */,
-				7FB3A06D16B3DBCC00EC3BDF /* Pokedex.plist_backup_3-14 in Resources */,
 				7FB3A07116B3DFDB00EC3BDF /* DefaultSprite.png in Resources */,
 				7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */,
 				7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */,
