@@ -40,6 +40,14 @@
 //#define KY_SESSION_MODE_ON 1                      // DEV: Turn on session mode (ON)
 
 /*
+ * Resource Management
+ */
+// Update if Resource Bundle is offered
+//#define KY_RESOURCE_UPDATE_IMAGE 1                  // DEV: Update Image (ON)
+//#define KY_RESOURCE_UPDATE_PROPERTY_LIST 1          // DEV: Update Property List (ON)
+//#define KY_RESOURCE_UPDATE_SOUND 1                  // DEV: Update Sound (ON)
+
+/*
  * LBS Related
  */
 //#define KY_CORELOCATION_ON 1                      // DEV: Turn on Core Lcation service (ON)

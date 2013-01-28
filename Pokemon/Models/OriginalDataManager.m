@@ -59,14 +59,11 @@ typedef enum {
 
 // Update data with resource bundle
 // If the bundle is not offered, use main bundle and init the data
-+ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle {
-  BOOL isInit = NO;
-  if (bundle == nil) {
-    NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
-    bundle = [NSBundle mainBundle];
-    isInit = YES;
-  }
-  else NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
++ (BOOL)updateDataWithResourceBundle:(NSBundle *)bundle
+                              isInit:(BOOL)isInit {
+  if (isInit) NSLog(@"......INIT DATA with DEFAULT RESOURCE BUNDLE......");
+  else        NSLog(@"......UPDATING DATA with RESOURCE BUNDLE......");
+  
   // Pokemon
   [self _updateDataForEntityWithType:kEntityTypePokemon       bundle:bundle isInit:isInit];
   

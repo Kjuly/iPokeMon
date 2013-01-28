@@ -193,7 +193,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       NSString * pathToResourceBundle =
         [pathToSave substringToIndex:(pathToSave.length - @".zip".length)];
       self.resourceManager.bundle = [NSBundle bundleWithPath:pathToResourceBundle];
-      if ([OriginalDataManager updateDataWithResourceBundle:self.resourceManager.bundle])
+      if ([OriginalDataManager updateDataWithResourceBundle:self.resourceManager.bundle isInit:NO])
         succeed = YES;
       
       // Save resource bundle path to user defaults
