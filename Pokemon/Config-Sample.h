@@ -65,7 +65,7 @@
  */
 // Client Identifier to match C/S,
 //   any string value is okay, but alpha is better
-//   e.g. "iPokemonClient"
+//   e.g. "iPokeMonClientIdentifier"
 //extern NSString * const kOAuthClientIdentifier;
 //
 // Google
