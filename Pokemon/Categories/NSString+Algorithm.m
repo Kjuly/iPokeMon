@@ -54,8 +54,8 @@
 }
 
 // Generate a new Hex by modifying binary value at |index|
-- (NSString *)generateHexBySettingBainaryTo1:(BOOL)settingBinaryTo1
-                                     atIndex:(NSInteger)index {
+- (NSString *)generateHexBySettingBinaryTo1:(BOOL)settingBinaryTo1
+                                    atIndex:(NSInteger)index {
   NSInteger rangeStart = [self length] - round((index - 1) / 4) - 1;
   if (rangeStart < 0) {
     NSMutableString * appendedString = [NSMutableString string];

@@ -266,7 +266,7 @@ static TrainerController * trainerController_ = nil;
   // If Pokemon already caught, do nothing
   if ([self.pokedex isBinary1AtIndex:pokemonSID])
     return;
-  self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBainaryTo1:YES atIndex:pokemonSID];
+  self.entityTrainer.pokedex = [self.entityTrainer.pokedex generateHexBySettingBinaryTo1:YES atIndex:pokemonSID];
   flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerPokedex;
 }
 
