@@ -159,36 +159,34 @@ typedef enum {
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"sid" ascending:YES]]];
     NSArray * entities = [moc executeFetchRequest:fetchRequest error:&error];
     [fetchRequest release];
-    
 #ifdef KY_RESOURCE_UPDATE_IMAGE
-    NSArray * pathOfImageIcons, * pathOfImages, * pathOfImageBacks;
     // Prepare extra data for special type
     if (type & kEntityTypePokemon) {
+      NSArray * pathOfImageIcons, * pathOfImages, * pathOfImageBacks;
       pathOfImageIcons = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSpriteIcon];
       pathOfImages     = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSprite];
       pathOfImageBacks = [bundle pathsForResourcesOfType:@"png" inDirectory:kBundleDirectoryOfImageSpriteBack];
-    }
-    NSDictionary * images = nil;
-#endif
-    for (NSDictionary * itemDict in itemList) {
-      entity = [entities objectAtIndex:i];
-#ifdef KY_RESOURCE_UPDATE_IMAGE
-      // Set extra data for special type
-      if (type & kEntityTypePokemon) {
+      
+      NSInteger imagesCount = [pathOfImageIcons count];
+      NSDictionary * images = nil;
+      for (i = 0; i < imagesCount; ++i) {
+        entity = [entities objectAtIndex:i];
         images = @{@"imageIcon" : [pathOfImageIcons objectAtIndex:i],
                    @"image"     : [pathOfImages     objectAtIndex:i],
                    @"imageBack" : [pathOfImageBacks objectAtIndex:i]};
         [self _setImages:images forEntity:entity withType:type];
       }
+    }
 #endif
 #ifdef KY_RESOURCE_UPDATE_PROPERTY_LIST
+    for (NSDictionary * itemDict in itemList) {
+      entity = [entities objectAtIndex:i++];
       [self _setDataForEntity:entity
                      withType:type
                      dataDict:itemDict
                         index:0];
-#endif
-      ++i;
     }
+#endif
   }
 #endif
   if (! [moc save:&error])

@@ -52,6 +52,12 @@
 //     "CN:ZJ:HZ"
 //
 + (NSString *)codeOfRegionWithPlacemark:(CLPlacemark *)placemark {
+  // Sometimes, the Google Maps API will be blocked by ghost (you know, uh?),
+  //   then no place mark can be got.
+  //   In this case, just return the top level default code: "DEFAULT",
+  //   it'll return default PokeMons for global places.
+  if (! placemark) return @"DEFAULT";
+  
   NSManagedObjectContext * managedObjectContext =
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];

@@ -10,6 +10,8 @@
 
 #import "LoadingManager.h"
 
+#define kBundleDirectoryOfSound_ @"Resources/Sounds"
+
 typedef enum {
   kAudioActionPrepareToPlay = 0,
   kAudioActionPlay,
@@ -20,10 +22,12 @@ typedef enum {
 @interface PMAudioPlayer () {
  @private
   NSMutableDictionary * audioPlayers_;
+  ResourceManager     * resourceManager_;
   LoadingManager      * loadingManager_;
 }
 
 @property (nonatomic, copy)   NSMutableDictionary * audioPlayers;
+@property (nonatomic, retain) ResourceManager     * resourceManager;
 @property (nonatomic, retain) LoadingManager      * loadingManager;
 
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType withAction:(PMAudioAction)audioAction;
@@ -35,8 +39,9 @@ typedef enum {
 
 @implementation PMAudioPlayer
 
-@synthesize audioPlayers   = audioPlayers_;
-@synthesize loadingManager = loadingManager_;
+@synthesize audioPlayers    = audioPlayers_;
+@synthesize resourceManager = resourceManager_;
+@synthesize loadingManager  = loadingManager_;
 
 // Singleton
 static PMAudioPlayer * gameAudioPlayer_ = nil;
@@ -52,15 +57,17 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 - (void)dealloc {
-  self.audioPlayers   = nil;
-  self.loadingManager = nil;
+  self.audioPlayers    = nil;
+  self.resourceManager = nil;
+  self.loadingManager  = nil;
   [super dealloc];
 }
 
 - (id)init {
   if (self = [super init]) {
-    audioPlayers_ = [[NSMutableDictionary alloc] init];
-    self.loadingManager = [LoadingManager sharedInstance];
+    audioPlayers_        = [[NSMutableDictionary alloc] init];
+    self.resourceManager = [ResourceManager sharedInstance];
+    self.loadingManager  = [LoadingManager sharedInstance];
   }
   return self;
 }
@@ -77,6 +84,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
     return;
   }
   
+  // If not resource bundle exists, no need to load audio
+  if (! self.resourceManager.bundle)
+    return;
   // If the Audio Player for type not exist, add new for this type
   [self _addAudioPlayerForAudioType:audioType withAction:kAudioActionPrepareToPlay];
   [[self.audioPlayers objectForKey:audioResourceName] prepareToPlay];
@@ -162,6 +172,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // preload App basic audios (|kAudioGame...|)
 - (void)preloadForAppBasic {
+  if (! self.resourceManager.bundle)
+    return;
+  
   // If ZERO master or sounds volume, do not need to load related audioes
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults integerForKey:kUDKeyGameSettingsMaster] == 0 ||
@@ -176,6 +189,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // preload game basic audios (|kAudioBattle...|)
 - (void)preloadForBattleBasic {
+  if (! self.resourceManager.bundle)
+    return;
+  
   // If ZERO master or sounds volume, do not need to load related audioes
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   if ([userDefaults integerForKey:kUDKeyGameSettingsMaster] == 0 ||
@@ -190,6 +206,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Preload resources for battle VS. Wild Pokemon
 - (void)preloadForBattleVSWildPokemon {
+  if (! self.resourceManager.bundle)
+    return;
+  
   // Load battle basic audioes
   [self preloadForBattleBasic];
   
@@ -229,27 +248,30 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 // Add a new audio player to |audioPlayers_|
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType
                          withAction:(PMAudioAction)audioAction {
+  NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
+  NSURL * url = [self.resourceManager.bundle URLForResource:audioResourceName
+                                              withExtension:@"mp3"
+                                               subdirectory:kBundleDirectoryOfSound_];
+  if (! url) return;
+  
   // Add resource unit to loading queue
 //  [self.loadingManager addResourceToLoadingQueue];
   [self.loadingManager showOverView];
   
   // Load audio resource
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSLog(@"!!!AudioPlayer for AudioType::|%@| not exists, adding new......",
+    NSLog(@"AudioPlayer for AudioType::|%@| not exists, adding new......",
           [self _resourceNameForAudioType:audioType]);
-    NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
     
-    NSError * error;
+    NSError * error = nil;
     AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
-    [audioPlayer initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:audioResourceName withExtension:@"mp3"]
-                                 error:&error];
+    [audioPlayer initWithContentsOfURL:url error:&error];
     [audioPlayer setDelegate:self];
     // Set LOOP for special AUDIO
     if (audioType == kAudioBattlingVSWildPM)
       [audioPlayer setNumberOfLoops:-1];
     
-    if (error)
-      NSLog(@"!!!Error: %@", [error debugDescription]);
+    if (error) NSLog(@"!!!Error: %@", [error debugDescription]);
     else {
       [self.audioPlayers setObject:audioPlayer forKey:audioResourceName];
       if      (audioAction == kAudioActionPlay)          [audioPlayer play];

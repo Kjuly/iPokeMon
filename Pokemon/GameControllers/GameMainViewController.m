@@ -51,9 +51,8 @@
   self.gameBattleEventViewController = nil;
   self.gameBattleEndViewController   = nil;
   
-  // Remove observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleRunEvent object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGameBattleEndWithEvent object:nil];
+  // Remove notification observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -171,7 +170,8 @@
   isLoadingResourceForBattle_ = YES;
   
   // Preload audio resources for battle scene
-  if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0)
+  if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0
+      || ! [ResourceManager sharedInstance].bundle)
     [self loadBattleScene:nil];
   else [self.audioPlayer preloadForBattleVSWildPokemon];
 }
