@@ -16,20 +16,20 @@
 #import "SSZipArchive.h"
 
 #ifdef KY_LOCAL_SERVER_ON
-  NSString * const kResourceBaseURL = @"http://localhost:8888/";
+  NSString * const kResourceListURL = @"https://raw.github.com/Kjuly/iPokeMon-Resource/dev/RESOURCES";
 #else
-  NSString * const kResourceBaseURL = @"http://184.169.146.32:8888/";
+  NSString * const kResourceListURL = @"https://raw.github.com/Kjuly/iPokeMon-Resource/master/RESOURCES";
 #endif
 
-#define kResourceServerPackageAPI   @"Bundles/"
-#define kResourceServerThumbnailAPI @"Thumbnails/"
+#define kResourceServerPackageAPI_   @"Bundles/"
+#define kResourceServerThumbnailAPI_ @"Thumbnails/"
 
 
 @interface ResourceTableViewController () {
  @private
-  NSArray         * resources_;      // resources array
-  ResourceManager * resourceManager_;
-  LoadingManager  * loadingManager_; // loading manager
+  NSArray         * resources_;       // resources array
+  ResourceManager * resourceManager_; // resource manager
+  LoadingManager  * loadingManager_;  // loading manager
 }
 
 @property (nonatomic, copy)   NSArray         * resources;
@@ -60,10 +60,45 @@
   self = [super initWithStyle:style];
   if (self) {
     [self setTitle:NSLocalizedString(@"PMSSettingMoreResources", nil)];
-    // Populate |resources_|
-    self.resources = @[@{@"name" : @"PokeMon Package", @"id" : @"PokeMon"}];
     self.resourceManager = [ResourceManager sharedInstance];
     self.loadingManager  = [LoadingManager sharedInstance];
+    
+    // Populate |resources_|
+    void (^success)(NSURLRequest *, NSHTTPURLResponse *, id);
+    void (^failure)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
+    success = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+      //
+      // {"resources":[
+      //   {
+      //     "id"   : "PokeMon",
+      //     "name" : "PokeMon Package",
+      //     "url"  : "http://localhost:8888/"
+      //   },
+      //   ...
+      //   ]}
+      self.resources = [JSON valueForKey:@"resources"];
+      [self.tableView reloadData];
+    };
+    failure = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+      if (error) NSLog(@"!!!ERROR: %@, RESPONESE: %@, JSON: %@", [error description], response, JSON);
+    };
+    
+    NSURL * url = [[NSURL alloc] initWithString:kResourceListURL];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [url release];
+    [request setHTTPMethod:@"GET"];
+    //
+    // !!!TODO
+    //   When network is not available, timeout not works!!!
+    //
+    [request setTimeoutInterval:10.f];
+    AFJSONRequestOperation * operation =
+      [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                      success:success
+                                                      failure:failure];
+    [request release];
+    [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/plain"]];
+    [operation start];
   }
   return self;
 }
@@ -167,9 +202,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString * resourceName = [[self.resources objectAtIndex:row] objectForKey:@"id"];
   // Resource package name
   NSString * resourcePackageName = [resourceName stringByAppendingString:@".bundle.zip"];
-  // Request URL path tail: e.g. package/PokeMon.zip
+  // Request URL path tail: e.g. Bundle/PokeMon.zip
   NSString * pathComponent =
-    [(NSString *)kResourceServerPackageAPI stringByAppendingString:resourcePackageName];
+    [(NSString *)kResourceServerPackageAPI_ stringByAppendingString:resourcePackageName];
   // Path to the folder where the downloaded resource package will be unzipped
   NSString * pathToUnzip =
     [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
@@ -221,7 +256,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   };
   
   // The final URL to get the resource package in .zip format
-  NSURL * url = [NSURL URLWithString:[kResourceBaseURL stringByAppendingString:pathComponent]];
+  NSURL * url =
+    [NSURL URLWithString:
+      [[[self.resources objectAtIndex:row] objectForKey:@"url"] stringByAppendingString:pathComponent]];
   // Setup request
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
   [request setHTTPMethod:@"GET"];
