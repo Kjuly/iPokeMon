@@ -255,14 +255,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                         withDuration:2.f];
   };
   
+  // Root URL
+  NSString * urlRoot;
+#ifdef KY_LOCAL_SERVER_ON
+  urlRoot = @"http://localhost:8888/";
+#else
+  urlRoot = [[self.resources objectAtIndex:row] objectForKey:@"url"];
+#endif
   // The final URL to get the resource package in .zip format
-  NSURL * url =
-    [NSURL URLWithString:
-      [[[self.resources objectAtIndex:row] objectForKey:@"url"] stringByAppendingString:pathComponent]];
+  NSURL * url = [NSURL URLWithString:[urlRoot stringByAppendingString:pathComponent]];
   // Setup request
   NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
   [request setHTTPMethod:@"GET"];
-  NSLog(@"Request URL:%@, HTTP Header:%@", @"", [request allHTTPHeaderFields]);
   // Setup operation
   AFHTTPRequestOperation * operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
   operation.outputStream = [NSOutputStream outputStreamToFileAtPath:pathToSave append:NO];
@@ -271,6 +275,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.loadingManager showOverView];
   // Start operation
   [operation start];
+  [operation release];
 }
 
 @end
