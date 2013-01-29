@@ -90,6 +90,10 @@
 // - - Load Resource
 "PMSSettingMoreLoadResource" = "Load Resource";
 "PMSSettingMoreResources"    = "Resources";
+"PMSSettingMoreLoadResourceDownloading" = "Downloading";
+"PMSSettingMoreLoadResourceUpdating"    = "Updating";
+"PMSSettingMoreLoadResourceCompleted"   = "Completed";
+"PMSSettingMoreLoadResourceFailed"      = "Failed";
 // - - Logout
 "PMSSettingMoreLogout"        = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";

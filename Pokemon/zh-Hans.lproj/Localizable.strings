@@ -88,6 +88,10 @@
 // - - Load Resource
 "PMSSettingMoreLoadResource" = "加载资源包";
 "PMSSettingMoreResources"    = "所有资源包";
+"PMSSettingMoreLoadResourceDownloading" = "下载中";
+"PMSSettingMoreLoadResourceUpdating"    = "更新中";
+"PMSSettingMoreLoadResourceCompleted"   = "完成";
+"PMSSettingMoreLoadResourceFailed"      = "加载失败";
 // - - Logout
 "PMSSettingMoreLogout"        = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";
