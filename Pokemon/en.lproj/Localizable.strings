@@ -19,8 +19,8 @@
 "PMSYes" = "Yes";
 "PMSNo"  = "No";
 
-"Pokemon"      = "Pokemon";
-"Pokedex"      = "PokeDEX";
+"Pokemon"      = "PokeMon";
+"Pokedex"      = "PokeDex";
 "Info"         = "Info";
 "Bag"          = "Bag";
 "Items"        = "Items";
@@ -36,7 +36,7 @@
 "Bandwidth Usage" = "Bandwidth Usage";
 "Game Setting"    = "Game Setting";
 
-"A Wild Pokemon Appeared!" = "A Wild Pokemon Appeared!";
+"A Wild Pokemon Appeared!" = "A Wild PokeMon Appeared!";
 
 
 // ERROR: Full screen view text: T:Title, M:Message
@@ -52,9 +52,9 @@
 "PMSLoginSigninPage"    = "Loading sign-in page...";
 "PMSAuthenticating"     = "Authenticating...";
 "PMSNewbiewGuide1Title"             = "Step 1";
-"PMSNewbiewGuide1Message"           = "Welcome to Pokemon world! What's your name? (at least 3 characters without any symbol)";
+"PMSNewbiewGuide1Message"           = "Welcome to iPokeMon world! What's your name? (at least 3 characters without any symbol)";
 "PMSNewbiewGuide2Title"             = "Step 2";
-"PMSNewbiewGuide2Message"           = "Choose a Pokemon you would like...";
+"PMSNewbiewGuide2Message"           = "Choose a PokeMon you would like...";
 "PMSNewbiewGuide3Title"             = "Done";
 "PMSNewbiewGuide3Message"           = "Are you ready?";
 "PMSNewbiewGuideErrorTitle"         = "ERROR";
@@ -119,7 +119,7 @@
 
 // Trainer
 "PMSLabelMoney"            = "Money: ";
-"PMSLabelPokedex"          = "Pokedex: ";
+"PMSLabelPokedex"          = "PokeDex: ";
 "PMSLabelBadges"           = "Badges: ";
 "PMSLabelAdventureStarted" = "Adventure Started: ";
 "PMSLabelSteps"            = "Steps: ";
@@ -128,7 +128,7 @@
 "PMSLabelNameSettingMessage3" = "Sorry, name checking faild, please try again.";
 
 // Store
-"PMSStore"                 = "iPokemon Store";
+"PMSStore"                 = "Store";
 "PMSStoreCurrencyExchange" = "Currency Exchange";
 "Cash Shortage" = "Sorry, Cash Shortage";
 "Exchange Failed" = "Sorry, Exchange Failed";
@@ -138,7 +138,7 @@
 // Bag Tableview
 "Bag1"         = "Items";
 "Bag2"         = "Medicine";
-"Bag3"         = "Pokeballs";
+"Bag3"         = "PokeBalls";
 "Bag4"         = "TMs & HMs";
 "Bag5"         = "Berries";
 "Bag6"         = "Mail";
@@ -168,10 +168,10 @@
 "PMSMessageWhatWillXXXDoPart1"  = "What will";
 "PMSMessageWhatWillXXXDoPart3"  = "do?";
 "PMSMessagePokemonFaint"        = "fainted";
-"PMSMessageChooseNewPokemon"    = "Choose a Pokemon to battle.";
+"PMSMessageChooseNewPokemon"    = "Choose a PokeMon to battle.";
 "PMSMessagePlayerWin"           = "You win!";
 "PMSMessagePlayerLose"          = "You lose...";
-"PMSMessageEventNOPMAvailable"  = "You Have NO Pokemon Available.";
+"PMSMessageEventNOPMAvailable"  = "You Have NO PokeMon Available.";
 "PMSMessageLevelUp"             = "Level Up!";
 "PMSMessagePokemonGainedXXXEXP1"= "gained";
 "PMSMessagePokemonGainedXXXEXP3"= "EXP. points";
