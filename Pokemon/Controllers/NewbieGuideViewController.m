@@ -169,6 +169,7 @@
   [nameInputView_ setBackgroundColor:[UIColor whiteColor]];
   [nameInputView_ setTextColor:[UIColor blackColor]];
   [nameInputView_ setFont:[GlobalRender textFontBoldInSizeOf:16]];
+  [nameInputView_ setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
   [nameInputView_ setKeyboardType:UIKeyboardTypeDefault];
   [nameInputView_ setDelegate:self];
   
