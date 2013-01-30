@@ -305,6 +305,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [request setHTTPMethod:@"GET"];
   // Setup operation
   AFHTTPRequestOperation * operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+  [request release];
   operation.outputStream = [NSOutputStream outputStreamToFileAtPath:pathToSave append:NO];
   [operation setCompletionBlockWithSuccess:success failure:failure];
   [operation setDownloadProgressBlock:downloadProgress];
