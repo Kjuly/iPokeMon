@@ -25,6 +25,7 @@
 		7F005A521537D6A90026076E /* GameBattleSceneBackground_07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */; };
 		7F005A531537D6A90026076E /* GameBattleSceneBackground_08.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */; };
 		7F005A541537D6A90026076E /* GameBattleSceneBackground_08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */; };
+		7F01058D16B9178C0076BC42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F01058C16B9178C0076BC42 /* Default-568h@2x.png */; };
 		7F05964C1555331800E5428C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05964B1555331800E5428C /* Region.m */; };
 		7F072F4D15348E5E0085E1DD /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F072F4C15348E5E0085E1DD /* Pokemon.m */; };
 		7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */; };
@@ -591,6 +592,7 @@
 		7F005A421537D6A90026076E /* GameBattleSceneBackground_07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_07@2x.png"; sourceTree = "<group>"; };
 		7F005A431537D6A90026076E /* GameBattleSceneBackground_08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleSceneBackground_08.png; sourceTree = "<group>"; };
 		7F005A441537D6A90026076E /* GameBattleSceneBackground_08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleSceneBackground_08@2x.png"; sourceTree = "<group>"; };
+		7F01058C16B9178C0076BC42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7F05964A1555331800E5428C /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		7F05964B1555331800E5428C /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		7F072F4B15348E5E0085E1DD /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
@@ -1807,6 +1809,7 @@
 			children = (
 				7F2C09281553617E00118B00 /* Default.png */,
 				7F2C09291553617E00118B00 /* Default@2x.png */,
+				7F01058C16B9178C0076BC42 /* Default-568h@2x.png */,
 				7F2C092A1553617E00118B00 /* Icon-Small.png */,
 				7F2C092B1553617E00118B00 /* Icon-Small@2x.png */,
 				7F2C092C1553617E00118B00 /* Icon.png */,
@@ -3003,6 +3006,7 @@
 				7F5C8FCF16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png in Resources */,
 				7F5C8FD016B6FBC200BB10A3 /* KYILogoTwitter.png in Resources */,
 				7F5C8FD116B6FBC200BB10A3 /* KYILogoTwitter@2x.png in Resources */,
+				7F01058D16B9178C0076BC42 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
