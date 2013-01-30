@@ -45,6 +45,7 @@
 @property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
 @property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
 
+- (void)_setupNotificationObservers;
 - (void)_createNewSceneWithWildPokemon:(WildPokemon *)wildPokemon;
 - (void)startGameLoop;
 - (void)runBattleBeginAnimation;
@@ -131,35 +132,8 @@
     [self _createNewSceneWithWildPokemon:[[WildPokemonController sharedInstance] appearedPokemon]];
 #endif
     
-    // Add observer for notification to replace player, enemy's pokemon
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(replacePlayerPokemon:)
-                                                 name:kPMNReplacePlayerPokemon
-                                               object:nil];
-    // Notification from |GameMenuViewController| - |animationDidStop:finished:|
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(getWildPokemonIntoPokeball:)
-                                                 name:kPMNPokeballGetWildPokemon
-                                               object:nil];
-    // Notification from |GameSystemProcess| - |caughtWildPokemonSucceed:| if |succeed == NO|
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(getWildPokemonOutOfPokeball:)
-                                                 name:kPMNPokeballLossWildPokemon
-                                               object:nil];
-    // Notifications from |GameSystemProcess| - |calculateEffectForMove|
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerPokemonFaint:)
-                                                 name:kPMNPlayerPokemonFaint
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(enemyPokemonFaint:)
-                                                 name:kPMNEnemyPokemonFaint
-                                               object:nil];
-    // Notification from |GameBattleEndViewController| when it's view did load
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(endGameBattle:)
-                                                 name:kPMNGameBattleEnd
-                                               object:nil];
+    // Setup notification observers
+    [self _setupNotificationObservers];
     
     // check whether a selector is scheduled. schedules the "update" method.
     // It will use the order number 0.
@@ -169,6 +143,42 @@
     [self scheduleUpdate];
   }
   return self;
+}
+
+#pragma mark - Private Method
+
+// Setup notification observers
+- (void)_setupNotificationObservers {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  // Add observer for notification to replace player, enemy's pokemon
+  [notificationCenter addObserver:self
+                         selector:@selector(replacePlayerPokemon:)
+                             name:kPMNReplacePlayerPokemon
+                           object:nil];
+  // Notification from |GameMenuViewController| - |animationDidStop:finished:|
+  [notificationCenter addObserver:self
+                         selector:@selector(getWildPokemonIntoPokeball:)
+                             name:kPMNPokeballGetWildPokemon
+                           object:nil];
+  // Notification from |GameSystemProcess| - |caughtWildPokemonSucceed:| if |succeed == NO|
+  [notificationCenter addObserver:self
+                         selector:@selector(getWildPokemonOutOfPokeball:)
+                             name:kPMNPokeballLossWildPokemon
+                           object:nil];
+  // Notifications from |GameSystemProcess| - |calculateEffectForMove|
+  [notificationCenter addObserver:self
+                         selector:@selector(playerPokemonFaint:)
+                             name:kPMNPlayerPokemonFaint
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(enemyPokemonFaint:)
+                             name:kPMNEnemyPokemonFaint
+                           object:nil];
+  // Notification from |GameBattleEndViewController| when it's view did load
+  [notificationCenter addObserver:self
+                         selector:@selector(endGameBattle:)
+                             name:kPMNGameBattleEnd
+                           object:nil];
 }
 
 // Generate a new scene with Wild Pokemon

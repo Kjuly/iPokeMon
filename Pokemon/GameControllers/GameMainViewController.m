@@ -29,6 +29,7 @@
 @property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
+- (void)_setupNotificationObservers;
 - (void)loadBattleScene:(NSNotification *)notification;
 - (void)loadViewForEvent:(NSNotification *)notification;
 - (void)endGameBattleWithEvent:(NSNotification *)notification;
@@ -91,22 +92,8 @@
   // Audio Player
   self.audioPlayer = [PMAudioPlayer sharedInstance];
   
-  // Add Notification Observer
-  // Notification from |LoadingManageer| when loading done
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(loadBattleScene:)
-                                               name:kPMNLoadingDone
-                                             object:nil];
-  // Notification from |GameSystemProcess| when an EVENT occurred
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(loadViewForEvent:)
-                                               name:kPMNGameBattleRunEvent
-                                             object:nil];
-  // Notification from |GameSystemProcess| when battle END
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(endGameBattleWithEvent:)
-                                               name:kPMNGameBattleEndWithEvent
-                                             object:nil];
+  // Setup notification observer
+  [self _setupNotificationObservers];
   
   // Cocos2D Part
   EAGLView * glView = [EAGLView viewWithFrame:self.view.bounds
@@ -150,7 +137,7 @@
   previousCenterMainButtonStatus_ = previousCenterMainButtonStatus;
   
   // If Trainer has no battle available Pokemon, don't load Battle Scene,
-  //   load |gameBattleEventView| instead
+  //   load |gameBattleEventView| to show a message instead
   if ([[TrainerController sharedInstance] battleAvailablePokemonIndex] == 0) {
     if (self.gameBattleEventViewController == nil) {
       GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
@@ -169,7 +156,10 @@
   //   so it can load battle scene when receives the notification from |LoadingManageer|
   isLoadingResourceForBattle_ = YES;
   
-  // Preload audio resources for battle scene
+  // Preload audio resources for battle scene.
+  // If no resources available, just load battle scene;
+  // Otherwise, when resources are loaded, load battle scene
+  //   by sending |kPMNLoadingDone| notification to dispatch |-loadBattleScene:|.
   if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0
       || ! [ResourceManager sharedInstance].bundle)
     [self loadBattleScene:nil];
@@ -207,6 +197,26 @@
 }
 
 #pragma mark - Private Methods
+
+// Setup notification observers
+- (void)_setupNotificationObservers {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  // Notification from |LoadingManageer| when loading done
+  [notificationCenter addObserver:self
+                         selector:@selector(loadBattleScene:)
+                             name:kPMNLoadingDone
+                           object:nil];
+  // Notification from |GameSystemProcess| when an EVENT occurred
+  [notificationCenter addObserver:self
+                         selector:@selector(loadViewForEvent:)
+                             name:kPMNGameBattleRunEvent
+                           object:nil];
+  // Notification from |GameSystemProcess| when battle END
+  [notificationCenter addObserver:self
+                         selector:@selector(endGameBattleWithEvent:)
+                             name:kPMNGameBattleEndWithEvent
+                           object:nil];
+}
 
 // Load battle scene
 - (void)loadBattleScene:(NSNotification *)notification {

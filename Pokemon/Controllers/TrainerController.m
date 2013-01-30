@@ -70,7 +70,7 @@ static TrainerController * trainerController_ = nil;
 - (id)init {
   if (self = [super init]) {
     [self _resetUser:nil];
-    // notif from |OAuthManager|, reset data when user logout
+    // Notif from |OAuthManager|, reset data when user logout
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_resetUser:)
                                                  name:kPMNUserLogout
@@ -191,16 +191,13 @@ static TrainerController * trainerController_ = nil;
 // Check whether Pokemons in Six can battle,
 //   and return the first battleable one's index
 - (NSInteger)battleAvailablePokemonIndex {
-  NSInteger availablePokemonIndex = 0;
   NSInteger i = 1;
   for (TrainerTamedPokemon *pokemon in self.entitySixPokemons) {
-    if ([pokemon.hp intValue] > 0) {
-      availablePokemonIndex = i;
-      break;
-    }
+    if ([pokemon.hp intValue] > 0)
+      return i;
     ++i;
   }
-  return availablePokemonIndex;
+  return 0;
 }
 
 // Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)

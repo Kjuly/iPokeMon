@@ -33,10 +33,10 @@
   [fetchRequest setEntity:entity];
   NSPredicate * predicate = [NSPredicate predicateWithFormat:@"uid == %d", pokemonUID];
   [fetchRequest setPredicate:predicate];
-  //  [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
+  //[fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"", nil];
   [fetchRequest setFetchLimit:1];
   
-  NSError * error;
+  NSError * error = nil;
   WildPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
   [fetchRequest release];
   
