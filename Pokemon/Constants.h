@@ -74,7 +74,6 @@ extern NSString * const kPMNDisableTracking; // disable tracking
 extern NSString * const kPMNCloseCenterMenu;
 extern NSString * const kPMNChangeCenterMainButtonStatus;
 //extern NSString * const kPMNBackToMainView;
-extern NSString * const kPMNToggleTabBar;
 
 extern NSString * const kPMNGenerateNewWildPokemon;
 extern NSString * const kPMNPokemonAppeared;

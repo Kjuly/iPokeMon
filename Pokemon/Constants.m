@@ -60,7 +60,6 @@ NSString * const kPMNDisableTracking              = @"PMNDisableTracking"; // di
 NSString * const kPMNCloseCenterMenu              = @"PMNCloseCenterMenu";
 NSString * const kPMNChangeCenterMainButtonStatus = @"PMNChangeCenterMainButtonStatus";
 //NSString * const kPMNBackToMainView               = @"PMNBackToMainView";
-NSString * const kPMNToggleTabBar                 = @"PMNToggleTabBar";
 
 NSString * const kPMNGenerateNewWildPokemon = @"PMNGenerateNewWildPokemon";
 NSString * const kPMNPokemonAppeared        = @"PMNPokemonAppeared";

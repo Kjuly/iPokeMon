@@ -24,6 +24,8 @@
 #import "MapViewController.h"
 #import "GameMainViewController.h"
 
+#import "KYArcTab.h"
+
 #ifdef KY_POPULATE_COREDATA
   #import "OriginalDataManager.h"
 #endif
@@ -489,7 +491,7 @@
   switch (centerMainButtonStatus_) {
     case kCenterMainButtonStatusAtBottom:
       // The observer is |CustomTabViewController|
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTabBar object:self userInfo:nil];
+      [[NSNotificationCenter defaultCenter] postNotificationName:kKYNArcTabToggleTabBar object:self userInfo:nil];
       break;
       
     case kCenterMainButtonStatusPokemonAppeared:
