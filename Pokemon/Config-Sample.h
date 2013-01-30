@@ -61,6 +61,12 @@
 //#define KY_SUPER_POKEMON_MODE_ON 1                // DEV: Turn on super PokeMon mode (OFF)
 
 /*
+ * Server
+ */
+// e.g. http://123.123.123.123:8080
+//extern NSString * const kServerAPIRoot;
+
+/*
  * OAuth Configuration
  */
 // Client Identifier to match C/S,

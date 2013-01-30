@@ -9,6 +9,12 @@
 #import "Config-Sample.h"
 
 /*
+ * Server
+ */
+// e.g. http://123.123.123.123:8080
+//NSString * const kServerAPIRoot = @"http://<your_server_ip>:8080";
+
+/*
  *pragma mark - OAuth Configuration
  */
 // Client Identifier to match C/S,

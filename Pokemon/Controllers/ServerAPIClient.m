@@ -15,9 +15,9 @@
 #pragma mark - ServerAPI Constants
 
 #ifdef KY_LOCAL_SERVER_ON
-  NSString * const kServerAPIRoot = @"http://localhost:8080";
+  NSString * const kServerAPIRoot_ = @"http://localhost:8080";
 #else
-  NSString * const kServerAPIRoot = @"http://184.169.146.32:8080";
+  NSString * const kServerAPIRoot_ = kServerAPIRoot;
 #endif
 
 // Connection Checking
@@ -78,7 +78,7 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 @implementation ServerAPI
 #pragma mark - Public Methods
 + (NSURL *)getURLForUserID {
-  return [NSURL URLWithString:[kServerAPIRoot stringByAppendingString:kServerAPIGetUserID]];
+  return [NSURL URLWithString:[kServerAPIRoot_ stringByAppendingString:kServerAPIGetUserID]];
 }
 
 #pragma mark - Private Methods
@@ -156,7 +156,7 @@ static ServerAPIClient * client_;
   
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kServerAPIRoot]];
+    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kServerAPIRoot_]];
   });
   return client_;
 }
