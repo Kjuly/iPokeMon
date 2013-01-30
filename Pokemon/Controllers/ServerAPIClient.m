@@ -14,12 +14,6 @@
 #pragma mark - Constants
 #pragma mark - ServerAPI Constants
 
-#ifdef KY_LOCAL_SERVER_ON
-  NSString * const kServerAPIRoot_ = @"http://localhost:8080";
-#else
-  NSString * const kServerAPIRoot_ = kServerAPIRoot;
-#endif
-
 // Connection Checking
 NSString * const kServerAPICheckConnection = @"/cc";     // /cc:Check Connection
 // User
@@ -49,7 +43,9 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 
 #pragma mark -
 #pragma mark - ServerAPI
+
 @interface ServerAPI ()
+
 // Connection checking
 + (NSString *)checkConnection;                              // GET
 // User
@@ -72,13 +68,25 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 + (NSString *)getWildPokemon;
 // Annotation
 + (NSString *)getAnnotationWithCode:(NSString *)code; // GET
+
 @end
 
 
 @implementation ServerAPI
 #pragma mark - Public Methods
+
+// Get Server's Root API
++ (NSString *)root {
+#ifdef KY_LOCAL_SERVER_ON
+  return @"http://localhost:8080";
+#else
+  return kServerAPIRoot;
+#endif
+}
+
+// Get url for user ID
 + (NSURL *)getURLForUserID {
-  return [NSURL URLWithString:[kServerAPIRoot_ stringByAppendingString:kServerAPIGetUserID]];
+  return [NSURL URLWithString:[[self root] stringByAppendingString:kServerAPIGetUserID]];
 }
 
 #pragma mark - Private Methods
@@ -156,7 +164,7 @@ static ServerAPIClient * client_;
   
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:kServerAPIRoot_]];
+    client_ = [[ServerAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[ServerAPI root]]];
   });
   return client_;
 }

@@ -12,6 +12,7 @@
 
 // Server API
 @interface ServerAPI : NSObject
++ (NSString *)root;
 + (NSURL *)getURLForUserID;
 @end
 
