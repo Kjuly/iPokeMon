@@ -218,6 +218,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString * pathToSave =
     [pathToUnzip stringByAppendingPathComponent:resourcePackageName];
   
+  // If the target file exists, do nothing
+  if ([[NSFileManager defaultManager] fileExistsAtPath:pathToSave]) {
+    NSLog(@"!!!Target .bundle.zip Already Exists"); return;
+  }
+  
   // Progress View
   UIWindow * window = self.view.window;
   __block MBProgressHUD * progressView = [[MBProgressHUD alloc] initWithWindow:window];
