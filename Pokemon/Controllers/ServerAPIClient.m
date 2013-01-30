@@ -8,6 +8,7 @@
 
 #import "ServerAPIClient.h"
 
+#import "Config.h"
 #import "OAuthManager.h"
 #import "AFJSONRequestOperation.h"
 
