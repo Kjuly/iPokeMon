@@ -12,7 +12,7 @@
  * Server
  */
 // e.g. http://123.123.123.123:8080
-//NSString * const kServerAPIRoot = @"http://<your_server_ip>:8080";
+NSString * const kServerAPIRoot = @"";
 
 /*
  *pragma mark - OAuth Configuration
@@ -25,7 +25,7 @@ NSString * const kOAuthClientIdentifier = @"";
 // Google
 // Client ID for Google's Authentication
 //   e.g. "123456789012.apps.googleusercontent.com"
-NSString * const kOAuthGoogleClientID = @"";
+NSString * const kOAuthGoogleClientID = @"<id>.apps.googleusercontent.com";
 //
 // Client Secret for Google's Authentication
 //   e.g. "O0vXxXPUR7xXxYKz7xX6SLQ"
@@ -43,9 +43,9 @@ NSString * const kOAuthGoogleScope = @"https://www.googleapis.com/auth/plus.me";
  * In-App Purchase Configuration
  */
 // Tiers
-NSString * const kIAPCurrencyTier1 = @"<your_identifier>.tier1";
-NSString * const kIAPCurrencyTier2 = @"<your_identifier>.tier2";
-NSString * const kIAPCurrencyTier3 = @"<your_identifier>.tier3";
+NSString * const kIAPCurrencyTier1 = @"<your_identifier>.coin.tier1";
+NSString * const kIAPCurrencyTier2 = @"<your_identifier>.coin.tier2";
+NSString * const kIAPCurrencyTier3 = @"<your_identifier>.coin.tier3";
 
 @implementation Config
 

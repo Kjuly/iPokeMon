@@ -68,7 +68,7 @@
  * Server
  */
 // e.g. http://123.123.123.123:8080
-//extern NSString * const kServerAPIRoot;
+extern NSString * const kServerAPIRoot;
 
 /*
  * OAuth Configuration
