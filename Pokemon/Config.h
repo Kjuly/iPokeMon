@@ -9,16 +9,20 @@
 //
 // NOTE:
 //
-// DO NOT modify content here if you just want to do configuration.
-// Just copy these two files (Config-Sample.h/m) as Config.h/m,
-//   and rename Config_Sample to Config in both .h/.m files.
-// Then you can modify the configuration there.
-// Config.h/m will be ignored when you commit to the repo, so keep a copy locally,
-//   otherwise they'll disappear when you switch between branches.
+// Use
+//
+//     $ git update-index --assume-unchanged Pokemon/Config.*
+//
+// to ignore changes in Config.h/m files.
 //
 // When you need a new MACRO or Configuration Param,
-//   please DON't FORGET to add it here after you've added to Config.h/m,
-//   and COMMENT IT OUT like ones shown below.
+//   recover the content in Config.* files to original & add what you want,
+//   then start tracking changes again
+//
+//     $ git update-index --no-assume-unchanged Pokemon/Config.*
+//     $ git add Pokemon/Config.*
+//     $ git commit -m "Modify Config.*"
+//     $ git update-index --assume-unchanged Pokemon/Config.*
 //
 
 #import <Foundation/Foundation.h>
@@ -59,6 +63,12 @@
  */
 //#define KY_DEFAULT_VIEW_GAME_BATTLE_ON 1          // DEV: Set game battle view as the default view (OFF)
 //#define KY_SUPER_POKEMON_MODE_ON 1                // DEV: Turn on super PokeMon mode (OFF)
+
+/*
+ * Server
+ */
+// e.g. http://123.123.123.123:8080
+//extern NSString * const kServerAPIRoot;
 
 /*
  * OAuth Configuration
