@@ -15,6 +15,12 @@
 #import "AFJSONRequestOperation.h"
 #import "SSZipArchive.h"
 
+// The resource bundle is big,
+//   so download it from local server is a better idea
+//   when you're do testing jobs for the development
+// Default: OFF
+//#define KY_DOWNLOAD_RESOURCE_FROM_LOCAL_SERVER 1
+
 #ifdef KY_LOCAL_SERVER_ON
   NSString * const kResourceListURL = @"https://raw.github.com/Kjuly/iPokeMon-Resource/dev/RESOURCES";
 #else
@@ -287,7 +293,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   
   // Root URL
   NSString * urlRoot;
-#ifdef KY_LOCAL_SERVER_ON
+#ifdef KY_DOWNLOAD_RESOURCE_FROM_LOCAL_SERVER
   urlRoot = @"http://localhost:8888/";
 #else
   urlRoot = [[self.resources objectAtIndex:row] objectForKey:@"url"];
