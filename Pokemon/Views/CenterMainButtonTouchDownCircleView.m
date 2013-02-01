@@ -58,7 +58,7 @@
                                                 startAngle:pathStartAngle
                                                   endAngle:M_PI * 2 + pathStartAngle
                                                  clockwise:YES].CGPath];
-    [circle_ setPosition:CGPointMake(0.f, 0.f)];
+    [circle_ setPosition:CGPointZero];
     [circle_ setFillColor:[UIColor clearColor].CGColor];
     [circle_ setStrokeColor:[UIColor blueColor].CGColor];
     [circle_ setLineWidth:100.f];

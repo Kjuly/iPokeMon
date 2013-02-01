@@ -44,8 +44,9 @@
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame EXP:(NSInteger)exp EXPMax:(NSInteger)expMax
-{
+- (id)initWithFrame:(CGRect)frame
+                exp:(NSInteger)exp
+             expMax:(NSInteger)expMax {
   if (self = [self initWithFrame:frame]) {
     exp_    = exp;
     expMax_ = expMax;
@@ -56,8 +57,7 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
@@ -98,8 +98,7 @@
   return expMax_;
 }
 
-- (void)updateExpBarWithExp:(NSInteger)exp
-{
+- (void)updateExpBarWithExp:(NSInteger)exp {
   self.exp = exp;
   CGRect hpBarFrame = self.expBar.frame;
   hpBarFrame.size.width = self.frame.size.width * self.exp / self.expMax;
@@ -112,13 +111,12 @@
                    completion:nil];
 }
 
-- (void)updateExpBarWithExpMax:(NSInteger)expMax
-{
+- (void)updateExpBarWithExpMax:(NSInteger)expMax {
   self.expMax = expMax;
 }
 
-- (void)updateExpBarWithExp:(NSInteger)exp ExpMax:(NSInteger)expMax
-{
+- (void)updateExpBarWithExp:(NSInteger)exp
+                     expMax:(NSInteger)expMax {
   self.expMax = expMax > 0 ? expMax : -expMax;
   self.exp    = exp < expMax ? exp : expMax;
   CGRect expBarFrame = CGRectMake(0.f, 0.f, self.frame.size.width * self.exp / self.expMax, 6.f);

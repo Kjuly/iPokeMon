@@ -8,23 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol BagItemTableViewHiddenCellDelegate
+@protocol BagItemTableViewHiddenCellDelegate;
 
- @required
-- (void)useItem:(id)sender;
-- (void)showInfo:(id)sender;
-- (void)cancelHiddenCell:(id)sender;
-
- @optional
-- (void)giveItem:(id)sender;
-- (void)tossItem:(id)sender;
-- (void)changeItemQuantity:(id)sender;
-
-@end
-
-
-@interface BagItemTableViewHiddenCell : UITableViewCell
-{
+@interface BagItemTableViewHiddenCell : UITableViewCell {
   id <BagItemTableViewHiddenCellDelegate> delegate_;
   UIButton * use_;
   UIButton * give_;
@@ -42,5 +28,23 @@
 
 - (void)addQuantity:(NSInteger)quantity withOffsetX:(CGFloat)offsetX;
 - (void)updateQuantity:(NSInteger)quantity;
+
+@end
+
+
+// Delegate
+@protocol BagItemTableViewHiddenCellDelegate
+
+@required
+
+- (void)useItem:(id)sender;
+- (void)showInfo:(id)sender;
+- (void)cancelHiddenCell:(id)sender;
+
+@optional
+
+- (void)giveItem:(id)sender;
+- (void)tossItem:(id)sender;
+- (void)changeItemQuantity:(id)sender;
 
 @end

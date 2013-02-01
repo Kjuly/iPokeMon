@@ -46,8 +46,9 @@
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame HP:(NSInteger)hp HPMax:(NSInteger)hpMax
-{
+- (id)initWithFrame:(CGRect)frame
+                 HP:(NSInteger)hp
+              HPMax:(NSInteger)hpMax {
   if (self = [self initWithFrame:frame]) {
     hp_    = hp;
     hpMax_ = hpMax;
@@ -58,8 +59,7 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     /*UIImageView * hpBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 13.f)];
@@ -93,9 +93,8 @@
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)drawRect:(CGRect)rect {
+  // Drawing code
 }
 */
 
@@ -107,8 +106,7 @@
   return hpMax_;
 }
 
-- (void)updateHPBarWithHP:(NSInteger)hp
-{
+- (void)updateHPBarWithHP:(NSInteger)hp {
   self.hp = hp;
   CGRect hpBarFrame = self.hpBar.frame;
   hpBarFrame.size.width = self.frame.size.width * self.hp / self.hpMax;
@@ -121,13 +119,12 @@
                    completion:nil];
 }
 
-- (void)updateHpBarWithHPMax:(NSInteger)hpMax
-{
+- (void)updateHpBarWithHPMax:(NSInteger)hpMax {
   self.hpMax = hpMax;
 }
 
-- (void)updateHPBarWithHP:(NSInteger)hp HPMax:(NSInteger)hpMax
-{
+- (void)updateHPBarWithHP:(NSInteger)hp
+                    HPMax:(NSInteger)hpMax {
   self.hpMax = hpMax > 0 ? hpMax : -hpMax;
   self.hp    = hp < hpMax ? hp : hpMax;
   CGRect hpBarFrame = CGRectMake(0.f, 0.f, self.frame.size.width * self.hp / self.hpMax, self.frame.size.height);

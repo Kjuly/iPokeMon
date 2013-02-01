@@ -133,7 +133,7 @@
   // EXP
   NSInteger expMax = [playerPokemon.pokemon expToNextLevel:([playerPokemon.level intValue] + 1)];
   [self.pokemonEXPBar updateExpBarWithExp:(expMax - [playerPokemon.toNextLevel intValue])
-                                   ExpMax:expMax];
+                                   expMax:expMax];
 }
 
 - (void)reset {

@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+
 @interface PokemonAreaAnnotation : NSObject <MKAnnotation> {
   CLLocationCoordinate2D coordinate_;
   NSString * title_;

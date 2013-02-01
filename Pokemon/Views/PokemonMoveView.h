@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PokemonMoveViewDelegate <NSObject>
-
-- (void)loadMoveDetailView:(id)sender;
-
-@end
+@protocol PokemonMoveViewDelegate;
 
 @interface PokemonMoveView : UIView
 
@@ -24,5 +20,13 @@
                               tag:(NSInteger)tag
                               odd:(BOOL)odd;
 - (void)setButtonEnabled:(BOOL)enabled;
+
+@end
+
+
+// Delegate
+@protocol PokemonMoveViewDelegate <NSObject>
+
+- (void)loadMoveDetailView:(id)sender;
 
 @end
