@@ -6,27 +6,51 @@
 //  Copyright (c) 2012 Kjuly. All rights reserved.
 //
 
-@protocol CustomNavigationBarDelegate <NSObject>
 
-- (void)hideNavigationBar:(BOOL)hide animated:(BOOL)animated; // hide or not
-- (id)rootViewController;                          // navigationController's topViewController
-- (void)backToRootViewAnimated:(BOOL)animated;     // |popToRootViewControllerAnimated:|
-- (void)backToPreviousViewAnimated:(BOOL)animated; // |popViewControllerAnimated:|
-
-@end
+@protocol CustomNavigationBarDelegate;
+@protocol CustomNavigationBarDataSource;
 
 
 @interface CustomNavigationBar : UINavigationBar {
-  id <CustomNavigationBarDelegate> delegate_;
+  id <CustomNavigationBarDelegate>   delegate_;
+  id <CustomNavigationBarDataSource> dataSource_;
   NSInteger viewCount_;
 }
 
-@property (nonatomic, assign) id <CustomNavigationBarDelegate> delegate;
+@property (nonatomic, assign) id <CustomNavigationBarDelegate>   delegate;
+@property (nonatomic, assign) id <CustomNavigationBarDataSource> dataSource;
 @property (nonatomic, assign) NSInteger viewCount;
 
 - (void)back:(id)sender;
 - (void)backToRoot:(id)sender;
 - (void)setBackToRootButtonToHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)addBackButtonForPreviousView;
+
+@end
+
+
+// Delegate
+@protocol CustomNavigationBarDelegate <NSObject>
+
+@required
+
+// Informs the delegate that the custom navigation bar will hide or show animated
+- (void)customNavigationBarWillHide:(BOOL)hide animated:(BOOL)animated;
+// Informs the delegate that the custom navigation bar will back to root animated
+//   dispath |popToRootViewControllerAnimated:| in |CustomNavigationController|
+- (void)customNavigationBarWillBackToRootAnimated:(BOOL)animated;
+// Informs the delegate that the custom navigation bar will back to previous animated
+//   dispath |popViewControllerAnimated:| in |CustomNavigationController|
+- (void)customNavigationBarWillBackToPreviousAnimated:(BOOL)animated;
+
+@end
+
+
+// Data Source
+@protocol CustomNavigationBarDataSource <NSObject>
+
+@required
+
+- (id)rootViewController; // navigationController's topViewController
 
 @end

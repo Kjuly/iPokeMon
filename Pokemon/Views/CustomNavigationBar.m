@@ -30,7 +30,8 @@
 
 @implementation CustomNavigationBar
 
-@synthesize delegate         = delegate_;
+@synthesize delegate         = delegate_,
+            dataSource       = dataSource_;
 @synthesize viewCount        = viewCount_;
 
 @synthesize backButtonToRoot = backButtonToRoot_;
@@ -38,6 +39,7 @@
 
 -(void)dealloc {
   self.delegate         = nil;
+  self.dataSource       = nil;
   self.backButtonToRoot = nil;
   self.backButton       = nil;
   [super dealloc];
@@ -61,7 +63,7 @@
 //  [super drawRect:rect];
   NSLog(@"*** CustomNavigationBar drawRect:");
   UIImage * backgroundImage = [UIImage imageNamed:kPMINNavBarBackground];
-  [backgroundImage drawInRect:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
+  [backgroundImage drawInRect:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
   // Create custom |backButton_|
   [self _setBackButtonForRoot];
 }
@@ -90,10 +92,10 @@
     [self _removeBackButtonForPreviousView];
   self.viewCount = 0;
   
-  [self.delegate backToRootViewAnimated:YES];
+  [self.delegate customNavigationBarWillBackToRootAnimated:YES];
   // Animation blocks
   void (^animations)() = ^{
-    if ([[self.delegate rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
+    if ([[self.dataSource rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
       // Slide up the Navigation bar to hide it
       [self setFrame:CGRectMake(0.f, -kNavigationBarHeight, kViewWidth, kNavigationBarHeight)];
     }
@@ -101,16 +103,16 @@
     else [self setBackToRootButtonToHidden:YES animated:YES];
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
-    if ([[self.delegate rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
+    if ([[self.dataSource rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
       // And recover button' layout in center view
-      [self.delegate hideNavigationBar:YES animated:NO];
-      [(AbstractCenterMenuViewController *)[self.delegate rootViewController]
+      [self.delegate customNavigationBarWillHide:YES animated:NO];
+      [(AbstractCenterMenuViewController *)[self.dataSource rootViewController]
        changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
     }
   };  
-  [UIView animateWithDuration:0.3f
-                        delay:0.0f
+  [UIView animateWithDuration:.3f
+                        delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:animations
                    completion:completion];
@@ -122,7 +124,7 @@
   // Remove the |backButton| if needed
   if (self.viewCount >= 2 && --self.viewCount < 2)
     [self _removeBackButtonForPreviousView];
-  [self.delegate backToPreviousViewAnimated:YES];
+  [self.delegate customNavigationBarWillBackToPreviousAnimated:YES];
   
   // When pop view, the |titleView| will over the |backButtonToRoot_|,
   //   so bring it to front

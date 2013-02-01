@@ -10,11 +10,13 @@
 
 #import "GlobalRender.h"
 
+
 @interface CustomNavigationController ()
 
 - (void)_setupNavigationBar;
 
 @end
+
 
 @implementation CustomNavigationController
 
@@ -59,7 +61,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [self.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
 }
 
 - (void)viewDidUnload {
@@ -77,8 +79,9 @@
 - (void)_setupNavigationBar {
   NSLog(@"...SETUP NavigationBar...");
   CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
-  [customNavigationBar initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kNavigationBarHeight)];
-  customNavigationBar.delegate = self;
+  [customNavigationBar initWithFrame:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
+  customNavigationBar.delegate   = self;
+  customNavigationBar.dataSource = self;
   [self setValue:customNavigationBar forKey:@"navigationBar"];
   [customNavigationBar release];
   [self setNavigationBarHidden:YES];
@@ -98,7 +101,7 @@
     [(CustomNavigationBar *)self.navigationBar addBackButtonForPreviousView];
   
   if (viewController.title) {
-    UIView * titleView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 300.f, 32.f)];
+    UIView * titleView = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {300.f, 32.f}}];
     UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(300.f - 210.f, -15.f, 200.f, 32.f)];
     [title setBackgroundColor:[UIColor clearColor]];
     [title setTextColor:[GlobalRender textColorOrange]];
@@ -117,20 +120,22 @@
 
 #pragma mark - CustomNavigationBar Delegate
 
-- (void)hideNavigationBar:(BOOL)hide animated:(BOOL)animated {
+- (void)customNavigationBarWillHide:(BOOL)hide animated:(BOOL)animated {
   [self setNavigationBarHidden:hide animated:animated];
 }
 
-- (id)rootViewController {
-  return self.topViewController;
-}
-
-- (void)backToRootViewAnimated:(BOOL)animated {
+- (void)customNavigationBarWillBackToRootAnimated:(BOOL)animated {
   [self popToRootViewControllerAnimated:animated];
 }
 
-- (void)backToPreviousViewAnimated:(BOOL)animated {
+- (void)customNavigationBarWillBackToPreviousAnimated:(BOOL)animated {
   [self popViewControllerAnimated:animated];
+}
+
+#pragma mark - CustomNavigationBar Data Source
+
+- (id)rootViewController {
+  return self.topViewController;
 }
 
 @end

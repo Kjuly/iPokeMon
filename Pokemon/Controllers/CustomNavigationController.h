@@ -10,9 +10,11 @@
 
 #import "CustomNavigationBar.h"
 
-@interface CustomNavigationController : UINavigationController <CustomNavigationBarDelegate>
+@interface CustomNavigationController : UINavigationController
+  <CustomNavigationBarDelegate, CustomNavigationBarDataSource>
 
 // Overwrited |UINavigationController| Methods
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (void)pushViewController:(UIViewController *)viewController
+                  animated:(BOOL)animated;
 
 @end
