@@ -19,9 +19,9 @@
 @property (nonatomic, retain) UIScrollView  * scrollView;
 @property (nonatomic, retain) UIPageControl * pageControl;
 
-- (void)releaseSubviews;
-- (void)changePage:(id)sender;
-- (void)unloadViewAnimated:(BOOL)animated;
+- (void)_releaseSubviews;
+- (void)_changePage:(id)sender;
+- (void)_unloadViewAnimated:(BOOL)animated;
 
 @end
 
@@ -32,11 +32,11 @@
 @synthesize pageControl  = pageControl_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.cancelButton = nil;
   self.scrollView   = nil;
   self.pageControl  = nil;
@@ -105,7 +105,7 @@
   pageControl_ = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, kViewHeight - 50.0f, kViewWidth, 20.0f)];
   [pageControl_ setNumberOfPages:3];
   [pageControl_ setCurrentPage:0];
-  [pageControl_ addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+  [pageControl_ addTarget:self action:@selector(_changePage:) forControlEvents:UIControlEventValueChanged];
   [view addSubview:pageControl_];
   
   // Create a fake |mapButton_| as the cancel button
@@ -118,7 +118,7 @@
                            forState:UIControlStateNormal];
   [cancelButton_ setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel] forState:UIControlStateNormal];
   [cancelButton_ setOpaque:NO];
-  [cancelButton_ addTarget:self action:@selector(unloadViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
+  [cancelButton_ addTarget:self action:@selector(_unloadViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
   [view addSubview:cancelButton_];
   
   self.view = view;
@@ -132,7 +132,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -166,7 +166,7 @@
 #pragma mark - Private Methods
 
 // Change page vir |pageControl_|
-- (void)changePage:(id)sender {
+- (void)_changePage:(id)sender {
   // update the scroll view to the appropriate page
   CGRect frame;
   frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
@@ -175,7 +175,7 @@
   [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
-- (void)unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveLinear

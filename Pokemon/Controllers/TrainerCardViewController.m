@@ -76,12 +76,12 @@ typedef enum {
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 
-- (void)releaseSubviews;
-- (void)tapViewAction:(UITapGestureRecognizer *)recognizer;
-- (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
-- (void)showSettingView:(id)sender;
-- (void)commitSetting;
-- (void)cancelSettingViewAnimated:(BOOL)animated;
+- (void)_releaseSubviews;
+- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer;
+- (void)_setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)_showSettingView:(id)sender;
+- (void)_commitSetting;
+- (void)_cancelSettingViewAnimated:(BOOL)animated;
 
 @end
 
@@ -115,11 +115,11 @@ typedef enum {
 - (void)dealloc {
   self.trainer                            = nil;
   self.twoFingersTwoTapsGestureRecognizer = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.mainView                  = nil;
   self.avatarArea                = nil;
   self.imageView                 = nil;
@@ -316,7 +316,7 @@ typedef enum {
   // Add Gesture
   // Two fingers with two taps to show setting buttons for Trainer Info View
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer =
-    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapViewAction:)];
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapViewAction:)];
   self.twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer;
   [twoFingersTwoTapsGestureRecognizer release];
   [self.twoFingersTwoTapsGestureRecognizer setNumberOfTapsRequired:2];
@@ -342,7 +342,7 @@ typedef enum {
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -353,15 +353,15 @@ typedef enum {
 #pragma mark - Private Method
 
 // Action for tap gesture recognizer
-- (void)tapViewAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer {
   // Two fingers with two taps to show setting buttons for Trainer Info View
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2) {
     NSLog(@"Two Fingers Two Taps");
-    [self setSettingButtonsHidden:!isSetttingButtonsHidden_ animated:YES];
+    [self _setSettingButtonsHidden:!isSetttingButtonsHidden_ animated:YES];
   }
 }
 
-- (void)setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
+- (void)_setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
   isSetttingButtonsHidden_ = hidden;
   
   /*if (self.avatarSetttingButton == nil) {
@@ -373,7 +373,7 @@ typedef enum {
     [avatarSetttingButton release];
     [self.avatarSetttingButton setAlpha:0.f];
     [self.avatarSetttingButton setTag:kTrainerInfoSettingButtonTypeAvatar];
-    [self.avatarSetttingButton addTarget:self action:@selector(showSettingView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.avatarSetttingButton addTarget:self action:@selector(_showSettingView:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.avatarSetttingButton];
     
     UIImageView * setableMarkView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSettingModify"]];
@@ -390,7 +390,7 @@ typedef enum {
     [nameSettingButton release];
     [self.nameSettingButton setAlpha:0.f];
     [self.nameSettingButton setTag:kTrainerInfoSettingButtonTypeName];
-    [self.nameSettingButton addTarget:self action:@selector(showSettingView:)
+    [self.nameSettingButton addTarget:self action:@selector(_showSettingView:)
                      forControlEvents:UIControlEventTouchUpInside];
     [self.nameLabel addSubview:self.nameSettingButton];
     [self.nameLabel setUserInteractionEnabled:YES];
@@ -414,7 +414,7 @@ typedef enum {
   else animations();
 }
 
-- (void)showSettingView:(id)sender {
+- (void)_showSettingView:(id)sender {
   if (self.transparentView == nil) {
     UIView * transparentView = [[UIView alloc] initWithFrame:self.view.frame];
     self.transparentView = transparentView;
@@ -446,14 +446,14 @@ typedef enum {
     UIButton * doneButton = [[UIButton alloc] initWithFrame:doneButtonFrame];
     [doneButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
     [doneButton setImage:[UIImage imageNamed:kPMINMainButtonConfirmOpposite] forState:UIControlStateNormal];
-    [doneButton addTarget:self action:@selector(commitSetting) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton addTarget:self action:@selector(_commitSetting) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:doneButton];
     [doneButton release];
     
     UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
     [cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
     [cancelButton setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(_cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:cancelButton];
     [cancelButton release];
   }
@@ -510,20 +510,20 @@ typedef enum {
 }
 
 // Commit settings done by user
-- (void)commitSetting {
-  NSLog(@"|commitSetting| - InputText:%@", self.nameSettingField.text);
+- (void)_commitSetting {
+  NSLog(@"|_commitSetting| - InputText:%@", self.nameSettingField.text);
   // If user changed name, reset |trainer_.name| & |nameLabel_.text|
   NSString * name = self.nameSettingField.text;
   if (! [name isEqualToString:self.nameLabel.text]) {
-    NSLog(@"|commitSetting| - User name changed, checking uniqueness...");
+    NSLog(@"|_commitSetting| - User name changed, checking uniqueness...");
     // Block: |success| & |failure|
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
       // Response:-1:ERROR: 0:Name Exist 1:OK
       NSInteger uniqueness = [[responseObject valueForKey:@"u"] intValue];
-      NSLog(@"|commitSetting| - web server response value of |uniqueness|:%d", uniqueness);
+      NSLog(@"|_commitSetting| - web server response value of |uniqueness|:%d", uniqueness);
       // Name is uniqueness, do sync work
       if (uniqueness == 1) {
-        NSLog(@"|commitSetting| - Name is uniqueness, do sync work...");
+        NSLog(@"|_commitSetting| - Name is uniqueness, do sync work...");
         [self.trainer setName:name];
         
         CGFloat const imageSize       = 100.f;
@@ -537,7 +537,7 @@ typedef enum {
       }
       // Name already exists
       else if (uniqueness == 0) {
-        NSLog(@"!!! |commitSetting| - Name is already exists...");
+        NSLog(@"!!! |_commitSetting| - Name is already exists...");
         [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage2", nil)];
         return;
       }
@@ -547,7 +547,7 @@ typedef enum {
       }
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-      NSLog(@"!!! |commitSetting| data fetching failed ERROR: %@", error);
+      NSLog(@"!!! |_commitSetting| data fetching failed ERROR: %@", error);
       [self.nameSettingMessage setText:NSLocalizedString(@"PMSLabelNameSettingMessage3", nil)];
       return;
     };
@@ -555,11 +555,11 @@ typedef enum {
     // Check UNIQUENESS for user name
     [[ServerAPIClient sharedInstance] checkUniquenessForName:name success:success failure:failure];
   }
-  [self cancelSettingViewAnimated:YES];
+  [self _cancelSettingViewAnimated:YES];
 }
 
 // Cancel |settingView_|
-- (void)cancelSettingViewAnimated:(BOOL)animated {
+- (void)_cancelSettingViewAnimated:(BOOL)animated {
   [self.nameSettingField resignFirstResponder];
   
   void (^animations)() = ^{

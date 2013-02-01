@@ -10,6 +10,7 @@
 
 #import "GlobalRender.h"
 
+
 #pragma mark - LoadingBar
 
 @interface LoadingBar () {
@@ -39,10 +40,8 @@ static LoadingBar * loadingBar_ = nil;
   return loadingBar_;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.progressBar = nil;
-  
   [super dealloc];
 }
 
@@ -118,10 +117,8 @@ static LoadingManager * loadingManager_ = nil;
   return loadingManager_;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.loadingBar = nil;
-  
   [super dealloc];
 }
 

@@ -30,9 +30,9 @@
 @property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
 
 - (void)_setupNotificationObservers;
-- (void)loadBattleScene:(NSNotification *)notification;
-- (void)loadViewForEvent:(NSNotification *)notification;
-- (void)endGameBattleWithEvent:(NSNotification *)notification;
+- (void)_loadBattleScene:(NSNotification *)notification;
+- (void)_loadViewForEvent:(NSNotification *)notification;
+- (void)_endGameBattleWithEvent:(NSNotification *)notification;
 
 @end
 
@@ -57,16 +57,12 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -159,10 +155,10 @@
   // Preload audio resources for battle scene.
   // If no resources available, just load battle scene;
   // Otherwise, when resources are loaded, load battle scene
-  //   by sending |kPMNLoadingDone| notification to dispatch |-loadBattleScene:|.
+  //   by sending |kPMNLoadingDone| notification to dispatch |-_loadBattleScene:|.
   if ([[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyGameSettingsMaster] == 0
       || ! [ResourceManager sharedInstance].bundle)
-    [self loadBattleScene:nil];
+    [self _loadBattleScene:nil];
   else [self.audioPlayer preloadForBattleVSWildPokemon];
 }
 
@@ -203,23 +199,23 @@
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Notification from |LoadingManageer| when loading done
   [notificationCenter addObserver:self
-                         selector:@selector(loadBattleScene:)
+                         selector:@selector(_loadBattleScene:)
                              name:kPMNLoadingDone
                            object:nil];
   // Notification from |GameSystemProcess| when an EVENT occurred
   [notificationCenter addObserver:self
-                         selector:@selector(loadViewForEvent:)
+                         selector:@selector(_loadViewForEvent:)
                              name:kPMNGameBattleRunEvent
                            object:nil];
   // Notification from |GameSystemProcess| when battle END
   [notificationCenter addObserver:self
-                         selector:@selector(endGameBattleWithEvent:)
+                         selector:@selector(_endGameBattleWithEvent:)
                              name:kPMNGameBattleEndWithEvent
                            object:nil];
 }
 
 // Load battle scene
-- (void)loadBattleScene:(NSNotification *)notification {
+- (void)_loadBattleScene:(NSNotification *)notification {
   // Only load scene when it is loading resource for battle
   if (! isLoadingResourceForBattle_)
     return;
@@ -245,7 +241,7 @@
 }
 
 // Load game EVENT view
-- (void)loadViewForEvent:(NSNotification *)notification {
+- (void)_loadViewForEvent:(NSNotification *)notification {
   GameBattleEventType eventType = [[notification.userInfo valueForKey:@"eventType"] intValue];
   if (eventType == kGameBattleEventTypeNone)
     return;
@@ -267,7 +263,7 @@
 // End game battle with Events:
 //   Player WIN/LOSE
 //   Caught Wild Pokemon
-- (void)endGameBattleWithEvent:(NSNotification *)notification {
+- (void)_endGameBattleWithEvent:(NSNotification *)notification {
   GameBattleEndEventType battleEndEventType;
   if ([notification.userInfo valueForKey:@"battleEndEventType"])
     battleEndEventType = [[notification.userInfo valueForKey:@"battleEndEventType"] intValue];

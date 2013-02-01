@@ -23,7 +23,7 @@
 @property (nonatomic, retain) PokemonInfoLabelView * expLabelView;
 @property (nonatomic, retain) PokemonInfoLabelView * toNextLevelLabelView;
 
-- (void)releaseSubviews;
+- (void)_releaseSubviews;
 
 @end
 
@@ -37,11 +37,11 @@
 @synthesize expBarCurrntPoint    = expBarCurrntPoint_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.levelLabelView       = nil;
   self.expLabelView         = nil;
   self.toNextLevelLabelView = nil;
@@ -49,8 +49,7 @@
   self.expBarCurrntPoint    = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -134,7 +133,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

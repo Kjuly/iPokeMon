@@ -23,8 +23,8 @@
 
 @property (nonatomic, retain) UILabel * pokemonHP;
 
-- (void)releaseSubviews;
-- (void)toggleStatusBar;
+- (void)_releaseSubviews;
+- (void)_toggleStatusBar;
 
 @end
 
@@ -35,25 +35,21 @@
 @synthesize pokemonHP     = pokemonHP_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.pokemonEXPBar     = nil;
   self.pokemonHP         = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -96,7 +92,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -138,12 +134,12 @@
 
 - (void)reset {
   [super reset];
-  if (isStatusBarOpening_) [self toggleStatusBar];
+  if (isStatusBarOpening_) [self _toggleStatusBar];
 }
 
 #pragma mark - Private Methods
 
-- (void)toggleStatusBar {
+- (void)_toggleStatusBar {
   CGRect viewFrame = CGRectMake(0.f, 0.f, 280.f, 65.f);
   if (isStatusBarOpening_)
     viewFrame.origin.x += 100.f;

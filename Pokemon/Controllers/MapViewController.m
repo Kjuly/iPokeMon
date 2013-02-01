@@ -42,7 +42,7 @@
 @property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
 @property (nonatomic, copy)   NSMutableSet     * annotations;
 
-- (void)releaseSubviews;
+- (void)_releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
 - (void)_actionForButtonShowWorld:(id)sender; // zoom out to show all world
 - (void)_increaseSelectedAnnotationViewCount; // increase |selectedAnnotationViewCount_|
@@ -73,11 +73,11 @@
   self.mapAnnotationCalloutViewController = nil;
   self.selectedAnnotationView = nil;
   self.annotations            = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.mapView         = nil;
   self.locateMeButton  = nil;
   self.showWorldButton = nil;
@@ -165,7 +165,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

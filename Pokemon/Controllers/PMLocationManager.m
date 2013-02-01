@@ -11,6 +11,7 @@
 #import "LoadingManager.h"
 #import "Region+DataController.h"
 
+
 @interface PMLocationManager () {
  @private
   CLLocationManager * locationManager_;
@@ -39,6 +40,7 @@
 - (void)_generateLocationInfoForLocation:(CLLocation *)location; // generate location info
 
 @end
+
 
 @implementation PMLocationManager
 
@@ -86,20 +88,21 @@ static PMLocationManager * locationManager_ = nil;
 // listen for notifications
 - (void)listen {
   // Add observers for notification
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Notification from |MainViewController| when |mapButton_| pressed
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(_enableTracking:)
-                                               name:kPMNEnableTracking
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(_disableTracking:)
-                                               name:kPMNDisableTracking
-                                             object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(_enableTracking:)
+                             name:kPMNEnableTracking
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(_disableTracking:)
+                             name:kPMNDisableTracking
+                           object:nil];
   // When game battle END
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(_resetIsPokemonAppeared:)
-                                               name:kPMNBattleEnd
-                                             object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(_resetIsPokemonAppeared:)
+                             name:kPMNBattleEnd
+                           object:nil];
 }
 
 // return current location
@@ -380,39 +383,40 @@ static PMLocationManager * locationManager_ = nil;
 
 // Tells the delegate that the location manager received updated heading information.
 // Available in iOS 3.0 and later.
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-}
+- (void)locationManager:(CLLocationManager *)manager
+       didUpdateHeading:(CLHeading *)newHeading
+{}
 
 // Tells the delegate that the user entered/exit the specified region.
 // Available in iOS 4.0 and later.
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-}
+- (void)locationManager:(CLLocationManager *)manager
+         didEnterRegion:(CLRegion *)region
+{}
 
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-}
+- (void)locationManager:(CLLocationManager *)manager
+          didExitRegion:(CLRegion *)region
+{}
 
 /*
- // Tells the delegate that a new region is being monitored.
- // Available in iOS 5.0 and later.
- - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
- {
- }
- */
+// Tells the delegate that a new region is being monitored.
+// Available in iOS 5.0 and later.
+- (void)    locationManager:(CLLocationManager *)manager
+didStartMonitoringForRegion:(CLRegion *)region
+{}
+*/
 
 // Tells the delegate that a region monitoring error occurred.
 // Available in iOS 4.0 and later.
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-}
+- (void)   locationManager:(CLLocationManager *)manager
+monitoringDidFailForRegion:(CLRegion *)region
+                 withError:(NSError *)error
+{}
 
 // Tells the delegate that the authorization status for the application changed.
 // Available in iOS 4.2 and later.
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-}
+- (void)     locationManager:(CLLocationManager *)manager
+didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{}
 
 // Asks the delegate whether the heading calibration alert should be displayed.
 // Available in iOS 3.0 and later.

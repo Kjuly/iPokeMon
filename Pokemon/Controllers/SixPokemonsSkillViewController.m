@@ -31,7 +31,7 @@
 @property (nonatomic, retain) PokemonInfoLabelView * speedLabelView;
 @property (nonatomic, retain) PokemonInfoLabelView * abilityLabelView;
 
-- (void)releaseSubviews;
+- (void)_releaseSubviews;
 
 @end
 
@@ -49,11 +49,11 @@
 @synthesize abilityLabelView   = abilityLabelView_;
 
 - (void)dealloc{
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.hpLabelView        = nil;
   self.hpBarTotal         = nil;
   self.hpBarLeft          = nil;
@@ -65,8 +65,7 @@
   self.abilityLabelView   = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -172,7 +171,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 @end

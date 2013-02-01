@@ -11,6 +11,7 @@
 #import "UIButton+Animation.h"
 #import "GlobalRender.h"
 
+
 @interface GameMenuMoveUnitView () {
 @private
   id <GameMenuMoveUnitViewDelegate> delegate_;
@@ -26,10 +27,10 @@
 
 @end
 
+
 @implementation GameMenuMoveUnitView
 
 @synthesize delegate = delegate_;
-
 @synthesize moveButton = moveButton_;
 @synthesize pp         = pp_;
 
@@ -40,8 +41,7 @@
   [super dealloc];
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
     CGFloat const frameHeight = frame.size.height;

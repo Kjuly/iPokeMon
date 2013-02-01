@@ -27,11 +27,12 @@
 @property (nonatomic, retain) LoadingManager    * loadingManager;
 @property (nonatomic, retain) PMPurchaseManager * purchaseManager;
 
-- (void)timeOut:(id)sender;
-- (void)productsLoaded:(NSNotification *)notification;
-- (void)productPurchased:(NSNotification *)notification;
-- (void)productPurchaseFailed:(NSNotification *)notification;
-- (void)exchangeCurrency:(id)sender;
+- (void)_setupNotificationObservers;
+- (void)_timeOut:(id)sender;
+- (void)_productsLoaded:(NSNotification *)notification;
+- (void)_productPurchased:(NSNotification *)notification;
+- (void)_productPurchaseFailed:(NSNotification *)notification;
+- (void)_exchangeCurrency:(id)sender;
 
 @end
 
@@ -44,9 +45,7 @@
   self.loadingManager  = nil;
   self.purchaseManager = nil;
   // remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductsLoadedNotification object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductPurchasedNotification object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNProductPurchaseFailedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -62,8 +61,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -76,18 +74,9 @@
   [super viewDidLoad];
   [self.tableView setAlpha:0.f];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(productsLoaded:)
-                                               name:kPMNProductsLoadedNotification
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(productPurchased:)
-                                               name:kPMNProductPurchasedNotification
-                                             object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(productPurchaseFailed:)
-                                               name:kPMNProductPurchaseFailedNotification
-                                             object:nil];
+  
+  // Setup notification observers
+  [self _setupNotificationObservers];
 }
 
 - (void)viewDidUnload {
@@ -100,7 +89,7 @@
     [self.purchaseManager requestProducts];
     // Loaidng start
     [self.loadingManager showOverView];
-    [self performSelector:@selector(timeOut:) withObject:nil afterDelay:15.f];
+    [self performSelector:@selector(_timeOut:) withObject:nil afterDelay:15.f];
   }
   else [self.tableView setAlpha:1.f];
   
@@ -115,7 +104,7 @@
       [self.purchaseManager requestProducts];
       // Loaidng start
       [self.loadingManager showOverView];
-      [self performSelector:@selector(timeOut:) withObject:nil afterDelay:5.f];
+      [self performSelector:@selector(_timeOut:) withObject:nil afterDelay:5.f];
     }
   }*/
 }
@@ -175,7 +164,7 @@
   [numberFormatter release];
   [cell.exchangeButton setTag:row];
   [cell.exchangeButton addTarget:self
-                          action:@selector(exchangeCurrency:)
+                          action:@selector(_exchangeCurrency:)
                 forControlEvents:UIControlEventTouchUpInside];
   product = nil;
   return cell;
@@ -226,7 +215,24 @@
 
 #pragma mark - Private Methods
 
-- (void)timeOut:(id)sender {
+// Setup notification observer
+- (void)_setupNotificationObservers {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  [notificationCenter addObserver:self
+                         selector:@selector(_productsLoaded:)
+                             name:kPMNProductsLoadedNotification
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(_productPurchased:)
+                             name:kPMNProductPurchasedNotification
+                           object:nil];
+  [notificationCenter addObserver:self
+                         selector:@selector(_productPurchaseFailed:)
+                             name:kPMNProductPurchaseFailedNotification
+                           object:nil];
+}
+
+- (void)_timeOut:(id)sender {
   NSLog(@"!!!ERROR: TIMEOUT");
   [self.loadingManager hideOverView];
   CGFloat delay = 1.5f;
@@ -238,7 +244,7 @@
   navigationBar = nil;
 }
 
-- (void)productsLoaded:(NSNotification *)notification {
+- (void)_productsLoaded:(NSNotification *)notification {
   NSLog(@"Products Loaded");
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
@@ -251,7 +257,7 @@
                    completion:nil];
 }
 
-- (void)productPurchased:(NSNotification *)notification {
+- (void)_productPurchased:(NSNotification *)notification {
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
@@ -269,7 +275,7 @@
                       withDuration:1.f];
 }
 
-- (void)productPurchaseFailed:(NSNotification *)notification {
+- (void)_productPurchaseFailed:(NSNotification *)notification {
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
@@ -290,14 +296,14 @@
 }
 
 // Button Action: exchange the currency
-- (void)exchangeCurrency:(id)sender {
+- (void)_exchangeCurrency:(id)sender {
   selectedRowIndex_ = ((UIButton *)sender).tag;
   SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
   NSLog(@"Buying %@...", product);
   [self.purchaseManager buyProduct:product];
   // loading
   [self.loadingManager showOverView];
-  [self performSelector:@selector(timeOut:) withObject:nil afterDelay:60*5];
+  [self performSelector:@selector(_timeOut:) withObject:nil afterDelay:60*5];
   product = nil;
 }
 

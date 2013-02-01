@@ -25,6 +25,7 @@
 
 @end
 
+
 @implementation MoveDetailRoundView
 
 @synthesize title       = title_;

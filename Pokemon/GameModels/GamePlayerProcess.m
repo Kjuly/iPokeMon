@@ -18,7 +18,7 @@
   BOOL complete_;
 }
 
-- (void)sendMessageToPlayer;
+- (void)_sendMessageToPlayer;
 
 @end
 
@@ -42,7 +42,7 @@
   // so jsut pass here if completed.
   if (complete_)
     return;
-  else [self sendMessageToPlayer];
+  else [self _sendMessageToPlayer];
 }
 
 - (void)reset {
@@ -56,7 +56,7 @@
 #pragma mark - Private Methods
 
 // Send message to Player (i.e. update text in |messageView_| of |GameMenuViewController| )
-- (void)sendMessageToPlayer {
+- (void)_sendMessageToPlayer {
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   
   NSString * message;

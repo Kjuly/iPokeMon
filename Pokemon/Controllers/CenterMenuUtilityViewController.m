@@ -19,12 +19,12 @@
 @interface CenterMenuUtilityViewController ()
 
 // Buttons' Action
-- (void)showPokedex:(id)sender;
-- (void)showPokemon:(id)sender;
-- (void)showBag:(id)sender;
-- (void)showTrainerCard:(id)sender;
-- (void)runHotkey:(id)sender;
-- (void)setGame:(id)sender;
+- (void)_showPokedex:(id)sender;
+- (void)_showPokemon:(id)sender;
+- (void)_showBag:(id)sender;
+- (void)_showTrainerCard:(id)sender;
+- (void)_runHotkey:(id)sender;
+- (void)_setGame:(id)sender;
 
 @end
 
@@ -87,27 +87,27 @@
   NSInteger buttonTag = ((UIButton *)sender).tag;
   switch (buttonTag) {
     case 1://kTagUtilityBallButtonShowPokedex:
-      [self showPokedex:sender];
+      [self _showPokedex:sender];
       break;
       
     case 2://kTagUtilityBallButtonShowPokemon:
-      [self showPokemon:sender];
+      [self _showPokemon:sender];
       break;
       
     case 3://kTagUtilityBallButtonShowBag:
-      [self showBag:sender];
+      [self _showBag:sender];
       break;
       
     case 4://kTagUtilityBallButtonShowTrainerCard:
-      [self showTrainerCard:sender];
+      [self _showTrainerCard:sender];
       break;
       
     case 5://kTagUtilityBallButtonHotkey:
-      [self runHotkey:sender];
+      [self _runHotkey:sender];
       break;
       
     case 6://kTagUtilityBallButtonSetGame:
-      [self setGame:sender];
+      [self _setGame:sender];
       break;
       
     default:
@@ -118,41 +118,41 @@
 #pragma mark - Private Methods
 
 ///Buttons' Action
-- (void)showPokedex:(id)sender {  
+- (void)_showPokedex:(id)sender {  
   PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
   [pokedexTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:pokedexTableViewController];
   [pokedexTableViewController release];
 }
 
-- (void)showPokemon:(id)sender {
+- (void)_showPokemon:(id)sender {
   SixPokemonsTableViewController * sixPokemonsTableViewController = [SixPokemonsTableViewController alloc];
   [sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:sixPokemonsTableViewController];
   [sixPokemonsTableViewController release];
 }
 
-- (void)showBag:(id)sender {
+- (void)_showBag:(id)sender {
   BagTableViewController * bagTableViewController = [BagTableViewController alloc];
   [bagTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:bagTableViewController];
   [bagTableViewController release];
 }
 
-- (void)showTrainerCard:(id)sender {
+- (void)_showTrainerCard:(id)sender {
   TrainerCardViewController * trainerCardViewController = [[TrainerCardViewController alloc] init];
   [self pushViewController:trainerCardViewController];
   [trainerCardViewController release];
 }
 
-- (void)runHotkey:(id)sender {
+- (void)_runHotkey:(id)sender {
   StoreTableViewController * storeTableViewController;
   storeTableViewController = [[StoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self pushViewController:storeTableViewController];
   [storeTableViewController release];
 }
 
-- (void)setGame:(id)sender {
+- (void)_setGame:(id)sender {
   SettingTableViewController * settingTableViewController = [[SettingTableViewController alloc] init];
   settingTableViewController.managedObjectContext = self.managedObjectContext;
   [self pushViewController:settingTableViewController];

@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GameMenuMoveUnitViewDelegate <NSObject>
-- (void)showDetail:(id)sender;
-@end
+@protocol GameMenuMoveUnitViewDelegate;
 
 @interface GameMenuMoveUnitView : UIView
 
@@ -21,5 +19,14 @@
                              tag:(NSInteger)tag;
 - (void)setButtonEnabled:(BOOL)enabled;
 - (void)setButtonSelected:(BOOL)selected;
+
+@end
+
+
+// Delegate
+
+@protocol GameMenuMoveUnitViewDelegate <NSObject>
+
+- (void)showDetail:(id)sender;
 
 @end

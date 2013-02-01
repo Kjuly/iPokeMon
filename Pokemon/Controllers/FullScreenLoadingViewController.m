@@ -28,8 +28,8 @@
 @property (nonatomic, retain) UILabel  * message;
 @property (nonatomic, retain) UIButton * refreshButton;
 
-- (void)releaseSubviews;
-- (void)refresh;
+- (void)_releaseSubviews;
+- (void)_refresh;
 
 @end
 
@@ -41,11 +41,11 @@
 @synthesize refreshButton = refreshButton_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.title         = nil;
   self.message       = nil;
   self.refreshButton = nil;
@@ -61,8 +61,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -73,7 +72,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
   [view setAlpha:0.f];
@@ -100,7 +99,7 @@
   
   refreshButton_ = [[UIButton alloc] initWithFrame:refreshButtonFrame];
   [refreshButton_ setImage:[UIImage imageNamed:kPMINIconRefresh] forState:UIControlStateNormal];
-  [refreshButton_ addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+  [refreshButton_ addTarget:self action:@selector(_refresh) forControlEvents:UIControlEventTouchUpInside];
   [view addSubview:refreshButton_];
   
   self.view = view;
@@ -114,7 +113,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -158,7 +157,7 @@
 
 #pragma mark - Private Methods
 
-- (void)refresh {
+- (void)_refresh {
   if (isCheckingConnection_)
     return;
   isCheckingConnection_ = YES;

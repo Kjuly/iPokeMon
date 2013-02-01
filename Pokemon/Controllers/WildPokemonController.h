@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+
 @class WildPokemon;
 
 @interface WildPokemonController : NSObject

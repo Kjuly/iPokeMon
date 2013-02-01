@@ -10,7 +10,8 @@
 
 #import "GameMenuSixPokemonsUnitView.h"
 
-@interface GameMenuSixPokemonsViewController : UIViewController <GameMenuSixPokemonsUnitViewDelegate>
+@interface GameMenuSixPokemonsViewController : UIViewController
+  <GameMenuSixPokemonsUnitViewDelegate>
 {
   BOOL isSelectedPokemonInfoViewOpening_;
   NSInteger currBattlePokemon_;

@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+
 typedef enum {
   kGamePokemonStatusNormal = 0,
   kGamePokemonStatusFaint  = 1
 }GamePokemonStatus;
+
 
 @interface GamePokemonSprite : CCSprite {
   GamePokemonStatus status_;

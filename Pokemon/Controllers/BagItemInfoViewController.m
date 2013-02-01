@@ -27,8 +27,8 @@
 @property (nonatomic, retain) UILabel                * info;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)releaseSubviews;
-- (void)unloadViewWithAnimation;
+- (void)_releaseSubviews;
+- (void)_unloadViewWithAnimation;
 
 @end
 
@@ -43,11 +43,11 @@
 
 - (void)dealloc {
   self.tapGestureRecognizer = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView = nil;
   self.name           = nil;
   self.price          = nil;
@@ -116,7 +116,7 @@
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
-  [tapGestureRecognizer initWithTarget:self action:@selector(unloadViewWithAnimation)];
+  [tapGestureRecognizer initWithTarget:self action:@selector(_unloadViewWithAnimation)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
@@ -126,7 +126,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -166,7 +166,7 @@
 
 #pragma mark - Private Methods
 
-- (void)unloadViewWithAnimation {
+- (void)_unloadViewWithAnimation {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut

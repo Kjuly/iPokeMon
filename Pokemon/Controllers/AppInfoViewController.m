@@ -10,9 +10,11 @@
 
 #import "UIFont+Custom.h"
 
+
 //#warning Please confirm these links' URL
 NSString * const kKYFollowMeURLTwitter   = @"https://twitter.com/kJulYu";
 NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
+
 
 @interface AppInfoViewController ()
 

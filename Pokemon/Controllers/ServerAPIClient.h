@@ -12,10 +12,14 @@
 
 // Server API
 @interface ServerAPI : NSObject
+
 + (NSString *)root;
 + (NSURL *)getURLForUserID;
+
 @end
 
+
+// ServerAPIClient
 
 typedef enum {
   kDataFetchTargetTrainer         = 1 << 0,

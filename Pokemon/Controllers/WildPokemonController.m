@@ -20,7 +20,9 @@
 
 #import "AFJSONRequestOperation.h"
 
+
 #define kPokemonDefaultCount 0 // This number of PMs are defaults for every users
+
 
 @interface WildPokemonController () {
  @private

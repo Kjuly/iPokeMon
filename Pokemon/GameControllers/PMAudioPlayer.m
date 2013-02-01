@@ -10,12 +10,14 @@
 
 #import "LoadingManager.h"
 
+
 typedef enum {
   kAudioActionPrepareToPlay = 0,
   kAudioActionPlay,
   kAudioActionPause,
   kAudioActionStop
 }PMAudioAction;
+
 
 @interface PMAudioPlayer () {
  @private

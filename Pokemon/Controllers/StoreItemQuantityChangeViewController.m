@@ -10,8 +10,10 @@
 
 #import "GlobalRender.h"
 
+
 #define kStoreMaxItemQuantity 99
 #define kStoreMinItemQuantity 1
+
 
 @interface StoreItemQuantityChangeViewController () {
  @private
@@ -32,7 +34,7 @@
 @property (nonatomic, retain) UIButton * confirmButton;
 @property (nonatomic, retain) UIButton * cancelButton;
 
-- (void)releaseSubviews;
+- (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
 - (void)_increase:(id)sender;
 - (void)_decrease:(id)sender;
@@ -52,11 +54,11 @@
 @synthesize cancelButton      = cancelButton_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView    = nil;
   self.itemQuantityLabel = nil;
   self.increaseButton    = nil;
@@ -65,16 +67,12 @@
   self.cancelButton      = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -85,7 +83,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 480.f)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 480.f}}];
   self.view = view;
   [view release];
 }
@@ -164,7 +162,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

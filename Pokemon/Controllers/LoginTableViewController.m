@@ -22,9 +22,10 @@
 @property (nonatomic, retain) UIView  * authenticatingView;
 @property (nonatomic, retain) UILabel * authenticatingLabel;
 
-- (NSString *)nameForProvider:(OAuthServiceProviderChoice)provider;
-- (void)showAuthenticatingView:(NSNotification *)notification;
-- (void)hideView:(NSNotification *)notification;
+- (void)_setupNotificationObserver;
+- (NSString *)_nameForProvider:(OAuthServiceProviderChoice)provider;
+- (void)_showAuthenticatingView:(NSNotification *)notification;
+- (void)_hideView:(NSNotification *)notification;
 
 @end
 
@@ -39,8 +40,7 @@
   self.authenticatingView = nil;
   
   // Remove observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNLoginSucceed object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNAuthenticating object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -72,16 +72,8 @@
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
-  // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showAuthenticatingView:)
-                                               name:kPMNAuthenticating
-                                             object:nil];
-  // Add observer for notification from |ServerAPIClient|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(hideView:)
-                                               name:kPMNLoginSucceed
-                                             object:nil];
+  // Setup notification observer
+  [self _setupNotificationObserver];
 }
 
 - (void)viewDidUnload {
@@ -158,7 +150,7 @@
   
   // Configure the cell...
   [cell.textLabel setBackgroundColor:[UIColor clearColor]];
-  [cell configureCellWithTitle:[self nameForProvider:[indexPath row]]
+  [cell configureCellWithTitle:[self _nameForProvider:[indexPath row]]
                           icon:[UIImage imageNamed:iconName]
                  accessoryType:UITableViewCellAccessoryNone];
   return cell;
@@ -209,7 +201,7 @@
   CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
   [navigationBar setBackToRootButtonToHidden:NO animated:YES];
   id loginViewController = [[OAuthManager sharedInstance] loginWith:[indexPath row]];
-  [loginViewController setTitle:[self nameForProvider:[indexPath row]]];
+  [loginViewController setTitle:[self _nameForProvider:[indexPath row]]];
   [self.navigationController pushViewController:loginViewController
                                        animated:YES];
   navigationBar       = nil;
@@ -218,8 +210,23 @@
 
 #pragma mark - Private Methods
 
+// Setup notification observer
+- (void)_setupNotificationObserver {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
+  [notificationCenter addObserver:self
+                         selector:@selector(_showAuthenticatingView:)
+                             name:kPMNAuthenticating
+                           object:nil];
+  // Add observer for notification from |ServerAPIClient|
+  [notificationCenter addObserver:self
+                         selector:@selector(_hideView:)
+                             name:kPMNLoginSucceed
+                           object:nil];
+}
+
 // Name for OAuth Service Provider
-- (NSString *)nameForProvider:(OAuthServiceProviderChoice)provider {
+- (NSString *)_nameForProvider:(OAuthServiceProviderChoice)provider {
   NSString * providerName;
   switch (provider) {
     //case kOAuthServiceProviderChoiceFacebook:
@@ -250,7 +257,7 @@
 }
 
 // Show view for authenticating
-- (void)showAuthenticatingView:(NSNotification *)notification {
+- (void)_showAuthenticatingView:(NSNotification *)notification {
   if (self.authenticatingView == nil) {
     UIView * authenticatingView = [[UIView alloc] initWithFrame:self.view.frame];
     self.authenticatingView = authenticatingView;
@@ -283,7 +290,7 @@
 }
 
 // Hide self view
-- (void)hideView:(NSNotification *)notification {
+- (void)_hideView:(NSNotification *)notification {
   BOOL succeed = [[notification.userInfo valueForKey:@"succeed"] boolValue];
   void (^animations)() = ^{
     if (succeed) {

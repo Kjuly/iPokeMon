@@ -31,8 +31,8 @@
 
 @property (nonatomic, copy) NSArray * developerEmails;
 
-- (void)updateValueSettings:(NSNotification *)notification;
-- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
+- (void)_updateValueSettings:(NSNotification *)notification;
+- (void)_updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
 - (void)openLogoutConfirmView;
 
 @end
@@ -80,7 +80,7 @@
   
   // Add observer for notification from |SettingBandwidthUsageTableViewController| when value changed
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(updateValueSettings:)
+                                           selector:@selector(_updateValueSettings:)
                                                name:kPMNUDGeneralBandwidthUsage
                                              object:nil];
 }
@@ -178,7 +178,7 @@
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
         [cell.switchButton addTarget:self
-                              action:@selector(updateValueWithTappedSwitchButton:event:)
+                              action:@selector(_updateValueWithTappedSwitchButton:event:)
                     forControlEvents:UIControlEventValueChanged];
         return cell;
         break;
@@ -414,12 +414,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Private Methods
 
 // Update value when value for Settings changed
-- (void)updateValueSettings:(NSNotification *)notification {
+- (void)_updateValueSettings:(NSNotification *)notification {
   [self.tableView reloadData];
 }
 
 // Update value when Switch button changed value
-- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
+- (void)_updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
   UISwitch * switchButton = (UISwitch *)button;
   UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];

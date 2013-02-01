@@ -14,14 +14,12 @@
 
 @synthesize pokemon = pokemon_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.pokemon = nil;
   [super dealloc];
 }
 
-- (id)initWithPokemon:(Pokemon *)pokemon
-{
+- (id)initWithPokemon:(Pokemon *)pokemon {
   self = [self init];
   if (self) {
     self.pokemon = pokemon;
@@ -29,17 +27,12 @@
   return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -50,7 +43,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor clearColor]];
   self.view = view;
   [view release];

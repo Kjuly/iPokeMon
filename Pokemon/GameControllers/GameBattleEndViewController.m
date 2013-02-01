@@ -31,9 +31,9 @@
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)releaseSubviews;
-- (void)unloadViewAnimated:(BOOL)animated;
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
+- (void)_releaseSubviews;
+- (void)_unloadViewAnimated:(BOOL)animated;
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -49,17 +49,17 @@
 - (void)dealloc {
   self.trainer              = nil;
   self.tapGestureRecognizer = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView = nil;
   self.message        = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
     // Custom initialization
     self.trainer = [TrainerController sharedInstance];
@@ -67,8 +67,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -96,7 +95,7 @@
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer =
-    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapGestureAction:)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
@@ -106,7 +105,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -209,7 +208,7 @@
 #pragma mark - Private Methods
 
 // Unload view
-- (void)unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated {
   void (^animations)() = ^(){
     [self.backgroundView setAlpha:0.f];
     
@@ -238,15 +237,15 @@
 }
 
 // Tap gesture action
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
   if (eventType_ == kGameBattleEndEventTypeWin) {
-    [self unloadViewAnimated:YES];
+    [self _unloadViewAnimated:YES];
   }
   else if (eventType_ == kGameBattleEndEventTypeLose) {
-    [self unloadViewAnimated:YES];
+    [self _unloadViewAnimated:YES];
   }
   else if (eventType_ == kGameBattleEndEventTypeCaughtWildPokemon) {
-    [self unloadViewAnimated:YES];
+    [self _unloadViewAnimated:YES];
   }
   else return;
 }

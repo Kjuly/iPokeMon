@@ -35,6 +35,7 @@
 
 @end
 
+
 @implementation TrainerController
 
 @synthesize entityTrainer     = entityTrainer_;

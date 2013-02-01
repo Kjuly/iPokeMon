@@ -21,6 +21,7 @@
 
 @end
 
+
 @implementation SettingBandwidthUsageTableViewController
 
 @synthesize selectedCellIndexPath = selectedCellIndexPath_;
@@ -30,8 +31,7 @@
   [super dealloc];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
     [self setTitle:NSLocalizedString(@"Bandwidth Usage", nil)];
@@ -42,8 +42,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   

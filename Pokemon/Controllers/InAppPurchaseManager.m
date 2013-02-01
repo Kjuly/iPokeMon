@@ -18,6 +18,7 @@
 
 @end
 
+
 @implementation InAppPurchaseManager
 
 @synthesize productIdentifiers = productIdentifiers_;

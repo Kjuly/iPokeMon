@@ -12,8 +12,8 @@
 
 @interface GamePokemonStatusViewController ()
 
-- (void)releaseSubviews;
-- (void)showStatus:(NSNotification *)notification;
+- (void)_releaseSubviews;
+- (void)_showStatus:(NSNotification *)notification;
 
 @end
 
@@ -26,29 +26,25 @@
 @synthesize pokemonGender  = pokemonGender_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   // Remove observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNShowPokemonStatus object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.pokemonHPBar  = nil;
   self.pokemonName   = nil;
   self.pokemonLevel  = nil;
   self.pokemonGender = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -59,7 +55,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, 64.f)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 64.f}}];
   [view setBackgroundColor:[UIColor whiteColor]];
   [view setAlpha:0.f];
   
@@ -102,14 +98,14 @@
   
   // Add observer for notification to show status view
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showStatus:)
+                                           selector:@selector(_showStatus:)
                                                name:kPMNShowPokemonStatus
                                              object:nil];
 }
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -145,7 +141,7 @@
 #pragma mark - Private Methods
 
 // Show Status view
-- (void)showStatus:(NSNotification *)notification {
+- (void)_showStatus:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut

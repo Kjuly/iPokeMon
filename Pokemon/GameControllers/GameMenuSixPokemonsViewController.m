@@ -40,8 +40,8 @@
 @property (nonatomic, copy)   NSString         * sixPokemonsUID;
 @property (nonatomic, retain) CAAnimationGroup * animationGroupForNotReplacing;
 
-- (void)releaseSubviews;
-- (void)cancel:(id)sender;
+- (void)_releaseSubviews;
+- (void)_cancel:(id)sender;
 
 @end
 
@@ -61,8 +61,7 @@
 @synthesize sixPokemonsUID                = sixPokemonsUID_;
 @synthesize animationGroupForNotReplacing = animationGroupForNotReplacing_;
 
-- (void)dealloc
-{
+- (void)dealloc {
   self.trainer = nil;
   self.sixPokemonsDetailTabViewController = nil;
   
@@ -70,24 +69,21 @@
   self.sixPokemonsUID                = nil;
   self.animationGroupForNotReplacing = nil;
   
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView = nil;
   self.cancelButton   = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -98,7 +94,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   self.view = view;
   [view release];
 }
@@ -125,7 +121,7 @@
   [self.cancelButton setImage:[UIImage imageNamed:kPMINMainButtonHalfCancel] forState:UIControlStateNormal];
   [self.cancelButton setOpaque:NO];
   [self.cancelButton setTag:0];
-  [self.cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+  [self.cancelButton addTarget:self action:@selector(_cancel:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:self.cancelButton];
   
   self.trainer = [TrainerController sharedInstance];
@@ -133,7 +129,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -229,7 +225,6 @@
   self.isSelectedPokemonInfoViewOpening = NO;
   isForReplacing_                       = forReplacing;
   self.currBattlePokemon                = forReplacing ? currBattlePokemon_ : 0;
-  NSLog(@"|currBattlePokemon_|:%d", self.currBattlePokemon);
   
   // Create Pokemon unit views
   self.sixPokemons       = [self.trainer sixPokemons];
@@ -445,7 +440,7 @@
 
 #pragma mark - Private Methods
 
-- (void)cancel:(id)sender {
+- (void)_cancel:(id)sender {
   if (self.isSelectedPokemonInfoViewOpening)
     [self unloadSelcetedPokemonInfoView];
   else

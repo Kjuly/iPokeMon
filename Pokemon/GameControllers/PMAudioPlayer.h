@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioPlayer.h>
 
+
 typedef enum {
   kAudioNone = 0,
   kAudioGameERROR,              // ERROR
@@ -32,6 +33,7 @@ typedef enum {
   kAudioBattleVictoryVSWildPM,  // - VS.WPM: Player WIN in battle VS. Wild Pokemon
   kAudioBattleVSWildPmEND       // === END mark - Battle VS. Wild Pokemon
 }PMAudioType;
+
 
 @interface PMAudioPlayer : NSObject <AVAudioPlayerDelegate>
 

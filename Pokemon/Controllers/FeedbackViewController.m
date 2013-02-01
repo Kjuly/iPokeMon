@@ -23,7 +23,7 @@
 @property (nonatomic, retain) UIButton    * submitButton;
 @property (nonatomic, retain) UIButton    * cleanButton;
 
-- (void)releaseSubviews;
+- (void)_releaseSubviews;
 - (void)_submit:(id)sender;
 - (void)_clean:(id)sender;
 - (void)_setMenuHidden:(BOOL)hidden;
@@ -38,11 +38,11 @@
 @synthesize cleanButton         = cleanButton_;
 
 - (void)dealloc {
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.textFieldBackground = nil;
   self.textField           = nil;
   self.submitButton        = nil;
@@ -126,7 +126,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

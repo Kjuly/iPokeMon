@@ -14,6 +14,7 @@
 @class TrainerTamedPokemon;
 @class WildPokemon;
 
+
 // User
 typedef enum {
   kGameSystemProcessUserNone   = 0, // None

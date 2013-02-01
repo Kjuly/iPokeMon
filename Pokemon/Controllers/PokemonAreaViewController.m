@@ -58,8 +58,8 @@
   return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
     // Custom initialization
     self.location = [[PMLocationManager sharedInstance] currLocation];
@@ -67,8 +67,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -159,7 +158,8 @@
 #pragma mark - MKMapView Delegate
 
 // Tells the delegate that one or more annotation views were added to the map
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+- (void)      mapView:(MKMapView *)mapView
+didAddAnnotationViews:(NSArray *)views {
   // add animation for showing annotation views
   //CGRect visibleRect = [mapView annotationVisibleRect];
   for(MKAnnotationView *view in views) {
@@ -216,7 +216,8 @@
 }
 
 // Tells the delegate that the region displayed by the map view just changed
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+- (void)        mapView:(MKMapView *)mapView
+regionDidChangeAnimated:(BOOL)animated {
   NSInteger zoomLevel = [mapView zoomLevel];
   NSLog(@"zoomLevel = %d", zoomLevel);
   if (zoomLevel_ == zoomLevel)

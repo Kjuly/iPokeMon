@@ -19,7 +19,7 @@
   NSInteger numberOfMoves_;
 }
 
-- (void)attack;
+- (void)_attack;
 
 @end
 
@@ -42,7 +42,7 @@
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusEnemyTurn];
     complete_ = NO;
   }
-  else [self attack];
+  else [self _attack];
 }
 
 - (void)endTurn {
@@ -52,7 +52,7 @@
 #pragma mark - Private Methods
 
 // Do Move Attack
-- (void)attack {
+- (void)_attack {
   // Get number of Moves in |fourMoves_|
   if (numberOfMoves_ == 0)
     numberOfMoves_ = [[GameSystemProcess sharedInstance].enemyPokemon numberOfMoves];

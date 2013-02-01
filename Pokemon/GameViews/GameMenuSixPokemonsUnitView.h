@@ -8,14 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GameMenuSixPokemonsUnitViewDelegate <NSObject>
-
-- (void)checkUnit:(id)sender;
-- (void)resetUnit;
-- (void)confirm:(id)sender;
-- (void)openInfoView:(id)sender;
-
-@end
+@protocol GameMenuSixPokemonsUnitViewDelegate;
 
 @interface GameMenuSixPokemonsUnitView : UIView {
   id <GameMenuSixPokemonsUnitViewDelegate> delegate_;
@@ -28,5 +21,17 @@
 - (void)setAsNormal;
 - (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne;
 - (void)setAsFainted:(BOOL)isFainted;
+
+@end
+
+
+// Delegate
+
+@protocol GameMenuSixPokemonsUnitViewDelegate <NSObject>
+
+- (void)checkUnit:(id)sender;
+- (void)resetUnit;
+- (void)confirm:(id)sender;
+- (void)openInfoView:(id)sender;
 
 @end

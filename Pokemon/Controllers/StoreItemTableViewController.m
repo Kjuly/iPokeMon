@@ -47,11 +47,11 @@
 @property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
 @property (nonatomic, retain) StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
 
-- (void)releaseSubviews;
-- (void)configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-- (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell;
-- (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
-- (NSString *)localizedNameHeader;
+- (void)_releaseSubviews;
+- (void)_configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)_showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell;
+- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
+- (NSString *)_localizedNameHeader;
 - (void)_updateSelectedItemQuantity:(NSNotification *)notification;
 
 @end
@@ -77,12 +77,12 @@
   self.bagDataController         = nil;
   self.bagItemInfoViewController = nil;
 //  self.storeItemQuantityChangeViewController = nil; // !!!TODO: why cannot release it???!!!
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.hiddenCellAreaView = nil;
   self.selectedCell       = nil;
   self.hiddenCell         = nil;
@@ -182,7 +182,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -230,7 +230,7 @@
   }
   
   // Configure the cell
-  [self configureCell:cell atIndexPath:indexPath];
+  [self _configureCell:cell atIndexPath:indexPath];
   return cell;
 }
 
@@ -277,20 +277,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   StoreItemTableViewCell * cell = (StoreItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-  [self showHiddenCellToReplaceCell:cell];
+  [self _showHiddenCellToReplaceCell:cell];
   selectedCellIndex_ = [indexPath row];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  if (self.selectedCell != nil) [self cancelHiddenCellWithCompletionBlock:nil];
+  if (self.selectedCell != nil) [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
 #pragma mark - Private Methods
 
 // configure cell
-- (void)configureCell:(StoreItemTableViewCell *)cell
+- (void)_configureCell:(StoreItemTableViewCell *)cell
           atIndexPath:(NSIndexPath *)indexPath {
-  NSString * localizedNameHeader = [self localizedNameHeader];
+  NSString * localizedNameHeader = [self _localizedNameHeader];
   if (localizedNameHeader == nil)
     return;
   id item = [self.items objectAtIndex:indexPath.row];
@@ -326,7 +326,7 @@
 }
 
 // Show |hiddenCell_|
-- (void)showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell {
+- (void)_showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell {
   // reset item quantity
   quantity_ = 1;
   [self.hiddenCell updateQuantity:quantity_];
@@ -349,11 +349,11 @@
   };
   if (self.selectedCell == nil) showHiddenCellAnimationBlock(YES);
   else if (self.selectedCell == cell) return;
-  else [self cancelHiddenCellWithCompletionBlock:showHiddenCellAnimationBlock];
+  else [self _cancelHiddenCellWithCompletionBlock:showHiddenCellAnimationBlock];
 }
 
 // Cancel |hiddenCell_|
-- (void)cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion {
+- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion {
   __block CGRect cellFrame = self.selectedCell.frame;
   [UIView animateWithDuration:.2f
                         delay:0.f
@@ -387,7 +387,7 @@
 }
 
 // Name header for current |targetType_|
-- (NSString *)localizedNameHeader {
+- (NSString *)_localizedNameHeader {
   NSString * localizedNameHeader;
   if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
   else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
@@ -517,7 +517,7 @@
     entity = nil;
   } else return;
   
-  NSString * localizedNameHeader = [self localizedNameHeader];
+  NSString * localizedNameHeader = [self _localizedNameHeader];
   NSString * name = KYResourceLocalizedString(([NSString stringWithFormat:@"%@%.3d", localizedNameHeader, entityID]), nil);
   NSString * info = KYResourceLocalizedString(([NSString stringWithFormat:@"%@Info%.3d", localizedNameHeader, entityID]), nil);
   
@@ -527,7 +527,7 @@
 
 // Hidden Cell Button Action: Cancel Hidden Cell
 - (void)cancelHiddenCell:(id)sender {
-  [self cancelHiddenCellWithCompletionBlock:nil];
+  [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
 // Change item quantity

@@ -11,6 +11,7 @@
 
 @class GameMoveEffect;
 
+
 @interface GameBattleLayer : CCLayerColor {
   GameMoveEffect  * gameMoveEffect_;
 }

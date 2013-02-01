@@ -17,17 +17,12 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -38,11 +33,11 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor clearColor]];
   
   // Create Table Area View
-  CGRect tableAreaViewFrame  = CGRectMake(0.f, 0.f, 88.f, kViewHeight);
+  CGRect tableAreaViewFrame  = (CGRect){CGPointZero, {88.f, kViewHeight}};
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
   [tableAreaView release];
@@ -70,7 +65,8 @@
 
 #pragma mark - Public Methods
 
-- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft animated:(BOOL)animated {
+- (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft
+                             animated:(BOOL)animated {
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = fromLeft ? -kViewWidth : kViewWidth;
   [self.view setFrame:viewFrame];
@@ -84,7 +80,8 @@
                         completion:nil];
 }
 
-- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated {
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft
+                             animated:(BOOL)animated {
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = toLeft ? -kViewWidth : kViewWidth;
   

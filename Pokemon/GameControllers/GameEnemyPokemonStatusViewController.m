@@ -11,14 +11,14 @@
 #import "GameSystemProcess.h"
 #import "WildPokemon.h"
 
+
 @implementation GameEnemyPokemonStatusViewController
 
 - (void)dealloc {
   [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   

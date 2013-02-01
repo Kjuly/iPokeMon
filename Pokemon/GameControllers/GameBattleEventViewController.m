@@ -38,12 +38,13 @@
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)releaseSubviews;
-- (void)unloadViewAnimated:(BOOL)animated;
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
-- (void)setLevelUpViewWithBaseStats:(NSArray *)baseStats deltaStats:(NSArray *)deltaStats;
+- (void)_releaseSubviews;
+- (void)_unloadViewAnimated:(BOOL)animated;
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
+- (void)_setLevelUpViewWithBaseStats:(NSArray *)baseStats deltaStats:(NSArray *)deltaStats;
 
 @end
+
 
 @implementation GameBattleEventViewController
 
@@ -60,18 +61,18 @@
   self.systemProcess        = nil;
   self.trainer              = nil;
   self.tapGestureRecognizer = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView = nil;
   self.message        = nil;
   self.levelUpView    = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
     self.audioPlayer   = [PMAudioPlayer     sharedInstance];
     self.systemProcess = [GameSystemProcess sharedInstance];
@@ -80,8 +81,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -102,14 +102,14 @@
   [super viewDidLoad];
   
   // backgroun view
-  backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  backgroundView_ = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [backgroundView_ setBackgroundColor:[UIColor blackColor]];
   [backgroundView_ setAlpha:0.f];
   [self.view addSubview:backgroundView_];
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
-  [tapGestureRecognizer initWithTarget:self action:@selector(tapGestureAction:)];
+  [tapGestureRecognizer initWithTarget:self action:@selector(_tapGestureAction:)];
   [tapGestureRecognizer setNumberOfTapsRequired:1];
   [tapGestureRecognizer setNumberOfTouchesRequired:1];
   self.tapGestureRecognizer = tapGestureRecognizer;
@@ -119,7 +119,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -200,7 +200,7 @@
     TrainerTamedPokemon * playerPokemon = self.systemProcess.playerPokemon;
     NSInteger levelsUp = [[info valueForKey:@"levelsUp"] intValue];
     // Set up view for Level Up info
-    [self setLevelUpViewWithBaseStats:[playerPokemon maxStatsInArray]
+    [self _setLevelUpViewWithBaseStats:[playerPokemon maxStatsInArray]
                            deltaStats:[playerPokemon addStatsWithLevelsUp:levelsUp]];
     playerPokemon = nil;
     
@@ -274,7 +274,7 @@
 #pragma mark - Private Methods
 
 // Unload view
-- (void)unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated {
   void (^animations)() = ^(){
     [self.backgroundView setAlpha:0.f];
     
@@ -320,12 +320,12 @@
 }
 
 // Tap gesture action
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
-  [self unloadViewAnimated:YES];
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
+  [self _unloadViewAnimated:YES];
 }
 
 // Set layout for Level Up view
-- (void)setLevelUpViewWithBaseStats:(NSArray *)baseStats
+- (void)_setLevelUpViewWithBaseStats:(NSArray *)baseStats
                          deltaStats:(NSArray *)deltaStats {
   // Constants
   CGFloat const labelHeight             = 32.f;

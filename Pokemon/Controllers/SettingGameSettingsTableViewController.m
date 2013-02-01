@@ -14,16 +14,15 @@
 
 @interface SettingGameSettingsTableViewController ()
 
-- (void)updateValueWithSlider:(UIControl *)button event:(UIEvent *)event;
-- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
+- (void)_updateValueWithSlider:(UIControl *)button event:(UIEvent *)event;
+- (void)_updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event;
 
 @end
 
 
 @implementation SettingGameSettingsTableViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
   [super dealloc];
 }
 
@@ -38,8 +37,7 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -155,7 +153,7 @@
         break;
     }
     [cell.slider addTarget:self
-                    action:@selector(updateValueWithSlider:event:)
+                    action:@selector(_updateValueWithSlider:event:)
           forControlEvents:UIControlEventValueChanged];
     return cell;
   }
@@ -172,7 +170,7 @@
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsOthersAnimations", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGameSettingsAnimations]];
         [cell.switchButton addTarget:self
-                              action:@selector(updateValueWithTappedSwitchButton:event:)
+                              action:@selector(_updateValueWithTappedSwitchButton:event:)
                     forControlEvents:UIControlEventValueChanged];
         return cell;
         break;
@@ -227,22 +225,22 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  // Navigation logic may go here. Create and push another view controller.
+  /*
+    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    // ...
+    // Pass the selected object to the new view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+  */
 }
 
 #pragma mark - Private Methods
 
 // Update value when Slider value changed
-- (void)updateValueWithSlider:(UIControl *)button event:(UIEvent *)event {
+- (void)_updateValueWithSlider:(UIControl *)button
+                         event:(UIEvent *)event {
   UISlider * slider = (UISlider *)button;
   UITableViewCell * cell = (UITableViewCell *)slider.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -277,7 +275,8 @@
 }
 
 // Update value when Switch button changed value
-- (void)updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
+- (void)_updateValueWithTappedSwitchButton:(UIControl *)button
+                                     event:(UIEvent *)event {
   UISwitch * switchButton = (UISwitch *)button;
   UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];

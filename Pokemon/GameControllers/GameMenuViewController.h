@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GameMenuViewControllerDelegate
-
-- (void)unloadBattleScene;
-
-@end
-
+@protocol GameMenuViewControllerDelegate;
 
 @interface GameMenuViewController : UIViewController <UIAlertViewDelegate> {
   id <GameMenuViewControllerDelegate> delegate_;
@@ -23,5 +18,14 @@
 
 - (void)prepareForNewScene;
 - (void)reset;
+
+@end
+
+
+// Delegate
+
+@protocol GameMenuViewControllerDelegate
+
+- (void)unloadBattleScene;
 
 @end

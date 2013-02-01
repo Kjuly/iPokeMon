@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+
 @interface PMLocationManager : NSObject <CLLocationManagerDelegate>
 
 + (PMLocationManager *)sharedInstance;

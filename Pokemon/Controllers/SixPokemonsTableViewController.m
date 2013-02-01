@@ -21,7 +21,7 @@
   UITapGestureRecognizer * tapGestureRecognizer_;
 }
 
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer;
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
 @property (nonatomic, retain) TrainerController      * trainer;
 @property (nonatomic, copy)   NSMutableArray         * sixPokemons;
@@ -68,7 +68,7 @@
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer =
-    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapGestureAction:)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
@@ -227,7 +227,7 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 #pragma mark - Private Methods
 
 // Tap gesture action
-- (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
   if ([self.tableView isEditing])
     [self.tableView setEditing:NO animated:YES];
   else

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 typedef enum {
   kGameBattleEndEventTypeNone               = 0,
   kGameBattleEndEventTypeWin                = 1 << 0,
@@ -18,8 +19,11 @@ typedef enum {
   kGameBattleEndEventTypeWildPokemonRun     = 1 << 5
 }GameBattleEndEventType;
 
+
 @interface GameBattleEndViewController : UIViewController
 
-- (void)loadViewWithEventType:(GameBattleEndEventType)eventType animated:(BOOL)animated afterDelay:(NSTimeInterval)delay;
+- (void)loadViewWithEventType:(GameBattleEndEventType)eventType
+                     animated:(BOOL)animated
+                   afterDelay:(NSTimeInterval)delay;
 
 @end

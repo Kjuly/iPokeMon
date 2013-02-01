@@ -25,9 +25,9 @@
 @property (nonatomic, retain) UISwipeGestureRecognizer   * swipeRightGestureRecognizer;
 @property (nonatomic, retain) BagItemTableViewController * bagItemTableViewController;
 
-- (void)loadSelcetedItemTalbeView:(id)sender;
-- (void)toggleTopCancelButton:(NSNotification *)notification;
-- (void)endUsingBagItem:(NSNotification *)notification;
+- (void)_loadSelcetedItemTalbeView:(id)sender;
+- (void)_toggleTopCancelButton:(NSNotification *)notification;
+- (void)_endUsingBagItem:(NSNotification *)notification;
 
 @end
 
@@ -46,13 +46,11 @@
   self.bagItemTableViewController  = nil;
   
   // Remove observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNToggleTopCancelButton object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUseBagItemDone object:self.bagItemTableViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -87,7 +85,7 @@
                       forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINGameBagIcon, i]]
             forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(loadSelcetedItemTalbeView:)
+    [button addTarget:self action:@selector(_loadSelcetedItemTalbeView:)
      forControlEvents:UIControlEventTouchUpInside];
     [self.tableAreaView addSubview:button];
     [button release];
@@ -121,12 +119,12 @@
   
   // Add observer for notification from |BagItemInfoViewController|
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(toggleTopCancelButton:)
+                                           selector:@selector(_toggleTopCancelButton:)
                                                name:kPMNToggleTopCancelButton
                                              object:nil];
   // Add observer for notification from |BagItemViewController|
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(endUsingBagItem:)
+                                           selector:@selector(_endUsingBagItem:)
                                                name:kPMNUseBagItemDone
                                              object:self.bagItemTableViewController];
 }
@@ -158,7 +156,7 @@
 
 #pragma mark - Private Methods
 
-- (void)loadSelcetedItemTalbeView:(id)sender {
+- (void)_loadSelcetedItemTalbeView:(id)sender {
   BagQueryTargetType targetType;
   switch (((UIButton *)sender).tag) {
     case 1: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus; break;
@@ -199,7 +197,7 @@
   self.isSelectedItemViewOpening = YES;
 }
 
-- (void)toggleTopCancelButton:(NSNotification *)notification {
+- (void)_toggleTopCancelButton:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
@@ -212,7 +210,7 @@
                    completion:nil];
 }
 
-- (void)endUsingBagItem:(NSNotification *)notification {
+- (void)_endUsingBagItem:(NSNotification *)notification {
   // Set data for Game System Process & start it
   NSInteger selectedItemID = [[self.bagItemTableViewController.items
                                objectAtIndex:(self.bagItemTableViewController.selectedCellIndex * 2)] intValue];

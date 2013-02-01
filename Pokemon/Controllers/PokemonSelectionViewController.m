@@ -36,9 +36,9 @@
 @property (nonatomic, retain) PokemonDetailTabViewController * pokemonDetailTabViewController;
 @property (nonatomic, retain) CAAnimationGroup               * animationGroupForNotReplacing;
 
-- (void)releaseSubviews;
-- (void)loadPokemonSelectionViewAnimated:(BOOL)animated;
-- (void)showPokemonSelectionView:(id)sender;
+- (void)_releaseSubviews;
+- (void)_loadPokemonSelectionViewAnimated:(BOOL)animated;
+- (void)_showPokemonSelectionView:(id)sender;
 
 @end
 
@@ -59,11 +59,11 @@
   self.pokemons                       = nil;
   self.pokemonDetailTabViewController = nil;
   self.animationGroupForNotReplacing  = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.pokemonSelectionButton = nil;
   self.backgroundView         = nil;
 }
@@ -112,7 +112,7 @@
                                      forState:UIControlStateNormal];
   [pokemonSelectionButton_ setImage:[UIImage imageNamed:kPMINMainButtonUnknowOpposite] forState:UIControlStateNormal];
   [pokemonSelectionButton_ addTarget:self
-                              action:@selector(showPokemonSelectionView:)
+                              action:@selector(_showPokemonSelectionView:)
                     forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:pokemonSelectionButton_];
   
@@ -125,7 +125,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -288,7 +288,7 @@
 #pragma mark - Private Methods
 
 // Load view
-- (void)loadPokemonSelectionViewAnimated:(BOOL)animated {
+- (void)_loadPokemonSelectionViewAnimated:(BOOL)animated {
   void (^animationsToShowPokemons)() = ^(){
     if (self.animationGroupForNotReplacing == nil) {
       CGFloat duration = .6f;
@@ -338,10 +338,10 @@
 }
 
 // Show Pokemon Selection view
-- (void)showPokemonSelectionView:(id)sender {
+- (void)_showPokemonSelectionView:(id)sender {
   // Post notification to |NewbieGuideViewController| to hide |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNHideConfirmButtonInNebbieGuide object:self userInfo:nil];
-  [self loadPokemonSelectionViewAnimated:YES];
+  [self _loadPokemonSelectionViewAnimated:YES];
 }
 
 @end

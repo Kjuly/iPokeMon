@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+
 typedef enum {
   kGameStatusInitialization = 0,
   kGameStatusSystemProcess  = 1,
   kGameStatusPlayerTurn     = 2,
   kGameStatusEnemyTurn      = 3
 }GameStatus;
+
 
 @interface GameStatusMachine : NSObject
 

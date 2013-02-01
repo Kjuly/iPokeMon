@@ -10,7 +10,9 @@
 
 #import "BagItemTableViewHiddenCell.h"
 
-@interface BagItemTableViewController : UITableViewController <BagItemTableViewHiddenCellDelegate> {
+@interface BagItemTableViewController : UITableViewController
+  <BagItemTableViewHiddenCellDelegate>
+{
   NSMutableArray   * items_;
   BOOL               isDuringBattle_;
   BagQueryTargetType targetType_;

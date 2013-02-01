@@ -10,7 +10,8 @@
 
 #import "MBProgressHUD.h"
 
-@interface ResourceTableViewController : UITableViewController <MBProgressHUDDelegate>
+@interface ResourceTableViewController : UITableViewController
+  <MBProgressHUDDelegate>
 
 @property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
 

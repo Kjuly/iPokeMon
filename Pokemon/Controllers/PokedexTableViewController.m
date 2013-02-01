@@ -27,7 +27,8 @@
 @property (nonatomic, retain) TrainerController          * trainer;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
-- (void)_configureCell:(PokedexTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)_configureCell:(PokedexTableViewCell *)cell
+           atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

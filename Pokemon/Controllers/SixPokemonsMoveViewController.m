@@ -12,6 +12,7 @@
 #import "PokemonMoveView.h"
 #import "PokemonMoveDetailView.h"
 
+
 @interface SixPokemonsMoveViewController () {
  @private
   NSArray               * fourMovesPP_;
@@ -31,11 +32,11 @@
 @property (nonatomic, retain) PokemonMoveView       * moveFourView;
 @property (nonatomic, retain) PokemonMoveDetailView * moveDetailView;
 
-- (void)releaseSubviews;
-- (void)loadMoveDetailView:(id)sender;
-- (void)cancelMoveDetailView;
+- (void)_releaseSubviews;
+- (void)_cancelMoveDetailView;
 
 @end
+
 
 @implementation SixPokemonsMoveViewController
 
@@ -49,11 +50,11 @@
 
 - (void)dealloc {
   self.fourMovesPP = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.fourMovesView  = nil;
   self.moveOneView    = nil;
   self.moveTwoView    = nil;
@@ -62,8 +63,7 @@
   self.moveDetailView = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -178,7 +178,7 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 #pragma mark - PokemonMoveView Delegate
@@ -190,7 +190,7 @@
   self.moveDetailView = moveDetailView;
   [moveDetailView release];
   [self.moveDetailView.backButton addTarget:self
-                                     action:@selector(cancelMoveDetailView)
+                                     action:@selector(_cancelMoveDetailView)
                            forControlEvents:UIControlEventTouchUpInside];
   
   // Move tag: one of 1, 2, 3, 4
@@ -227,7 +227,7 @@
                   completion:nil];
 }
 
-- (void)cancelMoveDetailView {
+- (void)_cancelMoveDetailView {
   [UIView transitionFromView:self.moveDetailView
                       toView:self.fourMovesView
                     duration:.6f

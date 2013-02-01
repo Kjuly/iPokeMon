@@ -37,6 +37,7 @@
 
 @end
 
+
 @implementation MapAnnotationCalloutViewController
 
 @synthesize mainView             = mainView_;
@@ -64,19 +65,15 @@
   self.bottomView  = nil;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
+- (id)init {
+  self = [super init];
   return self;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 	// Do any additional setup after loading the view.
-  CGRect viewFrame = CGRectMake(0.f, 0.f, kMapAnnotationCalloutViewWidth, kMapAnnotationCalloutViewHeight);
+  CGRect viewFrame = (CGRect){CGPointZero, {kMapAnnotationCalloutViewWidth, kMapAnnotationCalloutViewHeight}};
   [self.view setFrame:viewFrame];
   
   viewFrame.size.height -= 12.f;

@@ -14,8 +14,7 @@
   [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -37,7 +36,7 @@
   CGFloat const imageHeight = 150.f;
   CGFloat const labelHeight = 30.f;
   
-  CGRect  const speciesLabelViewFrame = CGRectMake(0.f, 0.f, 300.f, labelHeight);
+  CGRect  const speciesLabelViewFrame = (CGRect){CGPointZero, {300.f, labelHeight}};
   CGRect  const typeLabelViewFrame    = CGRectMake(0.f, labelHeight, 300.f, labelHeight);
   CGRect  const dataViewFrame     = CGRectMake(10.f, imageHeight + 15.f, 300.f, 60.f);
   CGRect  const descriptionFrame  = CGRectMake(10.f,

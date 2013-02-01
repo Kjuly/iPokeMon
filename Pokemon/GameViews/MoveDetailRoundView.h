@@ -14,7 +14,6 @@
                                type:(NSString *)type
                                  pp:(NSString *)pp
                         description:(NSString *)description;
-
 - (void)setContentHidden:(BOOL)hidden;
 
 @end

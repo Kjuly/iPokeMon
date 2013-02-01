@@ -42,12 +42,13 @@
 @property (nonatomic, retain) UIButton    * confirmButton;
 @property (nonatomic, retain) UITextField * nameInputView;
 
-- (void)releaseSubviews;
-- (void)unloadViewAnimated:(BOOL)animated;
-- (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
-- (void)showConfirmButton:(NSNotification *)notification;
-- (void)hideConfirmButton:(NSNotification *)notification;
-- (void)confirm:(id)sender;
+- (void)_releaseSubviews;
+- (void)_setupNotificationObserver;
+- (void)_unloadViewAnimated:(BOOL)animated;
+- (void)_moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
+- (void)_showConfirmButton:(NSNotification *)notification;
+- (void)_hideConfirmButton:(NSNotification *)notification;
+- (void)_confirm:(id)sender;
 - (void)setTextViewWithTitle:(NSString *)title message:(NSString *)message;
 
 // username's checking
@@ -73,19 +74,14 @@
   self.serverAPIClient                = nil;
   self.trainer                        = nil;
   self.pokemonSelectionViewController = nil;
-  [self releaseSubviews];
+  [self _releaseSubviews];
   
   // Remove notification observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNShowConfirmButtonInNebbieGuide
-                                                object:self.pokemonSelectionViewController];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:kPMNHideConfirmButtonInNebbieGuide
-                                                object:self.pokemonSelectionViewController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
-- (void)releaseSubviews {
+- (void)_releaseSubviews {
   self.backgroundView = nil;
   self.title          = nil;
   self.message        = nil;
@@ -158,9 +154,9 @@
   confirmButton_ = [[UIButton alloc] init];
   [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
   [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
-  [confirmButton_ addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+  [confirmButton_ addTarget:self action:@selector(_confirm:) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:confirmButton_];
-  [self moveConfirmButtonToBottom:YES animated:NO];
+  [self _moveConfirmButtonToBottom:YES animated:NO];
   
   // Layouts for different steps
   // Name setting input view
@@ -188,20 +184,13 @@
   [self.view addSubview:self.nameInputView];
   guideStep_ = 1;
   
-  // Add observer for notification from |PokemonSelectionViewController|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(showConfirmButton:)
-                                               name:kPMNShowConfirmButtonInNebbieGuide
-                                             object:self.pokemonSelectionViewController];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(hideConfirmButton:)
-                                               name:kPMNHideConfirmButtonInNebbieGuide
-                                             object:self.pokemonSelectionViewController];
+  // Setup notification observer
+  [self _setupNotificationObserver];
 }
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [self releaseSubviews];
+  [self _releaseSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -224,8 +213,22 @@
 
 #pragma mark - Private Methods
 
+// Setup notification observer
+- (void)_setupNotificationObserver {
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  // Add observer for notification from |PokemonSelectionViewController|
+  [notificationCenter addObserver:self
+                         selector:@selector(_showConfirmButton:)
+                             name:kPMNShowConfirmButtonInNebbieGuide
+                           object:self.pokemonSelectionViewController];
+  [notificationCenter addObserver:self
+                         selector:@selector(_hideConfirmButton:)
+                             name:kPMNHideConfirmButtonInNebbieGuide
+                           object:self.pokemonSelectionViewController];
+}
+
 // Unload view
-- (void)unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated {
   void (^animations)() = ^(){[self.view setAlpha:0.f];};
   void (^completion)(BOOL) = ^(BOOL finished){[self.view removeFromSuperview];};
   if (animated) [UIView animateWithDuration:.3f
@@ -237,7 +240,7 @@
 }
 
 // Move |confirmButton_|
-- (void)moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated {
+- (void)_moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated {
   CGRect confirmButtonFrame =
     CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                toBottom ? kViewHeight - 160.f : (kViewHeight - kCenterMainButtonSize) / 2,
@@ -253,14 +256,14 @@
 }
 
 // Show |confirmButton_|
-- (void)showConfirmButton:(NSNotification *)notification {
+- (void)_showConfirmButton:(NSNotification *)notification {
   [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm]
                       forState:UIControlStateNormal];
-  [self moveConfirmButtonToBottom:YES animated:YES];
+  [self _moveConfirmButtonToBottom:YES animated:YES];
 }
 
 // Hide |confirmButton_|
-- (void)hideConfirmButton:(NSNotification *)notification {
+- (void)_hideConfirmButton:(NSNotification *)notification {
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -276,7 +279,7 @@
 }
 
 // Action for |confirmButton_|
-- (void)confirm:(id)sender {
+- (void)_confirm:(id)sender {
   // If is processing, do nothing until processing done
   if (isProcessing_)
     return;
@@ -337,7 +340,7 @@
                          [self.title   setAlpha:0.f];
                          [self.message setAlpha:0.f];
                          [self.pokemonSelectionViewController.view setAlpha:0.f];
-                         [self moveConfirmButtonToBottom:NO animated:NO];
+                         [self _moveConfirmButtonToBottom:NO animated:NO];
                        }
                        completion:^(BOOL finished) {
                          [self.pokemonSelectionViewController.view removeFromSuperview];
@@ -361,7 +364,7 @@
       
     case 3:
       [self.trainer sync];
-      [self unloadViewAnimated:YES];
+      [self _unloadViewAnimated:YES];
       break;
       
     default:

@@ -48,27 +48,27 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 @interface ServerAPI ()
 
 // Connection checking
-+ (NSString *)checkConnection;                              // GET
++ (NSString *)_checkConnection;                              // GET
 // User
-+ (NSString *)getUserID;                                    // GET
-+ (NSString *)getUser;                                      // GET
-+ (NSString *)updateUser;                                   // POST
-+ (NSString *)checkUniquenessForName;                       // POST
++ (NSString *)_getUserID;                                    // GET
++ (NSString *)_getUser;                                      // GET
++ (NSString *)_updateUser;                                   // POST
++ (NSString *)_checkUniquenessForName;                       // POST
 // User's Pokemon
-+ (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
-+ (NSString *)getSixPokemons;                               // GET
-+ (NSString *)getPokedex;                                   // GET
-+ (NSString *)updatePokemon;                                // POST
++ (NSString *)_getPokemonWithPokemonID:(NSInteger)pokemonID; // GET
++ (NSString *)_getSixPokemons;                               // GET
++ (NSString *)_getPokedex;                                   // GET
++ (NSString *)_updatePokemon;                                // POST
 // Pokemon Area
-+ (NSString *)getAllPokemonsArea;                      // GET
-+ (NSString *)getAreaForPokemonWithSID:(NSInteger)SID; // GET
++ (NSString *)_getAllPokemonsArea;                      // GET
++ (NSString *)_getAreaForPokemonWithSID:(NSInteger)SID; // GET
 // Region
-+ (NSString *)getRegionWithCode:(NSString *)code; // GET
-+ (NSString *)updateRegion; // POST
++ (NSString *)_getRegionWithCode:(NSString *)code; // GET
++ (NSString *)_updateRegion; // POST
 // WildPokemon
-+ (NSString *)getWildPokemon;
++ (NSString *)_getWildPokemon;
 // Annotation
-+ (NSString *)getAnnotationWithCode:(NSString *)code; // GET
++ (NSString *)_getAnnotationWithCode:(NSString *)code; // GET
 
 @end
 
@@ -91,40 +91,41 @@ NSString * const kServerAPIGetAnnotation = @"/mas/%@"; // /mas:Map AnnotationS/<
 }
 
 #pragma mark - Private Methods
+
 // Connection checking
-+ (NSString *)checkConnection { return kServerAPICheckConnection; }
++ (NSString *)_checkConnection { return kServerAPICheckConnection; }
 // User
-+ (NSString *)getUserID  { return kServerAPIGetUserID; }
-+ (NSString *)getUser    { return kServerAPIGetUser; }
-+ (NSString *)updateUser { return kServerAPIUpdateUser; }
-+ (NSString *)checkUniquenessForName { return kServerAPICheckUniqueness; }
++ (NSString *)_getUserID  { return kServerAPIGetUserID; }
++ (NSString *)_getUser    { return kServerAPIGetUser; }
++ (NSString *)_updateUser { return kServerAPIUpdateUser; }
++ (NSString *)_checkUniquenessForName { return kServerAPICheckUniqueness; }
 
 // User's Pokemon
-+ (NSString *)getPokemonWithPokemonID:(NSInteger)pokemonID {
++ (NSString *)_getPokemonWithPokemonID:(NSInteger)pokemonID {
   return [NSString stringWithFormat:kServerAPIGetPokemon, pokemonID];
 }
 
-+ (NSString *)getSixPokemons { return kServerAPIGet6Pokemons; }
-+ (NSString *)getPokedex     { return kServerAPIGetPokedex; }
-+ (NSString *)updatePokemon  { return kServerAPIUpdatePokemon; }
++ (NSString *)_getSixPokemons { return kServerAPIGet6Pokemons; }
++ (NSString *)_getPokedex     { return kServerAPIGetPokedex; }
++ (NSString *)_updatePokemon  { return kServerAPIUpdatePokemon; }
 
 // Pokemon Area
-+ (NSString *)getAllPokemonsArea { return kServerAPIGetAllPokemonsArea; }
-+ (NSString *)getAreaForPokemonWithSID:(NSInteger)SID {
++ (NSString *)_getAllPokemonsArea { return kServerAPIGetAllPokemonsArea; }
++ (NSString *)_getAreaForPokemonWithSID:(NSInteger)SID {
   return [NSString stringWithFormat:kServerAPIGetPokemonArea, SID];
 }
 
 // Region
-+ (NSString *)getRegionWithCode:(NSString *)code {
++ (NSString *)_getRegionWithCode:(NSString *)code {
   return [NSString stringWithFormat:kServerAPIGetRegion, code];
 }
-+ (NSString *)updateRegion { return kServerAPIUpdateRegion; }
++ (NSString *)_updateRegion { return kServerAPIUpdateRegion; }
 
 // WildPokemon
-+ (NSString *)getWildPokemon { return kServerAPIGetWildPokemon; }
++ (NSString *)_getWildPokemon { return kServerAPIGetWildPokemon; }
 
 // Annotation
-+ (NSString *)getAnnotationWithCode:(NSString *)code {
++ (NSString *)_getAnnotationWithCode:(NSString *)code {
   return [NSString stringWithFormat:kServerAPIGetAnnotation, code];
 }
 
@@ -147,11 +148,12 @@ typedef enum {
 
 @property (nonatomic, copy) NSString * regionCode;
 
-- (void)updateHeaderWithFlag:(HTTPHeaderFlag)flag;
+- (void)_updateHeaderWithFlag:(HTTPHeaderFlag)flag;
 - (void)_updateRegion:(NSNotification *)notification;
 //- (void)setHTTPHeaderForRequest:(NSMutableURLRequest *)request; // Set HTTP Header for URL request
 
 @end
+
 
 @implementation ServerAPIClient
 
@@ -197,9 +199,9 @@ static ServerAPIClient * client_;
 // Method for checking connection to server
 - (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                                failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL");
-  [self getPath:[ServerAPI checkConnection] parameters:nil success:success failure:failure];
+  [self getPath:[ServerAPI _checkConnection] parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Public Methods: Trainer
@@ -207,9 +209,9 @@ static ServerAPIClient * client_;
 // GET userID
 - (void)fetchUserIDSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request UserID");
-  [self getPath:[ServerAPI getUserID] parameters:nil success:success failure:failure];
+  [self getPath:[ServerAPI _getUserID] parameters:nil success:success failure:failure];
 }
 
 // GET
@@ -219,20 +221,20 @@ static ServerAPIClient * client_;
              failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   NSString * path;
   if (target & kDataFetchTargetTrainer)
-    path = [ServerAPI getUser];
+    path = [ServerAPI _getUser];
   else if (target & kDataFetchTargetTamedPokemon)
-    path = [ServerAPI getPokedex];
+    path = [ServerAPI _getPokedex];
   else if (target & kDataFetchTargetAllPokemonsArea)
-    path = [ServerAPI getAllPokemonsArea];
+    path = [ServerAPI _getAllPokemonsArea];
   else if (target & kDataFetchTargetPokemonArea)
-    path = [ServerAPI getAreaForPokemonWithSID:[object intValue]];
+    path = [ServerAPI _getAreaForPokemonWithSID:[object intValue]];
   else if (target & kDataFetchTargetRegion)
-    path = [ServerAPI getRegionWithCode:self.regionCode];
+    path = [ServerAPI _getRegionWithCode:self.regionCode];
   else if (target & kDataFetchTargetAnnotation)
-    path = [ServerAPI getAnnotationWithCode:self.regionCode];
+    path = [ServerAPI _getAnnotationWithCode:self.regionCode];
   else return;
   
-  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   [self getPath:path parameters:nil success:success failure:failure];
   NSLog(@"Request with URL tail:%@", path);
   
@@ -258,14 +260,14 @@ static ServerAPIClient * client_;
            failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
   NSString * path;
   if (target & kDataFetchTargetTrainer)
-    path = [ServerAPI updateUser];
+    path = [ServerAPI _updateUser];
   else if (target & kDataFetchTargetTamedPokemon)
-    path = [ServerAPI updatePokemon];
+    path = [ServerAPI _updatePokemon];
   else if (target & kDataFetchTargetRegion)
-    path = [ServerAPI updateRegion];
+    path = [ServerAPI _updateRegion];
   else return;
   
-  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Sync Data Request");
   [self postPath:path parameters:data success:success failure:failure];
 }
@@ -274,9 +276,9 @@ static ServerAPIClient * client_;
 - (void)checkUniquenessForName:(NSString *)name
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-  [self updateHeaderWithFlag:kHTTPHeaderDefault];
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL...");
-  [self postPath:[ServerAPI checkUniquenessForName]
+  [self postPath:[ServerAPI _checkUniquenessForName]
       parameters:[NSDictionary dictionaryWithObject:name forKey:@"name"]
          success:success
          failure:failure];
@@ -290,8 +292,8 @@ static ServerAPIClient * client_;
 - (void)updateWildPokemonsForCurrentRegion:(NSDictionary *)regionInfo
                                    success:(void (^)(AFHTTPRequestOperation *, id))success
                                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
-  [self updateHeaderWithFlag:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
-  [self getPath:[ServerAPI getWildPokemon]
+  [self _updateHeaderWithFlag:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
+  [self getPath:[ServerAPI _getWildPokemon]
      parameters:regionInfo
         success:success
         failure:failure];
@@ -299,7 +301,7 @@ static ServerAPIClient * client_;
 
 #pragma mark - Provate Methods
 
-- (void)updateHeaderWithFlag:(HTTPHeaderFlag)flag {
+- (void)_updateHeaderWithFlag:(HTTPHeaderFlag)flag {
   // Reset headers to empty
   [self setDefaultHeader:@"provider" value:nil];
   [self setDefaultHeader:@"identity" value:nil];

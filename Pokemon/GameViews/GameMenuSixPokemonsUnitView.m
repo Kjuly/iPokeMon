@@ -34,6 +34,7 @@
 
 @end
 
+
 @implementation GameMenuSixPokemonsUnitView
 
 @synthesize delegate = delegate_;
@@ -44,8 +45,7 @@
 @synthesize infoButton    = infoButton_;
 
 - (void)dealloc {
-  self.delegate = nil;
-  
+  self.delegate      = nil;
   self.spriteImage   = nil;
   self.mainButton    = nil;
   self.confirmButton = nil;

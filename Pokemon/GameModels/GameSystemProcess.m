@@ -12,6 +12,7 @@
 #import "GameStatusMachine.h"
 #import "TrainerController.h"
 
+
 // System Process Type
 typedef enum {
   kGameSystemProcessTypeNone = 0,                  // None
@@ -44,6 +45,7 @@ typedef enum {
   kMoveTargetPlayerChoiceOfUserOrUserPartner    = 200, // Player's choice of user or user's partner (e.g. Acupressure)
   kMoveTargetSinglePokemonOnOpponentSide        = 400  // Single Pokemon on opponent's side (e.g. Me First)
 }MoveTarget;
+
 
 
 @interface GameSystemProcess () {
@@ -88,24 +90,24 @@ typedef enum {
 @property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
 @property (nonatomic, retain) TrainerController * trainer;
 
-- (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
-- (void)fight;
-- (void)calculateEffectForMove:(Move *)move;
-- (NSInteger)calculateDamageForMove:(Move *)move;
-- (void)decreasePPValue;                       // Decrease PP value (playerPokemonPPInOne_) with |moveIndex_|
-- (NSInteger)calculateExpGained;               // Calculate EXP gained
-- (void)checkPokemonFaintOrNot;                // Check Pokemon Faint or not
-- (void)chooseNewPokemonToBattle;              // When Player's Pokemon fainted, choose new PM to battle
-- (void)useBagItem;                            // Use Bag Item
-- (void)replacePokemon;                        // Replace Pokemon
-- (void)catchingWildPokemon;                   // Catching Wild Pokemon
-- (BOOL)hasDoneForCatchingWildPokemonResult;   // ...
-- (void)caughtWildPokemonSucceed:(BOOL)succeed;// ...
-- (BOOL)isRunSucceed;                          // Run scuueed or not
-- (void)postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
+- (void)_setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
+- (void)_fight;
+- (void)_calculateEffectForMove:(Move *)move;
+- (NSInteger)_calculateDamageForMove:(Move *)move;
+- (void)_decreasePPValue;                       // Decrease PP value (playerPokemonPPInOne_) with |moveIndex_|
+- (NSInteger)_calculateExpGained;               // Calculate EXP gained
+- (void)_checkPokemonFaintOrNot;                // Check Pokemon Faint or not
+- (void)_chooseNewPokemonToBattle;              // When Player's Pokemon fainted, choose new PM to battle
+- (void)_useBagItem;                            // Use Bag Item
+- (void)_replacePokemon;                        // Replace Pokemon
+- (void)_catchingWildPokemon;                   // Catching Wild Pokemon
+- (BOOL)_hasDoneForCatchingWildPokemonResult;   // ...
+- (void)_caughtWildPokemonSucceed:(BOOL)succeed;// ...
+- (BOOL)_isRunSucceed;                          // Run scuueed or not
+- (void)_postMessageForProcessType:(GameSystemProcessType)processType withMessageInfo:(NSDictionary *)messageInfo;
 
-- (void)playerWin;  // WIN
-- (void)playerLose; // LOSE
+- (void)_playerWin;  // WIN
+- (void)_playerLose; // LOSE
 - (void)_confirmToLevelBattleScene:(UITapGestureRecognizer *)recognizer;
 - (void)_runFinalProcessForGameBattleEventType:(GameBattleEndEventType)battleEndEventType;
 
@@ -175,8 +177,8 @@ static GameSystemProcess * gameSystemProcess = nil;
   complete_   = NO;
   delayTime_  = 0;
   
-  [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
-  [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
+  [self _setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
+  [self _setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
 }
 
 ///
@@ -197,20 +199,20 @@ static GameSystemProcess * gameSystemProcess = nil;
   else {
     switch (processType_) {
       case kGameSystemProcessTypeFight:
-        [self fight];
+        [self _fight];
         break;
         
       case kGameSystemProcessTypeUseBagItem:
-        [self useBagItem];
+        [self _useBagItem];
         break;
         
       case kGameSystemProcessTypeReplacePokemon:
-        [self replacePokemon];
+        [self _replacePokemon];
         break;
         
       case kGameSystemProcessTypeCathingWildPokemon:
         if (delayTime_ < 150) return;
-        [self catchingWildPokemon];
+        [self _catchingWildPokemon];
         break;
         
       case kGameSystemProcessTypeRun:
@@ -264,7 +266,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   // Caught a Wild Pokemon
   else if (eventType & kGameBattleEventTypeCaughtWPM) {
     // Update message in |GameMenuViewController| to show Catching WildPokemon Succeed
-    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
   }
   else {
     [userInfo release];
@@ -279,7 +281,8 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Replace Pokemon
-- (void)replacePokemon:(id)pokemon forUser:(GameSystemProcessUser)user {
+- (void)replacePokemon:(id)pokemon
+               forUser:(GameSystemProcessUser)user {
   if (user == kGameSystemProcessUserPlayer) {
     [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
     self.playerPokemon = pokemon;
@@ -304,7 +307,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //   4. Special Attack
 //   5. Special Defense
 // 
-- (void)setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
+- (void)_setTransientStatusPokemonForUser:(GameSystemProcessUser)user {
   NSArray * stats;
   if (user == kGameSystemProcessUserPlayer)     stats = [self.playerPokemon maxStatsInArray];
   else if (user == kGameSystemProcessUserEnemy) stats = [self.enemyPokemon  maxStatsInArray];
@@ -321,7 +324,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Fight
-- (void)fight {
+- (void)_fight {
   if (user_ == kGameSystemProcessUserNone || moveIndex_ == 0) {
      NSLog(@"!!! Exception: The Move has no user or the |moveIndex| is 0");
     return;
@@ -343,13 +346,13 @@ static GameSystemProcess * gameSystemProcess = nil;
   else { NSLog(@"!!! Exception: The Move has no user"); return; }
   
   // Calculate the effect of move
-  [self calculateEffectForMove:move];
+  [self _calculateEffectForMove:move];
   
   // Post Message to update |messageView_| in |GameMenuViewController|
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:pokemonID], @"pokemonID",
                                 move.sid,                           @"moveID", nil];
-  [self postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
+  [self _postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
   [messageInfo release];
   
   move = nil;
@@ -475,7 +478,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 // 选择 最近 随机 二体 全体 自身 全场 己方                     
 // 01  01  01 00/01 01  10  11  10   1vs1: 00-无, 01-对方, 10-自身, 11-双方
 //
-- (void)calculateEffectForMove:(Move *)move {
+- (void)_calculateEffectForMove:(Move *)move {
   // Real move target
   //  1vs1: 00-无, 01-对方, 10-自身, 11-双方
   //  2vs2: ...
@@ -580,7 +583,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   BOOL valuesHaveBeenCalculated = NO; 
   
   // Calculate the damage
-  NSInteger moveDamage = [self calculateDamageForMove:move];    // Move damage
+  NSInteger moveDamage = [self _calculateDamageForMove:move];    // Move damage
   
   float          randomValue        = arc4random() % 1000 / 10; // Random value for calculating % chance
   NSInteger      stage              = 1;                        // Used in "Raises Attack UP 1 Stage"
@@ -738,8 +741,8 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case 0x19: // Removes all stat changes, returns opponent's status to Normal (e.g. Haze)
-      [self setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
-      [self setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
+      [self _setTransientStatusPokemonForUser:kGameSystemProcessUserPlayer];
+      [self _setTransientStatusPokemonForUser:kGameSystemProcessUserEnemy];
       // Values have been calculated
       valuesHaveBeenCalculated = YES;
       break;
@@ -1252,10 +1255,10 @@ static GameSystemProcess * gameSystemProcess = nil;
   [newUserInfo release];
   
   // Decrease PP value (only for Player, not include WildPokemon(enemy) now)
-  [self decreasePPValue];
+  [self _decreasePPValue];
   
   // Checking Pokemon FAINT or not
-  [self performSelector:@selector(checkPokemonFaintOrNot) withObject:nil afterDelay:1.5f];
+  [self performSelector:@selector(_checkPokemonFaintOrNot) withObject:nil afterDelay:1.5f];
 }
 
 // Calculate the move damage
@@ -1315,7 +1318,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //     (2) PM's status is not involved.
 //  REFERENCE: http://www.serebii.net/games/damage.shtml
 //
-- (NSInteger)calculateDamageForMove:(Move *)move {
+- (NSInteger)_calculateDamageForMove:(Move *)move {
   if ([move.baseDamage intValue] == 0)
     return 0;
   
@@ -1377,7 +1380,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 // TODO:
 //   WildPokemon's Move PP not included
 //
-- (void)decreasePPValue {
+- (void)_decreasePPValue {
   // Only for Player now (not include WildPokemon (enemy))
   if (user_ != kGameSystemProcessUserPlayer || moveIndex_ < 1 || moveIndex_ > 4)
     return;
@@ -1440,7 +1443,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //  * One more thing.
 //    <Exp. Share> is an item that will always give half of the experience points gained in the battle to the pokemon with the item equipped, regardless of if it participated or not. This makes leveling up young pokemon easy.
 //
-- (NSInteger)calculateExpGained {
+- (NSInteger)_calculateExpGained {
   //
   // NOTE: use (formula 2) now
   //
@@ -1463,11 +1466,11 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Check Pokemon Faint or not
-- (void)checkPokemonFaintOrNot {
+- (void)_checkPokemonFaintOrNot {
   // Enemy Pokemon FAINT
   if (moveRealTarget_ == kMoveRealTargetEnemy && [self.enemyPokemon.hp intValue] == 0) {
     NSLog(@"// Enemy Pokemon FAINT......");
-    [self postMessageForProcessType:kGameSystemProcessTypeEnemyPokemonFaint withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypeEnemyPokemonFaint withMessageInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnemyPokemonFaint
                                                         object:self
                                                       userInfo:nil];
@@ -1481,13 +1484,13 @@ static GameSystemProcess * gameSystemProcess = nil;
     else {
       NSLog(@"WildPokemon FAINT, END Game...");
       processType_ = kGameSystemProcessTypeBattleEnd;
-      [self performSelector:@selector(playerWin) withObject:nil afterDelay:2.f];
+      [self performSelector:@selector(_playerWin) withObject:nil afterDelay:2.f];
     }
   }
   // Player Pokemon FAINT
   else if (moveRealTarget_ == kMoveRealTargetPlayer && [self.playerPokemon.hp intValue] == 0) {
     NSLog(@"// Player Pokemon FAINT......");
-    [self postMessageForProcessType:kGameSystemProcessTypePlayerPokemonFaint withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypePlayerPokemonFaint withMessageInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPlayerPokemonFaint
                                                         object:self
                                                       userInfo:nil];
@@ -1495,14 +1498,14 @@ static GameSystemProcess * gameSystemProcess = nil;
     //   show view of |GameMenuSixPokemonsViewController| to choose Pokemon
     if ([[TrainerController sharedInstance] battleAvailablePokemonIndex]) {
       NSLog(@"sixPokemonsBattleAvailable... show view to choose new Pokemon");
-      [self performSelector:@selector(chooseNewPokemonToBattle) withObject:nil afterDelay:2.f];
+      [self performSelector:@selector(_chooseNewPokemonToBattle) withObject:nil afterDelay:2.f];
     }
     // Else, END Game Battle with Player LOSE event
     // Post notification to |GameMainViewController|
     else {
       NSLog(@"All Pokemons owned by Player FAINT, END Game...");
       processType_ = kGameSystemProcessTypeBattleEnd;
-      [self performSelector:@selector(playerLose) withObject:nil afterDelay:2.f];
+      [self performSelector:@selector(_playerLose) withObject:nil afterDelay:2.f];
     }
   }
   
@@ -1511,18 +1514,18 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // When Player's Pokemon fainted, choose new PM to battle
-- (void)chooseNewPokemonToBattle {
+- (void)_chooseNewPokemonToBattle {
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleSixPokemons
                                                       object:self
                                                     userInfo:nil];
 }
 
 // Use bag item
-- (void)useBagItem {  
+- (void)_useBagItem {  
   // Throw Pokeball
   if (targetType_ == kBagQueryTargetTypePokeball) {
     // Post Message to update |messageView_| in |GameMenuViewController|
-    [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:nil];
     
     // Turn to Catching Wild Pokemon
     processType_ = kGameSystemProcessTypeCathingWildPokemon;
@@ -1547,7 +1550,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     pokemon = nil;
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
+    [self _postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
     [messageInfo release];
     
     [self endTurn];
@@ -1555,7 +1558,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Replace pokemon
-- (void)replacePokemon {
+- (void)_replacePokemon {
 #ifdef KY_TESTFLIGHT_ON
   [TestFlight passCheckpoint:@"CHECK_POINT: Replaced a PM"];
 #endif
@@ -1577,19 +1580,19 @@ static GameSystemProcess * gameSystemProcess = nil;
   pokemon = nil;
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
-  [self postMessageForProcessType:kGameSystemProcessTypeReplacePokemon withMessageInfo:messageInfo];
+  [self _postMessageForProcessType:kGameSystemProcessTypeReplacePokemon withMessageInfo:messageInfo];
   [messageInfo release];
   
   [self endTurn];
 }
 
 // Catching Wild Pokemon
-- (void)catchingWildPokemon {
+- (void)_catchingWildPokemon {
   NSLog(@"catching Wild Pokemon...");
   // Only 3 times for checking catching succeed or not,
   //   the end of third time means caught the Wild PM
   if (++catchingWildPokemonTimeCounter_ > 3) {
-    [self caughtWildPokemonSucceed:YES];
+    [self _caughtWildPokemonSucceed:YES];
     return;
   }
   
@@ -1598,7 +1601,7 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // No mater caught Wild Pokemon succeed or not,
   //   if result come out, end checking turn.
-  if ([self hasDoneForCatchingWildPokemonResult])
+  if ([self _hasDoneForCatchingWildPokemonResult])
     return;
   
   delayTime_ = 0;
@@ -1650,7 +1653,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 //     |ballModifier| & |statusModifier| is not involved.
 //
 //
-- (BOOL)hasDoneForCatchingWildPokemonResult {
+- (BOOL)_hasDoneForCatchingWildPokemonResult {
   NSLog(@"has Done For Catching Wild Pokemon Result");
   // Formula effects
   // max & current HP values
@@ -1709,12 +1712,12 @@ static GameSystemProcess * gameSystemProcess = nil;
   
   // if |catchValue >= 255|(SUCCEED) or |randomeNumber > catch|(FAILED)
   //   run this method to show the capture result
-  [self caughtWildPokemonSucceed:succeed];
+  [self _caughtWildPokemonSucceed:succeed];
   return YES;
 }
 
 // Caught Wild Pokemon succeed or not
-- (void)caughtWildPokemonSucceed:(BOOL)succeed {
+- (void)_caughtWildPokemonSucceed:(BOOL)succeed {
   NSLog(@"Caught Wild Pokemon %@!!!", succeed ? @"SUCCEED" : @"FAILED");
   catchingWildPokemonTimeCounter_ = 0;
   
@@ -1733,7 +1736,7 @@ static GameSystemProcess * gameSystemProcess = nil;
     // Post notification to |GameBattleLayer| & |GameMenuViewController| to get Pokemon out of Pokeball
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokeballLossWildPokemon object:self userInfo:nil];
     // Update message in |GameMenuViewController| to show Catching WildPokemon Failed
-    [self postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonFailed withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonFailed withMessageInfo:nil];
     // Play AUDIO
     [self.audioPlayer playForAudioType:kAudioBattlePMBrokeFree afterDelay:0];
   }
@@ -1742,7 +1745,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Run
-- (BOOL)isRunSucceed; {
+- (BOOL)_isRunSucceed; {
   CGFloat runRate = 100.f;
   
   NSInteger playerPMLevel = [self.playerPokemon.level intValue];
@@ -1764,7 +1767,7 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // Post Message to |GameMenuViewController| to set message for game
-- (void)postMessageForProcessType:(GameSystemProcessType)processType
+- (void)_postMessageForProcessType:(GameSystemProcessType)processType
                   withMessageInfo:(NSDictionary *)messageInfo {
   NSString * message = nil;
   
@@ -1851,7 +1854,7 @@ static GameSystemProcess * gameSystemProcess = nil;
       break;
       
     case kGameSystemProcessTypePlayerWin: {
-      NSInteger expGained = [self calculateExpGained];
+      NSInteger expGained = [self _calculateExpGained];
       // Add gained EXP to Pokemon
       //   and post to |GameMenuViewController| to update EXP bar in Pokemon status view
       NSInteger levelsUp = [self.playerPokemon levelsUpWithGainedExp:expGained];
@@ -1961,19 +1964,19 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self.audioPlayer stopForAudioType:kAudioBattlingVSWildPM];
     [self.audioPlayer playForAudioType:kAudioBattleVictoryVSWildPM afterDelay:0];
     // Update message in |GameMenuViewController| to show Player WIN
-    [self postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypePlayerWin withMessageInfo:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeLose) {
     // Update message in |GameMenuViewController| to show Player LOSE
-    [self postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
+    [self _postMessageForProcessType:kGameSystemProcessTypePlayerLose withMessageInfo:nil];
     [self runEventWithEventType:kGameBattleEventTypeWin info:nil];
   }
   else if (battleEndEventType & kGameBattleEndEventTypeRun) {
-    BOOL isRunSucceed = [self isRunSucceed];
+    BOOL isRunSucceed = [self _isRunSucceed];
     // Update message in |GameMenuViewController| to show run succeed or not
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];
-    [self postMessageForProcessType:kGameSystemProcessTypeRun withMessageInfo:messageInfo];
+    [self _postMessageForProcessType:kGameSystemProcessTypeRun withMessageInfo:messageInfo];
     [messageInfo release];
     
     // If run succeed, play AUDIO
@@ -1998,12 +2001,12 @@ static GameSystemProcess * gameSystemProcess = nil;
 }
 
 // WIN
-- (void)playerWin {
+- (void)_playerWin {
   [self endBattleWithEventType:kGameBattleEndEventTypeWin];
 }
 
 // LOSE
-- (void)playerLose {
+- (void)_playerLose {
   [self endBattleWithEventType:kGameBattleEndEventTypeLose];
 }
 

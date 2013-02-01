@@ -13,8 +13,7 @@
 #import "TrainerController.h"
 #import "LoadingManager.h"
 
-#pragma mark -
-#pragma mark - OAuthManager
+
 @interface OAuthManager () {
  @private
   NSString * clientIdentifier_,
@@ -41,9 +40,9 @@
 
 - (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
 - (void)_syncUserID;                                     // Current authticated User's ID (Trainer's |uid|)
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
-      finishedWithAuth:(GTMOAuth2Authentication *)auth
-                 error:(NSError *)error;
+- (void)_viewController:(GTMOAuth2ViewControllerTouch *)viewController
+       finishedWithAuth:(GTMOAuth2Authentication *)auth
+                  error:(NSError *)error;
 
 @end
 
@@ -80,8 +79,7 @@ static OAuthManager * oauthManager_ = nil;
     self.oAuthGoogleScope = nil;
   self.oauth = nil;
   [self.operationQueue cancelAllOperations];
-  self.operationQueue = nil;
-  
+  self.operationQueue = nil;  
   [super dealloc];
 }
 
@@ -148,7 +146,7 @@ static OAuthManager * oauthManager_ = nil;
 - (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider {  
   selectedServiceProvider_ = serviceProvider;                      // Set selected service provider
   NSDictionary * oauthData = [self _oauthDataFor:serviceProvider]; // OAuth data for the service provider
-  SEL finishedSelector     = @selector(viewController:finishedWithAuth:error:);
+  SEL finishedSelector     = @selector(_viewController:finishedWithAuth:error:);
   GTMOAuth2ViewControllerTouch * loginViewController;
   loginViewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:[oauthData valueForKey:@"scope"]
                                                                    clientID:[oauthData valueForKey:@"clientID"]
@@ -280,7 +278,7 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Callback for method:|loginWith:|
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+- (void)_viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
                  error:(NSError *)error {
   if (error != nil) {
