@@ -63,12 +63,14 @@
   
   
   // Push Notification Register (for iOS 5.0's bug?)
-  [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
-                                                                       |UIRemoteNotificationTypeAlert
-                                                                       |UIRemoteNotificationTypeSound];
+  UIRemoteNotificationType types = UIRemoteNotificationTypeBadge
+                                 | UIRemoteNotificationTypeAlert
+                                 | UIRemoteNotificationTypeSound;
+  [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
   
   // Deal with Local Notification if user received the local notification
-  UILocalNotification * localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+  UILocalNotification * localNotification =
+    [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
   if (localNotification)
     [self application:application didReceiveLocalNotification:localNotification];
   application.applicationIconBadgeNumber = 0;
@@ -76,14 +78,20 @@
   
   // Create a location manager instance to determine if location services are enabled.
   if (! [CLLocationManager locationServicesEnabled]) {
-    UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView * servicesDisabledAlert = [UIAlertView alloc];
+    [servicesDisabledAlert initWithTitle:@"Location Services Disabled"
+                                 message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled."
+                                delegate:nil
+                       cancelButtonTitle:@"OK"
+                       otherButtonTitles:nil];
     [servicesDisabledAlert show];
     [servicesDisabledAlert release];
   }
   else {
     // Set value in User Preferences (its default value is NO)
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDKeyGeneralLocationServices];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    //NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    //[userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
+    //[userDefaults synchronize];
   }
   
   // In-App Purchase
@@ -127,49 +135,54 @@
   return YES;
 }
 
+/*
+ Sent when the application is about to move from active to inactive state.
+ This can occur for certain types of temporary interruptions (such as an incoming
+   phone call or SMS message) or when the user quits the application and it begins
+   the transition to the background state.
+ Use this method to pause ongoing tasks, disable timers, and throttle down
+   OpenGL ES frame rates. Games should use this method to pause the game.
+ */
 - (void)applicationWillResignActive:(UIApplication *)application {
-  /*
-   Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-   Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-   */
-#ifdef KY_TESTFLIGHT_ON
-  [TestFlight passCheckpoint:@"CHECK_POINT: App Resign Active"];
-#endif
 }
 
+/*
+ Use this method to release shared resources, save user data, invalidate timers,
+   and store enough application state information to restore your application
+   to its current state in case it is terminated later.
+ If your application supports background execution, this method is called
+   instead of applicationWillTerminate: when the user quits.
+ */
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-  /*
-   Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-   If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-   */
   NSLog(@"Application entered background state...");
   [self saveContext];
-#ifdef KY_TESTFLIGHT_ON
-  [TestFlight passCheckpoint:@"CHECK_POINT: App Enter Background"];
-#endif
 }
 
+/*
+ Called as part of the transition from the background to the inactive state;
+   here you can undo many of the changes made on entering the background.
+ */
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-  /*
-   Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-   */
   application.applicationIconBadgeNumber = 0;
 }
 
+/*
+ Restart any tasks that were paused (or not yet started) while the application
+   was inactive. If the application was previously in the background,
+   optionally refresh the user interface.
+ */
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-  /*
-   Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-   */
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-  // Saves changes in the application's managed object context before the application terminates.
+  // Saves changes in the application's managed object context before
+  //   the application terminates.
   [self saveContext];
 }
 
 - (void)saveContext {
-  NSError *error = nil;
-  NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+  NSError * error = nil;
+  NSManagedObjectContext * managedObjectContext = self.managedObjectContext;
   if (managedObjectContext != nil) {
     if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
       /*
@@ -282,18 +295,21 @@
 
 // Returns the URL to the application's Documents directory.
 - (NSString *)applicationDocumentsDirectory {
-  return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+  return [NSSearchPathForDirectoriesInDomains
+           (NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 #pragma mark - Notification
 
 // Remote Notification
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)         application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
   NSLog(@"--- AppDelegate didReceiveRemoteNotification:");
 }
 
 // Local Notification
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+- (void)        application:(UIApplication *)application
+didReceiveLocalNotification:(UILocalNotification *)notification {
   NSLog(@"Background to Foreground, Run App after User Pressed the button");
   application.applicationIconBadgeNumber = 0;  
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
@@ -309,25 +325,31 @@
 }
 
 - (void)_registerDefaultsFromSettingsBundleWithPlistName:(NSString *)plistName {
-  NSString * settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+  NSString * settingsBundle =
+    [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
   if(! settingsBundle) return;
   
-  NSDictionary * settings = [[NSDictionary alloc] initWithContentsOfFile:
-                             [settingsBundle stringByAppendingPathComponent:plistName]];
-  NSArray * preferences = [[NSArray alloc] initWithArray:[settings objectForKey:@"PreferenceSpecifiers"]];
+  NSDictionary * settings =
+    [[NSDictionary alloc] initWithContentsOfFile:
+      [settingsBundle stringByAppendingPathComponent:plistName]];
+  NSArray * preferences =
+    [[NSArray alloc] initWithArray:[settings objectForKey:@"PreferenceSpecifiers"]];
   [settings release];
   
-  NSMutableDictionary * defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
+  NSMutableDictionary * defaultsToRegister =
+    [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
   for(NSDictionary * prefSpecification in preferences) {
     NSString * key = [prefSpecification objectForKey:@"Key"];
     if(key && [prefSpecification objectForKey:@"DefaultValue"])
-      [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
+      [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"]
+                             forKey:key];
   }
   [preferences release];
   
-  [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  [userDefaults registerDefaults:defaultsToRegister];
   [defaultsToRegister release];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  [userDefaults synchronize];
 }
 
 @end

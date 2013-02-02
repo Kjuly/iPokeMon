@@ -1,5 +1,5 @@
 //
-//  UtilityBallMenuViewController.m
+//  CenterMenuUtilityViewController.m
 //  iPokeMon
 //
 //  Created by Kaijie Yu on 2/1/12.
@@ -57,9 +57,9 @@
   [super viewDidLoad];
   
   // Set Buttons' style in center menu view
-  for (UIButton * button in [self.centerMenu subviews]) {
-    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINMainMenuUtilityButton, button.tag]]
-            forState:UIControlStateNormal];
+  for (UIButton * button in [self.menu subviews]) {
+//    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINMainMenuUtilityButton, button.tag]]
+//            forState:UIControlStateNormal];
     [button setAlpha:.95f];
   }
 }
@@ -118,7 +118,7 @@
 #pragma mark - Private Methods
 
 ///Buttons' Action
-- (void)_showPokedex:(id)sender {  
+- (void)_showPokedex:(id)sender {
   PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
   [pokedexTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:pokedexTableViewController];

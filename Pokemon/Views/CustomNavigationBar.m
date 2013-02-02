@@ -9,7 +9,7 @@
 #import "CustomNavigationBar.h"
 
 #import "GlobalRender.h"
-#import "AbstractCenterMenuViewController.h"
+#import "PMCircleMenu.h"
 
 
 @interface CustomNavigationBar () {
@@ -60,7 +60,7 @@
 // If we have a custom background image, then draw it,
 // othwerwise call super and draw the standard nav bar
 - (void)drawRect:(CGRect)rect {
-//  [super drawRect:rect];
+  //[super drawRect:rect];
   NSLog(@"*** CustomNavigationBar drawRect:");
   UIImage * backgroundImage = [UIImage imageNamed:kPMINNavBarBackground];
   [backgroundImage drawInRect:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
@@ -92,23 +92,28 @@
     [self _removeBackButtonForPreviousView];
   self.viewCount = 0;
   
+  // Pop view controller
   [self.delegate customNavigationBarWillBackToRootAnimated:YES];
-  // Animation blocks
+  
+  // Blocks of |animations| & |completion|
   void (^animations)() = ^{
-    if ([[self.dataSource rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
-      // Slide up the Navigation bar to hide it
-      [self setFrame:CGRectMake(0.f, -kNavigationBarHeight, kViewWidth, kNavigationBarHeight)];
+    // Slide up the Navigation bar if it is a PMCircleMenu type class
+    if ([[self.dataSource rootViewController] isKindOfClass:[PMCircleMenu class]]) {
+      CGRect navigationBarFrame = self.frame;
+      navigationBarFrame.origin.y = -kNavigationBarHeight;
+      [self setFrame:navigationBarFrame];
     }
     // For Login view
     else [self setBackToRootButtonToHidden:YES animated:YES];
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
-    if ([[self.dataSource rootViewController] isKindOfClass:[AbstractCenterMenuViewController class]]) {
+    if ([[self.dataSource rootViewController] isKindOfClass:[PMCircleMenu class]]) {
       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
       // And recover button' layout in center view
       [self.delegate customNavigationBarWillHide:YES animated:NO];
-      [(AbstractCenterMenuViewController *)[self.dataSource rootViewController]
-       changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
+      // Change |centerMainButton_|'s status
+      [(PMCircleMenu *)[self.dataSource rootViewController]
+        changeCenterMainButtonStatusToMove:kCenterMainButtonStatusNormal];
     }
   };  
   [UIView animateWithDuration:.3f
@@ -120,7 +125,6 @@
 
 // Provide the action for the custom |backButton|
 - (void)back:(id)sender {
-  NSLog(@"popViewController");
   // Remove the |backButton| if needed
   if (self.viewCount >= 2 && --self.viewCount < 2)
     [self _removeBackButtonForPreviousView];

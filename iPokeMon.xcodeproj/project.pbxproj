@@ -246,6 +246,8 @@
 		7F8A4FBF16B688630035513A /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A4FBE16B688630035513A /* Resource.bundle */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
+		7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8DD7CE16BCF5E6006E6F98 /* KYCircleMenu.m */; };
+		7F8DD7D216BD0D0B006E6F98 /* PMCircleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8DD7D116BD0D0A006E6F98 /* PMCircleMenu.m */; };
 		7F8E063C154F9D3100AB8CB4 /* PurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E063B154F9D3100AB8CB4 /* PurchaseTableViewCell.m */; };
 		7F8E0648154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0642154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon.png */; };
 		7F8E0649154FB15E00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0643154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon@2x.png */; };
@@ -882,6 +884,10 @@
 		7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewCell.m; sourceTree = "<group>"; };
 		7F8C15CB15091B94004BE083 /* GameEnemyPokemonStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEnemyPokemonStatusViewController.h; sourceTree = "<group>"; };
 		7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEnemyPokemonStatusViewController.m; sourceTree = "<group>"; };
+		7F8DD7CD16BCF5E6006E6F98 /* KYCircleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYCircleMenu.h; sourceTree = "<group>"; };
+		7F8DD7CE16BCF5E6006E6F98 /* KYCircleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYCircleMenu.m; sourceTree = "<group>"; };
+		7F8DD7D016BD0D0A006E6F98 /* PMCircleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCircleMenu.h; sourceTree = "<group>"; };
+		7F8DD7D116BD0D0A006E6F98 /* PMCircleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCircleMenu.m; sourceTree = "<group>"; };
 		7F8E063A154F9D3100AB8CB4 /* PurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTableViewCell.h; sourceTree = "<group>"; };
 		7F8E063B154F9D3100AB8CB4 /* PurchaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseTableViewCell.m; sourceTree = "<group>"; };
 		7F8E0642154FB15D00AB8CB4 /* CurrencyExchangeTier1Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyExchangeTier1Icon.png; sourceTree = "<group>"; };
@@ -1672,6 +1678,8 @@
 				7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */,
 				7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */,
 				7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */,
+				7F8DD7D016BD0D0A006E6F98 /* PMCircleMenu.h */,
+				7F8DD7D116BD0D0A006E6F98 /* PMCircleMenu.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
 				7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */,
 				7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */,
@@ -2033,9 +2041,20 @@
 			path = DetailView;
 			sourceTree = "<group>";
 		};
+		7F8DD7CC16BCF5E6006E6F98 /* KYCircleMenu */ = {
+			isa = PBXGroup;
+			children = (
+				7F8DD7CD16BCF5E6006E6F98 /* KYCircleMenu.h */,
+				7F8DD7CE16BCF5E6006E6F98 /* KYCircleMenu.m */,
+			);
+			name = KYCircleMenu;
+			path = KYCircleMenu/KYCircleMenu;
+			sourceTree = "<group>";
+		};
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7F8DD7CC16BCF5E6006E6F98 /* KYCircleMenu */,
 				7FD60DCF16B1233A008258DE /* SSZipArchive */,
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
 				7F56996916A959E80045EA23 /* KYiOSFoundation */,
@@ -3321,6 +3340,8 @@
 				7FDBE13A16B2729000BF692D /* ResourceTableViewController.m in Sources */,
 				7FC6C79E16B6F45B005E29CB /* AppInfoViewController.m in Sources */,
 				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
+				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
+				7F8DD7D216BD0D0B006E6F98 /* PMCircleMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

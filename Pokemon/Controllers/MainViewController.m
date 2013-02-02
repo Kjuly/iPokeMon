@@ -161,8 +161,7 @@
     // Hard Initialize the Core Data with default resource bundle
     if([OriginalDataManager updateDataWithMOC:self.managedObjectContext
                                resourceBundle:[[ResourceManager sharedInstance] defaultBundle]
-                                       isInit:YES])
-      NSLog(@"......DATA INITIALIZATION DONE.");
+                                       isInit:YES]) NSLog(@"......DATA INITIALIZATION DONE.");
 #endif
     // Base iVar Settings
     centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
@@ -200,10 +199,10 @@
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   
   // Ball menu which locate at center
-  centerMainButton_ = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-                                                                           (kViewHeight - kCenterMainButtonSize) / 2,
-                                                                           kCenterMainButtonSize,
-                                                                           kCenterMainButtonSize)];
+  CGRect centerMainButtonFrame =
+    CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, (kViewHeight - kCenterMainButtonSize) / 2,
+               kCenterMainButtonSize, kCenterMainButtonSize);
+  centerMainButton_ = [[UIButton alloc] initWithFrame:centerMainButtonFrame];
   [centerMainButton_ setContentMode:UIViewContentModeScaleAspectFit];
   [centerMainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                forState:UIControlStateNormal];
@@ -421,8 +420,9 @@
   switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
     case kCenterMainButtonStatusAtBottom:
       centerMainButtonStatus_ = kCenterMainButtonStatusAtBottom;
-      [self _setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom | kMainViewButtonLayoutMapButtonToOffcreen
-          completion:nil];
+      [self _setButtonLayoutTo:kMainViewButtonLayoutCenterMainButtonToBottom
+                              |kMainViewButtonLayoutMapButtonToOffcreen
+                    completion:nil];
       [self _deactivateCenterMenuOpenStatusTimer];
       break;
       
@@ -549,7 +549,14 @@
     if (self.centerMenuUtilityViewController == nil) {
       // Center menu utility view controller
       CenterMenuUtilityViewController * centerMenuUtilityViewController;
-      centerMenuUtilityViewController = [[CenterMenuUtilityViewController alloc] initWithButtonCount:6];
+      centerMenuUtilityViewController = [CenterMenuUtilityViewController alloc];
+      [centerMenuUtilityViewController initWithButtonCount:6
+                                                  menuSize:kCenterMenuSize
+                                                buttonSize:kCenterMenuButtonSize
+                                     buttonImageNameFormat:kPMINMainMenuUtilityButton
+                                          centerButtonSize:0
+                                     centerButtonImageName:nil
+                           centerButtonBackgroundImageName:nil];
       centerMenuUtilityViewController.managedObjectContext = self.managedObjectContext;
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
       [centerMenuUtilityViewController release];
@@ -562,16 +569,17 @@
       [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
       self.customNavigationController = customNavigationController;
       [customNavigationController release];
-      [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+      [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     }
     
-    // Insert |utilityNavigationController|'s view
-//    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
-    [self.view insertSubview:self.customNavigationController.view belowSubview:self.centerMainButton];
+    // Insert |centerMenuUtilityViewController_|'s view
+    [self.view insertSubview:self.customNavigationController.view
+                belowSubview:self.centerMainButton];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {
-      [self.centerMenuUtilityViewController openCenterMenuView];
+      [self.centerMenuUtilityViewController updateButtonsLayoutForState:kKYCircleMenuStateExpand
+                                                               animated:YES];
       isCenterMenuOpening_ = YES;
     };
   }
@@ -581,7 +589,7 @@
     [TestFlight passCheckpoint:@"CHECK_POINT: Open Center Six PMs Menu (long press)"];
 #endif
     // Reset |centerMenuUtilityViewController_|
-    if (self.centerMenuUtilityViewController != nil)
+    if (self.centerMenuUtilityViewController)
       self.centerMenuUtilityViewController = nil;
     
     // Create VC for Six Pokemons
@@ -597,10 +605,10 @@
     [customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
     self.customNavigationController = customNavigationController;
     [customNavigationController release];
-    [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+    [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     // Insert |utilityNavigationController|'s view
-//    [self.view insertSubview:self.customNavigationController.view belowSubview:self.gameMainViewController.view];
-    [self.view insertSubview:self.customNavigationController.view belowSubview:self.centerMainButton];
+    [self.view insertSubview:self.customNavigationController.view
+                belowSubview:self.centerMainButton];
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {
@@ -619,7 +627,7 @@
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
 - (void)_closeCenterMenuView {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
+  [[NSNotificationCenter defaultCenter] postNotificationName:kKYNCircleMenuClose
                                                       object:self
                                                     userInfo:nil];
   [self _setButtonLayoutTo:kMainViewButtonLayoutNormal completion:nil];
@@ -731,8 +739,8 @@
 - (void)_toggleMapView:(id)sender {
   [self.longTapTimer invalidate];
   // If Location Service is not allowed, do nothing
-  if (! [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices] || timeCounter_ >= 6.f)
-    return;
+  if (! [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]
+      || timeCounter_ >= 6.f) return;
   
   // Else, just normal button action
   __block CGRect mapViewFrame   = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
@@ -801,42 +809,44 @@
   [self _changeCenterMainButtonStatus:notification];
   if (self.gameMainViewController == nil)
     return;
-//  [gameMainViewController_ release];
+  //[gameMainViewController_ release];
   self.gameMainViewController = nil;
 }
 
 // Toggle tracking
 - (void)_updateLocationService:(NSNotification *)notification {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
     [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
                               options:UIViewAnimationOptionTransitionFlipFromTop];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
+    [notificationCenter postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
   else {
     [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonDisabled]
                               options:UIViewAnimationOptionTransitionFlipFromBottom];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
+    [notificationCenter postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   }
 }
 
 // Toggle Location Service after long press on |mapButton_|
 - (void)_toggleLocationService {
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"Service is on, turn off");
     [userDefaults setBool:NO forKey:kUDKeyGeneralLocationServices];
     [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonDisabled]
                               options:UIViewAnimationOptionTransitionFlipFromBottom];
     // Post notification to |PMLocationManager| to stop location tracking
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNDisableTracking object:self userInfo:nil];
+    [notificationCenter postNotificationName:kPMNDisableTracking object:self userInfo:nil];
   } else {
     NSLog(@"Service is off, turn on");
     [userDefaults setBool:YES forKey:kUDKeyGeneralLocationServices];
     [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
                               options:UIViewAnimationOptionTransitionFlipFromTop];
     // Post notification to |PMLocationManager| to start location tracking
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNEnableTracking object:self userInfo:nil];
+    [notificationCenter postNotificationName:kPMNEnableTracking object:self userInfo:nil];
   }
 }
 
