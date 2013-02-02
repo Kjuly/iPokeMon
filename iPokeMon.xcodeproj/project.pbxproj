@@ -255,7 +255,6 @@
 		7F8E064B154FB15E00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0645154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png */; };
 		7F8E064C154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0646154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png */; };
 		7F8E064D154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E0647154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png */; };
-		7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */; };
 		7F8E2E13169BB8D5008A3F19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */; };
 		7F8E2E14169BB8D5008A3F19 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E02169BB8D4008A3F19 /* MKMapView+ZoomLevel.m */; };
 		7F8E2E15169BB8D5008A3F19 /* NSString+Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2E04169BB8D5008A3F19 /* NSString+Algorithm.m */; };
@@ -896,8 +895,6 @@
 		7F8E0645154FB15D00AB8CB4 /* CurrencyExchangeTier2Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyExchangeTier2Icon@2x.png"; sourceTree = "<group>"; };
 		7F8E0646154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrencyExchangeTier3Icon.png; sourceTree = "<group>"; };
 		7F8E0647154FB15E00AB8CB4 /* CurrencyExchangeTier3Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrencyExchangeTier3Icon@2x.png"; sourceTree = "<group>"; };
-		7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCenterMenuViewController.h; sourceTree = "<group>"; };
-		7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractCenterMenuViewController.m; sourceTree = "<group>"; };
 		7F8E2DFE169BB8D4008A3F19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7F8E2E01169BB8D4008A3F19 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
@@ -1676,8 +1673,6 @@
 				7F51C40714D7D3C60091902D /* MapViewController.m */,
 				7FFBEDE6156BA24C005FAD33 /* MapAnnotationCalloutViewController.h */,
 				7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */,
-				7F8E28AF14FD41AA00BDAEE2 /* AbstractCenterMenuViewController.h */,
-				7F8E28B014FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m */,
 				7F8DD7D316BD51AD006E6F98 /* PMCircleMenu.h */,
 				7F8DD7D416BD51AD006E6F98 /* PMCircleMenu.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
@@ -3120,7 +3115,6 @@
 				7F77F70114FAA16C00842700 /* GameMenuMoveUnitView.m in Sources */,
 				7F52451314FBDACE0019C75A /* WildPokemon+DataController.m in Sources */,
 				7F52451914FBEA810019C75A /* GameStatusMachine.m in Sources */,
-				7F8E28B114FD41AB00BDAEE2 /* AbstractCenterMenuViewController.m in Sources */,
 				7F21AA8614FFA28000F9071A /* CenterMainButtonTouchDownCircleView.m in Sources */,
 				7FCD7D7715008AE4000783CF /* CenterMenuSixPokemonsViewController.m in Sources */,
 				7F58BB551505239800640F57 /* BagItemTableViewCell.m in Sources */,
