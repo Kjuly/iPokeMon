@@ -12,20 +12,11 @@
 # project.xcworkspace/
 xcuserdata/
 
-# Generated files
-*.o
-*.pyc
-
-#Python modules
-MANIFEST
-dist/
-build/
-
 # Backup files
 *~.nib
 *~.xib
 
 # Temp files
-Pokemon/Resources/Pokemon_tmp_files/*
-!Pokemon/Resources/Pokemon_tmp_files/README.md
+Archive/
+!Archive/README.md
 
