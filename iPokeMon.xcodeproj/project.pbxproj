@@ -445,7 +445,7 @@
 		7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */; };
 		7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */; };
 		7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */; };
-		7FB3A07E16B40D9800EC3BDF /* iPokeMon.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */; };
+		7FB3A07E16B40D9800EC3BDF /* Master.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 7FB3A07D16B40D9800EC3BDF /* Master.sqlite */; };
 		7FB4128E1529C979003F41F0 /* TrainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB4128D1529C979003F41F0 /* TrainerController.m */; };
 		7FB412951529CC98003F41F0 /* WildPokemonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB412941529CC98003F41F0 /* WildPokemonController.m */; };
 		7FB412AC152A02F0003F41F0 /* IconBadgeBronze.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB412A6152A02EF003F41F0 /* IconBadgeBronze.png */; };
@@ -481,7 +481,6 @@
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
 		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
 		7FD60DCD16B10702008258DE /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DCC16B10702008258DE /* Config.m */; };
-		7FD60DCE16B10C7A008258DE /* Config.h in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DCB16B10702008258DE /* Config.h */; };
 		7FD60DEF16B1233A008258DE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD516B1233A008258DE /* ioapi.c */; };
 		7FD60DF016B1233A008258DE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD716B1233A008258DE /* mztools.c */; };
 		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
@@ -1246,7 +1245,7 @@
 		7FB3A06F16B3DFDB00EC3BDF /* DefaultSpriteBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteBack.png; sourceTree = "<group>"; };
 		7FB3A07016B3DFDB00EC3BDF /* DefaultSpriteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultSpriteIcon.png; sourceTree = "<group>"; };
 		7FB3A07416B3E0B400EC3BDF /* UserAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserAvatar.png; sourceTree = "<group>"; };
-		7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iPokeMon.sqlite; sourceTree = "<group>"; };
+		7FB3A07D16B40D9800EC3BDF /* Master.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Master.sqlite; sourceTree = "<group>"; };
 		7FB4128C1529C979003F41F0 /* TrainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainerController.h; sourceTree = "<group>"; };
 		7FB4128D1529C979003F41F0 /* TrainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainerController.m; sourceTree = "<group>"; };
 		7FB412931529CC98003F41F0 /* WildPokemonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildPokemonController.h; sourceTree = "<group>"; };
@@ -1503,7 +1502,7 @@
 		7F2FA45214ECDDA90077C4E0 /* db */ = {
 			isa = PBXGroup;
 			children = (
-				7FB3A07D16B40D9800EC3BDF /* iPokeMon.sqlite */,
+				7FB3A07D16B40D9800EC3BDF /* Master.sqlite */,
 			);
 			path = db;
 			sourceTree = "<group>";
@@ -3019,7 +3018,7 @@
 				7FB3A07216B3DFDB00EC3BDF /* DefaultSpriteBack.png in Resources */,
 				7FB3A07316B3DFDB00EC3BDF /* DefaultSpriteIcon.png in Resources */,
 				7FB3A07516B3E0B400EC3BDF /* UserAvatar.png in Resources */,
-				7FB3A07E16B40D9800EC3BDF /* iPokeMon.sqlite in Resources */,
+				7FB3A07E16B40D9800EC3BDF /* Master.sqlite in Resources */,
 				7F8A4FBF16B688630035513A /* Resource.bundle in Resources */,
 				7F5C8FCE16B6FBC200BB10A3 /* KYILogoSinaWeibo.png in Resources */,
 				7F5C8FCF16B6FBC200BB10A3 /* KYILogoSinaWeibo@2x.png in Resources */,
@@ -3073,7 +3072,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FD60DCE16B10C7A008258DE /* Config.h in Sources */,
 				7F6E6CC714D6CAA600033C65 /* main.m in Sources */,
 				7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */,
 				7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */,
