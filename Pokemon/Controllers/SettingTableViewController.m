@@ -24,9 +24,18 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 
+typedef enum {
+  PMSettingTableViewAlertIdentifierNone = 0,
+  PMSettingTableViewAlertIdentifierTurnLocationServiceOn,
+  PMSettingTableViewAlertIdentifierTurnLocationServiceOff,
+  PMSettingTableViewAlertIdentifierLogout
+}PMSettingTableViewAlertIdentifier;
+
+
 @interface SettingTableViewController () {
  @private
   NSArray * developerEmails_;
+  PMSettingTableViewAlertIdentifier alertIdentifier_;
 }
 
 @property (nonatomic, copy) NSArray * developerEmails;
@@ -406,8 +415,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [resourceTableViewController release];
     }
     // Logout
-    else if (row == kSectionMoreRowLogout)
+    else if (row == kSectionMoreRowLogout) {
+      alertIdentifier_ = PMSettingTableViewAlertIdentifierLogout;
       [self openLogoutConfirmView];
+    }
   }
 }
    
@@ -426,15 +437,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath == nil)
     return;
   
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   // Update value for Location Service
   if (indexPath.section == kSectionGeneral) {
     if (indexPath.row == kSectionGeneralLocationServices) {
-      // Save value to UserDefaults
-      [userDefaults setBool:[switchButton isOn] forKey:kUDKeyGeneralLocationServices];
-      [userDefaults synchronize];
-      // Post notification to toggle Location Service
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralLocationServices object:self userInfo:nil];
+      // Warn user that
+      //   "Continued use of GPS running in the background can dramatically
+      //   decrease battery life."
+      NSString * title, * message;
+      if ([switchButton isOn]) {
+        alertIdentifier_ = PMSettingTableViewAlertIdentifierTurnLocationServiceOn;
+        title   = @"PMSSettingGeneralLocationServices:AlertTitle:On";
+        message = @"PMSSettingGeneralLocationServices:AlertMessage:On";
+      }
+      else {
+        alertIdentifier_ = PMSettingTableViewAlertIdentifierTurnLocationServiceOff;
+        title   = @"PMSSettingGeneralLocationServices:AlertTitle:Off";
+        message = @"PMSSettingGeneralLocationServices:AlertMessage:Off";
+      }
+      UIAlertView * alertView = [UIAlertView alloc];
+      [alertView initWithTitle:NSLocalizedString(title, nil)
+                       message:NSLocalizedString(message, nil)
+                      delegate:self
+             cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
+             otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
+      [alertView show];
+      [alertView release];
     }
   }
 }
@@ -445,8 +472,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [logoutConfirmView initWithTitle:nil
                            message:NSLocalizedString(@"PMSSettingLogoutConfirmText", nil)
                           delegate:self
-                 cancelButtonTitle:NSLocalizedString(@"PMSYes", nil)
-                 otherButtonTitles:NSLocalizedString(@"PMSNo", nil), nil];
+                 cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
+                 otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
   [logoutConfirmView show];
   [logoutConfirmView release];
 }
@@ -454,11 +481,39 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - UIAlertView Delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+  // Cancel
   if (buttonIndex == 0) {
-    [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
-    [[OAuthManager sharedInstance] performSelector:@selector(logout) withObject:nil afterDelay:.3f];
+    // Switch back location service button
+    if (alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOn
+        || alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOff) {
+      SettingTableViewCellStyleSwitch * cell =
+        (SettingTableViewCellStyleSwitch *)[self.tableView cellForRowAtIndexPath:
+                                            [NSIndexPath indexPathForRow:kSectionGeneralLocationServices
+                                                               inSection:kSectionGeneral]];
+      [cell.switchButton setOn:!(alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOn)
+                      animated:YES];
+    }
+  }
+  // Confirm
+  if (buttonIndex == 1) {
+    if (alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOn
+        || alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOff) {
+      BOOL isSwitchButtonOn = (alertIdentifier_ == PMSettingTableViewAlertIdentifierTurnLocationServiceOn);
+      // Save value to UserDefaults
+      NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+      [userDefaults setBool:isSwitchButtonOn forKey:kUDKeyGeneralLocationServices];
+      [userDefaults synchronize];
+      // Post notification to toggle Location Service
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralLocationServices object:self];
+    }
+    else if (alertIdentifier_ == PMSettingTableViewAlertIdentifierLogout) {
+      [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
+      [[OAuthManager sharedInstance] performSelector:@selector(logout) withObject:nil afterDelay:.3f];
+    }
   }
 }
+
+//- (void)alertViewCancel:(UIAlertView *)alertView {}
 
 #pragma mark - MFMailComposeViewController Delegate
 

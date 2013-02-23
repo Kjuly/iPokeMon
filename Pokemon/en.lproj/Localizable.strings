@@ -18,6 +18,8 @@
 // Basic
 "PMSYes" = "Yes";
 "PMSNo"  = "No";
+"PMLS:Cancel"  = "Cancel";
+"PMLS:Confirm" = "Confirm";
 
 "Pokemon"      = "PokeMon";
 "Pokedex"      = "PokeDex";
@@ -68,6 +70,13 @@
 "PMSSettingSection2" = "About";
 "PMSSettingSection3" = "More";
 "PMSSettingGeneralLocationServices" = "Location Services";
+// - - Location Service
+// - - - On
+"PMSSettingGeneralLocationServices:AlertTitle:On"    = "Turn On Location Service";
+"PMSSettingGeneralLocationServices:AlertMessage:On"  = "Location Service will be turned on, note that continued use of GPS running in the background can dramatically decrease battery life.";
+// - - - Off
+"PMSSettingGeneralLocationServices:AlertTitle:Off"   = "Turn Off Location Service";
+"PMSSettingGeneralLocationServices:AlertMessage:Off" = "Location Service will be turned off, note that no character will be found around your place in this state.";
 // - - Bandwidth useage
 "PMSSettingGeneralBandWidthUsage0"  = "Minimal";
 "PMSSettingGeneralBandWidthUsage1"  = "Standard";
