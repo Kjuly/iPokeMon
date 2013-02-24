@@ -1,3 +1,6 @@
+[submodule "Pokemon/Libs/KYCircleMenu"]
+	path = Pokemon/Libs/KYCircleMenu
+	url = git://github.com/Kjuly/KYCircleMenu.git
 [submodule "Pokemon/Libs/JSONKit"]
 	path = Pokemon/Libs/JSONKit
 	url = git://github.com/Kjuly/JSONKit.git
