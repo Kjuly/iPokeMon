@@ -77,16 +77,17 @@
   }
 }
 
-#pragma mark - Button Action
+#pragma mark - KYCircleMenu
 
-// Button actions, declared in parent VC
+// Overwrite KYCircleMenu's |-runButtonActions:|
 - (void)runButtonActions:(id)sender {
   [super runButtonActions:sender];
   
   // Load Pokemon's detail information view
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
   sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
-  [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
+  TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:([sender tag] - 1)];
+  [sixPokemonsDetailTabViewController initWithPokemon:tamedPokemon
                                            withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
   [sixPokemonsDetailTabViewController release];
