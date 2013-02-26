@@ -11,6 +11,12 @@ Just imagine that we live with PokeMons in real world. ;)
 
 [__SERVER SIDE SOURCE CODE__](https://github.com/Kjuly/iPokeMon-Server).
 
+<p align="center" >
+  <a href="https://itunes.apple.com/app/id601694902" target="_blank">
+  <img src="https://raw.github.com/Kjuly/KYProjectPageTheme/master/stylesheets/images/download.png" alt="Download on the App Store" title="Download on the App Store">
+  </a>
+</p>
+
 ### About Project
 
 This was my Graduation Project. I tried to submit it to the App Store when the v0.3.2 done, but finally, the binary was rejected on May 16, 2012 with the reason of rejection: "8.5: Use of protected 3rd party material (trademarks, copyrights, trade secrets, otherwise proprietary content) requires a documented rights check which must be provided upon request". What a pity! There was a time I wanted to ask some designers to create a set of PokéMon like characters, but I gave up the thought cause it'll lose its meaning then. So after I graduated from university on Jun, 2012, I shelved this project for several months.  
