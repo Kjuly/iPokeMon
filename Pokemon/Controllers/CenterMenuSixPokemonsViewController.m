@@ -31,8 +31,7 @@
   [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -68,7 +67,7 @@
   if ([self.sixPokemons count] > 0) {
     // Set Buttons' style in center menu view
     NSInteger i = -1;
-    for (UIButton * button in [self.centerMenu subviews]) {
+    for (UIButton * button in [self.menu subviews]) {
       TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:++i];
       [button setBackgroundImage:[UIImage imageNamed:kPMINMainMenuButtonBackground]
                         forState:UIControlStateNormal];
@@ -85,7 +84,8 @@
   [super runButtonActions:sender];
   
   // Load Pokemon's detail information view
-  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
+  SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
+  sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
   [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
                                            withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
