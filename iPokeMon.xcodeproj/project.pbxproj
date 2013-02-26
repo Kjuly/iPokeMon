@@ -508,7 +508,6 @@
 		7FDAD5351541C6A5003F9DA6 /* IconPokemonGender1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5311541C6A5003F9DA6 /* IconPokemonGender1.png */; };
 		7FDAD5361541C6A5003F9DA6 /* IconPokemonGender1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */; };
 		7FDBE13A16B2729000BF692D /* ResourceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBE13916B2728F00BF692D /* ResourceTableViewController.m */; };
-		7FDE77C116C5F5DB007D5BE1 /* AbstractCenterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE77C016C5F5DA007D5BE1 /* AbstractCenterMenuViewController.m */; };
 		7FDF10E91543F5580052DDF9 /* GameBattleScenePMPoint-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint-hd.png */; };
 		7FE05706154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */; };
 		7FE05707154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */; };
@@ -1340,8 +1339,6 @@
 		7FDAD5321541C6A5003F9DA6 /* IconPokemonGender1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPokemonGender1@2x.png"; sourceTree = "<group>"; };
 		7FDBE13816B2728E00BF692D /* ResourceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceTableViewController.h; sourceTree = "<group>"; };
 		7FDBE13916B2728F00BF692D /* ResourceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceTableViewController.m; sourceTree = "<group>"; };
-		7FDE77BF16C5F5DA007D5BE1 /* AbstractCenterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCenterMenuViewController.h; sourceTree = "<group>"; };
-		7FDE77C016C5F5DA007D5BE1 /* AbstractCenterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractCenterMenuViewController.m; sourceTree = "<group>"; };
 		7FDF10E81543F5580052DDF9 /* GameBattleScenePMPoint-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GameBattleScenePMPoint-hd.png"; sourceTree = "<group>"; };
 		7FE05704154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingTableViewCellCenterTitleStyleBackground.png; sourceTree = "<group>"; };
 		7FE05705154F07A400B72688 /* SettingTableViewCellCenterTitleStyleBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingTableViewCellCenterTitleStyleBackground@2x.png"; sourceTree = "<group>"; };
@@ -1677,8 +1674,6 @@
 				7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */,
 				7F8DD7D316BD51AD006E6F98 /* PMCircleMenu.h */,
 				7F8DD7D416BD51AD006E6F98 /* PMCircleMenu.m */,
-				7FDE77BF16C5F5DA007D5BE1 /* AbstractCenterMenuViewController.h */,
-				7FDE77C016C5F5DA007D5BE1 /* AbstractCenterMenuViewController.m */,
 				7FA15F8F14FE5A1600E2E458 /* CenterMenuUtilityViewController.h */,
 				7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */,
 				7FCD7D7515008AE4000783CF /* CenterMenuSixPokemonsViewController.h */,
@@ -3339,7 +3334,6 @@
 				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
 				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
 				7F8DD7D516BD51AE006E6F98 /* PMCircleMenu.m in Sources */,
-				7FDE77C116C5F5DB007D5BE1 /* AbstractCenterMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

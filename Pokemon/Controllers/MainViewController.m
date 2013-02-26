@@ -596,7 +596,13 @@
     NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
     CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
     centerMenuSixPokemonsViewController = [CenterMenuSixPokemonsViewController alloc];
-    [centerMenuSixPokemonsViewController initWithButtonCount:numberOfSixPokemons];
+    [centerMenuSixPokemonsViewController initWithButtonCount:numberOfSixPokemons
+                                                    menuSize:kCenterMenuSize
+                                                  buttonSize:kCenterMenuButtonSize
+                                       buttonImageNameFormat:kPMINMainMenuUtilityButton
+                                            centerButtonSize:0
+                                       centerButtonImageName:nil
+                             centerButtonBackgroundImageName:nil];
     self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
     [centerMenuSixPokemonsViewController release];
     
@@ -612,7 +618,7 @@
     
     // Implement the completion block
     completionBlock = ^(BOOL finished) {
-      [self.centerMenuSixPokemonsViewController openCenterMenuView];
+      [self.centerMenuSixPokemonsViewController open];
     };
   }
   else {
