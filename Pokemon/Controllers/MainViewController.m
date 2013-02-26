@@ -782,7 +782,7 @@
     //   just close |centerMenu_|
     // Else, set |mapButton_| to view top
     if (! isMapViewOpening_ && isCenterMenuOpening_) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
+      [[NSNotificationCenter defaultCenter] postNotificationName:kKYNCircleMenuClose
                                                           object:self];
       isCenterMenuOpening_ = NO;
       [self _deactivateCenterMenuOpenStatusTimer];

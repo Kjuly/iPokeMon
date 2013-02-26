@@ -8,6 +8,8 @@
 
 #import "AbstractCenterMenuViewController.h"
 
+#import "KYCircleMenu.h"
+
 @interface AbstractCenterMenuViewController () {
  @private
   NSInteger buttonCount_;
@@ -31,7 +33,7 @@
 -(void)dealloc {
   self.centerMenu = nil;
   // Remove Notification Observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNCloseCenterMenu object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kKYNCircleMenuClose object:nil];
   [super dealloc];
 }
 
@@ -99,7 +101,7 @@
   // If |centerMainButton_| post cancel notification, do it
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(_closeCenterMenuView:)
-                                               name:kPMNCloseCenterMenu
+                                               name:kKYNCircleMenuClose
                                              object:nil];
 }
 
