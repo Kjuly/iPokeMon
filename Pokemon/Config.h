@@ -104,6 +104,22 @@ extern NSString * const kIAPCurrencyTier2;
 extern NSString * const kIAPCurrencyTier3;
 
 
+/*
+ * LIB: UIApplication+UIID
+ */
+// Enable persistent UIID via Keychain instead of UserDefaults (ON)
+#define UIID_PERSISTENT 1
+//
+// Use secret UIID key for security reason (ON)
+#define APPLY_SECRET_UIID_KEY 1
+//
+// Define a custom key for the UIID in the keychain or UserDefaults
+//   e.g. "uniqueInstallationIdentifier"
+#ifdef APPLY_SECRET_UIID_KEY
+extern NSString * const kUIIDKey;
+#endif
+
+
 @interface Config : NSObject
 
 @end
