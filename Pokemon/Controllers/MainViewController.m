@@ -724,7 +724,7 @@
     };
     // Move |mapButton_| to view top
     [self _setButtonLayoutTo:kMainViewButtonLayoutMapButtonToTop
-        completion:completionBlock];
+                  completion:completionBlock];
   }
   
   ///TARGET:|mapButton_|
@@ -743,28 +743,31 @@
       || timeCounter_ >= 6.f) return;
   
   // Else, just normal button action
-  __block CGRect mapViewFrame   = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight);
+  __block CGRect mapViewFrame   = (CGRect){CGPointZero, {kViewWidth, kViewHeight}};
   __block CGRect mapButtonFrame = CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                              100.f,
                                              kMapButtonSize,
                                              kMapButtonSize);
   
+  // Close map view if it is opening
   if (isMapViewOpening_) {
     mapViewFrame.origin.y   = kViewHeight;
     mapButtonFrame.origin.y = 100.f;
     // reset map view to default
     [self.mapViewController reset];
   }
+  // Open map view if it is closed
   else {
     mapButtonFrame.origin.y = - kMapButtonSize / 2;
     
+    // Generate |mapViewController_|
     if (self.mapViewController == nil) {
-      NSLog(@"--- MainViewController openMapView if(!): Create |mapViewController_| ---");
       MapViewController * mapViewController = [[MapViewController alloc] init];
       self.mapViewController = mapViewController;
       [mapViewController release];
     }
-    [self.view insertSubview:self.mapViewController.view belowSubview:self.mapButton];
+    [self.view insertSubview:self.mapViewController.view
+                belowSubview:self.mapButton];
     
     // Set Map View to Offscreen
     mapViewFrame.origin.y = kViewHeight;
@@ -772,36 +775,44 @@
     mapViewFrame.origin.y = 0.f;
   }
   
+  // Toggle map view animated
+  // Animations block
+  void (^animations)() = ^{
+    // If |mapView| is not open while |centerMenu_| is open,
+    //   just close |centerMenu_|
+    // Else, set |mapButton_| to view top
+    if (! isMapViewOpening_ && isCenterMenuOpening_) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
+                                                          object:self];
+      isCenterMenuOpening_ = NO;
+      [self _deactivateCenterMenuOpenStatusTimer];
+    }
+    else [self.mapButton setFrame:mapButtonFrame];
+    
+    // Set frame of the |mapViewController_|'s view to show it
+    [self.mapViewController.view setFrame:mapViewFrame];
+  };
+  
+  // Completion block
+  void (^completion)(BOOL) = ^(BOOL finished) {
+    isMapViewOpening_ = ! isMapViewOpening_;
+    
+    if (isMapViewOpening_)
+      [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
+                                options:UIViewAnimationOptionTransitionFlipFromBottom];
+    else {
+      [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
+                                options:UIViewAnimationOptionTransitionFlipFromTop];
+      [self.mapViewController.view removeFromSuperview];
+    }
+  };
+  
+  // UIView animation
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
-                   animations:^{
-                     // If |mapView| is not open while |centerMenu_| is open, just close |centerMenu_|
-                     // Else, set |mapButton_| to view top
-                     if (! isMapViewOpening_ && isCenterMenuOpening_) {
-                       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNCloseCenterMenu
-                                                                           object:self
-                                                                         userInfo:nil];
-                       isCenterMenuOpening_ = NO;
-                       [self _deactivateCenterMenuOpenStatusTimer];
-                     }
-                     else [self.mapButton setFrame:mapButtonFrame];
-                       
-                     // Set frame of the |mapViewController_|'s view to show it
-                     [self.mapViewController.view setFrame:mapViewFrame];
-                   }
-                   completion:^(BOOL finished) {                     
-                     isMapViewOpening_ = ! isMapViewOpening_;
-                     
-                     if (isMapViewOpening_)
-                       [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
-                                                 options:UIViewAnimationOptionTransitionFlipFromBottom];
-                     else {
-                       [self.mapButton transitionToImage:[UIImage imageNamed:kPMINMapButtonNormal]
-                                                 options:UIViewAnimationOptionTransitionFlipFromTop];
-                       [self.mapViewController.view removeFromSuperview];
-                     }
-                   }];
+                   animations:animations
+                   completion:completion];
 }
 
 // Unload game battle scene
