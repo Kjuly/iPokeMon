@@ -487,7 +487,7 @@
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
-		7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */; };
+		7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
