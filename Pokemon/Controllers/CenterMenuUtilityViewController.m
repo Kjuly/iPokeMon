@@ -38,13 +38,6 @@
   [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning {
-  // Releases the view if it doesn't have a superview.
-  [super didReceiveMemoryWarning];
-  
-  // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -57,62 +50,8 @@
   [super viewDidLoad];
   
   // Set Buttons' style in center menu view
-  for (UIButton * button in [self.menu subviews]) {
-//    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:kPMINMainMenuUtilityButton, button.tag]]
-//            forState:UIControlStateNormal];
+  for (UIButton * button in [self.menu subviews])
     [button setAlpha:.95f];
-  }
-}
-
-- (void)viewDidUnload {
-  [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-#pragma mark - Button Action
-
-- (void)runButtonActions:(id)sender {
-  [super runButtonActions:sender];
-  
-  // Change |centerMainButton_|'s status
-  [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
-  
-  NSInteger buttonTag = ((UIButton *)sender).tag;
-  switch (buttonTag) {
-    case 1://kTagUtilityBallButtonShowPokedex:
-      [self _showPokedex:sender];
-      break;
-      
-    case 2://kTagUtilityBallButtonShowPokemon:
-      [self _showPokemon:sender];
-      break;
-      
-    case 3://kTagUtilityBallButtonShowBag:
-      [self _showBag:sender];
-      break;
-      
-    case 4://kTagUtilityBallButtonShowTrainerCard:
-      [self _showTrainerCard:sender];
-      break;
-      
-    case 5://kTagUtilityBallButtonHotkey:
-      [self _runHotkey:sender];
-      break;
-      
-    case 6://kTagUtilityBallButtonSetGame:
-      [self _setGame:sender];
-      break;
-      
-    default:
-      break;
-  }
 }
 
 #pragma mark - Private Methods
@@ -157,6 +96,46 @@
   settingTableViewController.managedObjectContext = self.managedObjectContext;
   [self pushViewController:settingTableViewController];
   [settingTableViewController release];
+}
+
+#pragma mark - KYCircleMenu
+
+// Overwrite KYCircleMenu's |-runButtonActions:|
+- (void)runButtonActions:(id)sender {
+  [super runButtonActions:sender];
+  
+  // Change |centerMainButton_|'s status
+  [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
+  
+  NSInteger buttonTag = ((UIButton *)sender).tag;
+  switch (buttonTag) {
+    case 1://kTagUtilityBallButtonShowPokedex:
+      [self _showPokedex:sender];
+      break;
+      
+    case 2://kTagUtilityBallButtonShowPokemon:
+      [self _showPokemon:sender];
+      break;
+      
+    case 3://kTagUtilityBallButtonShowBag:
+      [self _showBag:sender];
+      break;
+      
+    case 4://kTagUtilityBallButtonShowTrainerCard:
+      [self _showTrainerCard:sender];
+      break;
+      
+    case 5://kTagUtilityBallButtonHotkey:
+      [self _runHotkey:sender];
+      break;
+      
+    case 6://kTagUtilityBallButtonSetGame:
+      [self _setGame:sender];
+      break;
+      
+    default:
+      break;
+  }
 }
 
 @end
