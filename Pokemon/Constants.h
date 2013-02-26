@@ -71,7 +71,6 @@ extern NSString * const kPMNUpdateStoreItemQuantity;
 
 extern NSString * const kPMNEnableTracking;  // enable  tracking
 extern NSString * const kPMNDisableTracking; // disable tracking
-extern NSString * const kPMNCloseCenterMenu;
 extern NSString * const kPMNChangeCenterMainButtonStatus;
 //extern NSString * const kPMNBackToMainView;
 
