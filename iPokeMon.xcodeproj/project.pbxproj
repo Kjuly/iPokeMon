@@ -185,7 +185,7 @@
 		7F6E6CBF14D6CAA600033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
 		7F6E6CC514D6CAA600033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC314D6CAA600033C65 /* InfoPlist.strings */; };
 		7F6E6CC714D6CAA600033C65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CC614D6CAA600033C65 /* main.m */; };
-		7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */; };
+		7F6E6CCE14D6CAA600033C65 /* Master.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CCC14D6CAA600033C65 /* Master.xcdatamodeld */; };
 		7F6E6CD714D6CAA700033C65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CB814D6CAA600033C65 /* UIKit.framework */; };
 		7F6E6CD814D6CAA700033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CD914D6CAA700033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
@@ -813,7 +813,7 @@
 		7F6E6CC414D6CAA600033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7F6E6CC614D6CAA600033C65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7F6E6CC814D6CAA600033C65 /* iPokeMon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPokeMon-Prefix.pch"; sourceTree = "<group>"; };
-		7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pokemon.xcdatamodel; sourceTree = "<group>"; };
+		7F6E6CCD14D6CAA600033C65 /* Master.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Master.xcdatamodel; sourceTree = "<group>"; };
 		7F6E6CD414D6CAA700033C65 /* iPokeMonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPokeMonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1528,7 +1528,7 @@
 		7F6E6CA914D6CAA600033C65 = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CC014D6CAA600033C65 /* Pokemon */,
+				7F6E6CC014D6CAA600033C65 /* Master */,
 				7F6E6CDC14D6CAA700033C65 /* PokemonTests */,
 				7F6E6CB714D6CAA600033C65 /* Frameworks */,
 				7F6E6CB514D6CAA600033C65 /* Products */,
@@ -1571,7 +1571,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7F6E6CC014D6CAA600033C65 /* Pokemon */ = {
+		7F6E6CC014D6CAA600033C65 /* Master */ = {
 			isa = PBXGroup;
 			children = (
 				7F8E2DFE169BB8D4008A3F19 /* AppDelegate.h */,
@@ -1752,7 +1752,7 @@
 		7F6E6CF114D6CB9800033C65 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */,
+				7F6E6CCC14D6CAA600033C65 /* Master.xcdatamodeld */,
 				7F05964A1555331800E5428C /* Region.h */,
 				7F05964B1555331800E5428C /* Region.m */,
 				7F38F9BF15709F0400AEEE65 /* Annotation.h */,
@@ -3082,7 +3082,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CC714D6CAA600033C65 /* main.m in Sources */,
-				7F6E6CCE14D6CAA600033C65 /* Pokemon.xcdatamodeld in Sources */,
+				7F6E6CCE14D6CAA600033C65 /* Master.xcdatamodeld in Sources */,
 				7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */,
 				7F51C40814D7D3C60091902D /* MapViewController.m in Sources */,
 				7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */,
@@ -3568,14 +3568,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		7F6E6CCC14D6CAA600033C65 /* Pokemon.xcdatamodeld */ = {
+		7F6E6CCC14D6CAA600033C65 /* Master.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */,
+				7F6E6CCD14D6CAA600033C65 /* Master.xcdatamodel */,
 			);
-			currentVersion = 7F6E6CCD14D6CAA600033C65 /* Pokemon.xcdatamodel */;
-			name = Pokemon.xcdatamodeld;
-			path = ../Pokemon.xcdatamodeld;
+			currentVersion = 7F6E6CCD14D6CAA600033C65 /* Master.xcdatamodel */;
+			name = Master.xcdatamodeld;
+			path = ../Master.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

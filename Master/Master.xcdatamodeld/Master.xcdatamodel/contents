@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="11G63b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Ability" representedClassName="Ability" syncable="YES">
         <attribute name="info" optional="YES" attributeType="String" defaultValueString="None." syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="? ? ?" syncable="YES"/>
@@ -178,6 +178,7 @@
     </entity>
     <elements>
         <element name="Ability" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Annotation" positionX="160" positionY="192" width="128" height="150"/>
         <element name="BagBattleItem" positionX="108" positionY="342" width="128" height="135"/>
         <element name="BagBerry" positionX="153" positionY="387" width="128" height="120"/>
         <element name="BagItem" positionX="108" positionY="342" width="128" height="135"/>
@@ -192,6 +193,5 @@
         <element name="Trainer" positionX="-38" positionY="108" width="128" height="300"/>
         <element name="TrainerTamedPokemon" positionX="-9" positionY="276" width="128" height="270"/>
         <element name="WildPokemon" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="Annotation" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>
