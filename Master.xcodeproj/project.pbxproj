@@ -28,7 +28,6 @@
 		7F01058D16B9178C0076BC42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F01058C16B9178C0076BC42 /* Default-568h@2x.png */; };
 		7F05964C1555331800E5428C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05964B1555331800E5428C /* Region.m */; };
 		7F072F4D15348E5E0085E1DD /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F072F4C15348E5E0085E1DD /* Pokemon.m */; };
-		7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0756B516DDDB53004E3D82 /* MasterTests-Info.plist */; };
 		7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */; };
 		7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA41152180F800D4F5DB /* LoginTableViewController.m */; };
 		7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA441521912F00D4F5DB /* OAuthManager.m */; };
@@ -3043,7 +3042,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */,
-				7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
