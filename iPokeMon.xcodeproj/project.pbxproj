@@ -1603,7 +1603,7 @@
 				7F6E6CF214D6CB9800033C65 /* Resources */,
 				7F6E6CC114D6CAA600033C65 /* Supporting Files */,
 			);
-			path = Pokemon;
+			path = Master;
 			sourceTree = "<group>";
 		};
 		7F6E6CC114D6CAA600033C65 /* Supporting Files */ = {
@@ -3465,12 +3465,12 @@
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "Pokemon/iPokeMon-Info.plist";
+				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
+				INFOPLIST_FILE = "Master/iPokeMon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Pokemon/Libs/TestFlightSDK\"",
+					"\"$(SRCROOT)/Master/Libs/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = iPokeMon;
@@ -3487,12 +3487,12 @@
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "Pokemon/iPokeMon-Info.plist";
+				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
+				INFOPLIST_FILE = "Master/iPokeMon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Pokemon/Libs/TestFlightSDK\"",
+					"\"$(SRCROOT)/Master/Libs/TestFlightSDK\"",
 				);
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = iPokeMon;
@@ -3504,13 +3504,13 @@
 		7F6E6CEB14D6CAA700033C65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Pokemon";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Master";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
+				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
 				PRODUCT_NAME = iPokeMonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -3521,13 +3521,13 @@
 		7F6E6CEC14D6CAA700033C65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Pokemon";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iPokemon.app/Master";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pokemon/iPokemon-Prefix.pch";
+				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
 				INFOPLIST_FILE = "iPokemonTests-Info.plist";
 				PRODUCT_NAME = iPokeMonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
