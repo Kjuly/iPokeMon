@@ -104,6 +104,7 @@
 		7F3B669B154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668B154139850036EC18 /* MainViewCenterButtonImageUnknowOpposite.png */; };
 		7F3B669C154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */; };
 		7F407837156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */; };
+		7F42583616DDE99F0085913A /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F42583516DDE99F0085913A /* Config.m */; };
 		7F44F727155103770052678F /* StoreItemQuantityButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */; };
 		7F44F728155103770052678F /* StoreItemQuantityButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */; };
 		7F44F72E155115F50052678F /* StoreItemQuantityDcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */; };
@@ -481,7 +482,6 @@
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
 		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
-		7FD60DCD16B10702008258DE /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DCC16B10702008258DE /* Config.m */; };
 		7FD60DEF16B1233A008258DE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD516B1233A008258DE /* ioapi.c */; };
 		7FD60DF016B1233A008258DE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD716B1233A008258DE /* mztools.c */; };
 		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
@@ -697,6 +697,8 @@
 		7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainViewCenterButtonImageUnknowOpposite@2x.png"; sourceTree = "<group>"; };
 		7F407835156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationCalloutBottomView.h; sourceTree = "<group>"; };
 		7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotationCalloutBottomView.m; sourceTree = "<group>"; };
+		7F42583416DDE99F0085913A /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		7F42583516DDE99F0085913A /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityButtonBackground.png; sourceTree = "<group>"; };
 		7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StoreItemQuantityButtonBackground@2x.png"; sourceTree = "<group>"; };
 		7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoreItemQuantityDcreaseButton.png; sourceTree = "<group>"; };
@@ -1304,8 +1306,6 @@
 		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
 		7FD60DC616B0D576008258DE /* Config-Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Config-Sample.h"; sourceTree = "<group>"; };
 		7FD60DC716B0D576008258DE /* Config-Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Config-Sample.m"; sourceTree = "<group>"; };
-		7FD60DCB16B10702008258DE /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		7FD60DCC16B10702008258DE /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		7FD60DD416B1233A008258DE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		7FD60DD516B1233A008258DE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		7FD60DD616B1233A008258DE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -1577,8 +1577,8 @@
 			children = (
 				7F8E2DFE169BB8D4008A3F19 /* AppDelegate.h */,
 				7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */,
-				7FD60DCB16B10702008258DE /* Config.h */,
-				7FD60DCC16B10702008258DE /* Config.m */,
+				7F42583416DDE99F0085913A /* Config.h */,
+				7F42583516DDE99F0085913A /* Config.m */,
 				7FD60DC616B0D576008258DE /* Config-Sample.h */,
 				7FD60DC716B0D576008258DE /* Config-Sample.m */,
 				7F8E2E07169BB8D5008A3F19 /* DataDecoder.h */,
@@ -3338,7 +3338,6 @@
 				7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */,
 				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
 				7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */,
-				7FD60DCD16B10702008258DE /* Config.m in Sources */,
 				7FD60DEF16B1233A008258DE /* ioapi.c in Sources */,
 				7FD60DF016B1233A008258DE /* mztools.c in Sources */,
 				7FD60DF116B1233A008258DE /* unzip.c in Sources */,
@@ -3351,6 +3350,7 @@
 				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
 				7F8DD7D516BD51AE006E6F98 /* PMCircleMenu.m in Sources */,
 				7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */,
+				7F42583616DDE99F0085913A /* Config.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
