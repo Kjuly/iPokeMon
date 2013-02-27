@@ -1,27 +1,27 @@
-[submodule "Pokemon/Libs/KYCircleMenu"]
-	path = Pokemon/Libs/KYCircleMenu
+[submodule "Master/Libs/KYCircleMenu"]
+	path = Master/Libs/KYCircleMenu
 	url = git://github.com/Kjuly/KYCircleMenu.git
-[submodule "Pokemon/Libs/JSONKit"]
-	path = Pokemon/Libs/JSONKit
+[submodule "Master/Libs/JSONKit"]
+	path = Master/Libs/JSONKit
 	url = git://github.com/Kjuly/JSONKit.git
-[submodule "Pokemon/Libs/AFNetworking"]
-	path = Pokemon/Libs/AFNetworking
+[submodule "Master/Libs/AFNetworking"]
+	path = Master/Libs/AFNetworking
 	url = git://github.com/Kjuly/AFNetworking.git
-[submodule "Pokemon/Libs/MBProgressHUD"]
-	path = Pokemon/Libs/MBProgressHUD
+[submodule "Master/Libs/MBProgressHUD"]
+	path = Master/Libs/MBProgressHUD
 	url = git://github.com/Kjuly/MBProgressHUD.git
-[submodule "Pokemon/Libs/Cocos2D-iPhone"]
-	path = Pokemon/Libs/Cocos2D-iPhone
+[submodule "Master/Libs/Cocos2D-iPhone"]
+	path = Master/Libs/Cocos2D-iPhone
 	url = git://github.com/Kjuly/cocos2d-iphone.git
-[submodule "Pokemon/Libs/GTMOAuth2"]
-	path = Pokemon/Libs/GTMOAuth2
+[submodule "Master/Libs/GTMOAuth2"]
+	path = Master/Libs/GTMOAuth2
 	url = git://github.com/Kjuly/GTMOAuth2.git
-[submodule "Pokemon/Libs/KYArcTab"]
-	path = Pokemon/Libs/KYArcTab
+[submodule "Master/Libs/KYArcTab"]
+	path = Master/Libs/KYArcTab
 	url = git@github.com:Kjuly/KYArcTab.git
-[submodule "Pokemon/Libs/SSZipArchive"]
-	path = Pokemon/Libs/SSZipArchive
+[submodule "Master/Libs/SSZipArchive"]
+	path = Master/Libs/SSZipArchive
 	url = git@github.com:Kjuly/ssziparchive.git
-[submodule "Pokemon/Libs/UIApplication-UIID"]
-	path = Pokemon/Libs/UIApplication-UIID
+[submodule "Master/Libs/UIApplication-UIID"]
+	path = Master/Libs/UIApplication-UIID
 	url = git@github.com:Kjuly/UIApplication-UIID.git
