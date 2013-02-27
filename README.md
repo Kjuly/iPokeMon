@@ -1,23 +1,11 @@
-iPokeMon (iOS Client)
+iPokeMon (iOS Client: [Master](https://itunes.apple.com/app/id601694902))
 =====================
 
 # Description
 
-### About App
-
-iPokeMon is a PokéMon game on iOS with Location Based Service, i.e., PokeMons are distributed in the real world. You'll find different PokeMons in different cities, or even countries.  
-
-Just imagine that we live with PokeMons in real world. ;)
-
-[__SERVER SIDE SOURCE CODE__](https://github.com/Kjuly/iPokeMon-Server).
-
-<p align="center" >
-  <a href="https://itunes.apple.com/app/id601694902" target="_blank">
-  <img src="https://raw.github.com/Kjuly/KYProjectPageTheme/master/stylesheets/images/download.png" alt="Download on the App Store" title="Download on the App Store">
-  </a>
-</p>
-
 ### About Project
+
+iPokeMon is a project that try to implement the PokéMon game on iOS with Location Based Service.
 
 This was my Graduation Project. I tried to submit it to the App Store when the v0.3.2 done, but finally, the binary was rejected on May 16, 2012 with the reason of rejection: "8.5: Use of protected 3rd party material (trademarks, copyrights, trade secrets, otherwise proprietary content) requires a documented rights check which must be provided upon request". What a pity! There was a time I wanted to ask some designers to create a set of PokéMon like characters, but I gave up the thought cause it'll lose its meaning then. So after I graduated from university on Jun, 2012, I shelved this project for several months.  
 
@@ -26,6 +14,22 @@ Till now, I still hope to have such a game on iOS. With my own limited capacity,
 Finally, I would like to say that feel free to transplant this project to any system! And I'll be glad if you send me a mail about your transplanting. ;)
 
 You can follow me for updates on the development: [Twitter](http://twitter.com/kJulYu) / [Sina Weibo](http://weibo.com/kjuly).
+
+### About App: Master
+
+Master is the iOS client of iPokeMon project. It is an extensible game template of RPG with Location Based Service. 
+
+Characters in game are distributed in the real world. You'll find & catch different characters in different cities, or even countries. 
+
+The game template allows you to load the third-party resources (e.g. PokéMon related resource) to define your own characters, including the name, appearance, etc. Make any classic game resources as you can, and don't forget to share it with your friends!
+
+[__SERVER SIDE SOURCE CODE__](https://github.com/Kjuly/iPokeMon-Server).
+
+<p align="center" >
+  <a href="https://itunes.apple.com/app/id601694902" target="_blank">
+  <img src="https://raw.github.com/Kjuly/KYProjectPageTheme/master/stylesheets/images/download.png" alt="Download on the App Store" title="Download on the App Store">
+  </a>
+</p>
 
 ---
 # Game Play Demo
@@ -50,13 +54,14 @@ Change log is located in Wiki: [Change Log](https://github.com/Kjuly/iPokeMon/wi
 - [KYArcTab](https://github.com/Kjuly/KYArcTab)
 - [KYCircleMenu](https://github.com/Kjuly/KYCircleMenu)
 - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+- [UIApplication-UIID](https://github.com/akisute/UIApplication-UIID)
 
-iPokeMon requires iOS 5.0 SDK or later.
+Master requires iOS 5.0 SDK or later.
 
 ---
 # Apply for Beta Version Testing
 
-The Beta version of iPokeMon is hosted on TestFlight, just register a account and join [__MY TEAM__](https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/).  
+The Beta version of Master is hosted on TestFlight, just register a account and join [__MY TEAM__](https://testflightapp.com/join/e06876e16b88d3f657280efa073d2b64-NzQ0NzM/).  
 Or you can join other developers' teams [__HERE__](https://github.com/Kjuly/iPokeMon/wiki/Tester-Recruitment).
 
 ---
