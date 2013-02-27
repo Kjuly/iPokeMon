@@ -3513,7 +3513,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "MasterTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests/MasterTests-Info.plist";
 				PRODUCT_NAME = MasterTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -3530,7 +3530,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "MasterTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests/MasterTests-Info.plist";
 				PRODUCT_NAME = MasterTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
