@@ -28,6 +28,7 @@
 		7F01058D16B9178C0076BC42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F01058C16B9178C0076BC42 /* Default-568h@2x.png */; };
 		7F05964C1555331800E5428C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05964B1555331800E5428C /* Region.m */; };
 		7F072F4D15348E5E0085E1DD /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F072F4C15348E5E0085E1DD /* Pokemon.m */; };
+		7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0756B516DDDB53004E3D82 /* MasterTests-Info.plist */; };
 		7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */; };
 		7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA41152180F800D4F5DB /* LoginTableViewController.m */; };
 		7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA441521912F00D4F5DB /* OAuthManager.m */; };
@@ -190,7 +191,7 @@
 		7F6E6CD814D6CAA700033C65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBA14D6CAA600033C65 /* Foundation.framework */; };
 		7F6E6CD914D6CAA700033C65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6E6CBE14D6CAA600033C65 /* CoreData.framework */; };
 		7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */; };
-		7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* PokemonTests.m */; };
+		7F6E6CE414D6CAA700033C65 /* MasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E6CE314D6CAA700033C65 /* MasterTests.m */; };
 		7F6F428D15568EE30007E889 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428C15568EE30007E889 /* MessageUI.framework */; };
 		7F6F429115568EEF0007E889 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F428F15568EEF0007E889 /* AddressBook.framework */; };
 		7F6F429215568EEF0007E889 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6F429015568EEF0007E889 /* AddressBookUI.framework */; };
@@ -598,6 +599,7 @@
 		7F05964B1555331800E5428C /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		7F072F4B15348E5E0085E1DD /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
 		7F072F4C15348E5E0085E1DD /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
+		7F0756B516DDDB53004E3D82 /* MasterTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MasterTests-Info.plist"; sourceTree = "<group>"; };
 		7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7F09AA40152180F800D4F5DB /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		7F09AA41152180F800D4F5DB /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
@@ -815,10 +817,9 @@
 		7F6E6CC814D6CAA600033C65 /* iPokeMon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iPokeMon-Prefix.pch"; sourceTree = "<group>"; };
 		7F6E6CCD14D6CAA600033C65 /* Master.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Master.xcdatamodel; sourceTree = "<group>"; };
 		7F6E6CD414D6CAA700033C65 /* iPokeMonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPokeMonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iPokemonTests-Info.plist"; sourceTree = "<group>"; };
 		7F6E6CE014D6CAA700033C65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7F6E6CE214D6CAA700033C65 /* PokemonTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PokemonTests.h; sourceTree = "<group>"; };
-		7F6E6CE314D6CAA700033C65 /* PokemonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonTests.m; sourceTree = "<group>"; };
+		7F6E6CE214D6CAA700033C65 /* MasterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterTests.h; sourceTree = "<group>"; };
+		7F6E6CE314D6CAA700033C65 /* MasterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterTests.m; sourceTree = "<group>"; };
 		7F6F428C15568EE30007E889 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7F6F428F15568EEF0007E889 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		7F6F429015568EEF0007E889 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -1529,7 +1530,7 @@
 			isa = PBXGroup;
 			children = (
 				7F6E6CC014D6CAA600033C65 /* Master */,
-				7F6E6CDC14D6CAA700033C65 /* PokemonTests */,
+				7F6E6CDC14D6CAA700033C65 /* MasterTests */,
 				7F6E6CB714D6CAA600033C65 /* Frameworks */,
 				7F6E6CB514D6CAA600033C65 /* Products */,
 			);
@@ -1619,20 +1620,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7F6E6CDC14D6CAA700033C65 /* PokemonTests */ = {
+		7F6E6CDC14D6CAA700033C65 /* MasterTests */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CE214D6CAA700033C65 /* PokemonTests.h */,
-				7F6E6CE314D6CAA700033C65 /* PokemonTests.m */,
+				7F6E6CE214D6CAA700033C65 /* MasterTests.h */,
+				7F6E6CE314D6CAA700033C65 /* MasterTests.m */,
 				7F6E6CDD14D6CAA700033C65 /* Supporting Files */,
 			);
-			path = PokemonTests;
+			path = MasterTests;
 			sourceTree = "<group>";
 		};
 		7F6E6CDD14D6CAA700033C65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F6E6CDE14D6CAA700033C65 /* iPokemonTests-Info.plist */,
+				7F0756B516DDDB53004E3D82 /* MasterTests-Info.plist */,
 				7F6E6CDF14D6CAA700033C65 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -2720,9 +2721,9 @@
 			productReference = 7F6E6CB414D6CAA600033C65 /* iPokeMon.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7F6E6CD314D6CAA700033C65 /* iPokeMonTests */ = {
+		7F6E6CD314D6CAA700033C65 /* MasterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokeMonTests" */;
+			buildConfigurationList = 7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "MasterTests" */;
 			buildPhases = (
 				7F6E6CCF14D6CAA700033C65 /* Sources */,
 				7F6E6CD014D6CAA700033C65 /* Frameworks */,
@@ -2734,8 +2735,8 @@
 			dependencies = (
 				7F6E6CDB14D6CAA700033C65 /* PBXTargetDependency */,
 			);
-			name = iPokeMonTests;
-			productName = PokemonTests;
+			name = MasterTests;
+			productName = MasterTests;
 			productReference = 7F6E6CD414D6CAA700033C65 /* iPokeMonTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
@@ -2763,7 +2764,7 @@
 			projectRoot = "";
 			targets = (
 				7F6E6CB314D6CAA600033C65 /* iPokeMon */,
-				7F6E6CD314D6CAA700033C65 /* iPokeMonTests */,
+				7F6E6CD314D6CAA700033C65 /* MasterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3042,6 +3043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */,
+				7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3356,7 +3358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F6E6CE414D6CAA700033C65 /* PokemonTests.m in Sources */,
+				7F6E6CE414D6CAA700033C65 /* MasterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3511,7 +3513,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "iPokemonTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests-Info.plist";
 				PRODUCT_NAME = iPokeMonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -3528,7 +3530,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "iPokemonTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests-Info.plist";
 				PRODUCT_NAME = iPokeMonTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -3556,7 +3558,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "iPokeMonTests" */ = {
+		7F6E6CEA14D6CAA700033C65 /* Build configuration list for PBXNativeTarget "MasterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6E6CEB14D6CAA700033C65 /* Debug */,
