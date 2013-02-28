@@ -480,7 +480,6 @@
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
-		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
 		7FD60DEF16B1233A008258DE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD516B1233A008258DE /* ioapi.c */; };
 		7FD60DF016B1233A008258DE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD716B1233A008258DE /* mztools.c */; };
 		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
@@ -1303,8 +1302,6 @@
 		7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveView.m; sourceTree = "<group>"; };
 		7FD183E31508BD1700F3D50B /* GameSystemProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameSystemProcess.h; path = ../GameModels/GameSystemProcess.h; sourceTree = "<group>"; };
 		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
-		7FD60DC616B0D576008258DE /* Config-Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Config-Sample.h"; sourceTree = "<group>"; };
-		7FD60DC716B0D576008258DE /* Config-Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Config-Sample.m"; sourceTree = "<group>"; };
 		7FD60DD416B1233A008258DE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		7FD60DD516B1233A008258DE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		7FD60DD616B1233A008258DE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -1578,8 +1575,6 @@
 				7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */,
 				7F42583416DDE99F0085913A /* Config.h */,
 				7F42583516DDE99F0085913A /* Config.m */,
-				7FD60DC616B0D576008258DE /* Config-Sample.h */,
-				7FD60DC716B0D576008258DE /* Config-Sample.m */,
 				7F8E2E07169BB8D5008A3F19 /* DataDecoder.h */,
 				7F8E2E08169BB8D5008A3F19 /* DataDecoder.m */,
 				7F8E2E09169BB8D5008A3F19 /* GlobalRender.h */,
@@ -3335,7 +3330,6 @@
 				7F56996C16A959E80045EA23 /* KYConstants.m in Sources */,
 				7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */,
 				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
-				7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */,
 				7FD60DEF16B1233A008258DE /* ioapi.c in Sources */,
 				7FD60DF016B1233A008258DE /* mztools.c in Sources */,
 				7FD60DF116B1233A008258DE /* unzip.c in Sources */,
