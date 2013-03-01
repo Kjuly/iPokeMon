@@ -487,7 +487,6 @@
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
-		7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -1318,8 +1317,6 @@
 		7FD60DDF16B1233A008258DE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		7FD60E0216B15344008258DE /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		7FD60E0316B15345008258DE /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
-		7FD902E916DCCCBC00CD7329 /* UIApplication+UIID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+UIID.h"; sourceTree = "<group>"; };
-		7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+UIID.m"; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
 		7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarArrow@2x.png"; sourceTree = "<group>"; };
 		7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemPMDetailInfo.png; sourceTree = "<group>"; };
@@ -2051,7 +2048,6 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				7FD902E816DCCCBC00CD7329 /* UIApplication-UIID */,
 				7F8DD7CC16BCF5E6006E6F98 /* KYCircleMenu */,
 				7FD60DCF16B1233A008258DE /* SSZipArchive */,
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
@@ -2612,16 +2608,6 @@
 				7FD60DDC16B1233A008258DE /* zip.h */,
 			);
 			path = minizip;
-			sourceTree = "<group>";
-		};
-		7FD902E816DCCCBC00CD7329 /* UIApplication-UIID */ = {
-			isa = PBXGroup;
-			children = (
-				7FD902E916DCCCBC00CD7329 /* UIApplication+UIID.h */,
-				7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */,
-			);
-			name = "UIApplication-UIID";
-			path = "UIApplication-UIID/UIApplication-UIID";
 			sourceTree = "<group>";
 		};
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
@@ -3346,7 +3332,6 @@
 				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
 				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
 				7F8DD7D516BD51AE006E6F98 /* PMCircleMenu.m in Sources */,
-				7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */,
 				7F42583616DDE99F0085913A /* Config.m in Sources */,
 				7F89442D16E04D3000536C38 /* DeviceBlockingViewController.m in Sources */,
 			);
