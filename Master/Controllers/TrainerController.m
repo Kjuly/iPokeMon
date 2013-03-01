@@ -403,8 +403,8 @@ static TrainerController * trainerController_ = nil;
 
 // Return the key of keychain for device's UID
 - (NSString *)_keyForDeviceUID {
-#ifdef APPLY_SECRET_UIID_KEY
-  return kUIIDKey;
+#ifdef APPLY_SECRET_DEVICE_UID_KEY
+  return kDeviceUIDKey;
 #else
   return @"Master:Device:UID:Key";
 #endif
@@ -536,12 +536,11 @@ static TrainerController * trainerController_ = nil;
 
 // Newbie checking
 - (void)_newbieChecking {
-  NSLog(@"|_newbieChecking|");
   // If user already has Pokemon in PokeDEX (not newbie), just do nothing
   //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
   if ([self.entityTrainer.pokedex intValue])
     return;
-  NSLog(@"NEWBIE CHECKING......");
+  NSLog(@"- NEWBIE CHECKING......");
   
   // Show loading
   [[LoadingManager sharedInstance] showOverView];
