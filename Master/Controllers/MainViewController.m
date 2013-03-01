@@ -408,7 +408,7 @@
   [customNavigationController initWithRootViewController:self.loginTableViewController];
   self.customNavigationController = customNavigationController;
   [customNavigationController release];
-  [self.customNavigationController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
+  [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [self.loginTableViewController.view setAlpha:0.f];
   // Insert |utilityNavigationController|'s view
   [self.view addSubview:self.customNavigationController.view];

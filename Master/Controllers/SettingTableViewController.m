@@ -507,8 +507,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUDGeneralLocationServices object:self];
     }
     else if (alertIdentifier_ == PMSettingTableViewAlertIdentifierLogout) {
-      [(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
-      [[OAuthManager sharedInstance] performSelector:@selector(logout) withObject:nil afterDelay:.3f];
+      // Remove navigation controller's view from settings view
+      //[(CustomNavigationBar *)self.navigationController.navigationBar backToRoot:nil];
+      [self.navigationController.view removeFromSuperview];
+      [[OAuthManager sharedInstance] performSelector:@selector(logout)
+                                          withObject:nil
+                                          afterDelay:.3f];
     }
   }
 }
