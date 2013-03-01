@@ -40,7 +40,6 @@
 
 "A Wild Pokemon Appeared!" = "A Wild PokeMon Appeared!";
 
-
 // ERROR: Full screen view text: T:Title, M:Message
 "PMSError01T" = "Unknow Error";          // unkown error
 "PMSError02T" = "Connection Error";      // connection error
@@ -48,6 +47,14 @@
 "PMSError01M" = "If you receive this message, it means that 'Unkown Error Occurred', please contact me. :)";
 "PMSError02M" = "Sorry, try to connect to the server failed. Please check the network and refresh. If it still cannot work, the server might down, please contact me. :)";
 "PMSError04M" = "Sorry, authentication failed, please try again. If you still cannot be authenticated, please contace me. :)";
+
+// Device Blocking
+// - Invitation-only
+"PMLS:DeviceBlocking:InvitationOnly:Title" = "Invitation Only";
+"PMLS:DeviceBlocking:InvitationOnly:Body"  = "Got an invitation? Enter you code to unlock it.";
+// - UID Not Matched
+"PMLS:DeviceBlocking:UIDNotMatched:Title"  = "ID Not Matched";
+"PMLS:DeviceBlocking:UIDNotMatched:Body"   = "Sorry, one device can only belongs to one trainer.";
 
 // Login & Newbie guide
 "PMSLoginChoice"        = "Login Choice";

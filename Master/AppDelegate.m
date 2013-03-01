@@ -222,7 +222,8 @@
   if (__managedObjectModel != nil)
     return __managedObjectModel;
   
-  NSURL * modelURL = [[NSBundle mainBundle] URLForResource:@"Pokemon" withExtension:@"momd"];
+  NSURL * modelURL = [[NSBundle mainBundle] URLForResource:kKYAppBundleIdentifier
+                                             withExtension:@"momd"];
   __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
   return __managedObjectModel;
 }
@@ -235,7 +236,7 @@
   if (__persistentStoreCoordinator != nil)
     return __persistentStoreCoordinator;
   
-  // Generate Path for |Pokemon.sqlite| in Document
+  // Generate Path for |Master.sqlite| in Document
   NSString * pathComponent = [NSString stringWithFormat:@"%@.sqlite", kKYAppBundleIdentifier];
   NSString * storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:pathComponent];
   

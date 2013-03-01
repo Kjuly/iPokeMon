@@ -32,6 +32,7 @@
  */
 #define KY_ICLOUD_ENABLED 1                       // Use iCloud Service (ON)
 #define KY_COPY_COREDATA_IF_NOT_EXIST 1           // Copy CoreData from bundle (ON)
+//#define KY_INVITATION_ONLY 1                      // Invitation only (OFF)
 
 /*
  * DEV
@@ -63,6 +64,18 @@
  */
 //#define KY_DEFAULT_VIEW_GAME_BATTLE_ON 1          // DEV: Set game battle view as the default view (OFF)
 //#define KY_SUPER_POKEMON_MODE_ON 1                // DEV: Turn on super PokeMon mode (OFF)
+
+/*
+ * Device UID
+ */
+// Use secret Device UID key for security reason (ON)
+#define APPLY_SECRET_DEVICE_UID_KEY 1
+//
+// Define a custom key for the Device UID in the keychain
+//   e.g. "your_secret_device_identifier"
+#ifdef APPLY_SECRET_DEVICE_UID_KEY
+extern NSString * const kDeviceUIDKey;
+#endif
 
 /*
  * Server
@@ -102,22 +115,6 @@ extern NSString * const kOAuthGoogleScope;
 extern NSString * const kIAPCurrencyTier1;
 extern NSString * const kIAPCurrencyTier2;
 extern NSString * const kIAPCurrencyTier3;
-
-
-/*
- * LIB: UIApplication+UIID
- */
-// Enable persistent UIID via Keychain instead of UserDefaults (ON)
-#define UIID_PERSISTENT 1
-//
-// Use secret UIID key for security reason (ON)
-#define APPLY_SECRET_UIID_KEY 1
-//
-// Define a custom key for the UIID in the keychain or UserDefaults
-//   e.g. "uniqueInstallationIdentifier"
-#ifdef APPLY_SECRET_UIID_KEY
-extern NSString * const kUIIDKey;
-#endif
 
 
 @interface Config : NSObject

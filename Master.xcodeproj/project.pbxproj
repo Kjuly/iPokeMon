@@ -28,7 +28,6 @@
 		7F01058D16B9178C0076BC42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F01058C16B9178C0076BC42 /* Default-568h@2x.png */; };
 		7F05964C1555331800E5428C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05964B1555331800E5428C /* Region.m */; };
 		7F072F4D15348E5E0085E1DD /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F072F4C15348E5E0085E1DD /* Pokemon.m */; };
-		7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F0756B516DDDB53004E3D82 /* MasterTests-Info.plist */; };
 		7F09AA3F152178FE00D4F5DB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F09AA3E152178FE00D4F5DB /* SystemConfiguration.framework */; };
 		7F09AA42152180F800D4F5DB /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA41152180F800D4F5DB /* LoginTableViewController.m */; };
 		7F09AA451521912F00D4F5DB /* OAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F09AA441521912F00D4F5DB /* OAuthManager.m */; };
@@ -245,6 +244,7 @@
 		7F7EF441153FFDAC0061D82E /* PokemonHPBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF435153FFDAC0061D82E /* PokemonHPBarBackground@2x.png */; };
 		7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84C2BB151C678800E8D27E /* Security.framework */; };
 		7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */; };
+		7F89442D16E04D3000536C38 /* DeviceBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F89442C16E04D3000536C38 /* DeviceBlockingViewController.m */; };
 		7F8A4FBF16B688630035513A /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A4FBE16B688630035513A /* Resource.bundle */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
@@ -481,14 +481,16 @@
 		7FD14F0D14F4C4DC00082330 /* Move+DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0C14F4C4DC00082330 /* Move+DataController.m */; };
 		7FD14F1014F4DB5000082330 /* PokemonMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */; };
 		7FD183E51508BD1700F3D50B /* GameSystemProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD183E41508BD1700F3D50B /* GameSystemProcess.m */; };
+<<<<<<< HEAD
 		7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DC716B0D576008258DE /* Config-Sample.m */; };
+=======
+>>>>>>> dev
 		7FD60DEF16B1233A008258DE /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD516B1233A008258DE /* ioapi.c */; };
 		7FD60DF016B1233A008258DE /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD716B1233A008258DE /* mztools.c */; };
 		7FD60DF116B1233A008258DE /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DD916B1233A008258DE /* unzip.c */; };
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
-		7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -881,6 +883,8 @@
 		7F7EF435153FFDAC0061D82E /* PokemonHPBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PokemonHPBarBackground@2x.png"; sourceTree = "<group>"; };
 		7F84C2BB151C678800E8D27E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameBattleScenePMPoint.png; sourceTree = "<group>"; };
+		7F89442B16E04D3000536C38 /* DeviceBlockingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceBlockingViewController.h; sourceTree = "<group>"; };
+		7F89442C16E04D3000536C38 /* DeviceBlockingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceBlockingViewController.m; sourceTree = "<group>"; };
 		7F8A4FBE16B688630035513A /* Resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Resource.bundle; sourceTree = "<group>"; };
 		7F8B816614E578140085CE22 /* SixPokemonsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SixPokemonsTableViewCell.h; sourceTree = "<group>"; };
 		7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SixPokemonsTableViewCell.m; sourceTree = "<group>"; };
@@ -1304,8 +1308,11 @@
 		7FD14F0F14F4DB5000082330 /* PokemonMoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokemonMoveView.m; sourceTree = "<group>"; };
 		7FD183E31508BD1700F3D50B /* GameSystemProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameSystemProcess.h; path = ../GameModels/GameSystemProcess.h; sourceTree = "<group>"; };
 		7FD183E41508BD1700F3D50B /* GameSystemProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSystemProcess.m; path = ../GameModels/GameSystemProcess.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		7FD60DC616B0D576008258DE /* Config-Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Config-Sample.h"; sourceTree = "<group>"; };
 		7FD60DC716B0D576008258DE /* Config-Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Config-Sample.m"; sourceTree = "<group>"; };
+=======
+>>>>>>> dev
 		7FD60DD416B1233A008258DE /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		7FD60DD516B1233A008258DE /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		7FD60DD616B1233A008258DE /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -1319,8 +1326,6 @@
 		7FD60DDF16B1233A008258DE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		7FD60E0216B15344008258DE /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		7FD60E0316B15345008258DE /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
-		7FD902E916DCCCBC00CD7329 /* UIApplication+UIID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+UIID.h"; sourceTree = "<group>"; };
-		7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+UIID.m"; sourceTree = "<group>"; };
 		7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarArrow.png; sourceTree = "<group>"; };
 		7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarArrow@2x.png"; sourceTree = "<group>"; };
 		7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarItemPMDetailInfo.png; sourceTree = "<group>"; };
@@ -1579,8 +1584,11 @@
 				7F8E2DFF169BB8D4008A3F19 /* AppDelegate.m */,
 				7F42583416DDE99F0085913A /* Config.h */,
 				7F42583516DDE99F0085913A /* Config.m */,
+<<<<<<< HEAD
 				7FD60DC616B0D576008258DE /* Config-Sample.h */,
 				7FD60DC716B0D576008258DE /* Config-Sample.m */,
+=======
+>>>>>>> dev
 				7F8E2E07169BB8D5008A3F19 /* DataDecoder.h */,
 				7F8E2E08169BB8D5008A3F19 /* DataDecoder.m */,
 				7F8E2E09169BB8D5008A3F19 /* GlobalRender.h */,
@@ -1658,6 +1666,8 @@
 				7F9169CE15387EAD0095A8A8 /* LoadingManager.m */,
 				7F58B7AD153FE523000AAB72 /* FullScreenLoadingViewController.h */,
 				7F58B7AE153FE524000AAB72 /* FullScreenLoadingViewController.m */,
+				7F89442B16E04D3000536C38 /* DeviceBlockingViewController.h */,
+				7F89442C16E04D3000536C38 /* DeviceBlockingViewController.m */,
 				7F09AA40152180F800D4F5DB /* LoginTableViewController.h */,
 				7F09AA41152180F800D4F5DB /* LoginTableViewController.m */,
 				7FCEDEF4152ACC9500CE96AB /* GTMOAuth2ViewControllerTouch+Custom.h */,
@@ -2052,7 +2062,6 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				7FD902E816DCCCBC00CD7329 /* UIApplication-UIID */,
 				7F8DD7CC16BCF5E6006E6F98 /* KYCircleMenu */,
 				7FD60DCF16B1233A008258DE /* SSZipArchive */,
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
@@ -2615,16 +2624,6 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
-		7FD902E816DCCCBC00CD7329 /* UIApplication-UIID */ = {
-			isa = PBXGroup;
-			children = (
-				7FD902E916DCCCBC00CD7329 /* UIApplication+UIID.h */,
-				7FD902EA16DCCCBC00CD7329 /* UIApplication+UIID.m */,
-			);
-			name = "UIApplication-UIID";
-			path = "UIApplication-UIID/UIApplication-UIID";
-			sourceTree = "<group>";
-		};
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2747,7 +2746,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = "";
+				ORGANIZATIONNAME = Kjuly;
 			};
 			buildConfigurationList = 7F6E6CAE14D6CAA600033C65 /* Build configuration list for PBXProject "Master" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3043,7 +3042,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F6E6CE114D6CAA700033C65 /* InfoPlist.strings in Resources */,
-				7F0756B616DDDB53004E3D82 /* MasterTests-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3337,7 +3335,10 @@
 				7F56996C16A959E80045EA23 /* KYConstants.m in Sources */,
 				7F10F48A16AFBCD300A85587 /* KYArcTab.m in Sources */,
 				7F10F48B16AFBCD300A85587 /* KYArcTabViewController.m in Sources */,
+<<<<<<< HEAD
 				7FD60DC816B0D576008258DE /* Config-Sample.m in Sources */,
+=======
+>>>>>>> dev
 				7FD60DEF16B1233A008258DE /* ioapi.c in Sources */,
 				7FD60DF016B1233A008258DE /* mztools.c in Sources */,
 				7FD60DF116B1233A008258DE /* unzip.c in Sources */,
@@ -3349,8 +3350,13 @@
 				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
 				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
 				7F8DD7D516BD51AE006E6F98 /* PMCircleMenu.m in Sources */,
+<<<<<<< HEAD
 				7FD902EB16DCCCBC00CD7329 /* UIApplication+UIID.m in Sources */,
 				7F42583616DDE99F0085913A /* Config.m in Sources */,
+=======
+				7F42583616DDE99F0085913A /* Config.m in Sources */,
+				7F89442D16E04D3000536C38 /* DeviceBlockingViewController.m in Sources */,
+>>>>>>> dev
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3513,7 +3519,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "MasterTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests/MasterTests-Info.plist";
 				PRODUCT_NAME = MasterTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -3530,7 +3536,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Master/iPokeMon-Prefix.pch";
-				INFOPLIST_FILE = "MasterTests-Info.plist";
+				INFOPLIST_FILE = "MasterTests/MasterTests-Info.plist";
 				PRODUCT_NAME = MasterTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;

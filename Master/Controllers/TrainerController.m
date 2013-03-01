@@ -29,7 +29,13 @@
 @property (nonatomic, retain) Trainer        * entityTrainer;
 @property (nonatomic, retain) NSMutableArray * entitySixPokemons;
 
+- (BOOL)_isTrainerOwnsThisDevice;
+- (NSString *)_keyForDeviceUID;
+- (NSString *)_deviceUID;
+- (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID;
+
 - (void)_resetUser:(NSNotification *)notification;
+- (void)_initTrainer;
 - (void)_newbieChecking;
 - (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
@@ -64,7 +70,7 @@ static TrainerController * trainerController_ = nil;
 - (void)dealloc { 
   self.entityTrainer     = nil;
   self.entitySixPokemons = nil;
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUserLogout object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -84,34 +90,29 @@ static TrainerController * trainerController_ = nil;
 - (void)initTrainerWithUserID:(NSInteger)userID {
   if (isInitialized_)
     return;
-  NSLog(@"......INIT......with userID:%d", userID);
+  NSLog(@"- INIT trainer with User ID:%d", userID);
   userID_ = userID;
   
-  // |completion| block that will be executed after |Trainer|'s data initialized
-  void (^completion)() = ^{
-    // Fetch Trainer data from Client (CoreData)
-    self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
-    isInitialized_ = YES;
-    
-    // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
-    void (^completion)() = ^{
-      // Fetch Trainer's Six Pokemons data from Client (CoreData)
-      self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
-      if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
-        NSLog(@"!!! self.entitySixPokemons == nil...");
-        self.entitySixPokemons = nil;
-        self.entitySixPokemons = [NSMutableArray array];
-      }
-      // If user has no Pokemon in PokeDEX (newbie),
-      //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-      [self _newbieChecking];
-    };
-    // S->C: Initialize TrainerTamedPokemon data from Server to Client
-    [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
-  };
-  
-  // S->C: Initialize Trainer data from Server to Client
-  [Trainer initWithUserID:userID completion:completion];
+  // If the trainer own this device, initialize the data from server to client
+  if ([self _isTrainerOwnsThisDevice]) [self _initTrainer];
+  // Otherwise, ban user action
+  else {
+    NSLog(@"- Current Trainer does NOT Own this Device, BAN User Action!");
+    NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+    // Post notifi to ban user action
+    [notificationCenter postNotificationName:kPMNBanUserAction
+                                      object:[NSNumber numberWithInt:kPMDeviceBlockingTypeOfUIDNotMatched]];
+    // Add observer for reseting device's UID
+    [notificationCenter addObserverForName:kPMNResetDeviceUID
+                                    object:nil
+                                     queue:nil
+                                usingBlock:^(NSNotification *note) {
+                                  // Reset device's UID
+                                  [self _resetDeviceUIDWithTrainerUID:userID_];
+                                  // Initialize trainer's data
+                                  [self _initTrainer];
+                                }];
+  }
 }
 
 // Save Client data to CoreData
@@ -394,7 +395,107 @@ static TrainerController * trainerController_ = nil;
 }
 
 #pragma mark - Private Methods
-     
+
+// Device's ownership checking
+- (BOOL)_isTrainerOwnsThisDevice {
+  return (userID_ == [[self _deviceUID] integerValue]);
+}
+
+// Return the key of keychain for device's UID
+- (NSString *)_keyForDeviceUID {
+#ifdef APPLY_SECRET_DEVICE_UID_KEY
+  return kDeviceUIDKey;
+#else
+  return @"Master:Device:UID:Key";
+#endif
+}
+
+// Return device's UID (Unique IDentifier)
+- (NSString *)_deviceUID {
+  NSString * deviceUID       = nil;
+  NSString * keyForDeviceUID = [self _keyForDeviceUID];
+  
+  // UID must be persistent even if the application is removed from devices
+  // Use keychain as a storage
+  NSDictionary * query = [NSDictionary dictionaryWithObjectsAndKeys:
+                          (id)kSecClassGenericPassword,            (id)kSecClass,
+                          keyForDeviceUID,                         (id)kSecAttrGeneric,
+                          keyForDeviceUID,                         (id)kSecAttrAccount,
+                          [[NSBundle mainBundle] bundleIdentifier],(id)kSecAttrService,
+                          (id)kSecMatchLimitOne,                   (id)kSecMatchLimit,
+                          (id)kCFBooleanTrue,                      (id)kSecReturnAttributes,
+                          nil];
+  CFTypeRef attributesRef = NULL;
+  OSStatus result = SecItemCopyMatching((CFDictionaryRef)query, &attributesRef);
+  if (result == noErr) {
+    NSDictionary * attributes = (NSDictionary *)attributesRef;
+    NSMutableDictionary * valueQuery = [NSMutableDictionary dictionaryWithDictionary:attributes];
+    
+    [valueQuery setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
+    [valueQuery setObject:(id)kCFBooleanTrue           forKey:(id)kSecReturnData];
+    
+    CFTypeRef passwordDataRef = NULL;
+    OSStatus result = SecItemCopyMatching((CFDictionaryRef)valueQuery, &passwordDataRef);
+    if (result == noErr) {
+      NSData *passwordData = (NSData *)passwordDataRef;
+      // Assume the stored data is a UTF-8 string.
+      deviceUID = [[NSString alloc] initWithBytes:[passwordData bytes]
+                                           length:[passwordData length]
+                                         encoding:NSUTF8StringEncoding];
+    }
+  }
+  
+  // Generate a new UID for device if it does not exist
+  if (deviceUID == nil) deviceUID = [self _resetDeviceUIDWithTrainerUID:userID_];
+  NSLog(@"- Device UID: %@", deviceUID);
+  return deviceUID;
+}
+
+// Return reset device's UID with trainer's UID
+// It'll be occured only in two cases:
+//   - Device's UID is empty
+//   - User purchases the "Reassign Device Owner" to get the privilege
+//     for the current trainer role
+- (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID {
+  NSLog(@"- RESET Device UID with Trainer UID: %d", trainerUID);
+  // Reset device UID
+  NSString * deviceUID       = [NSString stringWithFormat:@"%d", trainerUID];
+  
+  // Key for device UID
+  NSString * keyForDeviceUID = [self _keyForDeviceUID];
+  // UID must be persistent even if the application is removed from devices
+  // Use keychain as a storage
+  NSMutableDictionary * query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 (id)kSecClassGenericPassword,             (id)kSecClass,
+                                 keyForDeviceUID,                          (id)kSecAttrGeneric,
+                                 keyForDeviceUID,                          (id)kSecAttrAccount,
+                                 [[NSBundle mainBundle] bundleIdentifier], (id)kSecAttrService,
+                                 @"",                                      (id)kSecAttrLabel,
+                                 @"",                                      (id)kSecAttrDescription,
+                                 nil];
+  // Set |kSecAttrAccessibleAfterFirstUnlock|
+  //   so that background applications are able to access this key.
+  // Keys defined as |kSecAttrAccessibleAfterFirstUnlock|
+  //   will be migrated to the new devices/installations via encrypted backups.
+  // If you want different UID per device,
+  //   use |kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly| instead.
+  // Keep in mind that keys defined
+  //   as |kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly|
+  //   will be removed after restoring from a backup.
+  [query setObject:(id)kSecAttrAccessibleAfterFirstUnlock
+            forKey:(id)kSecAttrAccessible];
+  // Set UID
+  [query setObject:[deviceUID dataUsingEncoding:NSUTF8StringEncoding]
+            forKey:(id)kSecValueData];
+  
+  OSStatus result = SecItemAdd((CFDictionaryRef)query, NULL);
+  if (result != noErr) {
+    NSLog(@"!!!ERROR: Couldn't add the Keychain Item. result = %ld, query = %@", result, query);
+    return nil;
+  }
+  return deviceUID;
+}
+
 // reset data for user when logout
 - (void)_resetUser:(NSNotification *)notification {
   NSLog(@"RESET");
@@ -404,14 +505,42 @@ static TrainerController * trainerController_ = nil;
   self.entitySixPokemons = nil;
 }
 
+// Initialize trainer's data from Server to Client
+- (void)_initTrainer {
+  // |completion| block that will be executed after |Trainer|'s data initialized
+  void (^completion)() = ^{
+    // Fetch Trainer data from Client (CoreData)
+    self.entityTrainer = [Trainer queryTrainerWithUserID:userID_];
+    isInitialized_ = YES;
+    
+    // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
+    void (^completion)() = ^{
+      // Fetch Trainer's Six Pokemons data from Client (CoreData)
+      self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
+      if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
+        NSLog(@"!!! self.entitySixPokemons == nil...");
+        self.entitySixPokemons = nil;
+        self.entitySixPokemons = [NSMutableArray array];
+      }
+      // If user has no Pokemon in PokeDEX (newbie),
+      //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+      [self _newbieChecking];
+    };
+    // S->C: Initialize TrainerTamedPokemon data from Server to Client
+    [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
+  };
+  
+  // S->C: Initialize trainer's data from Server to Client
+  [Trainer initWithUserID:userID_ completion:completion];
+}
+
 // Newbie checking
 - (void)_newbieChecking {
-  NSLog(@"|_newbieChecking|");
   // If user already has Pokemon in PokeDEX (not newbie), just do nothing
   //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
   if ([self.entityTrainer.pokedex intValue])
     return;
-  NSLog(@"NEWBIE CHECKING......");
+  NSLog(@"- NEWBIE CHECKING......");
   
   // Show loading
   [[LoadingManager sharedInstance] showOverView];

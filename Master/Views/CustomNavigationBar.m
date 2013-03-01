@@ -97,6 +97,8 @@
   
   // Blocks of |animations| & |completion|
   void (^animations)() = ^{
+    if (self.dataSource == nil || ! [self.dataSource respondsToSelector:@selector(rootViewController)])
+      return;
     // Slide up the Navigation bar if it is a PMCircleMenu type class
     if ([[self.dataSource rootViewController] isKindOfClass:[PMCircleMenu class]]) {
       CGRect navigationBarFrame = self.frame;
@@ -107,7 +109,10 @@
     else [self setBackToRootButtonToHidden:YES animated:YES];
   };
   void (^completion)(BOOL) = ^(BOOL finished) {
-    if ([[self.dataSource rootViewController] isKindOfClass:[PMCircleMenu class]]) {
+    if (self.dataSource == nil || ! [self.dataSource respondsToSelector:@selector(rootViewController)])
+      return;
+    if ([self.dataSource respondsToSelector:@selector(rootViewController)]
+        && [[self.dataSource rootViewController] isKindOfClass:[PMCircleMenu class]]) {
       // Set |cenerMainButton|'s status to Normal (Default: |kCenterMainButtonStatusNormal|)
       // And recover button' layout in center view
       [self.delegate customNavigationBarWillHide:YES animated:NO];

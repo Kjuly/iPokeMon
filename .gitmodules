@@ -22,6 +22,3 @@
 [submodule "Master/Libs/SSZipArchive"]
 	path = Master/Libs/SSZipArchive
 	url = git@github.com:Kjuly/ssziparchive.git
-[submodule "Master/Libs/UIApplication-UIID"]
-	path = Master/Libs/UIApplication-UIID
-	url = git@github.com:Kjuly/UIApplication-UIID.git
