@@ -15,6 +15,7 @@
 #import "WildPokemonController.h"
 #import "CenterMainButtonTouchDownCircleView.h"
 #import "FullScreenLoadingViewController.h"
+#import "DeviceBlockingViewController.h"
 #import "LoginTableViewController.h"
 #import "NewbieGuideViewController.h"
 #import "HelpViewController.h"
@@ -34,6 +35,7 @@
 @interface MainViewController () {
  @private
   FullScreenLoadingViewController     * fullScreenLoadingViewController_;
+  DeviceBlockingViewController        * deviceBlockingViewController_;
   GameMainViewController              * gameMainViewController_;
   CustomNavigationController          * customNavigationController_;
   CenterMenuUtilityViewController     * centerMenuUtilityViewController_;
@@ -60,6 +62,7 @@
 }
 
 @property (nonatomic, retain) FullScreenLoadingViewController     * fullScreenLoadingViewController;
+@property (nonatomic, retain) DeviceBlockingViewController        * deviceBlockingViewController;
 @property (nonatomic, retain) GameMainViewController              * gameMainViewController;
 @property (nonatomic, retain) CustomNavigationController          * customNavigationController;
 @property (nonatomic, retain) CenterMenuUtilityViewController     * centerMenuUtilityViewController;
@@ -79,10 +82,13 @@
 - (void)_releaseSubviews;
 - (void)_setupNotificationObservers;
 - (void)_resetAll;
+
 - (void)_showFullScreenLoadingView:(NSNotification *)notification;
+- (void)_showDeviceBlockingView:(NSNotification *)notification;
 - (void)_showLoginTableView:(NSNotification *)notification;
 - (void)_showNewbieGuideView:(NSNotification *)notification;
 - (void)_showHelpView:(id)sender;
+
 - (void)_changeCenterMainButtonStatus:(NSNotification *)notification;
 - (void)_runCenterMainButtonTouchUpInsideAction:(id)sender;
 - (void)_runCenterMainButtonTouchUpOutsideAction:(id)sender;
@@ -107,7 +113,8 @@
 
 @synthesize managedObjectContext;
 
-@synthesize fullScreenLoadingViewController     = fullScreenLoadingViewController_;
+@synthesize fullScreenLoadingViewController     = fullScreenLoadingViewController_,
+            deviceBlockingViewController        = deviceBlockingViewController_;
 @synthesize gameMainViewController              = gameMainViewController_;
 @synthesize customNavigationController          = customNavigationController_;
 @synthesize centerMenuUtilityViewController     = centerMenuUtilityViewController_;
@@ -128,6 +135,7 @@
   self.managedObjectContext = nil;
   
   self.fullScreenLoadingViewController     = nil;
+  self.deviceBlockingViewController        = nil;
   self.gameMainViewController              = nil;
   self.customNavigationController          = nil;
   self.centerMenuUtilityViewController     = nil;
@@ -301,6 +309,12 @@
                          selector:@selector(_showLoginTableView:)
                              name:kPMNSessionIsInvalid
                            object:nil];
+  // Notifi to show device blocking view
+  [notificationCenter addObserver:self
+                         selector:@selector(_showDeviceBlockingView:)
+                             name:kPMNBanUserAction
+                           object:nil];
+  // Notifi to show newbie guide view
   [notificationCenter addObserver:self
                          selector:@selector(_showNewbieGuideView:)
                              name:kPMNShowNewbieGuide
@@ -349,8 +363,7 @@
 // Show full screen loading view
 - (void)_showFullScreenLoadingView:(NSNotification *)notification {
   PMError error = [[notification.userInfo valueForKey:@"error"] intValue];
-  if (! error)
-    return;
+  if (! error) return;
   
   if (self.fullScreenLoadingViewController != nil) {
     [self.fullScreenLoadingViewController.view removeFromSuperview];
@@ -364,6 +377,20 @@
   [fullScreenLoadingViewController release];
   [self.view addSubview:self.fullScreenLoadingViewController.view];
   [self.fullScreenLoadingViewController loadViewForError:error animated:YES];
+}
+
+// Show device blocking view
+- (void)_showDeviceBlockingView:(NSNotification *)notification {
+  if (self.deviceBlockingViewController == nil) {
+    DeviceBlockingViewController * deviceBlockingViewController;
+    deviceBlockingViewController = [[DeviceBlockingViewController alloc] init];
+    self.deviceBlockingViewController = deviceBlockingViewController;
+    [deviceBlockingViewController release];
+  }
+  
+  PMDeviceBlockingType type = (PMDeviceBlockingType)[notification.object intValue];
+  [self.deviceBlockingViewController updateViewForType:type];
+  [self.view addSubview:self.deviceBlockingViewController.view];
 }
 
 // Show login table view if user session is invalid

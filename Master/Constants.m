@@ -34,9 +34,13 @@ NSString * const kUDKeyResourceBundlePath      = @"keyResourceBundlePath";      
 
 #pragma mark - Notifications
 
-NSString * const kPMNError = @"PMNError"; // notification for ERROR
+NSString * const kPMNPermitUserAction = @"PMNPermitUserAction"; // permit user action
+NSString * const kPMNBanUserAction    = @"PMNBanUserAction";    // ban user action
+NSString * const kPMNResetDeviceUID   = @"PMNResetDeviceUID";   // reset device's UID
+
+NSString * const kPMNError        = @"PMNError";        // notification for ERROR
 NSString * const kPMNUpdateRegion = @"PMNUpdateRegion"; // notification for updating region (code, ...)
-NSString * const kPMNUserLogout = @"PMNUserLogout"; // notif for reset data when user logout
+NSString * const kPMNUserLogout   = @"PMNUserLogout";   // notif for reset data when user logout
 
 // Notification for UserDefaults changed
 NSString * const kPMNUDGeneralLocationServices  = @"PMNUDGeneralLocationServices";  // general - location service

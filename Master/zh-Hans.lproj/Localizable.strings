@@ -47,6 +47,14 @@
 "PMSError02M" = "对不起，服务器连接失败。请尝试检查网络，然后刷新。如果还是相同错误，请您联系我，谢谢。 :)";
 "PMSError04M" = "对不起，认证失败，请重新认证。如果还是无法认证，请联系我，给您带来不变深表歉意！ :)";
 
+// Device Blocking
+// - Invitation-only
+"PMLS:DeviceBlocking:InvitationOnly:Title" = "获取邀请";
+"PMLS:DeviceBlocking:InvitationOnly:Body"  = "输入邀请码解锁该功能。";
+// - UID Not Matched
+"PMLS:DeviceBlocking:UIDNotMatched:Title"  = "ID不匹配";
+"PMLS:DeviceBlocking:UIDNotMatched:Body"   = "对不起，一个设备只限于一位训练师拥有。";
+
 // Login & Newbie guide
 "PMSLoginChoice"        = "选择登录服务";
 "PMSLoginSigninPage"    = "加载登录页面中...";

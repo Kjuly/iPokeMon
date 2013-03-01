@@ -35,6 +35,7 @@
 - (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID;
 
 - (void)_resetUser:(NSNotification *)notification;
+- (void)_initTrainer;
 - (void)_newbieChecking;
 - (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data;
 
@@ -69,7 +70,7 @@ static TrainerController * trainerController_ = nil;
 - (void)dealloc { 
   self.entityTrainer     = nil;
   self.entitySixPokemons = nil;
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUserLogout object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
@@ -89,39 +90,29 @@ static TrainerController * trainerController_ = nil;
 - (void)initTrainerWithUserID:(NSInteger)userID {
   if (isInitialized_)
     return;
-  NSLog(@"......INIT......with userID:%d", userID);
+  NSLog(@"- INIT trainer with User ID:%d", userID);
   userID_ = userID;
   
-  // |completion| block that will be executed after |Trainer|'s data initialized
-  void (^completion)() = ^{
-    // Fetch Trainer data from Client (CoreData)
-    self.entityTrainer = [Trainer queryTrainerWithUserID:userID];
-    isInitialized_ = YES;
-    
-    // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
-    void (^completion)() = ^{
-      // Fetch Trainer's Six Pokemons data from Client (CoreData)
-      self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
-      if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
-        NSLog(@"!!! self.entitySixPokemons == nil...");
-        self.entitySixPokemons = nil;
-        self.entitySixPokemons = [NSMutableArray array];
-      }
-      // If the trainer does not own this device, no more action allowed
-      if (! [self _isTrainerOwnsThisDevice]) {
-        NSLog(@"- Current Trainer does NOT Own this Device, No More Action Allowed");
-        return;
-      }
-      // If user has no Pokemon in PokeDEX (newbie),
-      //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
-      [self _newbieChecking];
-    };
-    // S->C: Initialize TrainerTamedPokemon data from Server to Client
-    [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
-  };
-  
-  // S->C: Initialize Trainer data from Server to Client
-  [Trainer initWithUserID:userID completion:completion];
+  // If the trainer own this device, initialize the data from server to client
+  if ([self _isTrainerOwnsThisDevice]) [self _initTrainer];
+  // Otherwise, ban user action
+  else {
+    NSLog(@"- Current Trainer does NOT Own this Device, BAN User Action!");
+    NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+    // Post notifi to ban user action
+    [notificationCenter postNotificationName:kPMNBanUserAction
+                                      object:[NSNumber numberWithInt:kPMDeviceBlockingTypeOfUIDNotMatched]];
+    // Add observer for reseting device's UID
+    [notificationCenter addObserverForName:kPMNResetDeviceUID
+                                    object:nil
+                                     queue:nil
+                                usingBlock:^(NSNotification *note) {
+                                  // Reset device's UID
+                                  [self _resetDeviceUIDWithTrainerUID:userID_];
+                                  // Initialize trainer's data
+                                  [self _initTrainer];
+                                }];
+  }
 }
 
 // Save Client data to CoreData
@@ -512,6 +503,35 @@ static TrainerController * trainerController_ = nil;
   flag_          = 0;
   self.entityTrainer     = nil;
   self.entitySixPokemons = nil;
+}
+
+// Initialize trainer's data from Server to Client
+- (void)_initTrainer {
+  // |completion| block that will be executed after |Trainer|'s data initialized
+  void (^completion)() = ^{
+    // Fetch Trainer data from Client (CoreData)
+    self.entityTrainer = [Trainer queryTrainerWithUserID:userID_];
+    isInitialized_ = YES;
+    
+    // |completion| block that will be executed after |TrainerTamedPokemon|'s data initialized
+    void (^completion)() = ^{
+      // Fetch Trainer's Six Pokemons data from Client (CoreData)
+      self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
+      if (self.entitySixPokemons == nil || [self.entitySixPokemons count] == 0) {
+        NSLog(@"!!! self.entitySixPokemons == nil...");
+        self.entitySixPokemons = nil;
+        self.entitySixPokemons = [NSMutableArray array];
+      }
+      // If user has no Pokemon in PokeDEX (newbie),
+      //   post notification to |MainViewController| to show view of |NewbiewGuideViewController|
+      [self _newbieChecking];
+    };
+    // S->C: Initialize TrainerTamedPokemon data from Server to Client
+    [TrainerTamedPokemon initWithTrainer:self.entityTrainer completion:completion];
+  };
+  
+  // S->C: Initialize trainer's data from Server to Client
+  [Trainer initWithUserID:userID_ completion:completion];
 }
 
 // Newbie checking

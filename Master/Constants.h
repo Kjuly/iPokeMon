@@ -49,9 +49,13 @@ extern NSString * const kUDKeyResourceBundlePath;      // Resource bundle path
 
 #pragma mark - Notifications
 
-extern NSString * const kPMNError; // notification for ERROR
-extern NSString * const kPMNUpdateRegion; // notification for updating region (code, ...)
-extern NSString * const kPMNUserLogout; // notif for reset data when user logout
+extern NSString * const kPMNPermitUserAction; // permit user action
+extern NSString * const kPMNBanUserAction;    // ban user action
+extern NSString * const kPMNResetDeviceUID;   // reset device's UID
+
+extern NSString * const kPMNError;        // notifi for ERROR
+extern NSString * const kPMNUpdateRegion; // notifi for updating region (code, ...)
+extern NSString * const kPMNUserLogout;   // notifi for reset data when user logout
 
 // Notification for UserDefaults changed
 extern NSString * const kPMNUDGeneralLocationServices;  // general - location service
@@ -245,6 +249,14 @@ extern NSString * const kPMNLoadingDone;
 
 #define kTagMainViewCenterMainButton 1001
 #define kTagMainViewMapButton        1002
+
+
+// Device Blocking Type
+typedef enum {
+  kPMDeviceBlockingTypeNone = 0,
+  kPMDeviceBlockingTypeOfInvitationOnly,
+  kPMDeviceBlockingTypeOfUIDNotMatched,
+}PMDeviceBlockingType;
 
 // Data Modify Flag
 typedef enum {
