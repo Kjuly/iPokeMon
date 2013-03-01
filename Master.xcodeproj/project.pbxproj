@@ -103,7 +103,6 @@
 		7F3B669B154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668B154139850036EC18 /* MainViewCenterButtonImageUnknowOpposite.png */; };
 		7F3B669C154139890036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B668C154139870036EC18 /* MainViewCenterButtonImageUnknowOpposite@2x.png */; };
 		7F407837156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F407836156D218C008359C3 /* MEWMapAnnotationCalloutBottomView.m */; };
-		7F42583616DDE99F0085913A /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F42583516DDE99F0085913A /* Config.m */; };
 		7F44F727155103770052678F /* StoreItemQuantityButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F725155103770052678F /* StoreItemQuantityButtonBackground.png */; };
 		7F44F728155103770052678F /* StoreItemQuantityButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F726155103770052678F /* StoreItemQuantityButtonBackground@2x.png */; };
 		7F44F72E155115F50052678F /* StoreItemQuantityDcreaseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F44F72A155115F40052678F /* StoreItemQuantityDcreaseButton.png */; };
@@ -244,7 +243,6 @@
 		7F7EF441153FFDAC0061D82E /* PokemonHPBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7EF435153FFDAC0061D82E /* PokemonHPBarBackground@2x.png */; };
 		7F84C2BC151C678800E8D27E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84C2BB151C678800E8D27E /* Security.framework */; };
 		7F892E60153725CC00C00F91 /* GameBattleScenePMPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F892E5E153725CC00C00F91 /* GameBattleScenePMPoint.png */; };
-		7F89442D16E04D3000536C38 /* DeviceBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F89442C16E04D3000536C38 /* DeviceBlockingViewController.m */; };
 		7F8A4FBF16B688630035513A /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A4FBE16B688630035513A /* Resource.bundle */; };
 		7F8B816814E578140085CE22 /* SixPokemonsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8B816714E578140085CE22 /* SixPokemonsTableViewCell.m */; };
 		7F8C15CD15091B95004BE083 /* GameEnemyPokemonStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8C15CC15091B95004BE083 /* GameEnemyPokemonStatusViewController.m */; };
