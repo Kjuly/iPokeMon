@@ -54,7 +54,6 @@ Change log is located in Wiki: [Change Log](https://github.com/Kjuly/iPokeMon/wi
 - [KYArcTab](https://github.com/Kjuly/KYArcTab)
 - [KYCircleMenu](https://github.com/Kjuly/KYCircleMenu)
 - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
-- [UIApplication-UIID](https://github.com/akisute/UIApplication-UIID)
 
 Master requires iOS 5.0 SDK or later.
 
