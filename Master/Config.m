@@ -9,6 +9,16 @@
 #import "Config.h"
 
 /*
+ * Device UID
+ */
+// If APPLY_SECRET_DEVICE_UID_KEY if on,
+//   define a key for the Device UID in the keychain
+//   e.g. "your_secret_device_identifier"
+#ifdef APPLY_SECRET_DEVICE_UID_KEY
+NSString * const kDeviceUIDKey = @"<your_secret_device_identifier>";
+#endif
+
+/*
  * Server
  */
 // e.g. http://123.123.123.123:8080
@@ -46,17 +56,6 @@ NSString * const kOAuthGoogleScope = @"https://www.googleapis.com/auth/plus.me";
 NSString * const kIAPCurrencyTier1 = @"<your_identifier>.coin.tier1";
 NSString * const kIAPCurrencyTier2 = @"<your_identifier>.coin.tier2";
 NSString * const kIAPCurrencyTier3 = @"<your_identifier>.coin.tier3";
-
-
-/*
- * LIB: UIApplication+UIID
- */
-// If APPLY_SECRET_UIID_KEY if on,
-//   define a key for the UIID in the keychain or UserDefaults
-//   e.g. "uniqueInstallationIdentifier"
-#ifdef APPLY_SECRET_UIID_KEY
-NSString * const kUIIDKey = @"<your_secret_unique_installation_identifier>";
-#endif
 
 
 @implementation Config
