@@ -22,3 +22,6 @@
 [submodule "Master/Libs/SSZipArchive"]
 	path = Master/Libs/SSZipArchive
 	url = git@github.com:Kjuly/ssziparchive.git
+[submodule "Master/Libs/KYUnlockCodeManager"]
+	path = Master/Libs/KYUnlockCodeManager
+	url = git@github.com:Kjuly/KYUnlockCodeManager.git

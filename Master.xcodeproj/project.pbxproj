@@ -2046,6 +2046,7 @@
 		7F8E2DFD169BB85D008A3F19 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7FF8705E16E2EAAF00F01B52 /* KYUnlockCodeManager */,
 				7F8DD7CC16BCF5E6006E6F98 /* KYCircleMenu */,
 				7FD60DCF16B1233A008258DE /* SSZipArchive */,
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
@@ -2681,6 +2682,14 @@
 				7FA22C9F154BFAF6007E2339 /* RectButtonUndo@2x.png */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		7FF8705E16E2EAAF00F01B52 /* KYUnlockCodeManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = KYUnlockCodeManager;
+			path = KYUnlockCodeManager/KYUnlockCodeManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
