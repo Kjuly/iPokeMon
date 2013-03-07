@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
+#ifdef KY_INVITATION_ONLY
+#import "KYUnlockCodeManager.h"
+#endif
+
 typedef enum {
   kSectionGeneral = 0,
   kSectionAbout,
@@ -31,12 +35,20 @@ typedef enum {
 typedef enum {
   kSectionMoreRowFeedback = 0,
   kSectionMoreRowLoadResource,
+#ifdef KY_INVITATION_ONLY
+  kSectionMoreRowRequestDEX,
+#endif
   kSectionMoreRowLogout,
   kNumberOfSectionMoreRows
 }SectionMoreRow;
 
 @interface SettingTableViewController : UITableViewController
-  <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+  <UIAlertViewDelegate,
+#ifdef KY_INVITATION_ONLY
+   KYUnlockCodeManagerDataSource,
+   KYUnlockCodeManagerDelegate,
+#endif
+   MFMailComposeViewControllerDelegate>
 
 @property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
 

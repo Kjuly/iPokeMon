@@ -31,7 +31,6 @@
 
 - (BOOL)_isTrainerOwnsThisDevice;
 - (NSString *)_keyForDeviceUID;
-- (NSString *)_deviceUID;
 - (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID;
 
 - (void)_resetUser:(NSNotification *)notification;
@@ -156,6 +155,47 @@ static TrainerController * trainerController_ = nil;
   if (flag & kDataModifyTamedPokemon) {
     flag_ &= (0000 << 8);
   }
+}
+
+// Return device's UID (Unique IDentifier)
+- (NSString *)deviceUID {
+  NSString * deviceUID       = nil;
+  NSString * keyForDeviceUID = [self _keyForDeviceUID];
+  
+  // UID must be persistent even if the application is removed from devices
+  // Use keychain as a storage
+  NSDictionary * query = [NSDictionary dictionaryWithObjectsAndKeys:
+                          (id)kSecClassGenericPassword,            (id)kSecClass,
+                          keyForDeviceUID,                         (id)kSecAttrGeneric,
+                          keyForDeviceUID,                         (id)kSecAttrAccount,
+                          [[NSBundle mainBundle] bundleIdentifier],(id)kSecAttrService,
+                          (id)kSecMatchLimitOne,                   (id)kSecMatchLimit,
+                          (id)kCFBooleanTrue,                      (id)kSecReturnAttributes,
+                          nil];
+  CFTypeRef attributesRef = NULL;
+  OSStatus result = SecItemCopyMatching((CFDictionaryRef)query, &attributesRef);
+  if (result == noErr) {
+    NSDictionary * attributes = (NSDictionary *)attributesRef;
+    NSMutableDictionary * valueQuery = [NSMutableDictionary dictionaryWithDictionary:attributes];
+    
+    [valueQuery setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
+    [valueQuery setObject:(id)kCFBooleanTrue           forKey:(id)kSecReturnData];
+    
+    CFTypeRef passwordDataRef = NULL;
+    OSStatus result = SecItemCopyMatching((CFDictionaryRef)valueQuery, &passwordDataRef);
+    if (result == noErr) {
+      NSData *passwordData = (NSData *)passwordDataRef;
+      // Assume the stored data is a UTF-8 string.
+      deviceUID = [[NSString alloc] initWithBytes:[passwordData bytes]
+                                           length:[passwordData length]
+                                         encoding:NSUTF8StringEncoding];
+    }
+  }
+  
+  // Generate a new UID for device if it does not exist
+  if (deviceUID == nil) deviceUID = [self _resetDeviceUIDWithTrainerUID:userID_];
+  NSLog(@"- Device UID: %@", deviceUID);
+  return deviceUID;
 }
 
 // Trainer's basic data
@@ -398,7 +438,7 @@ static TrainerController * trainerController_ = nil;
 
 // Device's ownership checking
 - (BOOL)_isTrainerOwnsThisDevice {
-  return (userID_ == [[self _deviceUID] integerValue]);
+  return (userID_ == [[self deviceUID] integerValue]);
 }
 
 // Return the key of keychain for device's UID
@@ -408,47 +448,6 @@ static TrainerController * trainerController_ = nil;
 #else
   return @"Master:Device:UID:Key";
 #endif
-}
-
-// Return device's UID (Unique IDentifier)
-- (NSString *)_deviceUID {
-  NSString * deviceUID       = nil;
-  NSString * keyForDeviceUID = [self _keyForDeviceUID];
-  
-  // UID must be persistent even if the application is removed from devices
-  // Use keychain as a storage
-  NSDictionary * query = [NSDictionary dictionaryWithObjectsAndKeys:
-                          (id)kSecClassGenericPassword,            (id)kSecClass,
-                          keyForDeviceUID,                         (id)kSecAttrGeneric,
-                          keyForDeviceUID,                         (id)kSecAttrAccount,
-                          [[NSBundle mainBundle] bundleIdentifier],(id)kSecAttrService,
-                          (id)kSecMatchLimitOne,                   (id)kSecMatchLimit,
-                          (id)kCFBooleanTrue,                      (id)kSecReturnAttributes,
-                          nil];
-  CFTypeRef attributesRef = NULL;
-  OSStatus result = SecItemCopyMatching((CFDictionaryRef)query, &attributesRef);
-  if (result == noErr) {
-    NSDictionary * attributes = (NSDictionary *)attributesRef;
-    NSMutableDictionary * valueQuery = [NSMutableDictionary dictionaryWithDictionary:attributes];
-    
-    [valueQuery setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-    [valueQuery setObject:(id)kCFBooleanTrue           forKey:(id)kSecReturnData];
-    
-    CFTypeRef passwordDataRef = NULL;
-    OSStatus result = SecItemCopyMatching((CFDictionaryRef)valueQuery, &passwordDataRef);
-    if (result == noErr) {
-      NSData *passwordData = (NSData *)passwordDataRef;
-      // Assume the stored data is a UTF-8 string.
-      deviceUID = [[NSString alloc] initWithBytes:[passwordData bytes]
-                                           length:[passwordData length]
-                                         encoding:NSUTF8StringEncoding];
-    }
-  }
-  
-  // Generate a new UID for device if it does not exist
-  if (deviceUID == nil) deviceUID = [self _resetDeviceUIDWithTrainerUID:userID_];
-  NSLog(@"- Device UID: %@", deviceUID);
-  return deviceUID;
 }
 
 // Return reset device's UID with trainer's UID

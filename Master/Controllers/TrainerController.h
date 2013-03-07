@@ -24,7 +24,9 @@
 - (void)addModifyFlag:(DataModifyFlag)flag;
 - (void)syncDoneWithFlag:(DataModifyFlag)flag;
 
-// Trainer's Data
+// Trainer's device data
+- (NSString *)deviceUID;                                       // Device's UID
+// Trainer's data
 - (NSInteger)UID;                                              // UID
 - (NSString *)name;                                            // Name
 - (NSInteger)money;                                            // Money

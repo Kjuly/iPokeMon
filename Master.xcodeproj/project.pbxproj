@@ -485,6 +485,8 @@
 		7FD60DF216B1233A008258DE /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDB16B1233A008258DE /* zip.c */; };
 		7FD60DF416B1233A008258DE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60DDF16B1233A008258DE /* SSZipArchive.m */; };
 		7FD60E0416B15346008258DE /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD60E0316B15345008258DE /* ResourceManager.m */; };
+		7FD95A8C16E5D9DA006DC3CD /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F42583516DDE99F0085913A /* Config.m */; };
+		7FD95A8D16E5DA12006DC3CD /* DeviceBlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F89442C16E04D3000536C38 /* DeviceBlockingViewController.m */; };
 		7FDAD51215419CFC003F9DA6 /* TabBarArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50E15419CFB003F9DA6 /* TabBarArrow.png */; };
 		7FDAD51315419CFC003F9DA6 /* TabBarArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD50F15419CFB003F9DA6 /* TabBarArrow@2x.png */; };
 		7FDAD51415419CFC003F9DA6 /* TabBarItemPMDetailInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDAD51015419CFB003F9DA6 /* TabBarItemPMDetailInfo.png */; };
@@ -554,6 +556,7 @@
 		7FF4B3ED14F61AD9007B7E22 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FF4B3EC14F61AD9007B7E22 /* Settings.bundle */; };
 		7FF4B3F514F625F0007B7E22 /* SettingSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */; };
 		7FF56401152817AB00BA5E28 /* ServerAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF56400152817AB00BA5E28 /* ServerAPIClient.m */; };
+		7FF8706116E2EAE800F01B52 /* KYUnlockCodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF8706016E2EAE800F01B52 /* KYUnlockCodeManager.m */; };
 		7FFAF86F156A9A13008605E4 /* MEWMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF86E156A9A13008605E4 /* MEWMapAnnotation.m */; };
 		7FFAF873156A9FF2008605E4 /* MEWMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFAF872156A9FF2008605E4 /* MEWMapAnnotationView.m */; };
 		7FFBEDE8156BA24C005FAD33 /* MapAnnotationCalloutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFBEDE7156BA24C005FAD33 /* MapAnnotationCalloutViewController.m */; };
@@ -1403,6 +1406,8 @@
 		7FF4B3F414F625F0007B7E22 /* SettingSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSectionHeaderView.m; sourceTree = "<group>"; };
 		7FF563FF152817AB00BA5E28 /* ServerAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIClient.h; sourceTree = "<group>"; };
 		7FF56400152817AB00BA5E28 /* ServerAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIClient.m; sourceTree = "<group>"; };
+		7FF8705F16E2EAE800F01B52 /* KYUnlockCodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYUnlockCodeManager.h; sourceTree = "<group>"; };
+		7FF8706016E2EAE800F01B52 /* KYUnlockCodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYUnlockCodeManager.m; sourceTree = "<group>"; };
 		7FFAF86D156A9A13008605E4 /* MEWMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotation.h; sourceTree = "<group>"; };
 		7FFAF86E156A9A13008605E4 /* MEWMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWMapAnnotation.m; sourceTree = "<group>"; };
 		7FFAF871156A9FF2008605E4 /* MEWMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWMapAnnotationView.h; sourceTree = "<group>"; };
@@ -2687,6 +2692,8 @@
 		7FF8705E16E2EAAF00F01B52 /* KYUnlockCodeManager */ = {
 			isa = PBXGroup;
 			children = (
+				7FF8705F16E2EAE800F01B52 /* KYUnlockCodeManager.h */,
+				7FF8706016E2EAE800F01B52 /* KYUnlockCodeManager.m */,
 			);
 			name = KYUnlockCodeManager;
 			path = KYUnlockCodeManager/KYUnlockCodeManager;
@@ -3074,6 +3081,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FD95A8D16E5DA12006DC3CD /* DeviceBlockingViewController.m in Sources */,
+				7FD95A8C16E5D9DA006DC3CD /* Config.m in Sources */,
 				7F6E6CC714D6CAA600033C65 /* main.m in Sources */,
 				7F6E6CCE14D6CAA600033C65 /* Master.xcdatamodeld in Sources */,
 				7F51C3D714D7C4DF0091902D /* MainViewController.m in Sources */,
@@ -3339,6 +3348,7 @@
 				7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */,
 				7F8DD7CF16BCF5E6006E6F98 /* KYCircleMenu.m in Sources */,
 				7F8DD7D516BD51AE006E6F98 /* PMCircleMenu.m in Sources */,
+				7FF8706116E2EAE800F01B52 /* KYUnlockCodeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

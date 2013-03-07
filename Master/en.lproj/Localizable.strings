@@ -110,6 +110,8 @@
 "PMSSettingMoreLoadResourceUpdating"    = "Updating";
 "PMSSettingMoreLoadResourceCompleted"   = "Completed";
 "PMSSettingMoreLoadResourceFailed"      = "Failed";
+// - - Request DEX
+"PMSSettingMoreRequestDEX" = "Request DEX";
 // - - Logout
 "PMSSettingMoreLogout"        = "Logout";
 "PMSSettingLogoutConfirmText" = "Sure to Logout?";

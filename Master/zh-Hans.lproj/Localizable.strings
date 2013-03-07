@@ -109,6 +109,8 @@
 "PMSSettingMoreLoadResourceUpdating"    = "更新中";
 "PMSSettingMoreLoadResourceCompleted"   = "完成";
 "PMSSettingMoreLoadResourceFailed"      = "加载失败";
+// - - Request DEX
+"PMSSettingMoreRequestDEX" = "获取 DEX";
 // - - Logout
 "PMSSettingMoreLogout"        = "注销";
 "PMSSettingLogoutConfirmText" = "确认注销?";
