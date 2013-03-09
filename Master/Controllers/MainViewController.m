@@ -27,6 +27,10 @@
 
 #import "KYArcTab.h"
 
+#ifdef KY_INVITATION_ONLY
+#import "KYUnlockCodeManager.h"
+#endif
+
 #ifdef KY_POPULATE_COREDATA
 #import "OriginalDataManager.h"
 #endif
@@ -99,6 +103,9 @@
 - (void)_closeCenterMenuWhenLongTimeNoOperation;
 - (void)_countLongTapTimeWithAction:(id)sender;
 - (void)_increaseTimeWithAction;
+#ifdef KY_INVITATION_ONLY
+- (void)_unlockLocationService:(id)sender;
+#endif
 - (void)_toggleMapView:(id)sender;
 - (void)_unloadGameBattleScene:(NSNotification *)notification;
 - (void)_updateLocationService:(NSNotification *)notification;
@@ -244,13 +251,32 @@
   [mapButton_ setContentMode:UIViewContentModeScaleAspectFit];
   [mapButton_ setBackgroundImage:[UIImage imageNamed:kPMINMapButtonBackgound]
                         forState:UIControlStateNormal];
-  if ([userDefaults boolForKey:kUDKeyGeneralLocationServices])
-    [mapButton_ setImage:[UIImage imageNamed:kPMINMapButtonNormal] forState:UIControlStateNormal];
-  else [mapButton_ setImage:[UIImage imageNamed:kPMINMapButtonDisabled] forState:UIControlStateNormal];
   [mapButton_ setOpaque:NO];
   [mapButton_ setTag:kTagMainViewMapButton];
-  [mapButton_ addTarget:self action:@selector(_toggleMapView:) forControlEvents:UIControlEventTouchUpInside];
-  [mapButton_ addTarget:self action:@selector(_countLongTapTimeWithAction:) forControlEvents:UIControlEventTouchDown];
+  NSString * mapButtonImageName = nil;
+#ifdef KY_INVITATION_ONLY
+  KYUnlockCodeManager * unlockCodeManager = [[KYUnlockCodeManager alloc] init];
+  if ([unlockCodeManager isLockedOnFeature:nil]) {
+    mapButtonImageName = kPMINMapButtonLocked;
+    [mapButton_ addTarget:self
+                   action:@selector(_unlockLocationService:)
+         forControlEvents:UIControlEventTouchUpInside];
+  } else {
+#endif
+    mapButtonImageName = ([userDefaults boolForKey:kUDKeyGeneralLocationServices]
+                          ? kPMINMapButtonNormal : kPMINMapButtonDisabled);
+    [mapButton_ addTarget:self
+                   action:@selector(_toggleMapView:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [mapButton_ addTarget:self
+                   action:@selector(_countLongTapTimeWithAction:)
+         forControlEvents:UIControlEventTouchDown];
+#ifdef KY_INVITATION_ONLY
+  }
+  [unlockCodeManager release];
+#endif
+  [mapButton_ setImage:[UIImage imageNamed:mapButtonImageName]
+              forState:UIControlStateNormal];
   [self.view addSubview:mapButton_];
   
   // Setup notification observers
@@ -767,6 +793,13 @@
     [self.longTapTimer invalidate];
   }
 }
+
+#ifdef KY_INVITATION_ONLY
+// Unlock location service
+- (void)_unlockLocationService:(id)sender {
+  NSLog(@"UNLOCK Location Service");
+}
+#endif
 
 // |mapButton_| action
 - (void)_toggleMapView:(id)sender {

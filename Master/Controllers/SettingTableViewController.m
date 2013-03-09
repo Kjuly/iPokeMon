@@ -439,7 +439,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       KYUnlockCodeManager * unlockCodeManager = [[KYUnlockCodeManager alloc] init];
       unlockCodeManager.dataSource = self;
       unlockCodeManager.delegate   = self;
-      [unlockCodeManager unlockWithCode:@"TEST"];
+      [unlockCodeManager unlockFeature:nil withCode:@"123"];
       [unlockCodeManager release];
     }
 #endif

@@ -139,6 +139,9 @@ extern NSString * const kPMNLoadingDone;
 #define kPMINMapButtonNormal       @"MainViewMapButtonImageNormal.png"
 #define kPMINMapButtonDisabled     @"MainViewMapButtonImageLBSDisabled.png"
 #define kPMINMapButtonHalfCancel   @"MainViewMapButtonImageHalfCancel.png"
+#ifdef KY_INVITATION_ONLY
+#define kPMINMapButtonLocked       @"MainViewMapButtonImageLocked.png"
+#endif
 // other buttons
 #define kPMINRectButtonConfirm @"RectButtonConfirm.png"
 #define kPMINRectButtonUndo    @"RectButtonUndo.png"
