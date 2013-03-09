@@ -6,6 +6,14 @@
   Copyright (c) 2012 Kjuly. All rights reserved.
 */
 
+// LIBs
+/*
+ * KYUnlockCodeManager
+ */
+"KYUnlockCodeManager:CodeInputViewTitle" = "Invitation Code";
+"KYUnlockCodeManager:Cancel"             = "Cancel";
+"KYUnlockCodeManager:Confirm"            = "Confirm";
+
 
 // PMS: PokeMon String
 /*

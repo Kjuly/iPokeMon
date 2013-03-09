@@ -38,6 +38,9 @@
 
 @interface MainViewController () {
  @private
+#ifdef KY_INVITATION_ONLY
+  KYUnlockCodeManager * unlockCodeManager_;
+#endif
   FullScreenLoadingViewController     * fullScreenLoadingViewController_;
   DeviceBlockingViewController        * deviceBlockingViewController_;
   GameMainViewController              * gameMainViewController_;
@@ -65,6 +68,9 @@
   NSInteger                       timeCounter_;
 }
 
+#ifdef KY_INVITATION_ONLY
+@property (nonatomic, retain) KYUnlockCodeManager * unlockCodeManager;
+#endif
 @property (nonatomic, retain) FullScreenLoadingViewController     * fullScreenLoadingViewController;
 @property (nonatomic, retain) DeviceBlockingViewController        * deviceBlockingViewController;
 @property (nonatomic, retain) GameMainViewController              * gameMainViewController;
@@ -104,7 +110,8 @@
 - (void)_countLongTapTimeWithAction:(id)sender;
 - (void)_increaseTimeWithAction;
 #ifdef KY_INVITATION_ONLY
-- (void)_unlockLocationService:(id)sender;
+- (void)_enterInvitationCode:(id)sender;
+- (void)_unlockLocationService:(NSNotification *)notification;
 #endif
 - (void)_toggleMapView:(id)sender;
 - (void)_unloadGameBattleScene:(NSNotification *)notification;
@@ -120,6 +127,9 @@
 
 @synthesize managedObjectContext;
 
+#ifdef KY_INVITATION_ONLY
+@synthesize unlockCodeManager = unlockCodeManager_;
+#endif
 @synthesize fullScreenLoadingViewController     = fullScreenLoadingViewController_,
             deviceBlockingViewController        = deviceBlockingViewController_;
 @synthesize gameMainViewController              = gameMainViewController_;
@@ -141,6 +151,9 @@
 - (void)dealloc {
   self.managedObjectContext = nil;
   
+#ifdef KY_INVITATION_ONLY
+  self.unlockCodeManager = nil;
+#endif
   self.fullScreenLoadingViewController     = nil;
   self.deviceBlockingViewController        = nil;
   self.gameMainViewController              = nil;
@@ -255,12 +268,17 @@
   [mapButton_ setTag:kTagMainViewMapButton];
   NSString * mapButtonImageName = nil;
 #ifdef KY_INVITATION_ONLY
-  KYUnlockCodeManager * unlockCodeManager = [[KYUnlockCodeManager alloc] init];
-  if ([unlockCodeManager isLockedOnFeature:nil]) {
+  unlockCodeManager_ = [[KYUnlockCodeManager alloc] init];
+  if ([unlockCodeManager_ isLockedOnFeature:nil]) {
     mapButtonImageName = kPMINMapButtonLocked;
     [mapButton_ addTarget:self
-                   action:@selector(_unlockLocationService:)
+                   action:@selector(_enterInvitationCode:)
          forControlEvents:UIControlEventTouchUpInside];
+    // Add notifi observer to unlock "Location Service" feature
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_unlockLocationService:)
+                                                 name:kKYUnlockCodeManagerNUnlocked
+                                               object:nil];
   } else {
 #endif
     mapButtonImageName = ([userDefaults boolForKey:kUDKeyGeneralLocationServices]
@@ -273,7 +291,6 @@
          forControlEvents:UIControlEventTouchDown];
 #ifdef KY_INVITATION_ONLY
   }
-  [unlockCodeManager release];
 #endif
   [mapButton_ setImage:[UIImage imageNamed:mapButtonImageName]
               forState:UIControlStateNormal];
@@ -795,9 +812,37 @@
 }
 
 #ifdef KY_INVITATION_ONLY
+// Enter invitation code
+- (void)_enterInvitationCode:(id)sender {
+  // Post notifi to |KYUnlockCodeManager| to show code input view
+  [[NSNotificationCenter defaultCenter] postNotificationName:kKYUnlockCodeManagerNShowCodeInputView
+                                                      object:nil];
+}
+
 // Unlock location service
-- (void)_unlockLocationService:(id)sender {
-  NSLog(@"UNLOCK Location Service");
+- (void)_unlockLocationService:(NSNotification *)notification {
+  // Unlock "Location Service" feature
+  // Remove action to enter invitation code
+  [mapButton_ removeTarget:self
+                    action:@selector(_enterInvitationCode:)
+          forControlEvents:UIControlEventTouchUpInside];
+  // Add new actions for map button
+  [mapButton_ addTarget:self
+                 action:@selector(_toggleMapView:)
+       forControlEvents:UIControlEventTouchUpInside];
+  [mapButton_ addTarget:self
+                 action:@selector(_countLongTapTimeWithAction:)
+       forControlEvents:UIControlEventTouchDown];
+  // Transite image for map button
+  NSString * mapButtonImageName =
+    ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]
+      ? kPMINMapButtonNormal : kPMINMapButtonDisabled);
+  [mapButton_ transitionToImage:[UIImage imageNamed:mapButtonImageName]
+                        options:UIViewAnimationOptionTransitionFlipFromBottom];
+  // Remove notifi observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kKYUnlockCodeManagerNUnlocked
+                                                object:nil];
 }
 #endif
 
