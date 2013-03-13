@@ -58,6 +58,19 @@ NSString * const kIAPCurrencyTier2 = @"<your_identifier>.coin.tier2";
 NSString * const kIAPCurrencyTier3 = @"<your_identifier>.coin.tier3";
 
 
+#pragma mark - LIB
+
+/*
+ * KYUnlockCodeManager
+ */
+// If |kKYUnlockCodeManagerUniqueCodeDefined| is defined
+// Define a unique code for KYUnlockCodeManager
+//   e.g. "abcdef"
+#ifdef kKYUnlockCodeManagerUniqueCodeDefined
+NSString * const kKYUnlockCodeManagerUniqueCode = @"abcdef";
+#endif
+
+
 @implementation Config
 
 @end

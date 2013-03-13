@@ -117,6 +117,20 @@ extern NSString * const kIAPCurrencyTier2;
 extern NSString * const kIAPCurrencyTier3;
 
 
+// LIBs
+/*
+ * KYUnlockCodeManager
+ */
+// Use a unique code as a general code to unlock the feature in any device,
+//   and it's mainly for Apple's Review Process.
+//#define kKYUnlockCodeManagerUniqueCodeDefined 1
+// Define a unique code for KYUnlockCodeManager
+//   e.g. "abcdef"
+#ifdef kKYUnlockCodeManagerUniqueCodeDefined
+extern NSString * const kKYUnlockCodeManagerUniqueCode;
+#endif
+
+
 @interface Config : NSObject
 
 @end
