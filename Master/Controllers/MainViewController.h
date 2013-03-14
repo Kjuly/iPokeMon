@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#ifdef KY_INVITATION_ONLY
+#import "KYUnlockCodeManager.h"
+#endif
+
 @interface MainViewController : UIViewController
+#ifdef KY_INVITATION_ONLY
+  <KYUnlockCodeManagerDataSource, KYUnlockCodeManagerDelegate>
+#endif
 
 @property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
 

@@ -269,6 +269,8 @@
   NSString * mapButtonImageName = nil;
 #ifdef KY_INVITATION_ONLY
   unlockCodeManager_ = [[KYUnlockCodeManager alloc] init];
+  unlockCodeManager_.dataSource = self;
+  unlockCodeManager_.delegate   = self;
   //[unlockCodeManager_ resetCodeForFeature:nil];
   if ([unlockCodeManager_ isLockedOnFeature:nil]) {
     mapButtonImageName = kPMINMapButtonLocked;
@@ -1008,5 +1010,41 @@
                    animations:animations
                    completion:completion];
 }
+
+#ifdef KY_INVITATION_ONLY
+
+#pragma mark - KYUnlockCodeManager Data Source
+
+// Return the code length
+- (NSInteger)codeLength { return 8; }
+
+// Return the code order
+- (NSString *)codeOrder { return @"54321"; }
+
+// Return the factors
+- (NSString *)deviceUID {
+  return [[TrainerController sharedInstance] deviceUID];
+}
+- (NSString *)userAccount {
+  return [NSString stringWithFormat:@"%d", [[TrainerController sharedInstance] UID]];
+}
+- (NSString *)userAccountCreatedDate {
+  return [NSString stringWithFormat:@"%f", [[[TrainerController sharedInstance] timeStarted] timeIntervalSince1970]];
+}
+- (NSString *)appVersionSha {
+  return [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion];
+}
+- (NSString *)appBuiltDate {
+  return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBuildDate"];
+}
+
+#pragma mark - KYUnlockCodeManager Delegate
+
+// Encrypt the code that offered
+//- (NSString *)encryptedCodeFromCode:(NSString *)code {}
+// Resize the code that offered
+//- (NSString *)resizedCodeFromCode:(NSString *)code {}
+
+#endif
 
 @end

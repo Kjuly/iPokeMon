@@ -10,6 +10,7 @@
 
 #ifdef KY_INVITATION_ONLY
 #import "TrainerController.h"
+#import "KYUnlockCodeManager.h"
 #endif
 #import "CustomNavigationBar.h"
 #import "LoadingManager.h"
@@ -435,13 +436,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 #ifdef KY_INVITATION_ONLY
     // Request DEX
-    else if (row == kSectionMoreRowRequestDEX) {
-      KYUnlockCodeManager * unlockCodeManager = [[KYUnlockCodeManager alloc] init];
-      unlockCodeManager.dataSource = self;
-      unlockCodeManager.delegate   = self;
-      [unlockCodeManager unlockFeature:nil withCode:@"123"];
-      [unlockCodeManager release];
-    }
+    // Post notifi to |MainViewController| to show code input view
+    else if (row == kSectionMoreRowRequestDEX)
+      [[NSNotificationCenter defaultCenter] postNotificationName:kKYUnlockCodeManagerNShowCodeInputView
+                                                          object:nil];
 #endif
     // Logout
     else if (row == kSectionMoreRowLogout) {
@@ -561,41 +559,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   loadingManager = nil;
   [self dismissModalViewControllerAnimated:YES];
 }
-
-#ifdef KY_INVITATION_ONLY
-
-#pragma mark - KYUnlockCodeManager Data Source
-
-// Return the code length
-- (NSInteger)codeLength { return 8; }
-
-// Return the code order
-- (NSString *)codeOrder { return @"54321"; }
-
-// Return the factors
-- (NSString *)deviceUID {
-  return [[TrainerController sharedInstance] deviceUID];
-}
-- (NSString *)userAccount {
-  return [NSString stringWithFormat:@"%d", [[TrainerController sharedInstance] UID]];
-}
-- (NSString *)userAccountCreatedDate {
-  return [NSString stringWithFormat:@"%f", [[[TrainerController sharedInstance] timeStarted] timeIntervalSince1970]];
-}
-- (NSString *)appVersionSha {
-  return [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion];
-}
-- (NSString *)appBuiltDate {
-  return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBuildDate"];
-}
-
-#pragma mark - KYUnlockCodeManager Delegate
-
-// Encrypt the code that offered
-//- (NSString *)encryptedCodeFromCode:(NSString *)code {}
-// Resize the code that offered
-//- (NSString *)resizedCodeFromCode:(NSString *)code {}
-
-#endif
 
 @end
