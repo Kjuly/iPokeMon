@@ -18,6 +18,10 @@
 
 @interface CenterMenuUtilityViewController ()
 
+#ifdef KY_INVITATION_ONLY
+- (BOOL)_isLocationServiceLocked;
+#endif
+
 // Buttons' Action
 - (void)_showPokedex:(id)sender;
 - (void)_showPokemon:(id)sender;
@@ -32,9 +36,15 @@
 @implementation CenterMenuUtilityViewController
 
 @synthesize managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+@synthesize unlockCodeManager;
+#endif
 
 -(void)dealloc {
   self.managedObjectContext = nil;
+#ifdef KY_INVITATION_ONLY
+  self.unlockCodeManager = nil;
+#endif
   [super dealloc];
 }
 
@@ -55,6 +65,18 @@
 }
 
 #pragma mark - Private Methods
+
+#ifdef KY_INVITATION_ONLY
+// Return whether the "Location Service" is locked
+- (BOOL)_isLocationServiceLocked {
+  if (! [self.unlockCodeManager isLockedOnFeature:nil])
+    return NO;
+  // Post notifi to |MainViewController| to show code input view
+  [[NSNotificationCenter defaultCenter] postNotificationName:kKYUnlockCodeManagerNShowCodeInputView
+                                                      object:nil];
+  return YES;
+}
+#endif
 
 ///Buttons' Action
 - (void)_showPokedex:(id)sender {
@@ -102,12 +124,21 @@
 
 // Overwrite KYCircleMenu's |-runButtonActions:|
 - (void)runButtonActions:(id)sender {
+  NSInteger buttonTag = [sender tag];
+  
+#ifdef KY_INVITATION_ONLY
+  // Check whether "Location Service" is locked for Dex & SixPMs buttons
+  if (buttonTag == 1 || buttonTag == 2)
+    if ([self _isLocationServiceLocked]) return;
+#endif
+  
+  // Run action in super method
   [super runButtonActions:sender];
   
   // Change |centerMainButton_|'s status
   [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];
   
-  NSInteger buttonTag = ((UIButton *)sender).tag;
+  // Manage action for different buttons
   switch (buttonTag) {
     case 1://kTagUtilityBallButtonShowPokedex:
       [self _showPokedex:sender];

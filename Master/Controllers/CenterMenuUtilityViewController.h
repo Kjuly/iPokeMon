@@ -8,8 +8,15 @@
 
 #import "PMCircleMenu.h"
 
+#ifdef KY_INVITATION_ONLY
+#import "KYUnlockCodeManager.h"
+#endif
+
 @interface CenterMenuUtilityViewController : PMCircleMenu
 
 @property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+@property (retain, nonatomic) KYUnlockCodeManager * unlockCodeManager;
+#endif
 
 @end

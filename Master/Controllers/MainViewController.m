@@ -269,6 +269,7 @@
   NSString * mapButtonImageName = nil;
 #ifdef KY_INVITATION_ONLY
   unlockCodeManager_ = [[KYUnlockCodeManager alloc] init];
+  //[unlockCodeManager_ resetCodeForFeature:nil];
   if ([unlockCodeManager_ isLockedOnFeature:nil]) {
     mapButtonImageName = kPMINMapButtonLocked;
     [mapButton_ addTarget:self
@@ -628,6 +629,9 @@
                                      centerButtonImageName:nil
                            centerButtonBackgroundImageName:nil];
       centerMenuUtilityViewController.managedObjectContext = self.managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+      centerMenuUtilityViewController.unlockCodeManager = self.unlockCodeManager;
+#endif
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
       [centerMenuUtilityViewController release];
       
