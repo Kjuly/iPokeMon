@@ -10,7 +10,6 @@
 
 #ifdef KY_INVITATION_ONLY
 #import "TrainerController.h"
-#import "KYUnlockCodeManager.h"
 #endif
 #import "CustomNavigationBar.h"
 #import "LoadingManager.h"
@@ -54,10 +53,16 @@ typedef enum {
 @implementation SettingTableViewController
 
 @synthesize managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+@synthesize unlockCodeManager;
+#endif
 @synthesize developerEmails = developerEmails_;
 
 - (void)dealloc {
   self.managedObjectContext = nil;
+#ifdef KY_INVITATION_ONLY
+  self.unlockCodeManager = nil;
+#endif
   self.developerEmails      = nil;
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
@@ -457,7 +462,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 // Update value when Switch button changed value
-- (void)_updateValueWithTappedSwitchButton:(UIControl *)button event:(UIEvent *)event {
+- (void)_updateValueWithTappedSwitchButton:(UIControl *)button
+                                     event:(UIEvent *)event {
   UISwitch * switchButton = (UISwitch *)button;
   UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -467,6 +473,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   // Update value for Location Service
   if (indexPath.section == kSectionGeneral) {
     if (indexPath.row == kSectionGeneralLocationServices) {
+#ifdef KY_INVITATION_ONLY
+      // If "Location Service" is locked,
+      //   post notifi to |MainViewController| to show code input view
+      if (self.unlockCodeManager && [self.unlockCodeManager isLockedOnFeature:nil]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kKYUnlockCodeManagerNShowCodeInputView
+                                                            object:nil];
+        // In this case, "Location Service" should be in turned off state
+        [switchButton setOn:NO animated:YES];
+        return;
+      }
+#endif
       // Warn user that
       //   "Continued use of GPS running in the background can dramatically
       //   decrease battery life."

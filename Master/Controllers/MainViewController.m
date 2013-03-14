@@ -271,7 +271,7 @@
   unlockCodeManager_ = [[KYUnlockCodeManager alloc] init];
   unlockCodeManager_.dataSource = self;
   unlockCodeManager_.delegate   = self;
-  //[unlockCodeManager_ resetCodeForFeature:nil];
+  [unlockCodeManager_ resetCodeForFeature:nil];
   if ([unlockCodeManager_ isLockedOnFeature:nil]) {
     mapButtonImageName = kPMINMapButtonLocked;
     [mapButton_ addTarget:self

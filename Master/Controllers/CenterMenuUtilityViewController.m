@@ -116,6 +116,9 @@
 - (void)_setGame:(id)sender {
   SettingTableViewController * settingTableViewController = [[SettingTableViewController alloc] init];
   settingTableViewController.managedObjectContext = self.managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+  settingTableViewController.unlockCodeManager = self.unlockCodeManager;
+#endif
   [self pushViewController:settingTableViewController];
   [settingTableViewController release];
 }

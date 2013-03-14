@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
+#ifdef KY_INVITATION_ONLY
+#import "KYUnlockCodeManager.h"
+#endif
+
 typedef enum {
   kSectionGeneral = 0,
   kSectionAbout,
@@ -42,5 +46,8 @@ typedef enum {
   <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+#ifdef KY_INVITATION_ONLY
+@property (retain, nonatomic) KYUnlockCodeManager * unlockCodeManager;
+#endif
 
 @end
