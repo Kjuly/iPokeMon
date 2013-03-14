@@ -193,7 +193,8 @@ static TrainerController * trainerController_ = nil;
   }
   
   // Generate a new UID for device if it does not exist
-  if (deviceUID == nil) deviceUID = [self _resetDeviceUIDWithTrainerUID:userID_];
+  if (deviceUID == nil || [deviceUID isEqualToString:@""] || [deviceUID isEqualToString:@"0"])
+    deviceUID = [self _resetDeviceUIDWithTrainerUID:userID_];
   NSLog(@"- Device UID: %@", deviceUID);
   return deviceUID;
 }
@@ -456,6 +457,10 @@ static TrainerController * trainerController_ = nil;
 //   - User purchases the "Reassign Device Owner" to get the privilege
 //     for the current trainer role
 - (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID {
+  if (trainerUID <= 0) {
+    NSLog(@"!!!ERROR: Invalid |trainerUID|: %d", trainerUID);
+    return @"";
+  }
   NSLog(@"- RESET Device UID with Trainer UID: %d", trainerUID);
   // Reset device UID
   NSString * deviceUID       = [NSString stringWithFormat:@"%d", trainerUID];
@@ -487,7 +492,17 @@ static TrainerController * trainerController_ = nil;
   [query setObject:[deviceUID dataUsingEncoding:NSUTF8StringEncoding]
             forKey:(id)kSecValueData];
   
-  OSStatus result = SecItemAdd((CFDictionaryRef)query, NULL);
+  // Delete old one first
+  OSStatus result = SecItemDelete((CFDictionaryRef)query);
+  if (result == noErr)
+    NSLog(@"- Device UID is successfully reset.");
+  else if (result == errSecItemNotFound)
+    NSLog(@"- Device UID is successfully reset.");
+  else
+    NSLog(@"!!!ERROR: Coudn't delete the Keychain Item. result = %ld query = %@", result, query);
+  
+  // Add new
+  result = SecItemAdd((CFDictionaryRef)query, NULL);
   if (result != noErr) {
     NSLog(@"!!!ERROR: Couldn't add the Keychain Item. result = %ld, query = %@", result, query);
     return nil;
