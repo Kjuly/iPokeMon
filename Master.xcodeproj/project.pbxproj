@@ -331,8 +331,8 @@
 		7F8E36FA169BD1BD008A3F19 /* CCDirectorIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31B6169BD1B3008A3F19 /* CCDirectorIOS.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E36FB169BD1BD008A3F19 /* CCTouchDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31B9169BD1B3008A3F19 /* CCTouchDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E36FC169BD1BD008A3F19 /* CCTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31BB169BD1B3008A3F19 /* CCTouchHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7F8E36FD169BD1BD008A3F19 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31BD169BD1B3008A3F19 /* EAGLView.m */; };
-		7F8E36FE169BD1BD008A3F19 /* ES1Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31BF169BD1B3008A3F19 /* ES1Renderer.m */; };
+		7F8E36FD169BD1BD008A3F19 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31BD169BD1B3008A3F19 /* EAGLView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7F8E36FE169BD1BD008A3F19 /* ES1Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31BF169BD1B3008A3F19 /* ES1Renderer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E36FF169BD1BD008A3F19 /* glu.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31C1169BD1B3008A3F19 /* glu.c */; };
 		7F8E3700169BD1BD008A3F19 /* CCDirectorMac.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31C5169BD1B3008A3F19 /* CCDirectorMac.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E3701169BD1BD008A3F19 /* CCEventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E31C7169BD1B3008A3F19 /* CCEventDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -350,7 +350,7 @@
 		7F8E37C0169BD1BE008A3F19 /* FontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3363169BD1B7008A3F19 /* FontLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E37C1169BD1BE008A3F19 /* FontLabelStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3365169BD1B7008A3F19 /* FontLabelStringDrawing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E37C2169BD1BE008A3F19 /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3367169BD1B7008A3F19 /* FontManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7F8E37C3169BD1BE008A3F19 /* ZAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3369169BD1B7008A3F19 /* ZAttributedString.m */; };
+		7F8E37C3169BD1BE008A3F19 /* ZAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E3369169BD1B7008A3F19 /* ZAttributedString.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E37C4169BD1BE008A3F19 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E336C169BD1B7008A3F19 /* ZFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F8E37C5169BD1BE008A3F19 /* FontLabel_without_warnings2.patch in Resources */ = {isa = PBXBuildFile; fileRef = 7F8E336D169BD1B7008A3F19 /* FontLabel_without_warnings2.patch */; };
 		7F8EFA9414D9465E00FF1055 /* CenterMenuUtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EFA9314D9465E00FF1055 /* CenterMenuUtilityViewController.m */; };
@@ -379,11 +379,11 @@
 		7FA4471D169C34A90024D668 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446C9169C34A90024D668 /* GTMHTTPUploadFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FA4471E169C34A90024D668 /* GTMMIMEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446CB169C34A90024D668 /* GTMMIMEDocument.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FA4471F169C34A90024D668 /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446CD169C34A90024D668 /* GTMReadMonitorInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7FA4472D169C34A90024D668 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E2169C34A90024D668 /* NSObject+SBJSON.m */; };
-		7FA4472E169C34A90024D668 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E4169C34A90024D668 /* NSString+SBJSON.m */; };
-		7FA4472F169C34A90024D668 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E6169C34A90024D668 /* SBJsonBase.m */; };
-		7FA44730169C34A90024D668 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E8169C34A90024D668 /* SBJsonParser.m */; };
-		7FA44731169C34A90024D668 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446EA169C34A90024D668 /* SBJsonWriter.m */; };
+		7FA4472D169C34A90024D668 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E2169C34A90024D668 /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7FA4472E169C34A90024D668 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E4169C34A90024D668 /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7FA4472F169C34A90024D668 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E6169C34A90024D668 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7FA44730169C34A90024D668 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446E8169C34A90024D668 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7FA44731169C34A90024D668 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446EA169C34A90024D668 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FA44733169C34A90024D668 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446F1169C34A90024D668 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FA44734169C34A90024D668 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446F3169C34A90024D668 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FA44739169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA446FC169C34A90024D668 /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
