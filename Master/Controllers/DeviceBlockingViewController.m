@@ -19,9 +19,9 @@
   UIButton * logoutButton_;
 }
 
-@property (nonatomic, retain) UILabel  * messageTitle;
-@property (nonatomic, retain) UILabel  * messageBody;
-@property (nonatomic, retain) UIButton * logoutButton;
+@property (nonatomic, strong) UILabel  * messageTitle;
+@property (nonatomic, strong) UILabel  * messageBody;
+@property (nonatomic, strong) UIButton * logoutButton;
 
 - (void)_releaseSubviews;
 - (void)_logout:(id)sender;
@@ -37,7 +37,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -60,7 +59,6 @@
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kKYViewWidth, kKYViewHeight}}];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   self.view = view;
-  [view release];
 }
 
 - (void)viewDidLoad
@@ -132,7 +130,6 @@
                          action:@selector(_logout:)
                forControlEvents:UIControlEventTouchUpInside];
         self.logoutButton = logoutButton;
-        [logoutButton release];
         [self.view addSubview:self.logoutButton];
       }
       break;

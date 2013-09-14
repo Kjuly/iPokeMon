@@ -18,7 +18,7 @@
   UIProgressView * progressBar_;
 }
 
-@property (nonatomic, retain) UIProgressView * progressBar;
+@property (nonatomic, strong) UIProgressView * progressBar;
 
 @end
 
@@ -40,10 +40,6 @@ static LoadingBar * loadingBar_ = nil;
   return loadingBar_;
 }
 
-- (void)dealloc {
-  self.progressBar = nil;
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super initWithFrame:CGRectMake(0.f, kViewHeight - 20.f, kViewWidth, 20.f)]) {
@@ -95,7 +91,7 @@ static LoadingBar * loadingBar_ = nil;
   NSInteger    resourceCounter_;
 }
 
-@property (nonatomic, retain) LoadingBar * loadingBar;
+@property (nonatomic, strong) LoadingBar * loadingBar;
 
 @end
 
@@ -117,10 +113,6 @@ static LoadingManager * loadingManager_ = nil;
   return loadingManager_;
 }
 
-- (void)dealloc {
-  self.loadingBar = nil;
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {
@@ -196,8 +188,8 @@ static LoadingManager * loadingManager_ = nil;
 - (void)showMessage:(NSString *)message
                type:(ProgressMessageType)type
        withDuration:(NSTimeInterval)duration {
-  MBProgressHUD * HUD = [[[MBProgressHUD alloc] initWithView:
-                          [[[UIApplication sharedApplication] delegate] window]] autorelease];
+  MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:
+                          [[[UIApplication sharedApplication] delegate] window]];
 	[[[[UIApplication sharedApplication] delegate] window] addSubview:HUD];
 	
   NSString * iconName;
@@ -223,7 +215,7 @@ static LoadingManager * loadingManager_ = nil;
       iconName = nil;
       break;
   }
-	HUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:iconName]] autorelease];
+	HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconName]];
 	// Set custom view mode
 	HUD.mode = MBProgressHUDModeCustomView;
 	

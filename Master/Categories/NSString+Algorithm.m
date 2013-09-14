@@ -49,19 +49,20 @@
   NSRange   scanRange = NSMakeRange(rangeStart, 1);
   NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
   [scanner scanHexInt:&result];
-  [scanner release];
   return (result & (1 << ((index - 1) % 4)));
 }
 
 // Generate a new Hex by modifying binary value at |index|
 - (NSString *)generateHexBySettingBinaryTo1:(BOOL)settingBinaryTo1
-                                    atIndex:(NSInteger)index {
-  NSInteger rangeStart = [self length] - round((index - 1) / 4) - 1;
+                                    atIndex:(NSInteger)index
+{
+  NSString * string = self;
+  NSInteger rangeStart = [string length] - round((index - 1) / 4) - 1;
   if (rangeStart < 0) {
     NSMutableString * appendedString = [NSMutableString string];
     for (NSInteger i = rangeStart; i < 0; ++i)
       [appendedString appendString:@"0"];
-    self = [appendedString stringByAppendingString:self];
+    string = [appendedString stringByAppendingString:string];
     rangeStart = 0;
 //    NSString * s;
 //    [s characterAtIndex:0];
@@ -70,9 +71,8 @@
   // Get the single Hex to be modified
   NSRange   scanRange = NSMakeRange(rangeStart, 1);
   unsigned  result    = 0;
-  NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:scanRange]];
+  NSScanner * scanner = [[NSScanner alloc] initWithString:[string substringWithRange:scanRange]];
   [scanner scanHexInt:&result];
-  [scanner release];
   
   // New single Hex value by adding |mask|
   unsigned mask = 1 << ((index - 1) % 4);
@@ -80,8 +80,8 @@
   else                  result = result & ~mask;
   
   NSLog(@"|generateHexBySettingBainaryTo1:| - range:%@", [NSValue valueWithRange:scanRange]);
-  return [self stringByReplacingCharactersInRange:scanRange
-                                       withString:[NSString stringWithFormat:@"%x", result]];
+  return [string stringByReplacingCharactersInRange:scanRange
+                                         withString:[NSString stringWithFormat:@"%x", result]];
 }
 
 // Number of 1s in Binary
@@ -91,7 +91,6 @@
   for (int x = 0; x <= [self length] - 1; ++x) {
     NSScanner * scanner = [[NSScanner alloc] initWithString:[self substringWithRange:NSMakeRange(x, 1)]];
     [scanner scanHexInt:&hex];
-    [scanner release];
     
     // Count 1s
     for (NSInteger i = 0; i < 4; ++i)

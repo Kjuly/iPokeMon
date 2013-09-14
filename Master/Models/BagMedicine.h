@@ -12,11 +12,11 @@
 
 @interface BagMedicine : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * code;
-@property (nonatomic, retain) id icon;
-@property (nonatomic, retain) NSNumber * sid;
-@property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSNumber * price;
-@property (nonatomic, retain) id location;
+@property (nonatomic, strong) NSNumber * code;
+@property (nonatomic, strong) id icon;
+@property (nonatomic, strong) NSNumber * sid;
+@property (nonatomic, strong) NSNumber * type;
+@property (nonatomic, strong) NSNumber * price;
+@property (nonatomic, strong) id location;
 
 @end

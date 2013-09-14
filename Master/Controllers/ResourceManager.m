@@ -13,11 +13,6 @@
 @synthesize defaultBundle = defaultBundle_;
 @synthesize bundle        = bundle_;
 
-- (void)dealloc {
-  self.defaultBundle = nil;
-  self.bundle        = nil;
-  [super dealloc];
-}
 
 // Singleton
 static ResourceManager * manager_;

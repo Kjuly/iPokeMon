@@ -13,16 +13,16 @@
 
 @interface WildPokemon : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * exp;
-@property (nonatomic, retain) NSString * fourMoves;
-@property (nonatomic, retain) NSNumber * gender;
-@property (nonatomic, retain) NSNumber * hp;
-@property (nonatomic, retain) NSNumber * level;
-@property (nonatomic, retain) NSString * maxStats;
-@property (nonatomic, retain) NSNumber * sid;
-@property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSNumber * toNextLevel;
-@property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) Pokemon *pokemon;
+@property (nonatomic, strong) NSNumber * exp;
+@property (nonatomic, strong) NSString * fourMoves;
+@property (nonatomic, strong) NSNumber * gender;
+@property (nonatomic, strong) NSNumber * hp;
+@property (nonatomic, strong) NSNumber * level;
+@property (nonatomic, strong) NSString * maxStats;
+@property (nonatomic, strong) NSNumber * sid;
+@property (nonatomic, strong) NSNumber * status;
+@property (nonatomic, strong) NSNumber * toNextLevel;
+@property (nonatomic, strong) NSNumber * uid;
+@property (nonatomic, strong) Pokemon *pokemon;
 
 @end

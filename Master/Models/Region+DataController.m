@@ -74,7 +74,6 @@
   
   NSError * error;
   Region * region = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   // if no object fetched, add this new region info to CoreData
   if (region == nil) {
@@ -170,7 +169,6 @@
     //region.subLocality        = [regionDict valueForKey:@"csl"]; // code sublocality
     region.flag               = @"v"; // flag | verified
     
-    [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
@@ -215,11 +213,9 @@
   // If not exist, return, otherwise, execute fetching request.
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"flag == %@", @"n"]];
   if ([managedObjectContext countForFetchRequest:fetchRequest error:&error] == 0) {
-    [fetchRequest release];
     return;
   }
   NSArray * regions = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   // Push new |regions| data to SERVER
   //   and set their |flag| to 'p'(already pushed to server, but not verified)
@@ -270,7 +266,6 @@
                                      forTarget:kDataFetchTargetRegion
                                        success:success
                                        failure:failure];
-  [data release];
 }
 
 @end

@@ -29,12 +29,12 @@
   NSInteger   currSelectedPokemon_;
 }
 
-@property (nonatomic, retain) UIButton * pokemonSelectionButton;
-@property (nonatomic, retain) UIView   * backgroundView;
+@property (nonatomic, strong) UIButton * pokemonSelectionButton;
+@property (nonatomic, strong) UIView   * backgroundView;
 
 @property (nonatomic, copy)   NSArray                        * pokemons;
-@property (nonatomic, retain) PokemonDetailTabViewController * pokemonDetailTabViewController;
-@property (nonatomic, retain) CAAnimationGroup               * animationGroupForNotReplacing;
+@property (nonatomic, strong) PokemonDetailTabViewController * pokemonDetailTabViewController;
+@property (nonatomic, strong) CAAnimationGroup               * animationGroupForNotReplacing;
 
 - (void)_releaseSubviews;
 - (void)_loadPokemonSelectionViewAnimated:(BOOL)animated;
@@ -56,11 +56,7 @@
 @synthesize animationGroupForNotReplacing  = animationGroupForNotReplacing_;
 
 - (void)dealloc {
-  self.pokemons                       = nil;
-  self.pokemonDetailTabViewController = nil;
-  self.animationGroupForNotReplacing  = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -88,7 +84,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -167,7 +162,6 @@
   PokemonDetailTabViewController * pokemonDetailTabViewController =
     [[PokemonDetailTabViewController alloc] initWithPokemonSID:pokemonSID withTopbar:NO];
   self.pokemonDetailTabViewController = pokemonDetailTabViewController;
-  [pokemonDetailTabViewController release];
   
   [self.view addSubview:self.pokemonDetailTabViewController.view];
   __block CGRect viewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
@@ -316,7 +310,6 @@
       self.animationGroupForNotReplacing.duration = duration;
       NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
       [self.animationGroupForNotReplacing setAnimations:animations];
-      [animations release];
     }
     
     for (int i = [self.pokemons count]; i > 0; --i) {

@@ -14,9 +14,6 @@
 
 @implementation StoreMedicineTableViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   if (self = [super initWithStyle:style]) {
@@ -83,8 +80,8 @@
   static NSString *CellIdentifier = @"Cell";
   BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                            reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:CellIdentifier];
   }
   
   // Configure the cell...
@@ -142,7 +139,6 @@
   [storeItemTableViewController initWithBagItem:targetType];
   [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", row + 1]), nil)];
   [self.navigationController pushViewController:storeItemTableViewController animated:YES];
-  [storeItemTableViewController release];
 }
 
 @end

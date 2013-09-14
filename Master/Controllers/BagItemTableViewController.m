@@ -24,12 +24,12 @@
   GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController_;
 }
 
-@property (nonatomic, retain) UIView                            * hiddenCellAreaView;
-@property (nonatomic, retain) BagItemTableViewCell              * selectedCell;
-@property (nonatomic, retain) BagItemTableViewHiddenCell        * hiddenCell;
-@property (nonatomic, retain) TrainerController                 * trainer;
-@property (nonatomic, retain) BagItemInfoViewController         * bagItemInfoViewController;
-@property (nonatomic, retain) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
+@property (nonatomic, strong) UIView                            * hiddenCellAreaView;
+@property (nonatomic, strong) BagItemTableViewCell              * selectedCell;
+@property (nonatomic, strong) BagItemTableViewHiddenCell        * hiddenCell;
+@property (nonatomic, strong) TrainerController                 * trainer;
+@property (nonatomic, strong) BagItemInfoViewController         * bagItemInfoViewController;
+@property (nonatomic, strong) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
 
 - (void)_releaseSubviews;
 - (void)_configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -72,17 +72,11 @@
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 
 -(void)dealloc {
-  self.items = nil;
-  self.trainer                           = nil;
-  self.bagItemInfoViewController         = nil;
-  self.gameMenuSixPokemonsViewController = nil;
-  self.selectedCell = nil;
   [self _releaseSubviews];
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:kPMNUseItemForSelectedPokemon
                                                 object:self.gameMenuSixPokemonsViewController];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -220,8 +214,8 @@
   static NSString *CellIdentifier = @"Cell";
   BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                        reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                        reuseIdentifier:CellIdentifier];
   }
   
   // Configure the cell
@@ -446,7 +440,6 @@
       GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController;
       gameMenuSixPokemonViewController = [[GameMenuSixPokemonsViewController alloc] init];
       self.gameMenuSixPokemonsViewController = gameMenuSixPokemonViewController;
-      [gameMenuSixPokemonViewController release];
     }
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameMenuSixPokemonsViewController.view];
     [self.gameMenuSixPokemonsViewController initWithSixPokemonsForReplacing:NO];
@@ -469,7 +462,6 @@
   if (self.bagItemInfoViewController == nil) {
     BagItemInfoViewController * bagItemInfoViewController = [[BagItemInfoViewController alloc] init];
     self.bagItemInfoViewController = bagItemInfoViewController;
-    [bagItemInfoViewController release];
   }
   
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.bagItemInfoViewController.view];
@@ -750,15 +742,11 @@
 //                              withObject:[NSNumber numberWithInt:(pp < maxPP ? pp : maxPP)]];
   }*/
   else {
-    [PPArray release];
-    [PPArrayWithMax release];
     return;
   }
   NSLog(@"PPArray:%@", [PPArray componentsJoinedByString:@","]);
   // update moves' PP & save
   [pokemon updateFourMovesWithPPArray:PPArray];
-  [PPArray release];
-  [PPArrayWithMax release];
   [pokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];
 }
 

@@ -87,8 +87,8 @@ typedef enum {
   NSInteger delayTime_;                        // Delay time for every turn
 }
 
-@property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
-@property (nonatomic, retain) TrainerController * trainer;
+@property (nonatomic, strong) PMAudioPlayer     * audioPlayer;
+@property (nonatomic, strong) TrainerController * trainer;
 
 - (void)_setTransientStatusPokemonForUser:(GameSystemProcessUser)user;
 - (void)_fight;
@@ -135,11 +135,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   return gameSystemProcess;
 }
 
-- (void)dealloc {
-  self.audioPlayer = nil;
-  self.trainer     = nil;
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {
@@ -269,7 +264,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     [self _postMessageForProcessType:kGameSystemProcessTypeCathingWildPokemonSucceed withMessageInfo:nil];
   }
   else {
-    [userInfo release];
     return;
   }
   
@@ -277,7 +271,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleRunEvent
                                                       object:self
                                                     userInfo:userInfo];
-  [userInfo release];
 }
 
 // Replace Pokemon
@@ -353,7 +346,6 @@ static GameSystemProcess * gameSystemProcess = nil;
                                 [NSNumber numberWithInt:pokemonID], @"pokemonID",
                                 move.sid,                           @"moveID", nil];
   [self _postMessageForProcessType:kGameSystemProcessTypeFight withMessageInfo:messageInfo];
-  [messageInfo release];
   
   move = nil;
   processType_ = kGameSystemProcessTypeNone;
@@ -1252,7 +1244,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSLog(@"MoveRealTarget:%@ - Notification Info:%@",
         moveRealTarget_ == kMoveRealTargetEnemy ? @"Enemy" : @"Player", newUserInfo);
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
-  [newUserInfo release];
   
   // Decrease PP value (only for Player, not include WildPokemon(enemy) now)
   [self _decreasePPValue];
@@ -1541,7 +1532,6 @@ static GameSystemProcess * gameSystemProcess = nil;
                                     self.enemyPokemon.status,                       @"enemyPokemonStatus",
                                     self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
-    [pokemonStatus release];
     
     
     // Post Message to update |messageView_| in |GameMenuViewController|
@@ -1551,7 +1541,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
     [self _postMessageForProcessType:kGameSystemProcessTypeUseBagItem withMessageInfo:messageInfo];
-    [messageInfo release];
     
     [self endTurn];
   }
@@ -1571,7 +1560,6 @@ static GameSystemProcess * gameSystemProcess = nil;
                                   self.enemyPokemon.status,                       @"enemyPokemonStatus",
                                   self.enemyPokemon.hp,                           @"enemyPokemonHP", nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:pokemonStatus];
-  [pokemonStatus release];
   
   
   // Post Message to update |messageView_| in |GameMenuViewController|
@@ -1581,7 +1569,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:pokemonID], @"pokemonID", nil];
   [self _postMessageForProcessType:kGameSystemProcessTypeReplacePokemon withMessageInfo:messageInfo];
-  [messageInfo release];
   
   [self endTurn];
 }
@@ -1865,7 +1852,6 @@ static GameSystemProcess * gameSystemProcess = nil;
                                     [NSNumber numberWithInt:expInBar],              @"EXP", nil];
       NSLog(@"update Pokemon EXP - Notification Info:%@", newUserInfo);
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdatePokemonStatus object:self userInfo:newUserInfo];
-      [newUserInfo release];
       
       // Message: (You win! <PokemonName> gained <ExpValue> EXP. points.)
       message = [NSString stringWithFormat:@"%@  %@ %@ %d %@.",
@@ -1881,7 +1867,6 @@ static GameSystemProcess * gameSystemProcess = nil;
         NSDictionary * info = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSNumber numberWithInt:levelsUp], @"levelsUp", nil];
         [self runEventWithEventType:kGameBattleEventTypeLevelUp info:info];
-        [info release];
       }
       else [self runEventWithEventType:kGameBattleEventTypeWin info:nil];
 //        [self _runFinalProcessForGameBattleEventType:kGameBattleEndEventTypeWin];
@@ -1917,7 +1902,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self
                                                     userInfo:userInfo];
-  [userInfo release];
 }
 
 #pragma mark - Setting Methods
@@ -1977,7 +1961,6 @@ static GameSystemProcess * gameSystemProcess = nil;
     NSDictionary * messageInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   [NSNumber numberWithBool:isRunSucceed], @"isRunSucceed", nil];
     [self _postMessageForProcessType:kGameSystemProcessTypeRun withMessageInfo:messageInfo];
-    [messageInfo release];
     
     // If run succeed, play AUDIO
     if (isRunSucceed)
@@ -2030,7 +2013,6 @@ static GameSystemProcess * gameSystemProcess = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNGameBattleEndWithEvent
                                                       object:self
                                                     userInfo:userInfo];
-  [userInfo release];
   
   // Save data for current battle Pokemon to Server
   [self.playerPokemon syncWithFlag:kDataModifyTamedPokemon | kDataModifyTamedPokemonBasic];

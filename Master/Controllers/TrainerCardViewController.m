@@ -51,30 +51,30 @@ typedef enum {
   BOOL                     isSetttingButtonsHidden_;
 }
 
-@property (nonatomic, retain) UIView            * mainView;
-@property (nonatomic, retain) UIView            * avatarArea;
-@property (nonatomic, retain) UIImageView       * imageView;
-@property (nonatomic, retain) UIView            * IDView;
-@property (nonatomic, retain) UILabel           * IDLabel;
-@property (nonatomic, retain) UILabel           * nameLabel;
-@property (nonatomic, retain) UIView            * dataView;
-@property (nonatomic, retain) UILabel           * moneyLabel;
-@property (nonatomic, retain) UILabel           * moneyValue;
-@property (nonatomic, retain) UILabel           * pokedexLabel;
-@property (nonatomic, retain) UILabel           * pokedexValue;
-@property (nonatomic, retain) TrainerBadgeView  * badgeView;
-@property (nonatomic, retain) UILabel           * adventureStartedTimeLabel;
-@property (nonatomic, retain) UILabel           * adventureStartedTimeValue;
+@property (nonatomic, strong) UIView            * mainView;
+@property (nonatomic, strong) UIView            * avatarArea;
+@property (nonatomic, strong) UIImageView       * imageView;
+@property (nonatomic, strong) UIView            * IDView;
+@property (nonatomic, strong) UILabel           * IDLabel;
+@property (nonatomic, strong) UILabel           * nameLabel;
+@property (nonatomic, strong) UIView            * dataView;
+@property (nonatomic, strong) UILabel           * moneyLabel;
+@property (nonatomic, strong) UILabel           * moneyValue;
+@property (nonatomic, strong) UILabel           * pokedexLabel;
+@property (nonatomic, strong) UILabel           * pokedexValue;
+@property (nonatomic, strong) TrainerBadgeView  * badgeView;
+@property (nonatomic, strong) UILabel           * adventureStartedTimeLabel;
+@property (nonatomic, strong) UILabel           * adventureStartedTimeValue;
 
-@property (nonatomic, retain) UIButton          * avatarSetttingButton;
-@property (nonatomic, retain) UIButton          * nameSettingButton;
-@property (nonatomic, retain) UIView            * settingView;
-@property (nonatomic, retain) UITextField       * nameSettingField;
-@property (nonatomic, retain) UILabel           * nameSettingMessage;
-@property (nonatomic, retain) UIView            * transparentView;
+@property (nonatomic, strong) UIButton          * avatarSetttingButton;
+@property (nonatomic, strong) UIButton          * nameSettingButton;
+@property (nonatomic, strong) UIView            * settingView;
+@property (nonatomic, strong) UITextField       * nameSettingField;
+@property (nonatomic, strong) UILabel           * nameSettingMessage;
+@property (nonatomic, strong) UIView            * transparentView;
 
-@property (nonatomic, retain) TrainerController      * trainer;
-@property (nonatomic, retain) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
+@property (nonatomic, strong) TrainerController      * trainer;
+@property (nonatomic, strong) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_tapViewAction:(UITapGestureRecognizer *)recognizer;
@@ -113,10 +113,7 @@ typedef enum {
 @synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
 
 - (void)dealloc {
-  self.trainer                            = nil;
-  self.twoFingersTwoTapsGestureRecognizer = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -292,7 +289,6 @@ typedef enum {
   [self.mainView addSubview:dataView_];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -311,14 +307,12 @@ typedef enum {
   NSDateFormatter * dateFormat = [[NSDateFormatter alloc] init];
   [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
   [self.adventureStartedTimeValue setText:[dateFormat stringFromDate:[self.trainer timeStarted]]];
-  [dateFormat release];
   
   // Add Gesture
   // Two fingers with two taps to show setting buttons for Trainer Info View
   UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapViewAction:)];
   self.twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer;
-  [twoFingersTwoTapsGestureRecognizer release];
   [self.twoFingersTwoTapsGestureRecognizer setNumberOfTapsRequired:2];
   [self.twoFingersTwoTapsGestureRecognizer setNumberOfTouchesRequired:2];
   [self.view addGestureRecognizer:self.twoFingersTwoTapsGestureRecognizer];
@@ -387,7 +381,6 @@ typedef enum {
     nameSettingButtonFrame.origin.y = 0;
     UIButton * nameSettingButton = [[UIButton alloc] initWithFrame:nameSettingButtonFrame];
     self.nameSettingButton = nameSettingButton;
-    [nameSettingButton release];
     [self.nameSettingButton setAlpha:0.f];
     [self.nameSettingButton setTag:kTrainerInfoSettingButtonTypeName];
     [self.nameSettingButton addTarget:self action:@selector(_showSettingView:)
@@ -398,7 +391,6 @@ typedef enum {
     UIImageView * setableMarkView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSettingModify"]];
     [setableMarkView setFrame:CGRectMake(0.f, 0.f, 22.f, 22.f)];
     [self.nameSettingButton addSubview:setableMarkView];
-    [setableMarkView release];
   }
   
   CGFloat alpha = hidden ? 0.f : 1.f;
@@ -418,7 +410,6 @@ typedef enum {
   if (self.transparentView == nil) {
     UIView * transparentView = [[UIView alloc] initWithFrame:self.view.frame];
     self.transparentView = transparentView;
-    [transparentView release];
     [self.transparentView setBackgroundColor:[UIColor blackColor]];
     [self.transparentView setAlpha:0.f];
     [self.mainView addSubview:self.transparentView];
@@ -435,27 +426,23 @@ typedef enum {
     
     UIView * settingView = [[UIView alloc] initWithFrame:settingViewFrame];
     self.settingView = settingView;
-    [settingView release];
     [self.mainView addSubview:self.settingView];
     
     UIView * settingViewBackground = [[UIView alloc] initWithFrame:settingViewBackgroundFrame];
     [settingViewBackground setBackgroundColor:[GlobalRender colorBlue]];
     [self.settingView addSubview:settingViewBackground];
-    [settingViewBackground release];
     
     UIButton * doneButton = [[UIButton alloc] initWithFrame:doneButtonFrame];
     [doneButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
     [doneButton setImage:[UIImage imageNamed:kPMINMainButtonConfirmOpposite] forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(_commitSetting) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:doneButton];
-    [doneButton release];
     
     UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
     [cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal] forState:UIControlStateNormal];
     [cancelButton setImage:[UIImage imageNamed:kPMINMainButtonCancelOpposite] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(_cancelSettingViewAnimated:) forControlEvents:UIControlEventTouchUpInside];
     [self.settingView addSubview:cancelButton];
-    [cancelButton release];
   }
   
   switch (((UIButton *)sender).tag) {
@@ -467,13 +454,11 @@ typedef enum {
         
         UITextField * nameSettingField = [[UITextField alloc] initWithFrame:nameSettingFieldFrame];
         self.nameSettingField = nameSettingField;
-        [nameSettingField release];
         [self.nameSettingField setBackgroundColor:[UIColor whiteColor]];
         [self.nameSettingField setKeyboardType:UIKeyboardTypeDefault];
         
         UILabel * nameSettingMessage = [[UILabel alloc] initWithFrame:nameSettingMessageFrame];
         self.nameSettingMessage = nameSettingMessage;
-        [nameSettingMessage release];
         [self.nameSettingMessage setBackgroundColor:[UIColor clearColor]];
         [self.nameSettingMessage setTextColor:[GlobalRender textColorTitleWhite]];
         [self.nameSettingMessage setFont:[GlobalRender textFontNormalInSizeOf:14.f]];

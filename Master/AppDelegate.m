@@ -29,13 +29,6 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
-- (void)dealloc {
-  [_window release];
-  [__managedObjectContext release];
-  [__managedObjectModel release];
-  [__persistentStoreCoordinator release];
-  [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // User Preferences
@@ -53,11 +46,10 @@
 #endif
   
   // Set View
-  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   MainViewController * mainViewController = [[MainViewController alloc] init];
   mainViewController.managedObjectContext = self.managedObjectContext;
   self.window.rootViewController = mainViewController;
-  [mainViewController release];
   [self.window makeKeyAndVisible];
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
   
@@ -85,7 +77,6 @@
                        cancelButtonTitle:@"OK"
                        otherButtonTitles:nil];
     [servicesDisabledAlert show];
-    [servicesDisabledAlert release];
   }
   else {
     // Set value in User Preferences (its default value is NO)
@@ -335,7 +326,6 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
       [settingsBundle stringByAppendingPathComponent:plistName]];
   NSArray * preferences =
     [[NSArray alloc] initWithArray:[settings objectForKey:@"PreferenceSpecifiers"]];
-  [settings release];
   
   NSMutableDictionary * defaultsToRegister =
     [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
@@ -345,11 +335,9 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
       [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"]
                              forKey:key];
   }
-  [preferences release];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   [userDefaults registerDefaults:defaultsToRegister];
-  [defaultsToRegister release];
   [userDefaults synchronize];
 }
 

@@ -17,7 +17,7 @@
   NSIndexPath * selectedCellIndexPath_;
 }
 
-@property (nonatomic, retain) NSIndexPath * selectedCellIndexPath;
+@property (nonatomic, strong) NSIndexPath * selectedCellIndexPath;
 
 @end
 
@@ -26,10 +26,6 @@
 
 @synthesize selectedCellIndexPath = selectedCellIndexPath_;
 
-- (void)dealloc {
-  self.selectedCellIndexPath = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
@@ -99,8 +95,8 @@
   static NSString * CellIdentifier = @"CellStyleTitle";
   SettingTableViewCellStyleTitle *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                  reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                  reuseIdentifier:CellIdentifier];
   }
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];

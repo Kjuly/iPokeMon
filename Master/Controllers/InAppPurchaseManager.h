@@ -23,7 +23,7 @@
 
 @property (nonatomic, copy)   NSSet             * productIdentifiers;
 @property (nonatomic, copy)   NSArray           * products;
-@property (nonatomic, retain) SKProductsRequest * request;
+@property (nonatomic, strong) SKProductsRequest * request;
 
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
 - (void)requestProducts;

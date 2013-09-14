@@ -15,7 +15,7 @@
   UIButton * quantityButton_;
 }
 
-@property (nonatomic, retain) UIButton * quantityButton;
+@property (nonatomic, strong) UIButton * quantityButton;
 
 @end
 
@@ -32,13 +32,6 @@
 
 - (void)dealloc {
   self.delegate = nil;
-  self.use      = nil;
-  self.give     = nil;
-  self.toss     = nil;
-  self.info     = nil;
-  self.cancel   = nil;
-  self.quantityButton = nil;
-  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -61,7 +54,6 @@
     [backgroundView setBackgroundColor:[UIColor whiteColor]];
     [backgroundView setAlpha:.95f];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Buttons
     use_ = [[UIButton alloc] initWithFrame:useFrame];
@@ -113,7 +105,6 @@
                      action:@selector(changeItemQuantity:)
            forControlEvents:UIControlEventTouchUpInside];
   self.quantityButton = quantityButton;
-  [quantityButton release];
   [self addSubview:self.quantityButton];
   
   [self updateQuantity:quantity];

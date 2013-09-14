@@ -24,7 +24,7 @@
 
 //@property (nonatomic, retain) UIImageView  * hpBar;
 //@property (nonatomic, retain) UIImageView  * hpBarBackground;
-@property (nonatomic, retain) UIView  * hpBar;
+@property (nonatomic, strong) UIView  * hpBar;
 //@property (nonatomic, retain) UIView  * hpBarBackground;
 @property (nonatomic, assign) NSInteger      hp;
 @property (nonatomic, assign) NSInteger      hpMax;
@@ -39,12 +39,6 @@
 @synthesize hp              = hp_;
 @synthesize hpMax           = hpMax_;
 
-- (void)dealloc {
-  self.hpBar           = nil;
-//  self.hpBarBackground = nil;
-  
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
                  HP:(NSInteger)hp
@@ -83,7 +77,6 @@
     
     UIView * hpBar = [[UIView alloc] initWithFrame:CGRectZero];
     self.hpBar = hpBar;
-    [hpBar release];
     [self.hpBar setBackgroundColor:[GlobalRender colorOrange]];
     [self addSubview:self.hpBar];
   }

@@ -18,7 +18,7 @@
   Pokemon * pokemon_;
 }
 
-@property (nonatomic, retain) Pokemon * pokemon;
+@property (nonatomic, strong) Pokemon * pokemon;
 
 - (id)initWithPokemon:(Pokemon *)pokemon;
 

@@ -12,10 +12,6 @@
 
 @synthesize tableAreaView = tableAreaView_;
 
-- (void)dealloc {
-  self.tableAreaView = nil;
-  [super dealloc];
-}
 
 - (id)init {
   self = [super init];
@@ -40,11 +36,9 @@
   CGRect tableAreaViewFrame  = (CGRect){CGPointZero, {88.f, kViewHeight}};
   UIView * tableAreaView = [[UIView alloc] initWithFrame:tableAreaViewFrame];
   self.tableAreaView = tableAreaView;
-  [tableAreaView release];
   [view addSubview:self.tableAreaView];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

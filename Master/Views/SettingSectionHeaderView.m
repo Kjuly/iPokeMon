@@ -14,10 +14,6 @@
 
 @synthesize title = title_;
 
-- (void)dealloc {
-  self.title = nil;
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];

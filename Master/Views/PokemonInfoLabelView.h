@@ -13,8 +13,8 @@
   UILabel * value_;
 }
 
-@property (nonatomic, retain) UILabel * name;
-@property (nonatomic, retain) UILabel * value;
+@property (nonatomic, strong) UILabel * name;
+@property (nonatomic, strong) UILabel * value;
 
 - (id)initWithFrame:(CGRect)frame hasValueLabel:(BOOL)hasValueLabel;
 - (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth;

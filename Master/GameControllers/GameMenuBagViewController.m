@@ -21,9 +21,9 @@
   BagItemTableViewController * bagItemTableViewController_;
 }
 
-@property (nonatomic, retain) UIButton * cancelButton;
-@property (nonatomic, retain) UISwipeGestureRecognizer   * swipeRightGestureRecognizer;
-@property (nonatomic, retain) BagItemTableViewController * bagItemTableViewController;
+@property (nonatomic, strong) UIButton * cancelButton;
+@property (nonatomic, strong) UISwipeGestureRecognizer   * swipeRightGestureRecognizer;
+@property (nonatomic, strong) BagItemTableViewController * bagItemTableViewController;
 
 - (void)_loadSelcetedItemTalbeView:(id)sender;
 - (void)_toggleTopCancelButton:(NSNotification *)notification;
@@ -41,13 +41,9 @@
 @synthesize bagItemTableViewController  = bagItemTableViewController_;
 
 - (void)dealloc {
-  self.cancelButton = nil;
-  self.swipeRightGestureRecognizer = nil;
-  self.bagItemTableViewController  = nil;
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,7 +84,6 @@
     [button addTarget:self action:@selector(_loadSelcetedItemTalbeView:)
      forControlEvents:UIControlEventTouchUpInside];
     [self.tableAreaView addSubview:button];
-    [button release];
   }
   
   // Create a fake |mapButton_| as the cancel button
@@ -97,7 +92,6 @@
                                                                        kMapButtonSize,
                                                                        kMapButtonSize)];
   self.cancelButton = cancelButton;
-  [cancelButton release];
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                forState:UIControlStateNormal];
@@ -113,7 +107,6 @@
   UISwipeGestureRecognizer * swipeRightGestureRecognizer
   = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
   self.swipeRightGestureRecognizer = swipeRightGestureRecognizer;
-  [swipeRightGestureRecognizer release];
   [self.swipeRightGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
   [self.view addGestureRecognizer:self.swipeRightGestureRecognizer];
   
@@ -171,7 +164,6 @@
   if (self.bagItemTableViewController == nil) {
     BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] init];
     self.bagItemTableViewController = bagItemTableViewController;
-    [bagItemTableViewController release];
     self.bagItemTableViewController.isDuringBattle = YES;
   }
   

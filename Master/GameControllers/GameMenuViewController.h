@@ -11,10 +11,10 @@
 @protocol GameMenuViewControllerDelegate;
 
 @interface GameMenuViewController : UIViewController <UIAlertViewDelegate> {
-  id <GameMenuViewControllerDelegate> delegate_;
+  id <GameMenuViewControllerDelegate> __weak delegate_;
 }
 
-@property (nonatomic, assign) id <GameMenuViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <GameMenuViewControllerDelegate> delegate;
 
 - (void)prepareForNewScene;
 - (void)reset;

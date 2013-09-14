@@ -10,9 +10,6 @@
 
 @implementation PokemonInfoViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
@@ -53,7 +50,6 @@
   [speciesLabelView.value setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
                                                               [[self.pokemon valueForKey:@"species"] intValue]]), nil)];
   [dataView addSubview:speciesLabelView];
-  [speciesLabelView release];
   
   // Type
   PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
@@ -66,11 +62,9 @@
   [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
-  [typeLabelView release];
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
-  [dataView release];
   
   
   ///Description
@@ -84,7 +78,6 @@
   [descriptionField setText:
     KYResourceLocalizedString(([NSString stringWithFormat:@"PMSPMInfo%.3d", [self.pokemon.sid intValue]]), nil)];
   [self.view addSubview:descriptionField];
-  [descriptionField release];
 }
 
 - (void)viewDidUnload {

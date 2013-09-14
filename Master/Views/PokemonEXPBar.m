@@ -23,8 +23,8 @@
 
 //@property (nonatomic, retain) UIImageView  * expBar;
 //@property (nonatomic, retain) UIImageView  * expBarBackground;
-@property (nonatomic, retain) UIView  * expBar;
-@property (nonatomic, retain) UIView  * expBarBackground;
+@property (nonatomic, strong) UIView  * expBar;
+@property (nonatomic, strong) UIView  * expBarBackground;
 @property (nonatomic, assign) NSInteger      exp;
 @property (nonatomic, assign) NSInteger      expMax;
 
@@ -37,12 +37,6 @@
 @synthesize exp              = exp_;
 @synthesize expMax           = expMax_;
 
-- (void)dealloc {
-  self.expBar           = nil;
-  self.expBarBackground = nil;
-  
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame
                 exp:(NSInteger)exp
@@ -62,7 +56,6 @@
   if (self) {
     UIImageView * expBarBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, 6.f)];
     self.expBarBackground = expBarBackground;
-    [expBarBackground release];
     //[self.expBarBackground setContentMode:UIViewContentModeScaleAspectFit];
     //[self.expBarBackground setImage:[UIImage imageNamed:@"PokemonExpBarBackground.png"]];
     [self.expBarBackground setBackgroundColor:[GlobalRender colorGray]];
@@ -71,7 +64,6 @@
     
     UIImageView * expBar = [[UIImageView alloc] initWithFrame:CGRectZero];
     self.expBar = expBar;
-    [expBar release];
     //[self.expBar setContentMode:UIViewContentModeScaleAspectFit];
     //[self.expBar setImage:[UIImage imageNamed:@"PokemonExpBar.png"]];
     [self.expBar setBackgroundColor:[GlobalRender colorBlue]];

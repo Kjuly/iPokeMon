@@ -28,7 +28,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -47,7 +46,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
   UIView * view = [[UIView alloc] initWithFrame:viewFrame];
   [view setBackgroundColor:[UIColor whiteColor]];
   self.view = view;
-  [view release];
 }
 
 - (void)viewDidLoad {
@@ -88,7 +86,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
   [appTitleLabel setText:kKYAppBundleDisplayName];
   [appTitleLabel setAdjustsFontSizeToFitWidth:YES];
   [self.view addSubview:appTitleLabel];
-  [appTitleLabel release];
   
   // app version label
   UILabel * appVersionLabel = [[UILabel alloc] initWithFrame:appVersionLabelFrame];
@@ -98,7 +95,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
                             KYLocalizedString(@"PMSSettingAboutAppVersion", nil),
                             [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion]]];
   [self.view addSubview:appVersionLabel];
-  [appVersionLabel release];
   
   // app build date label
   UILabel * appBuildDateLabel = [[UILabel alloc] initWithFrame:appBuildDateLabelFrame];
@@ -106,13 +102,11 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
   [appBuildDateLabel setFont:[UIFont customBoldFontOfSize:kKYFontInSmallSize]];
   [appBuildDateLabel setText:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBuildDate"]];
   [self.view addSubview:appBuildDateLabel];
-  [appBuildDateLabel release];
   
   // horizontal line
   UIView * horizontalLine = [[UIView alloc] initWithFrame:horizontalLineFrame];
   [horizontalLine setBackgroundColor:[UIColor blackColor]];
   [self.view addSubview:horizontalLine];
-  [horizontalLine release];
   
   
   // buttons
@@ -129,7 +123,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
                     action:@selector(_followMe:)
           forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:twitterButton];
-  [twitterButton release];
   
   // sina weibo
   buttonFrame.origin.x += (contentWidth / 2.f);
@@ -140,7 +133,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
                       action:@selector(_followMe:)
             forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:sinaWeiboButton];
-  [sinaWeiboButton release];
   
   
   // copyright
@@ -149,7 +141,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
   [copyrightLabel setFont:[UIFont customNormalFontOfSize:kKYFontInMiniSize]];
   [copyrightLabel setText:@"© 2012 - 2013 Kjuly"];
   [self.view addSubview:copyrightLabel];
-  [copyrightLabel release];
 }
 
 - (void)viewDidUnload {

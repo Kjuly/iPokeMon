@@ -34,9 +34,6 @@ static BagDataController * bagDataController = nil;
   return bagDataController;
 }
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {
@@ -57,7 +54,6 @@ static BagDataController * bagDataController = nil;
   NSError * error;
   NSArray * fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest
                                                                  error:&error];
-  [fetchRequest release];
   return fetchedObjects;
 }
 
@@ -83,12 +79,10 @@ static BagDataController * bagDataController = nil;
   if (count > 1) {
     NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"price" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    [sort release];
   }
   
   NSError * error;
   NSArray * items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return items;
 }
@@ -108,7 +102,6 @@ static BagDataController * bagDataController = nil;
   
   NSError * error;
   id queryResult = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return queryResult;
 }

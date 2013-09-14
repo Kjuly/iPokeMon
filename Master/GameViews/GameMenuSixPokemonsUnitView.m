@@ -23,10 +23,10 @@
   BOOL isAnimationProcessing_; // mark that the animation is processing
 }
 
-@property (nonatomic, retain) UIImage  * spriteImage;
-@property (nonatomic, retain) UIButton * mainButton;
-@property (nonatomic, retain) UIButton * confirmButton;
-@property (nonatomic, retain) UIButton * infoButton;
+@property (nonatomic, strong) UIImage  * spriteImage;
+@property (nonatomic, strong) UIButton * mainButton;
+@property (nonatomic, strong) UIButton * confirmButton;
+@property (nonatomic, strong) UIButton * infoButton;
 
 - (void)_runButtonAction:(id)sender;
 - (void)_openUnit:(id)sender;
@@ -46,11 +46,6 @@
 
 - (void)dealloc {
   self.delegate      = nil;
-  self.spriteImage   = nil;
-  self.mainButton    = nil;
-  self.confirmButton = nil;
-  self.infoButton    = nil;
-  [super dealloc];
 }
 
 - (id)initWithFrame:(CGRect)frame

@@ -91,7 +91,6 @@
       tamedPokemon.toNextLevel = [NSNumber numberWithInt:[[tamedPokemonData valueForKey:@"toNextLevel"] intValue]];
       tamedPokemon.memo        = [tamedPokemonData valueForKey:@"memo"];
     }
-    [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
@@ -189,7 +188,6 @@
   
   NSLog(@"Sync Data:%@", data);
   [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTamedPokemon success:success failure:failure];
-  [data release];
 }
 
 #pragma mark -
@@ -209,7 +207,6 @@
   
   NSError * error;
   NSArray * sixPokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return sixPokemons;
 }
@@ -229,7 +226,6 @@
   
   NSError * error;
   NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return pokemons;
 }
@@ -246,7 +242,6 @@
     
   NSError *error;
   NSInteger result = [managedObjectContext countForFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   return result;
 }
 
@@ -266,7 +261,6 @@
   
   NSError * error;
   TrainerTamedPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return pokemon;
 }
@@ -420,7 +414,6 @@
                        [NSNumber numberWithInt:(PPInOne % 1000000000 / 1000000)],
                        [NSNumber numberWithInt:(PPInOne / 1000000000)], nil];
   [self updateFourMovesWithPPArray:ppArray];
-  [ppArray release];
 }
 
 // Return Levels Up after added gained EXP

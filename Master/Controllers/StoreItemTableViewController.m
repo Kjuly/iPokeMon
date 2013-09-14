@@ -38,14 +38,14 @@
 
 @property (nonatomic, copy)   NSArray * items;
 
-@property (nonatomic, retain) UIView                     * hiddenCellAreaView;
-@property (nonatomic, retain) StoreItemTableViewCell     * selectedCell;
-@property (nonatomic, retain) BagItemTableViewHiddenCell * hiddenCell;
-@property (nonatomic, retain) PMAudioPlayer              * audioPlayer;
-@property (nonatomic, retain) TrainerController          * trainer;
-@property (nonatomic, retain) BagDataController          * bagDataController;
-@property (nonatomic, retain) BagItemInfoViewController  * bagItemInfoViewController;
-@property (nonatomic, retain) StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
+@property (nonatomic, strong) UIView                     * hiddenCellAreaView;
+@property (nonatomic, strong) StoreItemTableViewCell     * selectedCell;
+@property (nonatomic, strong) BagItemTableViewHiddenCell * hiddenCell;
+@property (nonatomic, strong) PMAudioPlayer              * audioPlayer;
+@property (nonatomic, strong) TrainerController          * trainer;
+@property (nonatomic, strong) BagDataController          * bagDataController;
+@property (nonatomic, strong) BagItemInfoViewController  * bagItemInfoViewController;
+@property (nonatomic, strong) StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
 
 - (void)_releaseSubviews;
 - (void)_configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -71,15 +71,9 @@
 @synthesize storeItemQuantityChangeViewController = storeItemQuantityChangeViewController_;
 
 -(void)dealloc {
-  self.items                     = nil;
-  self.audioPlayer               = nil;
-  self.trainer                   = nil;
-  self.bagDataController         = nil;
-  self.bagItemInfoViewController = nil;
 //  self.storeItemQuantityChangeViewController = nil; // !!!TODO: why cannot release it???!!!
   [self _releaseSubviews];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -225,8 +219,8 @@
   static NSString *CellIdentifier = @"Cell";
   StoreItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[StoreItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                          reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[StoreItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                          reuseIdentifier:CellIdentifier];
   }
   
   // Configure the cell
@@ -468,7 +462,6 @@
   if (self.bagItemInfoViewController == nil) {
     BagItemInfoViewController * bagItemInfoViewController = [[BagItemInfoViewController alloc] init];
     self.bagItemInfoViewController = bagItemInfoViewController;
-    [bagItemInfoViewController release];
   }
   [self.view.window addSubview:self.bagItemInfoViewController.view];
   
@@ -536,7 +529,6 @@
     StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
     storeItemQuantityChangeViewController = [[StoreItemQuantityChangeViewController alloc] init];
     self.storeItemQuantityChangeViewController = storeItemQuantityChangeViewController;
-    [storeItemQuantityChangeViewController release];
   }
   [self.view.window addSubview:self.storeItemQuantityChangeViewController.view];
   [self.storeItemQuantityChangeViewController loadViewWithItemQuantity:quantity_ animated:YES];

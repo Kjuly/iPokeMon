@@ -158,7 +158,6 @@ typedef enum {
     [fetchRequest setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:moc]];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"sid" ascending:YES]]];
     NSArray * entities = [moc executeFetchRequest:fetchRequest error:&error];
-    [fetchRequest release];
 #ifdef KY_RESOURCE_UPDATE_IMAGE
     // Prepare extra data for special type
     if (type & kEntityTypePokemon) {

@@ -12,9 +12,6 @@
 
 @implementation SettingTableViewCellStyleCenterTitle
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier {
@@ -31,13 +28,11 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellSettingCenterTitleStyle]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
     
     // Custom subviews for cell
   }

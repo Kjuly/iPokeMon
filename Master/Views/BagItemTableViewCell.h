@@ -14,8 +14,8 @@
   UILabel     * quantity_;
 }
 
-@property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * name;
-@property (nonatomic, retain) UILabel     * quantity;
+@property (nonatomic, strong) UIImageView * imageView;
+@property (nonatomic, strong) UILabel     * name;
+@property (nonatomic, strong) UILabel     * quantity;
 
 @end

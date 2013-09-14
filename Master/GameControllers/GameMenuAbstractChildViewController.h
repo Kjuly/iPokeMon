@@ -12,7 +12,7 @@
   UIView * tableAreaView_;
 }
 
-@property (nonatomic, retain) UIView * tableAreaView;
+@property (nonatomic, strong) UIView * tableAreaView;
 
 - (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft animated:(BOOL)animated;
 - (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated;

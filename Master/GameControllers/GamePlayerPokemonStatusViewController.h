@@ -14,6 +14,6 @@
   PokemonEXPBar * pokemonEXPBar_;
 }
 
-@property (nonatomic, retain) PokemonEXPBar * pokemonEXPBar;
+@property (nonatomic, strong) PokemonEXPBar * pokemonEXPBar;
 
 @end

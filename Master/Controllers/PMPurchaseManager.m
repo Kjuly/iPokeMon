@@ -29,7 +29,6 @@ static PMPurchaseManager * purchaseManager_ = nil;
                                 kIAPCurrencyTier2,
                                 kIAPCurrencyTier3, nil];
   self = [super initWithProductIdentifiers:productIdentifiers];
-  [productIdentifiers release];
   return self;
 }
 

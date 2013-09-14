@@ -38,12 +38,12 @@
   NSInteger             pokemonCounter_;
 }
 
-@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
-@property (nonatomic, retain) LoadingManager         * loadingManager;
+@property (nonatomic, strong) NSManagedObjectContext * managedObjectContext;
+@property (nonatomic, strong) LoadingManager         * loadingManager;
 @property (nonatomic, copy)   NSMutableDictionary    * locationInfo;
 @property (nonatomic, copy)   NSMutableString        * regionCode;
 @property (nonatomic, copy)   NSArray                * pokemonSIDs;
-@property (nonatomic, retain) WildPokemon            * wildPokemon;
+@property (nonatomic, strong) WildPokemon            * wildPokemon;
 
 - (void)_cleanWildPokemonData;
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon withSID:(NSInteger)SID;
@@ -83,15 +83,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 - (void)dealloc {
-  self.managedObjectContext = nil;
-  self.loadingManager       = nil;
-  self.locationInfo         = nil;
-  self.regionCode           = nil;
-  self.pokemonSIDs          = nil;
-  self.wildPokemon          = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
-  [super dealloc];
 }
 
 - (id)init {
@@ -276,7 +269,6 @@ static WildPokemonController * wildPokemonController_ = nil;
   [fetchRequest setEntity:entity];
   NSError * error;
   NSArray * wildPokemons = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   for (WildPokemon *wildPokemon in wildPokemons) {
     // Keey default PMs
@@ -368,7 +360,6 @@ static WildPokemonController * wildPokemonController_ = nil;
   [[ServerAPIClient sharedInstance] updateWildPokemonsForCurrentRegion:regionInfo
                                                                success:success
                                                                failure:failure];
-  [regionInfo release];
 }
 
 // Generate Wild Pokemon with current location info
@@ -505,7 +496,6 @@ static WildPokemonController * wildPokemonController_ = nil;
     UILocalNotification * localNotification = [[UILocalNotification alloc] init];
     // |UILocalNotification| only works on iOS4.0 and later
     if (! localNotification) {
-      [userInfo release];
       return;
     }
     
@@ -519,13 +509,11 @@ static WildPokemonController * wildPokemonController_ = nil;
     localNotification.userInfo = userInfo;
     //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    [localNotification release];
   }
   // Use Post Notification if in Foreground Mode
   else [[NSNotificationCenter defaultCenter] postNotificationName:kPMNPokemonAppeared
                                                            object:nil
                                                          userInfo:userInfo];
-  [userInfo release];
 }
 
 /*/ Filter Pokemon SIDs for current fetched Wild Pokemon Grounp

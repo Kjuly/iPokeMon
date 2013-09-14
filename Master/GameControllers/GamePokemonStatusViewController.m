@@ -29,7 +29,6 @@
   [self _releaseSubviews];
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -89,7 +88,6 @@
   [view addSubview:pokemonHPBar_];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

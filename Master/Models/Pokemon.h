@@ -13,37 +13,37 @@
 
 @interface Pokemon : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * ability1;
-@property (nonatomic, retain) NSNumber * ability2;
-@property (nonatomic, retain) NSString * area;
-@property (nonatomic, retain) NSNumber * baseEXP;
-@property (nonatomic, retain) NSString * baseStats;
-@property (nonatomic, retain) NSNumber * color;
-@property (nonatomic, retain) NSNumber * compatibility;
-@property (nonatomic, retain) NSString * effortPoints;
-@property (nonatomic, retain) NSString * eggMoves;
-@property (nonatomic, retain) NSString * evolutions;
-@property (nonatomic, retain) NSNumber * genderRate;
-@property (nonatomic, retain) NSNumber * growthRate;
-@property (nonatomic, retain) NSNumber * habitat;
-@property (nonatomic, retain) NSNumber * happiness;
-@property (nonatomic, retain) NSNumber * height;
-@property (nonatomic, retain) NSNumber * hiddenAbility;
-@property (nonatomic, retain) id image;
-@property (nonatomic, retain) id imageIcon;
-@property (nonatomic, retain) NSString * info;
-@property (nonatomic, retain) NSString * moves;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * rareness;
-@property (nonatomic, retain) NSNumber * sid;
-@property (nonatomic, retain) NSNumber * species;
-@property (nonatomic, retain) NSNumber * stepsToHatch;
-@property (nonatomic, retain) NSNumber * type1;
-@property (nonatomic, retain) NSNumber * type2;
-@property (nonatomic, retain) NSNumber * weight;
-@property (nonatomic, retain) id imageBack;
-@property (nonatomic, retain) NSSet *tamedGroup;
-@property (nonatomic, retain) NSSet *wildGroup;
+@property (nonatomic, strong) NSNumber * ability1;
+@property (nonatomic, strong) NSNumber * ability2;
+@property (nonatomic, strong) NSString * area;
+@property (nonatomic, strong) NSNumber * baseEXP;
+@property (nonatomic, strong) NSString * baseStats;
+@property (nonatomic, strong) NSNumber * color;
+@property (nonatomic, strong) NSNumber * compatibility;
+@property (nonatomic, strong) NSString * effortPoints;
+@property (nonatomic, strong) NSString * eggMoves;
+@property (nonatomic, strong) NSString * evolutions;
+@property (nonatomic, strong) NSNumber * genderRate;
+@property (nonatomic, strong) NSNumber * growthRate;
+@property (nonatomic, strong) NSNumber * habitat;
+@property (nonatomic, strong) NSNumber * happiness;
+@property (nonatomic, strong) NSNumber * height;
+@property (nonatomic, strong) NSNumber * hiddenAbility;
+@property (nonatomic, strong) id image;
+@property (nonatomic, strong) id imageIcon;
+@property (nonatomic, strong) NSString * info;
+@property (nonatomic, strong) NSString * moves;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSNumber * rareness;
+@property (nonatomic, strong) NSNumber * sid;
+@property (nonatomic, strong) NSNumber * species;
+@property (nonatomic, strong) NSNumber * stepsToHatch;
+@property (nonatomic, strong) NSNumber * type1;
+@property (nonatomic, strong) NSNumber * type2;
+@property (nonatomic, strong) NSNumber * weight;
+@property (nonatomic, strong) id imageBack;
+@property (nonatomic, strong) NSSet *tamedGroup;
+@property (nonatomic, strong) NSSet *wildGroup;
 @end
 
 @interface Pokemon (CoreDataGeneratedAccessors)

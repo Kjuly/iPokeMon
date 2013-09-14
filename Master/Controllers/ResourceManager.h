@@ -20,8 +20,8 @@
   NSBundle * bundle_;
 }
 
-@property (nonatomic, retain) NSBundle * defaultBundle;
-@property (nonatomic, retain) NSBundle * bundle;
+@property (nonatomic, strong) NSBundle * defaultBundle;
+@property (nonatomic, strong) NSBundle * bundle;
 
 + (ResourceManager *)sharedInstance;
 - (NSBundle *)defaultBundle;

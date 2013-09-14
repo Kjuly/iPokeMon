@@ -12,8 +12,8 @@
 
 @interface BagTMHM : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * code;
-@property (nonatomic, retain) id icon;
-@property (nonatomic, retain) NSNumber * sid;
+@property (nonatomic, strong) NSNumber * code;
+@property (nonatomic, strong) id icon;
+@property (nonatomic, strong) NSNumber * sid;
 
 @end

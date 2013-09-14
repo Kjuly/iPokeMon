@@ -22,14 +22,14 @@
   UILabel     * badgeBronzeCount_;
 }
 
-@property (nonatomic, retain) UILabel     * badgesLabel;
-@property (nonatomic, retain) UIView      * badgesContainer;
-@property (nonatomic, retain) UIImageView * badgeGoldIcon;
-@property (nonatomic, retain) UIImageView * badgeSilverIcon;
-@property (nonatomic, retain) UIImageView * badgeBronzeIcon;
-@property (nonatomic, retain) UILabel     * badgeGoldCount;
-@property (nonatomic, retain) UILabel     * badgeSilverCount;
-@property (nonatomic, retain) UILabel     * badgeBronzeCount;
+@property (nonatomic, strong) UILabel     * badgesLabel;
+@property (nonatomic, strong) UIView      * badgesContainer;
+@property (nonatomic, strong) UIImageView * badgeGoldIcon;
+@property (nonatomic, strong) UIImageView * badgeSilverIcon;
+@property (nonatomic, strong) UIImageView * badgeBronzeIcon;
+@property (nonatomic, strong) UILabel     * badgeGoldCount;
+@property (nonatomic, strong) UILabel     * badgeSilverCount;
+@property (nonatomic, strong) UILabel     * badgeBronzeCount;
 
 @end
 

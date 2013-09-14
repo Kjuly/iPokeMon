@@ -14,16 +14,16 @@
 
 @interface GameMenuMoveUnitView () {
 @private
-  id <GameMenuMoveUnitViewDelegate> delegate_;
+  id <GameMenuMoveUnitViewDelegate> __weak delegate_;
   UIButton * moveButton_;
   UILabel  * pp_;
   
   NSInteger moveSID_;
 }
 
-@property (nonatomic, assign) id <GameMenuMoveUnitViewDelegate> delegate;
-@property (nonatomic, retain) UIButton * moveButton;
-@property (nonatomic, retain) UILabel  * pp;
+@property (nonatomic, weak) id <GameMenuMoveUnitViewDelegate> delegate;
+@property (nonatomic, strong) UIButton * moveButton;
+@property (nonatomic, strong) UILabel  * pp;
 
 @end
 
@@ -36,9 +36,6 @@
 
 -(void)dealloc {
   self.delegate   = nil;
-  self.moveButton = nil;
-  self.pp         = nil;
-  [super dealloc];
 }
 
 - (id)initWithFrame:(CGRect)frame {

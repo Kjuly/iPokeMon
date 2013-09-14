@@ -18,10 +18,10 @@
   CABasicAnimation * drawAnimation_;
 }
 
-@property (nonatomic, retain) UIImageView      * backgroundImageView;
-@property (nonatomic, retain) UIImageView      * foregroundImageView;
-@property (nonatomic, retain) CAShapeLayer     * circle;
-@property (nonatomic, retain) CABasicAnimation * drawAnimation;
+@property (nonatomic, strong) UIImageView      * backgroundImageView;
+@property (nonatomic, strong) UIImageView      * foregroundImageView;
+@property (nonatomic, strong) CAShapeLayer     * circle;
+@property (nonatomic, strong) CABasicAnimation * drawAnimation;
 
 @end
 
@@ -33,13 +33,6 @@
 @synthesize circle              = circle_;
 @synthesize drawAnimation       = drawAnimation_;
 
-- (void)dealloc {
-  self.backgroundImageView = nil;
-  self.foregroundImageView = nil;
-  self.circle              = nil;
-  self.drawAnimation       = nil;
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];

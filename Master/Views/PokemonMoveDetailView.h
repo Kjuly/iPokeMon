@@ -20,11 +20,11 @@
   UITextView           * infoTextView_;
 }
 
-@property (nonatomic, retain) PokemonMoveView      * moveBaseView;
-@property (nonatomic, retain) UIButton             * backButton;
-@property (nonatomic, retain) PokemonInfoLabelView * categoryLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * powerLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * accuracyLabelView;
-@property (nonatomic, retain) UITextView           * infoTextView;
+@property (nonatomic, strong) PokemonMoveView      * moveBaseView;
+@property (nonatomic, strong) UIButton             * backButton;
+@property (nonatomic, strong) PokemonInfoLabelView * categoryLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * powerLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * accuracyLabelView;
+@property (nonatomic, strong) UITextView           * infoTextView;
 
 @end

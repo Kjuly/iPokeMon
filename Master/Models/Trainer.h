@@ -13,23 +13,23 @@
 
 @interface Trainer : NSManagedObject
 
-@property (nonatomic, retain) NSDate * adventureStarted;
-@property (nonatomic, retain) NSString * badges;
-@property (nonatomic, retain) NSString * bagBattleItems;
-@property (nonatomic, retain) NSString * bagBerries;
-@property (nonatomic, retain) NSString * bagItems;
-@property (nonatomic, retain) NSString * bagKeyItems;
-@property (nonatomic, retain) NSString * bagMedicineHP;
-@property (nonatomic, retain) NSString * bagMedicinePP;
-@property (nonatomic, retain) NSString * bagMedicineStatus;
-@property (nonatomic, retain) NSString * bagPokeballs;
-@property (nonatomic, retain) NSString * bagTMsHMs;
-@property (nonatomic, retain) NSNumber * money;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * pokedex;
-@property (nonatomic, retain) NSString * sixPokemonsID;
-@property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSSet *tamedPokemons;
+@property (nonatomic, strong) NSDate * adventureStarted;
+@property (nonatomic, strong) NSString * badges;
+@property (nonatomic, strong) NSString * bagBattleItems;
+@property (nonatomic, strong) NSString * bagBerries;
+@property (nonatomic, strong) NSString * bagItems;
+@property (nonatomic, strong) NSString * bagKeyItems;
+@property (nonatomic, strong) NSString * bagMedicineHP;
+@property (nonatomic, strong) NSString * bagMedicinePP;
+@property (nonatomic, strong) NSString * bagMedicineStatus;
+@property (nonatomic, strong) NSString * bagPokeballs;
+@property (nonatomic, strong) NSString * bagTMsHMs;
+@property (nonatomic, strong) NSNumber * money;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * pokedex;
+@property (nonatomic, strong) NSString * sixPokemonsID;
+@property (nonatomic, strong) NSNumber * uid;
+@property (nonatomic, strong) NSSet *tamedPokemons;
 @end
 
 @interface Trainer (CoreDataGeneratedAccessors)

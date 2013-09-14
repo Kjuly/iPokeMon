@@ -22,7 +22,7 @@
   BOOL                  withTopbar_;
 }
 
-@property (nonatomic, retain) TrainerTamedPokemon * pokemon;
+@property (nonatomic, strong) TrainerTamedPokemon * pokemon;
 
 @end
 
@@ -31,10 +31,6 @@
 
 @synthesize pokemon = pokemon_;
 
--(void)dealloc {
-  self.pokemon = nil;
-  [super dealloc];
-}
 
 - (id)initWithPokemon:(TrainerTamedPokemon *)pokemon
            withTopbar:(BOOL)withTopbar {
@@ -101,9 +97,7 @@
   [imageView setImage:pokemonBaseInfo.image];
   
   [imageContainer addSubview:imageView];
-  [imageView release];
   [self.view addSubview:imageContainer];
-  [imageContainer release];
   
   
   ///Right ID View
@@ -118,7 +112,6 @@
   [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
   [idLabelView.name.layer setShadowRadius:0.f];
   [IDView addSubview:idLabelView];
-  [idLabelView release];
   
   // Name
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight)];
@@ -132,18 +125,15 @@
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
   [nameLabel.layer setShadowRadius:0.f];
   [IDView addSubview:nameLabel];
-  [nameLabel release];
   
   // Gender
   UIImageView * genderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90.f, 0.f, 32.f, 32.f)];
   [genderImageView setImage:
    [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [self.pokemon.gender intValue]]]];
   [IDView addSubview:genderImageView];
-  [genderImageView release];
   
   // Add Right ID View to |self.view| & Release it
   [self.view addSubview:IDView];
-  [IDView release];
 }
 
 - (void)viewDidUnload {
@@ -192,10 +182,6 @@
                          @"viewController" : sixPokemonsMoveViewController}];
   
   // Release child view controllers
-  [sixPokemonsInfoViewController  release];
-  [sixPokemonsMemoViewController  release];
-  [sixPokemonsSkillViewController release];
-  [sixPokemonsMoveViewController  release];
 }
 
 @end

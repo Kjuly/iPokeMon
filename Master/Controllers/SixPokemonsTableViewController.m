@@ -23,9 +23,9 @@
 
 - (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
-@property (nonatomic, retain) TrainerController      * trainer;
+@property (nonatomic, strong) TrainerController      * trainer;
 @property (nonatomic, copy)   NSMutableArray         * sixPokemons;
-@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
 @end
 
@@ -36,12 +36,6 @@
 @synthesize sixPokemons          = sixPokemons_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc {
-  self.trainer              = nil;
-  self.sixPokemons          = nil;
-  self.tapGestureRecognizer = nil;  
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   if (self = [super initWithStyle:style]) {
@@ -70,7 +64,6 @@
   UITapGestureRecognizer * tapGestureRecognizer =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapGestureAction:)];
   self.tapGestureRecognizer = tapGestureRecognizer;
-  [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
   [self.tapGestureRecognizer setNumberOfTouchesRequired:2];
   [self.tableView addGestureRecognizer:self.tapGestureRecognizer];
@@ -130,8 +123,8 @@
   
   SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                            reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                            reuseIdentifier:CellIdentifier];
   }
   
   // Configure the cell...
@@ -221,7 +214,6 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
   [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
                                            withTopbar:YES];
   [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
-  [sixPokemonsDetailTabViewController release];
 }
 
 #pragma mark - Private Methods

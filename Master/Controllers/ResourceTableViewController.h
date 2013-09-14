@@ -13,6 +13,6 @@
 @interface ResourceTableViewController : UITableViewController
   <MBProgressHUDDelegate>
 
-@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @end

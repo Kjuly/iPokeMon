@@ -71,23 +71,23 @@
 #ifdef KY_INVITATION_ONLY
 @property (nonatomic, retain) KYUnlockCodeManager * unlockCodeManager;
 #endif
-@property (nonatomic, retain) FullScreenLoadingViewController     * fullScreenLoadingViewController;
-@property (nonatomic, retain) DeviceBlockingViewController        * deviceBlockingViewController;
-@property (nonatomic, retain) GameMainViewController              * gameMainViewController;
-@property (nonatomic, retain) CustomNavigationController          * customNavigationController;
-@property (nonatomic, retain) CenterMenuUtilityViewController     * centerMenuUtilityViewController;
-@property (nonatomic, retain) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
-@property (nonatomic, retain) MapViewController                   * mapViewController;
-@property (nonatomic, retain) LoginTableViewController            * loginTableViewController;
-@property (nonatomic, retain) NewbieGuideViewController           * newbieGuideViewController;
-@property (nonatomic, retain) HelpViewController                  * helpViewController;
+@property (nonatomic, strong) FullScreenLoadingViewController     * fullScreenLoadingViewController;
+@property (nonatomic, strong) DeviceBlockingViewController        * deviceBlockingViewController;
+@property (nonatomic, strong) GameMainViewController              * gameMainViewController;
+@property (nonatomic, strong) CustomNavigationController          * customNavigationController;
+@property (nonatomic, strong) CenterMenuUtilityViewController     * centerMenuUtilityViewController;
+@property (nonatomic, strong) CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
+@property (nonatomic, strong) MapViewController                   * mapViewController;
+@property (nonatomic, strong) LoginTableViewController            * loginTableViewController;
+@property (nonatomic, strong) NewbieGuideViewController           * newbieGuideViewController;
+@property (nonatomic, strong) HelpViewController                  * helpViewController;
 
-@property (nonatomic, retain) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
-@property (nonatomic, retain) UIButton             * centerMainButton;
-@property (nonatomic, retain) UIButton             * mapButton;
-@property (nonatomic, retain) UIButton             * currentKeyButton;
-@property (nonatomic, retain) NSTimer              * centerMenuOpenStatusTimer;
-@property (nonatomic, retain) NSTimer              * longTapTimer;
+@property (nonatomic, strong) CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
+@property (nonatomic, strong) UIButton             * centerMainButton;
+@property (nonatomic, strong) UIButton             * mapButton;
+@property (nonatomic, strong) UIButton             * currentKeyButton;
+@property (nonatomic, strong) NSTimer              * centerMenuOpenStatusTimer;
+@property (nonatomic, strong) NSTimer              * longTapTimer;
 
 - (void)_releaseSubviews;
 - (void)_setupNotificationObservers;
@@ -149,30 +149,16 @@
 @synthesize longTapTimer                    = longTapTimer_;
 
 - (void)dealloc {
-  self.managedObjectContext = nil;
   
 #ifdef KY_INVITATION_ONLY
   self.unlockCodeManager = nil;
 #endif
-  self.fullScreenLoadingViewController     = nil;
-  self.deviceBlockingViewController        = nil;
-  self.gameMainViewController              = nil;
-  self.customNavigationController          = nil;
-  self.centerMenuUtilityViewController     = nil;
-  self.centerMenuSixPokemonsViewController = nil;
-  self.mapViewController                   = nil;
-  self.loginTableViewController            = nil;
-  self.newbieGuideViewController           = nil;
-  self.helpViewController                  = nil;
   
   [self _releaseSubviews];
   [self.longTapTimer invalidate];
-  self.centerMenuOpenStatusTimer = nil;
-  self.longTapTimer              = nil;
   
   // Remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 // Release any retained subviews of the main view.
@@ -217,7 +203,6 @@
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -420,7 +405,6 @@
   FullScreenLoadingViewController * fullScreenLoadingViewController;
   fullScreenLoadingViewController = [[FullScreenLoadingViewController alloc] init];
   self.fullScreenLoadingViewController = fullScreenLoadingViewController;
-  [fullScreenLoadingViewController release];
   [self.view addSubview:self.fullScreenLoadingViewController.view];
   [self.fullScreenLoadingViewController loadViewForError:error animated:YES];
 }
@@ -431,7 +415,6 @@
     DeviceBlockingViewController * deviceBlockingViewController;
     deviceBlockingViewController = [[DeviceBlockingViewController alloc] init];
     self.deviceBlockingViewController = deviceBlockingViewController;
-    [deviceBlockingViewController release];
   }
   
   PMDeviceBlockingType type = (PMDeviceBlockingType)[notification.object intValue];
@@ -447,13 +430,11 @@
   LoginTableViewController * loginTableViewController;
   loginTableViewController = [[LoginTableViewController alloc] initWithStyle:UITableViewStylePlain];
   self.loginTableViewController = loginTableViewController;
-  [loginTableViewController release];
   
   // Create custom NVC
   CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
   [customNavigationController initWithRootViewController:self.loginTableViewController];
   self.customNavigationController = customNavigationController;
-  [customNavigationController release];
   [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [self.loginTableViewController.view setAlpha:0.f];
   // Insert |utilityNavigationController|'s view
@@ -474,7 +455,6 @@
 #endif
   NewbieGuideViewController * newbieGuideViewController = [[NewbieGuideViewController alloc] init];
   self.newbieGuideViewController = newbieGuideViewController;
-  [newbieGuideViewController release];
   [self.view addSubview:self.newbieGuideViewController.view];
   [self.newbieGuideViewController loadViewAnimated:YES];
 }
@@ -483,7 +463,6 @@
 - (void)_showHelpView:(id)sender {
   HelpViewController * helpViewController = [[HelpViewController alloc] init];
   self.helpViewController = helpViewController;
-  [helpViewController release];
   [self.view addSubview:self.helpViewController.view];
   [self.helpViewController loadViewAnimated:YES];
 }
@@ -540,7 +519,6 @@
     // Create |gameMainViewController_|
     GameMainViewController * gameMainViewController = [[GameMainViewController alloc] init];
     self.gameMainViewController = gameMainViewController;
-    [gameMainViewController release];
     [self.view insertSubview:gameMainViewController_.view belowSubview:centerMainButton_];
     
     // completion block to be executed after buttons' animation done
@@ -635,7 +613,6 @@
       centerMenuUtilityViewController.unlockCodeManager = self.unlockCodeManager;
 #endif
       self.centerMenuUtilityViewController = centerMenuUtilityViewController;
-      [centerMenuUtilityViewController release];
       
       if (self.customNavigationController != nil)
         [self.customNavigationController.view removeFromSuperview];
@@ -644,7 +621,6 @@
       CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
       [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
       self.customNavigationController = customNavigationController;
-      [customNavigationController release];
       [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     }
     
@@ -680,13 +656,11 @@
                                        centerButtonImageName:nil
                              centerButtonBackgroundImageName:nil];
     self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
-    [centerMenuSixPokemonsViewController release];
     
     // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
     [customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
     self.customNavigationController = customNavigationController;
-    [customNavigationController release];
     [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     // Insert |utilityNavigationController|'s view
     [self.view insertSubview:self.customNavigationController.view
@@ -797,7 +771,6 @@
                      kCenterMainButtonTouchDownCircleViewSize,
                      kCenterMainButtonTouchDownCircleViewSize)];
         self.centerMainButtonTouchDownCircleView = centerMainButtonTouchDownCircleView;
-        [centerMainButtonTouchDownCircleView release];
       }
       [self.view insertSubview:self.centerMainButtonTouchDownCircleView
                   belowSubview:self.centerMainButton];
@@ -881,7 +854,6 @@
     if (self.mapViewController == nil) {
       MapViewController * mapViewController = [[MapViewController alloc] init];
       self.mapViewController = mapViewController;
-      [mapViewController release];
     }
     [self.view insertSubview:self.mapViewController.view
                 belowSubview:self.mapButton];

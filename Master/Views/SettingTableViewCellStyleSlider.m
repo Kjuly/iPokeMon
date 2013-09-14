@@ -14,10 +14,6 @@
 
 @synthesize slider = slider_;
 
-- (void)dealloc {
-  self.slider = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier {
@@ -34,7 +30,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellSetting]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -42,7 +37,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellSettingSelected]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
     
     // Custom subviews for cell
     [self.textLabel setBackgroundColor:[UIColor clearColor]];

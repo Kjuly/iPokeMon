@@ -25,15 +25,6 @@
 @synthesize products           = products_;
 @synthesize request            = request_;
 
-- (void)dealloc {
-  [productIdentifiers_ release];
-  self.productIdentifiers = nil;
-  [products_ release];
-  self.products = nil;
-  [request_ release];
-  self.request = nil;
-  [super dealloc];
-}
 
 #pragma mark - Public Methods
 
@@ -41,14 +32,14 @@
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
   if ((self = [super init])) {
     // Store product identifiers
-    productIdentifiers_ = [productIdentifiers retain];
+    productIdentifiers_ = productIdentifiers;
   }
   return self;
 }
 
 // request Products from Apple Server
 - (void)requestProducts {
-  self.request = [[[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers_] autorelease];
+  self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers_];
   request_.delegate = self;
   [request_ start];
 }

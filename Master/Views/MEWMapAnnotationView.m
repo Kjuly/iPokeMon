@@ -16,7 +16,7 @@
   UIImage * image_;
 }
 
-@property (nonatomic, retain) UIImage * image;
+@property (nonatomic, strong) UIImage * image;
 
 - (NSString *)_pathToAnnotation:(NSString *)annotation;
 
@@ -26,10 +26,6 @@
 
 @synthesize image = image_;
 
-- (void)dealloc {
-  self.image = nil;
-  [super dealloc];
-}
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation
          reuseIdentifier:(NSString *)reuseIdentifier {

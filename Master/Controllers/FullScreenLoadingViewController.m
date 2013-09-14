@@ -24,9 +24,9 @@
   BOOL    isCheckingConnection_; // prevent press fresh button continuously
 }
 
-@property (nonatomic, retain) UILabel  * title;
-@property (nonatomic, retain) UILabel  * message;
-@property (nonatomic, retain) UIButton * refreshButton;
+@property (nonatomic, strong) UILabel  * title;
+@property (nonatomic, strong) UILabel  * message;
+@property (nonatomic, strong) UIButton * refreshButton;
 
 - (void)_releaseSubviews;
 - (void)_refresh;
@@ -42,7 +42,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -103,7 +102,6 @@
   [view addSubview:refreshButton_];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -196,7 +194,6 @@
     NSDictionary * userInfo =
       [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"succeed", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:userInfo];
-    [userInfo release];
     isCheckingConnection_ = NO;
     [self unloadViewAnimated:YES];
   }

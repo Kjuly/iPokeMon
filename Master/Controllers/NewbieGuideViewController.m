@@ -32,15 +32,15 @@
   NSInteger guideStep_;
 }
 
-@property (nonatomic, retain) ServerAPIClient                * serverAPIClient;
-@property (nonatomic, retain) TrainerController              * trainer;
-@property (nonatomic, retain) PokemonSelectionViewController * pokemonSelectionViewController;
+@property (nonatomic, strong) ServerAPIClient                * serverAPIClient;
+@property (nonatomic, strong) TrainerController              * trainer;
+@property (nonatomic, strong) PokemonSelectionViewController * pokemonSelectionViewController;
 
-@property (nonatomic, retain) UIView      * backgroundView;
-@property (nonatomic, retain) UILabel     * title;
-@property (nonatomic, retain) UILabel     * message;
-@property (nonatomic, retain) UIButton    * confirmButton;
-@property (nonatomic, retain) UITextField * nameInputView;
+@property (nonatomic, strong) UIView      * backgroundView;
+@property (nonatomic, strong) UILabel     * title;
+@property (nonatomic, strong) UILabel     * message;
+@property (nonatomic, strong) UIButton    * confirmButton;
+@property (nonatomic, strong) UITextField * nameInputView;
 
 - (void)_releaseSubviews;
 - (void)_setupNotificationObserver;
@@ -71,14 +71,10 @@
 @synthesize nameInputView  = nameInputView_;
 
 - (void)dealloc {
-  self.serverAPIClient                = nil;
-  self.trainer                        = nil;
-  self.pokemonSelectionViewController = nil;
   [self _releaseSubviews];
   
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -117,7 +113,6 @@
   [view setOpaque:NO];
   [view setAlpha:0.f];  
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -176,7 +171,6 @@
                            [NSNumber numberWithInt:4],
                            [NSNumber numberWithInt:7], nil];
   [pokemonSelectionViewController_ initWithPokemonsWithSIDs:pokemonSIDs];
-  [pokemonSIDs release];
   
   
   [self setTextViewWithTitle:@"PMSNewbiewGuide1Title" message:@"PMSNewbiewGuide1Message"];

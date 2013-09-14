@@ -24,14 +24,14 @@
   CAAnimationGroup * unloadAnimationGroup_;
 }
 
-@property (nonatomic, retain) UIView                            * mainView;
-@property (nonatomic, retain) UILabel                           * title;
-@property (nonatomic, retain) UILabel                           * description;
-@property (nonatomic, retain) MEWMapAnnotationCalloutBottomView * bottomView;
-@property (nonatomic, retain) CAAnimationGroup * loadAnimationGroupForBottomView;
-@property (nonatomic, retain) CAAnimationGroup * loadAnimationGroupForMainView;
-@property (nonatomic, retain) CAAnimationGroup * switchAnimationGroupForMainView;
-@property (nonatomic, retain) CAAnimationGroup * unloadAnimationGroup;
+@property (nonatomic, strong) UIView                            * mainView;
+@property (nonatomic, strong) UILabel                           * title;
+@property (nonatomic, strong) UILabel                           * description;
+@property (nonatomic, strong) MEWMapAnnotationCalloutBottomView * bottomView;
+@property (nonatomic, strong) CAAnimationGroup * loadAnimationGroupForBottomView;
+@property (nonatomic, strong) CAAnimationGroup * loadAnimationGroupForMainView;
+@property (nonatomic, strong) CAAnimationGroup * switchAnimationGroupForMainView;
+@property (nonatomic, strong) CAAnimationGroup * unloadAnimationGroup;
 
 - (void)_releaseSubViews;
 
@@ -50,12 +50,7 @@
 @synthesize unloadAnimationGroup              = unloadAnimationGroup_;
 
 - (void)dealloc {
-  self.loadAnimationGroupForBottomView   = nil;
-  self.loadAnimationGroupForMainView     = nil;
-  self.switchAnimationGroupForMainView   = nil;
-  self.unloadAnimationGroup              = nil;
   [self _releaseSubViews];
-  [super dealloc];
 }
 
 - (void)_releaseSubViews {
@@ -148,7 +143,6 @@
     [self.loadAnimationGroupForBottomView setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationMove, animationFade, nil];
     [self.loadAnimationGroupForBottomView setAnimations:animations];
-    [animations release];
     [self.loadAnimationGroupForBottomView setTimingFunction:
      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [self.loadAnimationGroupForBottomView setFillMode:kCAFillModeForwards];
@@ -177,7 +171,6 @@
     [self.loadAnimationGroupForMainView setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationMove, animationFade, nil];
     [self.loadAnimationGroupForMainView setAnimations:animations];
-    [animations release];
     [self.loadAnimationGroupForMainView setTimingFunction:
      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [self.loadAnimationGroupForBottomView setFillMode:kCAFillModeForwards];
@@ -214,7 +207,6 @@
     [self.unloadAnimationGroup setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
     [self.unloadAnimationGroup setAnimations:animations];
-    [animations release];
     [self.unloadAnimationGroup setTimingFunction:
      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [self.unloadAnimationGroup setFillMode:kCAFillModeForwards];
@@ -257,7 +249,6 @@
     [self.switchAnimationGroupForMainView setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationFade, nil];
     [self.switchAnimationGroupForMainView setAnimations:animations];
-    [animations release];
   }
   [self.mainView.layer addAnimation:self.switchAnimationGroupForMainView
                              forKey:@"switchAnimationForMainView"];

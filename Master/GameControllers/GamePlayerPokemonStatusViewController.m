@@ -21,7 +21,7 @@
   BOOL      isStatusBarOpening_;
 }
 
-@property (nonatomic, retain) UILabel * pokemonHP;
+@property (nonatomic, strong) UILabel * pokemonHP;
 
 - (void)_releaseSubviews;
 - (void)_toggleStatusBar;
@@ -36,7 +36,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {

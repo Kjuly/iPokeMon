@@ -14,10 +14,6 @@
 
 @synthesize name = name_;
 
-- (void)dealloc {
-  self.name = nil; 
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -36,14 +32,12 @@
                                         [UIImage imageNamed:kPMINTableViewCellBagMedicine]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
     
     // Set layouts for |contentView|(readonly)
     // Set name Label

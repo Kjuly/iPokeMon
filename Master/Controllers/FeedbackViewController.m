@@ -18,10 +18,10 @@
   UIButton    * cleanButton_;
 }
 
-@property (nonatomic, retain) UIImageView * textFieldBackground;
-@property (nonatomic, retain) UITextField * textField;
-@property (nonatomic, retain) UIButton    * submitButton;
-@property (nonatomic, retain) UIButton    * cleanButton;
+@property (nonatomic, strong) UIImageView * textFieldBackground;
+@property (nonatomic, strong) UITextField * textField;
+@property (nonatomic, strong) UIButton    * submitButton;
+@property (nonatomic, strong) UIButton    * cleanButton;
 
 - (void)_releaseSubviews;
 - (void)_submit:(id)sender;
@@ -39,7 +39,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -73,7 +72,6 @@
   [view setBackgroundColor:[UIColor clearColor]];
   [view setUserInteractionEnabled:YES];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -94,7 +92,6 @@
   [textFieldBackground setImage:[UIImage imageNamed:kPMINFeedbackTextFieldBackground]];
   [textFieldBackground setUserInteractionEnabled:YES];
   self.textFieldBackground = textFieldBackground;
-  [textFieldBackground release];
   [self.view addSubview:self.textFieldBackground];
   
   // text input field
@@ -104,7 +101,6 @@
   [textField setKeyboardType:UIKeyboardTypeDefault];
   [textField setDelegate:self];
   self.textField = textField;
-  [textField release];
   [self.textFieldBackground addSubview:self.textField];
   
   // submit button
@@ -112,7 +108,6 @@
   [submitButton setImage:[UIImage imageNamed:kPMINRectButtonConfirm] forState:UIControlStateNormal];
   [submitButton addTarget:self action:@selector(_submit:) forControlEvents:UIControlEventTouchUpInside];
   self.submitButton = submitButton;
-  [submitButton release];
   [self.view insertSubview:self.submitButton belowSubview:self.textFieldBackground];
   
   // clean button
@@ -120,7 +115,6 @@
   [cleanButton setImage:[UIImage imageNamed:kPMINRectButtonUndo] forState:UIControlStateNormal];
   [cleanButton addTarget:self action:@selector(_clean:) forControlEvents:UIControlEventTouchUpInside];
   self.cleanButton = cleanButton;
-  [cleanButton release];
   [self.view insertSubview:self.cleanButton belowSubview:self.textFieldBackground];
 }
 

@@ -25,11 +25,11 @@
   GameBattleEndEventType   eventType_;
 }
 
-@property (nonatomic, retain) UIView                 * backgroundView;
-@property (nonatomic, retain) UILabel                * message;
+@property (nonatomic, strong) UIView                 * backgroundView;
+@property (nonatomic, strong) UILabel                * message;
 
-@property (nonatomic, retain) TrainerController      * trainer;
-@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+@property (nonatomic, strong) TrainerController      * trainer;
+@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
@@ -47,10 +47,7 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc {
-  self.trainer              = nil;
-  self.tapGestureRecognizer = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -86,7 +83,6 @@
   [view addSubview:backgroundView_];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -97,7 +93,6 @@
   UITapGestureRecognizer * tapGestureRecognizer =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_tapGestureAction:)];
   self.tapGestureRecognizer = tapGestureRecognizer;
-  [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
   [self.tapGestureRecognizer setNumberOfTouchesRequired:1];
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
@@ -128,7 +123,6 @@
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
       self.message = message;
-      [message release];
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
@@ -150,7 +144,6 @@
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] initWithFrame:CGRectMake(30.f, 150.f, 260.f, 280.f)];
       self.message = message;
-      [message release];
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
@@ -180,7 +173,6 @@
     pokemonInfoViewController = [[PokemonInfoViewController alloc] initWithPokemon:pokemonData];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     [self.backgroundView addSubview:pokemonInfoViewController.view];
-    [pokemonInfoViewController release];
     pokemonData = nil;
     wildPokemon = nil;
     

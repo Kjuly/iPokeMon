@@ -10,9 +10,6 @@
 
 @implementation SixPokemonsMemoViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
@@ -45,7 +42,6 @@
   [memoField setTextColor:[GlobalRender textColorNormal]];
   [memoField setText:NSLocalizedString(self.pokemon.memo, nil)];
   [self.view addSubview:memoField];
-  [memoField release];
 }
 
 - (void)viewDidUnload {

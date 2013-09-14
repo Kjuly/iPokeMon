@@ -24,13 +24,13 @@
   PokemonMoveDetailView * moveDetailView_;
 }
 
-@property (nonatomic, retain) NSArray               * fourMovesPP;
-@property (nonatomic, retain) UIView                * fourMovesView;
-@property (nonatomic, retain) PokemonMoveView       * moveOneView;
-@property (nonatomic, retain) PokemonMoveView       * moveTwoView;
-@property (nonatomic, retain) PokemonMoveView       * moveThreeView;
-@property (nonatomic, retain) PokemonMoveView       * moveFourView;
-@property (nonatomic, retain) PokemonMoveDetailView * moveDetailView;
+@property (nonatomic, strong) NSArray               * fourMovesPP;
+@property (nonatomic, strong) UIView                * fourMovesView;
+@property (nonatomic, strong) PokemonMoveView       * moveOneView;
+@property (nonatomic, strong) PokemonMoveView       * moveTwoView;
+@property (nonatomic, strong) PokemonMoveView       * moveThreeView;
+@property (nonatomic, strong) PokemonMoveView       * moveFourView;
+@property (nonatomic, strong) PokemonMoveDetailView * moveDetailView;
 
 - (void)_releaseSubviews;
 - (void)_cancelMoveDetailView;
@@ -49,9 +49,7 @@
 @synthesize moveDetailView = moveDetailView_;
 
 - (void)dealloc {
-  self.fourMovesPP = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -95,7 +93,6 @@
   [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [ppLabel setText:NSLocalizedString(@"PMSLabelPP", nil)];
   [self.view addSubview:ppLabel];
-  [ppLabel release];
   
   // Set Four Moves' layout
   fourMovesView_ = [[UIView alloc] initWithFrame:fourMovesViewFrame];
@@ -188,7 +185,6 @@
   CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
   PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
   self.moveDetailView = moveDetailView;
-  [moveDetailView release];
   [self.moveDetailView.backButton addTarget:self
                                      action:@selector(_cancelMoveDetailView)
                            forControlEvents:UIControlEventTouchUpInside];

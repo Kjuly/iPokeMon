@@ -38,7 +38,6 @@
   NSError * error;
   NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest
                                                            error:&error];
-  [fetchRequest release];
   
   // Set Data
   NSArray * pokedex = [PListParser pokedexInBundle:[NSBundle mainBundle]];
@@ -115,7 +114,6 @@
       // update area data for PM
       pokemon.area = [data objectAtIndex:1];
     }
-    [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@", NSStringFromClass([self class]));
@@ -209,7 +207,6 @@
   NSError * error;
   NSArray * fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest
                                                                  error:&error];
-  [fetchRequest release];
   
   return fetchedObjects;
 }
@@ -229,7 +226,6 @@
   
   NSError * error;
   Pokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return pokemon;
 }

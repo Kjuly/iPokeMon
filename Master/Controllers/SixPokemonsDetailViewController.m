@@ -12,10 +12,6 @@
 
 @synthesize pokemon = pokemon_;
 
-- (void)dealloc {
-  self.pokemon = nil;
-  [super dealloc];
-}
 
 - (id)initWithPokemon:(TrainerTamedPokemon *)pokemon {
   self = [self init];
@@ -46,7 +42,6 @@
                                                            kViewWidth,
                                                            kViewHeight - kTopBarHeight - kTopIDViewHeight)];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

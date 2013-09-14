@@ -29,7 +29,6 @@ const NSRange kRangePokemonName = {0, 4};
     NSScanner * scanner = [[NSScanner alloc] initWithString:[hexInString substringWithRange:NSMakeRange(x, hexStringSize)]];
     uint_fast32_t hex;
     [scanner scanHexInt:&hex];
-    [scanner release];
 //    NSLog(@"%d, %#x", hex, hex);
     [hexArray addObject:[NSNumber numberWithInt:hex]];
   }
@@ -59,7 +58,7 @@ const NSRange kRangePokemonName = {0, 4};
 //  NSLog(@"%s", myBuffer);
 //  free(myBuffer);
   
-  return [hexArray autorelease];
+  return hexArray;
 }
 
 /*/ Decode Binary Data for Pokedex
@@ -76,7 +75,7 @@ const NSRange kRangePokemonName = {0, 4};
   for (int i = 0; i < [dataInHex length] - 1; i += kDataLengthPokedex)
     [resultArray addObject:[dataInHex substringWithRange:NSMakeRange(i, kDataLengthPokedex)]];
   
-  return [resultArray autorelease];
+  return resultArray;
 }
 
 /*/ Decode Name form HEX

@@ -14,10 +14,6 @@
 
 @synthesize pokemon = pokemon_;
 
-- (void)dealloc {
-  self.pokemon = nil;
-  [super dealloc];
-}
 
 - (id)initWithPokemon:(Pokemon *)pokemon {
   self = [self init];
@@ -46,7 +42,6 @@
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor clearColor]];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -79,9 +74,7 @@
   [imageView setImage:self.pokemon.image];
   
   [imageContainer addSubview:imageView];
-  [imageView release];
   [self.view addSubview:imageContainer];
-  [imageContainer release];
   
   
   ///Right ID View
@@ -97,7 +90,6 @@
   [idLabelView.name.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
   [idLabelView.name.layer setShadowRadius:0.f];
   [IDView addSubview:idLabelView];
-  [idLabelView release];
   
   // Name
   UILabel * nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.f, labelHeight, nameLabelWidth, nameLabelHeight)];
@@ -111,11 +103,9 @@
   [nameLabel.layer setShadowOffset:CGSizeMake(-1.f, -1.f)];
   [nameLabel.layer setShadowRadius:0.f];
   [IDView addSubview:nameLabel];
-  [nameLabel release];
   
   // Add Right ID View to |self.view| & Release it
   [self.view addSubview:IDView];
-  [IDView release];
 }
 
 - (void)viewDidUnload {

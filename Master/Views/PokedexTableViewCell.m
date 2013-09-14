@@ -16,12 +16,6 @@
 @synthesize labelTitle    = labelTitle_;
 @synthesize labelSubtitle = labelSubtitle_;
 
-- (void)dealloc { 
-  self.imageView     = nil;
-  self.labelTitle    = nil;
-  self.labelSubtitle = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -41,7 +35,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellPokedex]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -49,7 +42,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellPokedexSelected]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
     
     // Set layouts for |contentView|(readonly)
     // Set Image View

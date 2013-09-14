@@ -12,9 +12,6 @@
 
 @implementation StoreItemTableViewCell
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier {
@@ -30,7 +27,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellBagItem]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
@@ -38,7 +34,6 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellBagItemSelected]]];
     [selectedBackgroundView setOpaque:NO];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
   }
   return self;
 }

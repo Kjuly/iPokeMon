@@ -59,14 +59,11 @@ typedef enum {
 @synthesize developerEmails = developerEmails_;
 
 - (void)dealloc {
-  self.managedObjectContext = nil;
 #ifdef KY_INVITATION_ONLY
   self.unlockCodeManager = nil;
 #endif
-  self.developerEmails      = nil;
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
-  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -172,7 +169,7 @@ typedef enum {
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:
     NSLocalizedString(([NSString stringWithFormat:@"PMSSettingSection%d", section + 1]), nil)];
-  return [sectionHeaderView autorelease];
+  return sectionHeaderView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -191,8 +188,8 @@ typedef enum {
         SettingTableViewCellStyleSwitch * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1
-                                                         reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1
+                                                         reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralLocationServices", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGeneralLocationServices]];
         [cell.switchButton addTarget:self
@@ -208,8 +205,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier];
         NSString * bandwidthUsageName =
           NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralBandWidthUsage%d",
                               [userDefaults integerForKey:kUDKeyGeneralBandwidthUsage]]), nil);
@@ -226,8 +223,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettings", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryDetailDisclosureButton];
@@ -248,8 +245,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:kKYAppBundleLocalizedName
                                value:[@"v" stringByAppendingString:[userDefaults stringForKey:kUDKeyAboutVersion]]
                        accessoryType:UITableViewCellAccessoryNone];
@@ -269,8 +266,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreFeedback", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryNone];
@@ -283,8 +280,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                        reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreLoadResource", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryNone];
@@ -313,8 +310,8 @@ typedef enum {
         SettingTableViewCellStyleCenterTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
-                                                              reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleCenterTitle alloc] initWithStyle:UITableViewCellStyleDefault
+                                                              reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreLogout", nil)];
         return cell;
         break;
@@ -381,7 +378,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       settingBandwidthUsageTableViewController = [SettingBandwidthUsageTableViewController alloc];
       [settingBandwidthUsageTableViewController initWithStyle:UITableViewStylePlain];
       [self.navigationController pushViewController:settingBandwidthUsageTableViewController animated:YES];
-      [settingBandwidthUsageTableViewController release];
     }
     // Game Settings
     else if (row == kSectionGeneralGameSettings) {
@@ -389,7 +385,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       settingGameSettingsTableViewController = [SettingGameSettingsTableViewController alloc];
       [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
       [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
-      [settingGameSettingsTableViewController release];
     }
   }
   // ABOUT Section
@@ -398,7 +393,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (row == kSectionAboutRowVersion) {
       AppInfoViewController * appInfoViewController = [[AppInfoViewController alloc] init];
       [self.navigationController pushViewController:appInfoViewController animated:YES];
-      [appInfoViewController release];
     }
   }
   else if (section == kSectionMore) {
@@ -428,7 +422,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [mailComposer setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n%@", appInfo] isHTML:NO];
       [mailComposer.navigationBar setBarStyle:UIBarStyleBlack];
       [self presentModalViewController:mailComposer animated:YES];
-      [mailComposer release];
     }
     // Load Resource
     else if (row == kSectionMoreRowLoadResource) {
@@ -437,7 +430,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [resourceTableViewController initWithStyle:UITableViewStylePlain];
       resourceTableViewController.managedObjectContext = self.managedObjectContext;
       [self.navigationController pushViewController:resourceTableViewController animated:YES];
-      [resourceTableViewController release];
     }
 #ifdef KY_INVITATION_ONLY
     // Request DEX
@@ -505,7 +497,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
              cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
              otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
       [alertView show];
-      [alertView release];
     }
   }
 }
@@ -519,7 +510,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                  cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
                  otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
   [logoutConfirmView show];
-  [logoutConfirmView release];
 }
 
 #pragma mark - UIAlertView Delegate

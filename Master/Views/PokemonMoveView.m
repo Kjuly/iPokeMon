@@ -12,18 +12,18 @@
 
 @interface PokemonMoveView () {
  @private
-  id <PokemonMoveViewDelegate> delegate_;
+  id <PokemonMoveViewDelegate> __weak delegate_;
   UILabel  * type1_;
   UILabel  * name_;
   UILabel  * pp_;
   UIButton * viewButton_;
 }
 
-@property (nonatomic, assign) id <PokemonMoveViewDelegate> delegate;
-@property (nonatomic, retain) UILabel  * type1;
-@property (nonatomic, retain) UILabel  * name;
-@property (nonatomic, retain) UILabel  * pp;
-@property (nonatomic, retain) UIButton * viewButton;
+@property (nonatomic, weak) id <PokemonMoveViewDelegate> delegate;
+@property (nonatomic, strong) UILabel  * type1;
+@property (nonatomic, strong) UILabel  * name;
+@property (nonatomic, strong) UILabel  * pp;
+@property (nonatomic, strong) UIButton * viewButton;
 
 @end
 
@@ -36,13 +36,6 @@
 @synthesize pp         = pp_;
 @synthesize viewButton = viewButton_;
 
--(void)dealloc {
-  self.name       = nil;
-  self.type1      = nil;
-  self.pp         = nil;
-  self.viewButton = nil;
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
@@ -112,7 +105,6 @@
                    action:@selector(loadMoveDetailView:)
          forControlEvents:UIControlEventTouchUpInside];
     self.viewButton = viewButton;
-    [viewButton release];
     [self addSubview:self.viewButton];
   }
 }

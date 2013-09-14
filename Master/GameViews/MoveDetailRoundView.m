@@ -18,10 +18,10 @@
   UILabel * description_;
 }
 
-@property (nonatomic, retain) UILabel * title;
-@property (nonatomic, retain) UILabel * type;
-@property (nonatomic, retain) UILabel * pp;
-@property (nonatomic, retain) UILabel * description;
+@property (nonatomic, strong) UILabel * title;
+@property (nonatomic, strong) UILabel * type;
+@property (nonatomic, strong) UILabel * pp;
+@property (nonatomic, strong) UILabel * description;
 
 @end
 
@@ -33,13 +33,6 @@
 @synthesize pp          = pp_;
 @synthesize description = description_;
 
-- (void)dealloc {
-  self.title       = nil;
-  self.type        = nil;
-  self.pp          = nil;
-  self.description = nil;
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];

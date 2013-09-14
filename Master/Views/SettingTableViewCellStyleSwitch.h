@@ -12,7 +12,7 @@
   UISwitch * switchButton_;
 }
 
-@property (nonatomic, retain) UISwitch * switchButton;
+@property (nonatomic, strong) UISwitch * switchButton;
 
 - (void)configureCellWithTitle:(NSString *)title
                       switchOn:(BOOL)switchOn;

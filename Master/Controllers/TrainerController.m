@@ -26,8 +26,8 @@
   NSInteger        userID_;            // User ID, same as Trainer UID
 }
 
-@property (nonatomic, retain) Trainer        * entityTrainer;
-@property (nonatomic, retain) NSMutableArray * entitySixPokemons;
+@property (nonatomic, strong) Trainer        * entityTrainer;
+@property (nonatomic, strong) NSMutableArray * entitySixPokemons;
 
 - (BOOL)_isTrainerOwnsThisDevice;
 - (NSString *)_keyForDeviceUID;
@@ -67,10 +67,7 @@ static TrainerController * trainerController_ = nil;
 }
 
 - (void)dealloc { 
-  self.entityTrainer     = nil;
-  self.entitySixPokemons = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (id)init {
@@ -165,26 +162,26 @@ static TrainerController * trainerController_ = nil;
   // UID must be persistent even if the application is removed from devices
   // Use keychain as a storage
   NSDictionary * query = [NSDictionary dictionaryWithObjectsAndKeys:
-                          (id)kSecClassGenericPassword,            (id)kSecClass,
-                          keyForDeviceUID,                         (id)kSecAttrGeneric,
-                          keyForDeviceUID,                         (id)kSecAttrAccount,
-                          [[NSBundle mainBundle] bundleIdentifier],(id)kSecAttrService,
-                          (id)kSecMatchLimitOne,                   (id)kSecMatchLimit,
-                          (id)kCFBooleanTrue,                      (id)kSecReturnAttributes,
+                          (__bridge id)kSecClassGenericPassword,            (__bridge id)kSecClass,
+                          keyForDeviceUID,                         (__bridge id)kSecAttrGeneric,
+                          keyForDeviceUID,                         (__bridge id)kSecAttrAccount,
+                          [[NSBundle mainBundle] bundleIdentifier],(__bridge id)kSecAttrService,
+                          (__bridge id)kSecMatchLimitOne,                   (__bridge id)kSecMatchLimit,
+                          (id)kCFBooleanTrue,                      (__bridge id)kSecReturnAttributes,
                           nil];
   CFTypeRef attributesRef = NULL;
-  OSStatus result = SecItemCopyMatching((CFDictionaryRef)query, &attributesRef);
+  OSStatus result = SecItemCopyMatching((__bridge CFDictionaryRef)query, &attributesRef);
   if (result == noErr) {
-    NSDictionary * attributes = (NSDictionary *)attributesRef;
+    NSDictionary * attributes = (__bridge NSDictionary *)attributesRef;
     NSMutableDictionary * valueQuery = [NSMutableDictionary dictionaryWithDictionary:attributes];
     
-    [valueQuery setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-    [valueQuery setObject:(id)kCFBooleanTrue           forKey:(id)kSecReturnData];
+    [valueQuery setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+    [valueQuery setObject:(id)kCFBooleanTrue           forKey:(__bridge id)kSecReturnData];
     
     CFTypeRef passwordDataRef = NULL;
-    OSStatus result = SecItemCopyMatching((CFDictionaryRef)valueQuery, &passwordDataRef);
+    OSStatus result = SecItemCopyMatching((__bridge CFDictionaryRef)valueQuery, &passwordDataRef);
     if (result == noErr) {
-      NSData *passwordData = (NSData *)passwordDataRef;
+      NSData *passwordData = (__bridge NSData *)passwordDataRef;
       // Assume the stored data is a UTF-8 string.
       deviceUID = [[NSString alloc] initWithBytes:[passwordData bytes]
                                            length:[passwordData length]
@@ -371,7 +368,6 @@ static TrainerController * trainerController_ = nil;
   NSLog(@"Replaced SixPokemons:%@", self.entityTrainer.sixPokemonsID);
   [self saveWithSync:NO];
   
-  [sixPokemonsID release];
   // Refetch data of Six Pokemons
   self.entitySixPokemons = [NSMutableArray arrayWithArray:[self.entityTrainer sixPokemons]];
 }
@@ -391,7 +387,6 @@ static TrainerController * trainerController_ = nil;
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
   [self _saveBagItemsFor:targetType withData:bagItemsInString];
-  [bagItems release];
 }
 
 // BagItem - Add new
@@ -425,7 +420,6 @@ static TrainerController * trainerController_ = nil;
   NSString * bagItemsInString = [[bagItems valueForKey:@"description"] componentsJoinedByString:@","];
   NSLog(@"BagItem: RESULT:::%@", bagItemsInString);
   [self _saveBagItemsFor:targetType withData:bagItemsInString];
-  [bagItems release];
 }
 
 // BagItem - Toss
@@ -470,12 +464,12 @@ static TrainerController * trainerController_ = nil;
   // UID must be persistent even if the application is removed from devices
   // Use keychain as a storage
   NSMutableDictionary * query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 (id)kSecClassGenericPassword,             (id)kSecClass,
-                                 keyForDeviceUID,                          (id)kSecAttrGeneric,
-                                 keyForDeviceUID,                          (id)kSecAttrAccount,
-                                 [[NSBundle mainBundle] bundleIdentifier], (id)kSecAttrService,
-                                 @"",                                      (id)kSecAttrLabel,
-                                 @"",                                      (id)kSecAttrDescription,
+                                 (__bridge id)kSecClassGenericPassword,             (__bridge id)kSecClass,
+                                 keyForDeviceUID,                          (__bridge id)kSecAttrGeneric,
+                                 keyForDeviceUID,                          (__bridge id)kSecAttrAccount,
+                                 [[NSBundle mainBundle] bundleIdentifier], (__bridge id)kSecAttrService,
+                                 @"",                                      (__bridge id)kSecAttrLabel,
+                                 @"",                                      (__bridge id)kSecAttrDescription,
                                  nil];
   // Set |kSecAttrAccessibleAfterFirstUnlock|
   //   so that background applications are able to access this key.
@@ -486,14 +480,14 @@ static TrainerController * trainerController_ = nil;
   // Keep in mind that keys defined
   //   as |kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly|
   //   will be removed after restoring from a backup.
-  [query setObject:(id)kSecAttrAccessibleAfterFirstUnlock
-            forKey:(id)kSecAttrAccessible];
+  [query setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlock
+            forKey:(__bridge id)kSecAttrAccessible];
   // Set UID
   [query setObject:[deviceUID dataUsingEncoding:NSUTF8StringEncoding]
-            forKey:(id)kSecValueData];
+            forKey:(__bridge id)kSecValueData];
   
   // Delete old one first
-  OSStatus result = SecItemDelete((CFDictionaryRef)query);
+  OSStatus result = SecItemDelete((__bridge CFDictionaryRef)query);
   if (result == noErr)
     NSLog(@"- Device UID is successfully reset.");
   else if (result == errSecItemNotFound)
@@ -502,7 +496,7 @@ static TrainerController * trainerController_ = nil;
     NSLog(@"!!!ERROR: Coudn't delete the Keychain Item. result = %ld query = %@", result, query);
   
   // Add new
-  result = SecItemAdd((CFDictionaryRef)query, NULL);
+  result = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
   if (result != noErr) {
     NSLog(@"!!!ERROR: Couldn't add the Keychain Item. result = %ld, query = %@", result, query);
     return nil;
@@ -575,7 +569,6 @@ static TrainerController * trainerController_ = nil;
     NSDictionary * userInfo =
       [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
-    [userInfo release];
     // Hide loading
     [[LoadingManager sharedInstance] hideOverView];
   };

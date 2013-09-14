@@ -12,8 +12,8 @@
 
 @interface Ability : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * sid;
-@property (nonatomic, retain) NSString * info;
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, strong) NSNumber * sid;
+@property (nonatomic, strong) NSString * info;
+@property (nonatomic, strong) NSString * name;
 
 @end

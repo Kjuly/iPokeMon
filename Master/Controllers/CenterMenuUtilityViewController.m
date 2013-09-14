@@ -40,13 +40,6 @@
 @synthesize unlockCodeManager;
 #endif
 
--(void)dealloc {
-  self.managedObjectContext = nil;
-#ifdef KY_INVITATION_ONLY
-  self.unlockCodeManager = nil;
-#endif
-  [super dealloc];
-}
 
 #pragma mark - View lifecycle
 
@@ -83,34 +76,29 @@
   PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
   [pokedexTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:pokedexTableViewController];
-  [pokedexTableViewController release];
 }
 
 - (void)_showPokemon:(id)sender {
   SixPokemonsTableViewController * sixPokemonsTableViewController = [SixPokemonsTableViewController alloc];
   [sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:sixPokemonsTableViewController];
-  [sixPokemonsTableViewController release];
 }
 
 - (void)_showBag:(id)sender {
   BagTableViewController * bagTableViewController = [BagTableViewController alloc];
   [bagTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:bagTableViewController];
-  [bagTableViewController release];
 }
 
 - (void)_showTrainerCard:(id)sender {
   TrainerCardViewController * trainerCardViewController = [[TrainerCardViewController alloc] init];
   [self pushViewController:trainerCardViewController];
-  [trainerCardViewController release];
 }
 
 - (void)_runHotkey:(id)sender {
   StoreTableViewController * storeTableViewController;
   storeTableViewController = [[StoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self pushViewController:storeTableViewController];
-  [storeTableViewController release];
 }
 
 - (void)_setGame:(id)sender {
@@ -120,7 +108,6 @@
   settingTableViewController.unlockCodeManager = self.unlockCodeManager;
 #endif
   [self pushViewController:settingTableViewController];
-  [settingTableViewController release];
 }
 
 #pragma mark - KYCircleMenu

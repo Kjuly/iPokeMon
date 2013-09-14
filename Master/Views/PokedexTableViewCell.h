@@ -14,8 +14,8 @@
   UILabel     * labelSubtitle_;
 }
 
-@property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * labelTitle;
-@property (nonatomic, retain) UILabel     * labelSubtitle;
+@property (nonatomic, strong) UIImageView * imageView;
+@property (nonatomic, strong) UILabel     * labelTitle;
+@property (nonatomic, strong) UILabel     * labelSubtitle;
 
 @end

@@ -12,12 +12,12 @@
 
 @interface Annotation : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * minZoomLevel;
-@property (nonatomic, retain) NSNumber * maxZoomLevel;
-@property (nonatomic, retain) NSString * code;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSNumber * latitude;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * subtitle;
+@property (nonatomic, strong) NSNumber * minZoomLevel;
+@property (nonatomic, strong) NSNumber * maxZoomLevel;
+@property (nonatomic, strong) NSString * code;
+@property (nonatomic, strong) NSNumber * longitude;
+@property (nonatomic, strong) NSNumber * latitude;
+@property (nonatomic, strong) NSString * title;
+@property (nonatomic, strong) NSString * subtitle;
 
 @end

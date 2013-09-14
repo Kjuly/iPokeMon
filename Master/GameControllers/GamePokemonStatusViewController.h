@@ -17,10 +17,10 @@
   UIImageView  * pokemonGender_;
 }
 
-@property (nonatomic, retain) PokemonHPBar * pokemonHPBar;
-@property (nonatomic, retain) UILabel      * pokemonName;
-@property (nonatomic, retain) UILabel      * pokemonLevel;
-@property (nonatomic, retain) UIImageView  * pokemonGender;
+@property (nonatomic, strong) PokemonHPBar * pokemonHPBar;
+@property (nonatomic, strong) UILabel      * pokemonName;
+@property (nonatomic, strong) UILabel      * pokemonLevel;
+@property (nonatomic, strong) UIImageView  * pokemonGender;
 
 - (void)updatePokemonStatus:(NSDictionary *)statusInfo;
 - (void)prepareForNewScene; // Overwrited by child

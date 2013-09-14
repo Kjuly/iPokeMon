@@ -27,8 +27,8 @@ typedef enum {
 }
 
 @property (nonatomic, copy)   NSMutableDictionary * audioPlayers;
-@property (nonatomic, retain) ResourceManager     * resourceManager;
-@property (nonatomic, retain) LoadingManager      * loadingManager;
+@property (nonatomic, strong) ResourceManager     * resourceManager;
+@property (nonatomic, strong) LoadingManager      * loadingManager;
 
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType withAction:(PMAudioAction)audioAction;
 - (NSString *)_resourceNameForAudioType:(PMAudioType)audioType;
@@ -56,12 +56,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
   return gameAudioPlayer_;
 }
 
-- (void)dealloc {
-  self.audioPlayers    = nil;
-  self.resourceManager = nil;
-  self.loadingManager  = nil;
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {
@@ -277,7 +271,6 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
       if      (audioAction == kAudioActionPlay)          [audioPlayer play];
       else if (audioAction == kAudioActionPrepareToPlay) [audioPlayer prepareToPlay];
     }
-    [audioPlayer release];
     audioPlayer = nil;
     
     dispatch_async(dispatch_get_main_queue(), ^{

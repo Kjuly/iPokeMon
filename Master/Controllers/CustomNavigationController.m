@@ -22,7 +22,6 @@
 
 - (void)dealloc {
   self.navigationBar.delegate = nil;
-  [super dealloc];
 }
 
 - (id)init {
@@ -82,7 +81,6 @@
   customNavigationBar.delegate   = self;
   customNavigationBar.dataSource = self;
   [self setValue:customNavigationBar forKey:@"navigationBar"];
-  [customNavigationBar release];
   [self setNavigationBarHidden:YES];
 }
 
@@ -108,9 +106,7 @@
     [title setTextAlignment:UITextAlignmentRight];
     [title setText:viewController.title];
     [titleView addSubview:title];
-    [title release];
     [viewController.navigationItem setTitleView:titleView];
-    [titleView release];
   }
   
   // Dispatch |UINavigationController|'s |pushViewController:animated:| method

@@ -21,15 +21,15 @@
   PokemonInfoLabelView * abilityLabelView_;
 }
 
-@property (nonatomic, retain) PokemonInfoLabelView * hpLabelView;
-@property (nonatomic, retain) UIImageView          * hpBarTotal;
-@property (nonatomic, retain) UIImageView          * hpBarLeft;
-@property (nonatomic, retain) PokemonInfoLabelView * attackLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * defenseLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * spAttackLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * spDefenseLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * speedLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * abilityLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * hpLabelView;
+@property (nonatomic, strong) UIImageView          * hpBarTotal;
+@property (nonatomic, strong) UIImageView          * hpBarLeft;
+@property (nonatomic, strong) PokemonInfoLabelView * attackLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * defenseLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * spAttackLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * spDefenseLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * speedLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * abilityLabelView;
 
 - (void)_releaseSubviews;
 
@@ -50,7 +50,6 @@
 
 - (void)dealloc{
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -153,7 +152,6 @@
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
-  [dataView release];
   
   
   NSArray * statsMax = [self.pokemon maxStatsInArray];

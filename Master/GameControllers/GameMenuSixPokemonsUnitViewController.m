@@ -16,10 +16,10 @@
   UIButton * cancelButton_;
 }
 
-@property (nonatomic, retain) UIButton * mainButton;
-@property (nonatomic, retain) UIButton * confirmButton;
-@property (nonatomic, retain) UIButton * infoButton;
-@property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, strong) UIButton * mainButton;
+@property (nonatomic, strong) UIButton * confirmButton;
+@property (nonatomic, strong) UIButton * infoButton;
+@property (nonatomic, strong) UIButton * cancelButton;
 
 - (void)_releaseSubviews;
 - (void)_open;
@@ -37,7 +37,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -98,7 +97,6 @@
   [cancelButton_ addTarget:self action:@selector(_cancel) forControlEvents:UIControlEventTouchUpInside];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

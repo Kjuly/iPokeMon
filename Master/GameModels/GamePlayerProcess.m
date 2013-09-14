@@ -25,9 +25,6 @@
 
 @implementation GamePlayerProcess
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {
@@ -73,7 +70,6 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameBattleMessage
                                                       object:self
                                                     userInfo:userInfo];
-  [userInfo release];
   playerPokemon = nil;
   [self endTurn];
 }

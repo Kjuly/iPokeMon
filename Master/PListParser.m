@@ -34,7 +34,7 @@
     NSLog(@">>> %d", pokemonID);
     [sixPokemons addObject:[pokedex objectAtIndex:pokemonID]];
   }
-  return [sixPokemons autorelease];
+  return sixPokemons;
 }
 
 // Get Info for One Pokemon
@@ -61,11 +61,10 @@
       
       // Add |singleImage| to Array
       [pokedexGenerationOneImageArray addObject:singleImage];
-      [singleImage release];
     }
   }
   
-  return [pokedexGenerationOneImageArray autorelease];
+  return pokedexGenerationOneImageArray;
 }
 
 // Return A Single Image for One Pokemon
@@ -87,7 +86,7 @@
 
 // Image Array for Six Pokemons
 + (NSArray *)sixPokemonsImageArrayFor:(NSString *)IDSequence {
-  NSMutableArray * imageArray = [[[NSMutableArray alloc] init] autorelease];
+  NSMutableArray * imageArray = [[NSMutableArray alloc] init];
   UIImage * fullImage = [UIImage imageNamed:@"AllPokemonImageSmall.png"];
   
   for (int i = 0; i < [IDSequence length]; i += 4) {
@@ -95,7 +94,6 @@
     NSScanner * scanner = [[NSScanner alloc] initWithString:[IDSequence substringWithRange:NSMakeRange(i, 4)]];
     uint_fast32_t pokemonID;
     [scanner scanHexInt:&pokemonID];
-    [scanner release];
     
     // Get right Image
     CGImageRef cgImage = CGImageCreateWithImageInRect(fullImage.CGImage,

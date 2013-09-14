@@ -20,16 +20,6 @@
 @synthesize HPBarTotal      = HPBarTotal_;
 @synthesize HPBarLeft       = HPBarLeft_;
 
-- (void)dealloc {
-  self.imageView       = nil;
-  self.nameLabel       = nil;
-  self.genderImageView = nil;
-  self.levelLabel      = nil;
-  self.HPLabel         = nil;
-  self.HPBarTotal      = nil;
-  self.HPBarLeft       = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -59,13 +49,11 @@
       [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellPokedex]]];
     [backgroundView setOpaque:NO];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView|
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
     [selectedBackgroundView setBackgroundColor:[UIColor clearColor]];
     [self setSelectedBackgroundView:selectedBackgroundView];
-    [selectedBackgroundView release];
     
     /*/ Set editing view
     UIView * editingView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, cellHeight)];
@@ -128,7 +116,6 @@
     [dataView addSubview:HPLabel_];
     
     [self addSubview:dataView];
-    [dataView release];
   }
   return self;
 }

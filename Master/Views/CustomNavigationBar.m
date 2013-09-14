@@ -19,8 +19,8 @@
   BOOL       isButtonHidden_;
 }
 
-@property (nonatomic, retain) UIButton * backButtonToRoot;
-@property (nonatomic, retain) UIButton * backButton;
+@property (nonatomic, strong) UIButton * backButtonToRoot;
+@property (nonatomic, strong) UIButton * backButton;
 
 - (void)_setBackButtonForRoot;
 - (void)_removeBackButtonForPreviousView;
@@ -40,9 +40,6 @@
 -(void)dealloc {
   self.delegate         = nil;
   self.dataSource       = nil;
-  self.backButtonToRoot = nil;
-  self.backButton       = nil;
-  [super dealloc];
 }
 
 - (id)initWithFrame:(CGRect)frame {

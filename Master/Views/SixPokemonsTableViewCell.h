@@ -18,12 +18,12 @@
   UIImageView * HPBarLeft_;
 }
 
-@property (nonatomic, retain) UIImageView * imageView;
-@property (nonatomic, retain) UILabel     * nameLabel;
-@property (nonatomic, retain) UIImageView * genderImageView;
-@property (nonatomic, retain) UILabel     * levelLabel;
-@property (nonatomic, retain) UILabel     * HPLabel;
-@property (nonatomic, retain) UIImageView * HPBarTotal;
-@property (nonatomic, retain) UIImageView * HPBarLeft;
+@property (nonatomic, strong) UIImageView * imageView;
+@property (nonatomic, strong) UILabel     * nameLabel;
+@property (nonatomic, strong) UIImageView * genderImageView;
+@property (nonatomic, strong) UILabel     * levelLabel;
+@property (nonatomic, strong) UILabel     * HPLabel;
+@property (nonatomic, strong) UIImageView * HPBarTotal;
+@property (nonatomic, strong) UIImageView * HPBarLeft;
 
 @end

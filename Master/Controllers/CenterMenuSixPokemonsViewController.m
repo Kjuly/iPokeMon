@@ -26,10 +26,6 @@
 
 @synthesize sixPokemons = sixPokemons_;
 
-- (void)dealloc {
-  self.sixPokemons = nil;
-  [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
@@ -90,7 +86,6 @@
   [sixPokemonsDetailTabViewController initWithPokemon:tamedPokemon
                                            withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
-  [sixPokemonsDetailTabViewController release];
   
   // Change |centerMainButton_|'s status
   [self changeCenterMainButtonStatusToMove:kCenterMainButtonStatusAtBottom];

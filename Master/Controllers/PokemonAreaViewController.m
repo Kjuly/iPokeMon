@@ -24,8 +24,8 @@
   NSInteger zoomLevel_;
 }
 
-@property (nonatomic, retain) MKMapView    * mapView;
-@property (nonatomic, retain) CLLocation   * location;
+@property (nonatomic, strong) MKMapView    * mapView;
+@property (nonatomic, strong) CLLocation   * location;
 @property (nonatomic, copy)   NSMutableSet * annotations;
 
 - (void)_releaseSubviews;
@@ -40,10 +40,7 @@
 @synthesize annotations = annotations_;
 
 - (void)dealloc {
-  self.location    = nil;
-  self.annotations = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -96,7 +93,6 @@
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:mapViewFrame];
   [mapView setShowsUserLocation:YES];
   self.mapView = mapView;
-  [mapView release];
   [self.mapView setDelegate:self];
   [self.view addSubview:self.mapView];
   
@@ -142,12 +138,10 @@
                                        subtitle:nil];
       NSLog(@"---> new Annotation...");
       [pokemonAreaAnnotations addObject:pokemonAreaAnnotation];
-      [pokemonAreaAnnotation release];
     }
     
     [self.mapView addAnnotations:pokemonAreaAnnotations];
     self.annotations = [NSMutableSet setWithArray:pokemonAreaAnnotations];
-    [pokemonAreaAnnotations release];
     coordinatePairs = nil;
   };
   
@@ -203,8 +197,8 @@ didAddAnnotationViews:(NSArray *)views {
   PokemonAreaAnnotationView * annotationView =
     (PokemonAreaAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
   if (! annotationView) {
-    annotationView = [[[PokemonAreaAnnotationView alloc] initWithAnnotation:annotation
-                                                            reuseIdentifier:annotationIdentifier] autorelease];
+    annotationView = [[PokemonAreaAnnotationView alloc] initWithAnnotation:annotation
+                                                            reuseIdentifier:annotationIdentifier];
     // do not show the default callout view
     //annotationView.canShowCallout = YES;
   }

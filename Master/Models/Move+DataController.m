@@ -42,7 +42,6 @@
   
   NSError * error;
   NSArray * fourMoves = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return fourMoves;
 }
@@ -61,7 +60,6 @@
   
   NSError * error;
   Move * move = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return move;
 }

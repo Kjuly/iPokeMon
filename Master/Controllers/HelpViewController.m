@@ -15,9 +15,9 @@
   UIPageControl * pageControl_;
 }
 
-@property (nonatomic, retain) UIButton      * cancelButton;
-@property (nonatomic, retain) UIScrollView  * scrollView;
-@property (nonatomic, retain) UIPageControl * pageControl;
+@property (nonatomic, strong) UIButton      * cancelButton;
+@property (nonatomic, strong) UIScrollView  * scrollView;
+@property (nonatomic, strong) UIPageControl * pageControl;
 
 - (void)_releaseSubviews;
 - (void)_changePage:(id)sender;
@@ -33,7 +33,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -84,19 +83,16 @@
   UIView * viewFirst = [[UIView alloc] initWithFrame:viewFrame];
   [viewFirst setBackgroundColor:[UIColor grayColor]];
   [scrollView_ addSubview:viewFirst];
-  [viewFirst release];
   
   viewFrame.origin.x += kViewWidth;
   UIView * viewSecond = [[UIView alloc] initWithFrame:viewFrame];
   [viewSecond setBackgroundColor:[UIColor blueColor]];
   [scrollView_ addSubview:viewSecond];
-  [viewSecond release];
   
   viewFrame.origin.x += kViewWidth;
   UIView * viewThird = [[UIView alloc] initWithFrame:viewFrame];
   [viewThird setBackgroundColor:[UIColor whiteColor]];
   [scrollView_ addSubview:viewThird];
-  [viewThird release];
   
   // Set |contentSize| for |scrollview_|
   self.scrollView.contentSize = CGSizeMake(kViewWidth * 3, kViewHeight);
@@ -122,7 +118,6 @@
   [view addSubview:cancelButton_];
   
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -38,7 +38,6 @@
   
   NSError * error = nil;
   WildPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return pokemon;
 }
@@ -58,7 +57,6 @@
   
   NSError * error;
   WildPokemon * pokemon = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
-  [fetchRequest release];
   
   return pokemon;
 }
@@ -77,7 +75,6 @@
   
   NSError * error;
   NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return pokemons;
 }
@@ -96,7 +93,6 @@
   
   NSError * error;
   NSArray * pokemons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   
   return pokemons;
 }
@@ -261,7 +257,6 @@
   }
   // Fetch |fourMoves| with |fourMovesID|
   NSArray * fourMoves = [Move queryFourMovesDataWithIDs:fourMovesID];
-  [fourMovesID release];
   
   NSMutableString * fourMovesInString = [NSMutableString string];
   moveCount = 0;

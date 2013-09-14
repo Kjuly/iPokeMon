@@ -40,7 +40,7 @@
 }
 
 @property (nonatomic, copy)   NSArray         * resources;
-@property (nonatomic, retain) ResourceManager * resourceManager;
+@property (nonatomic, strong) ResourceManager * resourceManager;
 //@property (nonatomic, retain) LoadingManager  * loadingManager;
 
 - (void)_loadResourceForRow:(NSInteger)row;
@@ -55,13 +55,6 @@
 @synthesize resourceManager = resourceManager_;
 //@synthesize loadingManager  = loadingManager_;
 
-- (void)dealloc {
-  self.managedObjectContext = nil;
-  self.resources            = nil;
-  self.resourceManager      = nil;
-//  self.loadingManager       = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
@@ -92,7 +85,6 @@
     
     NSURL * url = [[NSURL alloc] initWithString:kResourceListURL];
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [url release];
     [request setHTTPMethod:@"GET"];
     //
     // !!!TODO
@@ -103,7 +95,6 @@
       [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                       success:success
                                                       failure:failure];
-    [request release];
     [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/plain"]];
     [operation start];
   }
@@ -146,8 +137,8 @@
   UITableViewCell * cell =
     [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil)
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                   reuseIdentifier:cellIdentifier] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                   reuseIdentifier:cellIdentifier];
   
   // Configure the cell...
   [cell.textLabel setTextColor:[UIColor whiteColor]];
@@ -226,7 +217,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   
   // Progress View
   UIWindow * window = self.view.window;
-  __block MBProgressHUD * progressView = [[MBProgressHUD alloc] initWithWindow:window];
+  __weak MBProgressHUD * progressView = [[MBProgressHUD alloc] initWithWindow:window];
   progressView.delegate = self;
   progressView.mode = MBProgressHUDModeAnnularDeterminate;
   progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceDownloading", nil);
@@ -278,8 +269,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     dispatch_async(dispatch_get_main_queue(), ^{
       // Hide loading indicator and show a succeed/faild message
-      progressView.customView = [[[UIImageView alloc] initWithImage:
-                                  [UIImage imageNamed:(succeed ? kPMINMainButtonConfirm : kPMINMainButtonCancel)]] autorelease];
+      progressView.customView = [[UIImageView alloc] initWithImage:
+                                  [UIImage imageNamed:(succeed ? kPMINMainButtonConfirm : kPMINMainButtonCancel)]];
       progressView.mode = MBProgressHUDModeCustomView;
       progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceCompleted", nil);
       [progressView hide:YES afterDelay:1.f];
@@ -290,7 +281,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"!!!ERROR: RESOURCE in ZIP CANNOT be saved to disk: %@", [error description]);
     dispatch_async(dispatch_get_main_queue(), ^{
       // Hide loading indicator and show a faild message
-      progressView.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonCancel]] autorelease];
+      progressView.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonCancel]];
       progressView.mode = MBProgressHUDModeCustomView;
       progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceFailed", nil);
       [progressView hide:YES afterDelay:1.f];
@@ -311,7 +302,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [request setHTTPMethod:@"GET"];
   // Setup operation
   AFHTTPRequestOperation * operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-  [request release];
   operation.outputStream = [NSOutputStream outputStreamToFileAtPath:pathToSave append:NO];
   [operation setCompletionBlockWithSuccess:success failure:failure];
   [operation setDownloadProgressBlock:downloadProgress];
@@ -319,7 +309,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [progressView show:YES];
   // Start operation
   [operation start];
-  [operation release];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -327,7 +316,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 // Remove HUD from screen when the HUD was hidded
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	[hud removeFromSuperview];
-	[hud release];
 	hud = nil;
 }
 

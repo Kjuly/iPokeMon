@@ -12,7 +12,7 @@
   UISlider * slider_;
 }
 
-@property (nonatomic, retain) UISlider * slider;
+@property (nonatomic, strong) UISlider * slider;
 
 - (void)configureCellWithTitle:(NSString *)title
                    sliderValue:(float)value;

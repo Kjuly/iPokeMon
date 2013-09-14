@@ -28,8 +28,8 @@ typedef enum {
   WildPokemon         * enemyPokemon_;
 }
 
-@property (nonatomic, retain) TrainerTamedPokemon * playerPokemon;
-@property (nonatomic, retain) WildPokemon         * enemyPokemon;
+@property (nonatomic, strong) TrainerTamedPokemon * playerPokemon;
+@property (nonatomic, strong) WildPokemon         * enemyPokemon;
 
 + (GameSystemProcess *)sharedInstance;
 

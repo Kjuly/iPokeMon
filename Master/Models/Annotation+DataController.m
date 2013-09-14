@@ -93,7 +93,6 @@
         annotation.maxZoomLevel = maxZoomLevel;
       }
     }
-    [fetchRequest release];
     
     if (! [managedObjectContext save:&error])
       NSLog(@"!!! Couldn't save data to %@, %@", NSStringFromClass([self class]), error);
@@ -131,7 +130,6 @@
   
   NSError * error;
   NSArray * annotations = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  [fetchRequest release];
   return annotations;
 }
 

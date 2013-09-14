@@ -12,13 +12,13 @@
 
 
 @interface CustomNavigationBar : UINavigationBar {
-  id <CustomNavigationBarDelegate>   delegate_;
-  id <CustomNavigationBarDataSource> dataSource_;
+  id <CustomNavigationBarDelegate>   __weak delegate_;
+  id <CustomNavigationBarDataSource> __weak dataSource_;
   NSInteger viewCount_;
 }
 
-@property (nonatomic, assign) id <CustomNavigationBarDelegate>   delegate;
-@property (nonatomic, assign) id <CustomNavigationBarDataSource> dataSource;
+@property (nonatomic, weak) id <CustomNavigationBarDelegate>   delegate;
+@property (nonatomic, weak) id <CustomNavigationBarDataSource> dataSource;
 @property (nonatomic, assign) NSInteger viewCount;
 
 - (void)back:(id)sender;

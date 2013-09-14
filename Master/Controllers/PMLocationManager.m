@@ -25,11 +25,11 @@
   CLLocationDistance moveDistance_;
 }
 
-@property (nonatomic, retain) CLLocationManager * locationManager;
-@property (nonatomic, retain) CLLocation        * location;
+@property (nonatomic, strong) CLLocationManager * locationManager;
+@property (nonatomic, strong) CLLocation        * location;
 @property (nonatomic, copy)   NSDictionary      * locationInfo;
 @property (nonatomic, copy)   NSString          * regionCode;
-@property (nonatomic, retain) NSTimer           * eventTimer;
+@property (nonatomic, strong) NSTimer           * eventTimer;
 
 - (void)_setup;
 - (void)_enableTracking:(NSNotification *)notification;          // enable tracking
@@ -64,16 +64,10 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 - (void)dealloc {
-  self.locationManager = nil;
-  self.location        = nil;
-  self.locationInfo    = nil;
-  self.regionCode      = nil;
-  self.eventTimer      = nil;
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNDisableTracking object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd       object:nil];
-  [super dealloc];
 }
 
 - (id)init {
@@ -278,7 +272,6 @@ static PMLocationManager * locationManager_ = nil;
     NSLog(@"areasOfInterest:::%@", [placemark areasOfInterest]);
     if (placemark) [locationInfo setObject:placemark forKey:@"placemark"];
     self.locationInfo = locationInfo;
-    [locationInfo release];
     
     // update |regionCode_| when get a different region code
     NSString * regionCode = [Region codeOfRegionWithPlacemark:placemark];
@@ -301,7 +294,6 @@ static PMLocationManager * locationManager_ = nil;
   [[LoadingManager sharedInstance] showOverBar];
   CLGeocoder * geocoder = [[CLGeocoder alloc] init];
   [geocoder reverseGeocodeLocation:self.location completionHandler:completionHandler];
-  [geocoder release];
 //#endif
 }
 

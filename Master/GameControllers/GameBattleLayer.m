@@ -33,17 +33,17 @@
   GamePokemonSprite * enemyPokemonSprite_;
 }
 
-@property (nonatomic, retain) PMAudioPlayer     * audioPlayer;
-@property (nonatomic, retain) TrainerController * trainer;
-@property (nonatomic, retain) GameStatusMachine * gameStatusMachine;
-@property (nonatomic, retain) GameSystemProcess * gameSystemProcess;
-@property (nonatomic, retain) GamePlayerProcess * playerProcess;
-@property (nonatomic, retain) GameEnemyProcess  * enemyProcess;
-@property (nonatomic, retain) CCSprite          * background;
-@property (nonatomic, retain) CCSprite          * playerPokemonPoint;
-@property (nonatomic, retain) CCSprite          * enemyPokemonPoint;
-@property (nonatomic, retain) GamePokemonSprite * playerPokemonSprite;
-@property (nonatomic, retain) GamePokemonSprite * enemyPokemonSprite;
+@property (nonatomic, strong) PMAudioPlayer     * audioPlayer;
+@property (nonatomic, strong) TrainerController * trainer;
+@property (nonatomic, strong) GameStatusMachine * gameStatusMachine;
+@property (nonatomic, strong) GameSystemProcess * gameSystemProcess;
+@property (nonatomic, strong) GamePlayerProcess * playerProcess;
+@property (nonatomic, strong) GameEnemyProcess  * enemyProcess;
+@property (nonatomic, strong) CCSprite          * background;
+@property (nonatomic, strong) CCSprite          * playerPokemonPoint;
+@property (nonatomic, strong) CCSprite          * enemyPokemonPoint;
+@property (nonatomic, strong) GamePokemonSprite * playerPokemonSprite;
+@property (nonatomic, strong) GamePokemonSprite * enemyPokemonSprite;
 
 - (void)_setupNotificationObservers;
 - (void)_createNewSceneWithWildPokemon:(WildPokemon *)wildPokemon;
@@ -89,23 +89,10 @@
 }
 
 - (void)dealloc {
-  self.gameMoveEffect  = nil;
   
-  self.audioPlayer         = nil;
-  self.trainer             = nil;
-  self.gameStatusMachine   = nil;
-  self.gameSystemProcess   = nil;
-  self.playerProcess       = nil;
-  self.enemyProcess        = nil;
-  self.background          = nil;
-  self.playerPokemonPoint  = nil;
-  self.enemyPokemonPoint   = nil;
-  self.playerPokemonSprite = nil;
-  self.enemyPokemonSprite  = nil;
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (id)init {
@@ -195,11 +182,9 @@
   
   GamePlayerProcess * playerProcess = [[GamePlayerProcess alloc] init];
   self.playerProcess = playerProcess;
-  [playerProcess release];
   
   GameEnemyProcess * enemyProcess = [[GameEnemyProcess alloc] init];
   self.enemyProcess = enemyProcess;
-  [enemyProcess release];
   
   // Game battle scene's background
   NSString * backgroundImageName =
@@ -227,7 +212,6 @@
   [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.imageBack).CGImage
                                          key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
-  [playerPokemonSprite release];
   [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosOffsetX, kGameBattlePlayerPokemonPosY)];
   [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.playerPokemonSprite];
@@ -239,7 +223,6 @@
   [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)enemyPokemon.pokemon.image).CGImage
                                          key:spriteKeyEnemyPokemon];
   self.enemyPokemonSprite = enemyPokemonSprite;
-  [enemyPokemonSprite release];
   [self.enemyPokemonSprite setPosition:ccp(kGameBattleEnemyPokemonPosOffsetX, kGameBattleEnemyPokemonPosY)];
   [self.enemyPokemonSprite setStatus:kGamePokemonStatusNormal];
   [self addChild:self.enemyPokemonSprite];
@@ -334,7 +317,6 @@
     [[GamePokemonSprite alloc] initWithCGImage:((UIImage *)playerPokemon.pokemon.imageBack).CGImage
                                            key:spriteKeyPlayerPokemon];
   self.playerPokemonSprite = playerPokemonSprite;
-  [playerPokemonSprite release];
   playerPokemon = nil;
   [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosX, kGameBattlePlayerPokemonPosY)];
   [self.playerPokemonSprite setStatus:kGamePokemonStatusNormal];

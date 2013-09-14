@@ -34,9 +34,9 @@
                                      * oAuthGoogleClientSecret,
                                      * oAuthGoogleKeychainItemName,
                                      * oAuthGoogleScope;
-@property (nonatomic, retain) LoadingManager          * loadingManager;
-@property (nonatomic, retain) NSOperationQueue        * operationQueue;
-@property (nonatomic, retain) GTMOAuth2Authentication * oauth;
+@property (nonatomic, strong) LoadingManager          * loadingManager;
+@property (nonatomic, strong) NSOperationQueue        * operationQueue;
+@property (nonatomic, strong) GTMOAuth2Authentication * oauth;
 
 - (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider;
 - (void)_syncUserID;                                     // Current authticated User's ID (Trainer's |uid|)
@@ -72,15 +72,11 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 - (void)dealloc {
-  self.clientIdentifier = nil;
   self.oAuthGoogleClientID =
     self.oAuthGoogleClientSecret =
     self.oAuthGoogleKeychainItemName,
     self.oAuthGoogleScope = nil;
-  self.oauth = nil;
   [self.operationQueue cancelAllOperations];
-  self.operationQueue = nil;  
-  [super dealloc];
 }
 
 - (id)init {
@@ -157,7 +153,7 @@ static OAuthManager * oauthManager_ = nil;
   // Optional: display some html briefly before the sign-in page loads
   loginViewController.initialHTMLString = @"SHOW";
   
-  return [loginViewController autorelease];
+  return loginViewController;
 }
 
 // Revoke authorized service
@@ -292,7 +288,6 @@ static OAuthManager * oauthManager_ = nil;
       // show the body of the server's authentication failure response
       NSString * str = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
       NSLog(@"%@", str);
-      [str release];
     }
     self.oauth = nil;
     selectedServiceProvider_ = [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
@@ -301,7 +296,6 @@ static OAuthManager * oauthManager_ = nil;
     NSDictionary * userInfo =
       [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorAuthenticationFailed], @"error", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
-    [userInfo release];
   } else {
     NSLog(@"Authentication SUCCEED...");
     // Authentication succeeded
@@ -333,7 +327,6 @@ static OAuthManager * oauthManager_ = nil;
     NSDictionary * userInfo =
       [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"succeed", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNLoginSucceed object:self userInfo:userInfo];
-    [userInfo release];
   }
 }
 

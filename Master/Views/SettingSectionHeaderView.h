@@ -12,6 +12,6 @@
   UILabel * title_;
 }
 
-@property (nonatomic, retain) UILabel * title;
+@property (nonatomic, strong) UILabel * title;
 
 @end

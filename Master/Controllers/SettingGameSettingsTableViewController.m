@@ -22,9 +22,6 @@
 
 @implementation SettingGameSettingsTableViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
@@ -112,7 +109,7 @@
   SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:
     NSLocalizedString(([NSString stringWithFormat:@"PMSSettingGeneralGameSettingsSection%d", section + 1]), nil)];
-  return [sectionHeaderView autorelease];
+  return sectionHeaderView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -127,7 +124,7 @@
     CellIdentifier = @"CellStyleTitle";
     SettingTableViewCellStyleSlider *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-      cell = [[[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+      cell = [[SettingTableViewCellStyleSlider alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     switch (rowNum) {
@@ -165,7 +162,7 @@
         CellIdentifier = @"CellStyleSwitch";
         SettingTableViewCellStyleSwitch *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-          cell = [[[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleSwitch alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         }
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingGeneralGameSettingsOthersAnimations", nil)
                             switchOn:[userDefaults boolForKey:kUDKeyGameSettingsAnimations]];

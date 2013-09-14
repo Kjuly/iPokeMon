@@ -16,7 +16,7 @@
   GameMoveEffect  * gameMoveEffect_;
 }
 
-@property (nonatomic, retain) GameMoveEffect  * gameMoveEffect;
+@property (nonatomic, strong) GameMoveEffect  * gameMoveEffect;
 
 + (CCScene *)scene;
 

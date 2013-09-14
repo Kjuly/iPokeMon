@@ -34,19 +34,19 @@
   NSInteger currSelectedMoveIndex_;
 }
 
-@property (nonatomic, retain) GameMenuMoveUnitView * move1View;
-@property (nonatomic, retain) GameMenuMoveUnitView * move2View;
-@property (nonatomic, retain) GameMenuMoveUnitView * move3View;
-@property (nonatomic, retain) GameMenuMoveUnitView * move4View;
-@property (nonatomic, retain) MoveDetailRoundView  * moveDetailRoundView;
-@property (nonatomic, retain) CAAnimationGroup     * loadAnimationGroup;
-@property (nonatomic, retain) CAAnimationGroup     * unloadAnimationGroup;
-@property (nonatomic, retain) CAAnimationGroup     * switchAnimationGroup;
+@property (nonatomic, strong) GameMenuMoveUnitView * move1View;
+@property (nonatomic, strong) GameMenuMoveUnitView * move2View;
+@property (nonatomic, strong) GameMenuMoveUnitView * move3View;
+@property (nonatomic, strong) GameMenuMoveUnitView * move4View;
+@property (nonatomic, strong) MoveDetailRoundView  * moveDetailRoundView;
+@property (nonatomic, strong) CAAnimationGroup     * loadAnimationGroup;
+@property (nonatomic, strong) CAAnimationGroup     * unloadAnimationGroup;
+@property (nonatomic, strong) CAAnimationGroup     * switchAnimationGroup;
 
-@property (nonatomic, retain) TrainerTamedPokemon      * playerPokemon;
+@property (nonatomic, strong) TrainerTamedPokemon      * playerPokemon;
 @property (nonatomic, copy)   NSArray                  * fourMovesPP;
-@property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
-@property (nonatomic, retain) UITapGestureRecognizer   * tapGestureRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer   * tapGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_useSelectedMove:(id)sender;
@@ -75,15 +75,7 @@
 @synthesize tapGestureRecognizer       = tapGestureRecognizer_;
 
 - (void)dealloc {
-  self.loadAnimationGroup         = nil;
-  self.unloadAnimationGroup       = nil;
-  self.switchAnimationGroup       = nil;
-  self.playerPokemon              = nil;
-  self.fourMovesPP                = nil;
-  self.swipeLeftGestureRecognizer = nil;
-  self.tapGestureRecognizer       = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -147,7 +139,6 @@
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer =
     [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeView:)];
   self.swipeLeftGestureRecognizer = swipeLeftGestureRecognizer;
-  [swipeLeftGestureRecognizer release];
   [self.swipeLeftGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
   [self.view addGestureRecognizer:self.swipeLeftGestureRecognizer];
   
@@ -253,7 +244,6 @@
     [self.loadAnimationGroup setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
     [self.loadAnimationGroup setAnimations:animations];
-    [animations release];
     [self.loadAnimationGroup setTimingFunction:
       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
@@ -295,7 +285,6 @@
     [self.unloadAnimationGroup setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
     [self.unloadAnimationGroup setAnimations:animations];
-    [animations release];
     [self.unloadAnimationGroup setTimingFunction:
       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
@@ -324,7 +313,6 @@
     [self.switchAnimationGroup setDuration:duration];
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, nil];
     [self.switchAnimationGroup setAnimations:animations];
-    [animations release];
   }
   [self.moveDetailRoundView.layer addAnimation:self.switchAnimationGroup forKey:@"switchAnimation"];
 }

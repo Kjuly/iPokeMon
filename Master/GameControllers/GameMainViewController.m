@@ -25,9 +25,9 @@
   BOOL                   isLoadingResourceForBattle_;
 }
 
-@property (nonatomic, retain) PMAudioPlayer                 * audioPlayer;
-@property (nonatomic, retain) GameBattleEventViewController * gameBattleEventViewController;
-@property (nonatomic, retain) GameBattleEndViewController   * gameBattleEndViewController;
+@property (nonatomic, strong) PMAudioPlayer                 * audioPlayer;
+@property (nonatomic, strong) GameBattleEventViewController * gameBattleEventViewController;
+@property (nonatomic, strong) GameBattleEndViewController   * gameBattleEndViewController;
 
 - (void)_setupNotificationObservers;
 - (void)_loadBattleScene:(NSNotification *)notification;
@@ -46,15 +46,10 @@
 @synthesize gameBattleEndViewController   = gameBattleEndViewController_;
 
 - (void)dealloc {
-  self.gameMenuViewController        = nil;
   
-  self.audioPlayer                   = nil;
-  self.gameBattleEventViewController = nil;
-  self.gameBattleEndViewController   = nil;
   
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (id)init {
@@ -76,7 +71,6 @@
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
   [view setAlpha:0.f];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -138,7 +132,6 @@
     if (self.gameBattleEventViewController == nil) {
       GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
       self.gameBattleEventViewController = gameBattleEventViewController;
-      [gameBattleEventViewController release];
     }
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEventViewController.view];
     [self.gameBattleEventViewController loadViewWithEventType:kGameBattleEventTypeNoPMAvailable
@@ -188,7 +181,6 @@
                      [[NSNotificationCenter defaultCenter] postNotificationName:kPMNBattleEnd
                                                                          object:self
                                                                        userInfo:userInfo];
-                     [userInfo release];
                    }];
 }
 
@@ -249,7 +241,6 @@
   if (self.gameBattleEventViewController == nil) {
     GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
     self.gameBattleEventViewController = gameBattleEventViewController;
-    [gameBattleEventViewController release];
   }
   
   [self.view.window addSubview:self.gameBattleEventViewController.view];
@@ -278,7 +269,6 @@
   if (self.gameBattleEndViewController == nil) {
     GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
     self.gameBattleEndViewController = gameBattleEndViewController;
-    [gameBattleEndViewController release];
   }
   
   NSTimeInterval delay = 1.8f;

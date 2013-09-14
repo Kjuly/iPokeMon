@@ -19,8 +19,8 @@
   UILabel * authenticatingLabel_;
 }
 
-@property (nonatomic, retain) UIView  * authenticatingView;
-@property (nonatomic, retain) UILabel * authenticatingLabel;
+@property (nonatomic, strong) UIView  * authenticatingView;
+@property (nonatomic, strong) UILabel * authenticatingLabel;
 
 - (void)_setupNotificationObserver;
 - (NSString *)_nameForProvider:(OAuthServiceProviderChoice)provider;
@@ -36,12 +36,9 @@
 @synthesize authenticatingLabel = authenticatingLabel_;
 
 - (void)dealloc {
-  self.authenticatingView = nil;
-  self.authenticatingView = nil;
   
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -124,7 +121,7 @@
   
   LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[LoginTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[LoginTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
   }
   
   // Get icon file name
@@ -261,13 +258,11 @@
   if (self.authenticatingView == nil) {
     UIView * authenticatingView = [[UIView alloc] initWithFrame:self.view.frame];
     self.authenticatingView = authenticatingView;
-    [authenticatingView release];
     [self.authenticatingView setBackgroundColor:[UIColor blackColor]];
   }
   if (self.authenticatingLabel == nil) {
     UILabel * authenticatingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 160.f, 290.f, 32.f)];
     self.authenticatingLabel = authenticatingLabel;
-    [authenticatingLabel release];
     [self.authenticatingLabel setBackgroundColor:[UIColor clearColor]];
     [self.authenticatingLabel setTextColor:[GlobalRender textColorTitleWhite]];
     [self.authenticatingLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];

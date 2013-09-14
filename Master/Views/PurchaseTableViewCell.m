@@ -14,10 +14,6 @@
 
 @synthesize exchangeButton = exchangeButton_;
 
-- (void)dealloc {
-  self.exchangeButton = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier {
@@ -32,7 +28,6 @@
     UIView * backgroundView = [[UIView alloc] initWithFrame:cellFrame];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     [self setBackgroundView:backgroundView];
-    [backgroundView release];
     
     // Set |selectedBackgroundView| for cell
 //    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];

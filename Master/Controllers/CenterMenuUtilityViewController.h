@@ -14,7 +14,7 @@
 
 @interface CenterMenuUtilityViewController : PMCircleMenu
 
-@property (retain, nonatomic) NSManagedObjectContext * managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 #ifdef KY_INVITATION_ONLY
 @property (retain, nonatomic) KYUnlockCodeManager * unlockCodeManager;
 #endif

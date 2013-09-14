@@ -18,7 +18,6 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNChangeCenterMainButtonStatus
                                                       object:self
                                                     userInfo:userInfo];
-  [userInfo release];
 }
 
 @end

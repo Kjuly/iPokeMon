@@ -12,7 +12,7 @@
   UIButton * exchangeButton_;
 }
 
-@property (nonatomic, retain) UIButton * exchangeButton;
+@property (nonatomic, strong) UIButton * exchangeButton;
 
 - (void)configureCellWithTitle:(NSString *)title
                          price:(NSString *)price

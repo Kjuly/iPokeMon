@@ -173,9 +173,7 @@ static ServerAPIClient * client_;
 }
 
 - (void)dealloc {
-  self.regionCode = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateRegion object:nil];
-  [super dealloc];
 }
 
 - (id)initWithBaseURL:(NSURL *)url {

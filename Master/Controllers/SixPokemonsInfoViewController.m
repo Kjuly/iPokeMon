@@ -17,11 +17,11 @@
   UIImageView * expBarCurrntPoint_;
 }
 
-@property (nonatomic, retain) UIImageView * expBarTotal;
-@property (nonatomic, retain) UIImageView * expBarCurrntPoint;
-@property (nonatomic, retain) PokemonInfoLabelView * levelLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * expLabelView;
-@property (nonatomic, retain) PokemonInfoLabelView * toNextLevelLabelView;
+@property (nonatomic, strong) UIImageView * expBarTotal;
+@property (nonatomic, strong) UIImageView * expBarCurrntPoint;
+@property (nonatomic, strong) PokemonInfoLabelView * levelLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * expLabelView;
+@property (nonatomic, strong) PokemonInfoLabelView * toNextLevelLabelView;
 
 - (void)_releaseSubviews;
 
@@ -38,7 +38,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -94,7 +93,6 @@
                                                                         [pokemonBaseInfo.type2 intValue]]), nil)]];
   [typeLabelView.value setText:types];
   [dataView addSubview:typeLabelView];
-  [typeLabelView release];
   
   // Level
   levelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:levelLabelViewFrame hasValueLabel:YES];
@@ -122,7 +120,6 @@
   
   // Add Data View to |self.view| & Release it
   [self.view addSubview:dataView];
-  [dataView release];
   
   
   // Implement the completion block

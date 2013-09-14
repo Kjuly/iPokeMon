@@ -10,9 +10,6 @@
 
 @implementation PokemonSizeViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
@@ -51,7 +48,6 @@
   [heightLabelView.value setText:[NSString stringWithFormat:@"%.2f m",
                                   [[self.pokemon valueForKey:@"height"] floatValue]]];
   [sizeView addSubview:heightLabelView];
-  [heightLabelView release];
   
   // Weight
   PokemonInfoLabelView * weightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
@@ -59,11 +55,9 @@
   [weightLabelView.value setText:[NSString stringWithFormat:@"%.2f kg",
                                   [[self.pokemon valueForKey:@"weight"] floatValue]]];
   [sizeView addSubview:weightLabelView];
-  [weightLabelView release];
   
   // Add Size View to |self.view| & Release it
   [self.view addSubview:sizeView];
-  [sizeView release];
 }
 
 - (void)viewDidUnload {

@@ -16,12 +16,6 @@
 @synthesize value      = value_;
 @synthesize deltaValue = deltaValue_;
 
-- (void)dealloc {
-  self.name       = nil;
-  self.value      = nil;
-  self.deltaValue = nil;
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
@@ -59,7 +53,6 @@
     [plusSymbol setTextAlignment:UITextAlignmentCenter];
     [plusSymbol setText:@"+"];
     [self addSubview:plusSymbol];
-    [plusSymbol release];
     
     deltaValue_ = [[UILabel alloc] initWithFrame:deltaValueFrame];
     [deltaValue_ setBackgroundColor:[UIColor clearColor]];

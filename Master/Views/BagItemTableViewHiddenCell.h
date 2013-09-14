@@ -11,7 +11,7 @@
 @protocol BagItemTableViewHiddenCellDelegate;
 
 @interface BagItemTableViewHiddenCell : UITableViewCell {
-  id <BagItemTableViewHiddenCellDelegate> delegate_;
+  id <BagItemTableViewHiddenCellDelegate> __weak delegate_;
   UIButton * use_;
   UIButton * give_;
   UIButton * toss_;
@@ -19,12 +19,12 @@
   UIButton * cancel_;
 }
 
-@property (nonatomic, assign) id <BagItemTableViewHiddenCellDelegate> delegate;
-@property (nonatomic, retain) UIButton * use;
-@property (nonatomic, retain) UIButton * give;
-@property (nonatomic, retain) UIButton * toss;
-@property (nonatomic, retain) UIButton * info;
-@property (nonatomic, retain) UIButton * cancel;
+@property (nonatomic, weak) id <BagItemTableViewHiddenCellDelegate> delegate;
+@property (nonatomic, strong) UIButton * use;
+@property (nonatomic, strong) UIButton * give;
+@property (nonatomic, strong) UIButton * toss;
+@property (nonatomic, strong) UIButton * info;
+@property (nonatomic, strong) UIButton * cancel;
 
 - (void)addQuantity:(NSInteger)quantity withOffsetX:(CGFloat)offsetX;
 - (void)updateQuantity:(NSInteger)quantity;

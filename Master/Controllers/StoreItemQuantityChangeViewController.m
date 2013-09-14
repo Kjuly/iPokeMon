@@ -27,12 +27,12 @@
   NSInteger itemQuantity_;
 }
 
-@property (nonatomic, retain) UIView   * backgroundView;
-@property (nonatomic, retain) UILabel  * itemQuantityLabel;
-@property (nonatomic, retain) UIButton * increaseButton;
-@property (nonatomic, retain) UIButton * decreaseButton;
-@property (nonatomic, retain) UIButton * confirmButton;
-@property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, strong) UIView   * backgroundView;
+@property (nonatomic, strong) UILabel  * itemQuantityLabel;
+@property (nonatomic, strong) UIButton * increaseButton;
+@property (nonatomic, strong) UIButton * decreaseButton;
+@property (nonatomic, strong) UIButton * confirmButton;
+@property (nonatomic, strong) UIButton * cancelButton;
 
 - (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
@@ -55,7 +55,6 @@
 
 - (void)dealloc {
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -85,7 +84,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 480.f}}];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

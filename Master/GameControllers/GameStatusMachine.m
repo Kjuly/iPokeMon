@@ -35,9 +35,6 @@ static GameStatusMachine * gameStatusMachine_ = nil;
   return gameStatusMachine_;
 }
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)init {
   if (self = [super init]) {

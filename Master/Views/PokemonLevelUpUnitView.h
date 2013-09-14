@@ -14,9 +14,9 @@
   UILabel * deltaValue_;
 }
 
-@property (nonatomic, retain) UILabel * name;
-@property (nonatomic, retain) UILabel * value;
-@property (nonatomic, retain) UILabel * deltaValue;
+@property (nonatomic, strong) UILabel * name;
+@property (nonatomic, strong) UILabel * value;
+@property (nonatomic, strong) UILabel * deltaValue;
 
 - (void)adjustNameLabelWidthWith:(CGFloat)deltaWidth;
 

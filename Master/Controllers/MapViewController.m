@@ -33,13 +33,13 @@
   BOOL      shouldIgnoreFirstRegionChange_;  // when select the annotation, map view will move the region
 }
 
-@property (nonatomic, retain) MKMapView  * mapView;
-@property (nonatomic, retain) UIButton   * locateMeButton;
-@property (nonatomic, retain) UIButton   * showWorldButton;
+@property (nonatomic, strong) MKMapView  * mapView;
+@property (nonatomic, strong) UIButton   * locateMeButton;
+@property (nonatomic, strong) UIButton   * showWorldButton;
 
-@property (nonatomic, retain) CLLocation       * location;
-@property (nonatomic, retain) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
-@property (nonatomic, retain) MKAnnotationView * selectedAnnotationView;
+@property (nonatomic, strong) CLLocation       * location;
+@property (nonatomic, strong) MapAnnotationCalloutViewController * mapAnnotationCalloutViewController;
+@property (nonatomic, strong) MKAnnotationView * selectedAnnotationView;
 @property (nonatomic, copy)   NSMutableSet     * annotations;
 
 - (void)_releaseSubviews;
@@ -69,12 +69,7 @@
 @synthesize annotations            = annotations_;
 
 - (void)dealloc {
-  self.location               = nil;
-  self.mapAnnotationCalloutViewController = nil;
-  self.selectedAnnotationView = nil;
-  self.annotations            = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -106,7 +101,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -123,7 +117,6 @@
   MKMapView * mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
   [mapView setShowsUserLocation:YES];
   self.mapView = mapView;
-  [mapView release];
   self.mapView.delegate = self;
   [self.view addSubview:self.mapView];
   
@@ -299,12 +292,10 @@
                        subtitle:annotation.subtitle];
     NSLog(@"---> new Annotation...code:%@", annotation.code);
     [mapAnnotations addObject:mapAnnotation];
-    [mapAnnotation release];
   }
   
   [self.mapView addAnnotations:mapAnnotations];
   self.annotations = [NSMutableSet setWithArray:mapAnnotations];
-  [mapAnnotations release];
   annotations = nil;
 }
 
@@ -359,8 +350,8 @@
   MEWMapAnnotationView * annotationView =
     (MEWMapAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
   if (! annotationView) {
-    annotationView = [[[MEWMapAnnotationView alloc] initWithAnnotation:annotation
-                                                       reuseIdentifier:annotationIdentifier] autorelease];
+    annotationView = [[MEWMapAnnotationView alloc] initWithAnnotation:annotation
+                                                       reuseIdentifier:annotationIdentifier];
     // do not show the default callout view
     //annotationView.canShowCallout = YES;
   }

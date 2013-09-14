@@ -12,11 +12,11 @@
 
 @interface Region : NSManagedObject
 
-@property (nonatomic, retain) NSString * administrativeArea;
-@property (nonatomic, retain) NSString * code;
-@property (nonatomic, retain) NSString * countryCode;
-@property (nonatomic, retain) NSString * locality;
-@property (nonatomic, retain) NSString * subLocality;
-@property (nonatomic, retain) NSString * flag;
+@property (nonatomic, strong) NSString * administrativeArea;
+@property (nonatomic, strong) NSString * code;
+@property (nonatomic, strong) NSString * countryCode;
+@property (nonatomic, strong) NSString * locality;
+@property (nonatomic, strong) NSString * subLocality;
+@property (nonatomic, strong) NSString * flag;
 
 @end

@@ -16,9 +16,6 @@
 
 @implementation StoreTableViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   if (self = [super initWithStyle:style]) {
@@ -85,8 +82,8 @@
   static NSString * cellIdentifier = @"Cell";
   BagTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil)
-    cell = [[[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                    reuseIdentifier:cellIdentifier] autorelease];
+    cell = [[BagTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                    reuseIdentifier:cellIdentifier];
   
   // Configure the cell...
   NSInteger index = [indexPath row] + 1;
@@ -151,19 +148,16 @@
     PurchaseTableViewController * purchaseTableViewController;
     purchaseTableViewController = [[PurchaseTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:purchaseTableViewController animated:YES];
-    [purchaseTableViewController release];
   }
   else if (row != 1) { // Not Bag Medicine, as it has three sub types
     StoreItemTableViewController * storeItemTableViewController = [StoreItemTableViewController alloc];
     [storeItemTableViewController initWithBagItem:(1 << row)];
     [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
     [self.navigationController pushViewController:storeItemTableViewController animated:YES];
-    [storeItemTableViewController release];
   } else {
     StoreMedicineTableViewController * storeMedicineTableViewController = [StoreMedicineTableViewController alloc];
     [storeMedicineTableViewController initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:storeMedicineTableViewController animated:YES];
-    [storeMedicineTableViewController release];
   }
 }
 

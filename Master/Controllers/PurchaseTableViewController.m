@@ -24,8 +24,8 @@
   NSInteger selectedRowIndex_;
 }
 
-@property (nonatomic, retain) LoadingManager    * loadingManager;
-@property (nonatomic, retain) PMPurchaseManager * purchaseManager;
+@property (nonatomic, strong) LoadingManager    * loadingManager;
+@property (nonatomic, strong) PMPurchaseManager * purchaseManager;
 
 - (void)_setupNotificationObservers;
 - (void)_timeOut:(id)sender;
@@ -42,11 +42,8 @@
 @synthesize purchaseManager = purchaseManager_;
 
 - (void)dealloc {
-  self.loadingManager  = nil;
-  self.purchaseManager = nil;
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -145,8 +142,8 @@
   static NSString *CellIdentifier = @"Cell";
   PurchaseTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[PurchaseTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                         reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[PurchaseTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                         reuseIdentifier:CellIdentifier];
   }
     
   // Configure the cell...
@@ -161,7 +158,6 @@
                          price:[numberFormatter stringFromNumber:product.price]
                           icon:[UIImage imageNamed:[NSString stringWithFormat:kPMINIconCurrencyExchangeIcon, row + 1]]
                            odd:(row % 2 == 0 ? YES : NO)];
-  [numberFormatter release];
   [cell.exchangeButton setTag:row];
   [cell.exchangeButton addTarget:self
                           action:@selector(_exchangeCurrency:)
@@ -282,11 +278,11 @@
   
   SKPaymentTransaction * transaction = (SKPaymentTransaction *) notification.object;
   if (transaction.error.code != SKErrorPaymentCancelled) {
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Error!"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
                                                      message:transaction.error.localizedDescription 
                                                     delegate:nil 
                                            cancelButtonTitle:nil 
-                                           otherButtonTitles:@"OK", nil] autorelease];
+                                           otherButtonTitles:@"OK", nil];
     [alert show];
     // show message to warn user the Exchange Failed
 //    [self.loadingManager showMessage:NSLocalizedString(@"Exchange Failed", nil)

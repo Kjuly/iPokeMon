@@ -21,11 +21,11 @@
   BOOL                     isDuringBattle_;
 }
 
-@property (nonatomic, retain) UIView                 * backgroundView;
-@property (nonatomic, retain) UILabel                * name;
-@property (nonatomic, retain) UILabel                * price;
-@property (nonatomic, retain) UILabel                * info;
-@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+@property (nonatomic, strong) UIView                 * backgroundView;
+@property (nonatomic, strong) UILabel                * name;
+@property (nonatomic, strong) UILabel                * price;
+@property (nonatomic, strong) UILabel                * info;
+@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_unloadViewWithAnimation;
@@ -42,9 +42,7 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc {
-  self.tapGestureRecognizer = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -72,7 +70,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight + 20.f}}];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -118,7 +115,6 @@
   UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
   [tapGestureRecognizer initWithTarget:self action:@selector(_unloadViewWithAnimation)];
   self.tapGestureRecognizer = tapGestureRecognizer;
-  [tapGestureRecognizer release];
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
   [self.tapGestureRecognizer setNumberOfTouchesRequired:1];
   [self.view addGestureRecognizer:self.tapGestureRecognizer];

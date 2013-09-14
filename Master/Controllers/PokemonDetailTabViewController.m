@@ -25,9 +25,6 @@
 
 @implementation PokemonDetailTabViewController
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithPokemonSID:(NSInteger)pokemonSID
               withTopbar:(BOOL)withTopbar {
@@ -77,9 +74,6 @@
                          @"viewController" : pokemonSizeViewController}];
   
   // Release child view controllers
-  [pokemonInfoViewController release];
-  [pokemonAreaViewController release];
-  [pokemonSizeViewController release];
 }
 
 @end

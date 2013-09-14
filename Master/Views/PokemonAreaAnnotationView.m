@@ -12,9 +12,6 @@
 
 @implementation PokemonAreaAnnotationView
 
-- (void)dealloc {
-  [super dealloc];
-}
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation
          reuseIdentifier:(NSString *)reuseIdentifier {

@@ -115,7 +115,6 @@
   // Fetch Data from server
   NSURL * url = [[NSURL alloc] initWithString:@"http://localhost:8080/user/1"];
   NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-  [url release];
   
   AFJSONRequestOperation * operation =
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -131,7 +130,6 @@
                                                       NSLog(@"Couldn't save data to %@", NSStringFromClass([self class]));
                                                   }
                                                   failure:nil];
-  [request release];
   [operation start];
 }
 
@@ -147,7 +145,6 @@
   NSError * error;
   NSArray * fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest
                                                                  error:&error];
-  [fetchRequest release];
   
   return fetchedObjects;
 }
@@ -167,7 +164,6 @@
   NSError * error;
   Trainer * trainer = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] lastObject];
   NSLog(@"|queryTrainerWithUserID:%d| - Trainer:%@", userID, trainer);
-  [fetchRequest release];
   
   return trainer;
 }
@@ -222,7 +218,6 @@
   
   NSLog(@"Sync Data:%@", data);
   [[ServerAPIClient sharedInstance] updateData:data forTarget:kDataFetchTargetTrainer success:success failure:failure];
-  [data release];
 }
 
 // Fetch Pokemons for |sixPokemons|

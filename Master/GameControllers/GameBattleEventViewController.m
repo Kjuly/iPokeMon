@@ -29,14 +29,14 @@
   GameBattleEventType      eventType_;
 }
 
-@property (nonatomic, retain) UIView                 * backgroundView;
-@property (nonatomic, retain) UILabel                * message;
-@property (nonatomic, retain) UIView                 * levelUpView;
+@property (nonatomic, strong) UIView                 * backgroundView;
+@property (nonatomic, strong) UILabel                * message;
+@property (nonatomic, strong) UIView                 * levelUpView;
 
-@property (nonatomic, retain) PMAudioPlayer          * audioPlayer;
-@property (nonatomic, retain) GameSystemProcess      * systemProcess;
-@property (nonatomic, retain) TrainerController      * trainer;
-@property (nonatomic, retain) UITapGestureRecognizer * tapGestureRecognizer;
+@property (nonatomic, strong) PMAudioPlayer          * audioPlayer;
+@property (nonatomic, strong) GameSystemProcess      * systemProcess;
+@property (nonatomic, strong) TrainerController      * trainer;
+@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
@@ -57,12 +57,7 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 - (void)dealloc {
-  self.audioPlayer          = nil;
-  self.systemProcess        = nil;
-  self.trainer              = nil;
-  self.tapGestureRecognizer = nil;
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -94,7 +89,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -113,7 +107,6 @@
   [tapGestureRecognizer setNumberOfTapsRequired:1];
   [tapGestureRecognizer setNumberOfTouchesRequired:1];
   self.tapGestureRecognizer = tapGestureRecognizer;
-  [tapGestureRecognizer release];
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
@@ -145,7 +138,6 @@
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
       self.message = message;
-      [message release];
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
@@ -182,7 +174,6 @@
     if (self.message == nil) {
       UILabel * message = [[UILabel alloc] init];
       self.message = message;
-      [message release];
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
@@ -248,7 +239,6 @@
       [[PokemonInfoViewController alloc] initWithPokemon:pokemon];
     [pokemonInfoViewController.view setFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
     [self.backgroundView addSubview:pokemonInfoViewController.view];
-    [pokemonInfoViewController release];
     pokemon     = nil;
     wildPokemon = nil;
     
@@ -342,7 +332,6 @@
   if (self.levelUpView == nil) {
     UIView * levelUpView = [[UIView alloc] init];
     self.levelUpView = levelUpView;
-    [levelUpView release];
     [self.levelUpView setAlpha:0.f];
     [self.view addSubview:self.levelUpView];
   }
@@ -354,7 +343,6 @@
   [hpUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:0]]];
   [hpUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:0]]];
   [self.levelUpView addSubview:hpUnit];
-  [hpUnit release];
   
   // Attack
   PokemonLevelUpUnitView * attackUnit = [[PokemonLevelUpUnitView alloc] initWithFrame:attackLabelViewFrame];
@@ -362,7 +350,6 @@
   [attackUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:1]]];
   [attackUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:1]]];
   [self.levelUpView addSubview:attackUnit];
-  [attackUnit release];
   
   // Defense
   PokemonLevelUpUnitView * defenseUnit = [[PokemonLevelUpUnitView alloc] initWithFrame:defenseLabelViewFrame];
@@ -370,7 +357,6 @@
   [defenseUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:2]]];
   [defenseUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:2]]];
   [self.levelUpView addSubview:defenseUnit];
-  [defenseUnit release];
   
   // Sp. Attack
   PokemonLevelUpUnitView * spAttackUnit = [[PokemonLevelUpUnitView alloc] initWithFrame:spAttackLabelViewFrame];
@@ -378,7 +364,6 @@
   [spAttackUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:3]]];
   [spAttackUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:3]]];
   [self.levelUpView addSubview:spAttackUnit];
-  [spAttackUnit release];
   
   // Sp. Defense
   PokemonLevelUpUnitView * spDefenseUnit = [[PokemonLevelUpUnitView alloc] initWithFrame:spDefenseLabelViewFrame];
@@ -386,7 +371,6 @@
   [spDefenseUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:4]]];
   [spDefenseUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:4]]];
   [self.levelUpView addSubview:spDefenseUnit];
-  [spDefenseUnit release];
   
   // Speed
   PokemonLevelUpUnitView * speedUnit = [[PokemonLevelUpUnitView alloc] initWithFrame:speedLabelViewFrame];
@@ -394,7 +378,6 @@
   [speedUnit.value setText:[NSString stringWithFormat:@"%@", [baseStats objectAtIndex:5]]];
   [speedUnit.deltaValue setText:[NSString stringWithFormat:@"%@", [deltaStats objectAtIndex:5]]];
   [self.levelUpView addSubview:speedUnit];
-  [speedUnit release];
 }
 
 @end

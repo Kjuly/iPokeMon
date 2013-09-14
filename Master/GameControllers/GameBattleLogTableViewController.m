@@ -22,10 +22,6 @@
 
 @synthesize logs = logs_;
 
-- (void)dealloc {
-  self.logs = nil;
-  [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
@@ -78,8 +74,8 @@
   static NSString *CellIdentifier = @"Cell";
   GameBattleLogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[GameBattleLogTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                              reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[GameBattleLogTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                              reuseIdentifier:CellIdentifier];
   }
   
   // Configure the cell...
@@ -168,7 +164,6 @@
     [self.logs replaceObjectAtIndex:0 withObject:logDetail];
     [self.tableView reloadData];
   }
-  [logDetail release];
 }
 
 @end

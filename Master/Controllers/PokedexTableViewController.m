@@ -24,8 +24,8 @@
   NSFetchedResultsController * fetchedResultsController_;
 }
 
-@property (nonatomic, retain) TrainerController          * trainer;
-@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
+@property (nonatomic, strong) TrainerController          * trainer;
+@property (nonatomic, strong) NSFetchedResultsController * fetchedResultsController;
 
 - (void)_configureCell:(PokedexTableViewCell *)cell
            atIndexPath:(NSIndexPath *)indexPath;
@@ -39,10 +39,7 @@
 @synthesize fetchedResultsController = fetchedResultsController_;
 
 - (void)dealloc {
-  self.trainer                           = nil;
   self.fetchedResultsController.delegate = nil;
-  self.fetchedResultsController          = nil;
-  [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -126,8 +123,8 @@
   static NSString *CellIdentifier = @"Cell";
   PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                        reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                        reuseIdentifier:CellIdentifier];
     [cell.labelSubtitle setTextColor:[GlobalRender textColorNormal]];
   }
   
@@ -193,7 +190,6 @@
     pokemonDetailTabViewController = [PokemonDetailTabViewController alloc];
     [pokemonDetailTabViewController initWithPokemonSID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
-    [pokemonDetailTabViewController release];
   }
 }
 
@@ -224,7 +220,6 @@
   // Set Sort Descriptors
   NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"sid" ascending:YES];
   [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-  [sort release];
   
   // Set Batch Size
   // The fetched results controller will only retrieve a subset of objects at a time from the underlying database,
@@ -240,10 +235,8 @@
                             managedObjectContext:context
                               sectionNameKeyPath:nil
                                        cacheName:nil];
-  [fetchRequest release];
   
   self.fetchedResultsController = fetchedResultsController;
-  [fetchedResultsController release];
   fetchedResultsController_.delegate = self;
   return fetchedResultsController_;  
 }

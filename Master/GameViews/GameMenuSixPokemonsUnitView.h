@@ -11,10 +11,10 @@
 @protocol GameMenuSixPokemonsUnitViewDelegate;
 
 @interface GameMenuSixPokemonsUnitView : UIView {
-  id <GameMenuSixPokemonsUnitViewDelegate> delegate_;
+  id <GameMenuSixPokemonsUnitViewDelegate> __weak delegate_;
 }
 
-@property (nonatomic, assign) id <GameMenuSixPokemonsUnitViewDelegate> delegate;
+@property (nonatomic, weak) id <GameMenuSixPokemonsUnitViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image tag:(NSInteger)tag;
 - (void)cancelUnitAnimated:(BOOL)animated;

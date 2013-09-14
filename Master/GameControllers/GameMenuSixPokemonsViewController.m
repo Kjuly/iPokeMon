@@ -30,15 +30,15 @@
   NSInteger currOpeningUnitViewTag_;
 }
 
-@property (nonatomic, retain) UIView   * backgroundView;
-@property (nonatomic, retain) UIButton * cancelButton;
+@property (nonatomic, strong) UIView   * backgroundView;
+@property (nonatomic, strong) UIButton * cancelButton;
 
-@property (nonatomic, retain) TrainerController                  * trainer;
-@property (nonatomic, retain) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
+@property (nonatomic, strong) TrainerController                  * trainer;
+@property (nonatomic, strong) SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
 
 @property (nonatomic, copy)   NSArray          * sixPokemons;
 @property (nonatomic, copy)   NSString         * sixPokemonsUID;
-@property (nonatomic, retain) CAAnimationGroup * animationGroupForNotReplacing;
+@property (nonatomic, strong) CAAnimationGroup * animationGroupForNotReplacing;
 
 - (void)_releaseSubviews;
 - (void)_cancel:(id)sender;
@@ -62,15 +62,9 @@
 @synthesize animationGroupForNotReplacing = animationGroupForNotReplacing_;
 
 - (void)dealloc {
-  self.trainer = nil;
-  self.sixPokemonsDetailTabViewController = nil;
   
-  self.sixPokemons                   = nil;
-  self.sixPokemonsUID                = nil;
-  self.animationGroupForNotReplacing = nil;
   
   [self _releaseSubviews];
-  [super dealloc];
 }
 
 - (void)_releaseSubviews {
@@ -96,7 +90,6 @@
 - (void)loadView {
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   self.view = view;
-  [view release];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -114,7 +107,6 @@
   CGRectMake((kViewWidth - kCenterMainButtonSize) / 2, kViewHeight, kCenterMainButtonSize, kCenterMainButtonSize);
   UIButton * cancelButton = [[UIButton alloc] initWithFrame:cancelButtonFrame];
   self.cancelButton = cancelButton;
-  [cancelButton release];
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                forState:UIControlStateNormal];
@@ -185,7 +177,6 @@
     NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSNumber numberWithInt:tag], @"selectedPokemonIndex", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUseItemForSelectedPokemon object:self userInfo:userInfo];
-    [userInfo release];
     [UIView animateWithDuration:.3f
                           delay:0.f
                         options:(UIViewAnimationOptions)UIViewAnimationCurveLinear
@@ -203,7 +194,6 @@
     [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
                                                      withTopbar:NO];
   self.sixPokemonsDetailTabViewController = sixPokemonsDetailTabViewController;
-  [sixPokemonsDetailTabViewController release];
   [self.view insertSubview:self.sixPokemonsDetailTabViewController.view belowSubview:self.cancelButton];
   __block CGRect viewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
   [self.sixPokemonsDetailTabViewController.view setFrame:viewFrame];
@@ -303,7 +293,6 @@
       self.animationGroupForNotReplacing.duration = duration;
       NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, animationFade, nil];
       [self.animationGroupForNotReplacing setAnimations:animations];
-      [animations release];
     }
     
     for (int i = [self.sixPokemons count]; i > 0; --i) {

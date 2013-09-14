@@ -19,7 +19,7 @@
   TrainerTamedPokemon * pokemon_;
 }
 
-@property (nonatomic, retain) TrainerTamedPokemon * pokemon;
+@property (nonatomic, strong) TrainerTamedPokemon * pokemon;
 
 - (id)initWithPokemon:(TrainerTamedPokemon *)pokemon;
 

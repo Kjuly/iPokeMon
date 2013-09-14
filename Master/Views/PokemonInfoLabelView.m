@@ -15,11 +15,6 @@
 @synthesize name  = name_;
 @synthesize value = value_;
 
-- (void)dealloc {
-  self.name  = nil;
-  self.value = nil; 
-  [super dealloc];
-}
 
 - (id)initWithFrame:(CGRect)frame hasValueLabel:(BOOL)hasValueLabel {
   self = [self initWithFrame:frame];
