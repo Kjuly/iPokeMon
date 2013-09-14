@@ -103,7 +103,7 @@
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
-  [tapGestureRecognizer initWithTarget:self action:@selector(_tapGestureAction:)];
+  (void)[tapGestureRecognizer initWithTarget:self action:@selector(_tapGestureAction:)];
   [tapGestureRecognizer setNumberOfTapsRequired:1];
   [tapGestureRecognizer setNumberOfTouchesRequired:1];
   self.tapGestureRecognizer = tapGestureRecognizer;
@@ -141,12 +141,12 @@
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
-      [self.message setLineBreakMode:UILineBreakModeWordWrap];
+      [self.message setLineBreakMode:NSLineBreakByWordWrapping];
       [self.message setNumberOfLines:0];
       [self.message setAlpha:0.f];
     }
     [self.message setFrame:CGRectMake(30.f, 300.f, 260.f, 140.f)];
-    [self.message setTextAlignment:UITextAlignmentLeft];
+    [self.message setTextAlignment:NSTextAlignmentLeft];
     [self.message setText:NSLocalizedString(@"PMSMessageEventNOPMAvailable", nil)];
     [self.message sizeToFit];
     [self.backgroundView addSubview:self.message];
@@ -177,12 +177,12 @@
       [self.message setBackgroundColor:[UIColor clearColor]];
       [self.message setTextColor:[GlobalRender textColorTitleWhite]];
       [self.message setFont:[GlobalRender textFontNormalInSizeOf:26.f]];
-      [self.message setLineBreakMode:UILineBreakModeWordWrap];
+      [self.message setLineBreakMode:NSLineBreakByWordWrapping];
       [self.message setNumberOfLines:0];
       [self.message setAlpha:0.f];
     }
     [self.message setFrame:CGRectMake(30.f, 380.f, 260.f, 60.f)];
-    [self.message setTextAlignment:UITextAlignmentCenter];
+    [self.message setTextAlignment:NSTextAlignmentCenter];
     [self.message setText:NSLocalizedString(@"PMSMessageLevelUp", nil)];
     [self.message sizeToFit];
     [self.backgroundView addSubview:self.message];

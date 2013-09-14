@@ -136,7 +136,7 @@
   NSInteger row = indexPath.row;
   BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << (row + 8));
   BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];
-  [bagItemTableViewController initWithBagItem:targetType];
+  (void)[bagItemTableViewController initWithBagItem:targetType];
   [bagItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"BagMedicine%d", row + 1]), nil)];
   [self.navigationController pushViewController:bagItemTableViewController animated:YES];
 }

@@ -51,7 +51,7 @@
     
     moveButton_ = [[UIButton alloc] initWithFrame:viewButtonFrame];
     [moveButton_ setBackgroundColor:[UIColor clearColor]];
-    [moveButton_.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [moveButton_.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [moveButton_ setBackgroundImage:[UIImage imageNamed:kPMINIconMoveBackground]
                            forState:UIControlStateNormal];
     [moveButton_ setImage:nil forState:UIControlStateNormal];

@@ -71,11 +71,11 @@
   // Create a location manager instance to determine if location services are enabled.
   if (! [CLLocationManager locationServicesEnabled]) {
     UIAlertView * servicesDisabledAlert = [UIAlertView alloc];
-    [servicesDisabledAlert initWithTitle:@"Location Services Disabled"
-                                 message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled."
-                                delegate:nil
-                       cancelButtonTitle:@"OK"
-                       otherButtonTitles:nil];
+    (void)[servicesDisabledAlert initWithTitle:@"Location Services Disabled"
+                                       message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled."
+                                      delegate:nil
+                             cancelButtonTitle:@"OK"
+                             otherButtonTitles:nil];
     [servicesDisabledAlert show];
   }
   else {

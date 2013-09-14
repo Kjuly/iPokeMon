@@ -266,7 +266,7 @@
     [self.authenticatingLabel setBackgroundColor:[UIColor clearColor]];
     [self.authenticatingLabel setTextColor:[GlobalRender textColorTitleWhite]];
     [self.authenticatingLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-    [self.authenticatingLabel setTextAlignment:UITextAlignmentCenter];
+    [self.authenticatingLabel setTextAlignment:NSTextAlignmentCenter];
     [self.authenticatingLabel setText:NSLocalizedString(@"PMSAuthenticating", nil)];
   }
   

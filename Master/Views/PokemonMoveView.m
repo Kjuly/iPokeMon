@@ -51,7 +51,7 @@
     [type1_ setBackgroundColor:[UIColor clearColor]];
     [type1_ setTextColor:[GlobalRender textColorNormal]];
     [type1_ setFont:[GlobalRender textFontBoldInSizeOf:12.f]];
-    [type1_ setTextAlignment:UITextAlignmentCenter];
+    [type1_ setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:type1_];
     
     name_ = [[UILabel alloc] initWithFrame:nameFrame];
@@ -62,7 +62,7 @@
     
     pp_ = [[UILabel alloc] initWithFrame:ppFrame];
     [pp_ setBackgroundColor:[UIColor clearColor]];
-    [pp_ setTextAlignment:UITextAlignmentRight];
+    [pp_ setTextAlignment:NSTextAlignmentRight];
     [pp_ setTextColor:[GlobalRender textColorTitleWhite]];
     [pp_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [self addSubview:pp_];

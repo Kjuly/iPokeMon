@@ -57,14 +57,14 @@
     [title_ setBackgroundColor:[UIColor clearColor]];
     [title_ setTextColor:[GlobalRender textColorTitleWhite]];
     [title_ setFont:[GlobalRender textFontBoldInSizeOf:24.f]];
-    [title_ setTextAlignment:UITextAlignmentCenter];
+    [title_ setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:title_];
     
     pp_ = [[UILabel alloc] initWithFrame:ppFrame];
     [pp_ setBackgroundColor:[UIColor clearColor]];
     [pp_ setTextColor:[GlobalRender textColorOrange]];
     [pp_ setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
-    [pp_ setTextAlignment:UITextAlignmentCenter];
+    [pp_ setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:pp_];
     
     description_ = [[UILabel alloc] init];
@@ -72,14 +72,14 @@
     [description_ setTextColor:[GlobalRender textColorNormal]];
     [description_ setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
     [description_ setNumberOfLines:0];
-    [description_ setLineBreakMode:UILineBreakModeWordWrap];
+    [description_ setLineBreakMode:NSLineBreakByWordWrapping];
     [self addSubview:description_];
     
     type_ = [[UILabel alloc] initWithFrame:typeFrame];
     [type_ setBackgroundColor:[UIColor clearColor]];
     [type_ setTextColor:[GlobalRender textColorGolden]];
     [type_ setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
-    [type_ setTextAlignment:UITextAlignmentCenter];
+    [type_ setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:type_];
   }
   return self;

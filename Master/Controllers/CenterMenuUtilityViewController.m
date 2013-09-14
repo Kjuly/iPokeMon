@@ -74,19 +74,19 @@
 ///Buttons' Action
 - (void)_showPokedex:(id)sender {
   PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
-  [pokedexTableViewController initWithStyle:UITableViewStylePlain];
+  (void)[pokedexTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:pokedexTableViewController];
 }
 
 - (void)_showPokemon:(id)sender {
   SixPokemonsTableViewController * sixPokemonsTableViewController = [SixPokemonsTableViewController alloc];
-  [sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
+  (void)[sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:sixPokemonsTableViewController];
 }
 
 - (void)_showBag:(id)sender {
   BagTableViewController * bagTableViewController = [BagTableViewController alloc];
-  [bagTableViewController initWithStyle:UITableViewStylePlain];
+  (void)[bagTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:bagTableViewController];
 }
 

@@ -51,7 +51,7 @@
   [self.textLabel setBackgroundColor:[UIColor clearColor]];
   [self.textLabel setTextColor:[UIColor whiteColor]];
   [self.textLabel setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [self.textLabel setTextAlignment:UITextAlignmentCenter];
+  [self.textLabel setTextAlignment:NSTextAlignmentCenter];
 }
 
 #pragma mark - Public Methods

@@ -45,7 +45,7 @@
     [name_ setBackgroundColor:[UIColor clearColor]];
     [name_ setFont:[GlobalRender textFontBoldInSizeOf:22.0f]];
     [name_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [name_ setTextAlignment:UITextAlignmentCenter];
+    [name_ setTextAlignment:NSTextAlignmentCenter];
     [self.contentView addSubview:name_];
   }
   return self;

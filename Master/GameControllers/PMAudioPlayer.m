@@ -259,7 +259,7 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
     
     NSError * error = nil;
     AVAudioPlayer * audioPlayer = [AVAudioPlayer alloc];
-    [audioPlayer initWithContentsOfURL:url error:&error];
+    (void)[audioPlayer initWithContentsOfURL:url error:&error];
     [audioPlayer setDelegate:self];
     // Set LOOP for special AUDIO
     if (audioType == kAudioBattlingVSWildPM)

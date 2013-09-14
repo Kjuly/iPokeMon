@@ -81,7 +81,7 @@
     nameLabel_ = [[UILabel alloc] initWithFrame:nameLabelFrame];
     [nameLabel_ setBackgroundColor:[UIColor clearColor]];
     [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
-    [nameLabel_ setTextAlignment:UITextAlignmentLeft];
+    [nameLabel_ setTextAlignment:NSTextAlignmentLeft];
     [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
     [dataView addSubview:nameLabel_];
     
@@ -94,7 +94,7 @@
     levelLabel_ = [[UILabel alloc] initWithFrame:levelLabelFrame];
     [levelLabel_ setBackgroundColor:[UIColor clearColor]];
     [levelLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [levelLabel_ setTextAlignment:UITextAlignmentRight];
+    [levelLabel_ setTextAlignment:NSTextAlignmentRight];
     [levelLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:14.f]];
     [dataView addSubview:levelLabel_];
     
@@ -110,7 +110,7 @@
     // HP Label
     HPLabel_ = [[UILabel alloc] initWithFrame:HPLabelFrame];
     [HPLabel_ setBackgroundColor:[UIColor clearColor]];
-    [HPLabel_ setTextAlignment:UITextAlignmentRight];
+    [HPLabel_ setTextAlignment:NSTextAlignmentRight];
     [HPLabel_ setFont:[GlobalRender textFontBoldItalicInSizeOf:16.f]];
     [HPLabel_ setTextColor:[GlobalRender textColorOrange]];
     [dataView addSubview:HPLabel_];

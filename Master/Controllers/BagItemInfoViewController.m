@@ -102,7 +102,7 @@
   [info_ setBackgroundColor:[UIColor clearColor]];
   [info_ setTextColor:[GlobalRender textColorTitleWhite]];
   [info_ setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
-  [info_ setLineBreakMode:UILineBreakModeWordWrap];
+  [info_ setLineBreakMode:NSLineBreakByWordWrapping];
   [info_ setNumberOfLines:0];
   [self.view addSubview:info_];
   
@@ -113,7 +113,7 @@
   
   // Tap gesture recognizer
   UITapGestureRecognizer * tapGestureRecognizer = [UITapGestureRecognizer alloc];
-  [tapGestureRecognizer initWithTarget:self action:@selector(_unloadViewWithAnimation)];
+  (void)[tapGestureRecognizer initWithTarget:self action:@selector(_unloadViewWithAnimation)];
   self.tapGestureRecognizer = tapGestureRecognizer;
   [self.tapGestureRecognizer setNumberOfTapsRequired:1];
   [self.tapGestureRecognizer setNumberOfTouchesRequired:1];

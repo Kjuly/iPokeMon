@@ -73,7 +73,7 @@
     [quantity_ setBackgroundColor:[UIColor clearColor]];
     [quantity_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
     [quantity_ setTextColor:[GlobalRender textColorOrange]];
-    [quantity_ setTextAlignment:UITextAlignmentRight];
+    [quantity_ setTextAlignment:NSTextAlignmentRight];
     [self.contentView addSubview:quantity_];
   }
   return self;

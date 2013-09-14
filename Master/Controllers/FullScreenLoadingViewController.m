@@ -91,7 +91,7 @@
   [message_ setBackgroundColor:[UIColor clearColor]];
   [message_ setTextColor:[GlobalRender textColorNormal]];
   [message_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [message_ setLineBreakMode:UILineBreakModeWordWrap];
+  [message_ setLineBreakMode:NSLineBreakByWordWrapping];
   [message_ setNumberOfLines:0];
   
   [view addSubview:message_];

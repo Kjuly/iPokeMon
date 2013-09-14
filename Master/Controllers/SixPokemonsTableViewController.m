@@ -211,8 +211,8 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
   sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
-  [sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
-                                           withTopbar:YES];
+  (void)[sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
+                                                 withTopbar:YES];
   [self.navigationController pushViewController:sixPokemonsDetailTabViewController animated:YES];
 }
 

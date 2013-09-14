@@ -37,11 +37,13 @@
   NSArray         * resources_;       // resources array
   ResourceManager * resourceManager_; // resource manager
 //  LoadingManager  * loadingManager_;  // loading manager
+  MBProgressHUD   * progressView_;
 }
 
 @property (nonatomic, copy)   NSArray         * resources;
 @property (nonatomic, strong) ResourceManager * resourceManager;
 //@property (nonatomic, retain) LoadingManager  * loadingManager;
+@property (nonatomic, strong) MBProgressHUD   * progressView;
 
 - (void)_loadResourceForRow:(NSInteger)row;
 
@@ -54,6 +56,7 @@
 @synthesize resources       = resources_;
 @synthesize resourceManager = resourceManager_;
 //@synthesize loadingManager  = loadingManager_;
+@synthesize progressView    = progressView_;
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -217,12 +220,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   
   // Progress View
   UIWindow * window = self.view.window;
-  __weak MBProgressHUD * progressView = [[MBProgressHUD alloc] initWithWindow:window];
-  progressView.delegate = self;
-  progressView.mode = MBProgressHUDModeAnnularDeterminate;
-  progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceDownloading", nil);
-  progressView.progress = 0.f;
-  [window addSubview:progressView];
+  self.progressView = [[MBProgressHUD alloc] initWithWindow:window];
+  self.progressView.delegate = self;
+  self.progressView.mode = MBProgressHUDModeAnnularDeterminate;
+  self.progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceDownloading", nil);
+  self.progressView.progress = 0.f;
+  [window addSubview:self.progressView];
   
   // Blocks for AFHTTPRequestOperation object
   void (^downloadProgress)(NSUInteger, long long, long long);
@@ -233,15 +236,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   downloadProgress = ^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
     float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
     NSLog(@"Progress: %f => %u %llu %llu", progress, bytesRead, totalBytesRead, totalBytesExpectedToRead);
-    progressView.progress = progress;
+    self.progressView.progress = progress;
   };
   // Success Block
   success = ^(AFHTTPRequestOperation *operation, id response) {
     NSLog(@"RESOURCE in ZIP is successfully saved to disk");
     BOOL succeed = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
-      progressView.mode = MBProgressHUDModeIndeterminate;
-      progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceUpdating", nil);
+      self.progressView.mode = MBProgressHUDModeIndeterminate;
+      self.progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceUpdating", nil);
 
     });
     // Unzip resource package
@@ -269,11 +272,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     dispatch_async(dispatch_get_main_queue(), ^{
       // Hide loading indicator and show a succeed/faild message
-      progressView.customView = [[UIImageView alloc] initWithImage:
-                                  [UIImage imageNamed:(succeed ? kPMINMainButtonConfirm : kPMINMainButtonCancel)]];
-      progressView.mode = MBProgressHUDModeCustomView;
-      progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceCompleted", nil);
-      [progressView hide:YES afterDelay:1.f];
+      self.progressView.customView =
+        [[UIImageView alloc] initWithImage:
+          [UIImage imageNamed:(succeed ? kPMINMainButtonConfirm : kPMINMainButtonCancel)]];
+      self.progressView.mode = MBProgressHUDModeCustomView;
+      self.progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceCompleted", nil);
+      [self.progressView hide:YES afterDelay:1.f];
     });
   };
   // Failure Block
@@ -281,10 +285,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"!!!ERROR: RESOURCE in ZIP CANNOT be saved to disk: %@", [error description]);
     dispatch_async(dispatch_get_main_queue(), ^{
       // Hide loading indicator and show a faild message
-      progressView.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonCancel]];
-      progressView.mode = MBProgressHUDModeCustomView;
-      progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceFailed", nil);
-      [progressView hide:YES afterDelay:1.f];
+      self.progressView.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kPMINMainButtonCancel]];
+      self.progressView.mode = MBProgressHUDModeCustomView;
+      self.progressView.labelText = NSLocalizedString(@"PMSSettingMoreLoadResourceFailed", nil);
+      [self.progressView hide:YES afterDelay:1.f];
     });
   };
   
@@ -306,7 +310,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [operation setCompletionBlockWithSuccess:success failure:failure];
   [operation setDownloadProgressBlock:downloadProgress];
   // Show loading indicator
-  [progressView show:YES];
+  [self.progressView show:YES];
   // Start operation
   [operation start];
 }

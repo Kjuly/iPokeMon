@@ -82,7 +82,7 @@
   [messageBody_ setBackgroundColor:[UIColor clearColor]];
   [messageBody_ setTextColor:[GlobalRender textColorNormal]];
   [messageBody_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [messageBody_ setLineBreakMode:UILineBreakModeWordWrap];
+  [messageBody_ setLineBreakMode:NSLineBreakByWordWrapping];
   [messageBody_ setNumberOfLines:0];
   [self.view addSubview:messageBody_];
 }

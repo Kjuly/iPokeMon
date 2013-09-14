@@ -376,14 +376,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (row == kSectionGeneralBandwidthUsage) {
       SettingBandwidthUsageTableViewController * settingBandwidthUsageTableViewController;
       settingBandwidthUsageTableViewController = [SettingBandwidthUsageTableViewController alloc];
-      [settingBandwidthUsageTableViewController initWithStyle:UITableViewStylePlain];
+      (void)[settingBandwidthUsageTableViewController initWithStyle:UITableViewStylePlain];
       [self.navigationController pushViewController:settingBandwidthUsageTableViewController animated:YES];
     }
     // Game Settings
     else if (row == kSectionGeneralGameSettings) {
       SettingGameSettingsTableViewController * settingGameSettingsTableViewController;
       settingGameSettingsTableViewController = [SettingGameSettingsTableViewController alloc];
-      [settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
+      (void)[settingGameSettingsTableViewController initWithStyle:UITableViewStylePlain];
       [self.navigationController pushViewController:settingGameSettingsTableViewController animated:YES];
     }
   }
@@ -421,13 +421,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
       [mailComposer setCcRecipients:self.developerEmails];
       [mailComposer setMessageBody:[NSString stringWithFormat:@"\n\n\n\n\n%@", appInfo] isHTML:NO];
       [mailComposer.navigationBar setBarStyle:UIBarStyleBlack];
-      [self presentModalViewController:mailComposer animated:YES];
+      [self presentViewController:mailComposer animated:YES completion:nil];
     }
     // Load Resource
     else if (row == kSectionMoreRowLoadResource) {
       ResourceTableViewController * resourceTableViewController;
       resourceTableViewController = [ResourceTableViewController alloc];
-      [resourceTableViewController initWithStyle:UITableViewStylePlain];
+      (void)[resourceTableViewController initWithStyle:UITableViewStylePlain];
       resourceTableViewController.managedObjectContext = self.managedObjectContext;
       [self.navigationController pushViewController:resourceTableViewController animated:YES];
     }
@@ -491,11 +491,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         message = @"PMSSettingGeneralLocationServices:AlertMessage:Off";
       }
       UIAlertView * alertView = [UIAlertView alloc];
-      [alertView initWithTitle:NSLocalizedString(title, nil)
-                       message:NSLocalizedString(message, nil)
-                      delegate:self
-             cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
-             otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
+      (void)[alertView initWithTitle:NSLocalizedString(title, nil)
+                             message:NSLocalizedString(message, nil)
+                            delegate:self
+                   cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
+                   otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
       [alertView show];
     }
   }
@@ -504,11 +504,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 // Open Logut confirm view
 - (void)openLogoutConfirmView {
   UIAlertView * logoutConfirmView = [UIAlertView alloc];
-  [logoutConfirmView initWithTitle:nil
-                           message:NSLocalizedString(@"PMSSettingLogoutConfirmText", nil)
-                          delegate:self
-                 cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
-                 otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
+  (void)[logoutConfirmView initWithTitle:nil
+                                 message:NSLocalizedString(@"PMSSettingLogoutConfirmText", nil)
+                                delegate:self
+                       cancelButtonTitle:NSLocalizedString(@"PMLS:Cancel", nil)
+                       otherButtonTitles:NSLocalizedString(@"PMLS:Confirm", nil), nil];
   [logoutConfirmView show];
 }
 
@@ -564,7 +564,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                            type:kProgressMessageTypeSucceed
                    withDuration:2.f];
   loadingManager = nil;
-  [self dismissModalViewControllerAnimated:YES];
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -433,7 +433,7 @@
   
   // Create custom NVC
   CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
-  [customNavigationController initWithRootViewController:self.loginTableViewController];
+  (void)[customNavigationController initWithRootViewController:self.loginTableViewController];
   self.customNavigationController = customNavigationController;
   [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [self.loginTableViewController.view setAlpha:0.f];
@@ -601,13 +601,13 @@
       // Center menu utility view controller
       CenterMenuUtilityViewController * centerMenuUtilityViewController;
       centerMenuUtilityViewController = [CenterMenuUtilityViewController alloc];
-      [centerMenuUtilityViewController initWithButtonCount:6
-                                                  menuSize:kCenterMenuSize
-                                                buttonSize:kCenterMenuButtonSize
-                                     buttonImageNameFormat:kPMINMainMenuUtilityButton
-                                          centerButtonSize:0
-                                     centerButtonImageName:nil
-                           centerButtonBackgroundImageName:nil];
+      (void)[centerMenuUtilityViewController initWithButtonCount:6
+                                                        menuSize:kCenterMenuSize
+                                                      buttonSize:kCenterMenuButtonSize
+                                           buttonImageNameFormat:kPMINMainMenuUtilityButton
+                                                centerButtonSize:0
+                                           centerButtonImageName:nil
+                                 centerButtonBackgroundImageName:nil];
       centerMenuUtilityViewController.managedObjectContext = self.managedObjectContext;
 #ifdef KY_INVITATION_ONLY
       centerMenuUtilityViewController.unlockCodeManager = self.unlockCodeManager;
@@ -619,7 +619,7 @@
       
       // Create custom NVC
       CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
-      [customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
+      (void)[customNavigationController initWithRootViewController:self.centerMenuUtilityViewController];
       self.customNavigationController = customNavigationController;
       [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     }
@@ -648,18 +648,18 @@
     NSInteger numberOfSixPokemons = [[TrainerController sharedInstance] numberOfSixPokemons];
     CenterMenuSixPokemonsViewController * centerMenuSixPokemonsViewController;
     centerMenuSixPokemonsViewController = [CenterMenuSixPokemonsViewController alloc];
-    [centerMenuSixPokemonsViewController initWithButtonCount:numberOfSixPokemons
-                                                    menuSize:kCenterMenuSize
-                                                  buttonSize:kCenterMenuButtonSize
-                                       buttonImageNameFormat:kPMINMainMenuUtilityButton
-                                            centerButtonSize:0
-                                       centerButtonImageName:nil
-                             centerButtonBackgroundImageName:nil];
+    (void)[centerMenuSixPokemonsViewController initWithButtonCount:numberOfSixPokemons
+                                                          menuSize:kCenterMenuSize
+                                                        buttonSize:kCenterMenuButtonSize
+                                             buttonImageNameFormat:kPMINMainMenuUtilityButton
+                                                  centerButtonSize:0
+                                             centerButtonImageName:nil
+                                   centerButtonBackgroundImageName:nil];
     self.centerMenuSixPokemonsViewController = centerMenuSixPokemonsViewController;
     
     // Create custom NVC
     CustomNavigationController * customNavigationController = [CustomNavigationController alloc];
-    [customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
+    (void)[customNavigationController initWithRootViewController:self.centerMenuSixPokemonsViewController];
     self.customNavigationController = customNavigationController;
     [self.customNavigationController.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
     // Insert |utilityNavigationController|'s view
@@ -765,7 +765,7 @@
       if (self.centerMainButtonTouchDownCircleView == nil) {
         CenterMainButtonTouchDownCircleView * centerMainButtonTouchDownCircleView;
         centerMainButtonTouchDownCircleView = [CenterMainButtonTouchDownCircleView alloc];
-        [centerMainButtonTouchDownCircleView initWithFrame:
+        (void)[centerMainButtonTouchDownCircleView initWithFrame:
           CGRectMake(CGRectGetMidX(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2,
                      CGRectGetMidY(self.view.frame) - kCenterMainButtonTouchDownCircleViewSize / 2 - 20.f,
                      kCenterMainButtonTouchDownCircleViewSize,

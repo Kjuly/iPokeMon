@@ -26,7 +26,7 @@
     [name_ setBackgroundColor:[UIColor clearColor]];
     [name_ setTextColor:[GlobalRender textColorTitleWhite]];
     [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-    [name_ setTextAlignment:UITextAlignmentRight];
+    [name_ setTextAlignment:NSTextAlignmentRight];
     [self addSubview:name_];
     
     if (hasValueLabel) {
@@ -37,7 +37,7 @@
       [value_ setBackgroundColor:[UIColor clearColor]];
       [value_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
       [value_ setTextColor:[GlobalRender textColorNormal]];
-      [value_ setTextAlignment:UITextAlignmentLeft];
+      [value_ setTextAlignment:NSTextAlignmentLeft];
       [self addSubview:value_];
     }
     else labelWidth = frame.size.width;

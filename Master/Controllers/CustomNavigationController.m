@@ -77,7 +77,7 @@
 - (void)_setupNavigationBar {
   NSLog(@"...SETUP NavigationBar...");
   CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
-  [customNavigationBar initWithFrame:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
+  (void)[customNavigationBar initWithFrame:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
   customNavigationBar.delegate   = self;
   customNavigationBar.dataSource = self;
   [self setValue:customNavigationBar forKey:@"navigationBar"];
@@ -103,7 +103,7 @@
     [title setBackgroundColor:[UIColor clearColor]];
     [title setTextColor:[GlobalRender textColorOrange]];
     [title setFont:[GlobalRender textFontBoldInSizeOf:18.f]];
-    [title setTextAlignment:UITextAlignmentRight];
+    [title setTextAlignment:NSTextAlignmentRight];
     [title setText:viewController.title];
     [titleView addSubview:title];
     [viewController.navigationItem setTitleView:titleView];

@@ -36,21 +36,21 @@
     [name_ setBackgroundColor:[UIColor clearColor]];
     [name_ setTextColor:[GlobalRender textColorTitleWhite]];
     [name_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
-    [name_ setTextAlignment:UITextAlignmentRight];
+    [name_ setTextAlignment:NSTextAlignmentRight];
     [self addSubview:name_];
     
     value_ = [[UILabel alloc] initWithFrame:valueFrame];
     [value_ setBackgroundColor:[UIColor clearColor]];
     [value_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [value_ setTextColor:[GlobalRender textColorOrange]];
-    [value_ setTextAlignment:UITextAlignmentRight];
+    [value_ setTextAlignment:NSTextAlignmentRight];
     [self addSubview:value_];
     
     UILabel * plusSymbol = [[UILabel alloc] initWithFrame:plusSymbolFrame];
     [plusSymbol setBackgroundColor:[UIColor clearColor]];
     [plusSymbol setTextColor:[GlobalRender textColorTitleWhite]];
     [plusSymbol setFont:[GlobalRender textFontNormalInSizeOf:16.f]];
-    [plusSymbol setTextAlignment:UITextAlignmentCenter];
+    [plusSymbol setTextAlignment:NSTextAlignmentCenter];
     [plusSymbol setText:@"+"];
     [self addSubview:plusSymbol];
     
@@ -58,7 +58,7 @@
     [deltaValue_ setBackgroundColor:[UIColor clearColor]];
     [deltaValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.0f]];
     [deltaValue_ setTextColor:[GlobalRender textColorTitleWhite]];
-    [deltaValue_ setTextAlignment:UITextAlignmentLeft];
+    [deltaValue_ setTextAlignment:NSTextAlignmentLeft];
     [self addSubview:deltaValue_];
   }
   return self;

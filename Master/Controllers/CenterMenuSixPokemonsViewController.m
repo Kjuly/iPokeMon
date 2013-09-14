@@ -83,8 +83,8 @@
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
   sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
   TrainerTamedPokemon * tamedPokemon = [self.sixPokemons objectAtIndex:([sender tag] - 1)];
-  [sixPokemonsDetailTabViewController initWithPokemon:tamedPokemon
-                                           withTopbar:YES];
+  (void)[sixPokemonsDetailTabViewController initWithPokemon:tamedPokemon
+                                                 withTopbar:YES];
   [self pushViewController:sixPokemonsDetailTabViewController];
   
   // Change |centerMainButton_|'s status

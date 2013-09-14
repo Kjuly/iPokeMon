@@ -105,7 +105,7 @@
   
   // ID
   PokemonInfoLabelView * idLabelView = [PokemonInfoLabelView alloc];
-  [idLabelView initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight) hasValueLabel:NO];
+  (void)[idLabelView initWithFrame:CGRectMake(0.f, 0.f, labelWidth / 2, labelHeight) hasValueLabel:NO];
   [idLabelView.name setText:[NSString stringWithFormat:@"#%.3d", [pokemonBaseInfo.sid intValue]]];
   [idLabelView.name.layer setShadowColor:[UIColor blackColor].CGColor];
   [idLabelView.name.layer setShadowOpacity:1.f];

@@ -97,7 +97,7 @@
   [description_ setTextColor:[GlobalRender textColorTitleWhite]];
   [description_ setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
   [description_ setNumberOfLines:0];
-  [description_ setLineBreakMode:UILineBreakModeCharacterWrap];
+  [description_ setLineBreakMode:NSLineBreakByCharWrapping];
 //  [self.mainView addSubview:description_];
   
   // bottom view

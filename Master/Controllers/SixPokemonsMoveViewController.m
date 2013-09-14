@@ -88,7 +88,7 @@
   // PP
   UILabel * ppLabel = [[UILabel alloc] initWithFrame:ppLabelFrame];
   [ppLabel setBackgroundColor:[UIColor clearColor]];
-  [ppLabel setTextAlignment:UITextAlignmentRight];
+  [ppLabel setTextAlignment:NSTextAlignmentRight];
   [ppLabel setTextColor:[GlobalRender textColorTitleWhite]];
   [ppLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [ppLabel setText:NSLocalizedString(@"PMSLabelPP", nil)];

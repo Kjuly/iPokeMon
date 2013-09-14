@@ -224,7 +224,7 @@ typedef enum {
   // Name
   nameLabel_ = [[UILabel alloc] initWithFrame:nameLabelFrame];
   [nameLabel_ setBackgroundColor:[UIColor clearColor]];
-  [nameLabel_ setLineBreakMode:UILineBreakModeWordWrap];
+  [nameLabel_ setLineBreakMode:NSLineBreakByWordWrapping];
   [nameLabel_ setTextColor:[GlobalRender textColorOrange]];
   [nameLabel_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
   [nameLabel_ setNumberOfLines:0];
@@ -249,8 +249,8 @@ typedef enum {
   [moneyValue_ setTextColor:[GlobalRender textColorNormal]];
   [moneyLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [moneyValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  [moneyLabel_ setTextAlignment:UITextAlignmentRight];
-  [moneyValue_ setTextAlignment:UITextAlignmentLeft];
+  [moneyLabel_ setTextAlignment:NSTextAlignmentRight];
+  [moneyValue_ setTextAlignment:NSTextAlignmentLeft];
   [dataView_ addSubview:moneyLabel_];
   [dataView_ addSubview:moneyValue_];
   
@@ -263,8 +263,8 @@ typedef enum {
   [pokedexValue_ setTextColor:[GlobalRender textColorNormal]];
   [pokedexLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
   [pokedexValue_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  [pokedexLabel_ setTextAlignment:UITextAlignmentRight];
-  [pokedexValue_ setTextAlignment:UITextAlignmentLeft];
+  [pokedexLabel_ setTextAlignment:NSTextAlignmentRight];
+  [pokedexValue_ setTextAlignment:NSTextAlignmentLeft];
   [dataView_ addSubview:pokedexLabel_];
   [dataView_ addSubview:pokedexValue_];
   
@@ -281,8 +281,8 @@ typedef enum {
   [adventureStartedTimeValue_ setTextColor:[GlobalRender textColorNormal]];
   [adventureStartedTimeLabel_ setFont:[GlobalRender textFontBoldInSizeOf:13.f]];
   [adventureStartedTimeValue_ setFont:[GlobalRender textFontBoldInSizeOf:13.f]];
-  [adventureStartedTimeLabel_ setTextAlignment:UITextAlignmentRight];
-  [adventureStartedTimeValue_ setTextAlignment:UITextAlignmentLeft];
+  [adventureStartedTimeLabel_ setTextAlignment:NSTextAlignmentRight];
+  [adventureStartedTimeValue_ setTextAlignment:NSTextAlignmentLeft];
   [dataView_ addSubview:adventureStartedTimeLabel_];
   [dataView_ addSubview:adventureStartedTimeValue_];
   
@@ -462,7 +462,7 @@ typedef enum {
         [self.nameSettingMessage setBackgroundColor:[UIColor clearColor]];
         [self.nameSettingMessage setTextColor:[GlobalRender textColorTitleWhite]];
         [self.nameSettingMessage setFont:[GlobalRender textFontNormalInSizeOf:14.f]];
-        [self.nameSettingMessage setTextAlignment:UITextAlignmentLeft];
+        [self.nameSettingMessage setTextAlignment:NSTextAlignmentLeft];
       }
       [self.settingView addSubview:self.nameSettingField];
       [self.settingView addSubview:self.nameSettingMessage];

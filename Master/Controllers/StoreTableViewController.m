@@ -151,12 +151,12 @@
   }
   else if (row != 1) { // Not Bag Medicine, as it has three sub types
     StoreItemTableViewController * storeItemTableViewController = [StoreItemTableViewController alloc];
-    [storeItemTableViewController initWithBagItem:(1 << row)];
+    (void)[storeItemTableViewController initWithBagItem:(1 << row)];
     [storeItemTableViewController setTitle:NSLocalizedString(([NSString stringWithFormat:@"Bag%d", row + 1]), nil)];
     [self.navigationController pushViewController:storeItemTableViewController animated:YES];
   } else {
     StoreMedicineTableViewController * storeMedicineTableViewController = [StoreMedicineTableViewController alloc];
-    [storeMedicineTableViewController initWithStyle:UITableViewStylePlain];
+    (void)[storeMedicineTableViewController initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:storeMedicineTableViewController animated:YES];
   }
 }

@@ -42,6 +42,8 @@
 @property (nonatomic, strong) MKAnnotationView * selectedAnnotationView;
 @property (nonatomic, copy)   NSMutableSet     * annotations;
 
+@property (nonatomic, assign) NSInteger selectedAnnotationViewCount;
+
 - (void)_releaseSubviews;
 - (void)_actionForButtonLocateMe:(id)sender;  // zoom in to user
 - (void)_actionForButtonShowWorld:(id)sender; // zoom out to show all world
@@ -67,6 +69,8 @@
 @synthesize mapAnnotationCalloutViewController = mapAnnotationCalloutViewController_;
 @synthesize selectedAnnotationView = selectedAnnotationView_;
 @synthesize annotations            = annotations_;
+
+@synthesize selectedAnnotationViewCount = selectedAnnotationViewCount_;
 
 - (void)dealloc {
   [self _releaseSubviews];
@@ -286,10 +290,11 @@
   // add annotations to |mapView_|
   for (Annotation * annotation in annotations) {
     MEWMapAnnotation * mapAnnotation = [MEWMapAnnotation alloc];
-    [mapAnnotation initWithCode:annotation.code
-                     coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue], [annotation.longitude floatValue])
-                          title:annotation.title
-                       subtitle:annotation.subtitle];
+    (void)[mapAnnotation initWithCode:annotation.code
+                           coordinate:CLLocationCoordinate2DMake([annotation.latitude floatValue],
+                                                                 [annotation.longitude floatValue])
+                                title:annotation.title
+                             subtitle:annotation.subtitle];
     NSLog(@"---> new Annotation...code:%@", annotation.code);
     [mapAnnotations addObject:mapAnnotation];
   }
@@ -373,7 +378,7 @@
   
   if (self.mapAnnotationCalloutViewController == nil) {
     mapAnnotationCalloutViewController_ = [MapAnnotationCalloutViewController alloc];
-    [mapAnnotationCalloutViewController_ init];
+    (void)[mapAnnotationCalloutViewController_ init];
     CGRect viewFrame = self.mapAnnotationCalloutViewController.view.frame;
     viewFrame.origin.y = kMapButtonSize  / 2.f + 10.f;
     viewFrame.origin.x = (kViewWidth - kMapAnnotationCalloutViewWidth) / 2.f;
@@ -404,15 +409,19 @@
 }
 
 // Tells the delegate that one of its annotation views was deselected
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+- (void)          mapView:(MKMapView *)mapView
+didDeselectAnnotationView:(MKAnnotationView *)view
+{
   if (selectedAnnotationViewCount_ == 0)
     return;
+  
+  __weak typeof(self) weakSelf = self;
   [self _setAnnotationView:view
                 asSelected:NO
                 completion:^(BOOL finished) {
-                  [self _decreaseSelectedAnnotationViewCount];
-                  if (selectedAnnotationViewCount_ == 0) {
-                    [self.mapAnnotationCalloutViewController unloadViewAnimated:YES];
+                  [weakSelf _decreaseSelectedAnnotationViewCount];
+                  if (weakSelf.selectedAnnotationViewCount == 0) {
+                    [weakSelf.mapAnnotationCalloutViewController unloadViewAnimated:YES];
                   }
                 }];
 }

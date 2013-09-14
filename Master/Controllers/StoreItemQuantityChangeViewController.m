@@ -113,7 +113,7 @@
   // item quantity label
   itemQuantityLabel_ = [[UILabel alloc] initWithFrame:itemQuantityLabelFrame];
   [itemQuantityLabel_ setBackgroundColor:[UIColor clearColor]];
-  [itemQuantityLabel_ setTextAlignment:UITextAlignmentCenter];
+  [itemQuantityLabel_ setTextAlignment:NSTextAlignmentCenter];
   [itemQuantityLabel_ setTextColor:[GlobalRender textColorOrange]];
   [itemQuantityLabel_ setFont:[GlobalRender textFontBoldInSizeOf:36.f]];
   [self.view addSubview:itemQuantityLabel_];

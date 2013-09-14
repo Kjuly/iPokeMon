@@ -68,7 +68,7 @@
     [badgesLabel_ setBackgroundColor:[UIColor clearColor]];
     [badgesLabel_ setTextColor:[GlobalRender textColorTitleWhite]];
     [badgesLabel_ setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-    [badgesLabel_ setTextAlignment:UITextAlignmentRight];
+    [badgesLabel_ setTextAlignment:NSTextAlignmentRight];
     [self addSubview:badgesLabel_];
     
     // Badge Container
@@ -94,21 +94,21 @@
     [badgeGoldCount_ setBackgroundColor:[UIColor clearColor]];
     [badgeGoldCount_ setTextColor:[GlobalRender textColorTitleWhite]];
     [badgeGoldCount_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-    [badgeGoldCount_ setTextAlignment:UITextAlignmentLeft];
+    [badgeGoldCount_ setTextAlignment:NSTextAlignmentLeft];
     [self.badgesContainer addSubview:badgeGoldCount_];
     
     badgeSilverCount_ = [[UILabel alloc] initWithFrame:badgeSilverCountFrame];
     [badgeSilverCount_ setBackgroundColor:[UIColor clearColor]];
     [badgeSilverCount_ setTextColor:[GlobalRender textColorTitleWhite]];
     [badgeSilverCount_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-    [badgeSilverCount_ setTextAlignment:UITextAlignmentLeft];
+    [badgeSilverCount_ setTextAlignment:NSTextAlignmentLeft];
     [self.badgesContainer addSubview:badgeSilverCount_];
     
     badgeBronzeCount_ = [[UILabel alloc] initWithFrame:badgeBronzeCountFrame];
     [badgeBronzeCount_ setBackgroundColor:[UIColor clearColor]];
     [badgeBronzeCount_ setTextColor:[GlobalRender textColorTitleWhite]];
     [badgeBronzeCount_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-    [badgeBronzeCount_ setTextAlignment:UITextAlignmentLeft];
+    [badgeBronzeCount_ setTextAlignment:NSTextAlignmentLeft];
     [self.badgesContainer addSubview:badgeBronzeCount_];
     
     [self.badgesLabel  setText:NSLocalizedString(@"PMSLabelBadges", nil)];

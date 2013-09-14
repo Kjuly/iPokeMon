@@ -82,7 +82,7 @@
   
   if (logWordsMore_) {
     [self.textLabel setNumberOfLines:0];
-    [self.textLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [self.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [self.textLabel sizeToFit];
   }
   
@@ -116,28 +116,28 @@
   MEWRoundView * typeMarker = [MEWRoundView alloc];
   switch (type) {
     case kMEWGameBattleLogTypePlayerPMAttack:
-      [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kColorTypeBlue
-                foregroundAlpha:1.f
-                backgroundColor:kColorTypeWhite
-                backgroundAlpha:.95f];
+      (void)[typeMarker initWithFrame:typeMarkerFrame
+                      foregroundColor:kColorTypeBlue
+                      foregroundAlpha:1.f
+                      backgroundColor:kColorTypeWhite
+                      backgroundAlpha:.95f];
       break;
       
     case kMEWGameBattleLogTypeEnemyPMAttack:
-      [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kColorTypeRed
-                foregroundAlpha:1.f
-                backgroundColor:kColorTypeWhite
-                backgroundAlpha:.95f];
+      (void)[typeMarker initWithFrame:typeMarkerFrame
+                      foregroundColor:kColorTypeRed
+                      foregroundAlpha:1.f
+                      backgroundColor:kColorTypeWhite
+                      backgroundAlpha:.95f];
       break;
       
     case kMEWGameBattleLogTypeNormal:
     default:
-      [typeMarker initWithFrame:typeMarkerFrame
-                foregroundColor:kColorTypeGray
-                foregroundAlpha:1.f
-                backgroundColor:kColorTypeWhite
-                backgroundAlpha:.95f];
+      (void)[typeMarker initWithFrame:typeMarkerFrame
+                      foregroundColor:kColorTypeGray
+                      foregroundAlpha:1.f
+                      backgroundColor:kColorTypeWhite
+                      backgroundAlpha:.95f];
       break;
   }
   [self.contentView addSubview:typeMarker];

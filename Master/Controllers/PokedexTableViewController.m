@@ -188,7 +188,7 @@
   if ([[self.trainer pokedex] isBinary1AtIndex:(rowID + 1)]) {
     PokemonDetailTabViewController * pokemonDetailTabViewController;
     pokemonDetailTabViewController = [PokemonDetailTabViewController alloc];
-    [pokemonDetailTabViewController initWithPokemonSID:++rowID withTopbar:YES];
+    (void)[pokemonDetailTabViewController initWithPokemonSID:++rowID withTopbar:YES];
     [self.navigationController pushViewController:pokemonDetailTabViewController animated:YES];
   }
 }
@@ -231,10 +231,10 @@
   // |cacheName|: the name of the file the fetched results controller should
   //   use to cache any repeat work such as setting up sections and ordering contents
   NSFetchedResultsController * fetchedResultsController = [NSFetchedResultsController alloc];
-  [fetchedResultsController initWithFetchRequest:fetchRequest
-                            managedObjectContext:context
-                              sectionNameKeyPath:nil
-                                       cacheName:nil];
+  (void)[fetchedResultsController initWithFetchRequest:fetchRequest
+                                  managedObjectContext:context
+                                    sectionNameKeyPath:nil
+                                             cacheName:nil];
   
   self.fetchedResultsController = fetchedResultsController;
   fetchedResultsController_.delegate = self;

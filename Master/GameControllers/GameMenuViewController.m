@@ -234,7 +234,7 @@ typedef enum {
   
   // battle logs tableview
   gameBattleLogTableViewController_ = [GameBattleLogTableViewController alloc];
-  [gameBattleLogTableViewController_ initWithStyle:UITableViewStylePlain];
+  (void)[gameBattleLogTableViewController_ initWithStyle:UITableViewStylePlain];
   [gameBattleLogTableViewController_.view setFrame:gameBattleLogTableViewFrame];
   [self.view addSubview:gameBattleLogTableViewController_.view];
   
@@ -305,8 +305,8 @@ typedef enum {
   
   // Two finger with one tap on game battle log table view
   gameBattleLogTableViewTapGestureRecognizer_ = [UITapGestureRecognizer alloc];
-  [gameBattleLogTableViewTapGestureRecognizer_ initWithTarget:self
-                                                       action:@selector(_toggleGameBattleLogTableView)];
+  (void)[gameBattleLogTableViewTapGestureRecognizer_ initWithTarget:self
+                                                             action:@selector(_toggleGameBattleLogTableView)];
   [gameBattleLogTableViewTapGestureRecognizer_ setNumberOfTouchesRequired:1];
   [gameBattleLogTableViewTapGestureRecognizer_ setNumberOfTapsRequired:1];
   [self.gameBattleLogTableViewController.view addGestureRecognizer:gameBattleLogTableViewTapGestureRecognizer_];
@@ -758,11 +758,11 @@ typedef enum {
 - (void)_openRunConfirmView {
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     UIAlertView * runConfirmView = [UIAlertView alloc];
-    [runConfirmView initWithTitle:nil
-                          message:NSLocalizedString(@"PMSRunConfirmViewText", nil)
-                         delegate:self
-                cancelButtonTitle:NSLocalizedString(@"PMSYes", nil)
-                otherButtonTitles:NSLocalizedString(@"PMSNo", nil), nil];
+    (void)[runConfirmView initWithTitle:nil
+                                message:NSLocalizedString(@"PMSRunConfirmViewText", nil)
+                               delegate:self
+                      cancelButtonTitle:NSLocalizedString(@"PMSYes", nil)
+                      otherButtonTitles:NSLocalizedString(@"PMSNo", nil), nil];
     [runConfirmView show];
   }
 }

@@ -132,10 +132,10 @@
       if ([coordinates count] < 2)
         continue;
       PokemonAreaAnnotation * pokemonAreaAnnotation = [PokemonAreaAnnotation alloc];
-      [pokemonAreaAnnotation initWithCoordinate:CLLocationCoordinate2DMake([[coordinates objectAtIndex:0] floatValue],
-                                                                           [[coordinates objectAtIndex:1] floatValue])
-                                          title:nil
-                                       subtitle:nil];
+      (void)[pokemonAreaAnnotation initWithCoordinate:CLLocationCoordinate2DMake([[coordinates objectAtIndex:0] floatValue],
+                                                                                 [[coordinates objectAtIndex:1] floatValue])
+                                                title:nil
+                                             subtitle:nil];
       NSLog(@"---> new Annotation...");
       [pokemonAreaAnnotations addObject:pokemonAreaAnnotation];
     }

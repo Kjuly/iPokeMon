@@ -161,7 +161,7 @@
   
   // Hidden Cell
   hiddenCell_ = [BagItemTableViewHiddenCell alloc];
-  [hiddenCell_ initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
+  (void)[hiddenCell_ initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"hiddenCell"];
   [hiddenCell_ setFrame:CGRectMake(0.f, 0.f, kViewWidth, kCellHeightOfBagItemTableView)];
   hiddenCell_.delegate = self;
   [hiddenCell_ addQuantity:1 withOffsetX:64.f];
