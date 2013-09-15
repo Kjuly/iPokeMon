@@ -226,10 +226,8 @@ static PMLocationManager * locationManager_ = nil;
     //if([error code] == kCLErrorLocationUnknown) {}
     if (error) {
       NSLog(@"!!!ERROR: %@", [error localizedDescription]);
-      NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 [NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
+      NSDictionary * userInfo = @{@"error" : @(kPMErrorNetworkNotAvailable)};
       [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
-      [userInfo release];
       // loading done
       [[LoadingManager sharedInstance] hideOverBar];
       return;

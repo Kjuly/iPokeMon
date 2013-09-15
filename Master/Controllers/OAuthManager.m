@@ -261,10 +261,8 @@ static OAuthManager * oauthManager_ = nil;
     [self.loadingManager hideOverBar];
 #ifdef KY_SESSION_MODE_ON
     // Post notification to |MainViewController| to warn Network not available view
-    NSDictionary * userInfo =
-      [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kPMErrorNetworkNotAvailable], @"error", nil];
+    NSDictionary * userInfo = @{@"error" : @(kPMErrorNetworkNotAvailable)};
     [[NSNotificationCenter defaultCenter] postNotificationName:kPMNError object:self userInfo:userInfo];
-    [userInfo release];
 #endif
   };
   

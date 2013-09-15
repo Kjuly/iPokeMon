@@ -20,6 +20,8 @@
 //   then start tracking changes again
 //
 //     $ git update-index --no-assume-unchanged Master/Config.*
+//     $ git checkout // Reset configuration back to default
+//     <Do modification>
 //     $ git add Master/Config.*
 //     $ git commit -m "Modify Config.*"
 //     $ git update-index --assume-unchanged Master/Config.*
@@ -64,6 +66,13 @@
  */
 //#define KY_DEFAULT_VIEW_GAME_BATTLE_ON 1          // DEV: Set game battle view as the default view (OFF)
 //#define KY_SUPER_POKEMON_MODE_ON 1                // DEV: Turn on super PokeMon mode (OFF)
+
+/*
+ * TestFilght
+ */
+#ifdef KY_TESTFLIGHT_ON
+extern NSString * const kTestFlightToken;
+#endif
 
 /*
  * Device UID

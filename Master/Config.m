@@ -9,6 +9,13 @@
 #import "Config.h"
 
 /*
+ * TestFilght
+ */
+#ifdef KY_TESTFLIGHT_ON
+NSString * const kTestFlightToken = @"<your_testflight_token>";
+#endif
+
+/*
  * Device UID
  */
 // If APPLY_SECRET_DEVICE_UID_KEY if on,
