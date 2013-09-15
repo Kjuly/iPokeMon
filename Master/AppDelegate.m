@@ -51,7 +51,7 @@
   mainViewController.managedObjectContext = self.managedObjectContext;
   self.window.rootViewController = mainViewController;
   [self.window makeKeyAndVisible];
-  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
   
   
   // Push Notification Register (for iOS 5.0's bug?)
