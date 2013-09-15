@@ -295,8 +295,8 @@ typedef enum {
         SettingTableViewCellStyleTitle * cell =
           [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
-          cell = [[[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
-                                                        reuseIdentifier:cellIdentifier] autorelease];
+          cell = [[SettingTableViewCellStyleTitle alloc] initWithStyle:UITableViewCellStyleValue1
+                                                       reuseIdentifier:cellIdentifier];
         [cell configureCellWithTitle:NSLocalizedString(@"PMSSettingMoreRequestDEX", nil)
                                value:nil
                        accessoryType:UITableViewCellAccessoryNone];
