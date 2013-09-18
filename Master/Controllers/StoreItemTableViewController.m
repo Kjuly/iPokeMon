@@ -47,7 +47,6 @@
 @property (nonatomic, strong) BagItemInfoViewController  * bagItemInfoViewController;
 @property (nonatomic, strong) StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
 
-- (void)_releaseSubviews;
 - (void)_configureCell:(StoreItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)_showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell;
 - (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
@@ -70,27 +69,23 @@
 @synthesize bagItemInfoViewController = bagItemInfoViewController_;
 @synthesize storeItemQuantityChangeViewController = storeItemQuantityChangeViewController_;
 
--(void)dealloc {
-//  self.storeItemQuantityChangeViewController = nil; // !!!TODO: why cannot release it???!!!
-  [self _releaseSubviews];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateStoreItemQuantity object:nil];
+-(void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNUpdateStoreItemQuantity
+                                                object:nil];
 }
 
-- (void)_releaseSubviews {
-  self.hiddenCellAreaView = nil;
-  self.selectedCell       = nil;
-  self.hiddenCell         = nil;
-}
-
-- (id)initWithBagItem:(BagQueryTargetType)targetType {
-  self = [self initWithStyle:UITableViewStylePlain];
-  if (self) {
+- (id)initWithBagItem:(BagQueryTargetType)targetType
+{
+  if (self = [self initWithStyle:UITableViewStylePlain]) {
     [self setBagItem:targetType];
   }
   return self;
 }
 
-- (void)setBagItem:(BagQueryTargetType)targetType {
+- (void)setBagItem:(BagQueryTargetType)targetType
+{
   targetType_ = targetType;
   NSString * itemIDsInString;
   // TODO:
@@ -125,9 +120,9 @@
   [self.hiddenCell.toss setHidden:YES];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  if (self = [super initWithStyle:style]) {
     // Basic setting
     selectedCellIndex_     = 0;
     targetType_            = 0;
@@ -140,7 +135,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -149,8 +145,10 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
+  
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   
@@ -174,53 +172,65 @@
                                              object:nil];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.hiddenCellAreaView = nil;
+  self.selectedCell       = nil;
+  self.hiddenCell         = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfBagItemTableView;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  StoreItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString * cellIdentifier = @"Cell";
+  StoreItemTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[StoreItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                          reuseIdentifier:CellIdentifier];
+                                          reuseIdentifier:cellIdentifier];
   }
   
   // Configure the cell
@@ -269,13 +279,16 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  StoreItemTableViewCell * cell = (StoreItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  StoreItemTableViewCell * cell =
+    (StoreItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self _showHiddenCellToReplaceCell:cell];
   selectedCellIndex_ = [indexPath row];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
   if (self.selectedCell != nil) [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
@@ -283,7 +296,8 @@
 
 // configure cell
 - (void)_configureCell:(StoreItemTableViewCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath {
+          atIndexPath:(NSIndexPath *)indexPath
+{
   NSString * localizedNameHeader = [self _localizedNameHeader];
   if (localizedNameHeader == nil)
     return;
@@ -320,7 +334,8 @@
 }
 
 // Show |hiddenCell_|
-- (void)_showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell {
+- (void)_showHiddenCellToReplaceCell:(StoreItemTableViewCell *)cell
+{
   // reset item quantity
   quantity_ = 1;
   [self.hiddenCell updateQuantity:quantity_];
@@ -347,7 +362,8 @@
 }
 
 // Cancel |hiddenCell_|
-- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion {
+- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion
+{
   __block CGRect cellFrame = self.selectedCell.frame;
   [UIView animateWithDuration:.2f
                         delay:0.f
@@ -381,7 +397,8 @@
 }
 
 // Name header for current |targetType_|
-- (NSString *)_localizedNameHeader {
+- (NSString *)_localizedNameHeader
+{
   NSString * localizedNameHeader;
   if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
   else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
@@ -396,7 +413,8 @@
 }
 
 // update selected item quantity
-- (void)_updateSelectedItemQuantity:(NSNotification *)notification {
+- (void)_updateSelectedItemQuantity:(NSNotification *)notification
+{
   quantity_ = [notification.object intValue];
   [self.hiddenCell updateQuantity:quantity_];
 }
@@ -404,7 +422,8 @@
 #pragma mark - BagItemTableViewHiddenCell Delegate
 
 // Hidden Cell Button Action: Use Item | acturally, just buy this item
-- (void)useItem:(id)sender {
+- (void)useItem:(id)sender
+{
   if (quantity_ <= 0)
     return;
   
@@ -458,7 +477,8 @@
 }
 
 // Hidden Cell Button Action: Show Info
-- (void)showInfo:(id)sender {
+- (void)showInfo:(id)sender
+{
   if (self.bagItemInfoViewController == nil) {
     BagItemInfoViewController * bagItemInfoViewController = [[BagItemInfoViewController alloc] init];
     self.bagItemInfoViewController = bagItemInfoViewController;
@@ -519,12 +539,14 @@
 }
 
 // Hidden Cell Button Action: Cancel Hidden Cell
-- (void)cancelHiddenCell:(id)sender {
+- (void)cancelHiddenCell:(id)sender
+{
   [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
 // Change item quantity
-- (void)changeItemQuantity:(id)sender {
+- (void)changeItemQuantity:(id)sender
+{
   if (self.storeItemQuantityChangeViewController == nil) {
     StoreItemQuantityChangeViewController * storeItemQuantityChangeViewController;
     storeItemQuantityChangeViewController = [[StoreItemQuantityChangeViewController alloc] init];

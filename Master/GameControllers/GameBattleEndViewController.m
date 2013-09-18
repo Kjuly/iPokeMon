@@ -31,7 +31,6 @@
 @property (nonatomic, strong) TrainerController      * trainer;
 @property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
 - (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
 
@@ -46,25 +45,17 @@
 @synthesize trainer              = trainer_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.backgroundView = nil;
-  self.message        = nil;
-}
-
-- (id)init {
-  self = [super init];
-  if (self) {
+- (id)init
+{
+  if (self = [super init]) {
     // Custom initialization
     self.trainer = [TrainerController sharedInstance];
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -74,7 +65,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
   
   backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
@@ -86,7 +78,8 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Tap gesture recognizer
@@ -98,12 +91,15 @@
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView = nil;
+  self.message        = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -111,9 +107,10 @@
 #pragma mark - Public Methods
 
 // Load view with Battle End Event Type
--(void)loadViewWithEventType:(GameBattleEndEventType)eventType
-                    animated:(BOOL)animated
-                  afterDelay:(NSTimeInterval)delay{
+- (void)loadViewWithEventType:(GameBattleEndEventType)eventType
+                     animated:(BOOL)animated
+                   afterDelay:(NSTimeInterval)delay
+{
   eventType_ = eventType;
   
   void (^animations)();
@@ -200,7 +197,8 @@
 #pragma mark - Private Methods
 
 // Unload view
-- (void)_unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated
+{
   void (^animations)() = ^(){
     [self.backgroundView setAlpha:0.f];
     
@@ -229,7 +227,8 @@
 }
 
 // Tap gesture action
-- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer
+{
   if (eventType_ == kGameBattleEndEventTypeWin) {
     [self _unloadViewAnimated:YES];
   }

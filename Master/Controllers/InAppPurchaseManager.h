@@ -13,9 +13,10 @@
 #define kPMNProductPurchasedNotification      @"ProductPurchased"
 #define kPMNProductPurchaseFailedNotification @"ProductPurchaseFailed"
 
-@interface InAppPurchaseManager : NSObject
-  <SKProductsRequestDelegate, SKPaymentTransactionObserver>
-{
+@interface InAppPurchaseManager : NSObject <
+  SKProductsRequestDelegate,
+  SKPaymentTransactionObserver
+> {
   NSSet             * productIdentifiers_;
   NSArray           * products_;
   SKProductsRequest * request_;

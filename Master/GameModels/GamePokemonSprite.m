@@ -13,14 +13,16 @@
 @synthesize status = status_;
 
 - (id)initWithCGImage:(CGImageRef)image
-                  key:(NSString *)key {
+                  key:(NSString *)key
+{
   if (self = [super initWithCGImage:image key:key]) {
     status_ = kGamePokemonStatusNormal;
   }
   return self;
 }
 
-- (void)update:(ccTime)dt {
+- (void)update:(ccTime)dt
+{
   switch (self.status) {
     case kGamePokemonStatusNormal:
       break;
@@ -33,7 +35,8 @@
   }
 }
 
-- (void)setStatus:(GamePokemonStatus)status {
+- (void)setStatus:(GamePokemonStatus)status
+{
   if (self.status == status) return;
   self.status = status;
   

@@ -35,20 +35,22 @@
 @synthesize authenticatingView  = authenticatingView_;
 @synthesize authenticatingLabel = authenticatingLabel_;
 
-- (void)dealloc {
-  
+- (void)dealloc
+{
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
   if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"PMSLoginChoice", nil)];
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -57,7 +59,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Show navigation bar, but hide back button
@@ -73,50 +76,40 @@
   [self _setupNotificationObserver];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
   
   self.authenticatingView  = nil;
   self.authenticatingLabel = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return kOAuthServiceProviderChoicesCount;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfLoginTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   static NSString *CellIdentifier = @"Cell";
   
   LoginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -194,7 +187,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   CustomNavigationBar * navigationBar = (CustomNavigationBar *)self.navigationController.navigationBar;
   [navigationBar setBackToRootButtonToHidden:NO animated:YES];
   id loginViewController = [[OAuthManager sharedInstance] loginWith:[indexPath row]];
@@ -208,7 +202,8 @@
 #pragma mark - Private Methods
 
 // Setup notification observer
-- (void)_setupNotificationObserver {
+- (void)_setupNotificationObserver
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Add observer for notification from |GTMOAuth2ViewControllerTouch+Custom|
   [notificationCenter addObserver:self
@@ -223,7 +218,8 @@
 }
 
 // Name for OAuth Service Provider
-- (NSString *)_nameForProvider:(OAuthServiceProviderChoice)provider {
+- (NSString *)_nameForProvider:(OAuthServiceProviderChoice)provider
+{
   NSString * providerName;
   switch (provider) {
     //case kOAuthServiceProviderChoiceFacebook:
@@ -254,7 +250,8 @@
 }
 
 // Show view for authenticating
-- (void)_showAuthenticatingView:(NSNotification *)notification {
+- (void)_showAuthenticatingView:(NSNotification *)notification
+{
   if (self.authenticatingView == nil) {
     UIView * authenticatingView = [[UIView alloc] initWithFrame:self.view.frame];
     self.authenticatingView = authenticatingView;
@@ -285,7 +282,8 @@
 }
 
 // Hide self view
-- (void)_hideView:(NSNotification *)notification {
+- (void)_hideView:(NSNotification *)notification
+{
   BOOL succeed = [[notification.userInfo valueForKey:@"succeed"] boolValue];
   void (^animations)() = ^{
     if (succeed) {

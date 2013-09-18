@@ -58,15 +58,16 @@ typedef enum {
 #endif
 @synthesize developerEmails = developerEmails_;
 
-- (void)dealloc {
-#ifdef KY_INVITATION_ONLY
-  self.unlockCodeManager = nil;
-#endif
+- (void)dealloc
+{
   // Remove notification observer
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUDGeneralBandwidthUsage object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNUDGeneralBandwidthUsage
+                                                object:nil];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
   if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"Setting", nil)];
     // These developer emails are for receiving users' feedback,
@@ -78,7 +79,8 @@ typedef enum {
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -87,8 +89,10 @@ typedef enum {
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
+  
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
   NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
@@ -100,38 +104,26 @@ typedef enum {
                                              object:nil];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return kNumberOfSections;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   switch (section) {
     case kSectionGeneral:
       return kNumberOfSectionGeneralRows;
@@ -151,7 +143,8 @@ typedef enum {
   }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   if (indexPath.section == kSectionMore)
     if (indexPath.row == kSectionMoreRowLogout)
       return kCellHeightOfSettingTableViewCenterTitleStyle;
@@ -159,21 +152,26 @@ typedef enum {
 }
 
 // Section Header Height
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
   return kSectionHeaderHeightOfSettingTableView;
 }
 
 // Section Header View Style
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-  CGRect const sectionHeaderViewFrame = CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
-  SettingSectionHeaderView * sectionHeaderView = [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  CGRect const sectionHeaderViewFrame =
+    CGRectMake(0.f, 0.f, kViewWidth, kSectionHeaderHeightOfSettingTableView);
+  SettingSectionHeaderView * sectionHeaderView =
+    [[SettingSectionHeaderView alloc] initWithFrame:sectionHeaderViewFrame];
   [sectionHeaderView.title setText:
     NSLocalizedString(([NSString stringWithFormat:@"PMSSettingSection%d", section + 1]), nil)];
   return sectionHeaderView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   static NSString * cellIdentifier;
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -367,7 +365,8 @@ typedef enum {
 #pragma mark - Table view delegate
 
 - (void)      tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   NSInteger section = [indexPath section];
   NSInteger row     = [indexPath row];
   
@@ -449,13 +448,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Private Methods
 
 // Update value when value for Settings changed
-- (void)_updateValueSettings:(NSNotification *)notification {
+- (void)_updateValueSettings:(NSNotification *)notification
+{
   [self.tableView reloadData];
 }
 
 // Update value when Switch button changed value
 - (void)_updateValueWithTappedSwitchButton:(UIControl *)button
-                                     event:(UIEvent *)event {
+                                     event:(UIEvent *)event
+{
   UISwitch * switchButton = (UISwitch *)button;
   UITableViewCell * cell = (UITableViewCell *)switchButton.superview;
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -502,7 +503,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 // Open Logut confirm view
-- (void)openLogoutConfirmView {
+- (void)openLogoutConfirmView
+{
   UIAlertView * logoutConfirmView = [UIAlertView alloc];
   (void)[logoutConfirmView initWithTitle:nil
                                  message:NSLocalizedString(@"PMSSettingLogoutConfirmText", nil)
@@ -514,7 +516,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - UIAlertView Delegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)   alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
   // Cancel
   if (buttonIndex == 0) {
     // Switch back location service button
@@ -557,7 +561,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller 
           didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError *)error {
+                        error:(NSError *)error
+{
   LoadingManager * loadingManager = [LoadingManager sharedInstance];
   if (result == MFMailComposeResultSent)
     [loadingManager showMessage:NSLocalizedString(@"PMSMailSent", nil)

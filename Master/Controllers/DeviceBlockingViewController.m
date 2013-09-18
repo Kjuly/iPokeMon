@@ -23,7 +23,6 @@
 @property (nonatomic, strong) UILabel  * messageBody;
 @property (nonatomic, strong) UIButton * logoutButton;
 
-- (void)_releaseSubviews;
 - (void)_logout:(id)sender;
 
 @end
@@ -35,19 +34,9 @@
             messageBody  = messageBody_;
 @synthesize logoutButton = logoutButton_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.messageTitle = nil;
-  self.messageBody  = nil;
-  self.logoutButton = nil;
-}
-
-- (id)init {
-  self = [super init];
-  if (self) {
+- (id)init
+{
+  if (self = [super init]) {
     // Custom initialization
     messageTitle_ = [[UILabel alloc] init];
     messageBody_  = [[UILabel alloc] init];
@@ -55,7 +44,8 @@
   return self;
 }
 
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kKYViewWidth, kKYViewHeight}}];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   self.view = view;

@@ -29,7 +29,8 @@
 
 // Singleton
 static LoadingBar * loadingBar_ = nil;
-+ (LoadingBar *)sharedInstance {
++ (LoadingBar *)sharedInstance
+{
   if (loadingBar_ != nil)
     return loadingBar_;
   
@@ -41,7 +42,8 @@ static LoadingBar * loadingBar_ = nil;
 }
 
 
-- (id)init {
+- (id)init
+{
   if (self = [super initWithFrame:CGRectMake(0.f, kViewHeight - 20.f, kViewWidth, 20.f)]) {
     self.windowLevel = UIWindowLevelStatusBar;
     [self setBackgroundColor:[UIColor whiteColor]];
@@ -65,14 +67,16 @@ static LoadingBar * loadingBar_ = nil;
 }
 
 // Set value for progress bar
-- (void)setProgress:(float)progress {
+- (void)setProgress:(float)progress
+{
   if (progress < self.progressBar.progress || progress < 0)
     return;
   [self.progressBar setProgress:progress animated:YES];
 }
 
 // Done prgressing
-- (void)done {
+- (void)done
+{
   [self.progressBar setProgress:0 animated:NO];
   [[[[UIApplication sharedApplication] windows] objectAtIndex:0] makeKeyWindow];
 }
@@ -102,7 +106,8 @@ static LoadingBar * loadingBar_ = nil;
 
 // Singleton
 static LoadingManager * loadingManager_ = nil;
-+ (LoadingManager *)sharedInstance {
++ (LoadingManager *)sharedInstance
+{
   if (loadingManager_ != nil)
     return loadingManager_;
   
@@ -114,7 +119,8 @@ static LoadingManager * loadingManager_ = nil;
 }
 
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     overViewLoadingCounter_ = 0;
     overBarLoadingCounter_  = 0;
@@ -129,14 +135,16 @@ static LoadingManager * loadingManager_ = nil;
 #pragma mark - Loading over View
 
 // Show loading over view
-- (void)showOverView {
+- (void)showOverView
+{
   if (++overViewLoadingCounter_ == 1)
     [MBProgressHUD showHUDAddedTo:[[[UIApplication sharedApplication] delegate] window] animated:YES];
   NSLog(@"LOADING OVER VIEW SHOW: %d", overViewLoadingCounter_);
 }
 
 // Hide loading over view
-- (void)hideOverView {
+- (void)hideOverView
+{
   --overViewLoadingCounter_;
   if (overViewLoadingCounter_ < 0)
     overViewLoadingCounter_ = 0;
@@ -149,7 +157,8 @@ static LoadingManager * loadingManager_ = nil;
 }
 
 // Clean all loading over view
-- (void)cleanOverView {
+- (void)cleanOverView
+{
   if (overViewLoadingCounter_ > 0) {
     [MBProgressHUD hideHUDForView:[[[UIApplication sharedApplication] delegate] window] animated:YES];
     overViewLoadingCounter_ = 0;
@@ -159,14 +168,16 @@ static LoadingManager * loadingManager_ = nil;
 #pragma mark - Loading over Bar
 
 // Show loading over bar
-- (void)showOverBar {
+- (void)showOverBar
+{
   if (++overBarLoadingCounter_ == 1)
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
   NSLog(@"LOADING OVER BAR SHOW: %d", overBarLoadingCounter_);
 }
 
 // Hide loading over bar
-- (void)hideOverBar {
+- (void)hideOverBar
+{
   --overBarLoadingCounter_;
   if (overBarLoadingCounter_ < 0)
     overBarLoadingCounter_ = 0;
@@ -176,7 +187,8 @@ static LoadingManager * loadingManager_ = nil;
 }
 
 // Clean all loading over bar
-- (void)cleanOverBar {
+- (void)cleanOverBar
+{
   if (overBarLoadingCounter_ > 0) {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     overBarLoadingCounter_ = 0;
@@ -187,7 +199,8 @@ static LoadingManager * loadingManager_ = nil;
 
 - (void)showMessage:(NSString *)message
                type:(ProgressMessageType)type
-       withDuration:(NSTimeInterval)duration {
+       withDuration:(NSTimeInterval)duration
+{
   MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:
                           [[[UIApplication sharedApplication] delegate] window]];
 	[[[[UIApplication sharedApplication] delegate] window] addSubview:HUD];
@@ -229,13 +242,15 @@ static LoadingManager * loadingManager_ = nil;
 #pragma mark - Progress Bar's resource unit Management
 
 // New resource wait to be loaded
-- (void)addResourceToLoadingQueue {
+- (void)addResourceToLoadingQueue
+{
   ++resourceCounter_;
   NSLog(@"+++ LOADING RESOURCES COUNT:%d", resourceCounter_);
 }
 
 // Done loading for a resource unit
-- (void)popResourceFromLoadingQueue {
+- (void)popResourceFromLoadingQueue
+{
   if (resourceCounter_ == 0) {
     NSLog(@"!!!|popResourceFromLoadingQueue| but |resourceCounter_| is 0 already!!!");
     return;

@@ -45,19 +45,19 @@
 @synthesize gameBattleEventViewController = gameBattleEventViewController_;
 @synthesize gameBattleEndViewController   = gameBattleEndViewController_;
 
-- (void)dealloc {
-  
-  
+- (void)dealloc
+{
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)init {
-  self = [super init];
-  return self;
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -67,14 +67,16 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(kViewWidth, 0.f, kViewWidth, kViewHeight)];
   [view setAlpha:0.f];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Basic settings
@@ -108,20 +110,23 @@
   [self.view addSubview:gameMenuViewController_.view];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
   // Unload |director|
   [[CCDirector sharedDirector] end];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Public Methods
 
-- (void)startBattleWithPreviousCenterMainButtonStatus:(CenterMainButtonStatus)previousCenterMainButtonStatus {
+- (void)startBattleWithPreviousCenterMainButtonStatus:(CenterMainButtonStatus)previousCenterMainButtonStatus
+{
   NSLog (@"START GAME BATTLE...");
   // Remember previous |centerMainButton_|'s status
   previousCenterMainButtonStatus_ = previousCenterMainButtonStatus;
@@ -157,7 +162,8 @@
 
 #pragma mark - GameMenuViewControllerDelegate
 
-- (void)unloadBattleScene {
+- (void)unloadBattleScene
+{
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:previousCenterMainButtonStatus_],
                              @"previousCenterMainButtonStatus", nil];
@@ -187,7 +193,8 @@
 #pragma mark - Private Methods
 
 // Setup notification observers
-- (void)_setupNotificationObservers {
+- (void)_setupNotificationObservers
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Notification from |LoadingManageer| when loading done
   [notificationCenter addObserver:self
@@ -207,7 +214,8 @@
 }
 
 // Load battle scene
-- (void)_loadBattleScene:(NSNotification *)notification {
+- (void)_loadBattleScene:(NSNotification *)notification
+{
   // Only load scene when it is loading resource for battle
   if (! isLoadingResourceForBattle_)
     return;
@@ -233,14 +241,14 @@
 }
 
 // Load game EVENT view
-- (void)_loadViewForEvent:(NSNotification *)notification {
+- (void)_loadViewForEvent:(NSNotification *)notification
+{
   GameBattleEventType eventType = [[notification.userInfo valueForKey:@"eventType"] intValue];
   if (eventType == kGameBattleEventTypeNone)
     return;
   
   if (self.gameBattleEventViewController == nil) {
-    GameBattleEventViewController * gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
-    self.gameBattleEventViewController = gameBattleEventViewController;
+    self.gameBattleEventViewController = [[GameBattleEventViewController alloc] init];
   }
   
   [self.view.window addSubview:self.gameBattleEventViewController.view];
@@ -254,7 +262,8 @@
 // End game battle with Events:
 //   Player WIN/LOSE
 //   Caught Wild Pokemon
-- (void)_endGameBattleWithEvent:(NSNotification *)notification {
+- (void)_endGameBattleWithEvent:(NSNotification *)notification
+{
   GameBattleEndEventType battleEndEventType;
   if ([notification.userInfo valueForKey:@"battleEndEventType"])
     battleEndEventType = [[notification.userInfo valueForKey:@"battleEndEventType"] intValue];
@@ -267,12 +276,13 @@
   }
   
   if (self.gameBattleEndViewController == nil) {
-    GameBattleEndViewController * gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
-    self.gameBattleEndViewController = gameBattleEndViewController;
+    self.gameBattleEndViewController = [[GameBattleEndViewController alloc] init];
   }
   
   NSTimeInterval delay = 1.8f;
-  if (battleEndEventType != kGameBattleEndEventTypeWin && battleEndEventType != kGameBattleEndEventTypeRun) {
+  if (battleEndEventType != kGameBattleEndEventTypeWin &&
+      battleEndEventType != kGameBattleEndEventTypeRun)
+  {
     //[[[[UIApplication sharedApplication] delegate] window] addSubview:self.gameBattleEndViewController.view];
     [self.view.window addSubview:self.gameBattleEndViewController.view];
     [self.gameBattleEndViewController loadViewWithEventType:battleEndEventType
@@ -280,7 +290,9 @@
                                                  afterDelay:delay];
   }
   
-  [self performSelector:@selector(unloadBattleScene) withObject:nil afterDelay:delay];
+  [self performSelector:@selector(unloadBattleScene)
+             withObject:nil
+             afterDelay:delay];
 }
 
 @end

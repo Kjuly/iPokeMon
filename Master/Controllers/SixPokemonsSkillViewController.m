@@ -31,8 +31,6 @@
 @property (nonatomic, strong) PokemonInfoLabelView * speedLabelView;
 @property (nonatomic, strong) PokemonInfoLabelView * abilityLabelView;
 
-- (void)_releaseSubviews;
-
 @end
 
 
@@ -48,23 +46,8 @@
 @synthesize speedLabelView     = speedLabelView_;
 @synthesize abilityLabelView   = abilityLabelView_;
 
-- (void)dealloc{
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.hpLabelView        = nil;
-  self.hpBarTotal         = nil;
-  self.hpBarLeft          = nil;
-  self.attackLabelView    = nil;
-  self.defenseLabelView   = nil;
-  self.spAttackLabelView  = nil;
-  self.spDefenseLabelView = nil;
-  self.speedLabelView     = nil;
-  self.abilityLabelView   = nil;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -74,12 +57,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -167,9 +152,18 @@
   [self.abilityLabelView.value   setText:[self.pokemon.pokemon.ability1 stringValue]];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.hpLabelView        = nil;
+  self.hpBarTotal         = nil;
+  self.hpBarLeft          = nil;
+  self.attackLabelView    = nil;
+  self.defenseLabelView   = nil;
+  self.spAttackLabelView  = nil;
+  self.spDefenseLabelView = nil;
+  self.speedLabelView     = nil;
+  self.abilityLabelView   = nil;
 }
 
 @end

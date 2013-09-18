@@ -48,7 +48,6 @@
 @property (nonatomic, strong) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer   * tapGestureRecognizer;
 
-- (void)_releaseSubviews;
 - (void)_useSelectedMove:(id)sender;
 - (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex;
 - (void)_loadMoveDetailRoundViewAnimated:(BOOL)animated;
@@ -74,19 +73,8 @@
 @synthesize swipeLeftGestureRecognizer = swipeLeftGestureRecognizer_;
 @synthesize tapGestureRecognizer       = tapGestureRecognizer_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.move1View           = nil;
-  self.move2View           = nil;
-  self.move3View           = nil;
-  self.move4View           = nil;
-  self.moveDetailRoundView = nil;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -101,7 +89,8 @@
 //}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   currSelectedMoveIndex_ = 0;
@@ -143,19 +132,27 @@
   [self.view addGestureRecognizer:self.swipeLeftGestureRecognizer];
   
   // tap on the move detail view to hide it
-  tapGestureRecognizer_ = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_unloadMoveDetailRoundViewAnimated:)];
+  tapGestureRecognizer_ =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(_unloadMoveDetailRoundViewAnimated:)];
   [self.moveDetailRoundView addGestureRecognizer:tapGestureRecognizer_];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.move1View           = nil;
+  self.move2View           = nil;
+  self.move3View           = nil;
+  self.move4View           = nil;
+  self.moveDetailRoundView = nil;
 }
 
 #pragma mark - Public Methods
 
 // update four Moves
-- (void)updateFourMoves {
+- (void)updateFourMoves
+{
   // refetch data
   self.playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   self.fourMovesPP = [self.playerPokemon fourMovesPPInArray];
@@ -168,7 +165,9 @@
 }
 
 // make sure |moveDetailView_| is unloaded when unload Move view
-- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft animated:(BOOL)animated {
+- (void)unloadViewWithAnimationToLeft:(BOOL)toLeft
+                             animated:(BOOL)animated
+{
   [super unloadViewWithAnimationToLeft:toLeft animated:animated];
   if (currSelectedMoveIndex_)
     [self _unloadMoveDetailRoundViewAnimated:YES];
@@ -177,7 +176,8 @@
 #pragma mark - Private Methods
 
 // use the Move selected
-- (void)_useSelectedMove:(id)sender {
+- (void)_useSelectedMove:(id)sender
+{
   // System process setting
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   [gameSystemProcess setSystemProcessOfFightWithUser:kGameSystemProcessUserPlayer
@@ -188,9 +188,11 @@
 }
 
 // update Move Unit View data
-- (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex {
+- (void)_updateMoveUnitViewWithMoveIndex:(NSInteger)moveIndex
+{
   // get the Move Unit View at index
-  GameMenuMoveUnitView * moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
+  GameMenuMoveUnitView * moveUnitView =
+    (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
   Move * move = [self.playerPokemon moveWithIndex:moveIndex];
   if (move == nil) {
     [moveUnitView configureMoveUnitWithSID:0
@@ -219,12 +221,14 @@
 }
 
 // load |moveDetailRoundView_|
-- (void)_loadMoveDetailRoundViewAnimated:(BOOL)animated {
+- (void)_loadMoveDetailRoundViewAnimated:(BOOL)animated
+{
   // set up animations if it is not initialized
   if (self.loadAnimationGroup == nil) {
     CGFloat duration = .3f;
     // scale
-    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    CAKeyframeAnimation * animationScale =
+      [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     animationScale.duration = duration;
     animationScale.values = [NSArray arrayWithObjects:
                              [NSNumber numberWithFloat:.1f],
@@ -247,17 +251,19 @@
     [self.loadAnimationGroup setTimingFunction:
       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
-  [self.moveDetailRoundView.layer addAnimation:self.loadAnimationGroup forKey:@"loadAnimation"];
+  [self.moveDetailRoundView.layer addAnimation:self.loadAnimationGroup
+                                        forKey:@"loadAnimation"];
 }
 
 // unload |moveDetailRoundView_|
-- (void)_unloadMoveDetailRoundViewAnimated:(BOOL)animated {
+- (void)_unloadMoveDetailRoundViewAnimated:(BOOL)animated
+{
   if (currSelectedMoveIndex_ == 0)
     return;
   
   // unselected Move
-  GameMenuMoveUnitView * moveUnitView;
-  moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + currSelectedMoveIndex_)];
+  GameMenuMoveUnitView * moveUnitView =
+    (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + currSelectedMoveIndex_)];
   [moveUnitView setButtonSelected:NO];
   moveUnitView = nil;
   
@@ -266,7 +272,8 @@
   if (self.unloadAnimationGroup == nil) {
     CGFloat duration = .3f;
     // scale
-    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    CAKeyframeAnimation * animationScale =
+      [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     animationScale.duration = duration;
     animationScale.values = [NSArray arrayWithObjects:
                              [NSNumber numberWithFloat:1.f],
@@ -288,15 +295,18 @@
     [self.unloadAnimationGroup setTimingFunction:
       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
   }
-  [self.moveDetailRoundView.layer addAnimation:self.unloadAnimationGroup forKey:@"unloadAnimation"];
+  [self.moveDetailRoundView.layer addAnimation:self.unloadAnimationGroup
+                                        forKey:@"unloadAnimation"];
 }
 
 // switch content for |moveDetailRoundView_|
-- (void)_switchContentForMoveDetailRoundViewAnimated:(BOOL)animated {
+- (void)_switchContentForMoveDetailRoundViewAnimated:(BOOL)animated
+{
   // set up animations if it is not initialized
   if (self.switchAnimationGroup == nil) {
     CGFloat duration = .3f;
-    CAKeyframeAnimation * animationScale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    CAKeyframeAnimation * animationScale =
+      [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     animationScale.duration = duration;
     animationScale.values = [NSArray arrayWithObjects:
                              [NSNumber numberWithFloat:1.f],
@@ -314,12 +324,15 @@
     NSArray * animations = [[NSArray alloc] initWithObjects:animationScale, nil];
     [self.switchAnimationGroup setAnimations:animations];
   }
-  [self.moveDetailRoundView.layer addAnimation:self.switchAnimationGroup forKey:@"switchAnimation"];
+  [self.moveDetailRoundView.layer addAnimation:self.switchAnimationGroup
+                                        forKey:@"switchAnimation"];
 }
 
 #pragma mark - CoreAnimation Delegate
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- (void)animationDidStop:(CAAnimation *)anim
+                finished:(BOOL)flag
+{
   if ([[anim valueForKey:@"animationType"] isEqualToString:@"unload"]) {
     [self.moveDetailRoundView setAlpha:0.f];
     [self.moveDetailRoundView removeFromSuperview];
@@ -336,15 +349,16 @@
 #pragma mark - GameMenuMoveUnitView Delegate
 
 // show detail for selected Move
-- (void)showDetail:(id)sender {
+- (void)showDetail:(id)sender
+{
   NSInteger moveIndex = ((UIButton *)sender).tag;
   if (currSelectedMoveIndex_ == moveIndex) {
     [self _useSelectedMove:sender];
     return;
   }
   
-  GameMenuMoveUnitView * moveUnitView;
-  moveUnitView = (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
+  GameMenuMoveUnitView * moveUnitView =
+    (GameMenuMoveUnitView *)[self.tableAreaView viewWithTag:(100 + moveIndex)];
   [moveUnitView setButtonSelected:YES];
   
   // load |moveDetailView_| is no Move is selected

@@ -10,8 +10,8 @@
 
 @implementation PokemonSizeViewController
 
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -21,12 +21,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -43,14 +45,16 @@
   UIView * sizeView = [[UIView alloc] initWithFrame:sizeViewFrame];
   
   // Heigth
-  PokemonInfoLabelView * heightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:heightLabelFrame hasValueLabel:YES];
+  PokemonInfoLabelView * heightLabelView =
+    [[PokemonInfoLabelView alloc] initWithFrame:heightLabelFrame hasValueLabel:YES];
   [heightLabelView.name  setText:NSLocalizedString(@"PMSLabelHeight", nil)];
   [heightLabelView.value setText:[NSString stringWithFormat:@"%.2f m",
                                   [[self.pokemon valueForKey:@"height"] floatValue]]];
   [sizeView addSubview:heightLabelView];
   
   // Weight
-  PokemonInfoLabelView * weightLabelView = [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
+  PokemonInfoLabelView * weightLabelView =
+    [[PokemonInfoLabelView alloc] initWithFrame:weightLabelFrame hasValueLabel:YES];
   [weightLabelView.name  setText:NSLocalizedString(@"PMSLabelWeight", nil)];
   [weightLabelView.value setText:[NSString stringWithFormat:@"%.2f kg",
                                   [[self.pokemon valueForKey:@"weight"] floatValue]]];
@@ -60,7 +64,8 @@
   [self.view addSubview:sizeView];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 

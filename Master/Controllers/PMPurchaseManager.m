@@ -12,7 +12,8 @@
 
 // singleton
 static PMPurchaseManager * purchaseManager_ = nil;
-+ (InAppPurchaseManager *)sharedInstance {
++ (InAppPurchaseManager *)sharedInstance
+{
   if (purchaseManager_ != nil)
     return purchaseManager_;
   
@@ -23,7 +24,8 @@ static PMPurchaseManager * purchaseManager_ = nil;
   return purchaseManager_;
 }
 
-- (id)init {
+- (id)init
+{
   NSSet * productIdentifiers = [[NSSet alloc] initWithObjects:
                                 kIAPCurrencyTier1,
                                 kIAPCurrencyTier2,

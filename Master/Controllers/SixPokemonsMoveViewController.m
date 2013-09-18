@@ -32,7 +32,6 @@
 @property (nonatomic, strong) PokemonMoveView       * moveFourView;
 @property (nonatomic, strong) PokemonMoveDetailView * moveDetailView;
 
-- (void)_releaseSubviews;
 - (void)_cancelMoveDetailView;
 
 @end
@@ -48,20 +47,8 @@
 @synthesize moveFourView   = moveFourView_;
 @synthesize moveDetailView = moveDetailView_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.fourMovesView  = nil;
-  self.moveOneView    = nil;
-  self.moveTwoView    = nil;
-  self.moveThreeView  = nil;
-  self.moveFourView   = nil;
-  self.moveDetailView = nil;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -71,12 +58,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -173,17 +162,26 @@
   else [self.moveFourView setButtonEnabled:NO];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.fourMovesView  = nil;
+  self.moveOneView    = nil;
+  self.moveTwoView    = nil;
+  self.moveThreeView  = nil;
+  self.moveFourView   = nil;
+  self.moveDetailView = nil;
 }
 
 #pragma mark - PokemonMoveView Delegate
 
 // Load Move detail view
-- (void)loadMoveDetailView:(id)sender {
-  CGRect const fourMovesViewFrame = CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
-  PokemonMoveDetailView * moveDetailView = [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
+- (void)loadMoveDetailView:(id)sender
+{
+  CGRect const fourMovesViewFrame =
+    CGRectMake(0.f, 5.f, self.view.frame.size.width, self.view.frame.size.height - 5.f);
+  PokemonMoveDetailView * moveDetailView =
+    [[PokemonMoveDetailView alloc] initWithFrame:fourMovesViewFrame];
   self.moveDetailView = moveDetailView;
   [self.moveDetailView.backButton addTarget:self
                                      action:@selector(_cancelMoveDetailView)
@@ -223,7 +221,8 @@
                   completion:nil];
 }
 
-- (void)_cancelMoveDetailView {
+- (void)_cancelMoveDetailView
+{
   [UIView transitionFromView:self.moveDetailView
                       toView:self.fourMovesView
                     duration:.6f

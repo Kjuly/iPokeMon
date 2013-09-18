@@ -44,13 +44,15 @@
 @synthesize confirmButton = confirmButton_;
 @synthesize infoButton    = infoButton_;
 
-- (void)dealloc {
-  self.delegate      = nil;
+- (void)dealloc
+{
+  self.delegate = nil;
 }
 
 - (id)initWithFrame:(CGRect)frame
               image:(UIImage *)image
-                tag:(NSInteger)tag {
+                tag:(NSInteger)tag
+{
   if (self = [self initWithFrame:frame]) {
     self.spriteImage = image;
     
@@ -64,15 +66,20 @@
     [mainButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
     [mainButton_ setImage:self.spriteImage forState:UIControlStateNormal];
-    [mainButton_ addTarget:self action:@selector(_runButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [mainButton_ addTarget:self
+                    action:@selector(_runButtonAction:)
+          forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:mainButton_];
     
     confirmButton_ = [[UIButton alloc] initWithFrame:confirmButtonFrame];
     [confirmButton_ setTag:tag];
     [confirmButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                               forState:UIControlStateNormal];
-    [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
-    [confirmButton_ addTarget:self.delegate action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    [confirmButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirm]
+                    forState:UIControlStateNormal];
+    [confirmButton_ addTarget:self.delegate
+                       action:@selector(confirm:)
+             forControlEvents:UIControlEventTouchUpInside];
     [confirmButton_ setAlpha:0.f];
     [self addSubview:confirmButton_];
     
@@ -80,17 +87,20 @@
     [infoButton_ setTag:tag];
     [infoButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                            forState:UIControlStateNormal];
-    [infoButton_ setImage:[UIImage imageNamed:kPMINMainButtonInfo] forState:UIControlStateNormal];
-    [infoButton_ addTarget:self.delegate action:@selector(openInfoView:) forControlEvents:UIControlEventTouchUpInside];
+    [infoButton_ setImage:[UIImage imageNamed:kPMINMainButtonInfo]
+                 forState:UIControlStateNormal];
+    [infoButton_ addTarget:self.delegate
+                    action:@selector(openInfoView:)
+          forControlEvents:UIControlEventTouchUpInside];
     [infoButton_ setAlpha:0.f];
     [self addSubview:infoButton_];
   }
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame {
-  self = [super initWithFrame:frame];
-  if (self) {
+- (id)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
     [self setFrame:frame];
     isCurrBattlePokemon_   = NO;
     isFainted_             = NO;
@@ -112,7 +122,8 @@
 #pragma mark - Public Methods
 
 // Cancel Unit
-- (void)cancelUnitAnimated:(BOOL)animated {
+- (void)cancelUnitAnimated:(BOOL)animated
+{
   isOpen_ = NO;
   
   void (^animation)() = ^(){
@@ -144,14 +155,16 @@
 }
 
 // Set the Pokemon as Normal
-- (void)setAsNormal {
+- (void)setAsNormal
+{
   isCurrBattlePokemon_ = NO;
   isFainted_           = NO;
   [self _setBackgroundForButtonsWithImageName:kPMINMainButtonBackgoundNormal];
 }
 
 // Set the Pokemon as current battle one
-- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne {
+- (void)setAsCurrentBattleOne:(BOOL)isCurrentBattleOne
+{
   isCurrBattlePokemon_ = isCurrentBattleOne;
   NSString * buttonBackgroundImageName = kPMINMainButtonBackgoundNormal;
   if (isCurrentBattleOne)
@@ -160,7 +173,8 @@
 }
 
 // Set the Pokemon as Fainted
-- (void)setAsFainted:(BOOL)isFainted {
+- (void)setAsFainted:(BOOL)isFainted
+{
   isFainted_ = isFainted;
   NSString * buttonBackgroundImageName = kPMINMainButtonBackgoundNormal;
   if (isFainted)
@@ -170,7 +184,8 @@
 
 #pragma mark - Private Methods
 
-- (void)_runButtonAction:(id)sender {
+- (void)_runButtonAction:(id)sender
+{
   if (isAnimationProcessing_)
     return;
   isAnimationProcessing_ = YES;
@@ -179,7 +194,8 @@
 }
 
 // Open Unit
-- (void)_openUnit:(id)sender {
+- (void)_openUnit:(id)sender
+{
   isOpen_ = YES;
   [self.delegate checkUnit:sender];
   
@@ -211,7 +227,8 @@
 }
 
 // Set background image for buttons
-- (void)_setBackgroundForButtonsWithImageName:(NSString *)imageName {
+- (void)_setBackgroundForButtonsWithImageName:(NSString *)imageName
+{
   [self.mainButton setBackgroundImage:[UIImage imageNamed:imageName]
                              forState:UIControlStateNormal];
 }

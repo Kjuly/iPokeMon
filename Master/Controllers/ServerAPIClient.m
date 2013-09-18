@@ -161,7 +161,8 @@ typedef enum {
 
 // singleton
 static ServerAPIClient * client_;
-+ (ServerAPIClient *)sharedInstance {
++ (ServerAPIClient *)sharedInstance
+{
   if (client_ != nil)
     return client_;
   
@@ -172,11 +173,13 @@ static ServerAPIClient * client_;
   return client_;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNUpdateRegion object:nil];
 }
 
-- (id)initWithBaseURL:(NSURL *)url {
+- (id)initWithBaseURL:(NSURL *)url
+{
   if (self = [super initWithBaseURL:url]) {
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
@@ -196,7 +199,8 @@ static ServerAPIClient * client_;
 
 // Method for checking connection to server
 - (void)checkConnectionToServerSuccess:(void (^)(AFHTTPRequestOperation *, id))success
-                               failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+                               failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
   [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL");
   [self getPath:[ServerAPI _checkConnection] parameters:nil success:success failure:failure];
@@ -206,7 +210,8 @@ static ServerAPIClient * client_;
 
 // GET userID
 - (void)fetchUserIDSuccess:(void (^)(AFHTTPRequestOperation *, id))success
-                   failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+                   failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
   [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request UserID");
   [self getPath:[ServerAPI _getUserID] parameters:nil success:success failure:failure];
@@ -216,7 +221,8 @@ static ServerAPIClient * client_;
 - (void)fetchDataFor:(DataFetchTarget)target
           withObject:(id)object
              success:(void (^)(AFHTTPRequestOperation *, id))success
-             failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+             failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
   NSString * path;
   if (target & kDataFetchTargetTrainer)
     path = [ServerAPI _getUser];
@@ -255,7 +261,8 @@ static ServerAPIClient * client_;
 - (void)updateData:(NSDictionary *)data
          forTarget:(DataFetchTarget)target
            success:(void (^)(AFHTTPRequestOperation *, id))success
-           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+           failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
   NSString * path;
   if (target & kDataFetchTargetTrainer)
     path = [ServerAPI _updateUser];
@@ -273,7 +280,8 @@ static ServerAPIClient * client_;
 // POST: Check uniqueness for the |name|
 - (void)checkUniquenessForName:(NSString *)name
                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
   [self _updateHeaderWithFlag:kHTTPHeaderDefault];
   NSLog(@"Request URL...");
   [self postPath:[ServerAPI _checkUniquenessForName]
@@ -289,7 +297,8 @@ static ServerAPIClient * client_;
 //                 { "t"(type):XXX, ... }
 - (void)updateWildPokemonsForCurrentRegion:(NSDictionary *)regionInfo
                                    success:(void (^)(AFHTTPRequestOperation *, id))success
-                                   failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+                                   failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
   [self _updateHeaderWithFlag:kHTTPHeaderDefault | kHTTPHeaderWithRegion];
   [self getPath:[ServerAPI _getWildPokemon]
      parameters:regionInfo
@@ -299,7 +308,8 @@ static ServerAPIClient * client_;
 
 #pragma mark - Provate Methods
 
-- (void)_updateHeaderWithFlag:(HTTPHeaderFlag)flag {
+- (void)_updateHeaderWithFlag:(HTTPHeaderFlag)flag
+{
   // Reset headers to empty
   [self setDefaultHeader:@"provider" value:nil];
   [self setDefaultHeader:@"identity" value:nil];
@@ -318,7 +328,8 @@ static ServerAPIClient * client_;
 }
 
 // update region (code, ...)
-- (void)_updateRegion:(NSNotification *)notification {
+- (void)_updateRegion:(NSNotification *)notification
+{
   self.regionCode = notification.object;
 }
 

@@ -59,9 +59,9 @@
 @synthesize progressView    = progressView_;
 
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"PMSSettingMoreResources", nil)];
     self.resourceManager = [ResourceManager sharedInstance];
 //    self.loadingManager  = [LoadingManager sharedInstance];
@@ -104,7 +104,8 @@
   return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Uncomment the following line to preserve selection between presentations.
@@ -114,10 +115,12 @@
   // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
+  [self.view setBackgroundColor:
+    [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
@@ -125,17 +128,20 @@
 #pragma mark - Table view data source
 
 // Return the number of sections.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
 // Return the number of rows in the section.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return [self.resources count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   static NSString * cellIdentifier = @"Cell";
   UITableViewCell * cell =
     [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -191,14 +197,16 @@
 #pragma mark - Table view delegate
 
 - (void)      tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   [self _loadResourceForRow:indexPath.row];
 }
 
 #pragma mark - Private Method
 
 // Load resource for the selected row
-- (void)_loadResourceForRow:(NSInteger)row {
+- (void)_loadResourceForRow:(NSInteger)row
+{
   // Resource name
   NSString * resourceName = [[self.resources objectAtIndex:row] objectForKey:@"id"];
   // Resource package name
@@ -318,7 +326,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark MBProgressHUDDelegate methods
 
 // Remove HUD from screen when the HUD was hidded
-- (void)hudWasHidden:(MBProgressHUD *)hud {
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
 	[hud removeFromSuperview];
 	hud = nil;
 }

@@ -34,7 +34,6 @@
 @property (nonatomic, strong) UIButton * confirmButton;
 @property (nonatomic, strong) UIButton * cancelButton;
 
-- (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
 - (void)_increase:(id)sender;
 - (void)_decrease:(id)sender;
@@ -53,25 +52,13 @@
 @synthesize confirmButton     = confirmButton_;
 @synthesize cancelButton      = cancelButton_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)_releaseSubviews {
-  self.backgroundView    = nil;
-  self.itemQuantityLabel = nil;
-  self.increaseButton    = nil;
-  self.decreaseButton    = nil;
-  self.confirmButton     = nil;
-  self.cancelButton      = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -81,13 +68,15 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 480.f}}];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   itemQuantity_ = 1;
@@ -158,12 +147,19 @@
   [cancelButton_      setAlpha:0.f];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView    = nil;
+  self.itemQuantityLabel = nil;
+  self.increaseButton    = nil;
+  self.decreaseButton    = nil;
+  self.confirmButton     = nil;
+  self.cancelButton      = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -171,7 +167,8 @@
 #pragma mark - Public Methods
 
 - (void)loadViewWithItemQuantity:(NSInteger)itemQuantity
-                        animated:(BOOL)animated {
+                        animated:(BOOL)animated
+{
   [self _updateItemQuantity:itemQuantity];
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -189,7 +186,8 @@
 
 #pragma mark - Private Methods
 
-- (void)_unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -209,17 +207,20 @@
 }
 
 // increase item quantity
-- (void)_increase:(id)sender {
+- (void)_increase:(id)sender
+{
   [self _updateItemQuantity:++itemQuantity_];
 }
 
 // decrease item quantity
-- (void)_decrease:(id)sender {
+- (void)_decrease:(id)sender
+{
   [self _updateItemQuantity:--itemQuantity_];
 }
 
 // confirm
-- (void)_confirm:(id)sender {
+- (void)_confirm:(id)sender
+{
   // post notification to |StoreItemTableViewController| to update item quantity
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateStoreItemQuantity
                                                       object:[NSNumber numberWithInt:itemQuantity_]];
@@ -227,12 +228,14 @@
 }
 
 // cancel
-- (void)_cancel:(id)sender {
+- (void)_cancel:(id)sender
+{
   [self _unloadViewAnimated:YES];
 }
 
 // update item quantity
-- (void)_updateItemQuantity:(NSInteger)quantity {
+- (void)_updateItemQuantity:(NSInteger)quantity
+{
   if (quantity < kStoreMinItemQuantity) quantity = kStoreMinItemQuantity;
   if (quantity > kStoreMaxItemQuantity) quantity = kStoreMaxItemQuantity;
   itemQuantity_ = quantity;

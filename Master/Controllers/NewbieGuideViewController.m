@@ -42,7 +42,6 @@
 @property (nonatomic, strong) UIButton    * confirmButton;
 @property (nonatomic, strong) UITextField * nameInputView;
 
-- (void)_releaseSubviews;
 - (void)_setupNotificationObserver;
 - (void)_unloadViewAnimated:(BOOL)animated;
 - (void)_moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated;
@@ -70,25 +69,15 @@
 @synthesize confirmButton  = confirmButton_;
 @synthesize nameInputView  = nameInputView_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-  
+- (void)dealloc
+{
   // Remove notification observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)_releaseSubviews {
-  self.backgroundView = nil;
-  self.title          = nil;
-  self.message        = nil;
-  self.confirmButton  = nil;
-  self.nameInputView.delegate = nil;
-  self.nameInputView  = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     self.serverAPIClient = [ServerAPIClient sharedInstance];
     self.trainer         = [TrainerController sharedInstance];
     isProcessing_    = NO;
@@ -107,7 +96,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
@@ -182,12 +172,19 @@
   [self _setupNotificationObserver];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView = nil;
+  self.title          = nil;
+  self.message        = nil;
+  self.confirmButton  = nil;
+  self.nameInputView.delegate = nil;
+  self.nameInputView  = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -195,7 +192,8 @@
 #pragma mark - Public Methods
 
 // Load view
--(void)loadViewAnimated:(BOOL)animated {
+- (void)loadViewAnimated:(BOOL)animated
+{
   void (^animations)() = ^(){[self.view setAlpha:1.f];};
   if (animated) [UIView animateWithDuration:.3f
                                       delay:0.f
@@ -208,7 +206,8 @@
 #pragma mark - Private Methods
 
 // Setup notification observer
-- (void)_setupNotificationObserver {
+- (void)_setupNotificationObserver
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Add observer for notification from |PokemonSelectionViewController|
   [notificationCenter addObserver:self
@@ -222,7 +221,8 @@
 }
 
 // Unload view
-- (void)_unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated
+{
   void (^animations)() = ^(){[self.view setAlpha:0.f];};
   void (^completion)(BOOL) = ^(BOOL finished){[self.view removeFromSuperview];};
   if (animated) [UIView animateWithDuration:.3f
@@ -234,7 +234,9 @@
 }
 
 // Move |confirmButton_|
-- (void)_moveConfirmButtonToBottom:(BOOL)toBottom animated:(BOOL)animated {
+- (void)_moveConfirmButtonToBottom:(BOOL)toBottom
+                          animated:(BOOL)animated
+{
   CGRect confirmButtonFrame =
     CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                toBottom ? kViewHeight - 160.f : (kViewHeight - kCenterMainButtonSize) / 2,
@@ -250,14 +252,16 @@
 }
 
 // Show |confirmButton_|
-- (void)_showConfirmButton:(NSNotification *)notification {
+- (void)_showConfirmButton:(NSNotification *)notification
+{
   [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm]
                       forState:UIControlStateNormal];
   [self _moveConfirmButtonToBottom:YES animated:YES];
 }
 
 // Hide |confirmButton_|
-- (void)_hideConfirmButton:(NSNotification *)notification {
+- (void)_hideConfirmButton:(NSNotification *)notification
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -273,7 +277,8 @@
 }
 
 // Action for |confirmButton_|
-- (void)_confirm:(id)sender {
+- (void)_confirm:(id)sender
+{
   // If is processing, do nothing until processing done
   if (isProcessing_)
     return;
@@ -367,7 +372,9 @@
 }
 
 // Set text for |textView1_| & |textView2_|
-- (void)setTextViewWithTitle:(NSString *)title message:(NSString *)message {
+- (void)setTextViewWithTitle:(NSString *)title
+                     message:(NSString *)message
+{
   [self.title setFrame:titleFrame_];
   [self.title setText:NSLocalizedString(title, nil)];
   [self.title sizeToFit];
@@ -378,7 +385,8 @@
 }
 
 // username's validity & uniqueness checking
-- (BOOL)_isValidOfName:(NSString *)name {
+- (BOOL)_isValidOfName:(NSString *)name
+{
   // At least 3 characters, max 20
   if ([name length] < 3 || [name length] > 20)
     return NO;
@@ -388,7 +396,8 @@
 }
 
 // check uniqueness for name
-- (void)_checkUniquenessForName:(NSString *)name {
+- (void)_checkUniquenessForName:(NSString *)name
+{
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
     // Response:-1:ERROR: 0:Name Exist 1:OK
@@ -451,7 +460,8 @@
 
 #pragma mark - UITextView Delegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   [self.confirmButton setImage:[UIImage imageNamed:kPMINMainButtonConfirm] forState:UIControlStateNormal];
   [self.nameInputView resignFirstResponder];
   return YES;

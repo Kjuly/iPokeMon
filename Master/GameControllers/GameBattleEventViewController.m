@@ -38,7 +38,6 @@
 @property (nonatomic, strong) TrainerController      * trainer;
 @property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)_releaseSubviews;
 - (void)_unloadViewAnimated:(BOOL)animated;
 - (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer;
 - (void)_setLevelUpViewWithBaseStats:(NSArray *)baseStats deltaStats:(NSArray *)deltaStats;
@@ -56,19 +55,9 @@
 @synthesize levelUpView          = levelUpView_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.backgroundView = nil;
-  self.message        = nil;
-  self.levelUpView    = nil;
-}
-
-- (id)init {
-  self = [super init];
-  if (self) {
+- (id)init
+{
+  if (self = [super init]) {
     self.audioPlayer   = [PMAudioPlayer     sharedInstance];
     self.systemProcess = [GameSystemProcess sharedInstance];
     self.trainer       = [TrainerController sharedInstance];
@@ -76,7 +65,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -86,13 +76,16 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
+- (void)loadView
+{
+  UIView * view = [[UIView alloc] initWithFrame:
+                   CGRectMake(0.f, kKYStatusBarHeight, kViewWidth, kViewHeight)];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // backgroun view
@@ -110,12 +103,16 @@
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView = nil;
+  self.message        = nil;
+  self.levelUpView    = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -126,7 +123,8 @@
 -(void)loadViewWithEventType:(GameBattleEventType)eventType
                         info:(NSDictionary *)info
                     animated:(BOOL)animated
-                  afterDelay:(NSTimeInterval)delay {
+                  afterDelay:(NSTimeInterval)delay
+{
   eventType_ = eventType;
   
   void (^animations)() = ^{};
@@ -163,7 +161,9 @@
     completion = nil;
   }
   // WIN
-  else if (eventType & kGameBattleEndEventTypeWin || eventType & kGameBattleEventTypeLose) {
+  else if (eventType & kGameBattleEndEventTypeWin ||
+           eventType & kGameBattleEventTypeLose)
+  {
     // do nothing, just wait for user's tap gesture
     animations = nil;
     completion = nil;
@@ -264,7 +264,8 @@
 #pragma mark - Private Methods
 
 // Unload view
-- (void)_unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated
+{
   void (^animations)() = ^(){
     [self.backgroundView setAlpha:0.f];
     
@@ -310,13 +311,15 @@
 }
 
 // Tap gesture action
-- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer
+{
   [self _unloadViewAnimated:YES];
 }
 
 // Set layout for Level Up view
 - (void)_setLevelUpViewWithBaseStats:(NSArray *)baseStats
-                         deltaStats:(NSArray *)deltaStats {
+                         deltaStats:(NSArray *)deltaStats
+{
   // Constants
   CGFloat const labelHeight             = 32.f;
   CGFloat const dataViewHeight          = labelHeight * 6;

@@ -52,7 +52,8 @@
 
 // singleton
 static PMLocationManager * locationManager_ = nil;
-+ (PMLocationManager *)sharedInstance {
++ (PMLocationManager *)sharedInstance
+{
   if (locationManager_ != nil)
     return locationManager_;
   
@@ -63,14 +64,17 @@ static PMLocationManager * locationManager_ = nil;
   return locationManager_;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   // Remove observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNEnableTracking  object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNDisableTracking object:nil];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNBattleEnd       object:nil];
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  [notificationCenter removeObserver:self name:kPMNEnableTracking  object:nil];
+  [notificationCenter removeObserver:self name:kPMNDisableTracking object:nil];
+  [notificationCenter removeObserver:self name:kPMNBattleEnd       object:nil];
 }
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     [self _setup];
   }
@@ -80,7 +84,8 @@ static PMLocationManager * locationManager_ = nil;
 #pragma mark - Public Methods
 
 // listen for notifications
-- (void)listen {
+- (void)listen
+{
   // Add observers for notification
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Notification from |MainViewController| when |mapButton_| pressed
@@ -100,24 +105,28 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // return current location
-- (CLLocation *)currLocation {
+- (CLLocation *)currLocation
+{
   return self.location;
 }
 
 // return location info for current location
-- (NSDictionary *)currLocationInfo {
+- (NSDictionary *)currLocationInfo
+{
   return self.locationInfo;
 }
 
 // return current region code
-- (NSString *)currRegionCode {
+- (NSString *)currRegionCode
+{
   return self.regionCode;
 }
 
 #pragma mark - Private Methods
 
 // Setup
-- (void)_setup {
+- (void)_setup
+{
   // Basic settings
   isPokemonAppeared_ = NO;
   moveDistance_      = 0;
@@ -155,13 +164,15 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // Enable tracking
-- (void)_enableTracking:(NSNotification *)notification {
+- (void)_enableTracking:(NSNotification *)notification
+{
   NSLog(@"ENABLING TRACKING...");
   [self _setEventTimerStatusToRunning:YES];
 }
 
 // Disable tracking
-- (void)_disableTracking:(NSNotification *)notification {
+- (void)_disableTracking:(NSNotification *)notification
+{
   NSLog(@"DISABLING TRACKING...");
   // Stop updating Location
   isUpdatingLocation_ = NO;
@@ -176,7 +187,8 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // Continue updating location after stop for a while
-- (void)_continueUpdatingLocation {
+- (void)_continueUpdatingLocation
+{
   if (! isUpdatingLocation_) {
     // Standard Location Service
     [self.locationManager startUpdatingLocation];
@@ -185,7 +197,8 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // Reset after battle END
-- (void)_resetIsPokemonAppeared:(NSNotification *)notification {
+- (void)_resetIsPokemonAppeared:(NSNotification *)notification
+{
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]) {
     NSLog(@"resetIsPokemonAppeared..");
     isPokemonAppeared_ = NO;
@@ -194,7 +207,8 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // |eventTimer_| related method
-- (void)_setEventTimerStatusToRunning:(BOOL)running {
+- (void)_setEventTimerStatusToRunning:(BOOL)running
+{
   if (running) {
     if (! self.eventTimer)
       self.eventTimer = [NSTimer scheduledTimerWithTimeInterval:3
@@ -210,7 +224,8 @@ static PMLocationManager * locationManager_ = nil;
 }
 
 // Generate location info
-- (void)_generateLocationInfoForLocation:(CLLocation *)location {
+- (void)_generateLocationInfoForLocation:(CLLocation *)location
+{
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSMutableArray * languages = [userDefaults objectForKey:@"AppleLanguages"];
   NSString * originalLanguage = [languages objectAtIndex:0];
@@ -301,7 +316,8 @@ static PMLocationManager * locationManager_ = nil;
 // Available in iOS 2.0 and later.
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
+           fromLocation:(CLLocation *)oldLocation
+{
   self.location = newLocation;
   //NSLog(@"Latitude: %g, Longitude: %g", self.location.coordinate.latitude, self.location.coordinate.longitude);
   // If |moveDistance == 0|, set a base distance:10,
@@ -410,11 +426,14 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 
 // Asks the delegate whether the heading calibration alert should be displayed.
 // Available in iOS 3.0 and later.
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
   return YES;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
   NSLog(@"!!! CLLocationManager - Error: %@", [error description]);
 }
 

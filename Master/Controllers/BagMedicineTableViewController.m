@@ -14,8 +14,8 @@
 
 @implementation BagMedicineTableViewController
 
-
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
   if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"Medicine", nil)];
   }
@@ -31,57 +31,48 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return 3;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfBagMedicineTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString *cellIdentifier = @"Cell";
+  BagMedicineTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[BagMedicineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                            reuseIdentifier:CellIdentifier];
+                                           reuseIdentifier:cellIdentifier];
   }
   
   // Configure the cell...
@@ -132,7 +123,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   NSInteger row = indexPath.row;
   BagQueryTargetType targetType = kBagQueryTargetTypeMedicine | (1 << (row + 8));
   BagItemTableViewController * bagItemTableViewController = [BagItemTableViewController alloc];

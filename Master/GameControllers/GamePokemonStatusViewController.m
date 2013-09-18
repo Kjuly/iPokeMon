@@ -12,7 +12,6 @@
 
 @interface GamePokemonStatusViewController ()
 
-- (void)_releaseSubviews;
 - (void)_showStatus:(NSNotification *)notification;
 
 @end
@@ -25,25 +24,19 @@
 @synthesize pokemonLevel   = pokemonLevel_;
 @synthesize pokemonGender  = pokemonGender_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
+- (void)dealloc
+{
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)_releaseSubviews {
-  self.pokemonHPBar  = nil;
-  self.pokemonName   = nil;
-  self.pokemonLevel  = nil;
-  self.pokemonGender = nil;
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -53,7 +46,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 64.f}}];
   [view setBackgroundColor:[UIColor whiteColor]];
   [view setAlpha:0.f];
@@ -91,7 +85,8 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Add observer for notification to show status view
@@ -101,12 +96,17 @@
                                              object:nil];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.pokemonHPBar  = nil;
+  self.pokemonName   = nil;
+  self.pokemonLevel  = nil;
+  self.pokemonGender = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -114,7 +114,8 @@
 #pragma mark - Public Methods
 
 // Update Pokemon's Status
-- (void)updatePokemonStatus:(NSDictionary *)statusInfo {
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo
+{
   if ([statusInfo objectForKey:@"name"])
     [self.pokemonName setText:[statusInfo objectForKey:@"name"]];
   if ([statusInfo objectForKey:@"gender"]) {
@@ -132,14 +133,16 @@
 
 - (void)prepareForNewScene {} // Overwired by child
 
-- (void)reset {
+- (void)reset
+{
   [self.view setAlpha:0.f];
 }
 
 #pragma mark - Private Methods
 
 // Show Status view
-- (void)_showStatus:(NSNotification *)notification {
+- (void)_showStatus:(NSNotification *)notification
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut

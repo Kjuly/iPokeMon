@@ -16,7 +16,8 @@
 
 // Singleton
 static ResourceManager * manager_;
-+ (ResourceManager *)sharedInstance {
++ (ResourceManager *)sharedInstance
+{
   if (manager_ != nil)
     return manager_;
   
@@ -28,7 +29,8 @@ static ResourceManager * manager_;
 }
 
 // Return default resource bundle
-- (NSBundle *)defaultBundle {
+- (NSBundle *)defaultBundle
+{
   if (! defaultBundle_) {
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"Resource" ofType:@"bundle"];
     if (! bundlePath) return [NSBundle mainBundle];
@@ -38,7 +40,8 @@ static ResourceManager * manager_;
 }
 
 // Return resource bundle
-- (NSBundle *)bundle {
+- (NSBundle *)bundle
+{
   if (! bundle_) {
     NSString * pathToResourceBundle =
       [[NSUserDefaults standardUserDefaults] valueForKey:kUDKeyResourceBundlePath];

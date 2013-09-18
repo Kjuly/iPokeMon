@@ -76,7 +76,8 @@
 @synthesize playerPokemonSprite = playerPokemonSprite_;
 @synthesize enemyPokemonSprite  = enemyPokemonSprite_;
 
-+ (CCScene *)scene {
++ (CCScene *)scene
+{
   // |scene| & |layer| are autorelease objects
   // 'layer' is an autorelease object.
 	CCScene * scene = [CCScene node];
@@ -88,14 +89,14 @@
 	return scene;
 }
 
-- (void)dealloc {
-  
-  
+- (void)dealloc
+{
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)init {
+- (id)init
+{
   if (self = [super initWithColor:ccc4(0,0,0,0)]) {
     [self setIsTouchEnabled:YES];
     
@@ -129,7 +130,8 @@
 #pragma mark - Private Method
 
 // Setup notification observers
-- (void)_setupNotificationObservers {
+- (void)_setupNotificationObservers
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Add observer for notification to replace player, enemy's pokemon
   [notificationCenter addObserver:self
@@ -163,7 +165,8 @@
 }
 
 // Generate a new scene with Wild Pokemon
-- (void)_createNewSceneWithWildPokemon:(WildPokemon *)wildPokemon {
+- (void)_createNewSceneWithWildPokemon:(WildPokemon *)wildPokemon
+{
   NSLog(@"Generating a new scene......");
   NSInteger currentBattleAblePokemonIndex = [self.trainer battleAvailablePokemonIndex];
   TrainerTamedPokemon * playerPokemon = [self.trainer pokemonOfSixAtIndex:currentBattleAblePokemonIndex];
@@ -190,7 +193,8 @@
   NSString * backgroundImageName =
   [NSString stringWithFormat:kPMINBattleSceneBackground, [enemyPokemon.pokemon.habitat intValue]];
   self.background = [CCSprite spriteWithFile:backgroundImageName];
-  [self.background setPosition:ccp(kViewWidth / 2, kGameBattleSceneBackgroundHeight / 2 + kGameMenuBattleLogViewHeight)];
+  [self.background setPosition:
+    ccp(kViewWidth * .5f, kGameBattleSceneBackgroundHeight * .5f + kGameMenuBattleLogViewHeight)];
   [self addChild:self.background];
   
   // Pokemons' Points
@@ -239,7 +243,8 @@
 }
 
 // The method to be scheduled
-- (void)update:(ccTime)dt {
+- (void)update:(ccTime)dt
+{
   switch ([self.gameStatusMachine status]) {
     case kGameStatusSystemProcess:
       [self.gameSystemProcess update:dt];
@@ -267,15 +272,22 @@
 
 #pragma mark - Touch Handler
 
-- (void)registerWithTouchDispatcher {
-  [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+- (void)registerWithTouchDispatcher
+{
+  [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self
+                                                   priority:0
+                                            swallowsTouches:YES];
 }
 
-- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+- (BOOL)ccTouchBegan:(UITouch *)touch
+           withEvent:(UIEvent *)event
+{
   return YES;
 }
 
-- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+- (void)ccTouchEnded:(UITouch *)touch
+           withEvent:(UIEvent *)event
+{
 //  CGPoint location = [self convertTouchToNodeSpace:touch];
 //  [self.gameWildPokemon.pokemonSprite runAction:[CCMoveTo actionWithDuration:1 position:location]];
 }
@@ -283,15 +295,19 @@
 #pragma mark - Private Methods
 
 // Start game loop
-- (void)_startGameLoop {
+- (void)_startGameLoop
+{
   // Post notification to |GamePokemonStatusViewController| to show pokemon status view
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowPokemonStatus object:self userInfo:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowPokemonStatus
+                                                      object:self
+                                                    userInfo:nil];
   // Set game play to ready
   [self.gameStatusMachine startNewTurn];
 }
 
 // Battle Begin Animation
-- (void)_runBattleBeginAnimation {
+- (void)_runBattleBeginAnimation
+{
   // Battle begin animation
   [self.playerPokemonSprite runAction:
     [CCMoveTo actionWithDuration:1.5f position:ccp(kGameBattlePlayerPokemonPosX, kGameBattlePlayerPokemonPosY)]];
@@ -303,7 +319,8 @@
 }
 
 // Replace player's pokemon image
-- (void)_replacePlayerPokemon:(NSNotification *)notification {
+- (void)_replacePlayerPokemon:(NSNotification *)notification
+{
   [self.playerPokemonSprite removeFromParentAndCleanup:YES];
   self.playerPokemonSprite = nil;
   
@@ -327,40 +344,56 @@
 }
 
 // Get WildPokemon into Pokeball
-- (void)_getWildPokemonIntoPokeball:(NSNotification *)notification {
+- (void)_getWildPokemonIntoPokeball:(NSNotification *)notification
+{
   NSLog(@"get Wild Pokemon into Pokeball");
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
 }
 
 // Get WildPokemon out of Pokeball
-- (void)_getWildPokemonOutOfPokeball:(NSNotification *)notification {
+- (void)_getWildPokemonOutOfPokeball:(NSNotification *)notification
+{
   NSLog(@"get Wild Pokemon out of Pokeball");
   [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
 }
 
 // Player's Pokemon FAINT
-- (void)_playerPokemonFaint:(NSNotification *)notification {
+- (void)_playerPokemonFaint:(NSNotification *)notification
+{
   [self.playerPokemonSprite runAction:
-    [CCMoveTo actionWithDuration:.3f position:ccp(kGameBattlePlayerPokemonPosX,
-                                                  kGameBattlePlayerPokemonPosY - kGameBattlePokemonFaintedOffsetY)]];
-  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
+    [CCMoveTo actionWithDuration:.3f
+                        position:ccp(kGameBattlePlayerPokemonPosX,
+                                     kGameBattlePlayerPokemonPosY - kGameBattlePokemonFaintedOffsetY)]];
+  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f
+                                                                    key:@"opacity"
+                                                                   from:255
+                                                                     to:0]];
 }
 
 // Enemy's Pokemon (or WildPokemon) FAINT
-- (void)_enemyPokemonFaint:(NSNotification *)notification {
+- (void)_enemyPokemonFaint:(NSNotification *)notification
+{
   [self.enemyPokemonSprite runAction:
     [CCMoveTo actionWithDuration:.3f position:ccp(kGameBattleEnemyPokemonPosX,
                                                   kGameBattleEnemyPokemonPosY - kGameBattlePokemonFaintedOffsetY)]];
-  [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:255 to:0]];
+  [self.enemyPokemonSprite runAction:[CCActionTween actionWithDuration:.3f
+                                                                   key:@"opacity"
+                                                                  from:255
+                                                                    to:0]];
 }
 
 // Load new pokemon
-- (void)_loadNewPokemon {
-  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f key:@"opacity" from:0 to:255]];
+- (void)_loadNewPokemon
+{
+  [self.playerPokemonSprite runAction:[CCActionTween actionWithDuration:.3f
+                                                                    key:@"opacity"
+                                                                   from:0
+                                                                     to:255]];
 }
 
 // END Game Battle
-- (void)_endGameBattle:(NSNotification *)notification {
+- (void)_endGameBattle:(NSNotification *)notification
+{
   [self.playerPokemonSprite setPosition:ccp(kGameBattlePlayerPokemonPosOffsetX, kGameBattlePlayerPokemonPosY)];
   [self.enemyPokemonSprite  setPosition:ccp(kGameBattleEnemyPokemonPosOffsetX, kGameBattleEnemyPokemonPosY)];
 }

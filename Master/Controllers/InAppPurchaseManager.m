@@ -29,7 +29,8 @@
 #pragma mark - Public Methods
 
 // init
-- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
+- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers
+{
   if ((self = [super init])) {
     // Store product identifiers
     productIdentifiers_ = productIdentifiers;
@@ -38,7 +39,8 @@
 }
 
 // request Products from Apple Server
-- (void)requestProducts {
+- (void)requestProducts
+{
   self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers_];
   request_.delegate = self;
   [request_ start];
@@ -48,7 +50,8 @@
 //   and add it to the payment queue.
 // If your store offers the ability to purchase more than one of a product,
 //   you can create a single payment and set the quantity property.
-- (void)buyProduct:(SKProduct *)product {
+- (void)buyProduct:(SKProduct *)product
+{
   NSLog(@"Buying %@...", product);
   SKPayment * payment = [SKPayment paymentWithProduct:product];
   // payment.quantity = 3;
@@ -59,7 +62,8 @@
 
 // manage the response
 - (void)productsRequest:(SKProductsRequest *)request
-     didReceiveResponse:(SKProductsResponse *)response {
+     didReceiveResponse:(SKProductsResponse *)response
+{
   NSLog(@"Received products results");
   self.products = response.products;
   self.request = nil;
@@ -72,7 +76,8 @@
 
 // It is called whenever new transactions are created or updated
 - (void)paymentQueue:(SKPaymentQueue *)queue
- updatedTransactions:(NSArray *)transactions {
+ updatedTransactions:(NSArray *)transactions
+{
   for (SKPaymentTransaction *transaction in transactions) {
     switch (transaction.transactionState) {
       case SKPaymentTransactionStatePurchased:
@@ -92,11 +97,13 @@
 #pragma mark - Private Methods
 
 // Record the transaction on the server side
-- (void)_recordTransaction:(SKPaymentTransaction *)transaction {
+- (void)_recordTransaction:(SKPaymentTransaction *)transaction
+{
   // TODO: Record the transaction on the server side...    
 }
 
-- (void)_provideContent:(NSString *)productIdentifier {
+- (void)_provideContent:(NSString *)productIdentifier
+{
   NSLog(@"Toggling flag for: %@", productIdentifier);
   //  [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
   //  [[NSUserDefaults standardUserDefaults] synchronize];
@@ -105,7 +112,8 @@
 }
 
 // Provides the product when the user successfully purchases an item
-- (void)_completeTransaction:(SKPaymentTransaction *)transaction {
+- (void)_completeTransaction:(SKPaymentTransaction *)transaction
+{
   NSLog(@"complete Transaction");
   [self _recordTransaction:transaction];
   [self _provideContent:transaction.payment.productIdentifier];
@@ -121,7 +129,8 @@
 //   it comes time to complete the transaction, you’ll want to recover
 //   the original transaction that holds the actual payment object and use
 //   its product identifier.
-- (void)_restoreTransaction:(SKPaymentTransaction *)transaction {
+- (void)_restoreTransaction:(SKPaymentTransaction *)transaction
+{
   NSLog(@"restore Transaction");
   [self _recordTransaction:transaction];
   [self _provideContent:transaction.originalTransaction.payment.productIdentifier];
@@ -136,7 +145,8 @@
 //   from the queue. If your application chooses to put up an dialog displaying
 //   the error to the user, you should avoid presenting an error when the user
 //   cancels a purchase.
-- (void)_failedTransaction:(SKPaymentTransaction *)transaction {
+- (void)_failedTransaction:(SKPaymentTransaction *)transaction
+{
   if (transaction.error.code != SKErrorPaymentCancelled) {
     NSLog(@"!!!Transaction ERROR: %@", transaction.error.localizedDescription);
   }

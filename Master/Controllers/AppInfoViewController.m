@@ -18,7 +18,6 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
 
 @interface AppInfoViewController ()
 
-- (void)_releaseSubviews;
 - (void)_followMe:(id)sender;
 
 @end
@@ -26,29 +25,24 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
 
 @implementation AppInfoViewController
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-}
-
-- (id)init {
-  self = [super init];
-  if (self) {
+- (id)init
+{
+  if (self = [super init]) {
     [self setTitle:KYLocalizedString(@"PMSSettingAboutAppInfo", nil)];
   }
   return self;
 }
 
-- (void)loadView {
+- (void)loadView
+{
   CGRect viewFrame = (CGRect){CGPointZero, {kKYViewWidth, kKYViewHeight - kKYNavigationBarBackButtonHeight}};
   UIView * view = [[UIView alloc] initWithFrame:viewFrame];
   [view setBackgroundColor:[UIColor whiteColor]];
   self.view = view;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // constants
@@ -143,19 +137,21 @@ NSString * const kKYFollowMeURLSinaWeibo = @"http://weibo.cn/Kjuly";
   [self.view addSubview:copyrightLabel];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Private Method
 
 // follow me
-- (void)_followMe:(id)sender {
+- (void)_followMe:(id)sender
+{
   KYLogoType logoType = [sender tag];
   
   NSString * urlInString = nil;

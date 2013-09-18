@@ -23,7 +23,6 @@
 @property (nonatomic, strong) UIButton    * submitButton;
 @property (nonatomic, strong) UIButton    * cleanButton;
 
-- (void)_releaseSubviews;
 - (void)_submit:(id)sender;
 - (void)_clean:(id)sender;
 - (void)_setMenuHidden:(BOOL)hidden;
@@ -37,20 +36,9 @@
 @synthesize submitButton        = submitButton_;
 @synthesize cleanButton         = cleanButton_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.textFieldBackground = nil;
-  self.textField           = nil;
-  self.submitButton        = nil;
-  self.cleanButton         = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     // Custom initialization
   }
   return self;
@@ -67,7 +55,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [view setBackgroundColor:[UIColor clearColor]];
   [view setUserInteractionEnabled:YES];
@@ -75,7 +64,8 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   CGFloat marginTop        = 15.f;
@@ -118,12 +108,17 @@
   [self.view insertSubview:self.cleanButton belowSubview:self.textFieldBackground];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.textFieldBackground = nil;
+  self.textField           = nil;
+  self.submitButton        = nil;
+  self.cleanButton         = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -131,7 +126,8 @@
 #pragma mark - Private Methods
 
 // Submit feedback content & cancel
-- (void)_submit:(id)sender {
+- (void)_submit:(id)sender
+{
 //  [TestFlight submitFeedback:self.textField.text];
 //  if ([self.navigationController isNavigationBarHidden])
 //    [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -139,14 +135,18 @@
 }
 
 // Clean the content
-- (void)_clean:(id)sender {
+- (void)_clean:(id)sender
+{
   [self.textField setText:nil];
 }
 
 // toggle menu
-- (void)_setMenuHidden:(BOOL)hidden {
-  CGRect submitButtonFrame = CGRectMake(0.f, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
-  CGRect cleanButtonFrame  = CGRectMake(kRectButtonWidth, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+- (void)_setMenuHidden:(BOOL)hidden
+{
+  CGRect submitButtonFrame =
+    CGRectMake(0.f, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
+  CGRect cleanButtonFrame  =
+    CGRectMake(kRectButtonWidth, kFeedbackTextFieldBackgroundHeight, kRectButtonWidth, kRectButtonHeight);
   if (hidden) {
     CGFloat deltaHeight = kRectButtonHeight - kRectButtonBottomLineHeight;
     submitButtonFrame.origin.y -= deltaHeight;
@@ -164,12 +164,14 @@
 
 #pragma mark - UITextView Delegate
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   [self _setMenuHidden:YES];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   [self.textField resignFirstResponder];
   [self _setMenuHidden:NO];

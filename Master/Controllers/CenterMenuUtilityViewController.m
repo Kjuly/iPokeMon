@@ -44,12 +44,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Set Buttons' style in center menu view
@@ -61,7 +63,8 @@
 
 #ifdef KY_INVITATION_ONLY
 // Return whether the "Location Service" is locked
-- (BOOL)_isLocationServiceLocked {
+- (BOOL)_isLocationServiceLocked
+{
   if (! [self.unlockCodeManager isLockedOnFeature:nil])
     return NO;
   // Post notifi to |MainViewController| to show code input view
@@ -72,36 +75,42 @@
 #endif
 
 ///Buttons' Action
-- (void)_showPokedex:(id)sender {
+- (void)_showPokedex:(id)sender
+{
   PokedexTableViewController * pokedexTableViewController = [PokedexTableViewController alloc];
   (void)[pokedexTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:pokedexTableViewController];
 }
 
-- (void)_showPokemon:(id)sender {
+- (void)_showPokemon:(id)sender
+{
   SixPokemonsTableViewController * sixPokemonsTableViewController = [SixPokemonsTableViewController alloc];
   (void)[sixPokemonsTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:sixPokemonsTableViewController];
 }
 
-- (void)_showBag:(id)sender {
+- (void)_showBag:(id)sender
+{
   BagTableViewController * bagTableViewController = [BagTableViewController alloc];
   (void)[bagTableViewController initWithStyle:UITableViewStylePlain];
   [self pushViewController:bagTableViewController];
 }
 
-- (void)_showTrainerCard:(id)sender {
+- (void)_showTrainerCard:(id)sender
+{
   TrainerCardViewController * trainerCardViewController = [[TrainerCardViewController alloc] init];
   [self pushViewController:trainerCardViewController];
 }
 
-- (void)_runHotkey:(id)sender {
+- (void)_runHotkey:(id)sender
+{
   StoreTableViewController * storeTableViewController;
   storeTableViewController = [[StoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
   [self pushViewController:storeTableViewController];
 }
 
-- (void)_setGame:(id)sender {
+- (void)_setGame:(id)sender
+{
   SettingTableViewController * settingTableViewController = [[SettingTableViewController alloc] init];
   settingTableViewController.managedObjectContext = self.managedObjectContext;
 #ifdef KY_INVITATION_ONLY
@@ -113,7 +122,8 @@
 #pragma mark - KYCircleMenu
 
 // Overwrite KYCircleMenu's |-runButtonActions:|
-- (void)runButtonActions:(id)sender {
+- (void)runButtonActions:(id)sender
+{
   NSInteger buttonTag = [sender tag];
   
 #ifdef KY_INVITATION_ONLY

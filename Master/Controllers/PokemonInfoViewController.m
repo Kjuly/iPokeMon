@@ -10,8 +10,8 @@
 
 @implementation PokemonInfoViewController
 
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -21,12 +21,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -45,14 +47,16 @@
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
   // Species
-  PokemonInfoLabelView * speciesLabelView = [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
+  PokemonInfoLabelView * speciesLabelView =
+    [[PokemonInfoLabelView alloc] initWithFrame:speciesLabelViewFrame hasValueLabel:YES];
   [speciesLabelView.name  setText:NSLocalizedString(@"PMSLabelSpecies", nil)];
   [speciesLabelView.value setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSSpecies%.3d",
                                                               [[self.pokemon valueForKey:@"species"] intValue]]), nil)];
   [dataView addSubview:speciesLabelView];
   
   // Type
-  PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
+  PokemonInfoLabelView * typeLabelView =
+    [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
   NSString * types = KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d",
                                                  [self.pokemon.type1 intValue]]), nil);
   if ([self.pokemon.type2 intValue])
@@ -80,11 +84,13 @@
   [self.view addSubview:descriptionField];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

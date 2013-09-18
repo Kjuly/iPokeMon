@@ -226,8 +226,12 @@ extern NSString * const kPMNLoadingDone;
 #pragma mark -
 
 // View Basic
-#define kViewHeight CGRectGetHeight([UIScreen mainScreen].applicationFrame)
-#define kViewWidth  CGRectGetWidth([UIScreen mainScreen].applicationFrame)
+// Not include status bar height
+//#define kViewHeight CGRectGetHeight([UIScreen mainScreen].applicationFrame)
+//#define kViewWidth  CGRectGetWidth([UIScreen mainScreen].applicationFrame)
+// Include status bar height
+#define kViewHeight CGRectGetHeight([UIScreen mainScreen].bounds)
+#define kViewWidth  CGRectGetWidth([UIScreen mainScreen].bounds)
 
 // Main view settings
 #define kCenterMainButtonSize kKYButtonInNormalSize
@@ -435,5 +439,13 @@ typedef enum {
 #define kSelectedTabItemTag 2394860
 #define kPoketchSelectedViewControllerTag 98456345
 
+/*
+ * LIBs
+ */
+// KYArcTab
+#define kKYArcTabViewHeight kViewHeight
+#define kKYArcTabViewWidth  kViewWidth
+
 @interface Constants : KYConstants
+
 @end

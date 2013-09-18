@@ -25,9 +25,9 @@
 
 @implementation PokemonDetailTabViewController
 
-
 - (id)initWithPokemonSID:(NSInteger)pokemonSID
-              withTopbar:(BOOL)withTopbar {
+              withTopbar:(BOOL)withTopbar
+{
   pokemonSID_ = pokemonSID;
   withTopbar_ = withTopbar;
   NSString * title = [NSString stringWithFormat:@"%@ %@",
@@ -44,9 +44,10 @@
 #pragma mark - Override
 
 // Override |KYArcTabViewController|'s |-setup|
-- (void)setup {
+- (void)setup
+{
   // Set View Frame
-  CGFloat marginTop = withTopbar_ ? kTopBarHeight : 0.f;
+  CGFloat marginTop = withTopbar_ ? kTopBarHeight + kKYStatusBarHeight : kKYStatusBarHeight;
   self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
   
   Pokemon * pokemon = [Pokemon queryPokemonDataWithSID:pokemonSID_];

@@ -10,8 +10,10 @@
 
 #import "CustomNavigationBar.h"
 
-@interface CustomNavigationController : UINavigationController
-  <CustomNavigationBarDelegate, CustomNavigationBarDataSource>
+@interface CustomNavigationController : UINavigationController <
+  CustomNavigationBarDelegate,
+  CustomNavigationBarDataSource
+>
 
 // Overwrited |UINavigationController| Methods
 - (void)pushViewController:(UIViewController *)viewController

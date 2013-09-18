@@ -48,11 +48,14 @@
 
 // Singleton
 static TrainerController * trainerController_ = nil;
-+ (TrainerController *)sharedInstance {
++ (TrainerController *)sharedInstance
+{
   // Check Session first,
   //   if it's not valid, post notification to |MainViewController| to show login view & return nil
   if (! [[OAuthManager sharedInstance] isSessionValid]) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNSessionIsInvalid
+                                                        object:self
+                                                      userInfo:nil];
     return nil;
   }
   
@@ -66,11 +69,13 @@ static TrainerController * trainerController_ = nil;
   return trainerController_;
 }
 
-- (void)dealloc { 
+- (void)dealloc
+{
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     [self _resetUser:nil];
     // Notif from |OAuthManager|, reset data when user logout
@@ -83,7 +88,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // It is called at method:|syncUserID| in |OAuthManager| after user has authticated
-- (void)initTrainerWithUserID:(NSInteger)userID {
+- (void)initTrainerWithUserID:(NSInteger)userID
+{
   if (isInitialized_)
     return;
   NSLog(@"- INIT trainer with User ID:%d", userID);
@@ -112,7 +118,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Save Client data to CoreData
--(void)saveWithSync:(BOOL)withSync {
+- (void)saveWithSync:(BOOL)withSync
+{
   NSLog(@"......SAVING DATA......");
   [(AppDelegate *)[[UIApplication sharedApplication] delegate] saveContext];
   
@@ -123,7 +130,8 @@ static TrainerController * trainerController_ = nil;
 #pragma mark - Data Related Methods
 
 // Sync data between Client & Server
-- (void)sync {
+- (void)sync
+{
   if (! userID_) return;
   
   // C->S: If Client data has initialzied, just do sync Client to Server
@@ -135,13 +143,15 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Add modify flag for |flag_|
-- (void)addModifyFlag:(DataModifyFlag)flag {
+- (void)addModifyFlag:(DataModifyFlag)flag
+{
   flag_ |= flag;
 }
 
 // Dispatch this method after Sync done
 // It can be dispatched in URL Request Callback method
-- (void)syncDoneWithFlag:(DataModifyFlag)flag {
+- (void)syncDoneWithFlag:(DataModifyFlag)flag
+{
   flag_ -= flag;
   
   // If sync data for Trainer done, set all related flags to 0
@@ -155,7 +165,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Return device's UID (Unique IDentifier)
-- (NSString *)deviceUID {
+- (NSString *)deviceUID
+{
   NSString * deviceUID       = nil;
   NSString * keyForDeviceUID = [self _keyForDeviceUID];
   
@@ -211,18 +222,21 @@ static TrainerController * trainerController_ = nil;
   return [[self.entityTrainer.sixPokemonsID componentsSeparatedByString:@","] count];
 }
 // Avatar URL, asynchronously downloads the image with the specified url request object
-- (NSURL *)avatarURL {
+- (NSURL *)avatarURL
+{
   return [NSURL URLWithString:[NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=200",
                                [[OAuthManager sharedInstance] userEmailInMD5]]];
 }
 
 // Return first Pokemon of six Pokemons
-- (TrainerTamedPokemon *)firstPokemonOfSix {
+- (TrainerTamedPokemon *)firstPokemonOfSix
+{
   return [self.entitySixPokemons objectAtIndex:0];
 }
 
 // Return Pokemon at |index|(1-6) of six Pokemons
-- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index {
+- (TrainerTamedPokemon *)pokemonOfSixAtIndex:(NSInteger)index
+{
   if (index < 1 || index > 6)
     return nil;
   return [self.entitySixPokemons objectAtIndex:--index];
@@ -230,7 +244,8 @@ static TrainerController * trainerController_ = nil;
 
 // Check whether Pokemons in Six can battle,
 //   and return the first battleable one's index
-- (NSInteger)battleAvailablePokemonIndex {
+- (NSInteger)battleAvailablePokemonIndex
+{
   NSInteger i = 1;
   for (TrainerTamedPokemon *pokemon in self.entitySixPokemons) {
     if ([pokemon.hp intValue] > 0)
@@ -241,7 +256,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Return all items for the bag item type (BagItem, BagMedicine, BagBerry, etc)
-- (NSArray *)bagItemsFor:(BagQueryTargetType)targetType {
+- (NSArray *)bagItemsFor:(BagQueryTargetType)targetType
+{
   id bagItems = nil;
   if      (targetType & kBagQueryTargetTypeItem)       bagItems = self.entityTrainer.bagItems;
   else if (targetType & kBagQueryTargetTypeMedicine) {
@@ -269,14 +285,16 @@ static TrainerController * trainerController_ = nil;
 #pragma mark - Settings
 
 // Set |name| for Trainer
-- (void)setName:(NSString *)name {
+- (void)setName:(NSString *)name
+{
   self.entityTrainer.name = name;
   flag_ = flag_ | kDataModifyTrainer | kDataModifyTrainerName;
   [self saveWithSync:YES];
 }
 
 // earn money when WIN from another trainer or exchange between currency
-- (void)earnMoney:(NSInteger)money {
+- (void)earnMoney:(NSInteger)money
+{
   // cannot earn more than 10000 at once
   if (money <= 0 || money > 10000)
     return;
@@ -288,7 +306,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // consume money when LOSE or buy items in Store
-- (void)consumeMoney:(NSInteger)money {
+- (void)consumeMoney:(NSInteger)money
+{
   if (money <= 0)
     return;
   NSInteger currMoney = [self.entityTrainer.money intValue];
@@ -299,7 +318,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Update Pokedex with Pokemon ID
-- (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID {
+- (void)updatePokedexWithPokemonSID:(NSInteger)pokemonSID
+{
   // If Pokemon already caught, do nothing
   if ([self.pokedex isBinary1AtIndex:pokemonSID])
     return;
@@ -309,7 +329,9 @@ static TrainerController * trainerController_ = nil;
 
 // Transfer WildPokemon to TamedPokemon
 // Add new TamedPokemon, 
-- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon memo:(NSString *)memo {
+- (void)caughtNewWildPokemon:(WildPokemon *)wildPokemon
+                        memo:(NSString *)memo
+{
   NSLog(@"Wild Pokemon:%@", wildPokemon);
   NSInteger box;
   // If count of |sixPokemons| is not |6|, add it there instead of |box|
@@ -340,7 +362,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Add Pokemon to |sixPokemons|
-- (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID {
+- (void)addPokemonToSixPokemonsWithPokemonUID:(NSInteger)pokemonUID
+{
   // add new |pokemonUID| to |sixPokemons|
   [self.entityTrainer addPokemonToSixPokemonsWithPokemonUID:pokemonUID];
   // append new Pokemon to |sixPokemons|
@@ -352,7 +375,8 @@ static TrainerController * trainerController_ = nil;
 
 // Replace Pokemon's index order
 - (void)replacePokemonAtIndex:(NSInteger)sourceIndex
-                      toIndex:(NSInteger)destinationIndex {
+                      toIndex:(NSInteger)destinationIndex
+{
   NSLog(@"Original SixPokemons:%@", self.entityTrainer.sixPokemonsID);
   NSLog(@"Moved sourceIndex:%d -> destinationIndex:%d", sourceIndex + 1, destinationIndex + 1);
   NSMutableArray * sixPokemonsID =
@@ -374,7 +398,8 @@ static TrainerController * trainerController_ = nil;
 
 // BagItem - Use
 - (void)useBagItemForType:(BagQueryTargetType)targetType
-            withItemIndex:(NSInteger)itemIndex {
+            withItemIndex:(NSInteger)itemIndex
+{
   NSMutableArray * bagItems = [[NSMutableArray alloc] initWithArray:[self bagItemsFor:targetType]];
   NSLog(@"BagItem: ORIGINAL:::%@", bagItems);
   NSInteger targetIndex = itemIndex * 2 + 1;
@@ -392,7 +417,8 @@ static TrainerController * trainerController_ = nil;
 // BagItem - Add new
 - (void)addBagItemsForType:(BagQueryTargetType)targetType
                withItemSID:(NSInteger)itemSID
-                  quantity:(NSInteger)quantity {
+                  quantity:(NSInteger)quantity
+{
   NSMutableArray * bagItems = [[NSMutableArray alloc] initWithArray:[self bagItemsFor:targetType]];
   NSLog(@"BagItem: ORIGINAL:::%@ NEW ITEM SID:%d", bagItems, itemSID);
   // check whether the item exists, if exists, increase the quantity,
@@ -425,19 +451,21 @@ static TrainerController * trainerController_ = nil;
 // BagItem - Toss
 - (void)tossBagItemsForType:(BagQueryTargetType)targetType
               withItemIndex:(NSInteger)itemIndex
-                   quantity:(NSInteger)quantity {
-  
+                   quantity:(NSInteger)quantity
+{
 }
 
 #pragma mark - Private Methods
 
 // Device's ownership checking
-- (BOOL)_isTrainerOwnsThisDevice {
+- (BOOL)_isTrainerOwnsThisDevice
+{
   return (userID_ == [[self deviceUID] integerValue]);
 }
 
 // Return the key of keychain for device's UID
-- (NSString *)_keyForDeviceUID {
+- (NSString *)_keyForDeviceUID
+{
 #ifdef APPLY_SECRET_DEVICE_UID_KEY
   return kDeviceUIDKey;
 #else
@@ -450,7 +478,8 @@ static TrainerController * trainerController_ = nil;
 //   - Device's UID is empty
 //   - User purchases the "Reassign Device Owner" to get the privilege
 //     for the current trainer role
-- (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID {
+- (NSString *)_resetDeviceUIDWithTrainerUID:(NSInteger)trainerUID
+{
   if (trainerUID <= 0) {
     NSLog(@"!!!ERROR: Invalid |trainerUID|: %d", trainerUID);
     return @"";
@@ -505,7 +534,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // reset data for user when logout
-- (void)_resetUser:(NSNotification *)notification {
+- (void)_resetUser:(NSNotification *)notification
+{
   NSLog(@"RESET");
   isInitialized_ = NO;
   flag_          = 0;
@@ -514,7 +544,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Initialize trainer's data from Server to Client
-- (void)_initTrainer {
+- (void)_initTrainer
+{
   // |completion| block that will be executed after |Trainer|'s data initialized
   void (^completion)() = ^{
     // Fetch Trainer data from Client (CoreData)
@@ -543,7 +574,8 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Newbie checking
-- (void)_newbieChecking {
+- (void)_newbieChecking
+{
   // If user already has Pokemon in PokeDEX (not newbie), just do nothing
   //   otherwise, post notification to |MainViewController| to show view of |NewbiewGuideViewController|
   if ([self.entityTrainer.pokedex intValue])
@@ -576,7 +608,9 @@ static TrainerController * trainerController_ = nil;
 }
 
 // Save data for bag items
-- (void)_saveBagItemsFor:(BagQueryTargetType)targetType withData:(NSString *)data {
+- (void)_saveBagItemsFor:(BagQueryTargetType)targetType
+                withData:(NSString *)data
+{
   if      (targetType & kBagQueryTargetTypeItem)       self.entityTrainer.bagItems = data;
   else if (targetType & kBagQueryTargetTypeMedicine) {
     if (targetType & kBagQueryTargetTypeMedicineStatus)  self.entityTrainer.bagMedicineStatus = data;

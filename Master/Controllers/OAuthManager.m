@@ -61,7 +61,8 @@
 
 // Singleton
 static OAuthManager * oauthManager_ = nil;
-+ (OAuthManager *)sharedInstance {
++ (OAuthManager *)sharedInstance
+{
   if (oauthManager_ != nil) return oauthManager_;
   
   static dispatch_once_t onceToken;
@@ -71,15 +72,13 @@ static OAuthManager * oauthManager_ = nil;
   return oauthManager_;
 }
 
-- (void)dealloc {
-  self.oAuthGoogleClientID =
-    self.oAuthGoogleClientSecret =
-    self.oAuthGoogleKeychainItemName,
-    self.oAuthGoogleScope = nil;
+- (void)dealloc
+{
   [self.operationQueue cancelAllOperations];
 }
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     self.loadingManager = [LoadingManager sharedInstance];
     isNewworkAvailable_ = YES;
@@ -109,7 +108,8 @@ static OAuthManager * oauthManager_ = nil;
 #pragma mark - Public Methods
 
 // Session status for User
-- (BOOL)isSessionValid {
+- (BOOL)isSessionValid
+{
   NSLog(@"CHECKING SESSION...");
 //  NSLog(@"Email:%@, VerifiedEmail:%@, ClientID:%@, ClientSecret:%@, TokenType:%@, AccessToken:%@, RefreshToken:%@, Code:%@, UserData:%@", self.oauth.userEmail,self.oauth.userEmailIsVerified, self.oauth.clientID, self.oauth.clientSecret, self.oauth.tokenType, self.oauth.accessToken, self.oauth.refreshToken, self.oauth.code, self.oauth.userData);
   if (! [self.oauth canAuthorize]) {
@@ -128,18 +128,21 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // User Email in MD5
-- (NSString *)userEmailInMD5 {
+- (NSString *)userEmailInMD5
+{
   return [[[self.oauth.userEmail stringByTrimmingCharactersInSet:
             [NSCharacterSet whitespaceCharacterSet]] lowercaseString] toMD5];
 }
 
 // Current service provider user using
-- (OAuthServiceProviderChoice)serviceProvider {
+- (OAuthServiceProviderChoice)serviceProvider
+{
   return [[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider];
 }
 
 // Login with a service provider
-- (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider {  
+- (UIViewController *)loginWith:(OAuthServiceProviderChoice)serviceProvider
+{
   selectedServiceProvider_ = serviceProvider;                      // Set selected service provider
   NSDictionary * oauthData = [self _oauthDataFor:serviceProvider]; // OAuth data for the service provider
   SEL finishedSelector     = @selector(_viewController:finishedWithAuth:error:);
@@ -157,7 +160,8 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Revoke authorized service
-- (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider {
+- (void)revokeAuthorizedWith:(OAuthServiceProviderChoice)serviceProvider
+{
   NSDictionary * oauthData = [self _oauthDataFor:serviceProvider];
   NSString * keychainItemName = [oauthData valueForKey:@"keychainItemName"];
   [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:keychainItemName];
@@ -171,7 +175,8 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Logout
-- (void)logout {
+- (void)logout
+{
   NSLog(@"LOGOUT...");
   [self.operationQueue cancelAllOperations];
   [self revokeAuthorizedWith:[[NSUserDefaults standardUserDefaults] integerForKey:kUDKeyLastUsedServiceProvider]];
@@ -186,7 +191,8 @@ static OAuthManager * oauthManager_ = nil;
 #pragma mark - Private Methods
 
 // Get OAuth data for the service provider
-- (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider {
+- (NSDictionary *)_oauthDataFor:(OAuthServiceProviderChoice)serviceProvider
+{
   NSString * clientID;         // Client ID
   NSString * clientSecret;     // Client Secret
   NSString * keychainItemName; // Keychain Item Name
@@ -242,7 +248,8 @@ static OAuthManager * oauthManager_ = nil;
 }
 
 // Current authticated User's ID (Trainer's |uid|)
-- (void)_syncUserID {
+- (void)_syncUserID
+{
   // Block: |success| & |failure|
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Request for |_syncUserID| SUCCEED...Start INIT trainer...");
@@ -276,7 +283,8 @@ static OAuthManager * oauthManager_ = nil;
 // Callback for method:|loginWith:|
 - (void)_viewController:(GTMOAuth2ViewControllerTouch *)viewController
       finishedWithAuth:(GTMOAuth2Authentication *)auth
-                 error:(NSError *)error {
+                 error:(NSError *)error
+{
   if (error != nil) {
     // Authentication failed (perhaps the user denied access, or closed the
     // window before granting access)

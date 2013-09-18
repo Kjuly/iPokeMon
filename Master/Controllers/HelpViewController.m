@@ -19,7 +19,6 @@
 @property (nonatomic, strong) UIScrollView  * scrollView;
 @property (nonatomic, strong) UIPageControl * pageControl;
 
-- (void)_releaseSubviews;
 - (void)_changePage:(id)sender;
 - (void)_unloadViewAnimated:(BOOL)animated;
 
@@ -31,19 +30,9 @@
 @synthesize scrollView   = scrollView_;
 @synthesize pageControl  = pageControl_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.cancelButton = nil;
-  self.scrollView   = nil;
-  self.pageControl  = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     // Custom initialization
   }
   return self;
@@ -60,7 +49,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   [view setBackgroundColor:[UIColor blackColor]];
   [view setAlpha:0.f];
@@ -121,23 +111,29 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.cancelButton = nil;
+  self.scrollView   = nil;
+  self.pageControl  = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - ScrollView Delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
   // Update the page number
   CGFloat pageWidth = self.scrollView.frame.size.width;
   self.pageControl.currentPage = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
@@ -145,7 +141,8 @@
 
 #pragma mark - Public Methods
 
-- (void)loadViewAnimated:(BOOL)animated {
+- (void)loadViewAnimated:(BOOL)animated
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveEaseInOut
@@ -161,7 +158,8 @@
 #pragma mark - Private Methods
 
 // Change page vir |pageControl_|
-- (void)_changePage:(id)sender {
+- (void)_changePage:(id)sender
+{
   // update the scroll view to the appropriate page
   CGRect frame;
   frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
@@ -170,7 +168,8 @@
   [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
-- (void)_unloadViewAnimated:(BOOL)animated {
+- (void)_unloadViewAnimated:(BOOL)animated
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveLinear

@@ -24,7 +24,8 @@
 
 // Singleton
 static GameStatusMachine * gameStatusMachine_ = nil;
-+ (GameStatusMachine *)sharedInstance {
++ (GameStatusMachine *)sharedInstance
+{
   if (gameStatusMachine_ != nil)
     return gameStatusMachine_;
   
@@ -36,7 +37,8 @@ static GameStatusMachine * gameStatusMachine_ = nil;
 }
 
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     gameStatus_     = kGameStatusInitialization;
     gameNextStatus_ = kGameStatusSystemProcess;
@@ -44,19 +46,23 @@ static GameStatusMachine * gameStatusMachine_ = nil;
   return self;
 }
 
-- (GameStatus)status {
+- (GameStatus)status
+{
   return gameStatus_;
 }
 
-- (void)startNewTurn {
+- (void)startNewTurn
+{
   gameStatus_ = kGameStatusPlayerTurn;
 }
 
-- (void)resetStatus {
+- (void)resetStatus
+{
   gameStatus_ = kGameStatusInitialization;
 }
 
-- (void)endStatus:(GameStatus)status {
+- (void)endStatus:(GameStatus)status
+{
   switch (status) {
     case kGameStatusSystemProcess:
       gameStatus_ = gameNextStatus_;

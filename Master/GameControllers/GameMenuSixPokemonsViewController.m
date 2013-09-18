@@ -40,7 +40,6 @@
 @property (nonatomic, copy)   NSString         * sixPokemonsUID;
 @property (nonatomic, strong) CAAnimationGroup * animationGroupForNotReplacing;
 
-- (void)_releaseSubviews;
 - (void)_cancel:(id)sender;
 
 @end
@@ -61,23 +60,13 @@
 @synthesize sixPokemonsUID                = sixPokemonsUID_;
 @synthesize animationGroupForNotReplacing = animationGroupForNotReplacing_;
 
-- (void)dealloc {
-  
-  
-  [self _releaseSubviews];
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)_releaseSubviews {
-  self.backgroundView = nil;
-  self.cancelButton   = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -87,13 +76,15 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   backgroundView_ = [[UIView alloc] initWithFrame:self.view.frame];
@@ -119,19 +110,23 @@
   self.trainer = [TrainerController sharedInstance];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView = nil;
+  self.cancelButton   = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - GameMenuSixPokemonsUnitViewDelegate
 
-- (void)checkUnit:(id)sender {
+- (void)checkUnit:(id)sender
+{
   if (currOpeningUnitViewTag_) {
     GameMenuSixPokemonsUnitView * unitView;
     unitView = (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:currOpeningUnitViewTag_];
@@ -141,12 +136,14 @@
   currOpeningUnitViewTag_ = ((UIButton *)sender).tag;
 }
 
-- (void)resetUnit {
+- (void)resetUnit
+{
   currOpeningUnitViewTag_ = 0;
 }
 
 // Confirm selected Pokemon
-- (void)confirm:(id)sender {
+- (void)confirm:(id)sender
+{
   NSInteger tag = ((UIButton *)sender).tag;
   if (isForReplacing_) {
     // Replace the current pokemon
@@ -189,7 +186,8 @@
 }
 
 // Open Pokemom's info view
-- (void)openInfoView:(id)sender {
+- (void)openInfoView:(id)sender
+{
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController =
     [[SixPokemonsDetailTabViewController alloc] initWithPokemon:[self.sixPokemons objectAtIndex:((UIButton *)sender).tag - 1]
                                                      withTopbar:NO];
@@ -210,7 +208,8 @@
 
 #pragma mark - Public Methods
 
-- (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing {
+- (void)initWithSixPokemonsForReplacing:(BOOL)forReplacing
+{
   // Basic Setting
   self.isSelectedPokemonInfoViewOpening = NO;
   isForReplacing_                       = forReplacing;
@@ -249,7 +248,8 @@
   }
 }
 
-- (void)loadSixPokemonsAnimated:(BOOL)animated {
+- (void)loadSixPokemonsAnimated:(BOOL)animated
+{
   if (! isForReplacing_) [self.view setFrame:CGRectMake(0.f, 20.f, kViewWidth, kViewHeight)];
   
   // Set new position for six pokemons' unit
@@ -322,7 +322,8 @@
                    }];
 }
 
-- (void)unloadSixPokemonsAnimated:(BOOL)animated {
+- (void)unloadSixPokemonsAnimated:(BOOL)animated
+{
   void (^animation)() = ^(){
     CGFloat buttonSize = 60.f;
     CGRect originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2, kViewWidth, buttonSize);
@@ -357,7 +358,8 @@
                         completion:completion];
 }
 
-- (void)unloadSelcetedPokemonInfoView {
+- (void)unloadSelcetedPokemonInfoView
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
@@ -373,7 +375,8 @@
                    }];
 }
 
-- (void)prepareForNewScene {
+- (void)prepareForNewScene
+{
   // Basic Setting
   currOpeningUnitViewTag_ = 0;
   isForReplacing_         = NO;
@@ -429,7 +432,8 @@
 
 #pragma mark - Private Methods
 
-- (void)_cancel:(id)sender {
+- (void)_cancel:(id)sender
+{
   if (self.isSelectedPokemonInfoViewOpening)
     [self unloadSelcetedPokemonInfoView];
   else

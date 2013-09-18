@@ -45,7 +45,8 @@ typedef enum {
 
 // Singleton
 static PMAudioPlayer * gameAudioPlayer_ = nil;
-+ (PMAudioPlayer *)sharedInstance {
++ (PMAudioPlayer *)sharedInstance
+{
   if (gameAudioPlayer_ != nil)
     return gameAudioPlayer_;
   
@@ -57,7 +58,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     audioPlayers_        = [[NSMutableDictionary alloc] init];
     self.resourceManager = [ResourceManager sharedInstance];
@@ -70,7 +72,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 #pragma mark - Audio Player Manager
 
 // get ready to play the sound. happens automatically on play
-- (void)prepareToPlayForAudioType:(PMAudioType)audioType {
+- (void)prepareToPlayForAudioType:(PMAudioType)audioType
+{
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
@@ -87,7 +90,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // Play
-- (void)playForAudioType:(PMAudioType)audioType afterDelay:(NSTimeInterval)delay {
+- (void)playForAudioType:(PMAudioType)audioType
+              afterDelay:(NSTimeInterval)delay
+{
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSInteger masterVolume = [userDefaults integerForKey:kUDKeyGameSettingsMaster];
   // If ZERO master volume, do not play any audio
@@ -124,7 +129,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // resume to play
-- (void)resumeForAudioType:(PMAudioType)audioType {
+- (void)resumeForAudioType:(PMAudioType)audioType
+{
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
@@ -137,7 +143,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // pauses playback, but remains ready to play
-- (void)pauseForAudioType:(PMAudioType)audioType {
+- (void)pauseForAudioType:(PMAudioType)audioType
+{
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
@@ -150,7 +157,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
  // stops playback. no longer ready to play
-- (void)stopForAudioType:(PMAudioType)audioType {
+- (void)stopForAudioType:(PMAudioType)audioType
+{
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   AVAudioPlayer * audioPlayer = [self.audioPlayers objectForKey:audioResourceName];
   if (audioPlayer != nil) {
@@ -165,7 +173,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 #pragma mark - Preloads
 
 // preload App basic audios (|kAudioGame...|)
-- (void)preloadForAppBasic {
+- (void)preloadForAppBasic
+{
   if (! self.resourceManager.bundle)
     return;
   
@@ -182,7 +191,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // preload game basic audios (|kAudioBattle...|)
-- (void)preloadForBattleBasic {
+- (void)preloadForBattleBasic
+{
   if (! self.resourceManager.bundle)
     return;
   
@@ -199,7 +209,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // Preload resources for battle VS. Wild Pokemon
-- (void)preloadForBattleVSWildPokemon {
+- (void)preloadForBattleVSWildPokemon
+{
   if (! self.resourceManager.bundle)
     return;
   
@@ -219,21 +230,24 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // Unload resources particular for battle VS. Wild Pokemon when this type battle END
-- (void)cleanForBattleVSWildPokemon {
+- (void)cleanForBattleVSWildPokemon
+{
   for (PMAudioType audioType = kAudioBattleEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
     if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] != nil)
       [self.audioPlayers removeObjectForKey:[self _resourceNameForAudioType:audioType]];
 }
 
 // unload resources for Battle (include Battle Basic) when NO BATTLE
-- (void)cleanForBattle {
+- (void)cleanForBattle
+{
   for (PMAudioType audioType = kAudioGameEND + 1; audioType < kAudioBattleVSWildPmEND; ++audioType)
     if ([self.audioPlayers objectForKey:[self _resourceNameForAudioType:audioType]] != nil)
       [self.audioPlayers removeObjectForKey:[self _resourceNameForAudioType:audioType]];
 }
 
 // unload all resources (include App Basic) when AUDIO NOT ALLOWED
-- (void)cleanAll {
+- (void)cleanAll
+{
   [self.audioPlayers removeAllObjects];
 }
 
@@ -241,7 +255,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 
 // Add a new audio player to |audioPlayers_|
 - (void)_addAudioPlayerForAudioType:(PMAudioType)audioType
-                         withAction:(PMAudioAction)audioAction {
+                         withAction:(PMAudioAction)audioAction
+{
   NSString * audioResourceName = [self _resourceNameForAudioType:audioType];
   NSURL * url = [self.resourceManager.bundle URLForResource:audioResourceName
                                               withExtension:@"mp3"
@@ -282,7 +297,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // Audio resource name for the audio type
-- (NSString *)_resourceNameForAudioType:(PMAudioType)audioType {
+- (NSString *)_resourceNameForAudioType:(PMAudioType)audioType
+{
   NSString * resourceName = nil;
   
   switch (audioType) {
@@ -366,7 +382,8 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 }
 
 // If the audio type is music, return YES, else (sounds), return NO
-- (BOOL)_isMusicForAudioType:(PMAudioType)audioType {
+- (BOOL)_isMusicForAudioType:(PMAudioType)audioType
+{
   if (audioType == kAudioGameGuide ||
       audioType == kAudioGamePMEvolution ||
       audioType == kAudioBattlePMCaughtSucceed ||
@@ -386,7 +403,9 @@ static PMAudioPlayer * gameAudioPlayer_ = nil;
 //}
 
 // Audio playing ERROR
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player
+                                 error:(NSError *)error
+{
   NSLog(@"!!!ERROR::Playing Audio Decode Error Occurred");
 }
 

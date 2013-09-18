@@ -28,7 +28,6 @@
 @property (nonatomic, strong) CLLocation   * location;
 @property (nonatomic, copy)   NSMutableSet * annotations;
 
-- (void)_releaseSubviews;
 - (void)_updateAnnotations;
 
 @end
@@ -39,32 +38,25 @@
 @synthesize location    = location_;
 @synthesize annotations = annotations_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.mapView = nil;
-}
-
-- (id)initWithPokemonSID:(NSInteger)pokemonSID {
-  self = [self init];
-  if (self) {
+- (id)initWithPokemonSID:(NSInteger)pokemonSID
+{
+  if (self = [self init]) {
     pokemonSID_ = pokemonSID;
   }
   return self;
 }
 
-- (id)init {
-  self = [super init];
-  if (self) {
+- (id)init
+{
+  if (self = [super init]) {
     // Custom initialization
     self.location = [[PMLocationManager sharedInstance] currLocation];
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -74,12 +66,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.view setBackgroundColor:[UIColor whiteColor]];
   
@@ -102,12 +96,14 @@
                            animated:YES];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.mapView = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -115,7 +111,8 @@
 #pragma mark - Private Methods
 
 // only show annotation view in current zoom level
-- (void)_updateAnnotations {
+- (void)_updateAnnotations
+{
   // remove old annotations
   [self.mapView removeAnnotations:[self.annotations allObjects]];
   // get PM with SID
@@ -153,7 +150,8 @@
 
 // Tells the delegate that one or more annotation views were added to the map
 - (void)      mapView:(MKMapView *)mapView
-didAddAnnotationViews:(NSArray *)views {
+didAddAnnotationViews:(NSArray *)views
+{
   // add animation for showing annotation views
   //CGRect visibleRect = [mapView annotationVisibleRect];
   for(MKAnnotationView *view in views) {
@@ -189,8 +187,9 @@ didAddAnnotationViews:(NSArray *)views {
 
 // Returns the view associated with the specified annotation object
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
-            viewForAnnotation:(id<MKAnnotation>)annotation {
-  if([annotation isKindOfClass:[MKUserLocation class]])
+            viewForAnnotation:(id<MKAnnotation>)annotation
+{
+  if ([annotation isKindOfClass:[MKUserLocation class]])
     return nil;
   
   NSString * annotationIdentifier = @"com.kjuly.Mew.PokemonAreaAnnotationView";
@@ -211,7 +210,8 @@ didAddAnnotationViews:(NSArray *)views {
 
 // Tells the delegate that the region displayed by the map view just changed
 - (void)        mapView:(MKMapView *)mapView
-regionDidChangeAnimated:(BOOL)animated {
+regionDidChangeAnimated:(BOOL)animated
+{
   NSInteger zoomLevel = [mapView zoomLevel];
   NSLog(@"zoomLevel = %d", zoomLevel);
   if (zoomLevel_ == zoomLevel)

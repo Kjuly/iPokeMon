@@ -8,6 +8,8 @@
 
 #import "CustomTableViewController.h"
 
-@interface PokedexTableViewController : CustomTableViewController <NSFetchedResultsControllerDelegate>
+@interface PokedexTableViewController : CustomTableViewController <
+  NSFetchedResultsControllerDelegate
+>
 
 @end

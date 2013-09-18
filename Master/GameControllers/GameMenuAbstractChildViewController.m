@@ -12,13 +12,13 @@
 
 @synthesize tableAreaView = tableAreaView_;
 
-
-- (id)init {
-  self = [super init];
-  return self;
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -28,7 +28,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor clearColor]];
   
@@ -42,17 +43,19 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  
   self.tableAreaView = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -60,7 +63,8 @@
 #pragma mark - Public Methods
 
 - (void)loadViewWithAnimationFromLeft:(BOOL)fromLeft
-                             animated:(BOOL)animated {
+                             animated:(BOOL)animated
+{
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = fromLeft ? -kViewWidth : kViewWidth;
   [self.view setFrame:viewFrame];
@@ -75,7 +79,8 @@
 }
 
 - (void)unloadViewWithAnimationToLeft:(BOOL)toLeft
-                             animated:(BOOL)animated {
+                             animated:(BOOL)animated
+{
   CGRect viewFrame = self.view.frame;
   viewFrame.origin.x = toLeft ? -kViewWidth : kViewWidth;
   
@@ -88,11 +93,14 @@
                            options:UIViewAnimationOptionCurveEaseInOut
                         animations:^{ [self.view setFrame:viewFrame]; }
                         completion:^(BOOL finished) { [self.view removeFromSuperview]; }];
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView object:self userInfo:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNUpdateGameMenuKeyView
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 // action for swipe gesture
-- (void)swipeView:(UISwipeGestureRecognizer *)recognizer {
+- (void)swipeView:(UISwipeGestureRecognizer *)recognizer
+{
   switch (recognizer.direction) {
     case UISwipeGestureRecognizerDirectionRight:
       [self unloadViewWithAnimationToLeft:NO animated:YES];

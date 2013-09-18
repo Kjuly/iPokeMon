@@ -41,14 +41,15 @@
 @synthesize loadingManager  = loadingManager_;
 @synthesize purchaseManager = purchaseManager_;
 
-- (void)dealloc {
+- (void)dealloc
+{
   // remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  if (self = [super initWithStyle:style]) {
     // Custom initialization
     [self setTitle:NSLocalizedString(@"PMSStoreCurrencyExchange", nil)];
     self.loadingManager  = [LoadingManager sharedInstance];
@@ -58,7 +59,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -67,7 +69,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.tableView setAlpha:0.f];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -76,11 +79,13 @@
   [self _setupNotificationObservers];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
   if (self.purchaseManager.products == nil) {
     [self.purchaseManager requestProducts];
@@ -106,39 +111,47 @@
   }*/
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [self.purchaseManager.products count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfCurrencyExchange;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   static NSString *CellIdentifier = @"Cell";
   PurchaseTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
@@ -212,7 +225,8 @@
 #pragma mark - Private Methods
 
 // Setup notification observer
-- (void)_setupNotificationObservers {
+- (void)_setupNotificationObservers
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   [notificationCenter addObserver:self
                          selector:@selector(_productsLoaded:)
@@ -228,7 +242,8 @@
                            object:nil];
 }
 
-- (void)_timeOut:(id)sender {
+- (void)_timeOut:(id)sender
+{
   NSLog(@"!!!ERROR: TIMEOUT");
   [self.loadingManager hideOverView];
   CGFloat delay = 1.5f;
@@ -240,7 +255,8 @@
   navigationBar = nil;
 }
 
-- (void)_productsLoaded:(NSNotification *)notification {
+- (void)_productsLoaded:(NSNotification *)notification
+{
   NSLog(@"Products Loaded");
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
@@ -253,7 +269,8 @@
                    completion:nil];
 }
 
-- (void)_productPurchased:(NSNotification *)notification {
+- (void)_productPurchased:(NSNotification *)notification
+{
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
@@ -271,7 +288,8 @@
                       withDuration:1.f];
 }
 
-- (void)_productPurchaseFailed:(NSNotification *)notification {
+- (void)_productPurchaseFailed:(NSNotification *)notification
+{
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   // loading done
   [self.loadingManager hideOverView];
@@ -292,7 +310,8 @@
 }
 
 // Button Action: exchange the currency
-- (void)_exchangeCurrency:(id)sender {
+- (void)_exchangeCurrency:(id)sender
+{
   selectedRowIndex_ = ((UIButton *)sender).tag;
   SKProduct * product = [self.purchaseManager.products objectAtIndex:selectedRowIndex_];
   NSLog(@"Buying %@...", product);

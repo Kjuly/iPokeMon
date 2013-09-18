@@ -33,8 +33,6 @@
 @property (nonatomic, strong) CAAnimationGroup * switchAnimationGroupForMainView;
 @property (nonatomic, strong) CAAnimationGroup * unloadAnimationGroup;
 
-- (void)_releaseSubViews;
-
 @end
 
 
@@ -49,23 +47,13 @@
 @synthesize switchAnimationGroupForMainView   = switchAnimationGroupForMainView_;
 @synthesize unloadAnimationGroup              = unloadAnimationGroup_;
 
-- (void)dealloc {
-  [self _releaseSubViews];
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)_releaseSubViews {
-  self.mainView    = nil;
-  self.title       = nil;
-  self.description = nil;
-  self.bottomView  = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 	// Do any additional setup after loading the view.
   CGRect viewFrame = (CGRect){CGPointZero, {kMapAnnotationCalloutViewWidth, kMapAnnotationCalloutViewHeight}};
@@ -105,19 +93,25 @@
   [self.view addSubview:bottomView_];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubViews];
+  self.mainView    = nil;
+  self.title       = nil;
+  self.description = nil;
+  self.bottomView  = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Public Methods
 
 // load view
-- (void)loadViewAnimated:(BOOL)animated {
+- (void)loadViewAnimated:(BOOL)animated
+{
   [self.mainView setAlpha:1.f];
   
   // set up animation group for |bottomView_| if it is not initialized
@@ -182,7 +176,8 @@
 }
 
 // unload view
-- (void)unloadViewAnimated:(BOOL)animated {
+- (void)unloadViewAnimated:(BOOL)animated
+{
   // set up animation group for |mainView_| if it is not initialized
   if (self.unloadAnimationGroup == nil) {
     CGFloat duration = .3f;
@@ -216,7 +211,8 @@
 }
 
 // switch view
-- (void)switchViewAnimated:(BOOL)animated {
+- (void)switchViewAnimated:(BOOL)animated
+{
   // set up animation group for |mainView_| if it is not initialized
   if (self.switchAnimationGroupForMainView == nil) {
     CGFloat duration = .6f;
@@ -256,7 +252,8 @@
 
 // configure view
 - (void)configureWithTitle:(NSString *)title
-               description:(NSString *)description {
+               description:(NSString *)description
+{
   [self.title setText:title];
   CGFloat margin = 10.f;
   CGRect descriptionFrame = CGRectMake(margin, margin + 30.f, kMapAnnotationCalloutViewWidth - margin * 2, 30.f);
@@ -267,7 +264,9 @@
 
 #pragma mark - CoreAnimation Delegate
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- (void)animationDidStop:(CAAnimation *)anim
+                finished:(BOOL)flag
+{
   if ([[anim valueForKey:@"animationType"] isEqualToString:@"unloadAll"]) {
 //    [self.mainView setAlpha:0.f];
     [self.view removeFromSuperview];

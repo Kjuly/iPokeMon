@@ -34,13 +34,14 @@
 @synthesize moveButton = moveButton_;
 @synthesize pp         = pp_;
 
--(void)dealloc {
-  self.delegate   = nil;
+-(void)dealloc
+{
+  self.delegate = nil;
 }
 
-- (id)initWithFrame:(CGRect)frame {
-  self = [super initWithFrame:frame];
-  if (self) {
+- (id)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
     CGFloat const frameHeight = frame.size.height;
     CGFloat const frameWidth  = frame.size.width;
 //    CGFloat const labelHeight = 32.f;
@@ -84,7 +85,8 @@
 - (void)configureMoveUnitWithSID:(NSInteger)SID
                               pp:(NSString *)pp
                         delegate:(id<GameMenuMoveUnitViewDelegate>)delegate
-                             tag:(NSInteger)tag {
+                             tag:(NSInteger)tag
+{
   moveSID_ = SID;
   NSString * localizedName =
     SID ? KYResourceLocalizedString(([NSString stringWithFormat:@"PMSMove%.3d", SID]), nil) : @"- - -";
@@ -105,7 +107,8 @@
 }
 
 // toggle |moveButton_|
-- (void)setButtonEnabled:(BOOL)enabled {
+- (void)setButtonEnabled:(BOOL)enabled
+{
   // Change Text color if needed
   if (enabled) {
     [self.moveButton setEnabled:YES];
@@ -119,7 +122,8 @@
 }
 
 // set |moveButton_| as selected
-- (void)setButtonSelected:(BOOL)selected {
+- (void)setButtonSelected:(BOOL)selected
+{
   if (selected) {
     [self.moveButton transitionToImage:[UIImage imageNamed:kPMINMainButtonConfirm]
                                options:UIViewAnimationOptionTransitionCrossDissolve];

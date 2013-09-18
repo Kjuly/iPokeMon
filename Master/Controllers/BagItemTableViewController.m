@@ -31,7 +31,6 @@
 @property (nonatomic, strong) BagItemInfoViewController         * bagItemInfoViewController;
 @property (nonatomic, strong) GameMenuSixPokemonsViewController * gameMenuSixPokemonsViewController;
 
-- (void)_releaseSubviews;
 - (void)_configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)_showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell;
 - (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL finished))completion;
@@ -71,28 +70,24 @@
 @synthesize bagItemInfoViewController         = bagItemInfoViewController_;
 @synthesize gameMenuSixPokemonsViewController = gameMenuSixPokemonsViewController_;
 
--(void)dealloc {
-  [self _releaseSubviews];
+-(void)dealloc
+{
   // Remove observers
   [[NSNotificationCenter defaultCenter] removeObserver:self
                                                   name:kPMNUseItemForSelectedPokemon
                                                 object:self.gameMenuSixPokemonsViewController];
 }
 
-- (void)_releaseSubviews {
-  self.hiddenCell         = nil;
-  self.hiddenCellAreaView = nil;
-}
-
-- (id)initWithBagItem:(BagQueryTargetType)targetType {
-  self = [self initWithStyle:UITableViewStylePlain];
-  if (self) {
+- (id)initWithBagItem:(BagQueryTargetType)targetType
+{
+  if (self = [self initWithStyle:UITableViewStylePlain]) {
     [self setBagItem:targetType];
   }
   return self;
 }
 
-- (void)setBagItem:(BagQueryTargetType)targetType {
+- (void)setBagItem:(BagQueryTargetType)targetType
+{
   self.items = [NSMutableArray arrayWithArray:[self.trainer bagItemsFor:targetType]];
   self.targetType = targetType;
   
@@ -123,9 +118,9 @@
   }
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  if (self = [super initWithStyle:style]) {
     // Basic setting
     selectedCellIndex_    = 0;
     targetType_           = 0;
@@ -148,7 +143,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -157,7 +153,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
@@ -169,53 +166,44 @@
                                              object:self.gameMenuSixPokemonsViewController];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.hiddenCell         = nil;
+  self.hiddenCellAreaView = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfBagItemTableView;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return round([self.items count] / 2); // <ID, Quantity>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString *cellIdentifier = @"Cell";
+  BagItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[BagItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                        reuseIdentifier:CellIdentifier];
+                                        reuseIdentifier:cellIdentifier];
   }
   
   // Configure the cell
@@ -264,26 +252,31 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   BagItemTableViewCell * cell = (BagItemTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
   [self _showHiddenCellToReplaceCell:cell];
   self.selectedCellIndex = [indexPath row];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
   if (self.selectedCell != nil) [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
 #pragma mark - Public Methods
 
 // Reset the view status
-- (void)reset {
+- (void)reset
+{
   if (self.selectedCell != nil) [self _cancelHiddenCellWithCompletionBlock:nil];
 }
 
 #pragma mark - Private Methods
 
-- (void)_configureCell:(BagItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)_configureCell:(BagItemTableViewCell *)cell
+           atIndexPath:(NSIndexPath *)indexPath
+{
   NSString * localizedNameHeader = [self _localizedNameHeader];
   if (localizedNameHeader == nil) return;
   
@@ -298,7 +291,8 @@
 }
 
 // Show |hiddenCell_|
-- (void)_showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell {
+- (void)_showHiddenCellToReplaceCell:(BagItemTableViewCell *)cell
+{
   void (^showHiddenCellAnimationBlock)(BOOL) = ^(BOOL finished) {
     __block CGRect cellFrame = cell.frame;
     cellFrame.origin.x = kViewWidth;
@@ -321,7 +315,8 @@
 }
 
 // Cancel |hiddenCell_|
-- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion {
+- (void)_cancelHiddenCellWithCompletionBlock:(void (^)(BOOL))completion
+{
   __block CGRect cellFrame = self.selectedCell.frame;
   [UIView animateWithDuration:.2f
                         delay:0.f
@@ -355,7 +350,8 @@
 }
 
 // Action for notification from |GameMenuSixPokemonsViewController|
-- (void)_useItemForSelectedPokemon:(NSNotification *)notification {
+- (void)_useItemForSelectedPokemon:(NSNotification *)notification
+{
   self.selectedPokemonIndex = [[notification.userInfo objectForKey:@"selectedPokemonIndex"] intValue];
   NSInteger selectedItemID  = [[self.items objectAtIndex:(self.selectedCellIndex * 2)] intValue];
   TrainerTamedPokemon * targetPokemon = [self.trainer pokemonOfSixAtIndex:self.selectedPokemonIndex];
@@ -397,7 +393,8 @@
 }
 
 // Name header for current |targetType_|
-- (NSString *)_localizedNameHeader {
+- (NSString *)_localizedNameHeader
+{
   NSString * localizedNameHeader;
   if      (targetType_ & kBagQueryTargetTypeItem)       localizedNameHeader = @"PMSBagItem";
   else if (targetType_ & kBagQueryTargetTypeMedicine)   localizedNameHeader = @"PMSBagMedicine";
@@ -414,7 +411,8 @@
 #pragma mark - BagItemTableViewHiddenCell Delegate
 
 // Hidden Cell Button Action: Use Item
-- (void)useItem:(id)sender {
+- (void)useItem:(id)sender
+{
   // Throw pokeball to catch wild Pokemon
   // Directly use, no need to select Pokemon
   if (self.targetType & kBagQueryTargetTypePokeball) {
@@ -458,7 +456,8 @@
 }
 
 // Hidden Cell Button Action: Show Info
-- (void)showInfo:(id)sender {
+- (void)showInfo:(id)sender
+{
   if (self.bagItemInfoViewController == nil) {
     BagItemInfoViewController * bagItemInfoViewController = [[BagItemInfoViewController alloc] init];
     self.bagItemInfoViewController = bagItemInfoViewController;
@@ -531,7 +530,8 @@
 
 // Heal Status & Restore HP for Pokemon
 - (void)_healStatusAndRestoreHPForPokemon:(TrainerTamedPokemon *)pokemon
-                         withBagMedicine:(BagMedicine *)bagMedicine {
+                         withBagMedicine:(BagMedicine *)bagMedicine
+{
   NSInteger effectCode = [bagMedicine.code intValue];
   // 0x81: Restores all HP to one Pokemon and cures them of any status effects
   if (effectCode & 0x01) {
@@ -553,7 +553,8 @@
 
 // Use 'Status Healers' to heal Pokemon
 - (void)_healStatusForPokemon:(TrainerTamedPokemon *)pokemon
-             withBagMedicine:(BagMedicine *)bagMedicine {
+             withBagMedicine:(BagMedicine *)bagMedicine
+{
   NSInteger effectCode     = [bagMedicine.code intValue];
   NSInteger pokemonStatus  = [pokemon.status intValue];
   BOOL      healStatusDone = YES;
@@ -633,7 +634,8 @@
 
 // Use 'HP Restore' to restore Pokemon HP
 - (void)_restoreHPForPokemon:(TrainerTamedPokemon *)pokemon
-            withBagMedicine:(BagMedicine *)bagMedicine {
+            withBagMedicine:(BagMedicine *)bagMedicine
+{
   NSInteger effectCode   = [bagMedicine.code intValue];
   NSInteger pokemonHP    = [pokemon.hp intValue];
   NSInteger pokemonHPMax = [[[pokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue];
@@ -696,7 +698,8 @@
 // Use 'PP Restore' to restore Pokemon's move PP
 - (void)_restorePPForPokemon:(TrainerTamedPokemon *)pokemon
                   moveIndex:(NSInteger)moveIndex
-            withBagMedicine:(BagMedicine *)bagMedicine {
+            withBagMedicine:(BagMedicine *)bagMedicine
+{
   NSLog(@"selected Move Index: %d", moveIndex);
   // four Moves' PP array (with max value)
   //   currPP,maxPP,currPP,maxPP,...
@@ -752,12 +755,14 @@
 
 // Use 'Berry' for Pokemon
 - (void)_useBerryForPokemon:(TrainerTamedPokemon *)pokemon
-              withBagBerry:(BagBerry *)bagBerry {
+              withBagBerry:(BagBerry *)bagBerry
+{
 }
 
 // Use 'Battle Item' for Pokemon
 - (void)_useBattleItemForPokemon:(TrainerTamedPokemon *)pokemon
-              withBagBattleItem:(BagBattleItem *)bagBattleItem {
+              withBagBattleItem:(BagBattleItem *)bagBattleItem
+{
 }
 
 @end

@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIButton * infoButton;
 @property (nonatomic, strong) UIButton * cancelButton;
 
-- (void)_releaseSubviews;
 - (void)_open;
 - (void)_cancel;
 
@@ -35,20 +34,9 @@
 @synthesize infoButton    = infoButton_;
 @synthesize cancelButton  = cancelButton_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.mainButton    = nil;
-  self.confirmButton = nil;
-  self.infoButton    = nil;
-  self.cancelButton  = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
+- (id)init
+{
+  return (self = [super init]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,8 +49,9 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {320.f, 60.f}}];
+- (void)loadView
+{
+  UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, 60.f}}];
   
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((kViewWidth - buttonSize) / 2, 0.f, buttonSize, buttonSize);
@@ -100,23 +89,30 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.mainButton    = nil;
+  self.confirmButton = nil;
+  self.infoButton    = nil;
+  self.cancelButton  = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Private Methods
 
-- (void)_open {
+- (void)_open
+{
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((kViewWidth - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = CGRectMake(mainButtonFrame.origin.x - 70.f, 0.f, buttonSize, buttonSize);
@@ -140,7 +136,8 @@
                   }];
 }
 
-- (void)_cancel {
+- (void)_cancel
+{
   CGFloat buttonSize = 60.f;
   CGRect mainButtonFrame    = CGRectMake((kViewWidth - buttonSize) / 2, 0.f, buttonSize, buttonSize);
   CGRect confirmButtonFrame = mainButtonFrame;

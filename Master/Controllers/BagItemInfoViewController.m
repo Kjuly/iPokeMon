@@ -27,7 +27,6 @@
 @property (nonatomic, strong) UILabel                * info;
 @property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecognizer;
 
-- (void)_releaseSubviews;
 - (void)_unloadViewWithAnimation;
 
 @end
@@ -41,23 +40,13 @@
 @synthesize info                 = info_;
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)_releaseSubviews {
-  self.backgroundView = nil;
-  self.name           = nil;
-  self.price          = nil;
-  self.info           = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -67,13 +56,15 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight + 20.f}}];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -120,12 +111,17 @@
   [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.backgroundView = nil;
+  self.name           = nil;
+  self.price          = nil;
+  self.info           = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -135,7 +131,8 @@
 - (void)setDataWithName:(NSString *)name
                   price:(NSInteger)price
                    info:(NSString *)info
-           duringBattle:(BOOL)duringBattle {
+           duringBattle:(BOOL)duringBattle
+{
   isDuringBattle_ = duringBattle;
   [self.name setText:name];
   [self.price setText:(price ? [NSString stringWithFormat:@"§ %d", price] : @"- - -")];
@@ -145,7 +142,8 @@
   [self.info sizeToFit];
 }
 
-- (void)loadViewWithAnimation {
+- (void)loadViewWithAnimation
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut
@@ -157,12 +155,15 @@
                    }
                    completion:nil];
   if (isDuringBattle_)
-    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPMNToggleTopCancelButton
+                                                        object:self
+                                                      userInfo:nil];
 }
 
 #pragma mark - Private Methods
 
-- (void)_unloadViewWithAnimation {
+- (void)_unloadViewWithAnimation
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseOut

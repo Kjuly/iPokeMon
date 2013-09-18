@@ -31,7 +31,10 @@ typedef enum {
   kMEWMaxZoomLevelOfHotPoint           = 20  // hot point: shop, etc.    : 10, ..., 20
 }MEWMaxZoomLevelOfTerrain;
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController : UIViewController <
+  MKMapViewDelegate,
+  CLLocationManagerDelegate
+>
 
 - (void)reset;
 

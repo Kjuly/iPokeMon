@@ -26,8 +26,8 @@
 
 @synthesize sixPokemons = sixPokemons_;
 
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -38,12 +38,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   self.sixPokemons = [[TrainerController sharedInstance] sixPokemons];
   
@@ -53,11 +55,13 @@
     [self viewWillAppear:YES];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
   
   if ([self.sixPokemons count] > 0) {
@@ -76,7 +80,8 @@
 #pragma mark - KYCircleMenu
 
 // Overwrite KYCircleMenu's |-runButtonActions:|
-- (void)runButtonActions:(id)sender {
+- (void)runButtonActions:(id)sender
+{
   [super runButtonActions:sender];
   
   // Load Pokemon's detail information view

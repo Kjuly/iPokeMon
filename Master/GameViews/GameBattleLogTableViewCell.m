@@ -24,9 +24,9 @@
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style
-    reuseIdentifier:(NSString *)reuseIdentifier {
-  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-  if (self) {
+    reuseIdentifier:(NSString *)reuseIdentifier
+{
+  if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     // Basic constants
     CGFloat const cellHeight = kCellHeightOfGameBattleLogTableView;
     CGFloat const cellWidth  = kViewWidth;
@@ -36,43 +36,25 @@
     UIView * backgroundView = [[UIView alloc] initWithFrame:cellFrame];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     [self setBackgroundView:backgroundView];
-    
-    // Set |selectedBackgroundView| for cell
-//    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, cellWidth, cellHeight)];
-//    [selectedBackgroundView setBackgroundColor:
-//      [UIColor colorWithPatternImage:[UIImage imageNamed:kPMINTableViewCellBagSelected]]];
-//    [selectedBackgroundView setOpaque:NO];
-//    [self setSelectedBackgroundView:selectedBackgroundView];
-//    [selectedBackgroundView release];
-    
-    // Button to exchange currency
-//    CGFloat buttonSize = 64.f;
-//    CGRect exchangeButtonFrame = CGRectMake(0.f, (kCellHeightOfCurrencyExchange - buttonSize) / 2.f, buttonSize, buttonSize);
-//    exchangeButton_ = [[UIButton alloc] initWithFrame:exchangeButtonFrame];
-//    [exchangeButton_ setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
-//                               forState:UIControlStateNormal];
-//    [exchangeButton_ setImage:[UIImage imageNamed:kPMINMainButtonConfirmOpposite]
-//                     forState:UIControlStateNormal];
-//    [self setAccessoryType:UITableViewCellAccessoryNone];
-//    [self setAccessoryView:exchangeButton_];
   }
   return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
 //  [super setSelected:selected animated:animated];
   
   // Configure the view for the selected state
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
   [super layoutSubviews];
   
   // Custom subviews for cell
   CGFloat marginLeft = 50.f;
   CGFloat marginTop  = (kCellHeightOfGameBattleLogTableView - 32.f) / 2.f;
   CGRect textLabelFrame  = CGRectMake(marginLeft, marginTop, kViewWidth - marginLeft, 32.f);
-//  CGRect priceLabelFrame = CGRectMake(textLabelFrame.origin.x, marginTop + textLabelFrame.size.height, 200.f, 32.f);
   
   // log
   [self.textLabel setFrame:textLabelFrame];
@@ -85,15 +67,6 @@
     [self.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [self.textLabel sizeToFit];
   }
-  
-  // description
-//  [self.detailTextLabel setFrame:priceLabelFrame];
-//  [self.detailTextLabel setBackgroundColor:[UIColor clearColor]];
-//  [self.detailTextLabel setTextColor:[GlobalRender textColorBlue]];
-//  [self.detailTextLabel setFont:[GlobalRender textFontBoldInSizeOf:16.f]];
-  
-  // icon
-//  [self.imageView setFrame:imageViewFrame];
 }
 
 #pragma mark - Public Methods
@@ -102,7 +75,8 @@
 - (void)configureCellWithType:(MEWGameBattleLogType)type
                           log:(NSString *)log
                   description:(NSString *)description
-                          odd:(BOOL)odd{
+                          odd:(BOOL)odd
+{
   logWordsMore_ = NO;
   [self.textLabel setText:log];
   if ([log length] > 30)

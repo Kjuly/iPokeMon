@@ -89,7 +89,6 @@
 @property (nonatomic, strong) NSTimer              * centerMenuOpenStatusTimer;
 @property (nonatomic, strong) NSTimer              * longTapTimer;
 
-- (void)_releaseSubviews;
 - (void)_setupNotificationObservers;
 - (void)_resetAll;
 
@@ -148,28 +147,16 @@
 @synthesize centerMenuOpenStatusTimer       = centerMenuOpenStatusTimer_;
 @synthesize longTapTimer                    = longTapTimer_;
 
-- (void)dealloc {
-  
-#ifdef KY_INVITATION_ONLY
-  self.unlockCodeManager = nil;
-#endif
-  
-  [self _releaseSubviews];
+- (void)dealloc
+{
   [self.longTapTimer invalidate];
   
   // Remove notification observers
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-// Release any retained subviews of the main view.
-- (void)_releaseSubviews {
-  self.centerMainButtonTouchDownCircleView = nil;
-  self.centerMainButton                    = nil;
-  self.mapButton                           = nil;
-  self.currentKeyButton                    = nil;
-}
-
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
 #ifdef KY_POPULATE_COREDATA
     // Hard Initialize the Core Data with default resource bundle
@@ -188,7 +175,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -198,7 +186,8 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   [view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINLaunchViewBackground]]];
   [view setOpaque:NO];
@@ -206,7 +195,8 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -312,16 +302,22 @@
   [[TrainerController sharedInstance] sync];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.centerMainButtonTouchDownCircleView = nil;
+  self.centerMainButton                    = nil;
+  self.mapButton                           = nil;
+  self.currentKeyButton                    = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -329,7 +325,8 @@
 #pragma mark - Private Methods
 
 // Setup notification observers
-- (void)_setupNotificationObservers {
+- (void)_setupNotificationObservers
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Notification from |OAuthManager| when cannot connet to server
   [notificationCenter addObserver:self
@@ -371,15 +368,17 @@
 }
 
 // Reset all to original
-- (void)_resetAll {
+- (void)_resetAll
+{
   centerMainButtonStatus_        = kCenterMainButtonStatusNormal;
   centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
   isCenterMenuOpening_                          = NO;
   isCenterMainButtonTouchDownCircleViewLoading_ = NO;
   isMapViewOpening_                             = NO;
   isGameMainViewOpening_                        = NO;
-  for (UIViewController * vc in [self.customNavigationController childViewControllers])
+  for (UIViewController * vc in [self.customNavigationController childViewControllers]) {
     [vc.view removeFromSuperview];
+  }
   self.fullScreenLoadingViewController     = nil;
   self.centerMenuUtilityViewController     = nil;
   self.centerMenuSixPokemonsViewController = nil;
@@ -392,7 +391,8 @@
 }
 
 // Show full screen loading view
-- (void)_showFullScreenLoadingView:(NSNotification *)notification {
+- (void)_showFullScreenLoadingView:(NSNotification *)notification
+{
   PMError error = [[notification.userInfo valueForKey:@"error"] intValue];
   if (! error) return;
   
@@ -410,7 +410,8 @@
 }
 
 // Show device blocking view
-- (void)_showDeviceBlockingView:(NSNotification *)notification {
+- (void)_showDeviceBlockingView:(NSNotification *)notification
+{
   if (self.deviceBlockingViewController == nil) {
     DeviceBlockingViewController * deviceBlockingViewController;
     deviceBlockingViewController = [[DeviceBlockingViewController alloc] init];
@@ -423,7 +424,8 @@
 }
 
 // Show login table view if user session is invalid
-- (void)_showLoginTableView:(NSNotification *)notification {
+- (void)_showLoginTableView:(NSNotification *)notification
+{
   [self _resetAll];
   
   // Login table view controller
@@ -449,7 +451,8 @@
 }
 
 // Show guide view for newbie (new trainer)
-- (void)_showNewbieGuideView:(NSNotification *)notification {
+- (void)_showNewbieGuideView:(NSNotification *)notification
+{
 #ifdef KY_TESTFLIGHT_ON
   [TestFlight passCheckpoint:@"CHECK_POINT: Open Newbie Guide View"];
 #endif
@@ -460,7 +463,8 @@
 }
 
 // Show Help view
-- (void)_showHelpView:(id)sender {
+- (void)_showHelpView:(id)sender
+{
   HelpViewController * helpViewController = [[HelpViewController alloc] init];
   self.helpViewController = helpViewController;
   [self.view addSubview:self.helpViewController.view];
@@ -468,7 +472,8 @@
 }
 
 // Slide |centerMainButton_| to view bottom when button in center menu is clicked
-- (void)_changeCenterMainButtonStatus:(NSNotification *)notification {
+- (void)_changeCenterMainButtonStatus:(NSNotification *)notification
+{
   switch ([[notification.userInfo objectForKey:@"centerMainButtonStatus"] intValue]) {
     case kCenterMainButtonStatusAtBottom:
       centerMainButtonStatus_ = kCenterMainButtonStatusAtBottom;
@@ -488,7 +493,8 @@
     default:
       if (isGameMainViewOpening_) {
         centerMainButtonMessageSignal_ = kCenterMainButtonMessageSignalNone;
-        CenterMainButtonStatus previousCenterMainButtonStatus = [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
+        CenterMainButtonStatus previousCenterMainButtonStatus =
+          [[notification.userInfo objectForKey:@"previousCenterMainButtonStatus"] intValue];
         centerMainButtonStatus_ = previousCenterMainButtonStatus;
         
         if (previousCenterMainButtonStatus != kCenterMainButtonStatusAtBottom) {
@@ -511,7 +517,8 @@
 }
 
 // |centerMainButton_| touch up inside action
-- (void)_runCenterMainButtonTouchUpInsideAction:(id)sender {  
+- (void)_runCenterMainButtonTouchUpInsideAction:(id)sender
+{
   // If Pokemon Appeared, and got a message, deal with it
   if (centerMainButtonMessageSignal_ == kCenterMainButtonMessageSignalPokemonAppeared &&
       centerMainButtonStatus_ != kCenterMainButtonStatusPokemonAppeared &&
@@ -569,7 +576,8 @@
 }
 
 // |centerMainButton_| touch up outside action
-- (void)_runCenterMainButtonTouchUpOutsideAction:(id)sender {
+- (void)_runCenterMainButtonTouchUpOutsideAction:(id)sender
+{
   [self.longTapTimer invalidate];
   if (isCenterMainButtonTouchDownCircleViewLoading_) {
     // Stop |centerMainButtonTouchDownCircleView_| loading
@@ -579,7 +587,8 @@
 }
 
 // Method for opening center menu view when |isCenterMenuOpening_ == NO|
-- (void)_openCenterMenuView {
+- (void)_openCenterMenuView
+{
   [self.longTapTimer invalidate];
   
   // Stop |centerMainButtonTouchDownCircleView_| loading
@@ -682,7 +691,8 @@
 }
 
 // Method for close center menu view when |isCenterMenuOpening_ == YES|
-- (void)_closeCenterMenuView {
+- (void)_closeCenterMenuView
+{
   [[NSNotificationCenter defaultCenter] postNotificationName:kKYNCircleMenuClose
                                                       object:self
                                                     userInfo:nil];
@@ -693,7 +703,8 @@
 
 // Activate |centerMenuOpenStatusTimer_| to count how many time the |centerMenu_| is open without any operation,
 // Close the |centerMenu_| when necessary
-- (void)_activateCenterMenuOpenStatusTimer {
+- (void)_activateCenterMenuOpenStatusTimer
+{
   if (! isCenterMenuOpening_)
     return;
   centerMenuOpenStatusTimeCounter_ = 0;
@@ -706,13 +717,15 @@
 }
 
 // Stop |centerMenuOpenStatusTimer_| when button clicked
-- (void)_deactivateCenterMenuOpenStatusTimer {
+- (void)_deactivateCenterMenuOpenStatusTimer
+{
   [self.centerMenuOpenStatusTimer invalidate];
   self.centerMenuOpenStatusTimer = nil;
 }
 
 // Close |centerMenu_| when long time no operation 
-- (void)_closeCenterMenuWhenLongTimeNoOperation {
+- (void)_closeCenterMenuWhenLongTimeNoOperation
+{
   centerMenuOpenStatusTimeCounter_ += 5;
   NSLog(@"%d", centerMenuOpenStatusTimeCounter_);
   if (centerMenuOpenStatusTimeCounter_ == 10) {
@@ -722,7 +735,8 @@
 }
 
 // |centerMainButton_| touch down action
-- (void)_countLongTapTimeWithAction:(id)sender {
+- (void)_countLongTapTimeWithAction:(id)sender
+{
   if (! isCenterMenuOpening_ &&
       centerMainButtonMessageSignal_ != kCenterMainButtonMessageSignalPokemonAppeared) {
     // Start time counting
@@ -739,7 +753,8 @@
 }
 
 // Method for counting Tap Down time
-- (void)_increaseTimeWithAction {
+- (void)_increaseTimeWithAction
+{
   ++timeCounter_;
   NSLog(@"Touch Keep Time: %d", timeCounter_);
   
@@ -792,14 +807,16 @@
 
 #ifdef KY_INVITATION_ONLY
 // Enter invitation code
-- (void)_enterInvitationCode:(id)sender {
+- (void)_enterInvitationCode:(id)sender
+{
   // Post notifi to |KYUnlockCodeManager| to show code input view
   [[NSNotificationCenter defaultCenter] postNotificationName:kKYUnlockCodeManagerNShowCodeInputView
                                                       object:nil];
 }
 
 // Unlock location service
-- (void)_unlockLocationService:(NSNotification *)notification {
+- (void)_unlockLocationService:(NSNotification *)notification
+{
   // Unlock "Location Service" feature
   // Remove action to enter invitation code
   [mapButton_ removeTarget:self
@@ -826,7 +843,8 @@
 #endif
 
 // |mapButton_| action
-- (void)_toggleMapView:(id)sender {
+- (void)_toggleMapView:(id)sender
+{
   [self.longTapTimer invalidate];
   // If Location Service is not allowed, do nothing
   if (! [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyGeneralLocationServices]
@@ -905,7 +923,8 @@
 }
 
 // Unload game battle scene
-- (void)_unloadGameBattleScene:(NSNotification *)notification {
+- (void)_unloadGameBattleScene:(NSNotification *)notification
+{
   [self _changeCenterMainButtonStatus:notification];
   if (self.gameMainViewController == nil)
     return;
@@ -914,7 +933,8 @@
 }
 
 // Toggle tracking
-- (void)_updateLocationService:(NSNotification *)notification {
+- (void)_updateLocationService:(NSNotification *)notification
+{
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
@@ -930,7 +950,8 @@
 }
 
 // Toggle Location Service after long press on |mapButton_|
-- (void)_toggleLocationService {
+- (void)_toggleLocationService
+{
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   if ([userDefaults boolForKey:kUDKeyGeneralLocationServices]) {
@@ -952,10 +973,11 @@
 
 // Set layouts for buttons
 - (void)_setButtonLayoutTo:(MainViewButtonLayout)buttonLayouts
-                completion:(void (^)(BOOL))completion {
+                completion:(void (^)(BOOL))completion
+{
   void (^animations)() = ^{
-    CGRect centerMainButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-                                              (kViewHeight - kCenterMainButtonSize) / 2,
+    CGRect centerMainButtonFrame = CGRectMake((kViewWidth - kCenterMainButtonSize) * .5f,
+                                              (kViewHeight - kCenterMainButtonSize) * .5f,
                                               kCenterMainButtonSize,
                                               kCenterMainButtonSize);
     CGRect mapButtonFrame        = CGRectMake((kViewWidth - kMapButtonSize) / 2,
@@ -994,19 +1016,24 @@
 - (NSString *)codeOrder { return @"54321"; }
 
 // Return the factors
-- (NSString *)deviceUID {
+- (NSString *)deviceUID
+{
   return [[TrainerController sharedInstance] deviceUID];
 }
-- (NSString *)userAccount {
+- (NSString *)userAccount
+{
   return [NSString stringWithFormat:@"%d", [[TrainerController sharedInstance] UID]];
 }
-- (NSString *)userAccountCreatedDate {
+- (NSString *)userAccountCreatedDate
+{
   return [NSString stringWithFormat:@"%f", [[[TrainerController sharedInstance] timeStarted] timeIntervalSince1970]];
 }
-- (NSString *)appVersionSha {
+- (NSString *)appVersionSha
+{
   return [[NSUserDefaults standardUserDefaults] stringForKey:kUDKeyAboutVersion];
 }
-- (NSString *)appBuiltDate {
+- (NSString *)appBuiltDate
+{
   return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBuildDate"];
 }
 

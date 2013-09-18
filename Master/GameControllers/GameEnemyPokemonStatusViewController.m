@@ -14,8 +14,8 @@
 
 @implementation GameEnemyPokemonStatusViewController
 
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -30,15 +30,18 @@
 //}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -46,14 +49,18 @@
 #pragma mark - Public Methods
 
 // Parent |GamePokemonStatusViewController|
-- (void)updatePokemonStatus:(NSDictionary *)statusInfo {
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo
+{
   [super updatePokemonStatus:statusInfo];
   
-  if ([statusInfo objectForKey:@"enemyPokemonHP"])
-    [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"enemyPokemonHP"] intValue]];
+  if ([statusInfo objectForKey:@"enemyPokemonHP"]) {
+    [self.pokemonHPBar updateHPBarWithHP:
+      [[statusInfo objectForKey:@"enemyPokemonHP"] intValue]];
+  }
 }
 
-- (void)prepareForNewScene {
+- (void)prepareForNewScene
+{
   WildPokemon * enemyPokemon = [GameSystemProcess sharedInstance].enemyPokemon;
   [pokemonName_ setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                                     [enemyPokemon.sid intValue]]), nil)];
@@ -61,7 +68,8 @@
     [UIImage imageNamed:[NSString stringWithFormat:kPMINIconPMGender, [enemyPokemon.gender intValue]]]];
   [pokemonLevel_ setText:[NSString stringWithFormat:@"Lv.%d", [enemyPokemon.level intValue]]];
   [self.pokemonHPBar updateHPBarWithHP:[enemyPokemon.hp intValue]
-                                 HPMax:[[[enemyPokemon.maxStats componentsSeparatedByString:@","] objectAtIndex:0] intValue]];
+                                 HPMax:[[[enemyPokemon.maxStats componentsSeparatedByString:@","]
+                                         objectAtIndex:0] intValue]];
 }
 
 @end

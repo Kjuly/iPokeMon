@@ -76,7 +76,6 @@ typedef enum {
 @property (nonatomic, strong) TrainerController      * trainer;
 @property (nonatomic, strong) UITapGestureRecognizer * twoFingersTwoTapsGestureRecognizer;
 
-- (void)_releaseSubviews;
 - (void)_tapViewAction:(UITapGestureRecognizer *)recognizer;
 - (void)_setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)_showSettingView:(id)sender;
@@ -112,37 +111,9 @@ typedef enum {
 @synthesize trainer                            = trainer_;
 @synthesize twoFingersTwoTapsGestureRecognizer = twoFingersTwoTapsGestureRecognizer_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.mainView                  = nil;
-  self.avatarArea                = nil;
-  self.imageView                 = nil;
-  self.IDView                    = nil;
-  self.IDLabel                   = nil;
-  self.nameLabel                 = nil;
-  self.dataView                  = nil;
-  self.moneyLabel                = nil;
-  self.moneyValue                = nil;
-  self.pokedexLabel              = nil;
-  self.pokedexValue              = nil;
-  self.badgeView                 = nil;
-  self.adventureStartedTimeLabel = nil;
-  self.adventureStartedTimeValue = nil;
-  
-  self.avatarSetttingButton = nil;
-  self.nameSettingButton    = nil;
-  self.settingView          = nil;
-  self.nameSettingField     = nil;
-  self.nameSettingMessage   = nil;
-  self.transparentView      = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     // Custom initialization
     [self setTitle:NSLocalizedString(@"Trainer Card", nil)];
     self.trainer = [TrainerController sharedInstance];
@@ -161,7 +132,8 @@ typedef enum {
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   
   // Constants
@@ -292,7 +264,8 @@ typedef enum {
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Basic Setting
@@ -323,7 +296,8 @@ typedef enum {
     [self viewWillAppear:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
   
   // Set new data
@@ -334,12 +308,35 @@ typedef enum {
   [self.badgeView updateBadges:[self.trainer badges]];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  
+  self.mainView                  = nil;
+  self.avatarArea                = nil;
+  self.imageView                 = nil;
+  self.IDView                    = nil;
+  self.IDLabel                   = nil;
+  self.nameLabel                 = nil;
+  self.dataView                  = nil;
+  self.moneyLabel                = nil;
+  self.moneyValue                = nil;
+  self.pokedexLabel              = nil;
+  self.pokedexValue              = nil;
+  self.badgeView                 = nil;
+  self.adventureStartedTimeLabel = nil;
+  self.adventureStartedTimeValue = nil;
+  
+  self.avatarSetttingButton = nil;
+  self.nameSettingButton    = nil;
+  self.settingView          = nil;
+  self.nameSettingField     = nil;
+  self.nameSettingMessage   = nil;
+  self.transparentView      = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -347,7 +344,8 @@ typedef enum {
 #pragma mark - Private Method
 
 // Action for tap gesture recognizer
-- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer
+{
   // Two fingers with two taps to show setting buttons for Trainer Info View
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2) {
     NSLog(@"Two Fingers Two Taps");
@@ -355,7 +353,9 @@ typedef enum {
   }
 }
 
-- (void)_setSettingButtonsHidden:(BOOL)hidden animated:(BOOL)animated {
+- (void)_setSettingButtonsHidden:(BOOL)hidden
+                        animated:(BOOL)animated
+{
   isSetttingButtonsHidden_ = hidden;
   
   /*if (self.avatarSetttingButton == nil) {
@@ -406,7 +406,8 @@ typedef enum {
   else animations();
 }
 
-- (void)_showSettingView:(id)sender {
+- (void)_showSettingView:(id)sender
+{
   if (self.transparentView == nil) {
     UIView * transparentView = [[UIView alloc] initWithFrame:self.view.frame];
     self.transparentView = transparentView;
@@ -495,7 +496,8 @@ typedef enum {
 }
 
 // Commit settings done by user
-- (void)_commitSetting {
+- (void)_commitSetting
+{
   NSLog(@"|_commitSetting| - InputText:%@", self.nameSettingField.text);
   // If user changed name, reset |trainer_.name| & |nameLabel_.text|
   NSString * name = self.nameSettingField.text;
@@ -544,7 +546,8 @@ typedef enum {
 }
 
 // Cancel |settingView_|
-- (void)_cancelSettingViewAnimated:(BOOL)animated {
+- (void)_cancelSettingViewAnimated:(BOOL)animated
+{
   [self.nameSettingField resignFirstResponder];
   
   void (^animations)() = ^{

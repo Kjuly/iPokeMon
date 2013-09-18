@@ -36,7 +36,6 @@
 @property (nonatomic, strong) PokemonDetailTabViewController * pokemonDetailTabViewController;
 @property (nonatomic, strong) CAAnimationGroup               * animationGroupForNotReplacing;
 
-- (void)_releaseSubviews;
 - (void)_loadPokemonSelectionViewAnimated:(BOOL)animated;
 - (void)_showPokemonSelectionView:(id)sender;
 
@@ -55,23 +54,15 @@
 @synthesize pokemonDetailTabViewController = pokemonDetailTabViewController_;
 @synthesize animationGroupForNotReplacing  = animationGroupForNotReplacing_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.pokemonSelectionButton = nil;
-  self.backgroundView         = nil;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -81,13 +72,15 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, kViewWidth, kViewHeight)];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   // Basic Setting
   selectedPokemonSID_     = 0;
@@ -118,19 +111,23 @@
   [self.view addSubview:backgroundView_];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.pokemonSelectionButton = nil;
+  self.backgroundView         = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - GameMenuSixPokemonsUnitViewDelegate
 
-- (void)checkUnit:(id)sender {
+- (void)checkUnit:(id)sender
+{
   if (currOpeningUnitViewTag_) {
     GameMenuSixPokemonsUnitView * unitView =
       (GameMenuSixPokemonsUnitView *)[self.view viewWithTag:currOpeningUnitViewTag_];
@@ -140,12 +137,14 @@
   currOpeningUnitViewTag_ = ((UIButton *)sender).tag;
 }
 
-- (void)resetUnit {
+- (void)resetUnit
+{
   currOpeningUnitViewTag_ = 0;
 }
 
 // Button action to confirm selected Pokemon
-- (void)confirm:(id)sender {
+- (void)confirm:(id)sender
+{
   [self unloadPokemonSelectionViewAnimated:YES];
   
   currSelectedPokemon_ = ((UIButton *)sender).tag;
@@ -155,7 +154,8 @@
 }
 
 // Button action to open |pokemonDetailTabViewController|'s view
-- (void)openInfoView:(id)sender {
+- (void)openInfoView:(id)sender
+{
   WildPokemon * pokemon = [self.pokemons objectAtIndex:((UIButton *)sender).tag - 1];
   NSInteger pokemonSID = [pokemon.sid intValue];
   
@@ -180,9 +180,11 @@
 #pragma mark - Public Methods
 
 // Initialize the Pokemons' data for selection
-- (void)initWithPokemonsWithSIDs:(NSArray *)pokemonSIDs {
+- (void)initWithPokemonsWithSIDs:(NSArray *)pokemonSIDs
+{
   NSInteger pokemonsCount = [pokemonSIDs count];
-  self.pokemons = [WildPokemon queryUniquePokemonsWithSIDs:pokemonSIDs fetchLimit:pokemonsCount];
+  self.pokemons = [WildPokemon queryUniquePokemonsWithSIDs:pokemonSIDs
+                                                fetchLimit:pokemonsCount];
   
   // If fetched Pokemons number is less than |pokemonsCount|,
   //   add new Pokemons to |WildPokemon| with the |pokemonSIDs|
@@ -199,7 +201,8 @@
   // Constants
   CGFloat buttonSize  = kCenterMainButtonSize;
   CGFloat buttonDelta = buttonSize + 10.f;
-  CGRect  originFrame = CGRectMake(0.f, kViewHeight - buttonSize / 2 - (pokemonsCount + 1) * buttonDelta, kViewWidth, buttonSize);
+  CGRect  originFrame = CGRectMake(0.f, kViewHeight - buttonSize * .5f - (pokemonsCount + 1) * buttonDelta,
+                                   kViewWidth, buttonSize);
   
   // Create Pokemon unit views
   for (int i = 0; i < pokemonsCount;) {
@@ -231,9 +234,12 @@
 }
 
 // Unload view
-- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated {
+- (void)unloadPokemonSelectionViewAnimated:(BOOL)animated
+{
   // Post notification to |NewbieGuideViewController| to show |confirmButton_|
-  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide object:self userInfo:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kPMNShowConfirmButtonInNebbieGuide
+                                                      object:self
+                                                    userInfo:nil];
   
   [self.pokemonSelectionButton setAlpha:1.f];
   void (^animation)() = ^(){
@@ -263,7 +269,8 @@
 }
 
 // Unload selected Pokemon's info view
-- (void)unloadSelcetedPokemonInfoView {
+- (void)unloadSelcetedPokemonInfoView
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionCurveEaseInOut
@@ -282,7 +289,8 @@
 #pragma mark - Private Methods
 
 // Load view
-- (void)_loadPokemonSelectionViewAnimated:(BOOL)animated {
+- (void)_loadPokemonSelectionViewAnimated:(BOOL)animated
+{
   void (^animationsToShowPokemons)() = ^(){
     if (self.animationGroupForNotReplacing == nil) {
       CGFloat duration = .6f;
@@ -331,7 +339,8 @@
 }
 
 // Show Pokemon Selection view
-- (void)_showPokemonSelectionView:(id)sender {
+- (void)_showPokemonSelectionView:(id)sender
+{
   // Post notification to |NewbieGuideViewController| to hide |confirmButton_|
   [[NSNotificationCenter defaultCenter] postNotificationName:kPMNHideConfirmButtonInNebbieGuide object:self userInfo:nil];
   [self _loadPokemonSelectionViewAnimated:YES];

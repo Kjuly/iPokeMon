@@ -23,8 +23,6 @@
 @property (nonatomic, strong) PokemonInfoLabelView * expLabelView;
 @property (nonatomic, strong) PokemonInfoLabelView * toNextLevelLabelView;
 
-- (void)_releaseSubviews;
-
 @end
 
 
@@ -36,19 +34,8 @@
 @synthesize expBarTotal          = expBarTotal_;
 @synthesize expBarCurrntPoint    = expBarCurrntPoint_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
-}
-
-- (void)_releaseSubviews {
-  self.levelLabelView       = nil;
-  self.expLabelView         = nil;
-  self.toNextLevelLabelView = nil;
-  self.expBarTotal          = nil;
-  self.expBarCurrntPoint    = nil;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -58,12 +45,14 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -83,7 +72,8 @@
   UIView * dataView = [[UIView alloc] initWithFrame:dataViewFrame];
   
   // Type
-  PokemonInfoLabelView * typeLabelView = [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
+  PokemonInfoLabelView * typeLabelView =
+    [[PokemonInfoLabelView alloc] initWithFrame:typeLabelViewFrame hasValueLabel:YES];
   [typeLabelView.name  setText:NSLocalizedString(@"PMSLabelType", nil)];
   NSString * types =
     KYResourceLocalizedString(([NSString stringWithFormat:@"PMSType%.2d", [pokemonBaseInfo.type1 intValue]]), nil);
@@ -106,7 +96,8 @@
   [dataView addSubview:expLabelView_];
   
   // To Next Level
-  toNextLevelLabelView_ = [[PokemonInfoLabelView alloc] initWithFrame:toNextLevelLabelViewFrame hasValueLabel:YES];
+  toNextLevelLabelView_ =
+    [[PokemonInfoLabelView alloc] initWithFrame:toNextLevelLabelViewFrame hasValueLabel:YES];
   [toNextLevelLabelView_ adjustNameLabelWidthWith:80.f];
   [toNextLevelLabelView_.name setText:NSLocalizedString(@"PMSLabelToNextLevel", nil)];
   [dataView addSubview:toNextLevelLabelView_];
@@ -128,12 +119,18 @@
     [self viewWillAppear:YES];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.levelLabelView       = nil;
+  self.expLabelView         = nil;
+  self.toNextLevelLabelView = nil;
+  self.expBarTotal          = nil;
+  self.expBarCurrntPoint    = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
   
   [self.levelLabelView.value       setText:[self.pokemon.level       stringValue]];

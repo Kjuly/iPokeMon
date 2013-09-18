@@ -150,7 +150,7 @@
 // Override |KYArcTabViewController|'s |-setup|
 - (void)setup {
   // Set View Frame
-  CGFloat marginTop = withTopbar_ ? kTopBarHeight : 0.f;
+  CGFloat marginTop = withTopbar_ ? kTopBarHeight + kKYStatusBarHeight : kKYStatusBarHeight;
   self.viewFrame = CGRectMake(0.f, 0.f, kViewWidth, kViewHeight - marginTop);
   
   // Add child view controllers to each tab
@@ -165,7 +165,7 @@
   
   // Set child views' Frame
   CGRect childViewFrame =
-  CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
+    CGRectMake(0.f, kTopIDViewHeight, kViewWidth, kViewHeight - kTopIDViewHeight);
   [sixPokemonsInfoViewController.view  setFrame:childViewFrame];
   [sixPokemonsMemoViewController.view  setFrame:childViewFrame];
   [sixPokemonsSkillViewController.view setFrame:childViewFrame];

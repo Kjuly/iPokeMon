@@ -38,13 +38,14 @@
 @synthesize trainer                  = trainer_;
 @synthesize fetchedResultsController = fetchedResultsController_;
 
-- (void)dealloc {
+- (void)dealloc
+{
   self.fetchedResultsController.delegate = nil;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style {
-  self = [super initWithStyle:style];
-  if (self) {
+- (id)initWithStyle:(UITableViewStyle)style
+{
+  if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"Pokedex", nil)];
     self.trainer = [TrainerController sharedInstance];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -61,7 +62,8 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -70,61 +72,52 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kPMINBackgroundBlack]]];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
 //  id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController_ sections] objectAtIndex:section];
 //  return [sectionInfo numberOfObjects];
   return [[self.trainer pokedex] length] * 4;
 //  return 151;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfPokedexTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-  PokedexTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString * cellIdentifier = @"Cell";
+  PokedexTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[PokedexTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                        reuseIdentifier:CellIdentifier];
+                                       reuseIdentifier:cellIdentifier];
     [cell.labelSubtitle setTextColor:[GlobalRender textColorNormal]];
   }
   
@@ -183,7 +176,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   NSInteger rowID = [indexPath row];
   if ([[self.trainer pokedex] isBinary1AtIndex:(rowID + 1)]) {
     PokemonDetailTabViewController * pokemonDetailTabViewController;
@@ -197,7 +191,8 @@
 
 // configure the data for table veiw cell
 - (void)_configureCell:(PokedexTableViewCell *)cell
-           atIndexPath:(NSIndexPath *)indexPath {
+           atIndexPath:(NSIndexPath *)indexPath
+{
   Pokemon * pokemon = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [cell.labelTitle setText:
     KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d", [pokemon.sid intValue]]), nil)];
@@ -206,13 +201,15 @@
 
 #pragma mark - NSFetchedResultsController Delegate
 
-- (NSFetchedResultsController *)fetchedResultsController {
+- (NSFetchedResultsController *)fetchedResultsController
+{
   if (fetchedResultsController_ != nil)
     return fetchedResultsController_;
   
   NSLog(@"PokedexTableViewController fetchedResultsController_ == nil, generating a new one...");
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-  NSManagedObjectContext * context = [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
+  NSManagedObjectContext * context =
+    [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([Pokemon class])
                                              inManagedObjectContext:context];
   [fetchRequest setEntity:entity];
@@ -243,7 +240,8 @@
 
 
 // NSFetchedResultsControllerDelegate for TableView
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
   // The fetch controller is about to start sending change notifications,
   //   so prepare the table view for updates.
   [self.tableView beginUpdates];
@@ -253,7 +251,8 @@
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
   UITableView * tableView = self.tableView;
   switch(type) {
     case NSFetchedResultsChangeInsert:
@@ -283,7 +282,8 @@
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
-     forChangeType:(NSFetchedResultsChangeType)type {
+     forChangeType:(NSFetchedResultsChangeType)type
+{
   switch(type) {
     case NSFetchedResultsChangeInsert:
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
@@ -297,7 +297,8 @@
   }
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
   // The fetch controller has sent all current change notifications,
   //   so tell the table view to process all updates.
   [self.tableView endUpdates];

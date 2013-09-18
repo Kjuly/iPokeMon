@@ -10,8 +10,9 @@
 
 #import "BagItemTableViewHiddenCell.h"
 
-@interface StoreItemTableViewController : UITableViewController
-  <BagItemTableViewHiddenCellDelegate>
+@interface StoreItemTableViewController : UITableViewController <
+  BagItemTableViewHiddenCellDelegate
+>
 
 - (id)initWithBagItem:(BagQueryTargetType)targetType;
 - (void)setBagItem:(BagQueryTargetType)targetType;

@@ -23,10 +23,11 @@
 
 @end
 
+
 @implementation GameEnemyProcess
 
-
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
     complete_      = NO;
     numberOfMoves_ = 0;
@@ -34,7 +35,8 @@
   return self;
 }
 
-- (void)update:(ccTime)dt {
+- (void)update:(ccTime)dt
+{
   if (complete_) {
     [[GameStatusMachine sharedInstance] endStatus:kGameStatusEnemyTurn];
     complete_ = NO;
@@ -42,14 +44,16 @@
   else [self _attack];
 }
 
-- (void)endTurn {
+- (void)endTurn
+{
   complete_ = YES;
 }
 
 #pragma mark - Private Methods
 
 // Do Move Attack
-- (void)_attack {
+- (void)_attack
+{
   // Get number of Moves in |fourMoves_|
   if (numberOfMoves_ == 0)
     numberOfMoves_ = [[GameSystemProcess sharedInstance].enemyPokemon numberOfMoves];

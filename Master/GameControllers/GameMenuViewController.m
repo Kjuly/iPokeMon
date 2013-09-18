@@ -82,7 +82,6 @@ typedef enum {
 //@property (nonatomic, retain) UITapGestureRecognizer   * twoFingersOneTapGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer   * gameBattleLogTableViewTapGestureRecognizer;
 
-- (void)releaseSubviews;
 - (void)_initSubviews;
 - (void)_initGestureRecognizers;
 - (void)_setupNotificationObservers;
@@ -139,26 +138,18 @@ typedef enum {
 //@synthesize twoFingersOneTapGestureRecognizer  = twoFingersOneTapGestureRecognizer_;
 @synthesize gameBattleLogTableViewTapGestureRecognizer = gameBattleLogTableViewTapGestureRecognizer_;
 
-- (void)dealloc {
+- (void)dealloc
+{
   self.delegate = nil;
-  [self releaseSubviews];
-  
-  
 //  self.twoFingersOneTapGestureRecognizer  = nil;
   
   // Rmove observer for notification
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)releaseSubviews {
-  self.menuArea         = nil;
-  self.pokemonImageView = nil;
-  self.pokeball         = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
+- (id)init
+{
+  return (self = [super init]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,13 +162,15 @@ typedef enum {
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   UIView * view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
   self.view = view;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Base Settings
@@ -191,9 +184,12 @@ typedef enum {
   [self _setupNotificationObservers];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self releaseSubviews];
+  self.menuArea         = nil;
+  self.pokemonImageView = nil;
+  self.pokeball         = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -204,7 +200,8 @@ typedef enum {
 #pragma mark - Private Methods
 
 // init methods
-- (void)_initSubviews {
+- (void)_initSubviews
+{
   // Constants
   CGRect gameBattleLogTableViewFrame  = CGRectMake(0.f,
                                                    kViewHeight - kGameMenuBattleLogViewHeight,
@@ -240,16 +237,17 @@ typedef enum {
   
   // Pokemon Image View (for animation of getting back pokemon)
   UIImageView * pokemonImageView =
-  [[UIImageView alloc] initWithFrame:CGRectMake(70.f, kViewHeight, kGameBattlePMSize, kGameBattlePMSize)];
+    [[UIImageView alloc] initWithFrame:
+      CGRectMake(70.f, kViewHeight, kGameBattlePMSize, kGameBattlePMSize)];
   self.pokemonImageView = pokemonImageView;
   [self.view addSubview:self.pokemonImageView];
   
   // Pokeball
   UIImageView * pokeball =
-  [[UIImageView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
-                                                kViewHeight,
-                                                kGameMenuPokeballSize,
-                                                kGameMenuPokeballSize)];
+    [[UIImageView alloc] initWithFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) * .5f,
+                                                  kViewHeight,
+                                                  kGameMenuPokeballSize,
+                                                  kGameMenuPokeballSize)];
   self.pokeball = pokeball;
   [self.pokeball setContentMode:UIViewContentModeScaleAspectFit];
   [self.pokeball setImage:[UIImage imageNamed:kPMINBattleElementPokeball]];
@@ -257,7 +255,8 @@ typedef enum {
 }
 
 // initialize gesture recognizers
-- (void)_initGestureRecognizers {
+- (void)_initGestureRecognizers
+{
   // Swipte to RIGHT, open move view or close bag view
   UISwipeGestureRecognizer * swipeRightGestureRecognizer =
     [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(_swipeView:)];
@@ -313,7 +312,8 @@ typedef enum {
 }
 
 // initialize notification observers
-- (void)_setupNotificationObservers {
+- (void)_setupNotificationObservers
+{
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   // Add observer for notfication from |GameMenuAbstractChildViewController|
   [notificationCenter addObserver:self
@@ -358,7 +358,8 @@ typedef enum {
 }
 
 // toggle game battle log table view
-- (void)_toggleGameBattleLogTableView {
+- (void)_toggleGameBattleLogTableView
+{
   CGRect viewFrame = self.gameBattleLogTableViewController.view.frame;
   if (viewFrame.size.height == kGameMenuBattleLogViewHeight) {
     viewFrame.size.height = kViewHeight;
@@ -378,13 +379,15 @@ typedef enum {
 }
 
 // Update key view
-- (void)_updateGameMenuKeyView:(NSNotification *)notification {
+- (void)_updateGameMenuKeyView:(NSNotification *)notification
+{
   gameMenuKeyView_ = kGameMenuKeyViewNone;
 }
 
 // Button actions
 // Toggle six pokemons' view
-- (void)_toggleSixPokemonView {
+- (void)_toggleSixPokemonView
+{
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
       [self.view addSubview:self.gameMenuSixPokemonsViewController.view];
@@ -403,7 +406,8 @@ typedef enum {
 }
 
 // Replace the battle pokemon
-- (void)_replacePokemon:(NSNotification *)notification {
+- (void)_replacePokemon:(NSNotification *)notification
+{
   gameMenuKeyView_ = kGameMenuKeyViewNone;
   
   CGFloat baseDalay = 0.f;
@@ -421,14 +425,16 @@ typedef enum {
 }
 
 // Try to catch Wild Pokemon
-- (void)_catchWildPokemon:(NSNotification *)notification {
+- (void)_catchWildPokemon:(NSNotification *)notification
+{
   gameMenuKeyView_ = kGameMenuKeyViewNone;
   // Throw Pokeball to WildPokemon
   [self performSelector:@selector(_throwPokeballToCatchPokemon) withObject:nil afterDelay:1.f];
 }
 
 // Get current battling pokemon back from scene
-- (void)_getPokemonBack {
+- (void)_getPokemonBack
+{
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(70.f, 230.f)];
   [path addCurveToPoint:CGPointMake(100.f, 250.f)
@@ -498,7 +504,8 @@ typedef enum {
 }
 
 // Update data for new Pokemon (generally dispatched after method:|_getPokemonBack|)
-- (void)_updateForNewPokemon {
+- (void)_updateForNewPokemon
+{
   // Post notification to |GameBattleLayer| to replace pokemon sprite
   NSInteger newPokemonIndex = self.gameMenuSixPokemonsViewController.currBattlePokemon - 1;
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -513,7 +520,8 @@ typedef enum {
 }
 
 // Throw Pokeball to send new pokemon to scene, replace the old one
-- (void)_throwPokeballToReplacePokemon {
+- (void)_throwPokeballToReplacePokemon
+{
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];
   [path addCurveToPoint:CGPointMake(100.f, 250.f)
@@ -592,7 +600,8 @@ typedef enum {
 }
 
 // Try to throw a Pokeball to cathch WildPokemon
-- (void)_throwPokeballToCatchPokemon {
+- (void)_throwPokeballToCatchPokemon
+{
   UIBezierPath * path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(kViewWidth / 2, kViewHeight)];
   [path addCurveToPoint:CGPointMake(220.f, 140.f)
@@ -663,7 +672,8 @@ typedef enum {
 }
 
 // Check Pokeball whether the Wild Pokemon caught with animations
-- (void)_checkPokeball:(NSNotification *)notification {  
+- (void)_checkPokeball:(NSNotification *)notification
+{
   // Basic Settings
   CGFloat duration = .3f;
   NSArray * keyTimes = [NSArray arrayWithObjects:
@@ -718,7 +728,8 @@ typedef enum {
 }
 
 // Reset Pokeball
-- (void)_resetPokeball:(NSNotification *)notification {
+- (void)_resetPokeball:(NSNotification *)notification
+{
   [self.pokeball setFrame:CGRectMake((kViewWidth - kCenterMainButtonSize) / 2,
                                      kViewHeight,
                                      kGameMenuPokeballSize,
@@ -726,7 +737,8 @@ typedef enum {
 }
 
 // Action for |buttonFight_|
-- (void)_openMoveView {
+- (void)_openMoveView
+{
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (self.gameMenuMoveViewController == nil) {
       GameMenuMoveViewController * gameMenuMoveViewController = [[GameMenuMoveViewController alloc] init];
@@ -742,7 +754,8 @@ typedef enum {
 }
 
 // Action for |buttonBag_|
-- (void)_openBagView {
+- (void)_openBagView
+{
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     if (self.gameMenuBagViewController == nil) {
       GameMenuBagViewController * gameMenuBagViewController = [[GameMenuBagViewController alloc] init];
@@ -755,7 +768,8 @@ typedef enum {
 }
 
 // Action for |buttonRun_|
-- (void)_openRunConfirmView {
+- (void)_openRunConfirmView
+{
   if (self.gameStatusMachine.status == kGameStatusPlayerTurn) {
     UIAlertView * runConfirmView = [UIAlertView alloc];
     (void)[runConfirmView initWithTitle:nil
@@ -768,7 +782,8 @@ typedef enum {
 }
 
 // Notification for |centerMainButton_| at view bottom
-- (void)_toggleSixPokemonsView:(NSNotification *)notification {
+- (void)_toggleSixPokemonsView:(NSNotification *)notification
+{
   // Toggle SixPokemons'view only when 
   //   the key view is None or |kGameMenuKeyViewSixPokemonsView|
   if (gameMenuKeyView_ == kGameMenuKeyViewNone ||
@@ -779,7 +794,8 @@ typedef enum {
 }
 
 // Update message for game battle
-- (void)_updateMessage:(NSNotification *)notification {
+- (void)_updateMessage:(NSNotification *)notification
+{
   NSDictionary * userInfo = notification.userInfo;
   
   // Different colors for different type of message owner (action user)
@@ -816,7 +832,8 @@ typedef enum {
 }
 
 // Update Pokemon's Status
-- (void)_updatePokemonStatus:(NSNotification *)notification {
+- (void)_updatePokemonStatus:(NSNotification *)notification
+{
   NSInteger target = [[notification.userInfo objectForKey:@"target"] intValue];
   if (target & kMoveRealTargetPlayer)
     [self.playerPokemonStatusViewController updatePokemonStatus:notification.userInfo];
@@ -827,7 +844,8 @@ typedef enum {
 #pragma mark - Gestures ()
 
 // Action for swipe gesture recognizer
-- (void)_swipeView:(UISwipeGestureRecognizer *)recognizer {
+- (void)_swipeView:(UISwipeGestureRecognizer *)recognizer
+{
   void (^animations)();
   
   switch (recognizer.direction) {
@@ -848,7 +866,8 @@ typedef enum {
     case UISwipeGestureRecognizerDirectionUp: {
       if (gameMenuKeyView_ == kGameMenuKeyViewNone) {
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
-        playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuBattleLogViewHeight - kGameMenuPMStatusViewHeight;
+        playerPokemonStatusViewFrame.origin.y =
+          kViewHeight - kGameMenuBattleLogViewHeight - kGameMenuPMStatusViewHeight;
         animations = ^(){
           [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
         };
@@ -887,13 +906,15 @@ typedef enum {
 }
 
 // Action for tap gesture recognizer
-- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapViewAction:(UITapGestureRecognizer *)recognizer
+{
   if (recognizer.numberOfTouchesRequired == 2 && recognizer.numberOfTapsRequired == 2)
     [self _openRunConfirmView];
 }
 
 // Cancel key view except |targetView|
-- (void)_cancelKeyViewExcept:(GameMenuKeyView)targetView {
+- (void)_cancelKeyViewExcept:(GameMenuKeyView)targetView
+{
   if (gameMenuKeyView_ == targetView)
     return;
   
@@ -920,7 +941,8 @@ typedef enum {
     case kGameMenuKeyViewPlayerPokemonStatusView: {
       animations = ^{
         CGRect playerPokemonStatusViewFrame = self.playerPokemonStatusViewController.view.frame;
-        playerPokemonStatusViewFrame.origin.y = kViewHeight - kGameMenuBattleLogViewHeight - kGameMenuPMStatusHPBarHeight;
+        playerPokemonStatusViewFrame.origin.y =
+          kViewHeight - kGameMenuBattleLogViewHeight - kGameMenuPMStatusHPBarHeight;
         [self.playerPokemonStatusViewController.view setFrame:playerPokemonStatusViewFrame];
       };
       break;
@@ -928,7 +950,8 @@ typedef enum {
       
     case kGameMenuKeyViewEnemyPokemonStatusView: {
       CGRect enemyPokemonStatusViewFrame = self.enemyPokemonStatusViewController.view.frame;
-      enemyPokemonStatusViewFrame.origin.y = - (kGameMenuPMStatusViewHeight - kGameMenuPMStatusHPBarHeight);
+      enemyPokemonStatusViewFrame.origin.y =
+        - (kGameMenuPMStatusViewHeight - kGameMenuPMStatusHPBarHeight);
       animations = ^{
         [self.enemyPokemonStatusViewController.view setFrame:enemyPokemonStatusViewFrame];
       };
@@ -950,7 +973,8 @@ typedef enum {
 
 #pragma mark - Public Methods
 
-- (void)prepareForNewScene {
+- (void)prepareForNewScene
+{
   if (self.gameMenuSixPokemonsViewController == nil) {
     GameMenuSixPokemonsViewController * gameMenuSixPokemonViewController =
       [[GameMenuSixPokemonsViewController alloc] init];
@@ -966,7 +990,8 @@ typedef enum {
                                                                //   !!!TODO, if first one is not available!
 }
 
-- (void)reset {
+- (void)reset
+{
   [self.playerPokemonStatusViewController reset];
   [self.enemyPokemonStatusViewController  reset];
   [self _resetPokeball:nil];
@@ -974,7 +999,9 @@ typedef enum {
 
 #pragma mark - Animation delegate
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- (void)animationDidStop:(CAAnimation *)anim
+                finished:(BOOL)flag
+{
   if ([[anim valueForKey:@"animationType"] isEqualToString:@"throwPokeballToCatchWildPokemon"]) {
     CGFloat scale = .5f;
     [self.pokeball setFrame:CGRectMake(kGameBattleEnemyPokemonPosX - kGameMenuPokeballSize / 2 * scale,
@@ -990,7 +1017,8 @@ typedef enum {
 
 // Sent to the delegate when the user clicks a button on an alert view.
 - (void)   alertView:(UIAlertView *)alertView
-clickedButtonAtIndex:(NSInteger)buttonIndex {
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
   if (buttonIndex == 0)
     [[GameSystemProcess sharedInstance]
       endBattleWithEventType:kGameBattleEndEventTypeRun];

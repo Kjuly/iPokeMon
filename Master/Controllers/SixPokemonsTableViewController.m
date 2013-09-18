@@ -37,14 +37,16 @@
 @synthesize tapGestureRecognizer = tapGestureRecognizer_;
 
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
   if (self = [super initWithStyle:style]) {
     [self setTitle:NSLocalizedString(@"Pokemon", nil)];
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -53,8 +55,10 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
+  
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
   
   // Basic setting
@@ -74,11 +78,13 @@
     [self viewWillAppear:YES];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
   [super viewWillAppear:animated];
   self.sixPokemons = [NSMutableArray arrayWithArray:[self.trainer sixPokemons]];
   NSLog(@"%@, %@, %@", [self.trainer sixPokemonsUID], [self.trainer sixPokemons], self.trainer);
@@ -86,45 +92,53 @@
   [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
   [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
   [super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
   [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
   return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
   return [self.sixPokemons count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kCellHeightOfSixPokemonsTableView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString * cellIdentifier = @"Cell";
   
-  SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  SixPokemonsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[SixPokemonsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                            reuseIdentifier:CellIdentifier];
+                                           reuseIdentifier:cellIdentifier];
   }
   
   // Configure the cell...
@@ -152,16 +166,20 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
-           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return UITableViewCellEditingStyleNone;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)           tableView:(UITableView *)tableView
+indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return 0;
 }
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
   // Return NO if you do not want the specified item to be editable.
   return YES;
 }
@@ -183,7 +201,8 @@
 // Override to support rearranging the table view.
 - (void) tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
-       toIndexPath:(NSIndexPath *)toIndexPath {
+       toIndexPath:(NSIndexPath *)toIndexPath
+{
   NSInteger sourceRow      = [fromIndexPath row];
   NSInteger destinationRow = [toIndexPath   row];
   [self.trainer replacePokemonAtIndex:sourceRow toIndex:destinationRow];
@@ -201,14 +220,16 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 }
 
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
   // Return NO if you do not want the item to be re-orderable.
   return YES;
 }
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
   SixPokemonsDetailTabViewController * sixPokemonsDetailTabViewController;
   sixPokemonsDetailTabViewController = [SixPokemonsDetailTabViewController alloc];
   (void)[sixPokemonsDetailTabViewController initWithPokemon:[self.sixPokemons objectAtIndex:[indexPath row]]
@@ -219,7 +240,8 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 #pragma mark - Private Methods
 
 // Tap gesture action
-- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer {
+- (void)_tapGestureAction:(UITapGestureRecognizer *)recognizer
+{
   if ([self.tableView isEditing])
     [self.tableView setEditing:NO animated:YES];
   else

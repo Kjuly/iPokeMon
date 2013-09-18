@@ -13,7 +13,8 @@
 @implementation GTMOAuth2ViewControllerTouch (Custom)
 
 // Overwrite method:|viewDidLoad|
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   // the app may prefer some html other than blank white to be displayed
   // before the sign-in web page loads
   self.initialHTMLString =
@@ -37,7 +38,8 @@
 }
 
 // Overwrite method:|popView|
-- (void)popView {
+- (void)popView
+{
   if (self.navigationController.topViewController == self) {
     if (! self.view.isHidden) {
       // Set the flag to our viewWillDisappear method so it knows

@@ -23,7 +23,6 @@
 
 @property (nonatomic, strong) UILabel * pokemonHP;
 
-- (void)_releaseSubviews;
 - (void)_toggleStatusBar;
 
 @end
@@ -34,21 +33,13 @@
 @synthesize pokemonEXPBar = pokemonEXPBar_;
 @synthesize pokemonHP     = pokemonHP_;
 
-- (void)dealloc {
-  [self _releaseSubviews];
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (void)_releaseSubviews {
-  self.pokemonEXPBar     = nil;
-  self.pokemonHP         = nil;
-}
-
-- (id)init {
-  self = [super init];
-  return self;
-}
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -63,7 +54,8 @@
 //}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Constants
@@ -89,12 +81,15 @@
   isStatusBarOpening_ = NO;
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
-  [self _releaseSubviews];
+  self.pokemonEXPBar     = nil;
+  self.pokemonHP         = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -102,18 +97,23 @@
 #pragma mark - Public Methods
 
 // Parent |GamePokemonStatusViewController|
-- (void)updatePokemonStatus:(NSDictionary *)statusInfo {
+- (void)updatePokemonStatus:(NSDictionary *)statusInfo
+{
   [super updatePokemonStatus:statusInfo];
   
-  if ([statusInfo objectForKey:@"playerPokemonHP"])
-    [self.pokemonHPBar updateHPBarWithHP:[[statusInfo objectForKey:@"playerPokemonHP"] intValue]];
-  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d", [self.pokemonHPBar hp], [self.pokemonHPBar hpMax]]];
+  if ([statusInfo objectForKey:@"playerPokemonHP"]) {
+    [self.pokemonHPBar updateHPBarWithHP:
+     [[statusInfo objectForKey:@"playerPokemonHP"] intValue]];
+  }
+  [self.pokemonHP setText:[NSString stringWithFormat:@"%d / %d",
+                           [self.pokemonHPBar hp], [self.pokemonHPBar hpMax]]];
   
   if ([statusInfo objectForKey:@"Exp"])
     [self.pokemonEXPBar updateExpBarWithExp:[[statusInfo objectForKey:@"Exp"] intValue]];
 }
 
-- (void)prepareForNewScene {
+- (void)prepareForNewScene
+{
   TrainerTamedPokemon * playerPokemon = [GameSystemProcess sharedInstance].playerPokemon;
   [self.pokemonName setText:KYResourceLocalizedString(([NSString stringWithFormat:@"PMSName%.3d",
                                                         [playerPokemon.sid intValue]]), nil)];
@@ -131,14 +131,16 @@
                                    expMax:expMax];
 }
 
-- (void)reset {
+- (void)reset
+{
   [super reset];
   if (isStatusBarOpening_) [self _toggleStatusBar];
 }
 
 #pragma mark - Private Methods
 
-- (void)_toggleStatusBar {
+- (void)_toggleStatusBar
+{
   CGRect viewFrame = CGRectMake(0.f, 0.f, 280.f, 65.f);
   if (isStatusBarOpening_)
     viewFrame.origin.x += 100.f;

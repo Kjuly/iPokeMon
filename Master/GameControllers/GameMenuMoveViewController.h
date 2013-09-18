@@ -10,8 +10,9 @@
 
 #import "GameMenuMoveUnitView.h"
 
-@interface GameMenuMoveViewController : GameMenuAbstractChildViewController
-  <GameMenuMoveUnitViewDelegate>
+@interface GameMenuMoveViewController : GameMenuAbstractChildViewController <
+  GameMenuMoveUnitViewDelegate
+>
 
 - (void)updateFourMoves;
 

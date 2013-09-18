@@ -20,29 +20,29 @@
 
 @implementation CustomNavigationController
 
-- (void)dealloc {
+- (void)dealloc
+{
   self.navigationBar.delegate = nil;
 }
 
-- (id)init {
-  self = [super init];
-  if (self) {
-    NSLog(@"......INIT......");
-  }
-  return self;
+- (id)init
+{
+  return (self = [super init]);
 }
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController {
+- (id)initWithRootViewController:(UIViewController *)rootViewController
+{
   // Setup navigation bar with the custom one before do initialization job
   // In iOS6, |-initWithRootViewController:| won't send |-init| message
   [self _setupNavigationBar];
-  self = [super initWithRootViewController:rootViewController];
-  if (self) {
+  if (self = [super initWithRootViewController:rootViewController]) {
+    
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -52,21 +52,25 @@
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)loadView
+{
   [super loadView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   [self.view setFrame:(CGRect){CGPointZero, {kViewWidth, kViewHeight}}];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
   // Return YES for supported orientations
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -74,7 +78,8 @@
 #pragma mark - Private Method
 
 // Setup |navigationBar|
-- (void)_setupNavigationBar {
+- (void)_setupNavigationBar
+{
   NSLog(@"...SETUP NavigationBar...");
   CustomNavigationBar * customNavigationBar = [CustomNavigationBar alloc];
   (void)[customNavigationBar initWithFrame:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
@@ -82,6 +87,9 @@
   customNavigationBar.dataSource = self;
   [self setValue:customNavigationBar forKey:@"navigationBar"];
   [self setNavigationBarHidden:YES];
+  if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    [self.navigationBar setTranslucent:NO];
+  }
 }
 
 #pragma mark - Overwrited UINavigationController Methods
@@ -89,7 +97,8 @@
 // Uses a horizontal slide transition.
 // Has no effect if the view controller is already in the stack.
 - (void)pushViewController:(UIViewController *)viewController
-                  animated:(BOOL)animated {
+                  animated:(BOOL)animated
+{
   // Set original |backButton| hidden to show custom |backButton|
   [viewController.navigationItem setHidesBackButton:YES];
        
@@ -115,21 +124,26 @@
 
 #pragma mark - CustomNavigationBar Delegate
 
-- (void)customNavigationBarWillHide:(BOOL)hide animated:(BOOL)animated {
+- (void)customNavigationBarWillHide:(BOOL)hide
+                           animated:(BOOL)animated
+{
   [self setNavigationBarHidden:hide animated:animated];
 }
 
-- (void)customNavigationBarWillBackToRootAnimated:(BOOL)animated {
+- (void)customNavigationBarWillBackToRootAnimated:(BOOL)animated
+{
   [self popToRootViewControllerAnimated:animated];
 }
 
-- (void)customNavigationBarWillBackToPreviousAnimated:(BOOL)animated {
+- (void)customNavigationBarWillBackToPreviousAnimated:(BOOL)animated
+{
   [self popViewControllerAnimated:animated];
 }
 
 #pragma mark - CustomNavigationBar Data Source
 
-- (id)rootViewController {
+- (id)rootViewController
+{
   return self.topViewController;
 }
 

@@ -26,7 +26,8 @@
     foregroundColor:(ColorType)foregroundColor
     foregroundAlpha:(CGFloat)foregroundAlpha
     backgroundColor:(ColorType)backgroundColor
-    backgroundAlpha:(CGFloat)backgroundAlpha {
+    backgroundAlpha:(CGFloat)backgroundAlpha
+{
   foregroundColor_ = foregroundColor;
   foregroundAlpha_ = foregroundAlpha;
   backgroundColor_ = backgroundColor;
@@ -34,9 +35,9 @@
   return [self initWithFrame:frame];
 }
 
-- (id)initWithFrame:(CGRect)frame {
-  self = [super initWithFrame:frame];
-  if (self) {
+- (id)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
     [self setBackgroundColor:[UIColor clearColor]];
   }
   return self;
@@ -44,7 +45,8 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
   // background
   [[GlobalRender colorWithColorType:backgroundColor_
                               alpha:backgroundAlpha_] setFill];

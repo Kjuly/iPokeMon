@@ -71,7 +71,8 @@
 
 // Singleton
 static WildPokemonController * wildPokemonController_ = nil;
-+ (WildPokemonController *)sharedInstance {
++ (WildPokemonController *)sharedInstance
+{
   if (wildPokemonController_ != nil)
     return wildPokemonController_;
   
@@ -82,14 +83,19 @@ static WildPokemonController * wildPokemonController_ = nil;
   return wildPokemonController_;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   // remove notification observers
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kPMNGenerateNewWildPokemon object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:kPMNGenerateNewWildPokemon
+                                                object:nil];
 }
 
-- (id)init {
+- (id)init
+{
   if (self = [super init]) {
-    self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    self.managedObjectContext =
+      [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     self.loadingManager = [LoadingManager sharedInstance];
     self.pokemonSIDs    = [NSArray array];
     isPokemonAppeared_  = NO;
@@ -102,7 +108,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 #pragma mark - Public Methods
 
 // listen for notification, etc.
-- (void)listen {
+- (void)listen
+{
   // add observer for notfication from |PMLocationManager| when it's time to generate a new Wild PM
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(_generateWildPokemonForCurrentLocation:)
@@ -111,7 +118,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Add more Wild Pokemons with SID array
-- (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs {
+- (void)addWildPokemonsWithSIDs:(NSArray *)pokemonSIDs
+{
   // Add the data to |WildPokePokemon| with SID array
   for (id SID in pokemonSIDs) {
     WildPokemon * wildPokemon;
@@ -130,7 +138,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Add more Wild Pokemons with SID array
 //   return added Pokemons as an array
-- (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs {
+- (NSArray *)pokemonsAddedWithSIDs:(NSArray *)pokemonSIDs
+{
   // Add the data to |WildPokePokemon| with SID array
   NSMutableArray * pokemons = [NSMutableArray arrayWithCapacity:[pokemonSIDs count]];
   for (id SID in pokemonSIDs) {
@@ -153,7 +162,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Return a Wild Pokemon for user's current location to generate a game battle scene
-- (WildPokemon *)appearedPokemon {
+- (WildPokemon *)appearedPokemon
+{
   return self.wildPokemon;
 }
 
@@ -262,7 +272,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 #pragma mark - For updating
 
 // Clean Wild Pokemon's data
-- (void)_cleanWildPokemonData {
+- (void)_cleanWildPokemonData
+{
   NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription * entity = [NSEntityDescription entityForName:NSStringFromClass([WildPokemon class])
                                              inManagedObjectContext:self.managedObjectContext];
@@ -287,7 +298,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 
 // Update data for WildPokemon entity
 - (void)_updateWildPokemon:(WildPokemon *)wildPokemon
-                   withSID:(NSInteger)SID {
+                   withSID:(NSInteger)SID
+{
   // Update basic data fetched from server
   wildPokemon.uid    = [NSNumber numberWithInt:++pokemonCounter_];
   wildPokemon.sid    = [NSNumber numberWithInt:SID];
@@ -307,13 +319,15 @@ static WildPokemonController * wildPokemonController_ = nil;
 // !!!TODO
 //   Need a formular
 //
-- (NSInteger)_calculateLevel {
+- (NSInteger)_calculateLevel
+{
   return 10;
 }
 
 #pragma mark - For Generating
 
-- (void)_updateForCurrentRegion {
+- (void)_updateForCurrentRegion
+{
   // Success Block Method
   void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id JSON) {
     // Clean data for model:|WildPokemon| & reset pokemonCounter to 0
@@ -363,7 +377,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Generate Wild Pokemon with current location info
-- (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification {
+- (void)_generateWildPokemonForCurrentLocation:(NSNotification *)notification
+{
   isPokemonAppeared_ = YES;
   self.locationInfo  = notification.object;
 //  NSLog("new locationInfo::%@", self.locationInfo);
@@ -371,7 +386,8 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Generate Wild Pokemon with location info
-- (void)_generateWildPokemon {
+- (void)_generateWildPokemon
+{
   // Parse the habitat type from current location type
 //  PokemonHabitat habitat = [self _parseHabitatWithLocationType:[self.locationInfo valueForKey:@"type"]];
   // update |regionCode_| with |placemark|
@@ -445,7 +461,8 @@ static WildPokemonController * wildPokemonController_ = nil;
                      airport: indicates an airport.
                         park: indicates a named park.
  */
-- (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType {
+- (PokemonHabitat)_parseHabitatWithLocationType:(NSString *)locationType
+{
   NSLog(@"locationType:%@", locationType);
   PokemonHabitat habitat;
   if ([locationType isEqualToString:@"premise"] || [locationType isEqualToString:@"subpremise"])
@@ -480,12 +497,14 @@ static WildPokemonController * wildPokemonController_ = nil;
 }
 
 // Update |regionCode_| that parsed from |placemark|
-- (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark {
+- (void)_updateRegionCodeWithPlacemark:(CLPlacemark *)placemark
+{
   self.regionCode = [NSMutableString stringWithString:[Region codeOfRegionWithPlacemark:placemark]];
 }
 
 // post notification that Wild PM appeared
-- (void)_postNotificationThatWildPokemonAppeared {
+- (void)_postNotificationThatWildPokemonAppeared
+{
   // Generate the Info Dictionary for Appeared Pokemon
   NSDictionary * userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
                              [NSNumber numberWithInt:kCenterMainButtonStatusPokemonAppeared],

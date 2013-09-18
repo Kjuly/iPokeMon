@@ -40,13 +40,14 @@
 @synthesize swipeRightGestureRecognizer = swipeRightGestureRecognizer_;
 @synthesize bagItemTableViewController  = bagItemTableViewController_;
 
-- (void)dealloc {
-  
+- (void)dealloc
+{
   // Remove observer
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
   
@@ -61,7 +62,8 @@
 //}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   // Base Setting
@@ -87,15 +89,17 @@
   }
   
   // Create a fake |mapButton_| as the cancel button
-  UIButton * cancelButton = [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
-                                                                       - kMapButtonSize,
-                                                                       kMapButtonSize,
-                                                                       kMapButtonSize)];
+  UIButton * cancelButton =
+    [[UIButton alloc] initWithFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
+                                               - kMapButtonSize,
+                                               kMapButtonSize,
+                                               kMapButtonSize)];
   self.cancelButton = cancelButton;
   [self.cancelButton setContentMode:UIViewContentModeScaleAspectFit];
   [self.cancelButton setBackgroundImage:[UIImage imageNamed:kPMINMainButtonBackgoundNormal]
                                forState:UIControlStateNormal];
-  [self.cancelButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel] forState:UIControlStateNormal];
+  [self.cancelButton setImage:[UIImage imageNamed:kPMINMapButtonHalfCancel]
+                     forState:UIControlStateNormal];
   [self.cancelButton setOpaque:NO];
   [self.cancelButton addTarget:self
                         action:@selector(unloadSelcetedItemTalbeView:)
@@ -111,30 +115,34 @@
   [self.view addGestureRecognizer:self.swipeRightGestureRecognizer];
   
   // Add observer for notification from |BagItemInfoViewController|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(_toggleTopCancelButton:)
-                                               name:kPMNToggleTopCancelButton
-                                             object:nil];
+  NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+  [notificationCenter addObserver:self
+                         selector:@selector(_toggleTopCancelButton:)
+                             name:kPMNToggleTopCancelButton
+                           object:nil];
   // Add observer for notification from |BagItemViewController|
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(_endUsingBagItem:)
-                                               name:kPMNUseBagItemDone
-                                             object:self.bagItemTableViewController];
+  [notificationCenter addObserver:self
+                         selector:@selector(_endUsingBagItem:)
+                             name:kPMNUseBagItemDone
+                           object:self.bagItemTableViewController];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
   [super viewDidUnload];
   self.cancelButton = nil;
 }
 
 #pragma mark - Public Methods
 
-- (void)unloadSelcetedItemTalbeView:(id)sender {
+- (void)unloadSelcetedItemTalbeView:(id)sender
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
-                     [self.bagItemTableViewController.view setFrame:CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight)];
+                     [self.bagItemTableViewController.view setFrame:
+                        CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight)];
                      [self.cancelButton setFrame:CGRectMake((kViewWidth - kMapButtonSize) / 2,
                                                             - kMapButtonSize,
                                                             kMapButtonSize,
@@ -149,7 +157,8 @@
 
 #pragma mark - Private Methods
 
-- (void)_loadSelcetedItemTalbeView:(id)sender {
+- (void)_loadSelcetedItemTalbeView:(id)sender
+{
   BagQueryTargetType targetType;
   switch (((UIButton *)sender).tag) {
     case 1: targetType = kBagQueryTargetTypeMedicine | kBagQueryTargetTypeMedicineStatus; break;
@@ -162,7 +171,8 @@
   }
   
   if (self.bagItemTableViewController == nil) {
-    BagItemTableViewController * bagItemTableViewController = [[BagItemTableViewController alloc] init];
+    BagItemTableViewController * bagItemTableViewController =
+      [[BagItemTableViewController alloc] init];
     self.bagItemTableViewController = bagItemTableViewController;
     self.bagItemTableViewController.isDuringBattle = YES;
   }
@@ -173,7 +183,8 @@
   
   CGRect bagItemTableViewFrame = CGRectMake(0.f, kViewHeight, kViewWidth, kViewHeight);
   [self.bagItemTableViewController.view setFrame:bagItemTableViewFrame];
-  [self.view insertSubview:self.bagItemTableViewController.view belowSubview:self.cancelButton];
+  [self.view insertSubview:self.bagItemTableViewController.view
+              belowSubview:self.cancelButton];
   bagItemTableViewFrame.origin.y = 0.f;
   [UIView animateWithDuration:.3f
                         delay:0.f
@@ -189,23 +200,26 @@
   self.isSelectedItemViewOpening = YES;
 }
 
-- (void)_toggleTopCancelButton:(NSNotification *)notification {
+- (void)_toggleTopCancelButton:(NSNotification *)notification
+{
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:UIViewAnimationOptionTransitionCurlUp
                    animations:^{
                      CGRect cancelButtonFrame = self.cancelButton.frame;
-                     cancelButtonFrame.origin.y = (cancelButtonFrame.origin.y == - kMapButtonSize) ?
-                       -(kMapButtonSize / 2) : -kMapButtonSize;
+                     cancelButtonFrame.origin.y = (cancelButtonFrame.origin.y == - kMapButtonSize)
+                       ? -(kMapButtonSize / 2) : -kMapButtonSize;
                      [self.cancelButton setFrame:cancelButtonFrame];
                    }
                    completion:nil];
 }
 
-- (void)_endUsingBagItem:(NSNotification *)notification {
+- (void)_endUsingBagItem:(NSNotification *)notification
+{
   // Set data for Game System Process & start it
-  NSInteger selectedItemID = [[self.bagItemTableViewController.items
-                               objectAtIndex:(self.bagItemTableViewController.selectedCellIndex * 2)] intValue];
+  NSInteger selectedItemID =
+    [[self.bagItemTableViewController.items objectAtIndex:
+        (self.bagItemTableViewController.selectedCellIndex * 2)] intValue];
   GameSystemProcess * gameSystemProcess = [GameSystemProcess sharedInstance];
   [gameSystemProcess setSystemProcessOfUseBagItemWithUser:kGameSystemProcessUserPlayer
                                                targetType:self.bagItemTableViewController.targetType

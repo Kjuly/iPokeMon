@@ -34,9 +34,9 @@
 @synthesize description = description_;
 
 
-- (id)initWithFrame:(CGRect)frame {
-  self = [super initWithFrame:frame];
-  if (self) {
+- (id)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
     // Initialization code
     [self setBackgroundColor:[UIColor clearColor]];
     
@@ -87,7 +87,8 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
   [[UIColor colorWithWhite:1.f alpha:.5f] setFill];
   [[UIBezierPath bezierPathWithOvalInRect:rect] fill];
   
@@ -106,7 +107,8 @@
 - (void)configureMoveDetailWithName:(NSString *)name
                                type:(NSString *)type
                                  pp:(NSString *)pp
-                        description:(NSString *)description {
+                        description:(NSString *)description
+{
   [self.title setText:KYResourceLocalizedString(name, nil)];
   [self.type setText:KYResourceLocalizedString(type, nil)];
   [self.pp setText:pp];
@@ -124,7 +126,8 @@
 }
 
 // toggle content between shown & hidden
-- (void)setContentHidden:(BOOL)hidden {
+- (void)setContentHidden:(BOOL)hidden
+{
   CGFloat alpha = hidden ? 0.f : 1.f;
   [self.title setAlpha:alpha];
   [self.pp setAlpha:alpha];
