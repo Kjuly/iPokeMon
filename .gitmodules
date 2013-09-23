@@ -9,10 +9,10 @@
 	url = git://github.com/Kjuly/AFNetworking.git
 [submodule "Master/Libs/MBProgressHUD"]
 	path = Master/Libs/MBProgressHUD
-	url = git://github.com/Kjuly/MBProgressHUD.git
+	url = git://github.com/iOSLabs/MBProgressHUD.git
 [submodule "Master/Libs/Cocos2D-iPhone"]
 	path = Master/Libs/Cocos2D-iPhone
-	url = git://github.com/Kjuly/cocos2d-iphone.git
+	url = git://github.com/iOSLabs/cocos2d-iphone.git
 [submodule "Master/Libs/GTMOAuth2"]
 	path = Master/Libs/GTMOAuth2
 	url = git://github.com/Kjuly/GTMOAuth2.git
