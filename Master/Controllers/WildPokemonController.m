@@ -519,7 +519,7 @@ static WildPokemonController * wildPokemonController_ = nil;
     }
     
     // Set data for Local Notification
-    localNotification.fireDate = [NSData data];
+    localNotification.fireDate = [NSDate date];
     //localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     localNotification.alertBody = NSLocalizedString(@"A Wild Pokemon Appeared!", nil);
