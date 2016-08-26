@@ -42,11 +42,15 @@
   self.dataSource       = nil;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
   if (self = [super initWithFrame:frame]) {
     viewCount_      = -1;
     isButtonHidden_ = NO;
     [self setOpaque:NO];
+    
+    // Create custom |backButton_|
+    [self _setBackButtonForRoot];
   }
   return self;
 }
@@ -61,8 +65,6 @@
   NSLog(@"*** CustomNavigationBar drawRect:");
   UIImage * backgroundImage = [UIImage imageNamed:kPMINNavBarBackground];
   [backgroundImage drawInRect:(CGRect){CGPointZero, {kViewWidth, kNavigationBarHeight}}];
-  // Create custom |backButton_|
-  [self _setBackButtonForRoot];
 }
 
 // Reset NavigationBar's size to container |navigationBarBackgroundImage_|
