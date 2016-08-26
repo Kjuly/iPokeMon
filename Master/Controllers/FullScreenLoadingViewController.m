@@ -16,17 +16,13 @@
 
 @interface FullScreenLoadingViewController () {
 @private
-  UILabel  * title_;
-  UILabel  * message_;
+  UILabel  * titleLabel_;
+  UILabel  * messageLabel_;
   UIButton * refreshButton_;
   
   PMError error_;                // error type
   BOOL    isCheckingConnection_; // prevent press fresh button continuously
 }
-
-@property (nonatomic, strong) UILabel  * title;
-@property (nonatomic, strong) UILabel  * message;
-@property (nonatomic, strong) UIButton * refreshButton;
 
 - (void)_refresh;
 
@@ -34,10 +30,6 @@
 
 
 @implementation FullScreenLoadingViewController
-
-@synthesize title         = title_;
-@synthesize message       = message_;
-@synthesize refreshButton = refreshButton_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,21 +63,21 @@
   CGRect refreshButtonFrame = CGRectMake((kViewWidth - 64.f) / 2.f, 280.f, 64.f, 64.f);
   
   // Title
-  title_ = [[UILabel alloc] initWithFrame:titleFrame];
-  [title_ setBackgroundColor:[UIColor clearColor]];
-  [title_ setTextColor:[GlobalRender textColorOrange]];
-  [title_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
-  [view addSubview:title_];
-  
+  titleLabel_ = [[UILabel alloc] initWithFrame:titleFrame];
+  [titleLabel_ setBackgroundColor:[UIColor clearColor]];
+  [titleLabel_ setTextColor:[GlobalRender textColorOrange]];
+  [titleLabel_ setFont:[GlobalRender textFontBoldInSizeOf:20.f]];
+  [view addSubview:titleLabel_];
+
   // Message
-  message_ = [[UILabel alloc] init];
-  [message_ setBackgroundColor:[UIColor clearColor]];
-  [message_ setTextColor:[GlobalRender textColorNormal]];
-  [message_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
-  [message_ setLineBreakMode:NSLineBreakByWordWrapping];
-  [message_ setNumberOfLines:0];
+  messageLabel_ = [[UILabel alloc] init];
+  [messageLabel_ setBackgroundColor:[UIColor clearColor]];
+  [messageLabel_ setTextColor:[GlobalRender textColorNormal]];
+  [messageLabel_ setFont:[GlobalRender textFontBoldInSizeOf:14.f]];
+  [messageLabel_ setLineBreakMode:NSLineBreakByWordWrapping];
+  [messageLabel_ setNumberOfLines:0];
   
-  [view addSubview:message_];
+  [view addSubview:messageLabel_];
   
   refreshButton_ = [[UIButton alloc] initWithFrame:refreshButtonFrame];
   [refreshButton_ setImage:[UIImage imageNamed:kPMINIconRefresh] forState:UIControlStateNormal];
@@ -99,14 +91,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-  [super viewDidUnload];
-  self.title         = nil;
-  self.message       = nil;
-  self.refreshButton = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -124,10 +108,10 @@
   NSLog(@"!!!ERROR: %d", error);
   error_ = error;
   // set text for |title_| & |message_|
-  [self.title   setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dT", error]), nil)];
-  [self.message setFrame:CGRectMake(30.f, 142.f, 260.f, 96.f)];
-  [self.message setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dM", error]), nil)];
-  [self.message sizeToFit];
+  [titleLabel_   setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dT", error]), nil)];
+  [messageLabel_ setFrame:CGRectMake(30.f, 142.f, 260.f, 96.f)];
+  [messageLabel_ setText:NSLocalizedString(([NSString stringWithFormat:@"PMSError%.2dM", error]), nil)];
+  [messageLabel_ sizeToFit];
   [UIView animateWithDuration:.3f
                         delay:0.f
                       options:(UIViewAnimationOptions)UIViewAnimationCurveEaseIn
