@@ -1,9 +1,6 @@
 [submodule "Master/Libs/KYCircleMenu"]
 	path = Master/Libs/KYCircleMenu
 	url = git://github.com/Kjuly/KYCircleMenu.git
-[submodule "Master/Libs/JSONKit"]
-	path = Master/Libs/JSONKit
-	url = git://github.com/Kjuly/JSONKit.git
 [submodule "Master/Libs/AFNetworking"]
 	path = Master/Libs/AFNetworking
 	url = git://github.com/Kjuly/AFNetworking.git

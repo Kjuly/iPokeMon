@@ -1,0 +1,115 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0733C0362A394BE3C957EA224A3F53DE0726977F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "c149197c-92b2-435d-9462-ce57b7db7bff++3047" : {
+
+    },
+    "22754eea-fc93-e339-b032-c1f495b90c16++2896" : {
+
+    },
+    "b3aa69f0-f65c-a609-0a27-78855af037c1++2896" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "52029122B5BBFB91B393EC96F6D84F7C81F9F191" : 0,
+    "EF51387A5AF28E4351AFB0302884600583A438B5" : 0,
+    "0177D6766FA139FB44F762FE592992D1EBB2559E" : 0,
+    "DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8" : 0,
+    "0733C0362A394BE3C957EA224A3F53DE0726977F" : 0,
+    "4182765C525509B305166AB949D5935FD5C85212" : 0,
+    "b3aa69f0-f65c-a609-0a27-78855af037c1++2896" : 0,
+    "22754eea-fc93-e339-b032-c1f495b90c16++2896" : 0,
+    "4A92347980A55D37059352113535067CD8E8115E" : 0,
+    "65E71B0513DBFB09F39CEEF3A8B769CB93E66994" : 0,
+    "01EBC7BF61F3168A811F4B311042641767FA2224" : 0,
+    "A856912500F0A7CB003C82B4D6C17FE421502F51" : 0,
+    "c149197c-92b2-435d-9462-ce57b7db7bff++3047" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7B551217-EF88-461B-9DCE-7082A3785F82",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "52029122B5BBFB91B393EC96F6D84F7C81F9F191" : "iPokeMon\/Master\/Libs\/Cocos2D-iPhone\/",
+    "EF51387A5AF28E4351AFB0302884600583A438B5" : "iPokeMon\/Master\/Libs\/JSONKit\/",
+    "0177D6766FA139FB44F762FE592992D1EBB2559E" : "iPokeMon\/Master\/Libs\/GTMOAuth2\/",
+    "DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8" : "iPokeMon\/Master\/Libs\/AFNetworking\/",
+    "0733C0362A394BE3C957EA224A3F53DE0726977F" : "iPokeMon\/",
+    "4182765C525509B305166AB949D5935FD5C85212" : "iPokeMon\/Master\/Libs\/MBProgressHUD\/",
+    "b3aa69f0-f65c-a609-0a27-78855af037c1++2896" : "iPokeMon\/Master\/Libs\/GTMOAuth2\/HTTPFetcher\/",
+    "22754eea-fc93-e339-b032-c1f495b90c16++2896" : "iPokeMon\/Master\/Libs\/GTMOAuth2\/Source\/",
+    "4A92347980A55D37059352113535067CD8E8115E" : "iPokeMon\/Master\/Libs\/KYCircleMenu\/",
+    "65E71B0513DBFB09F39CEEF3A8B769CB93E66994" : "iPokeMon\/Master\/Libs\/SSZipArchive\/",
+    "01EBC7BF61F3168A811F4B311042641767FA2224" : "iPokeMon\/Master\/Libs\/KYUnlockCodeManager\/",
+    "A856912500F0A7CB003C82B4D6C17FE421502F51" : "iPokeMon\/Master\/Libs\/KYArcTab\/",
+    "c149197c-92b2-435d-9462-ce57b7db7bff++3047" : "iPokeMon\/Master\/Libs\/GTMOAuth2\/JSON\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Master",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Master.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/Kjuly\/GTMOAuth2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0177D6766FA139FB44F762FE592992D1EBB2559E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Kjuly\/KYUnlockCodeManager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "01EBC7BF61F3168A811F4B311042641767FA2224"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Kjuly\/iPokeMon.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0733C0362A394BE3C957EA224A3F53DE0726977F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/gtm-oauth2.googlecode.com\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "22754eea-fc93-e339-b032-c1f495b90c16++2896"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/iOSLabs\/MBProgressHUD.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4182765C525509B305166AB949D5935FD5C85212"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/Kjuly\/KYCircleMenu.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4A92347980A55D37059352113535067CD8E8115E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/iOSLabs\/cocos2d-iphone.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52029122B5BBFB91B393EC96F6D84F7C81F9F191"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Kjuly\/ssziparchive.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "65E71B0513DBFB09F39CEEF3A8B769CB93E66994"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Kjuly\/KYArcTab.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A856912500F0A7CB003C82B4D6C17FE421502F51"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/Kjuly\/AFNetworking.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/Kjuly\/JSONKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EF51387A5AF28E4351AFB0302884600583A438B5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/gtm-http-fetcher.googlecode.com\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "b3aa69f0-f65c-a609-0a27-78855af037c1++2896"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/stig\/json-framework.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "c149197c-92b2-435d-9462-ce57b7db7bff++3047"
+    }
+  ]
+}

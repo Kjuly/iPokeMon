@@ -474,7 +474,6 @@
 		7FC5B16B154EDC07001CECBA /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC5B16A154EDC07001CECBA /* PurchaseTableViewController.m */; };
 		7FC6C79E16B6F45B005E29CB /* AppInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6C79D16B6F45B005E29CB /* AppInfoViewController.m */; };
 		7FC6C7A116B6F4E9005E29CB /* UIFont+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6C7A016B6F4E9005E29CB /* UIFont+Custom.m */; };
-		7FC847A3169C30750013D5FF /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC847A0169C30750013D5FF /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FCBFE4B1568C331001C8BAB /* IconMoveBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE491568C331001C8BAB /* IconMoveBackground.png */; };
 		7FCBFE4C1568C331001C8BAB /* IconMoveBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */; };
 		7FCBFE4F1568DBCE001C8BAB /* MoveDetailRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCBFE4E1568DBCE001C8BAB /* MoveDetailRoundView.m */; };
@@ -1300,8 +1299,6 @@
 		7FC6C79D16B6F45B005E29CB /* AppInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoViewController.m; sourceTree = "<group>"; };
 		7FC6C79F16B6F4E9005E29CB /* UIFont+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Custom.h"; sourceTree = "<group>"; };
 		7FC6C7A016B6F4E9005E29CB /* UIFont+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Custom.m"; sourceTree = "<group>"; };
-		7FC8479F169C30750013D5FF /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		7FC847A0169C30750013D5FF /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7FCBFE491568C331001C8BAB /* IconMoveBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMoveBackground.png; sourceTree = "<group>"; };
 		7FCBFE4A1568C331001C8BAB /* IconMoveBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMoveBackground@2x.png"; sourceTree = "<group>"; };
 		7FCBFE4D1568DBCE001C8BAB /* MoveDetailRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDetailRoundView.h; sourceTree = "<group>"; };
@@ -2063,7 +2060,6 @@
 				7F10F48516AFBCD300A85587 /* KYArcTab */,
 				7F56996916A959E80045EA23 /* KYiOSFoundation */,
 				7FA4469F169C34A90024D668 /* GTMOAuth2 */,
-				7FC8479D169C30750013D5FF /* JSONKit */,
 				7F8E312D169BD1B2008A3F19 /* Cocos2D-iPhone */,
 				7F8E2E1D169BB94A008A3F19 /* TestFlightSDK */,
 			);
@@ -2608,15 +2604,6 @@
 				7F199EDE150A6B55004CE84E /* GamePokeball@2x.png */,
 			);
 			path = GameView;
-			sourceTree = "<group>";
-		};
-		7FC8479D169C30750013D5FF /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				7FC8479F169C30750013D5FF /* JSONKit.h */,
-				7FC847A0169C30750013D5FF /* JSONKit.m */,
-			);
-			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		7FEAE80214FD00DC003679C1 /* MainView */ = {
@@ -3330,7 +3317,6 @@
 				7F8E37C2169BD1BE008A3F19 /* FontManager.m in Sources */,
 				7F8E37C3169BD1BE008A3F19 /* ZAttributedString.m in Sources */,
 				7F8E37C4169BD1BE008A3F19 /* ZFont.m in Sources */,
-				7FC847A3169C30750013D5FF /* JSONKit.m in Sources */,
 				7FB70EEA17E3F48A00A927E1 /* ioapi.c in Sources */,
 				7FA44718169C34A90024D668 /* GTMGatherInputStream.m in Sources */,
 				7FA44719169C34A90024D668 /* GTMHTTPFetcher.m in Sources */,
